@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mata_kuliah', function (Blueprint $table) {
-            $table->bigIncrements('id_mk');
-            $table->integer('id_user')->nullable();;
-            $table->integer('id_ps');
-            $table->string('nama_matkul');
-            $table->integer('jumlah_sks');
+        Schema::create('user_role_map', function (Blueprint $table) {
+            $table->bigIncrements('id_user_role');
+            $table->integer('id_role');
+            $table->integer('id_user');
 
+            $table->foreign('id_role')->references('id_role')->on('role');
             $table->foreign('id_user')->references('id_user')->on('user');
-            $table->foreign('id_ps')->references('id_ps')->on('program_studi');
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mata_kuliah');
+        Schema::dropIfExists('user_role_map');
     }
 };

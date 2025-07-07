@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
-            $table->bigIncrements('id_user');
-            $table->integer('id_ps')->nullable();
-            $table->string('NIP');
-            $table->string('password');
-            $table->string('username');
-            // kita tambahi relasi foreign keynya
+        Schema::create('cpl', function (Blueprint $table) {
+            $table->bigIncrements('id_cpl');
+            $table->integer('id_ps');
+            $table->text('desc');
+            $table->integer('tahun_kurikulum');
+
+
             $table->foreign('id_ps')->references('id_ps')->on('program_studi');
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user');
+        Schema::dropIfExists('cpl');
     }
 };
