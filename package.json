@@ -9,9 +9,28 @@
         "autoprefixer": "^10.4.21",
         "axios": "^1.7.4",
         "concurrently": "^9.0.1",
+        "laravel-mix": "^6.0.49",
         "laravel-vite-plugin": "^1.2.0",
         "postcss": "^8.5.6",
         "tailwindcss": "^3.4.17",
         "vite": "^6.0.11"
-    }
+    },
+    "name": "si-kurft",
+    "version": "1.0.0",
+    "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\" alt=\"Laravel Logo\"></a></p>",
+    "main": "postcss.config.js",
+    "directories": {
+        "test": "tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/alkaffulm/SI-KurFT.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/alkaffulm/SI-KurFT/issues"
+    },
+    "homepage": "https://github.com/alkaffulm/SI-KurFT#readme"
 }
