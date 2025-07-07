@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mata_kuliah', function (Blueprint $table) {
-            $table->bigIncrements('id_mk');
-            $table->integer('id_user')->nullable();;
-            $table->integer('id_ps');
-            $table->string('nama_matkul');
-            $table->integer('jumlah_sks');
+        Schema::create('rps', function (Blueprint $table) {
+            $table->bigIncrements('id_rps');
+            $table->integer('id_user');
+            $table->integer('id_mk');
+            $table->integer('tahun');
+            $table->string('file_path');
 
             $table->foreign('id_user')->references('id_user')->on('user');
-            $table->foreign('id_ps')->references('id_ps')->on('program_studi');
+            $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah');
+
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mata_kuliah');
+        Schema::dropIfExists('rps');
     }
 };

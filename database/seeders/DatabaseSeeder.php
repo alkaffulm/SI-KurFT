@@ -14,13 +14,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            RoleTableSeeder::class,
+            ProgramStudiSeeder::class,
+            
+            UserTableSeeder::class,        
+            CPLTableSeeder::class,           
+            MataKuliahTableSeeder::class,  
+            
+            UserRoleMapTableSeeder::class,    
+            UserMataKuliahMapTableSeeder::class,
+            RPSTableSeeder::class,             
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            CPMKTableSeeder::class,        
+            
+            SubCPMKTableSeeder::class, 
+
+            CPMKCPLMapTableSeeder::class,     
+            MataKuliahCPMKMapTableSeeder::class, 
+            
+            RPSDetailTableSeeder::class,       
+            
+            PenilaianTableSeeder::class, 
         ]);
-
-        $this->call([ProgramStudiSeeder::class]);
     }
 }
