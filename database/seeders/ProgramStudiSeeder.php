@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\ProgramStudi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ProgramStudiSeeder extends Seeder
 {
@@ -13,22 +13,16 @@ class ProgramStudiSeeder extends Seeder
      */
     public function run(): void
     {
-        ProgramStudi::truncate();
-
-        $daftarProdi = [
-            ['nama_prodi' => 'Teknologi Informasi'],
-            ['nama_prodi' => 'Rekayasa Geologi'],
-            ['nama_prodi' => 'Teknik Sipil'],
-            ['nama_prodi' => 'Teknik Mesin'],
-            ['nama_prodi' => 'Rekayasa Elektro'],
-            ['nama_prodi' => 'Arsitektur'],
-            ['nama_prodi' => 'Teknik Mesin'],
-            ['nama_prodi' => 'Teknik Kimia'],
-            ['nama_prodi' => 'Teknik Lingkungan'],
-            ['nama_prodi' => 'Teknik Pertambangan'],
-        ];
-        foreach ($daftarProdi as $dp) {
-            ProgramStudi::create($dp);
-        }
+        DB::table('program_studi')->insert([
+            ['id_ps' => 1, 'nama_prodi' => 'Teknik Sipil'],
+            ['id_ps' => 2, 'nama_prodi' => 'Teknik Pertambangan'],
+            ['id_ps' => 3, 'nama_prodi' => 'Teknik Mesin'],
+            ['id_ps' => 4, 'nama_prodi' => 'Teknik Lingkungan'],
+            ['id_ps' => 5, 'nama_prodi' => 'Arsitektur'],
+            ['id_ps' => 6, 'nama_prodi' => 'Teknik Kimia'],
+            ['id_ps' => 7, 'nama_prodi' => 'Teknologi Informasi'],
+            ['id_ps' => 8, 'nama_prodi' => 'Rekayasa Elektro'],
+            ['id_ps' => 9, 'nama_prodi' => 'Rekayasa Geologi'],
+        ]);
     }
 }

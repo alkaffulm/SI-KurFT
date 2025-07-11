@@ -1,0 +1,43 @@
+Written by: SI-KUR FT Development Team
+
+Urutan Seeders
+A. Tabel Master (Tidak ada foreign key)
+1. RoleSeeder
+2. ProgramStudiSeeder  
+3. KurikulumSeeder
+4. BahanKajianSeeder
+5. RubrikAnalitikSeeder
+6. TeknikPenilaianSeeder
+
+B. Level 1 Dependency (1 foreign key)
+7. UserSeeder (→ program_studi)
+8. MataKuliahSeeder (→ program_studi)
+9. MahasiswaSeeder (→ program_studi)
+10. CplSeeder (→ program_studi, kurikulum)
+11. ProfilLulusanSeeder (→ program_studi)
+
+C. Level 2 Dependency (2+ foreign key)
+12. UserRoleMapSeeder (→ role, user)
+13. UserPersonalisasiSeeder (→ user, user_role_map)
+14. CpmkSeeder (→ mata_kuliah)
+15. RpsSeeder (→ user, mata_kuliah)
+
+D. Level 3+ Dependency (Chain dependency)
+16. SubCpmkSeeder (→ cpmk)
+17. RpsDetailSeeder (→ rps, sub_cpmk)
+18. PenilaianSeeder (→ rps_detail)
+
+E. Tabel Mapping (Junction tables)
+19. CpmkCplMapSeeder (→ cpmk, cpl)
+20. MataKuliahCmpkMapSeeder (→ mata_kuliah, cpmk)
+21. UserMataKuliahMapSeeder (→ user, mata_kuliah)
+22. PlCplMapSeeder (→ profil_lulusan, cpl)
+23. MahasiswaMataKuliahMapSeeder (→ mahasiswa, mata_kuliah)
+24. MahasiswaCplMapSeeder (→ mahasiswa, cpl)
+25. BkMkMapSeeder (→ bahan_kajian, mata_kuliah)
+26. BkCplMapSeeder (→ bahan_kajian, cpl)
+27. MkCplMapSeeder (→ mata_kuliah, cpl)
+28. TpCpmkMapSeeder (→ 5 tabel)
+
+
+
