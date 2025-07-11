@@ -1,0 +1,40 @@
+Written by: SI-KUR FT Development Team
+
+Urutan Migration
+A. Tabel Master (Tidak ada foreign key)
+1. role
+2. program_studi  
+3. kurikulum
+4. bahan_kajian
+5. rubrik_analitik
+6. teknik_penilaian
+
+B. Level 1 Dependency (1 foreign key)
+7. user (→ program_studi)
+8. mata_kuliah (→ program_studi)
+9. mahasiswa (→ program_studi)
+10. cpl (→ program_studi, kurikulum)
+11. profil_lulusan (→ program_studi)
+
+C. Level 2 Dependency (2+ foreign key)
+12. user_role_map (→ role, user)
+13. user_personalisasi (→ user, user_role_map)
+14. cpmk (→ mata_kuliah)
+15. rps (→ user, mata_kuliah)
+
+D. Level 3+ Dependency (Chain dependency)
+16. sub_cpmk (→ cpmk)
+17. rps_detail (→ rps, sub_cpmk)
+18. penilaian (→ rps_detail)
+
+E. Tabel Mapping (Junction tables)
+19. cpmk_cpl_map (→ cpmk, cpl)
+20. mata_kuliah_cmpk_map (→ mata_kuliah, cpmk)
+21. user_mata_kuliah_map (→ user, mata_kuliah)
+22. pl_cpl_map (→ profil_lulusan, cpl)
+23. mahasiswa_mata_kuliah_map (→ mahasiswa, mata_kuliah)
+24. mahasiswa_cpl_map (→ mahasiswa, cpl)
+25. bk_mk_map (→ bahan_kajian, mata_kuliah)
+26. bk_cpl_map (→ bahan_kajian, cpl)
+27. mk_cpl_map (→ mata_kuliah, cpl)
+28. tp_cpmk_map (→ 5 tabel)
