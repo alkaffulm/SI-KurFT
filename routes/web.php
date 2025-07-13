@@ -1,10 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', [BerandaController::class, 'index']);
+// Set the root to the login page
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+// Authentication Routes
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Dashboard Route (Protected by auth middleware)
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});

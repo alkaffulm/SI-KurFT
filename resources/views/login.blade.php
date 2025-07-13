@@ -5,40 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Kurikulum Fakultas Teknik</title>
-
     <link rel="icon" href="{{ asset('images/logo ulm 1.png') }}" type="image/x-icon">
-
-    {{-- Memuat asset CSS dan JS dari Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-{{-- Latar belakang utama halaman diatur di sini --}}
-
 <body class="bg-bg-custom font-sans">
-
-    {{-- Kontainer utama untuk memposisikan konten di tengah --}}
     <main class="flex items-center justify-center min-h-screen p-4">
-
-        {{-- Kotak Login --}}
         <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
 
-            {{-- Logo dan Judul --}}
             <div class="flex flex-col items-center mb-6">
                 <img src="{{ asset('images/logo ulm 1.png') }}" alt="Logo Fakultas Teknik" class="h-16 mb-4">
                 <h1 class="text-2xl font-bold text-tekst-biru-custom">LOGIN</h1>
                 <p class="text-sm text-abu-custom font-bold">SIKUR FT ULM</p>
             </div>
 
-            {{-- Form Login --}}
-            <form action="#" method="POST">
+            {{-- Displaying Validation Errors --}}
+            @if ($errors->any())
+                <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            {{-- A SINGLE, CORRECT FORM --}}
+            <form action="{{ route('login') }}" method="POST">
                 @csrf
+
                 {{-- Input NIP --}}
                 <div class="mb-5">
                     <label for="nip" class="block text-abu-custom text-sm font-medium mb-2">Nomor Induk Pegawai
                         (NIP)</label>
-                    <input type="text" id="nip" name="nip"
+                    <input type="text" id="nip" name="nip" value="{{ old('nip') }}"
                         class="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg focus:ring-biru-custom focus:border-biru-custom"
-                        placeholder="Masukkan NIP...">
+                        placeholder="Masukkan NIP..." required>
                 </div>
 
                 {{-- Input Password --}}
@@ -47,7 +49,7 @@
                     <div class="relative">
                         <input type="password" id="password" name="password"
                             class="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg focus:ring-biru-custom focus:border-biru-custom"
-                            placeholder="Masukkan password...">
+                            placeholder="Masukkan password..." required>
                         <button type="button" onclick="togglePasswordVisibility()"
                             class="absolute inset-y-0 right-0 px-4 flex items-center text-gray-500">
                             <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
@@ -73,10 +75,11 @@
                     <div class="relative">
                         <select id="login_as" name="login_as"
                             class="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg focus:ring-biru-custom focus:border-biru-custom appearance-none pr-10">
-                            <option>Koordinator Program Studi</option>
-                            <option>UPM</option>
-                            <option>Pimpinan FT</option>
-                            <option selected>Dosen</option>
+                            {{-- ADDED VALUE ATTRIBUTES --}}
+                            <option value="Koordinator Program Studi">Koordinator Program Studi</option>
+                            <option value="UPM">UPM</option>
+                            <option value="Pimpinan FT">Pimpinan FT</option>
+                            <option value="Dosen" selected>Dosen</option>
                         </select>
                         <div
                             class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-700">
@@ -93,12 +96,12 @@
                     class="w-full bg-biru-custom text-white font-bold py-3 px-4 rounded-full hover:opacity-90 transition-opacity">
                     Login
                 </button>
-            </form>
+
+            </form> {{-- SINGLE FORM TAG ENDS HERE --}}
         </div>
     </main>
 
     <script>
-        // Fungsi untuk menampilkan/menyembunyikan password
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById('password');
             const eyeIcon = document.getElementById('eye-icon');
