@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kurikulum', function (Blueprint $table) {
             $table->bigIncrements('id_kurikulum');
-            $table->integer('id_ps');
+            $table->unsignedBigInteger('id_ps');
             $table->integer('tahun');
 
             $table->foreign('id_ps')->references('id_ps')->on('program_studi');

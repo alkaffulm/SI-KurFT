@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_personalisasi', function (Blueprint $table) {
             $table->bigIncrements('id_personlisasi');
-            $table->integer('id_user');
-            $table->integer('id_user_role');
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_user_role');
             $table->string('email');
             $table->string('userpicture_path');
 

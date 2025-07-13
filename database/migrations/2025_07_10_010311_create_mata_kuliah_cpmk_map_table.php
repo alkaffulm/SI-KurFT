@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('mata_kuliah_cpmk_map', function (Blueprint $table) {
             $table->bigIncrements('id_mk_cpmk');
-            $table->integer('id_mk');
-            $table->integer('id_cpmk');
+            $table->unsignedBigInteger('id_mk');
+            $table->unsignedBigInteger('id_cpmk');
 
             $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah');
             $table->foreign('id_cpmk')->references('id_cpmk')->on('cpmk');
