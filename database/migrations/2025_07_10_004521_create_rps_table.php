@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('rps', function (Blueprint $table) {
             $table->bigIncrements('id_rps');
-            $table->integer('id_user');
-            $table->integer('id_mk');
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_mk');
             $table->integer('tahun');
             $table->string('file_path');
 

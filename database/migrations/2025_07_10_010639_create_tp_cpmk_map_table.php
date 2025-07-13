@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('tp_cpmk_map', function (Blueprint $table) {
             $table->bigIncrements('id_tp_cpmk');
-            $table->integer('id_ra');
-            $table->integer('id_tp');
-            $table->integer('id_cpl');
-            $table->integer('id_cpmk');
-            $table->integer('id_mk');
+            $table->unsignedBigInteger('id_ra');
+            $table->unsignedBigInteger('id_tp');
+            $table->unsignedBigInteger('id_cpl');
+            $table->unsignedBigInteger('id_cpmk');
+            $table->unsignedBigInteger('id_mk');
 
             $table->foreign('id_ra')->references('id_ra')->on('rubrik_analitik');
             $table->foreign('id_tp')->references('id_tp')->on('teknik_penilaian');

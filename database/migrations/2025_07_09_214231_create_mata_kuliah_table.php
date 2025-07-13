@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mata_kuliah', function (Blueprint $table) {
             $table->bigIncrements('id_mk');
-            $table->integer('id_ps');
+            $table->unsignedBigInteger('id_ps');
             $table->string('nama_matkul');
             $table->integer('jumlah_sks');
             $table->integer('semester');

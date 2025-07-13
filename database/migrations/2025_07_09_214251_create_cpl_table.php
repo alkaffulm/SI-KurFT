@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('cpl', function (Blueprint $table) {
             $table->bigIncrements('id_cpl');
             $table->string('nama_kode_cpl');
-            $table->integer('id_ps');
-            $table->integer('id_kurikulum');
+            $table->unsignedBigInteger('id_ps');
+            $table->unsignedBigInteger('id_kurikulum');
             $table->text('desc');
             $table->integer('bobot_maksimum');
 

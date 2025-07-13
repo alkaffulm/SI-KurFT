@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mahasiswa', function (Blueprint $table) {
             $table->bigIncrements('id_mhs');
-            $table->integer('id_ps');
+            $table->unsignedBigInteger('id_ps');
             $table->string('nim');
             $table->integer('angkatan');
 
