@@ -16,9 +16,22 @@ class UserModel extends Authenticatable
         'password',
     ];
 
-    // The $hidden property has been removed.
+    // has many relation
+    public function UserPersonalisasiModel(){
+        return $this->hasMany(UserPersonalisasiModel::class, 'id_user', 'id_user');
+    }
+    public function userRoleMap(){
+        return $this->hasMany(UserRoleMapModel::class, 'id_user', 'id_user');
+    }
+    public function rps(){
+        return $this->hasMany(RPSModel::class, 'id_user', 'id_user');
+    }
+    public function user_mk(){
+        return $this->hasMany(UserMataKuliahMapModel::class, 'id_user', 'id_user');
+    }
 
-    // relation to table program_studi
+
+    // belongs to relation
     public function programStudiModel()
     {
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');

@@ -32,5 +32,8 @@
     "bugs": {
         "url": "https://github.com/alkaffulm/SI-KurFT/issues"
     },
-    "homepage": "https://github.com/alkaffulm/SI-KurFT#readme"
+    "homepage": "https://github.com/alkaffulm/SI-KurFT#readme",
+    "dependencies": {
+        "flowbite": "^3.1.2"
+    }
 }
