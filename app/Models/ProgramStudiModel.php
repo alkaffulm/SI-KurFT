@@ -11,8 +11,25 @@ class ProgramStudiModel extends Model
     public $timestamps = false;
     protected $fillable = ['nama_prodi'];
 
-    // relation to table user
+    // has many relation
     public function userModel(){
         return $this->hasMany(UserModel::class, 'id_ps', 'id_ps');
+    }
+    public function mataKuliah(){
+        return $this->hasMany(MataKuliahModel::class, 'id_ps', 'id_ps');
+    }
+    public function kurikulum(){
+        return $this->hasMany(KurikulumModel::class, 'id_ps', 'id_ps');
+    }
+    public function profil_lulusan(){
+        return $this->hasMany(ProfilLulusanModel::class, 'id_ps', 'id_ps');
+    }
+
+    public function cpl(){
+        return $this->hasMany(CPLModel::class, 'id_ps', 'id_ps');
+    }
+    
+    public function mahasiswa(){
+        return $this->hasMany(MahasiswaModel::class, 'id_ps', 'id_ps');
     }
 }
