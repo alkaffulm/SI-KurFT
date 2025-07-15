@@ -7,32 +7,34 @@
 </head>
 <body>
 
-    <h2>Tabel Bahan Kajian</h2>
+    <h2>Tabel Capaian Profil Lulusan</h2>
 
-    <a href="/bahan-kajian/create">Tambah Bahan Kajian Baru</a>
+    <a href="/cpl/create">Tambah</a>
 
     <table border="1" cellpadding="5"> 
         <tr>
-            <th>id BK</th>
+            <th>id CPL</th>
             <th>aksi</th>
-            <th>Nama BK</th>
-            <th>Kategori</th>
-            <th>Deskripsi</th>
+            <th>ID Prodi</th>
+            <th>Kode CPL</th>
+            <th>Desc</th>
+            <th>Bobot Maksimum</th>
         </tr>
-        @foreach ($bahan_kajian as $bk )
+        @foreach ($cpl as $c )
             <tr>
-                <td>{{$bk->id_bk}}</td>
+                <td>{{$c->id_cpl}}</td>
                 <td>
-                   <form action="/bahan-kajian/{{ $bk->id_bk }}" method="POST">
+                   <form action="/cpl/{{ $c->id_cpl }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Hapus</button>
                     </form> 
-                    | <a href="/bahan-kajian/{{$bk->id_bk}}/edit">Edit</a>
+                    | <a href="/cpl/{{$c->id_cpl}}/edit">Edit</a>
                 </td>
-                <td>{{$bk->nama_bk}}</td>
-                <td>{{$bk->kategori}}</td>
-                <td>{{$bk->desc}}</td>
+                <td>{{$c->id_ps}}</td>
+                <td>{{$c->nama_kode_cpl}}</td>
+                <td>{{$c->desc}}</td>
+                <td>{{$c->bobot_maksimum}}</td>
             </tr>
         @endforeach
     </table>

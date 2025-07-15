@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBahanKajianRequest;
 use App\Models\BahanKajianModel;
 use Illuminate\Http\Request;
 
@@ -21,21 +22,15 @@ class BahanKajianController extends Controller
      */
     public function create()
     {
-        return view('form.bkFormCreate(test)');
+        return view('form.bkFormAdd(test)');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBahanKajianRequest $request)
     {
-        $validateData = $request->validate([
-            'nama_bk' => 'required|string',
-            'kategori' => 'required|string',
-            'desc' => 'required|string',
-        ]);
-
-        BahanKajianModel::create($validateData);
+        BahanKajianModel::create($request->validated());
 
         return redirect('bahan-kajian')->with('success', 'Bahan Kajian baru berhasil ditammbahkan!');
     }
@@ -59,15 +54,9 @@ class BahanKajianController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, BahanKajianModel $bahanKajian)
+    public function update(StoreBahanKajianRequest $request, BahanKajianModel $bahanKajian)
     {
-        $validateData = $request->validate([
-            'nama_bk' => 'required|string',
-            'kategori' => 'required|string',
-            'desc' => 'required|string',
-        ]);
-
-        $bahanKajian->update($validateData);
+        $bahanKajian->update($request->validated());
 
         return redirect('bahan-kajian')->with('success', 'Bahan Kajian berhasil diperbarui!');
 

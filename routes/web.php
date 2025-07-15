@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BahanKajianController;
+use App\Http\Controllers\CplController;
 use App\Http\Controllers\DashboardController;
 
 // Set the root to the login page
@@ -16,6 +17,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Dashboard Route (Protected by auth middleware)
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('bahan-kajian', BahanKajianController::class);
+    Route::resource('cpl', CplController::class);
 });
-
-Route::resource('bahan-kajian', BahanKajianController::class);
