@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('rps_detail', function (Blueprint $table) {
             $table->bigIncrements('id_rps_detail');
             $table->unsignedBigInteger('id_rps');
+            // $table->unsignedBigInteger('id_sub_cpmk')->nullable();
             $table->unsignedBigInteger('id_sub_cpmk');
             $table->integer('minggu');
             $table->decimal('penilaian');

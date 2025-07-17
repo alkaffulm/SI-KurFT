@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('sub_cpmk', function (Blueprint $table) {
             $table->bigIncrements('id_sub_cpmk');
-            $table->unsignedBigInteger('id_cpmk');
+            $table->unsignedBigInteger('id_cpmk')->nullable();
+            // $table->unsignedBigInteger('id_cpmk');
             $table->string('nama_kode_sub_cpmk');
             $table->integer('kode_sub_cpmk');
             $table->text('desc');

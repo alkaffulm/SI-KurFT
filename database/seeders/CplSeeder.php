@@ -49,6 +49,7 @@ class CplSeeder extends Seeder
             ['id_cpl' => 25, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 9, 'id_kurikulum' => 9, 'desc' => 'Mampu melakukan pemetaan geologi', 'bobot_maksimum' => 100],
             ['id_cpl' => 26, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 9, 'id_kurikulum' => 9, 'desc' => 'Mampu menganalisis struktur batuan', 'bobot_maksimum' => 100],
             ['id_cpl' => 27, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 9, 'id_kurikulum' => 9, 'desc' => 'Mampu melakukan interpretasi data geofisika', 'bobot_maksimum' => 100],
+
         ]);
 
     }

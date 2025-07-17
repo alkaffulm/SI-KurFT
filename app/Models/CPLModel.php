@@ -11,6 +11,7 @@ class CPLModel extends Model
     public $timestamps = false;
     protected $fillable = [
         'id_ps',
+        'id_kurikulum',
         'nama_kode_cpl',
         'desc',
         'bobot_maksimum',

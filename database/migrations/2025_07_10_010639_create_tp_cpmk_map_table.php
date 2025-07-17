@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_ra');
             $table->unsignedBigInteger('id_tp');
             $table->unsignedBigInteger('id_cpl');
-            $table->unsignedBigInteger('id_cpmk');
+            $table->unsignedBigInteger('id_cpmk')->nullable();
+            // $table->unsignedBigInteger('id_cpmk');
             $table->unsignedBigInteger('id_mk');
 
             $table->foreign('id_ra')->references('id_ra')->on('rubrik_analitik')->onDelete('cascade');
@@ -24,6 +25,13 @@ return new class extends Migration
             $table->foreign('id_cpl')->references('id_cpl')->on('cpl')->onDelete('cascade');
             $table->foreign('id_cpmk')->references('id_cpmk')->on('cpmk')->onDelete('cascade');
             $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah')->onDelete('cascade');
+
+//             $table->foreign('id_ra')->references('id_ra')->on('rubrik_analitik');
+//             $table->foreign('id_tp')->references('id_tp')->on('teknik_penilaian');
+//             $table->foreign('id_cpl')->references('id_cpl')->on('cpl');
+//             $table->foreign('id_cpmk')->references('id_cpmk')->on('cpmk')->onDelete('SET NULL');
+//             // $table->foreign('id_cpmk')->references('id_cpmk')->on('cpmk');
+//             $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah');
 
         });
     }

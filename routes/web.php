@@ -2,7 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BahanKajianController;
+use App\Http\Controllers\CplController;
+use App\Http\Controllers\CpmkController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SubCpmkController;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
@@ -16,3 +20,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
+Route::resource('bahan-kajian', BahanKajianController::class);
+Route::resource('cpl', CplController::class);
+Route::resource('cpmk', CpmkController::class);
+Route::resource('sub-cpmk', SubCpmkController::class);
