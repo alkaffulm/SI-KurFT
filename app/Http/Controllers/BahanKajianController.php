@@ -22,7 +22,7 @@ class BahanKajianController extends Controller
      */
     public function create()
     {
-        return view('form.bkFormAdd(test)');
+        return view('form.bk.bkFormAdd(test)');
     }
 
     /**
@@ -48,7 +48,7 @@ class BahanKajianController extends Controller
      */
     public function edit(BahanKajianModel $bahanKajian)
     {
-        return view('form.bkFormEdit(test)', ['bk' => $bahanKajian]);
+        return view('form.bk.bkFormEdit(test)', ['bk' => $bahanKajian]);
     }
 
     /**

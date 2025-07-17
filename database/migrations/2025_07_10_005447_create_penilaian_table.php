@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('penilaian', function (Blueprint $table) {
             $table->bigIncrements('id_penilaian');
+            // $table->unsignedBigInteger('id_rps_detail')->nullable();
             $table->unsignedBigInteger('id_rps_detail');
             $table->string('jenis_penilaian');
             $table->decimal('bobot');
 
+            // $table->foreign('id_rps_detail')->references('id_rps_detail')->on('rps_detail')->onDelete('SET NULL');
             $table->foreign('id_rps_detail')->references('id_rps_detail')->on('rps_detail');
         });
     }

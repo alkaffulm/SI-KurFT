@@ -14,13 +14,16 @@ return new class extends Migration
         Schema::create('rps_detail', function (Blueprint $table) {
             $table->bigIncrements('id_rps_detail');
             $table->unsignedBigInteger('id_rps');
+            // $table->unsignedBigInteger('id_sub_cpmk')->nullable();
             $table->unsignedBigInteger('id_sub_cpmk');
             $table->integer('minggu');
             $table->decimal('penilaian');
             $table->decimal('bobot');
 
             $table->foreign('id_rps')->references('id_rps')->on('rps');
+            // $table->foreign('id_sub_cpmk')->references('id_sub_cpmk')->on('sub_cpmk')->onDelete('SET NULL');
             $table->foreign('id_sub_cpmk')->references('id_sub_cpmk')->on('sub_cpmk');
+
         });
     }
 

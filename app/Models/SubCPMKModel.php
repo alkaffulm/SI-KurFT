@@ -25,4 +25,8 @@ class SubCPMKModel extends Model
     public function mataKuliah(){
         return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');
     }
+
+    public function cpmk() {
+        return $this->belongsTo(CPMKModel::class, 'id_cpmk');
+    }
 }

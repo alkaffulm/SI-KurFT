@@ -3,36 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabel BK</title>
+    <title>Tabel CPMK</title>
 </head>
 <body>
 
-    <h2>Tabel Bahan Kajian</h2>
+    <h2>Tabel CPMK</h2>
 
-    <a href="/bahan-kajian/create">Tambah </a>
+    <a href="/cpmk/create">Tambah </a>
 
     <table border="1" cellpadding="5"> 
         <tr>
-            <th>id BK</th>
+            <th>id CPMK</th>
             <th>aksi</th>
-            <th>Nama BK</th>
-            <th>Kategori</th>
+            <th>Nama Matkul</th>
+            <th>Nama CPMK</th>
+            <th>Kode CPMK</th>
             <th>Deskripsi</th>
         </tr>
-        @foreach ($bahan_kajian as $bk )
+        @foreach ($cpmk as $cp )
             <tr>
-                <td>{{$bk->id_bk}}</td>
+                <td>{{$cp->id_cpmk}}</td>
                 <td>
-                   <form action="/bahan-kajian/{{ $bk->id_bk }}" method="POST">
+                   <form action="/cpmk/{{ $cp->id_cpmk }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Hapus</button>
                     </form> 
-                    | <a href="/bahan-kajian/{{$bk->id_bk}}/edit">Edit</a>
+                    | <a href="/cpmk/{{$cp->id_cpmk}}/edit">Edit</a>
                 </td>
-                <td>{{$bk->nama_bk}}</td>
-                <td>{{$bk->kategori}}</td>
-                <td>{{$bk->desc}}</td>
+                <td>{{$cp->matakuliah->nama_matkul}}</td>
+                <td>{{$cp->nama_kode_cpmk}}</td>
+                <td>{{$cp->kode_cpmk}}</td>
+                <td>{{$cp->desc}}</td>
             </tr>
         @endforeach
     </table>

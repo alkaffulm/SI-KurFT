@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Input Buku</title>
+    <title>Tabel CPL</title>
 </head>
 <body>
 
@@ -31,7 +31,7 @@
                     </form> 
                     | <a href="/cpl/{{$c->id_cpl}}/edit">Edit</a>
                 </td>
-                <td>{{$c->id_ps}}</td>
+                <td>{{$c->programstudi->nama_prodi}}</td>
                 <td>{{$c->nama_kode_cpl}}</td>
                 <td>{{$c->desc}}</td>
                 <td>{{$c->bobot_maksimum}}</td>

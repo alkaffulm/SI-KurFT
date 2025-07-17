@@ -26,7 +26,7 @@ class CplController extends Controller
     {
         $ps = ProgramStudiModel::all();
         $krk =KurikulumModel::all();
-        return view('form.cplFormAdd(test)', ['ps' => $ps, 'krk' => $krk]);
+        return view('form.cpl.cplFormAdd(test)', ['ps' => $ps, 'krk' => $krk]);
     }
 
     /**
@@ -54,7 +54,7 @@ class CplController extends Controller
     {
         $ps = ProgramStudiModel::all();
         $krk =KurikulumModel::all();
-        return view('form.cplFormEdit(test)', ['cpl' => $cpl ,'ps' => $ps, 'krk' => $krk]);
+        return view('form.cpl.cplFormEdit(test)', ['cpl' => $cpl ,'ps' => $ps, 'krk' => $krk]);
     }
 
     /**

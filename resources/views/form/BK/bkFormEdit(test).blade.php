@@ -37,7 +37,7 @@
         </div>
         <br>
         <div>
-            <button type="submit">Kirim</button>
+            <button type="submit">update</button>
         </div>
     </form>
 

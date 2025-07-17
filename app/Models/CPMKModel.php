@@ -32,4 +32,6 @@ class CPMKModel extends Model
     public function mataKuliah(){
         return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');
     }
+
+
 }

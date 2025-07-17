@@ -31,24 +31,24 @@ class CplSeeder extends Seeder
             ['id_cpl' => 12, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 4, 'id_kurikulum' => 8, 'desc' => 'Mampu melakukan audit lingkungan', 'bobot_maksimum' => 100],
 
             ['id_cpl' => 13, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 5, 'id_kurikulum' => 9, 'desc' => 'Mampu mendesain bangunan yang estetis dan fungsional', 'bobot_maksimum' => 100],
-            ['id_cpl' => 14, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 5, 'id_kurikulum' => 10, 'desc' => 'Mampu mengintegrasikan nilai budaya dalam desain', 'bobot_maksimum' => 100],
-            ['id_cpl' => 15, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 5, 'id_kurikulum' => 10, 'desc' => 'Mampu menggunakan perangkat lunak arsitektur', 'bobot_maksimum' => 100],
+            ['id_cpl' => 14, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 5, 'id_kurikulum' => 9, 'desc' => 'Mampu mengintegrasikan nilai budaya dalam desain', 'bobot_maksimum' => 100],
+            ['id_cpl' => 15, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 5, 'id_kurikulum' => 9, 'desc' => 'Mampu menggunakan perangkat lunak arsitektur', 'bobot_maksimum' => 100],
 
-            ['id_cpl' => 16, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 6, 'id_kurikulum' => 11, 'desc' => 'Mampu menganalisis proses reaksi kimia', 'bobot_maksimum' => 100],
-            ['id_cpl' => 17, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 6, 'id_kurikulum' => 11, 'desc' => 'Mampu mengoperasikan alat industri kimia', 'bobot_maksimum' => 100],
-            ['id_cpl' => 18, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 6, 'id_kurikulum' => 12, 'desc' => 'Mampu merancang instalasi kimia', 'bobot_maksimum' => 100],
+            ['id_cpl' => 16, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 6, 'id_kurikulum' => 7, 'desc' => 'Mampu menganalisis proses reaksi kimia', 'bobot_maksimum' => 100],
+            ['id_cpl' => 17, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 6, 'id_kurikulum' => 7, 'desc' => 'Mampu mengoperasikan alat industri kimia', 'bobot_maksimum' => 100],
+            ['id_cpl' => 18, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 6, 'id_kurikulum' => 7, 'desc' => 'Mampu merancang instalasi kimia', 'bobot_maksimum' => 100],
 
-            ['id_cpl' => 19, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 7, 'id_kurikulum' => 13, 'desc' => 'Mampu membangun aplikasi perangkat lunak', 'bobot_maksimum' => 100],
-            ['id_cpl' => 20, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 7, 'id_kurikulum' => 14, 'desc' => 'Mampu mengelola data secara efisien', 'bobot_maksimum' => 100],
-            ['id_cpl' => 21, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 7, 'id_kurikulum' => 14, 'desc' => 'Mampu menerapkan kecerdasan buatan', 'bobot_maksimum' => 100],
+            ['id_cpl' => 19, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 7, 'id_kurikulum' => 6, 'desc' => 'Mampu membangun aplikasi perangkat lunak', 'bobot_maksimum' => 100],
+            ['id_cpl' => 20, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 7, 'id_kurikulum' => 6, 'desc' => 'Mampu mengelola data secara efisien', 'bobot_maksimum' => 100],
+            ['id_cpl' => 21, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 7, 'id_kurikulum' => 6, 'desc' => 'Mampu menerapkan kecerdasan buatan', 'bobot_maksimum' => 100],
 
-            ['id_cpl' => 22, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 8, 'id_kurikulum' => 15, 'desc' => 'Mampu merancang sistem kontrol elektronik', 'bobot_maksimum' => 100],
-            ['id_cpl' => 23, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 8, 'id_kurikulum' => 15, 'desc' => 'Mampu melakukan analisis sinyal digital', 'bobot_maksimum' => 100],
-            ['id_cpl' => 24, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 8, 'id_kurikulum' => 16, 'desc' => 'Mampu menggunakan mikrokontroler dalam sistem', 'bobot_maksimum' => 100],
+            ['id_cpl' => 22, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 8, 'id_kurikulum' => 5, 'desc' => 'Mampu merancang sistem kontrol elektronik', 'bobot_maksimum' => 100],
+            ['id_cpl' => 23, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 8, 'id_kurikulum' => 5, 'desc' => 'Mampu melakukan analisis sinyal digital', 'bobot_maksimum' => 100],
+            ['id_cpl' => 24, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 8, 'id_kurikulum' => 6, 'desc' => 'Mampu menggunakan mikrokontroler dalam sistem', 'bobot_maksimum' => 100],
 
-            ['id_cpl' => 25, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 9, 'id_kurikulum' => 17, 'desc' => 'Mampu melakukan pemetaan geologi', 'bobot_maksimum' => 100],
-            ['id_cpl' => 26, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 9, 'id_kurikulum' => 18, 'desc' => 'Mampu menganalisis struktur batuan', 'bobot_maksimum' => 100],
-            ['id_cpl' => 27, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 9, 'id_kurikulum' => 18, 'desc' => 'Mampu melakukan interpretasi data geofisika', 'bobot_maksimum' => 100],
+            ['id_cpl' => 25, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 9, 'id_kurikulum' => 7, 'desc' => 'Mampu melakukan pemetaan geologi', 'bobot_maksimum' => 100],
+            ['id_cpl' => 26, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 9, 'id_kurikulum' => 8, 'desc' => 'Mampu menganalisis struktur batuan', 'bobot_maksimum' => 100],
+            ['id_cpl' => 27, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 9, 'id_kurikulum' => 8, 'desc' => 'Mampu melakukan interpretasi data geofisika', 'bobot_maksimum' => 100],
         ]);
 
     }
