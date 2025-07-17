@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('kode_cpmk');
             $table->text('desc');
 
-            $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah');
+            $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah')->onDelete('cascade');
         });
     }
 

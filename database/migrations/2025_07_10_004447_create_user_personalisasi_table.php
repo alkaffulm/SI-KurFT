@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('userpicture_path');
 
-            $table->foreign('id_user')->references('id_user')->on('user');
-            $table->foreign('id_user_role')->references('id_user_role')->on('user_role_map');
+            $table->foreign('id_user')->references('id_user')->on('user')->onDelete('cascade');
+            $table->foreign('id_user_role')->references('id_user_role')->on('user_role_map')->onDelete('cascade');
         });
     }
 

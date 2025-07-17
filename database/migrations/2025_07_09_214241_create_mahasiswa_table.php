@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nim');
             $table->integer('angkatan');
 
-            $table->foreign('id_ps')->references('id_ps')->on('program_studi');
+            $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
         });
     }
 

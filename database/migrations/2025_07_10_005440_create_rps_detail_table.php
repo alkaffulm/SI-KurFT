@@ -19,8 +19,8 @@ return new class extends Migration
             $table->decimal('penilaian');
             $table->decimal('bobot');
 
-            $table->foreign('id_rps')->references('id_rps')->on('rps');
-            $table->foreign('id_sub_cpmk')->references('id_sub_cpmk')->on('sub_cpmk');
+            $table->foreign('id_rps')->references('id_rps')->on('rps')->onDelete('cascade');
+            $table->foreign('id_sub_cpmk')->references('id_sub_cpmk')->on('sub_cpmk')->onDelete('cascade');
         });
     }
 

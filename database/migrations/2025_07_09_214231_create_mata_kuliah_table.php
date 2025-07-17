@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('jumlah_sks');
             $table->integer('semester');
 
-            $table->foreign('id_ps')->references('id_ps')->on('program_studi');
+            $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
         });
     }
 
