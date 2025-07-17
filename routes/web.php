@@ -6,7 +6,9 @@ use App\Http\Controllers\BahanKajianController;
 use App\Http\Controllers\CplController;
 use App\Http\Controllers\CpmkController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\SubCpmkController;
+use App\Models\MataKuliahModel;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
@@ -24,3 +26,4 @@ Route::resource('bahan-kajian', BahanKajianController::class);
 Route::resource('cpl', CplController::class);
 Route::resource('cpmk', CpmkController::class);
 Route::resource('sub-cpmk', SubCpmkController::class);
+Route::resource('mata-kuliah', MatkulController::class);
