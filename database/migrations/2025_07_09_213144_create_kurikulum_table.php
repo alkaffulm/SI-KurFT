@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_ps');
             $table->integer('tahun');
 
-            $table->foreign('id_ps')->references('id_ps')->on('program_studi');
+            $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
         });
     }
 

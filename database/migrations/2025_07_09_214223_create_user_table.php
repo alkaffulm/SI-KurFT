@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
 
-            $table->foreign('id_ps')->references('id_ps')->on('program_studi');
+            $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
         });
     }
 

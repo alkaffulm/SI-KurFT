@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('jenis_penilaian');
             $table->decimal('bobot');
 
-            // $table->foreign('id_rps_detail')->references('id_rps_detail')->on('rps_detail')->onDelete('SET NULL');
-            $table->foreign('id_rps_detail')->references('id_rps_detail')->on('rps_detail');
+            $table->foreign('id_rps_detail')->references('id_rps_detail')->on('rps_detail')->onDelete('cascade');
+
         });
     }
 
