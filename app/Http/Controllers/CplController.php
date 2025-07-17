@@ -24,9 +24,9 @@ class CplController extends Controller
      */
     public function create()
     {
-        $ps = ProgramStudiModel::all();
-        $krk =KurikulumModel::all();
-        return view('form.cpl.cplFormAdd(test)', ['ps' => $ps, 'krk' => $krk]);
+        $program_studi = ProgramStudiModel::all();
+        $kurikulum =KurikulumModel::all();
+        return view('form.cpl.cplFormAdd(test)', ['program_studi' => $program_studi, 'kurikulum' => $kurikulum]);
     }
 
     /**
@@ -52,9 +52,9 @@ class CplController extends Controller
      */
     public function edit(CPLModel $cpl)
     {
-        $ps = ProgramStudiModel::all();
-        $krk =KurikulumModel::all();
-        return view('form.cpl.cplFormEdit(test)', ['cpl' => $cpl ,'ps' => $ps, 'krk' => $krk]);
+        $program_studi = ProgramStudiModel::all();
+        $kurikulum =KurikulumModel::all();
+        return view('form.cpl.cplFormEdit(test)', ['cpl' => $cpl ,'program_studi' => $program_studi, 'kurikulum' => $kurikulum]);
     }
 
     /**

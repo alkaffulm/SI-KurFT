@@ -33,8 +33,8 @@
                 {{$message}}
             @enderror
             <select name="id_mk" id="id_mk">
-                @foreach ( $mk as $m )
-                    <option value="{{$m->id_mk}}" {{ old('id_mk', $cpmk->id_mk) == $m->id_mk ? 'selected' : '' }}>{{$m->nama_matkul}}</option>
+                @foreach ( $mata_kuliah as $mk )
+                    <option value="{{$mk->id_mk}}" {{ old('id_mk', $cpmk->id_mk) == $mk->id_mk ? 'selected' : '' }}>{{$mk->nama_matkul}}</option>
                 @endforeach
             </select>
         </div>

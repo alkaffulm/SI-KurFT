@@ -9,7 +9,7 @@
 
     <h2>Form Edit Mata Kuliah</h2>
 
-    <form action="/mata-kuliah/{{$mk->id_mk}}" method="POST">
+    <form action="/mata-kuliah/{{$mata_kuliah->id_mk}}" method="POST">
         @csrf
         @method('PUT')
         <div>
@@ -18,8 +18,8 @@
                 {{$message}}
             @enderror
             <select name="id_ps" id="id_ps">
-                @foreach ( $ps as $p )
-                    <option value="{{$p->id_ps}}" {{old('id_ps', $mk->id_ps) == $p->id_ps ? 'selected' : ''}}>{{$p->nama_prodi}}</option>
+                @foreach ( $program_studi as $ps )
+                    <option value="{{$ps->id_ps}}" {{old('id_ps', $mata_kuliah->id_ps) == $ps->id_ps ? 'selected' : ''}}>{{$ps->nama_prodi}}</option>
                 @endforeach
             </select>
         </div>
@@ -29,7 +29,7 @@
             @error('nama_matkul')
                 {{$message}}
             @enderror
-            <input type="text" id="nama_matkul" name="nama_matkul" value="{{old('nama_matkul', $mk->nama_matkul)}}" required>
+            <input type="text" id="nama_matkul" name="nama_matkul" value="{{old('nama_matkul', $mata_kuliah->nama_matkul)}}" required>
         </div>
         <br>
         <div>
@@ -37,7 +37,7 @@
             @error('jumlah_sks')
                 {{$message}}
             @enderror
-            <input type="text" id="jumlah_sks" name="jumlah_sks" value="{{old('jumlah_sks', $mk->jumlah_sks)}}" required>
+            <input type="text" id="jumlah_sks" name="jumlah_sks" value="{{old('jumlah_sks', $mata_kuliah->jumlah_sks)}}" required>
         </div>
         <br>
         <div>
@@ -45,7 +45,7 @@
             @error('semester')
                 {{$message}}
             @enderror
-            <input type="text" id="semester" name="semester" value="{{old('semester', $mk->semester)}}" required>
+            <input type="text" id="semester" name="semester" value="{{old('semester', $mata_kuliah->semester)}}" required>
         </div>
         <br>
         <div>

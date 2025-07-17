@@ -26,8 +26,8 @@
                 {{$message}}
             @enderror
             <select name="id_ps" id="id_ps">
-                @foreach ( $ps as $p )
-                    <option value="{{$p->id_ps}}">{{$p->nama_prodi}}</option>
+                @foreach ( $program_studi as $ps )
+                    <option value="{{$ps->id_ps}}">{{$ps->nama_prodi}}</option>
                 @endforeach
             </select>
         </div>
@@ -38,8 +38,8 @@
                 {{$message}}
             @enderror
             <select name="id_kurikulum" id="id_kurikulum">
-                @foreach ( $krk as $k )
-                    <option value="{{$k->id_kurikulum}}">{{$k->tahun}}</option>
+                @foreach ( $kurikulum as $krk )
+                    <option value="{{$krk->id_kurikulum}}">{{$krk->tahun}}</option>
                 @endforeach
             </select>
         </div>

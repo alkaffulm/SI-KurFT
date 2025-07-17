@@ -25,8 +25,8 @@
                 {{$message}}
             @enderror
             <select name="id_ps" id="id_ps">
-                @foreach ( $ps as $p )
-                    <option value="{{$p->id_ps}}" {{ old('id_ps', $cpl->id_ps) == $p->id_ps ? 'selected' : '' }}>{{$p->nama_prodi}}</option>
+                @foreach ( $program_studi as $ps )
+                    <option value="{{$ps->id_ps}}" {{ old('id_ps', $cpl->id_ps) == $ps->id_ps ? 'selected' : '' }}>{{$ps->nama_prodi}}</option>
                 @endforeach
             </select>
         </div>
@@ -37,8 +37,8 @@
                 {{$message}}
             @enderror
             <select name="id_kurikulum" id="id_kurikulum">
-                @foreach ( $krk as $k )
-                    <option value="{{$k->id_kurikulum}}" {{ old('id_ps', $cpl->id_kurikulum) == $k->id_kurikulum ? 'selected' : '' }}>{{$k->tahun}}</option>
+                @foreach ( $kurikulum as $krk )
+                    <option value="{{$krk->id_kurikulum}}" {{ old('id_ps', $cpl->id_kurikulum) == $krk->id_kurikulum ? 'selected' : '' }}>{{$krk->tahun}}</option>
                 @endforeach
             </select>
         </div>

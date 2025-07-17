@@ -24,8 +24,8 @@ class CpmkController extends Controller
      */
     public function create()
     {
-        $mk = MataKuliahModel::all();
-        return view('form.CPMK.cpmkFormAdd(test)', ['mk' => $mk]);
+        $mata_kuliah = MataKuliahModel::all();
+        return view('form.CPMK.cpmkFormAdd(test)', ['mata_kuliah' => $mata_kuliah]);
     }
 
     /**
@@ -52,8 +52,8 @@ class CpmkController extends Controller
      */
     public function edit(CPMKModel $cpmk)
     {
-        $mk = MataKuliahModel::all();
-        return view('form.CPMK.cpmkFormEdit(test)', ['cpmk' => $cpmk, 'mk' => $mk]);
+        $mata_kuliah = MataKuliahModel::all();
+        return view('form.CPMK.cpmkFormEdit(test)', ['cpmk' => $cpmk, 'mata_kuliah' => $mata_kuliah]);
     }
 
     /**

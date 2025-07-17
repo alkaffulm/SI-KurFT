@@ -14,8 +14,8 @@ class SubCpmkController extends Controller
      */
     public function index()
     {
-        $subCpmk = SubCPMKModel::all();
-        return view('subCpmk(test)', ['sub_cpmk' => $subCpmk] );
+        $sub_cpmk = SubCPMKModel::all();
+        return view('subCpmk(test)', ['sub_cpmk' => $sub_cpmk] );
     }
 
     /**
@@ -24,7 +24,7 @@ class SubCpmkController extends Controller
     public function create()
     {
         $cpmk = CPMKModel::all();
-        return view('form.subCPMK.subCpmkFormAdd(test)', ['cpmk' =>$cpmk]);
+        return view('form.subCPMK.subCpmkFormAdd(test)', ['cpmk' => $cpmk]);
     }
 
     /**

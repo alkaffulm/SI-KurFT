@@ -7,12 +7,12 @@
 </head>
 <body>
 
-    <h2>Form Input Mata Kuliah</h2>
+    <h2>Form Input Profil Lulusan</h2>
 
-    <form action="/mata-kuliah" method="POST">
+    <form action="/profil-lulusan" method="POST">
         @csrf
         <div>
-            <label for="id_ps">ID Program Studi:</label><br>
+            <label for="id_ps">Nama Program Studi:</label><br>
             @error('id_ps')
                 {{$message}}
             @enderror
@@ -24,27 +24,20 @@
         </div>
         <br>
         <div>
-            <label for="nama_matkul">Nama Mata Kuliah:</label><br>
-            @error('nama_matkul')
+            <label for="profil_lulusan">Profil Lulusan:</label><br>
+            @error('profil_lulusan')
                 {{$message}}
             @enderror
-            <input type="text" id="nama_matkul" name="nama_matkul" required>
+            <input type="text" id="profil_lulusan" name="profil_lulusan" required>
         </div>
         <br>
+
         <div>
-            <label for="jumlah_sks">Jumlah SKS:</label><br>
-            @error('jumlah_sks')
+            <label for="desc">Deskripsi:</label><br>
+            @error('desc')
                 {{$message}}
             @enderror
-            <input type="text" id="jumlah_sks" name="jumlah_sks" required>
-        </div>
-        <br>
-        <div>
-            <label for="semester">Semester:</label><br>
-            @error('semester')
-                {{$message}}
-            @enderror
-            <input type="text" id="semester" name="semester" required>
+            <textarea id="desc" name="desc" rows="4" cols="50" required></textarea>
         </div>
         <br>
         <div>

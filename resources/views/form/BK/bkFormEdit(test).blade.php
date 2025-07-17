@@ -9,7 +9,7 @@
 
     <h2>Form Edit Bahan Kajian</h2>
 
-    <form action="/bahan-kajian/{{$bk->id_bk}}" method="POST">
+    <form action="/bahan-kajian/{{$bahan_kajian->id_bk}}" method="POST">
         @csrf
         @method('PUT')
         <div>
@@ -17,7 +17,7 @@
             @error('nama_bk')
                 {{$message}}
             @enderror
-            <input type="text" id="nama_bk" name="nama_bk" value="{{ old('nama_bk', $bk->nama_bk)}}" required>
+            <input type="text" id="nama_bk" name="nama_bk" value="{{ old('nama_bk', $bahan_kajian->nama_bk)}}" required>
         </div>
         <br>
         <div>
@@ -25,7 +25,7 @@
             @error('kategori')
                 {{$message}}
             @enderror
-            <input type="text" id="kategori" name="kategori" value="{{ old('kategori', $bk->kategori)}}" required>
+            <input type="text" id="kategori" name="kategori" value="{{ old('kategori', $bahan_kajian->kategori)}}" required>
         </div>
         <br>
         <div>
@@ -33,7 +33,7 @@
             @error('desc')
                 {{$message}}
             @enderror
-            <textarea id="desc" name="desc" rows="4" cols="50" required>{{ old('kategori', $bk->kategori)}}</textarea>
+            <textarea id="desc" name="desc" rows="4" cols="50" required>{{ old('kategori', $bahan_kajian->kategori)}}</textarea>
         </div>
         <br>
         <div>

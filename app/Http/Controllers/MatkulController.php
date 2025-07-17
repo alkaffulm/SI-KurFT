@@ -23,10 +23,10 @@ class MatkulController extends Controller
      */
     public function create()
     {
-        $mk = MataKuliahModel::all();
-        $ps = ProgramStudiModel:: all();
+        $mata_kuliah = MataKuliahModel::all();
+        $program_studi = ProgramStudiModel:: all();
 
-        return view('form.Matkul.matkulFormAdd(test)',['mk' => $mk, 'ps' => $ps]);
+        return view('form.Matkul.matkulFormAdd(test)',['mata_kuliah' => $mata_kuliah, 'program_studi' => $program_studi]);
     }
 
     /**
@@ -54,7 +54,7 @@ class MatkulController extends Controller
     {
         $program_studi = ProgramStudiModel::all();
         
-        return view('form.Matkul.matkulFormEdit(test)', ['mk' => $mata_kuliah, 'ps' => $program_studi]);
+        return view('form.Matkul.matkulFormEdit(test)', ['mata_kuliah' => $mata_kuliah, 'program_studi' => $program_studi]);
     }
 
     /**

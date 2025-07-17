@@ -13,8 +13,8 @@ class BahanKajianController extends Controller
      */
     public function index()
     {
-        $bk = BahanKajianModel::all();
-        return view('bk(test)', ['bahan_kajian' => $bk]);
+        $bahan_kajian = BahanKajianModel::all();
+        return view('bk(test)', ['bahan_kajian' => $bahan_kajian]);
     }
 
     /**
@@ -46,17 +46,17 @@ class BahanKajianController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(BahanKajianModel $bahanKajian)
+    public function edit(BahanKajianModel $bahan_kajian)
     {
-        return view('form.bk.bkFormEdit(test)', ['bk' => $bahanKajian]);
+        return view('form.bk.bkFormEdit(test)', ['bahan_kajian' => $bahan_kajian]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreBahanKajianRequest $request, BahanKajianModel $bahanKajian)
+    public function update(StoreBahanKajianRequest $request, BahanKajianModel $bahan_kajian)
     {
-        $bahanKajian->update($request->validated());
+        $bahan_kajian->update($request->validated());
 
         return redirect('bahan-kajian')->with('success', 'Bahan Kajian berhasil diperbarui!');
 
@@ -65,9 +65,9 @@ class BahanKajianController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BahanKajianModel $bahanKajian)
+    public function destroy(BahanKajianModel $bahan_kajian)
     {
-        $bahanKajian->delete();
+        $bahan_kajian->delete();
 
         return redirect('bahan-kajian')->with('success', 'Bahan Kajian dihapus!');
 
