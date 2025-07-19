@@ -17,21 +17,39 @@ class CPMKModel extends Model
         'desc',
     ];
 
+    /**
+     * Relasi many-to-many ke CPLModel melalui tabel cpmk_cpl_map.
+     */
+    public function cpl()
+    {
+        return $this->belongsToMany(CPLModel::class, 'cpmk_cpl_map', 'id_cpmk', 'id_cpl');
+    }
+
     // has many relation
-    public function mk_cpmk(){
+    public function mk_cpmk()
+    {
         return $this->hasMany(MataKuliahCPMKMapModel::class, 'id_cpmk', 'id_cpmk');
     }
-    public function tpcpmkmap(){
+    public function tpcpmkmap()
+    {
         return $this->hasMany(TPCPMKMapModel::class, 'id_cpmk', 'id_cpmk');
     }
-    public function cpmkcpl(){
+    public function cpmkcpl()
+    {
         return $this->hasMany(CPMKCPLMapModel::class, 'id_cpmk', 'id_cpmk');
     }
 
     // belongs to relation
-    public function mataKuliah(){
+    public function mataKuliah()
+    {
         return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');
     }
 
-
+    /**
+     * Relasi many-to-many ke MataKuliahModel melalui tabel mata_kuliah_cpmk_map.
+     */
+    public function mataKuliahTerkait() // Gunakan nama berbeda agar tidak konflik dengan relasi belongsTo
+    {
+        return $this->belongsToMany(MataKuliahModel::class, 'mata_kuliah_cpmk_map', 'id_cpmk', 'id_mk');
+    }
 }

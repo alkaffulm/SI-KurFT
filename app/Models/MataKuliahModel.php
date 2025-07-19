@@ -17,38 +17,52 @@ class MataKuliahModel extends Model
         'semester',
     ];
 
-    // has many relation
-    public function cpmk(){
-        return $this->hasMany(CPMKModel::class, 'id_mk', 'id_mk');
+    /**
+     * Relasi many-to-many ke CPMKModel melalui tabel mata_kuliah_cpmk_map.
+     */
+    public function cpmk()
+    {
+        return $this->belongsToMany(CPMKModel::class, 'mata_kuliah_cpmk_map', 'id_mk', 'id_cpmk');
     }
-    public function sub_cpmk(){
+
+    // has many relation
+    public function sub_cpmk()
+    {
         return $this->hasMany(SubCPMKModel::class, 'id_mk', 'id_mk');
     }
 
-    public function rps(){
+    public function rps()
+    {
         return $this->hasMany(RPSModel::class, 'id_mk', 'id_mk');
     }
-    public function mk_cpmk(){
+    public function mk_cpmk()
+    {
         return $this->hasMany(MataKuliahCPMKMapModel::class, 'id_mk', 'id_mk');
     }
-    public function user_mk(){
+    public function user_mk()
+    {
         return $this->hasMany(UserMataKuliahMapModel::class, 'id_mk', 'id_mk');
     }
-    public function mhs_mk(){
+    public function mhs_mk()
+    {
         return $this->hasMany(MahasiswaMataKuliahMapModel::class, 'id_mk', 'id_mk');
     }
-    public function bk_mk(){
+    public function bk_mk()
+    {
         return $this->hasMany(BKMKMapModel::class, 'id_mk', 'id_mk');
     }
-    public function cpl_mk(){
+    public function cpl_mk()
+    {
         return $this->hasMany(MKCPLMapModel::class, 'id_mk', 'id_mk');
     }
-    public function tpcpmkmap(){
+    public function tpcpmkmap()
+    {
         return $this->hasMany(TPCPMKMapModel::class, 'id_mk', 'id_mk');
     }
 
     // belongs to relation
-    public function programStudi(){
+    public function programStudi()
+    {
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }
 }
