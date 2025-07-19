@@ -10,6 +10,7 @@ class KurikulumModel extends Model
     protected $primaryKey = 'id_kurikulum';
     public $timestamps = false;
     protected $fillable = [
+        'id_kurikulum',
         'id_ps',
         'tahun',
     ];

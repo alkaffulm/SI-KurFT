@@ -62,6 +62,11 @@
                             </span>
                         </div>
                         <ul class="py-2">
+                            <a href="#">
+                                <li class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        Profile
+                                </li>
+                            </a>
                             <li>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -72,6 +77,7 @@
                                     @csrf
                                 </form>
                             </li>
+
                         </ul>
                     </div>
                 </div>

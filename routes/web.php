@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KurikulumController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BahanKajianController;
@@ -29,3 +30,5 @@ Route::resource('cpmk', CpmkController::class);
 Route::resource('sub-cpmk', SubCpmkController::class);
 Route::resource('mata-kuliah', MatkulController::class);
 Route::resource('profil-lulusan', ProfilLulusanController::class);
+Route::resource('kurikulum', KurikulumController::class);
+
