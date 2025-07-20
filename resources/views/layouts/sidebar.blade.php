@@ -66,7 +66,7 @@
 
             @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
                 <li>
-                    <a href="https://tr.rbxcdn.com/180DAY-f07b6e1059ccdfacb84e8598c55fbf97/1024/1024/Hat/Webp/noFilter" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">PEO</a>
+                    <a href="" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">PEO</a>
                 </li>
             @endif
 
