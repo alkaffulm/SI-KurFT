@@ -23,12 +23,15 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Dashboard Route (Protected by auth middleware)
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::middleware('role:kaprodi')->group(function () {
+        Route::resource('bahan-kajian', BahanKajianController::class);
+        Route::resource('cpl', CplController::class);
+        Route::resource('cpmk', CpmkController::class);
+        Route::resource('sub-cpmk', SubCpmkController::class);
+        Route::resource('mata-kuliah', MatkulController::class);
+        Route::resource('profil-lulusan', ProfilLulusanController::class);
+        Route::resource('kurikulum', KurikulumController::class);
+    });
 });
-Route::resource('bahan-kajian', BahanKajianController::class);
-Route::resource('cpl', CplController::class);
-Route::resource('cpmk', CpmkController::class);
-Route::resource('sub-cpmk', SubCpmkController::class);
-Route::resource('mata-kuliah', MatkulController::class);
-Route::resource('profil-lulusan', ProfilLulusanController::class);
-Route::resource('kurikulum', KurikulumController::class);
+
 

@@ -9,7 +9,7 @@
 
     <h2>Form Input CPL</h2>
 
-    <form action="/cpl" method="POST">
+    <form action="{{ route('cpl.store') }}" method="POST">
         @csrf
         <div>
             <label for="nama_kode_cpl">Kode CPL:</label><br>

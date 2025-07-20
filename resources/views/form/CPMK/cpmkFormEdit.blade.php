@@ -8,7 +8,7 @@
 <body>
 
     <h2>Form Edit CPMK</h2>
-    <form action="/cpmk/{{$cpmk->id_cpmk}}" method="POST">
+    <form action="{{ route('cpmk.update', $cpmk) }}" method="POST">
         @csrf
         @method('PUT')
         <div>

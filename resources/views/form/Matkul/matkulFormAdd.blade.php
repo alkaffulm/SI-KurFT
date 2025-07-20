@@ -9,7 +9,7 @@
 
     <h2>Form Input Mata Kuliah</h2>
 
-    <form action="/mata-kuliah" method="POST">
+    <form action="{{ route('mata-kuliah.store') }}" method="POST">
         @csrf
         <div>
             <label for="id_ps">ID Program Studi:</label><br>

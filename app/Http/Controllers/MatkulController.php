@@ -15,7 +15,7 @@ class MatkulController extends Controller
     public function index()
     {
         $mata_kuliah = MataKuliahModel::all();
-        return view('matkul(test)', ['mata_kuliah' => $mata_kuliah]);
+        return view('matkul', ['mata_kuliah' => $mata_kuliah]);
     }
 
     /**
@@ -26,7 +26,7 @@ class MatkulController extends Controller
         $mata_kuliah = MataKuliahModel::all();
         $program_studi = ProgramStudiModel:: all();
 
-        return view('form.Matkul.matkulFormAdd(test)',['mata_kuliah' => $mata_kuliah, 'program_studi' => $program_studi]);
+        return view('form.Matkul.matkulFormAdd',['mata_kuliah' => $mata_kuliah, 'program_studi' => $program_studi]);
     }
 
     /**
@@ -54,7 +54,7 @@ class MatkulController extends Controller
     {
         $program_studi = ProgramStudiModel::all();
         
-        return view('form.Matkul.matkulFormEdit(test)', ['mata_kuliah' => $mata_kuliah, 'program_studi' => $program_studi]);
+        return view('form.Matkul.matkulFormEdit', ['mata_kuliah' => $mata_kuliah, 'program_studi' => $program_studi]);
     }
 
     /**

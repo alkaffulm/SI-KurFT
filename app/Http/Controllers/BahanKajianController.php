@@ -14,7 +14,7 @@ class BahanKajianController extends Controller
     public function index()
     {
         $bahan_kajian = BahanKajianModel::all();
-        return view('bk(test)', ['bahan_kajian' => $bahan_kajian]);
+        return view('bk', ['bahan_kajian' => $bahan_kajian]);
     }
 
     /**
@@ -22,7 +22,7 @@ class BahanKajianController extends Controller
      */
     public function create()
     {
-        return view('form.bk.bkFormAdd(test)');
+        return view('form.bk.bkFormAdd');
     }
 
     /**
@@ -48,7 +48,7 @@ class BahanKajianController extends Controller
      */
     public function edit(BahanKajianModel $bahan_kajian)
     {
-        return view('form.bk.bkFormEdit(test)', ['bahan_kajian' => $bahan_kajian]);
+        return view('form.bk.bkFormEdit', ['bahan_kajian' => $bahan_kajian]);
     }
 
     /**

@@ -30,7 +30,7 @@
         </div>
 
         {{-- bagian tombol tambah data --}}
-        <a href="/kurikulum/create/"  class="px-4 py-2 bg-yellow-300 w-44 font-sm text-center rounded-lg hover:bg-yellow-500">
+        <a href="{{ route('kurikulum.create') }}"  class="px-4 py-2 bg-yellow-300 w-44 font-sm text-center rounded-lg hover:bg-yellow-500">
             Tambah Kurikulum
         </a>
 

@@ -9,7 +9,7 @@
 
     <h2>Tabel Capaian Profil Lulusan</h2>
 
-    <a href="/cpl/create">Tambah</a>
+    <a href="{{ route('cpl.create') }}">Tambah</a>
 
     <table border="1" cellpadding="5"> 
         <tr>
@@ -22,19 +22,19 @@
         </tr>
         @foreach ($cpl as $c )
             <tr>
-                <td>{{$c->id_cpl}}</td>
+                <td>{{ $c->id_cpl }}</td>
                 <td>
-                   <form action="/cpl/{{ $c->id_cpl }}" method="POST">
+                   <form action="{{ route('cpl.destroy', $c) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Hapus</button>
                     </form> 
-                    | <a href="/cpl/{{$c->id_cpl}}/edit">Edit</a>
+                    | <a href="{{ route('cpl.edit', $c) }}">Edit</a>
                 </td>
-                <td>{{$c->programstudi->nama_prodi}}</td>
-                <td>{{$c->nama_kode_cpl}}</td>
-                <td>{{$c->desc}}</td>
-                <td>{{$c->bobot_maksimum}}</td>
+                <td>{{ $c->programstudi->nama_prodi }}</td>
+                <td>{{ $c->nama_kode_cpl }}</td>
+                <td>{{ $c->desc }}</td>
+                <td>{{ $c->bobot_maksimum }}</td>
             </tr>
         @endforeach
     </table>

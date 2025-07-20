@@ -1,4 +1,4 @@
-{{-- resources/views/kurikulumAdd(test).blade.php --}}
+{{-- resources/views/kurikulumEdit(test).blade.php --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +8,7 @@
     <link rel="icon" href="{{ asset('images/logo ulm 1.png') }}" type="image/x-icon">
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
-    <title>SI-KurFT Tambah Kurikulum</title>
+    <title>SI-KurFT Edit Kurikulum</title>
 </head>
 <body class="bg-gray-100 font-sans">
     @include('layouts.navbar', ['userRole' => $userRole])
@@ -23,7 +23,7 @@
                 Kembali
             </a>
             <h1 class="font-bold text-5xl">
-                Tambah Kurikulum 
+                Edit Kurikulum 
             </h1>
             <p class="mt-4">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore eaque magnam distinctio eius deserunt, autem eveniet velit, 
@@ -36,7 +36,7 @@
         {{-- bagian form input kurikulum --}}
         <div class="bg-white rounded-lg w-full h-96 p-10">
             <h1 class="font-bold text-4xl mb-4">
-                Form Tambah Data
+                Form Edit Data
             </h1>
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit atque in deleniti! Laborum iusto ab reprehenderit alias quisquam sunt cumque 
@@ -44,32 +44,37 @@
             </p>
 
             {{-- form --}}
-            <form action="/kurikulum" method="POST" class="mt-6 space-y-4">
+            <form action="{{ route('kurikulum.update', $kurikulum) }}" method="POST" class="mt-6 space-y-4">
                 @csrf
-                {{-- Input ID Program Studi --}}
+                @method('PUT')
+                {{-- Edit ID Program Studi --}}
                 <div>
                     <label for="id_ps" class="mb-1 font-semibold text-gray-700">ID Program Studi: </label> 
                     @error('id_ps')
                         {{$message}}
                     @enderror
-                    <select name="id_ps" id="id_ps" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300">
-                        <option value="" disabled selected>---Silahkan pilih Program Studi---</option>
-                        @foreach ( $programStudi as $ps )
-                            <option value="{{$ps->id_ps}}">{{$ps->id_ps}}-{{$ps->nama_prodi}}</option>
+                    <select disabled name="id_ps" id="id_ps" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300">
+                        <option value="{{ $kurikulum->id_ps }}" disabled>---Silahkan pilih Program Studi---</option>
+                        @foreach ($programStudi as $ps)
+                            <option value="{{ $ps->id_ps }}" {{ $ps->id_ps == $kurikulum->id_ps ? 'selected' : '' }}>
+                                {{ $ps->id_ps }} - {{ $ps->nama_prodi }}
+                            </option>
                         @endforeach
                     </select>
+                    <input type="hidden" name="id_ps" value="{{ $kurikulum->id_ps }}">
+
                 </div>
 
-                {{-- input tahun kurikulum --}}
+                {{-- Edit tahun kurikulum --}}
                 <div>
                     <label for="tahun" class="mb-1 font-semibold text-gray-700">Tahun Kurikulum:</label>
                     @error('tahun')
                         {{$message}}
                     @enderror
-                    <input class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300" type="text" id="tahun" name="tahun" required>
+                    <input value="{{ $kurikulum->tahun }}" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300" type="text" id="tahun" name="tahun" required>
                 </div>
 
-                {{-- Tombol Submit --}}
+                {{-- Tombol Simpan --}}
                 <div>
                     <button type="submit" class="px-4 py-2 bg-yellow-300 text-black rounded hover:bg-yellow-600">Simpan</button>
                 </div>

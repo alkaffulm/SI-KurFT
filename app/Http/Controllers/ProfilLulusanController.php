@@ -16,7 +16,7 @@ class ProfilLulusanController extends Controller
     {
         $profil_lulusan = ProfilLulusanModel::all();
         
-        return view('profilLulusan(test)', ['profil_lulusan' => $profil_lulusan] );
+        return view('profilLulusan', ['profil_lulusan' => $profil_lulusan] );
     }
 
     /**
@@ -26,7 +26,7 @@ class ProfilLulusanController extends Controller
     {
         $program_studi = ProgramStudiModel::all();
 
-        return view('form.PL.profilLulusanFormAdd(test)', ['program_studi' => $program_studi]);
+        return view('form.PL.profilLulusanFormAdd', ['program_studi' => $program_studi]);
     }
 
     /**
@@ -54,7 +54,7 @@ class ProfilLulusanController extends Controller
     {
         $program_studi = ProgramStudiModel::all();
 
-        return view('form.PL.profilLulusanFormEdit(test)', ['profil_lulusan' => $profil_lulusan, 'program_studi' => $program_studi]);
+        return view('form.PL.profilLulusanFormEdit', ['profil_lulusan' => $profil_lulusan, 'program_studi' => $program_studi]);
     }
 
     /**

@@ -3,38 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabel CPMK</title>
+    <title>Tabel BK</title>
 </head>
 <body>
 
-    <h2>Tabel CPMK</h2>
+    <h2>Tabel Bahan Kajian</h2>
 
-    <a href="/cpmk/create">Tambah </a>
+    <a href="{{ route('bahan-kajian.create') }}">Tambah </a>
 
     <table border="1" cellpadding="5"> 
         <tr>
-            <th>id CPMK</th>
+            <th>id BK</th>
             <th>aksi</th>
-            <th>Nama Matkul</th>
-            <th>Nama CPMK</th>
-            <th>Kode CPMK</th>
+            <th>Nama BK</th>
+            <th>Kategori</th>
             <th>Deskripsi</th>
         </tr>
-        @foreach ($cpmk as $cp )
+        @foreach ($bahan_kajian as $bk )
             <tr>
-                <td>{{$cp->id_cpmk}}</td>
+                <td>{{ $bk->id_bk }}</td>
                 <td>
-                   <form action="/cpmk/{{ $cp->id_cpmk }}" method="POST">
+                   <form action="{{ route('bahan-kajian.destroy', $bk) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Hapus</button>
                     </form> 
-                    | <a href="/cpmk/{{$cp->id_cpmk}}/edit">Edit</a>
+                    | <a href="{{ route('bahan-kajian.edit', $bk) }}">Edit</a>
                 </td>
-                <td>{{$cp->matakuliah->nama_matkul}}</td>
-                <td>{{$cp->nama_kode_cpmk}}</td>
-                <td>{{$cp->kode_cpmk}}</td>
-                <td>{{$cp->desc}}</td>
+                <td>{{ $bk->nama_bk }}</td>
+                <td>{{ $bk->kategori }}</td>
+                <td>{{ $bk->desc }}</td>
             </tr>
         @endforeach
     </table>

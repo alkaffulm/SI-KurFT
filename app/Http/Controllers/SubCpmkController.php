@@ -15,7 +15,8 @@ class SubCpmkController extends Controller
     public function index()
     {
         $sub_cpmk = SubCPMKModel::all();
-        return view('subCpmk(test)', ['sub_cpmk' => $sub_cpmk] );
+        dd(session()->get('userRole'));
+        return view('subCpmk', ['sub_cpmk' => $sub_cpmk] );
     }
 
     /**
@@ -24,7 +25,7 @@ class SubCpmkController extends Controller
     public function create()
     {
         $cpmk = CPMKModel::all();
-        return view('form.subCPMK.subCpmkFormAdd(test)', ['cpmk' => $cpmk]);
+        return view('form.subCPMK.subCpmkFormAdd', ['cpmk' => $cpmk]);
     }
 
     /**
@@ -51,7 +52,7 @@ class SubCpmkController extends Controller
     public function edit(SubCPMKModel $sub_cpmk)
     {
         $cpmk = CPMKModel::all();
-        return view('form.subCPMK.subCpmkFormEdit(test)', ['cpmk' => $cpmk, 'sub_cpmk' => $sub_cpmk]);
+        return view('form.subCPMK.subCpmkFormEdit', ['cpmk' => $cpmk, 'sub_cpmk' => $sub_cpmk]);
     }
 
     /**

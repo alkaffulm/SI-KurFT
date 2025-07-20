@@ -7,31 +7,26 @@
 </head>
 <body>
 
-    <h2>Form Input Profil Lulusan</h2>
+    <h2>Form Input Bahan Kajian</h2>
 
-    <form action="/profil-lulusan" method="POST">
+    <form action={{ route('bahan-kajian.store') }} method="POST">
         @csrf
         <div>
-            <label for="id_ps">Nama Program Studi:</label><br>
-            @error('id_ps')
+            <label for="nama_bk">Nama Bahan Kajian:</label><br>
+            @error('nama_bk')
                 {{$message}}
             @enderror
-            <select name="id_ps" id="id_ps">
-                @foreach ( $program_studi as $ps )
-                    <option value="{{$ps->id_ps}}">{{$ps->nama_prodi}}</option>
-                @endforeach
-            </select>
+            <input type="text" id="nama_bk" name="nama_bk" required>
         </div>
         <br>
         <div>
-            <label for="profil_lulusan">Profil Lulusan:</label><br>
-            @error('profil_lulusan')
+            <label for="kategori">Kategori:</label><br>
+            @error('kategori')
                 {{$message}}
             @enderror
-            <input type="text" id="profil_lulusan" name="profil_lulusan" required>
+            <input type="text" id="kategori" name="kategori" required>
         </div>
         <br>
-
         <div>
             <label for="desc">Deskripsi:</label><br>
             @error('desc')

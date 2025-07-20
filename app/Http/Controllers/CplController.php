@@ -16,7 +16,7 @@ class CplController extends Controller
     public function index()
     {
         $cpl = CPLModel::all();
-        return view('cpl(test)', ['cpl' => $cpl]);
+        return view('cpl', ['cpl' => $cpl]);
     }
 
     /**
@@ -26,7 +26,7 @@ class CplController extends Controller
     {
         $program_studi = ProgramStudiModel::all();
         $kurikulum =KurikulumModel::all();
-        return view('form.cpl.cplFormAdd(test)', ['program_studi' => $program_studi, 'kurikulum' => $kurikulum]);
+        return view('form.cpl.cplFormAdd', ['program_studi' => $program_studi, 'kurikulum' => $kurikulum]);
     }
 
     /**
@@ -54,7 +54,7 @@ class CplController extends Controller
     {
         $program_studi = ProgramStudiModel::all();
         $kurikulum =KurikulumModel::all();
-        return view('form.cpl.cplFormEdit(test)', ['cpl' => $cpl ,'program_studi' => $program_studi, 'kurikulum' => $kurikulum]);
+        return view('form.cpl.cplFormEdit', ['cpl' => $cpl ,'program_studi' => $program_studi, 'kurikulum' => $kurikulum]);
     }
 
     /**

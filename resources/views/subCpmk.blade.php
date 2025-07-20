@@ -9,7 +9,7 @@
 
     <h2>Tabel Sub CPMK</h2>
 
-    <a href="/sub-cpmk/create">Tambah </a>
+    <a href="{{ route('sub-cpmk.create') }}">Tambah </a>
 
     <table border="1" cellpadding="5"> 
         <tr>
@@ -25,12 +25,12 @@
             <tr>
                 <td>{{$scp->id_sub_cpmk}}</td>
                 <td>
-                   <form action="/sub-cpmk/{{ $scp->id_sub_cpmk }}" method="POST">
+                   <form action="{{ route('sub-cpmk.destroy', $scp) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Hapus</button>
                     </form> 
-                    | <a href="/sub-cpmk/{{$scp->id_sub_cpmk}}/edit">Edit</a>
+                    | <a href="{{ route('sub-cpmk.edit', $scp) }}">Edit</a>
                 </td>
                 <td>{{$scp->cpmk?->nama_kode_cpmk ?? '-'}}</td>
                 <td>{{$scp?->id_cpmk ?? '-'}}</td>

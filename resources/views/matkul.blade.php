@@ -9,7 +9,7 @@
 
     <h2>Tabel Mata Kuliah</h2>
 
-    <a href="/mata-kuliah/create">Tambah </a>
+    <a href="{{ route('mata-kuliah.create') }}">Tambah </a>
 
     <table border="1" cellpadding="5"> 
         <tr>
@@ -24,12 +24,12 @@
             <tr>
                 <td>{{$mk->id_mk}}</td>
                 <td>
-                   <form action="/mata-kuliah/{{ $mk->id_mk }}" method="POST">
+                   <form action="{{ route('mata-kuliah.destroy', $mk) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Hapus</button>
                     </form> 
-                    | <a href="/mata-kuliah/{{$mk->id_mk}}/edit">Edit</a>
+                    | <a href="{{ route('mata-kuliah.edit', $mk) }}">Edit</a>
                 </td>
                 {{-- <td>{{$mk->cpmk?->nama_kode_cpmk ?? '-'}}</td>
                 <td>{{$mk?->id_cpmk ?? '-'}}</td> --}}

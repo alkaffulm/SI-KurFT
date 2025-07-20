@@ -8,7 +8,7 @@
 <body>
 
     <h2>Form Edit CPL</h2>
-    <form action="/cpl/{{$cpl->id_cpl}}" method="POST">
+    <form action=" {{ route('cpl.update', $cpl) }} " method="POST">
         @csrf
         @method('PUT')
         <div>

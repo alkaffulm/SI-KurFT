@@ -9,7 +9,7 @@
 
     <h2>Form Edit Mata Kuliah</h2>
 
-    <form action="/mata-kuliah/{{$mata_kuliah->id_mk}}" method="POST">
+    <form action="{{ route('mata-kuliah.update', $mata_kuliah) }}" method="POST">
         @csrf
         @method('PUT')
         <div>

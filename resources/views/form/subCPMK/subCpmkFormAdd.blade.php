@@ -7,34 +7,34 @@
 </head>
 <body>
 
-    <h2>Form Input CPMK</h2>
+    <h2>Form Input Sub CPMK</h2>
 
-    <form action="/cpmk" method="POST">
+    <form action="{{ route('sub-cpmk.store') }}" method="POST">
         @csrf
         <div>
-            <label for="nama_kode_cpmk">Nama CPMK:</label><br>
-            @error('nama_kode_cpmk')
+            <label for="nama_kode_sub_cpmk">Nama Sub CPMK:</label><br>
+            @error('nama_kode_sub_cpmk')
                 {{$message}}
             @enderror
-            <input type="text" id="nama_kode_cpmk" name="nama_kode_cpmk" required>
+            <input type="text" id="nama_kode_sub_cpmk" name="nama_kode_sub_cpmk" required>
         </div>
         <br>
         <div>
-            <label for="kode_cpmk">Kode CPMK:</label><br>
-            @error('kode_cpmk')
+            <label for="kode_sub_cpmk">Kode Sub CPMK:</label><br>
+            @error('kode_sub_cpmk')
                 {{$message}}
             @enderror
-            <input type="text" id="kode_cpmk" name="kode_cpmk" required>
+            <input type="text" id="kode_sub_cpmk" name="kode_sub_cpmk" required>
         </div>
         <br>
         <div>
-            <label for="id_mk">ID Matkul:</label><br>
-            @error('id_mk')
+            <label for="id_cpmk">ID CPMK:</label><br>
+            @error('id_cpmk')
                 {{$message}}
             @enderror
-            <select name="id_mk" id="id_mk">
-                @foreach ( $mata_kuliah as $mk )
-                    <option value="{{$mk->id_mk}}">{{$mk->nama_matkul}}</option>
+            <select name="id_cpmk" id="id_cpmk">
+                @foreach ( $cpmk as $c )
+                    <option value="{{$c->id_cpmk}}">{{$c->nama_kode_cpmk}}</option>
                 @endforeach
             </select>
         </div>

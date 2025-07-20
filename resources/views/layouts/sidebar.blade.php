@@ -64,6 +64,47 @@
                 </li>
             @endif
 
+            @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
+                <li>
+                    <a href="https://tr.rbxcdn.com/180DAY-f07b6e1059ccdfacb84e8598c55fbf97/1024/1024/Hat/Webp/noFilter" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">PEO</a>
+                </li>
+            @endif
+
+            @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
+                <li>
+                    <a href="{{route('profil-lulusan.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">Profil Lulusan</a>
+                </li>
+            @endif
+
+            @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
+                <li>
+                    <a href="{{route('cpl.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">CPL</a>
+                </li>
+            @endif
+
+            @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
+                <li>
+                    <a href="{{route('mata-kuliah.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">Mata Kuliah</a>
+                </li>
+            @endif            
+
+            @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
+                <li>
+                    <a href="{{route('cpmk.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">CPMK</a>
+                </li>
+            @endif
+
+            @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
+                <li>
+                    <a href="{{route('bahan-kajian.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">Bahan Kajian</a>
+                </li>
+            @endif
+
+            @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
+                <li>
+                    <a href="{{route('sub-cpmk.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">Sub CPMK</a>
+                </li>
+            @endif
         </ul>
     </div>
 </aside>

@@ -15,7 +15,7 @@ class KurikulumController extends Controller
         $userRole = $request->session()->get('userRole', 'dosen');
         $programStudi = ProgramStudiModel::all();
 
-        return view('kurikulum(test)', [
+        return view('kurikulum', [
             'kurikulum' => $kurikulum,
             'userRole' => $userRole,
             'programStudi' => $programStudi
@@ -27,7 +27,7 @@ class KurikulumController extends Controller
         $userRole = $request->session()->get('userRole', 'dosen');
         $programStudi = ProgramStudiModel::all();
 
-        return view('form.Kurikulum.kurikulumAdd(test)', [
+        return view('form.Kurikulum.kurikulumAdd', [
             'userRole' => $userRole,
             'programStudi' => $programStudi
         ]);
@@ -45,7 +45,7 @@ class KurikulumController extends Controller
         $programStudi = ProgramStudiModel::all();
         $userRole = $request->session()->get('userRole', 'dosen');
 
-        return view('form.Kurikulum.kurikulumEdit(test)', [
+        return view('form.Kurikulum.kurikulumEdit', [
             'kurikulum' => $kurikulum,
             'programStudi' => $programStudi,
             'userRole' => $request->session()->get('userRole', 'dosen'),

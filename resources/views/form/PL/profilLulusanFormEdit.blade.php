@@ -9,7 +9,7 @@
 
     <h2>Form Edit Profil Lulusan</h2>
 
-    <form action="/profil-lulusan/{{$profil_lulusan->id_pl}}" method="POST">
+    <form action="{{ route('profil-lulusan.update', $profil_lulusan) }}" method="POST">
         @csrf
         @method('PUT')
         <div>

@@ -7,16 +7,17 @@
 </head>
 <body>
 
-    <h2>Form Input Sub CPMK</h2>
+    <h2>Form Edit Sub CPMK</h2>
 
-    <form action="/sub-cpmk" method="POST">
+    <form action="{{ route('sub-cpmk.update', $sub_cpmk) }}" method="POST">
         @csrf
+        @method('PUT')
         <div>
             <label for="nama_kode_sub_cpmk">Nama Sub CPMK:</label><br>
             @error('nama_kode_sub_cpmk')
                 {{$message}}
             @enderror
-            <input type="text" id="nama_kode_sub_cpmk" name="nama_kode_sub_cpmk" required>
+            <input type="text" id="nama_kode_sub_cpmk" name="nama_kode_sub_cpmk" value="{{ old('nama_kode_sub_cpmk', $sub_cpmk->nama_kode_sub_cpmk)}}" required>
         </div>
         <br>
         <div>
@@ -24,7 +25,7 @@
             @error('kode_sub_cpmk')
                 {{$message}}
             @enderror
-            <input type="text" id="kode_sub_cpmk" name="kode_sub_cpmk" required>
+            <input type="text" id="kode_sub_cpmk" name="kode_sub_cpmk"  value="{{ old('kode_sub_cpmk', $sub_cpmk->kode_sub_cpmk)}}" required>
         </div>
         <br>
         <div>
@@ -34,7 +35,7 @@
             @enderror
             <select name="id_cpmk" id="id_cpmk">
                 @foreach ( $cpmk as $c )
-                    <option value="{{$c->id_cpmk}}">{{$c->nama_kode_cpmk}}</option>
+                    <option value="{{$c->id_cpmk}}" {{ old('id_cpmk', $sub_cpmk->id_cpmk) == $c->id_cpmk ? 'selected' : '' }}>{{$c->nama_kode_cpmk}}</option>
                 @endforeach
             </select>
         </div>
@@ -44,11 +45,11 @@
             @error('desc')
                 {{$message}}
             @enderror
-            <textarea id="desc" name="desc" rows="4" cols="50" required></textarea>
+            <textarea id="desc" name="desc" rows="4" cols="50" required>{{ old('desc', $sub_cpmk->desc)}}</textarea>
         </div>
         <br>
         <div>
-            <button type="submit">Kirim</button>
+            <button type="submit">update</button>
         </div>
     </form>
 

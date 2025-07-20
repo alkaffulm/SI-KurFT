@@ -9,7 +9,7 @@
 
     <h2>Tabel Profil Lulusan</h2>
 
-    <a href="/profil-lulusan/create">Tambah </a>
+    <a href="{{ route('profil-lulusan.create') }}">Tambah </a>
 
     <table border="1" cellpadding="5"> 
         <tr>
@@ -23,12 +23,12 @@
             <tr>
                 <td>{{$pl->id_pl}}</td>
                 <td>
-                   <form action="/profil-lulusan/{{ $pl->id_pl }}" method="POST">
+                   <form action="{{ route('profil-lulusan.destroy', $pl) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Hapus</button>
                     </form> 
-                    | <a href="/profil-lulusan/{{$pl->id_pl}}/edit">Edit</a>
+                    | <a href="{{ route('profil-lulusan.edit', $pl) }}">Edit</a>
                 </td>
                 <td>{{$pl->programstudi->nama_prodi}}</td>
                 <td>{{$pl->profil_lulusan}}</td>

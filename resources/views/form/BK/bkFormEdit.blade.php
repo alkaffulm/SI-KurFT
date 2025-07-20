@@ -7,16 +7,17 @@
 </head>
 <body>
 
-    <h2>Form Input Bahan Kajian</h2>
+    <h2>Form Edit Bahan Kajian</h2>
 
-    <form action="/bahan-kajian" method="POST">
+    <form action="{{ route('bahan-kajian.update', $bahan_kajian) }}" method="POST">
         @csrf
+        @method('PUT')
         <div>
             <label for="nama_bk">Nama Bahan Kajian:</label><br>
             @error('nama_bk')
                 {{$message}}
             @enderror
-            <input type="text" id="nama_bk" name="nama_bk" required>
+            <input type="text" id="nama_bk" name="nama_bk" value="{{ old('nama_bk', $bahan_kajian->nama_bk)}}" required>
         </div>
         <br>
         <div>
@@ -24,7 +25,7 @@
             @error('kategori')
                 {{$message}}
             @enderror
-            <input type="text" id="kategori" name="kategori" required>
+            <input type="text" id="kategori" name="kategori" value="{{ old('kategori', $bahan_kajian->kategori)}}" required>
         </div>
         <br>
         <div>
@@ -32,11 +33,11 @@
             @error('desc')
                 {{$message}}
             @enderror
-            <textarea id="desc" name="desc" rows="4" cols="50" required></textarea>
+            <textarea id="desc" name="desc" rows="4" cols="50" required>{{ old('kategori', $bahan_kajian->kategori)}}</textarea>
         </div>
         <br>
         <div>
-            <button type="submit">Kirim</button>
+            <button type="submit">update</button>
         </div>
     </form>
 
