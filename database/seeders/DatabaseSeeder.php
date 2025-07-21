@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             BahanKajianSeeder::class,             // 4
             RubrikAnalitikSeeder::class,          // 5
             TeknikPenilaianSeeder::class,         // 6
+            PEOSeeder::class,                     // 28
             
             //  B. Level 1 Dependency
             UserSeeder::class,                    // 7
