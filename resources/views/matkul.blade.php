@@ -4,46 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabel Mata Kuliah</title>
+    @vite('resources/css/app.css')
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 </head>
 <body>
 
-    <h2>Tabel Mata Kuliah</h2>
+    @include('layouts.navbar', ['userRole' => $userRole])
 
-    <a href="{{ route('mata-kuliah.create') }}">Tambah </a>
+    @include('layouts.sidebar', ['userRole' => $userRole])
 
-    <table border="1" cellpadding="5"> 
-        <tr>
-            <th>ID Mata Kuliah</th>
-            <th>aksi</th>
-            <th>ID Program Studi</th>
-            <th>Nama Mata Kuliah</th>
-            <th>Jumlah SKS</th>
-            <th>Semester</th>
-        </tr>
-        @foreach ($mata_kuliah as $mk )
+    <div class="ml-72 mx-8 mt-24"> 
+        <h2>Tabel Mata Kuliah</h2>
+
+        <a href="{{ route('mata-kuliah.create') }}">Tambah </a>
+
+        <table border="1" cellpadding="5"> 
             <tr>
-                <td>{{$mk->id_mk}}</td>
-                <td>
-                   <form action="{{ route('mata-kuliah.destroy', $mk) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Hapus</button>
-                    </form> 
-                    | <a href="{{ route('mata-kuliah.edit', $mk) }}">Edit</a>
-                </td>
-                {{-- <td>{{$mk->cpmk?->nama_kode_cpmk ?? '-'}}</td>
-                <td>{{$mk?->id_cpmk ?? '-'}}</td> --}}
-                <td>{{$mk->programstudi->nama_prodi}}</td>
-                <td>{{$mk->nama_matkul}}</td>
-                <td>{{$mk->jumlah_sks}}</td>
-                <td>{{$mk->semester}}</td>
+                <th class="border-2">Kode MK</th>
+                <th class="border-2">aksi</th>
+                <th class="border-2">Nama MK</th>
             </tr>
-        @endforeach
-    </table>
+            @foreach ($mata_kuliah as $mk )
+                <tr>
+                    <td class="border-2">{{$mk->id_mk}}</td>
+                    <td class="border-2">
+                    <form action="{{ route('mata-kuliah.destroy', $mk) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Hapus</button>
+                        </form> 
+                        | <a href="{{ route('mata-kuliah.edit', $mk) }}">Edit</a>
+                    </td>
+                    {{-- <td>{{$mk->cpmk?->nama_kode_cpmk ?? '-'}}</td>
+                    <td>{{$mk?->id_cpmk ?? '-'}}</td> --}}
+                    <td class="border-2">{{$mk->nama_matkul}}</td>
+                </tr>
+            @endforeach
+        </table>
+    </div>
 
-    <script>
+
+
+    {{-- <script>
         alert("{{session('success')}}");
-    </script>
+    </script> --}}
     
 </body>
 </html>

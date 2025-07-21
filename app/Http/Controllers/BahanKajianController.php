@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class BahanKajianController extends Controller
 {
+    public function __construct()
+    {
+        $userRole = session()->get('userRole');
+
+        return view()->share('userRole', $userRole);
+    }
     /**
      * Display a listing of the resource.
      */

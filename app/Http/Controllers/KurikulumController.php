@@ -9,26 +9,29 @@ use Illuminate\Http\Request;
 
 class KurikulumController extends Controller
 {
+    public function __construct()
+    {
+        $userRole = session()->get('userRole');
+
+        return view()->share('userRole', $userRole);
+    }
+
     public function index(Request $request)
     {
         $kurikulum = KurikulumModel::all();
-        $userRole = $request->session()->get('userRole', 'dosen');
         $programStudi = ProgramStudiModel::all();
 
         return view('kurikulum', [
             'kurikulum' => $kurikulum,
-            'userRole' => $userRole,
             'programStudi' => $programStudi
         ]);
     }
 
     public function create(Request $request)
     {
-        $userRole = $request->session()->get('userRole', 'dosen');
         $programStudi = ProgramStudiModel::all();
 
         return view('form.Kurikulum.kurikulumAdd', [
-            'userRole' => $userRole,
             'programStudi' => $programStudi
         ]);
     }
@@ -43,12 +46,10 @@ class KurikulumController extends Controller
     public function edit(KurikulumModel $kurikulum, Request $request)
     {
         $programStudi = ProgramStudiModel::all();
-        $userRole = $request->session()->get('userRole', 'dosen');
 
         return view('form.Kurikulum.kurikulumEdit', [
             'kurikulum' => $kurikulum,
             'programStudi' => $programStudi,
-            'userRole' => $request->session()->get('userRole', 'dosen'),
         ]);
     }
 

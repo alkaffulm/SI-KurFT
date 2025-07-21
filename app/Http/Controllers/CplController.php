@@ -10,12 +10,19 @@ use Illuminate\Http\Request;
 
 class CplController extends Controller
 {
+    public function __construct()
+    {
+        $userRole = session()->get('userRole');
+
+        return view()->share('userRole', $userRole);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $cpl = CPLModel::all();
+        
         return view('cpl', ['cpl' => $cpl]);
     }
 

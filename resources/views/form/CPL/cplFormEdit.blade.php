@@ -4,64 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Input Buku</title>
+    @vite('resources/css/app.css')
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 </head>
 <body>
+    @include('layouts.navbar', ['userRole' => $userRole])
 
-    <h2>Form Edit CPL</h2>
-    <form action=" {{ route('cpl.update', $cpl) }} " method="POST">
-        @csrf
-        @method('PUT')
-        <div>
-            <label for="nama_kode_cpl">Kode CPL:</label><br>
-            @error('nama_kode_cpl')
-                {{$message}}
-            @enderror
-            <input type="text" id="nama_kode_cpl" name="nama_kode_cpl" value="{{ old('nama_kode_cpl', $cpl->nama_kode_cpl)}}" required>
-        </div>
-        <br>
-        <div>
-            <label for="id_ps">ID Prodi:</label><br>
-            @error('id_ps')
-                {{$message}}
-            @enderror
-            <select name="id_ps" id="id_ps">
-                @foreach ( $program_studi as $ps )
-                    <option value="{{$ps->id_ps}}" {{ old('id_ps', $cpl->id_ps) == $ps->id_ps ? 'selected' : '' }}>{{$ps->nama_prodi}}</option>
-                @endforeach
-            </select>
-        </div>
-        <br>
-        <div>
-            <label for="id_kurikulum">ID Kurikulum:</label><br>
-            @error('id_kurikulum')
-                {{$message}}
-            @enderror
-            <select name="id_kurikulum" id="id_kurikulum">
-                @foreach ( $kurikulum as $krk )
-                    <option value="{{$krk->id_kurikulum}}" {{ old('id_ps', $cpl->id_kurikulum) == $krk->id_kurikulum ? 'selected' : '' }}>{{$krk->tahun}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div>
-            <label for="bobot_maksimum">Bobot Maksimum:</label><br>
-            @error('bobot_maksimum')
-                {{$message}}
-            @enderror
-            <input type="text" id="bobot_maksimum" name="bobot_maksimum" value="{{ old('bobot_maksimum', $cpl->bobot_maksimum)}}" required>
-        </div>
-        <br>
-        <div>
-            <label for="desc">Deskripsi:</label><br>
-            @error('desc')
-                {{$message}}
-            @enderror
-            <textarea id="desc" name="desc" rows="4" cols="50" required>{{ old('desc', $cpl->desc)}}</textarea>
-        </div>
-        <br>
-        <div>
-            <button type="submit">update</button>
-        </div>
-    </form>
+    @include('layouts.sidebar', ['userRole' => $userRole])
+
+    <div class="ml-72 mx-8 mt-24">
+        <h2 class="text-2xl font-bold">Form Edit CPL</h2>
+        <form action=" {{ route('cpl.update', $cpl) }} " method="POST">
+            @csrf
+            @method('PUT')
+            <div>
+                <label for="nama_kode_cpl">Kode CPL:</label><br>
+                @error('nama_kode_cpl')
+                    {{$message}}
+                @enderror
+                <input type="text" id="nama_kode_cpl" name="nama_kode_cpl" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{ old('nama_kode_cpl', $cpl->nama_kode_cpl)}}" required>
+            </div>
+            <br>
+            <div>
+                <label for="id_ps">ID Prodi:</label><br>
+                @error('id_ps')
+                    {{$message}}
+                @enderror
+                <select name="id_ps" id="id_ps" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2">
+                    @foreach ( $program_studi as $ps )
+                        <option value="{{$ps->id_ps}}" {{ old('id_ps', $cpl->id_ps) == $ps->id_ps ? 'selected' : '' }}>{{$ps->nama_prodi}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <br>
+            <div>
+                <label for="id_kurikulum">ID Kurikulum:</label><br>
+                @error('id_kurikulum')
+                    {{$message}}
+                @enderror
+                <select name="id_kurikulum" id="id_kurikulum" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2">
+                    @foreach ( $kurikulum as $krk )
+                        <option value="{{$krk->id_kurikulum}}" {{ old('id_ps', $cpl->id_kurikulum) == $krk->id_kurikulum ? 'selected' : '' }}>{{$krk->tahun}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <label for="bobot_maksimum">Bobot Maksimum:</label><br>
+                @error('bobot_maksimum')
+                    {{$message}}
+                @enderror
+                <input type="text" id="bobot_maksimum" name="bobot_maksimum" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{ old('bobot_maksimum', $cpl->bobot_maksimum)}}" required>
+            </div>
+            <br>
+            <div>
+                <label for="desc">Deskripsi:</label><br>
+                @error('desc')
+                    {{$message}}
+                @enderror
+                <textarea id="desc" name="desc" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{ old('desc', $cpl->desc)}}</textarea>
+            </div>
+            <br>
+            <div>
+                <button type="submit" class="inline-flex items-center px-5 py-2 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">update</button>
+            </div>
+        </form>
+    </div>
 
 </body>
 </html>

@@ -4,10 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Input Buku</title>
+    @vite('resources/css/app.css')
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 </head>
 <body>
 
-    <h2>Form Edit CPMK</h2>
+    @include('layouts.navbar', ['userRole' => $userRole])
+
+    @include('layouts.sidebar', ['userRole' => $userRole])
+
+    <div class="ml-72 mx-8 mt-24">
+
+    <h2 class="text-2xl font-bold">Form Edit CPMK</h2>
     <form action="{{ route('cpmk.update', $cpmk) }}" method="POST">
         @csrf
         @method('PUT')

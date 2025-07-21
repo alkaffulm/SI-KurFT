@@ -4,7 +4,7 @@
         <ul class="space-y-2 font-medium">
             {{-- Menu untuk semua role --}}
             <li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                <a href="/dashboard" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                     <svg class="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M10 2.5a.75.75 0 0 1 .75.75v.755a3 3 0 0 1 4.5 0v-.755a.75.75 0 0 1 1.5 0v.755a4.5 4.5 0 0 1 1.977 3.037.75.75 0 0 1-1.494.116 3 3 0 0 0-5.966 0 .75.75 0 0 1-1.494-.116A4.5 4.5 0 0 1 8.5 4v-.75A.75.75 0 0 1 10 2.5Z">
@@ -20,7 +20,7 @@
             {{-- Menu khusus Kaprodi & Pimpinan --}}
             @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                    <a href="{{route('kurikulum.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                         <svg class="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
                             <path
                                 d="M12.75 2.75a.75.75 0 0 0-1.5 0v1.5h-1.5a.75.75 0 0 0 0 1.5h1.5v1.5a.75.75 0 0 0 1.5 0v-1.5h1.5a.75.75 0 0 0 0-1.5h-1.5v-1.5Z">
@@ -100,11 +100,6 @@
                 </li>
             @endif
 
-            @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
-                <li>
-                    <a href="{{route('sub-cpmk.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">Sub CPMK</a>
-                </li>
-            @endif
         </ul>
     </div>
 </aside>

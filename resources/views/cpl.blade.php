@@ -4,44 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabel CPL</title>
+    @vite('resources/css/app.css')
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 </head>
 <body>
 
-    <h2>Tabel Capaian Profil Lulusan</h2>
+    @include('layouts.navbar', ['userRole' => $userRole])
 
-    <a href="{{ route('cpl.create') }}">Tambah</a>
+    @include('layouts.sidebar', ['userRole' => $userRole])
 
-    <table border="1" cellpadding="5"> 
-        <tr>
-            <th>id CPL</th>
-            <th>aksi</th>
-            <th>ID Prodi</th>
-            <th>Kode CPL</th>
-            <th>Desc</th>
-            <th>Bobot Maksimum</th>
-        </tr>
-        @foreach ($cpl as $c )
+    <div class="ml-72 mx-8 mt-24"> 
+        
+    </div>
+
+    <div class="ml-72 mx-8 mt-24"> 
+        <h2>Capaian Profil Lulusan (CPL)</h2>
+    
+        <a href="{{ route('cpl.create') }}">Tambah</a>
+    
+    
+        <table border="1" cellpadding="5"> 
             <tr>
-                <td>{{ $c->id_cpl }}</td>
-                <td>
-                   <form action="{{ route('cpl.destroy', $c) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Hapus</button>
-                    </form> 
-                    | <a href="{{ route('cpl.edit', $c) }}">Edit</a>
-                </td>
-                <td>{{ $c->programstudi->nama_prodi }}</td>
-                <td>{{ $c->nama_kode_cpl }}</td>
-                <td>{{ $c->desc }}</td>
-                <td>{{ $c->bobot_maksimum }}</td>
+                <th class="border-2">id CPL</th>
+                <th class="border-2">aksi</th>
+                <th class="border-2">Deskripsi CPL</th>
             </tr>
-        @endforeach
-    </table>
+            @foreach ($cpl as $c )
+                <tr>
+                    <td class="border-2">{{ $c->id_cpl }}</td>
+                    <td class="border-2">
+                       <form action="{{ route('cpl.destroy', $c) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Hapus</button>
+                        </form> 
+                        | <a href="{{ route('cpl.edit', $c) }}">Edit</a>
+                    </td>
+                    <td class="border-2">{{ $c->desc }}</td>
+                </tr>
+            @endforeach
+        </table> 
+    </div>
 
-    <script>
+    {{-- <script>
         alert("{{session('success')}}");
-    </script>
+    </script> --}}
     
 </body>
 </html>

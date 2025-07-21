@@ -6,17 +6,26 @@ use App\Http\Requests\StoreCPLRequest;
 use App\Http\Requests\StoreCPMKRequest;
 use App\Models\CPMKModel;
 use App\Models\MataKuliahModel;
+use App\Models\SubCPMKModel;
 use Illuminate\Http\Request;
 
 class CpmkController extends Controller
 {
+    public function __construct()
+    {
+        $userRole = session()->get('userRole');
+
+        return view()->share('userRole', $userRole);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $cpmk = CPMKModel::all();
-        return view('cpmk', ['cpmk' => $cpmk]);
+        $subCpmk = SubCPMKModel::all();
+        return view('cpmk', ['cpmk' => $cpmk, 'sub_cpmk' => $subCpmk]);
     }
 
     /**
