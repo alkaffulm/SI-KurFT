@@ -37,20 +37,19 @@ class DatabaseSeeder extends Seeder
             
             //  D. Level 3+ Dependency
             SubCpmkSeeder::class,                 // 16
-            RpsDetailSeeder::class,               // 17
-            PenilaianSeeder::class,               // 18
+            PenilaianSeeder::class,               // 17
             
             // E. Tabel Mapping
-            CpmkCplMapSeeder::class,              // 19
-            MataKuliahCmpkMapSeeder::class,       // 20
-            UserMataKuliahMapSeeder::class,       // 21
-            PlCplMapSeeder::class,                // 22
-            MahasiswaMataKuliahMapSeeder::class,  // 23
-            MahasiswaCplMapSeeder::class,         // 24
-            BkMkMapSeeder::class,                 // 25
-            BkCplMapSeeder::class,                // 26
-            MkCplMapSeeder::class,                // 27
-            TpCpmkMapSeeder::class,               // 28 
+            CpmkCplMapSeeder::class,              // 18
+            MataKuliahCmpkMapSeeder::class,       // 19
+            UserMataKuliahMapSeeder::class,       // 20
+            PlCplMapSeeder::class,                // 21
+            MahasiswaMataKuliahMapSeeder::class,  // 22
+            MahasiswaCplMapSeeder::class,         // 23
+            BkMkMapSeeder::class,                 // 24
+            BkCplMapSeeder::class,                // 25
+            MkCplMapSeeder::class,                // 26
+            TpCpmkMapSeeder::class,               // 27 
         ]);
     }
 }

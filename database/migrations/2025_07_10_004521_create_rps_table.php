@@ -17,6 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_mk');
             $table->integer('tahun');
             $table->string('file_path');
+            $table->integer('minggu');
+            $table->decimal('penilaian');
+            $table->decimal('bobot');
 
             $table->foreign('id_user')->references('id_user')->on('user')->onDelete('cascade');
             $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah')->onDelete('cascade');
