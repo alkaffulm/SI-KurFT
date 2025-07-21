@@ -15,17 +15,17 @@ class PenilaianSeeder extends Seeder
         $penilaianData = [];
         $id = 1;
 
-        for ($id_rps_detail = 1; $id_rps_detail <= 135; $id_rps_detail++) {
+        for ($id_rps = 1; $id_rps<= 45; $id_rps++) {
             $penilaianData[] = [
                 'id_penilaian' => $id++,
-                'id_rps_detail' => $id_rps_detail,
+                'id_rps' => $id_rps,
                 'jenis_penilaian' => 'Tugas',
                 'bobot' => number_format(rand(10, 30) / 10, 1), // contoh: 1.0 - 3.0
             ];
 
             $penilaianData[] = [
                 'id_penilaian' => $id++,
-                'id_rps_detail' => $id_rps_detail,
+                'id_rps' => $id_rps,
                 'jenis_penilaian' => 'Kuis',
                 'bobot' => number_format(rand(10, 30) / 10, 1),
             ];
