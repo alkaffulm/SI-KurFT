@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('peo', function (Blueprint $table) {
             $table->bigIncrements('id_peo');
             $table->string('kode_peo');
-            $table->string('desc');
-
-            $table->foreign('desc')->references('desc')->on('cpl')->onDelete('cascade');
+            $table->string('desc_peo');
         });
     }
 
