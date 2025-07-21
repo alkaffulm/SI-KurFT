@@ -39,7 +39,7 @@
                 @error('desc')
                     {{$message}}
                 @enderror
-                <textarea id="desc" name="desc" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{ old('kategori', $bahan_kajian->kategori)}}</textarea>
+                <textarea id="desc" name="desc" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{ old('desc', $bahan_kajian->desc)}}</textarea>
             </div>
             <br>
             <div>

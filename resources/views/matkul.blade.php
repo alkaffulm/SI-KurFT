@@ -14,7 +14,7 @@
     @include('layouts.sidebar', ['userRole' => $userRole])
 
     <div class="ml-72 mx-8 mt-24"> 
-        <h2>Tabel Mata Kuliah</h2>
+        <h2 class="text-2xl font-bold">Mata Kuliah</h2>
 
         <a href="{{ route('mata-kuliah.create') }}">Tambah </a>
 

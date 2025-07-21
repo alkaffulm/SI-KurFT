@@ -14,7 +14,7 @@
     @include('layouts.sidebar', ['userRole' => $userRole])
     
     <div class="ml-72 mx-8 mt-24"> 
-        <h2>Bahan Kajian (BK)</h2>
+        <h2 class="text-2xl font-bold">Bahan Kajian (BK)</h2>
 
         <a href="{{ route('bahan-kajian.create') }}">Tambah </a>
 

@@ -15,7 +15,6 @@ class SubCpmkController extends Controller
     public function index()
     {
         $sub_cpmk = SubCPMKModel::all();
-        dd(session()->get('userRole'));
         return view('subCpmk', ['sub_cpmk' => $sub_cpmk] );
     }
 
@@ -35,7 +34,7 @@ class SubCpmkController extends Controller
     {
         SubCPMKModel::create($request->validated());
 
-        return redirect('sub-cpmk')->with('success', 'Sub CPMK berhasil ditambahkan!');
+        return redirect('cpmk')->with('success', 'Sub CPMK berhasil ditambahkan!');
     }
 
     /**
@@ -62,7 +61,7 @@ class SubCpmkController extends Controller
     {
         $sub_cpmk->update($request->validated());
 
-        return redirect('sub-cpmk')->with('success', 'Su CPMK berhasil diperbarui!');
+        return redirect('cpmk')->with('success', 'Su CPMK berhasil diperbarui!');
     }
 
     /**
@@ -72,6 +71,6 @@ class SubCpmkController extends Controller
     {
         $sub_cpmk->delete();
 
-        return redirect('sub-cpmk')->with('success', 'Sub CPMK berhasil dihapus!');
+        return redirect('cpmk')->with('success', 'Sub CPMK berhasil dihapus!');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\CplController;
 use App\Http\Controllers\CpmkController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MatkulController;
+use App\Http\Controllers\PeoController;
 use App\Http\Controllers\ProfilLulusanController;
 use App\Http\Controllers\SubCpmkController;
 use App\Models\MataKuliahModel;
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('mata-kuliah', MatkulController::class);
         Route::resource('profil-lulusan', ProfilLulusanController::class);
         Route::resource('kurikulum', KurikulumController::class);
+        Route::resource('peo', PeoController::class);
     });
 });
 

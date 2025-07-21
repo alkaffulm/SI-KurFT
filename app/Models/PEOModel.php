@@ -10,7 +10,6 @@ class PEOModel extends Model
     protected $primaryKey = 'id_peo';
     public $timestamps = false;
     protected $fillable = [
-        'id_peo',
         'kode_peo',
         'desc_peo',
     ];

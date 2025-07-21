@@ -66,7 +66,7 @@
 
             @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
                 <li>
-                    <a href="" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">PEO</a>
+                    <a href="{{route('peo.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">PEO</a>
                 </li>
             @endif
 
