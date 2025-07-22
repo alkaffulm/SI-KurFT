@@ -7,8 +7,10 @@ use App\Http\Controllers\BahanKajianController;
 use App\Http\Controllers\CplController;
 use App\Http\Controllers\CpmkController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MappingController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\PeoController;
+use App\Http\Controllers\PLPEOMappingController;
 use App\Http\Controllers\ProfilLulusanController;
 use App\Http\Controllers\SubCpmkController;
 use App\Models\MataKuliahModel;
@@ -35,5 +37,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('peo', PeoController::class);
     });
 });
+
+// rute untuk mapping pl peo
+Route::get('/mapping/edit-pl-peo', [PLPEOMappingController::class, 'edit_pl_peo']);
+Route::get('/mapping/edit-pl-peo/edit', [PLPEOMappingController::class, 'edit_pl_peo']);
+Route::get('/mapping/edit-pl-peo', [App\Http\Controllers\PLPEOMappingController::class, 'edit_pl_peo'])->name('pl-peo-mapping.edit');
+Route::put('/mapping/update-pl-peo', [App\Http\Controllers\PLPEOMappingController::class, 'updatePLPEOMap'])->name('pl-peo-mapping.update');
+Route::get('/profil-lulusan', [App\Http\Controllers\ProfilLulusanController::class, 'index'])->name('profil-lulusan.index');
 
 
