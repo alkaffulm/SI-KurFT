@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\kaprodi;
 
+use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreKurikulumRequest;
 use App\Models\KurikulumModel;
 use App\Models\ProgramStudiModel;
@@ -40,7 +41,7 @@ class KurikulumController extends Controller
     {
         KurikulumModel::create($request->validated());
 
-        return redirect('kurikulum')->with('success', "Kurikulum berhasil ditambahkan!");
+        return to_route('kurikulum.index')->with('success', "Kurikulum berhasil ditambahkan!");
     }
 
     public function edit(KurikulumModel $kurikulum, Request $request)
@@ -57,13 +58,13 @@ class KurikulumController extends Controller
     {
         $kurikulum->update($request->validated());
 
-        return redirect('kurikulum')->with('success', "Kurikulum berhasil diperbarui!");
+        return to_route('kurikulum.index')->with('success', "Kurikulum berhasil diperbarui!");
     }
 
     public function destroy(KurikulumModel $kurikulum)
     {
         $kurikulum->delete();
 
-        return redirect('kurikulum')->with("success", 'Kurikulum berhasil dihapus!');
+        return to_route('kurikulum.index')->with("success", 'Kurikulum berhasil dihapus!');
     }
 }

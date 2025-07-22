@@ -14,7 +14,8 @@ class CPMKModel extends Model
         'id_mk',
         'nama_kode_cpmk',
         'kode_cpmk',
-        'desc',
+        'desc_cpmk_id',
+        'desc_cpmk_en'
     ];
 
     /**

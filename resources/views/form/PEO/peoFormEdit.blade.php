@@ -32,7 +32,7 @@
                 @error('desc_peo')
                     {{$message}}
                 @enderror
-                <input type="text" id="desc_peo" name="desc_peo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('desc_peo', $peo->desc_peo)}}" required>
+                <textarea id="desc_peo" name="desc_peo" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{old('desc_peo', $peo->desc_peo)}}</textarea>
             </div>
             <br>
             <div>

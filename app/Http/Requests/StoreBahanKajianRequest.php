@@ -24,7 +24,8 @@ class StoreBahanKajianRequest extends FormRequest
         return [
             'nama_bk' => 'required|string',
             'kategori' => 'required|string',
-            'desc' => 'required|string',
+            'desc_bk_id' => 'required|string',
+            'desc_bk_en' => 'required|string',
         ];
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\kaprodi;
 
+use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreBahanKajianRequest;
 use App\Models\BahanKajianModel;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class BahanKajianController extends Controller
     {
         BahanKajianModel::create($request->validated());
 
-        return redirect('bahan-kajian')->with('success', 'Bahan Kajian baru berhasil ditammbahkan!');
+        return to_route('bahan-kajian.index')->with('success', 'Bahan Kajian baru berhasil ditammbahkan!');
     }
 
     /**
@@ -64,7 +65,7 @@ class BahanKajianController extends Controller
     {
         $bahan_kajian->update($request->validated());
 
-        return redirect('bahan-kajian')->with('success', 'Bahan Kajian berhasil diperbarui!');
+        return to_route('bahan-kajian.index')->with('success', 'Bahan Kajian berhasil diperbarui!');
 
     }
 
@@ -75,7 +76,7 @@ class BahanKajianController extends Controller
     {
         $bahan_kajian->delete();
 
-        return redirect('bahan-kajian')->with('success', 'Bahan Kajian dihapus!');
+        return to_route('bahan-kajian.index')->with('success', 'Bahan Kajian dihapus!');
 
     }
 }

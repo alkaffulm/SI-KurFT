@@ -14,7 +14,8 @@ class SubCPMKModel extends Model
         'id_cpmk',
         'nama_kode_sub_cpmk',
         'kode_sub_cpmk',
-        'desc',
+        'desc_sub_cpmk_id',
+        'desc_sub_cpmk_en',
     ];
     // has many relation
     public function rps_detail(){

@@ -25,7 +25,8 @@ class StoreSubCPMKRequest extends FormRequest
             'id_cpmk' => 'required|exists:cpmk,id_cpmk', 
             'kode_sub_cpmk' => 'required|integer',
             'nama_kode_sub_cpmk' => 'required|string',
-            'desc' => 'required|string',
+            'desc_sub_cpmk_id' => 'required|string',
+            'desc_sub_cpmk_en' => 'required|string',
         ];
     }
 }

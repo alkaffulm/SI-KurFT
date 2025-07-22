@@ -24,15 +24,15 @@
                 @enderror
                 <input type="text" id="kode_peo" name="kode_peo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>
             </div>
+
             <br>
             <div>
                 <label for="desc_peo">Deskripsi:</label><br>
                 @error('desc_peo')
                     {{$message}}
                 @enderror
-                <input type="text" id="desc_peo" name="desc_peo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>
+                <textarea id="desc_peo" name="desc_peo" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required></textarea>
             </div>
-            <br>
             <div>
                 <button type="submit" class="inline-flex items-center px-5 py-2 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">Kirim</button>
             </div>

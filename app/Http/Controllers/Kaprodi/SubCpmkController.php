@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\kaprodi;
 
+use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreSubCPMKRequest;
 use App\Models\CPMKModel;
 use App\Models\SubCPMKModel;
@@ -9,6 +10,12 @@ use Illuminate\Http\Request;
 
 class SubCpmkController extends Controller
 {
+    public function __construct()
+    {
+        $userRole = session()->get('userRole');
+
+        return view()->share('userRole', $userRole);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -34,7 +41,7 @@ class SubCpmkController extends Controller
     {
         SubCPMKModel::create($request->validated());
 
-        return redirect('cpmk')->with('success', 'Sub CPMK berhasil ditambahkan!');
+        return to_route('cpmk.index')->with('success', 'Sub CPMK berhasil ditambahkan!');
     }
 
     /**
@@ -61,7 +68,7 @@ class SubCpmkController extends Controller
     {
         $sub_cpmk->update($request->validated());
 
-        return redirect('cpmk')->with('success', 'Su CPMK berhasil diperbarui!');
+        return to_route('cpmk.index')->with('success', 'Su CPMK berhasil diperbarui!');
     }
 
     /**
@@ -71,6 +78,6 @@ class SubCpmkController extends Controller
     {
         $sub_cpmk->delete();
 
-        return redirect('cpmk')->with('success', 'Sub CPMK berhasil dihapus!');
+        return to_route('cpmk.index')->with('success', 'Sub CPMK berhasil dihapus!');
     }
 }

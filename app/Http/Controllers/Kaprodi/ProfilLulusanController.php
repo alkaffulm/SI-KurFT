@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\kaprodi;
 
+use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreProfilLulusanRequest;
 use App\Models\ProfilLulusanModel;
 use App\Models\ProgramStudiModel;
@@ -42,7 +43,7 @@ class ProfilLulusanController extends Controller
     {
         ProfilLulusanModel::create($request->validated());
 
-        return redirect('profil-lulusan')->with('success', 'Profil Lulusan berhasil ditambahkan!');
+        return to_route('profil-lulusan.index')->with('success', 'Profil Lulusan berhasil ditambahkan!');
     }
 
     /**
@@ -70,7 +71,7 @@ class ProfilLulusanController extends Controller
     {
         $profil_lulusan->update($request->validated());
 
-        return redirect('profil-lulusan')->with('success', 'Profil Lulusan berhasil diubah!');
+        return to_route('profil-lulusan.index')->with('success', 'Profil Lulusan berhasil diubah!');
     }
 
     /**
@@ -80,6 +81,6 @@ class ProfilLulusanController extends Controller
     {
         $profil_lulusan->delete();
 
-        return redirect('profil-lulusan')->with('success', 'Profil Lulusn berhasil dihapus!');
+        return to_route('profil-lulusan.index')->with('success', 'Profil Lulusn berhasil dihapus!');
     }
 }

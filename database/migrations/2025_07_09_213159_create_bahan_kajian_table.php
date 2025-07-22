@@ -15,7 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id_bk');
             $table->string('nama_bk');
             $table->string('kategori');
-            $table->text('desc');
+            $table->text('desc_bk_id');
+            $table->text('desc_bk_en');
         });
     }
 

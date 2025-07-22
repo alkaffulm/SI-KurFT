@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -14,9 +14,9 @@
     @include('layouts.sidebar', ['userRole' => $userRole])
     
     <div class="ml-72 mx-8 mt-24"> 
-        <h2 class="text-2xl font-bold">Bahan Kajian (BK)</h2>
-
-        <a href="{{ route('bahan-kajian.create') }}">Tambah </a>
+        <h2 class="text-2xl font-bold">RPS</h2>
+       
+        <a href="{{ route('mata-kuliah.create') }}">Tambah </a>
 
         <table border="1" cellpadding="5"> 
             <tr>
@@ -25,22 +25,23 @@
                 <th class="border-2">BK</th>
                 <th class="border-2">Deskripsi BK</th>
             </tr>
-            @foreach ($bahan_kajian as $bk )
+            @foreach ($rps as $r )
                 <tr>
-                    <td class="border-2">{{ $bk->id_bk }}</td>
+                    <td class="border-2">{{ $r->id_user }}</td>
+                    <td class="border-2">{{ $r->id_mk }}</td>
                     <td class="border-2">
-                    <form action="{{ route('bahan-kajian.destroy', $bk) }}" method="POST">
+                    <form action="{{ route('mata-kuliah.destroy', $r) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit">Hapus</button>
                         </form> 
-                        | <a href="{{ route('bahan-kajian.edit', $bk) }}">Edit</a>
+                        | <a href="{{ route('mata-kuliah.edit', $r) }}">Edit</a>
                     </td>
-                    <td class="border-2">{{ $bk->nama_bk }}</td>
-                    <td class="border-2">{{ $bk->desc_bk_id }}</td>
+                    <td class="border-2">{{ $r->nama_bk }}</td>
+                    <td class="border-2">{{ $r->desc }}</td>
                 </tr>
             @endforeach
-        </table>        
+        </table>  
     </div>
 
 
@@ -50,4 +51,4 @@
     </script> --}}
     
 </body>
-</html>
+</html> --}}

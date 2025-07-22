@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\kaprodi;
 
+use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreCPLRequest;
 use App\Models\CPLModel;
 use App\Models\KurikulumModel;
@@ -43,7 +44,7 @@ class CplController extends Controller
     {
         CPLModel::create($request->validated());
 
-        return redirect('cpl')->with('success', "CPL berhasil ditambahkan!");
+        return to_route('cpl.index')->with('success', "CPL berhasil ditambahkan!");
     }
 
     /**
@@ -71,7 +72,7 @@ class CplController extends Controller
     {
         $cpl->update($request->validated());
 
-        return redirect('cpl')->with('success', "CPL telah diperbarui!");
+        return to_route('cpl.index')->with('success', "CPL telah diperbarui!");
     }
 
     /**
@@ -81,6 +82,6 @@ class CplController extends Controller
     {
         $cpl->delete();
 
-        return redirect('cpl')->with("success", 'CPL telah dihapus!');
+        return to_route('cpl.index')->with("success", 'CPL telah dihapus!');
     }
 }

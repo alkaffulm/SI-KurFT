@@ -3,15 +3,15 @@
 use App\Http\Controllers\KurikulumController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\BahanKajianController;
-use App\Http\Controllers\CplController;
-use App\Http\Controllers\CpmkController;
+use App\Http\Controllers\Kaprodi\BahanKajianController;
+use App\Http\Controllers\Kaprodi\CplController;
+use App\Http\Controllers\Kaprodi\CpmkController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MatkulController;
-use App\Http\Controllers\PeoController;
-use App\Http\Controllers\ProfilLulusanController;
-use App\Http\Controllers\SubCpmkController;
-use App\Models\MataKuliahModel;
+use App\Http\Controllers\dosen\RPSController;
+use App\Http\Controllers\Kaprodi\MatkulController;
+use App\Http\Controllers\Kaprodi\PeoController;
+use App\Http\Controllers\Kaprodi\ProfilLulusanController;
+use App\Http\Controllers\Kaprodi\SubCpmkController;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
@@ -24,7 +24,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Dashboard Route (Protected by auth middleware)
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::middleware('role:kaprodi')->group(function () {
+    Route::middleware('role:kaprodi')->prefix('kaprodi')->group(function () {
         Route::resource('bahan-kajian', BahanKajianController::class);
         Route::resource('cpl', CplController::class);
         Route::resource('cpmk', CpmkController::class);
@@ -34,6 +34,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('kurikulum', KurikulumController::class);
         Route::resource('peo', PeoController::class);
     });
+    // Route::middleware('role:dosen')->prefix('dosen')->group(function() {
+    //     Route::resource('mata-kuliah', RPSController::class);
+    // });
 });
 
 

@@ -37,7 +37,7 @@
                     </td>
                     {{-- <td>{{$mk->cpmk?->nama_kode_cpmk ?? '-'}}</td>
                     <td>{{$mk?->id_cpmk ?? '-'}}</td> --}}
-                    <td class="border-2">{{$mk->nama_matkul}}</td>
+                    <td class="border-2">{{$mk->nama_matkul_id}}</td>
                 </tr>
             @endforeach
         </table>

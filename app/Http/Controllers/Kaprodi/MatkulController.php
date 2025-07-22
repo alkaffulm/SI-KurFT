@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\kaprodi;
 
+use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreMatkulRequest;
 use App\Models\MataKuliahModel;
 use App\Models\ProgramStudiModel;
@@ -42,7 +43,7 @@ class MatkulController extends Controller
     {
         MataKuliahModel::create($request->validated());
 
-        return redirect('mata-kuliah')->with('success', 'Mata Kuliah berhasil ditambahkan!');
+        return to_route('mata-kuliah.index')->with('success', 'Mata Kuliah berhasil ditambahkan!');
     }
 
     /**
@@ -70,7 +71,7 @@ class MatkulController extends Controller
     {   
         $mata_kuliah->update($request->validated());
 
-        return redirect('mata-kuliah')->with('success', 'Mata Kuliah berhasil diperbarui!');
+        return to_route('mata-kuliah.index')->with('success', 'Mata Kuliah berhasil diperbarui!');
     }
 
     /**
@@ -80,6 +81,6 @@ class MatkulController extends Controller
     {
         $mata_kuliah->delete();
 
-        return redirect('mata-kuliah')->with('success', 'Mata Kuliah telah dihapus');
+        return to_route('mata-kuliah.index')->with('success', 'Mata Kuliah telah dihapus');
     }
 }

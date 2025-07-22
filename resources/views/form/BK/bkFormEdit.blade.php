@@ -35,11 +35,19 @@
             </div>
             <br>
             <div>
-                <label for="desc">Deskripsi:</label><br>
-                @error('desc')
+                <label for="desc_bk_id">Deskripsi Bahan Kajian (Indonesia):</label><br>
+                @error('desc_bk_id')
                     {{$message}}
                 @enderror
-                <textarea id="desc" name="desc" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{ old('desc', $bahan_kajian->desc)}}</textarea>
+                <textarea id="desc_bk_id" name="desc_bk_id" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{ old('desc_bk_id', $bahan_kajian->desc_bk_id)}}</textarea>
+            </div>
+            <br>
+            <div>
+                <label for="desc_bk_en">Deskripsi Bahan Kajian (English):</label><br>
+                @error('desc_bk_en')
+                    {{$message}}
+                @enderror
+                <textarea id="desc_bk_en" name="desc_bk_en" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{ old('desc_bk_en', $bahan_kajian->desc_bk_en)}}</textarea>
             </div>
             <br>
             <div>
