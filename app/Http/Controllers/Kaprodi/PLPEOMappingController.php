@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Kaprodi;
 
 use App\Http\Requests\StoreKurikulumRequest;
 use App\Models\KurikulumModel;
@@ -9,6 +9,8 @@ use App\Models\PLPEOMapModel;
 use App\Models\ProfilLulusanModel;
 use App\Models\ProgramStudiModel;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 
 class PLPEOMappingController extends Controller
