@@ -12,6 +12,7 @@ use App\Http\Controllers\Kaprodi\MatkulController;
 use App\Http\Controllers\Kaprodi\PeoController;
 use App\Http\Controllers\Kaprodi\ProfilLulusanController;
 use App\Http\Controllers\Kaprodi\SubCpmkController;
+use App\Http\Controllers\PLPEOMappingController;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
@@ -31,12 +32,16 @@ Route::middleware('auth')->group(function () {
         Route::resource('sub-cpmk', SubCpmkController::class);
         Route::resource('mata-kuliah', MatkulController::class);
         Route::resource('profil-lulusan', ProfilLulusanController::class);
-        Route::resource('kurikulum', KurikulumController::class);
+        Route::resource('kurikulum', \App\Http\Controllers\kaprodi\KurikulumController::class);
         Route::resource('peo', PeoController::class);
     });
-    // Route::middleware('role:dosen')->prefix('dosen')->group(function() {
-    //     Route::resource('mata-kuliah', RPSController::class);
-    // });
-});
+ });
+
+// rute untuk mapping pl peo
+Route::get('/mapping/edit-pl-peo', [PLPEOMappingController::class, 'edit_pl_peo']);
+Route::get('/mapping/edit-pl-peo/edit', [PLPEOMappingController::class, 'edit_pl_peo']);
+Route::get('/mapping/edit-pl-peo', [App\Http\Controllers\PLPEOMappingController::class, 'edit_pl_peo'])->name('pl-peo-mapping.edit');
+Route::put('/mapping/update-pl-peo', [App\Http\Controllers\PLPEOMappingController::class, 'updatePLPEOMap'])->name('pl-peo-mapping.update');
+//Route::get('/profil-lulusan', [App\Http\Controllers\ProfilLulusanController::class, 'index'])->name('profil-lulusan.index');
 
 

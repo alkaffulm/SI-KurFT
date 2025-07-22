@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfilLulusanRequest;
 use App\Models\ProfilLulusanModel;
 use App\Models\ProgramStudiModel;
+use App\Models\KurikulumModel;
+use App\Models\PEOModel;
+use App\Models\PLPEOMapModel;
 use Illuminate\Http\Request;
 
 class ProfilLulusanController extends Controller
@@ -22,8 +25,24 @@ class ProfilLulusanController extends Controller
     public function index()
     {
         $profil_lulusan = ProfilLulusanModel::all();
+        $kurikulum = KurikulumModel::all();
+        $programStudi = ProgramStudiModel::all();
+        $peo = PEOModel::all();
+        $pl_peo_raw = PLPEOMapModel::all();
+        $pl_peo_map = [];
+        $userRole = session()->get('userRole');
+
+        foreach ($pl_peo_raw as $relasi) {
+            $pl_peo_map[$relasi->id_pl][] = $relasi->id_peo;
+        }
         
-        return view('profilLulusan', ['profil_lulusan' => $profil_lulusan] );
+        return view('profilLulusan', [            
+            'kurikulum' => $kurikulum,
+            'programStudi' => $programStudi, 
+            'userRole' => $userRole, 
+            'peo' => $peo, 
+            'pl_peo_map'=>$pl_peo_map,
+            'profil_lulusan' => $profil_lulusan] );
     }
 
     /**

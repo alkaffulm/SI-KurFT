@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('profil_lulusan', function (Blueprint $table) {
             $table->bigIncrements('id_pl');
             $table->unsignedBigInteger('id_ps');
+            $table->string('kode_pl');
             $table->string('profil_lulusan');
             $table->text('desc');
 

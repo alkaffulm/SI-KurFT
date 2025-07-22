@@ -10,9 +10,12 @@ class ProfilLulusanModel extends Model
     protected $primaryKey = 'id_pl';
     public $timestamps = false;
     protected $fillable = [
+        'id_pl',
         'id_ps',
+        'kode_pl',
         'profil_lulusan',
         'desc',
+        'kode_pl'
     ];
 
     /**
@@ -32,5 +35,10 @@ class ProfilLulusanModel extends Model
     public function programStudi()
     {
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
+    }
+
+    public function plpeomap()
+    {
+        return $this->hasMany(PLPEOMapModel::class, 'id_pl', 'id_pl');
     }
 }
