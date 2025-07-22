@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\kaprodi;
 
+use App\Http\Controllers\Controller; 
 use App\Http\Requests\StorePEORequest;
 use App\Models\PEOModel;
 use Illuminate\Http\Request;
@@ -40,7 +41,7 @@ class PeoController extends Controller
     {
         PEOModel::create($request->validated());
 
-        return redirect('peo')->with('success', 'PEO berhasil tambahkan!');
+        return to_route('peo.index')->with('success', 'PEO berhasil tambahkan!');
 
     }
 
@@ -67,7 +68,7 @@ class PeoController extends Controller
     {
         $peo->update($request->validated());
 
-        return redirect('peo')->with('success', 'PEO berhil di update!');
+        return to_route('peo.index')->with('success', 'PEO berhil di update!');
     }
 
     /**
@@ -77,6 +78,6 @@ class PeoController extends Controller
     {
         $peo->delete();
 
-        return redirect('peo')->with('success', 'PEO berhasil dihapus!');
+        return to_route('peo.index')->with('success', 'PEO berhasil dihapus!');
     }
 }

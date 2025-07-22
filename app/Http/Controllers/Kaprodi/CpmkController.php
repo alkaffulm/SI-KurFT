@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\kaprodi;
 
-use App\Http\Requests\StoreCPLRequest;
+use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreCPMKRequest;
 use App\Models\CPMKModel;
 use App\Models\MataKuliahModel;
@@ -45,7 +45,7 @@ class CpmkController extends Controller
         // dd($request->validated());
         CPMKModel::create($request->validated());
 
-        return redirect('cpmk')->with('success', 'Berhasil menambahkan CPMK!');
+        return to_route('cpmk.index')->with('success', 'Berhasil menambahkan CPMK!');
     }
 
     /**
@@ -72,7 +72,7 @@ class CpmkController extends Controller
     {
         $cpmk->update($request->validated());
 
-        return redirect('cpmk')->with('success', 'CPMK berhasil diperbarui!');
+        return to_route('cpmk.index')->with('success', 'CPMK berhasil diperbarui!');
     }
 
     /**
@@ -82,6 +82,6 @@ class CpmkController extends Controller
     {
         $cpmk->delete();
 
-        return redirect('cpmk')->with('success', 'Berhasil menghapus CPMK!');
+        return to_route('cpmk.index')->with('success', 'Berhasil menghapus CPMK!');
     }
 }

@@ -39,7 +39,7 @@
             {{-- Menu khusus Dosen --}}
             @if ($userRole == 'dosen')
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                    <a href="{{route('mata-kuliah.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                         <svg class="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd"
                                 d="M6 3.75A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6ZM7.5 6A1.5 1.5 0 0 1 9 7.5v3A1.5 1.5 0 0 1 7.5 12h-3A1.5 1.5 0 0 1 3 10.5v-3A1.5 1.5 0 0 1 4.5 6h3Zm9 0A1.5 1.5 0 0 1 18 7.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 12 10.5v-3A1.5 1.5 0 0 1 13.5 6h3Z"

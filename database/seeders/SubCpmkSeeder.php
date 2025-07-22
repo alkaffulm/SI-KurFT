@@ -22,7 +22,8 @@ class SubCpmkSeeder extends Seeder
                     'id_cpmk' => $i,
                     'nama_kode_sub_cpmk' => "SC-$i.$j",
                     'kode_sub_cpmk' => $j,
-                    'desc' => "Deskripsi untuk SC-$i.$j",
+                    'desc_sub_cpmk_id' => "Deskripsi untuk SC-$i.$j",
+                    'desc_sub_cpmk_en' => "Description for SC-$i.$j",
                 ];
             }
         }

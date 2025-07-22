@@ -62,14 +62,14 @@
                             {{$klm->tahun}}
                         </td>
                         <td class="px-2 py-4 ">
-                            <form action="/kurikulum/{{ $klm->id_kurikulum }}" method="POST">
+                            <form action="{{route('kurikulum.destroy', $klm)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button class="bg-red-300 rounded-md px-4 py-2 hover:bg-red-600" type="submit">Hapus</button>
                             </form>
                         </td>
                         <td class="px-2 py-4 ">
-                            <a href="/kurikulum/{{$klm->id_kurikulum}}/edit" class="bg-yellow-300 rounded-md px-4 py-2 hover:bg-yellow-500">
+                            <a href="{{route('kurikulum.edit', $klm)}}" class="bg-yellow-300 rounded-md px-4 py-2 hover:bg-yellow-500">
                                 Edit
                             </a>
                         </td>

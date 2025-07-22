@@ -23,7 +23,10 @@ class StoreMatkulRequest extends FormRequest
     {
         return [
             'id_ps' => 'required|exists:program_Studi,id_ps', 
-            'nama_matkul' => 'required|string',
+            'nama_matkul_id' => 'required|string',
+            'nama_matkul_en' => 'required|string',
+            'matkul_desc_id' => 'required|string',
+            'matkul_desc_en' => 'required|string',
             'jumlah_sks' => 'required|integer',
             'semester' => 'required|integer'
         ];

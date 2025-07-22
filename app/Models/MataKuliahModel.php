@@ -12,7 +12,10 @@ class MataKuliahModel extends Model
 
     protected $fillable = [
         'id_ps',
-        'nama_matkul',
+        'nama_matkul_id',
+        'nama_matkul_en',
+        'matkul_desc_id',
+        'matkul_desc_en',
         'jumlah_sks',
         'semester',
     ];

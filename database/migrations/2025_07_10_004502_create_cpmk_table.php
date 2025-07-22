@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_mk');
             $table->string('nama_kode_cpmk');
             $table->integer('kode_cpmk');
-            $table->text('desc');
+            $table->text('desc_cpmk_id');
+            $table->text('desc_cpmk_en');
 
             $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah')->onDelete('cascade');
         });

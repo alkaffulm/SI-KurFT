@@ -25,7 +25,8 @@ class StoreCPMKRequest extends FormRequest
             'id_mk' => 'required|exists:mata_kuliah,id_mk', 
             'kode_cpmk' => 'required|integer',
             'nama_kode_cpmk' => 'required|string',
-            'desc' => 'required|string',
+            'desc_cpmk_id' => 'required|string',
+            'desc_cpmk_en' => 'required|string',
         ];
     }
 }

@@ -12,7 +12,8 @@ class BahanKajianModel extends Model
     protected $fillable = [
         'nama_bk',
         'kategori',
-        'desc',
+        'desc_bk_id',
+        'desc_bk_en'
     ];
 
     // has many relation

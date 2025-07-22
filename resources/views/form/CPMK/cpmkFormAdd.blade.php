@@ -41,17 +41,25 @@
                 @enderror
                 <select name="id_mk" id="id_mk" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 ">
                     @foreach ( $mata_kuliah as $mk )
-                        <option value="{{$mk->id_mk}}">{{$mk->nama_matkul}}</option>
+                        <option value="{{$mk->id_mk}}">{{$mk->nama_matkul_id}}</option>
                     @endforeach
                 </select>
             </div>
             <br>
             <div>
-                <label for="desc">Deskripsi:</label><br>
-                @error('desc')
+                <label for="desc_cpmk_id">Deskripsi CPMK (Indonesia):</label><br>
+                @error('desc_cpmk_id')
                     {{$message}}
                 @enderror
-                <textarea id="desc" name="desc" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required></textarea>
+                <textarea id="desc_cpmk_id" name="desc_cpmk_id" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required></textarea>
+            </div>
+            <br>
+            <div>
+                <label for="desc_cpmk_en">Deskripsi CPMK (English):</label><br>
+                @error('desc_cpmk_en')
+                    {{$message}}
+                @enderror
+                <textarea id="desc_cpmk_en" name="desc_cpmk_en" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required></textarea>
             </div>
             <br>
             <div>

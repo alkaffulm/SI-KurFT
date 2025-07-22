@@ -30,11 +30,35 @@
             </div>
             <br>
             <div>
-                <label for="nama_matkul">Nama Mata Kuliah:</label><br>
-                @error('nama_matkul')
+                <label for="nama_matkul_id">Nama Mata Kuliah (Indonesia):</label><br>
+                @error('nama_matkul_id')
                     {{$message}}
                 @enderror
-                <input type="text" id="nama_matkul" name="nama_matkul" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>
+                <input type="text" id="nama_matkul_id" name="nama_matkul_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>
+            </div>
+            <br>
+            <div>
+                <label for="nama_matkul_en">Nama Mata Kuliah (English):</label><br>
+                @error('nama_matkul_en')
+                    {{$message}}
+                @enderror
+                <input type="text" id="nama_matkul_en" name="nama_matkul_en" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>
+            </div>
+            <br>
+            <div>
+                <label for="matkul_desc_id">Deskripsi (Indonesia):</label><br>
+                @error('matkul_desc_id')
+                    {{$message}}
+                @enderror
+                <textarea id="matkul_desc_id" name="matkul_desc_id" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required></textarea>
+            </div>
+            <br>
+            <div>
+                <label for="matkul_desc_en">Deskripsi (English):</label><br>
+                @error('matkul_desc_en')
+                    {{$message}}
+                @enderror
+                <textarea id="matkul_desc_en" name="matkul_desc_en" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required></textarea>
             </div>
             <br>
             <div>
