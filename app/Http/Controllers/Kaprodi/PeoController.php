@@ -2,82 +2,102 @@
 
 namespace App\Http\Controllers\kaprodi;
 
-use App\Http\Controllers\Controller; 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePEORequest;
 use App\Models\PEOModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class PeoController extends Controller
 {
-    
-    public function __construct()
-    {
-        $userRole = session()->get('userRole');
+  public function __construct()
+  {
+    view()->share('userRole', session()->get('userRole'));
+  }
 
-        return view()->share('userRole', $userRole);
-    }    
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-       $peo = PEOModel::all();
+  /**
+   * Menampilkan daftar semua PEO. (Logika Asli)
+   */
+  public function index()
+  {
+    $peo = PEOModel::orderBy('kode_peo', 'asc')->get();
+    return view('peo', ['peo' => $peo]);
+  }
 
-       return view('peo', ['peo' => $peo]);
+  /**
+   * Menampilkan form untuk menambah PEO baru. (Logika Asli)
+   */
+  public function create()
+  {
+    return view('form.PEO.peoFormAdd');
+  }
+
+  /**
+   * Menyimpan PEO baru ke database. (Logika Asli)
+   */
+  public function store(StorePEORequest $request)
+  {
+    PEOModel::create($request->validated());
+    return redirect()->route('peo.index')->with('success', 'PEO berhasil ditambahkan!');
+  }
+
+  /**
+   * Menghapus satu PEO. (Logika Asli)
+   */
+  public function destroy(PEOModel $peo)
+  {
+    $peo->delete();
+    return redirect()->route('peo.index')->with('success', 'PEO berhasil dihapus!');
+  }
+
+  // ================================================================
+  // == BAGIAN BARU UNTUK FUNGSI EDIT & UPDATE SEMUA DATA SECARA MASSAL ==
+  // ================================================================
+
+  /**
+   * Method BARU: Menampilkan form untuk mengedit semua PEO.
+   */
+  public function editAll()
+  {
+    $peo_data = PEOModel::orderBy('kode_peo', 'asc')->get();
+    return view('form.PEO.peoFormEdit', ['peo_data' => $peo_data]);
+  }
+
+  public function updateAll(Request $request)
+  {
+    // Proses penghapusan data
+    if ($request->has('delete_peo')) {
+      PEOModel::destroy($request->delete_peo);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('form.PEO.peoFormAdd');
+    if (!$request->has('peo')) {
+      return redirect()->route('peo.index')->with('success', 'Perubahan berhasil disimpan!');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePEORequest $request)
-    {
-        PEOModel::create($request->validated());
+    $rules = [
+      'peo.*.kode_peo' => 'required|string|max:255',
+      'peo.*.desc_peo' => 'required|string',
+    ];
+    $messages = [
+      'peo.*.kode_peo.required' => 'Setiap kolom Kode PEO wajib diisi.',
+      'peo.*.desc_peo.required' => 'Setiap kolom Deskripsi wajib diisi.',
+    ];
+    $validator = Validator::make($request->all(), $rules, $messages);
 
-        return to_route('peo.index')->with('success', 'PEO berhasil tambahkan!');
-
+    if ($validator->fails()) {
+      return redirect()->route('peo.editAll')->withErrors($validator)->withInput();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+    $validatedData = $validator->validated()['peo'];
+
+    foreach ($validatedData as $id => $data) {
+      $peo = PEOModel::find($id);
+      if ($peo) {
+        $peo->update($data);
+      }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PEOModel $peo)
-    {
-        return view('form.PEO.peoFormEdit', ['peo' => $peo]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(StorePEORequest $request, PEOModel $peo)
-    {
-        $peo->update($request->validated());
-
-        return to_route('peo.index')->with('success', 'PEO berhil di update!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(PEOModel $peo)
-    {
-        $peo->delete();
-
-        return to_route('peo.index')->with('success', 'PEO berhasil dihapus!');
-    }
+    return redirect()->route('peo.index')->with('success', 'Perubahan PEO berhasil disimpan!');
+  }
 }
