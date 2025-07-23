@@ -16,7 +16,7 @@ export default {
             },
             colors: {
                 "biru-custom": "#5FA9C8",
-                "tekst-biru-custom": "#264450",
+                "teks-biru-custom": "#264450",
                 "teks-hitam-custom": "#0A0A0A",
                 "putih-custom": "#FAFAFA",
                 "bg-custom": "#CFE5EF",

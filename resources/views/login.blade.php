@@ -39,7 +39,7 @@
                     <label for="nip" class="block text-abu-custom text-sm font-medium mb-2">Nomor Induk Pegawai
                         (NIP)</label>
                     <input type="text" id="nip" name="nip" value="{{ old('nip') }}"
-                        class="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg focus:ring-biru-custom focus:border-biru-custom"
+                        class="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg"
                         placeholder="Masukkan NIP..." required>
                 </div>
 
@@ -48,7 +48,7 @@
                     <label for="password" class="block text-abu-custom text-sm font-medium mb-2">Password</label>
                     <div class="relative">
                         <input type="password" id="password" name="password"
-                            class="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg focus:ring-biru-custom focus:border-biru-custom"
+                            class="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg"
                             placeholder="Masukkan password..." required>
                         <button type="button" onclick="togglePasswordVisibility()"
                             class="absolute inset-y-0 right-0 px-4 flex items-center text-gray-500">
@@ -74,7 +74,7 @@
                     <label for="login_as" class="block text-abu-custom text-sm font-medium mb-2">Login as</label>
                     <div class="relative">
                         <select id="login_as" name="login_as"
-                            class="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg focus:ring-biru-custom focus:border-biru-custom appearance-none pr-10">
+                            class="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg appearance-none pr-10">
                             {{-- ADDED VALUE ATTRIBUTES --}}
                             <option value="Koordinator Program Studi">Koordinator Program Studi</option>
                             <option value="UPM">UPM</option>

@@ -1,5 +1,5 @@
-<nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
-    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+<nav class="fixed top-0 z-50 w-full bg-white border-b-2 border-biru-custom sm:translate-x-0">
+    <div class="px-3 py-2 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start">
                 <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
@@ -16,7 +16,7 @@
                     <img src="{{ asset('images/logo ulm 1.png') }}" class="h-10 me-3" alt="Logo ULM" />
                     <div>
                         <div class="text-sm font-bold text-gray-900">Fakultas Teknik</div>
-                        <div class="text-xs text-blue-600 font-semibold">Universitas Lambung Mangkurat</div>
+                        <div class="text-xs text-gray-600 font-semibold">Universitas Lambung Mangkurat</div>
                     </div>
                 </a>
             </div>
@@ -26,7 +26,7 @@
                 <div class="text-right me-4">
                     <p class="text-sm font-semibold text-gray-800">{{ session('userName', 'User') }}</p>
                     <p class="text-xs text-gray-500">
-                        {{ ucfirst(session('userRole', 'Dosen')) }} {{-- Dosen, Kaprodi, Pimpinan --}}
+                        {{ ucfirst(session('userRole', 'Dosen')) }}
                         @if (session('userRole') != 'pimpinan')
                             {{ session('userProdi') }}
                         @endif
@@ -64,7 +64,7 @@
                         <ul class="py-2">
                             <a href="#">
                                 <li class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        Profile
+                                    Profile
                                 </li>
                             </a>
                             <li>

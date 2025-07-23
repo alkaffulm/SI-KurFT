@@ -25,6 +25,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Dashboard Route (Protected by auth middleware)
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::middleware('role:kaprodi')->prefix('kaprodi')->group(function () {
         Route::resource('bahan-kajian', BahanKajianController::class);
         Route::resource('cpl', CplController::class);
@@ -33,12 +34,17 @@ Route::middleware('auth')->group(function () {
         Route::resource('mata-kuliah', MatkulController::class);
         Route::resource('profil-lulusan', ProfilLulusanController::class);
         Route::resource('kurikulum', \App\Http\Controllers\kaprodi\KurikulumController::class);
+
+        // PEO Routes
+        Route::get('/peo/edit-all', [PeoController::class, 'editAll'])->name('peo.editAll'); // Rute baru untuk form edit massal
+        Route::put('/peo/update-all', [PeoController::class, 'updateAll'])->name('peo.updateAll'); // Rute baru untuk update massal
         Route::resource('peo', PeoController::class);
-        Route::get('/mapping/pl-peo', [PLPEOMappingController::class, 'index'])->name('pl-peo-mapping.index'); // Asumsi method index ada
+
+        Route::get('/mapping/pl-peo', [PLPEOMappingController::class, 'index'])->name('pl-peo-mapping.index');
         Route::get('/mapping/edit-pl-peo', [PLPEOMappingController::class, 'edit_pl_peo'])->name('pl-peo-mapping.edit');
         Route::put('/mapping/pl-peo', [PLPEOMappingController::class, 'updatePLPEOMap'])->name('pl-peo-mapping.update');
     });
-    });
+});
 
 
 // rute untuk mapping pl peo
@@ -47,5 +53,3 @@ Route::middleware('auth')->group(function () {
 // Route::get('/mapping/edit-pl-peo', [App\Http\Controllers\PLPEOMappingController::class, 'edit_pl_peo'])->name('pl-peo-mapping.edit');
 // Route::put('/mapping/update-pl-peo', [App\Http\Controllers\PLPEOMappingController::class, 'updatePLPEOMap'])->name('pl-peo-mapping.update');
 //Route::get('/profil-lulusan', [App\Http\Controllers\ProfilLulusanController::class, 'index'])->name('profil-lulusan.index');
-
-
