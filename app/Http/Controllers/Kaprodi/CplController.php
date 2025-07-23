@@ -7,6 +7,10 @@ use App\Http\Requests\StoreCPLRequest;
 use App\Models\CPLModel;
 use App\Models\KurikulumModel;
 use App\Models\ProgramStudiModel;
+use App\Models\ProfilLulusanModel;
+use App\Models\PEOModel;
+use App\Models\CPLPLMapModel;
+use App\Models\PLPEOMapModel;
 use Illuminate\Http\Request;
 
 class CplController extends Controller
@@ -23,8 +27,47 @@ class CplController extends Controller
     public function index()
     {
         $cpl = CPLModel::all();
+        $profil_lulusan = ProfilLulusanModel::all();
+        $kurikulum = KurikulumModel::all();
+        $programStudi = ProgramStudiModel::all();
+        $peo = PEOModel::all();
+        $cpl_pl_raw = CPLPLMapModel::all();
+        $cpl_pl_map = [];
+
+        foreach ($cpl_pl_raw as $relasi) {
+            $cpl_pl_map[$relasi->id_cpl][] = $relasi->id_pl;
+        }
+
+        $pl_peo_raw = PLPEOMapModel::all();
+        $pl_peo_map = [];
+
+        foreach ($pl_peo_raw as $relasi) {
+            $pl_peo_map[$relasi->id_pl][] = $relasi->id_peo;
+        }
         
-        return view('cpl', ['cpl' => $cpl]);
+        $cpl_peo_map = [];
+        $cpl_pl = CPLPLMapModel::all(); 
+        $pl_peo = PLPEOMapModel::all(); 
+
+        foreach ($cpl_pl as $cp) {
+            foreach ($pl_peo as $pp) {
+                if ($cp->id_pl === $pp->id_pl) {
+                    $cpl_peo_map[$cp->id_cpl][] = $pp->id_peo;
+                }
+            }
+        }
+        
+        return view('cpl', 
+        [
+            'cpl' => $cpl,
+            'kurikulum' => $kurikulum,
+            'programStudi' => $programStudi, 
+            'peo' => $peo, 
+            'profil_lulusan' => $profil_lulusan,
+            'cpl_pl_map' => $cpl_pl_map,
+            'pl_peo_map'=>$pl_peo_map,
+            'cpl_peo_map'=>$cpl_peo_map
+        ]);
     }
 
     /**

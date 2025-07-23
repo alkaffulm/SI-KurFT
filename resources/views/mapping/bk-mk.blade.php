@@ -22,12 +22,12 @@
 
 
     <div class="ml-72 mx-8 mt-24 mb-24">
-        <a href="../cpl " class="mr-2 px-10 py-2 text-white bg-[#5FA9C8] rounded-lg hover:bg-[#2b7798]">
+        <a href="../bahan-kajian" class="mr-2 px-10 py-2 text-white bg-[#5FA9C8] rounded-lg hover:bg-[#2b7798]">
             Kembali
         </a>
         {{-- bagian judul --}}
         <div class="flex flex-col gap-4 mt-4">
-            <h1 class="font-bold text-3xl">Edit Tabel Korelasi CPL dengan Profil Lulusan (PL)</h1>
+            <h1 class="font-bold text-3xl">Edit Tabel Bahan Kajian Berdasarkan Mata Kuliah Program Studi (bk)</h1>
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem inventore mollitia ab soluta accusamus ducimus, tempore praesentium at cumque nemo cupiditate est, 
                 odit illo ratione. Cum, nulla id. At, totam.
@@ -37,29 +37,29 @@
         {{-- bagian tabel untuk mapping --}}
         <div class="flex flex-col">
             {{-- Form action menunjuk ke route update yang baru --}}
-            <form action="{{ route('cpl-pl-mapping.update') }}" name="editCPLPL" method="post">
+            <form action="{{ route('bk-mk-mapping.update') }}" name="editBKMK" method="post">
                 @csrf
                 @method('PUT')
                 <table border="1" cellpadding="5" class="mb-2 text-center w-full mt-4"> 
                     <tr class="bg-gray-300">
-                        <th class="border-2" rowspan="2">Kode CPL</th>
-                        <th class="border-2" colspan="1">Kode Profil Lulusan</th>
+                        <th class="border-2" rowspan="2">Kode bk</th>
+                        <th class="border-2" colspan="1">Kode Bahan Kajian</th>
                     </tr>
                     <tr class="bg-gray-100">
-                        <td class="border-2">Pilihan Kode PL</td>
+                        <td class="border-2">Pilihan Kode mk</td>
                     </tr>
-                    @foreach ($cpl as $cpl)
+                    @foreach ($bahan_kajian as $bk)
                         <tr>
-                            <td class="border-2">{{$cpl->nama_kode_cpl}}</td>
+                            <td class="border-2">BK-{{$bk->id_bk}}</td>
                             <td class="border-2">
                                 {{-- Tambahkan name attribute dan value untuk option --}}
-                                <select class="select2 w-full" multiple="multiple" style="width:100%" name="pl_mappings[{{ $cpl->id_cpl }}][]">
-                                    @foreach ($profil_lulusan as $item)
-                                        <option value="{{ $item->id_pl }}" 
-                                            @if (isset($cpl_pl_map[$cpl->id_cpl]) && in_array($item->id_pl, $cpl_pl_map[$cpl->id_cpl])) 
+                            <select class="select2 w-full" multiple="multiple" style="width:100%" name="mk_mappings[{{ $bk->id_bk }}][]">
+                                    @foreach ($mata_kuliah as $mk)
+                                        <option value="{{ $mk->id_mk }}" 
+                                            @if (isset($bk_mk_map[$bk->id_bk]) && in_array($mk->id_mk, $bk_mk_map[$bk->id_bk])) 
                                                 selected 
                                             @endif>
-                                            {{ $item->id_pl }}
+                                            {{ $mk->id_mk }} - {{ $mk->nama_mk }}
                                         </option>
                                     @endforeach
                                 </select>
