@@ -41,4 +41,9 @@ class ProfilLulusanModel extends Model
     {
         return $this->hasMany(PLPEOMapModel::class, 'id_pl', 'id_pl');
     }
+
+    public function cplpeomap()
+    {
+        return $this->hasMany(CPLPLMapModel::class, 'id_pl', 'id_pl');
+    }
 }

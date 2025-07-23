@@ -38,6 +38,11 @@ class CPLModel extends Model
     {
         return $this->hasMany(PLCPLMapModel::class, 'id_cpl', 'id_cpl');
     }
+
+    public function cpl_pl()
+    {
+        return $this->hasMany(CPLPLMapModel::class, 'id_cpl', 'id_cpl');
+    }
     public function bk_cpl()
     {
         return $this->hasMany(BKCPLMapModel::class, 'id_cpl', 'id_cpl');

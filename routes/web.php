@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Kaprodi\CPLPLMapController;
 use App\Http\Controllers\KurikulumController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -8,11 +9,15 @@ use App\Http\Controllers\Kaprodi\CplController;
 use App\Http\Controllers\Kaprodi\CpmkController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\dosen\RPSController;
+use App\Http\Controllers\Kaprodi\BKCPLMapController;
+use App\Http\Controllers\Kaprodi\BKMKMapController;
 use App\Http\Controllers\Kaprodi\MatkulController;
 use App\Http\Controllers\Kaprodi\PeoController;
 use App\Http\Controllers\Kaprodi\ProfilLulusanController;
 use App\Http\Controllers\Kaprodi\SubCpmkController;
 use App\Http\Controllers\Kaprodi\PLPEOMappingController;
+use App\Models\BKCPLMapModel;
+use App\Models\CPLPLMapModel;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
@@ -34,9 +39,23 @@ Route::middleware('auth')->group(function () {
         Route::resource('profil-lulusan', ProfilLulusanController::class);
         Route::resource('kurikulum', \App\Http\Controllers\kaprodi\KurikulumController::class);
         Route::resource('peo', PeoController::class);
-        Route::get('/mapping/pl-peo', [PLPEOMappingController::class, 'index'])->name('pl-peo-mapping.index'); // Asumsi method index ada
+
+        // pl pe map
+        Route::get('/mapping/pl-peo', [PLPEOMappingController::class, 'index'])->name('pl-peo-mapping.index'); 
         Route::get('/mapping/edit-pl-peo', [PLPEOMappingController::class, 'edit_pl_peo'])->name('pl-peo-mapping.edit');
         Route::put('/mapping/pl-peo', [PLPEOMappingController::class, 'updatePLPEOMap'])->name('pl-peo-mapping.update');
+
+        // cpl pl map  
+        Route::get('/mapping/edit-cpl-pl', [CPLPLMapController::class, 'edit_cpl_pl'])->name('cpl-pl-mapping.edit');
+        Route::put('/mapping/cpl-pl', [CPLPLMapController::class, 'updateCPLPLMap'])->name('cpl-pl-mapping.update');
+
+        // bk cpl map  
+        Route::get('/mapping/edit-bk-cpl', [BKCPLMapController::class, 'edit_bk_cpl'])->name('bk-cpl-mapping.edit');
+        Route::put('/mapping/bk-cpl', [BKCPLMapController::class, 'updateBKCPLMap'])->name('bk-cpl-mapping.update');
+
+        // bk mk map  
+        Route::get('/mapping/edit-bk-mk', [BKMKMapController::class, 'edit_bk_mk'])->name('bk-mk-mapping.edit');
+        Route::put('/mapping/bk-mk', [BKMKMapController::class, 'updateBKMKMap'])->name('bk-mk-mapping.update');
     });
     });
 

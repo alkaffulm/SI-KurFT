@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pl_peo_map', function (Blueprint $table) {
-            $table->bigIncrements('id_pl_peo');
+        Schema::create('cpl_pl_map', function (Blueprint $table) {
+            $table->bigIncrements('id_cpl_pl');
+            $table->unsignedBigInteger('id_cpl');
             $table->unsignedBigInteger('id_pl');
-            $table->unsignedBigInteger('id_peo');
 
             $table->foreign('id_pl')->references('id_pl')->on('profil_lulusan')->onDelete('cascade');
-            $table->foreign('id_peo')->references('id_peo')->on('peo')->onDelete('cascade');
+            $table->foreign('id_cpl')->references('id_cpl')->on('cpl')->onDelete('cascade');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pl_peo_map');
+        Schema::dropIfExists('cpl_pl_map');
     }
 };
