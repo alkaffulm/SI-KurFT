@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_mhs');
             $table->unsignedBigInteger('id_ps');
             $table->string('nim');
+            $table->string('nama_lengkap');
             $table->integer('angkatan');
 
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');

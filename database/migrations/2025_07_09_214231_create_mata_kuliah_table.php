@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('mata_kuliah', function (Blueprint $table) {
             $table->bigIncrements('id_mk');
             $table->unsignedBigInteger('id_ps');
+            $table->string('kode_mk');
             $table->string('nama_matkul_id');
             $table->string('nama_matkul_en');
             $table->text('matkul_desc_id');
