@@ -15,6 +15,7 @@ class MataKuliahModel extends Model
 
     protected $fillable = [
         'id_ps',
+        'kode_mk',
         'nama_matkul_id',
         'nama_matkul_en',
         'matkul_desc_id',

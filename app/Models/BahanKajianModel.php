@@ -16,6 +16,7 @@ class BahanKajianModel extends Model
     protected $fillable = [
         'id_ps',
         'nama_bk',
+        'nama_kode_bk',
         'kategori',
         'desc_bk_id',
         'desc_bk_en'

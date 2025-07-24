@@ -73,7 +73,7 @@
                             @endphp
                             @if ($cek)
                                 <p class="text-2xl text-left">
-                                    BK-{{ $bk->id_bk }} {{ $bk->nama_bk }}
+                                    {{ $bk->nama_kode_bk }} {{ $bk->nama_bk }}
                                 </p>
                             @endif
                         @endforeach
@@ -100,14 +100,14 @@
                 <th class="border-2 bg-gray-300">ID Mata Kuliah</th>
                 <th class="border-2 bg-gray-300">Mata Kuliah</th>
                 @foreach ($bahan_kajian as $bk)
-                    <th class="border-2 bg-gray-300 text-xl">BK-{{ $bk->id_bk }}</th>
+                    <th class="border-2 bg-gray-300 text-xl">{{ $bk->nama_kode_bk }}</th>
                 @endforeach
             </tr>
 
             @foreach ($mata_kuliah as $mk)
                 <tr>
                     <td class="border-2 text-left text-xl px-4 py-2">
-                        MK-{{ $mk->id_mk }} 
+                        {{ $mk->kode_mk }} 
                     </td>
                     <td class="border-2 text-left text-xl px-4 py-2">
                        {{ $mk->nama_matkul_id }}

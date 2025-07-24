@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('bahan_kajian', function (Blueprint $table) {
             $table->bigIncrements('id_bk');
             $table->unsignedBigInteger('id_ps');
+            $table->string('nama_kode_bk');
             $table->string('nama_bk');
             $table->string('kategori');
             $table->text('desc_bk_id');

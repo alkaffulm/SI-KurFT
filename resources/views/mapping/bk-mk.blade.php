@@ -50,7 +50,7 @@
                     </tr>
                     @foreach ($bahan_kajian as $bk)
                         <tr>
-                            <td class="border-2">BK-{{$bk->id_bk}}</td>
+                            <td class="border-2">{{$bk->nama_kode_bk}}</td>
                             <td class="border-2">
                                 {{-- Tambahkan name attribute dan value untuk option --}}
                             <select class="select2 w-full" multiple="multiple" style="width:100%" name="mk_mappings[{{ $bk->id_bk }}][]">
@@ -59,7 +59,7 @@
                                             @if (isset($bk_mk_map[$bk->id_bk]) && in_array($mk->id_mk, $bk_mk_map[$bk->id_bk])) 
                                                 selected 
                                             @endif>
-                                            {{ $mk->id_mk }} - {{ $mk->nama_matkul_id }}
+                                            {{ $mk->kode_mk }} - {{ $mk->nama_matkul_id }}
                                         </option>
                                     @endforeach
                                 </select>
