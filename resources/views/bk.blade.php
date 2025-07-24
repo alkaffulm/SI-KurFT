@@ -22,6 +22,7 @@
             <tr>
                 <th class="border-2">Kode BK</th>
                 <th class="border-2">aksi</th>
+                <th class="border-2">Nama Program Studi</th>
                 <th class="border-2">BK</th>
                 <th class="border-2">Deskripsi BK</th>
             </tr>
@@ -36,6 +37,7 @@
                         </form> 
                         | <a href="{{ route('bahan-kajian.edit', $bk) }}">Edit</a>
                     </td>
+                    <td class="border-2">{{ $bk->programstudi->nama_prodi }}</td>
                     <td class="border-2">{{ $bk->nama_bk }}</td>
                     <td class="border-2">{{ $bk->desc_bk_id }}</td>
                 </tr>

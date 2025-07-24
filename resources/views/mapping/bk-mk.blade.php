@@ -59,7 +59,7 @@
                                             @if (isset($bk_mk_map[$bk->id_bk]) && in_array($mk->id_mk, $bk_mk_map[$bk->id_bk])) 
                                                 selected 
                                             @endif>
-                                            {{ $mk->id_mk }} - {{ $mk->nama_mk }}
+                                            {{ $mk->id_mk }} - {{ $mk->nama_matkul_id }}
                                         </option>
                                     @endforeach
                                 </select>

@@ -8,18 +8,21 @@
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 </head>
 <body>
-
+    
     @include('layouts.navbar', ['userRole' => $userRole])
-
+    
     @include('layouts.sidebar', ['userRole' => $userRole])
-
+    
     <div class="ml-72 mx-8 mt-24">
         <h2 class="text-2xl font-bold">Form Edit Mata Kuliah</h2>
-
+        
         <form action="{{ route('mata-kuliah.update', $mata_kuliah) }}" method="POST">
             @csrf
             @method('PUT')
-            <div>
+
+            <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
+            
+            {{-- <div>
                 <label for="id_ps">ID Program Studi:</label><br>
                 @error('id_ps')
                     {{$message}}
@@ -29,7 +32,8 @@
                         <option value="{{$ps->id_ps}}" {{old('id_ps', $mata_kuliah->id_ps) == $ps->id_ps ? 'selected' : ''}}>{{$ps->nama_prodi}}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
+
             <br>
             <div>
                 <label for="nama_matkul_id">Nama Mata Kuliah (Indonesia):</label><br>

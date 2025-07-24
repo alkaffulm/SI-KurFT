@@ -18,6 +18,9 @@
         <form action="{{ route('bahan-kajian.update', $bahan_kajian) }}" method="POST">
             @csrf
             @method('PUT')
+
+            <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
+
             <div>
                 <label for="nama_bk">Nama Bahan Kajian:</label><br>
                 @error('nama_bk')

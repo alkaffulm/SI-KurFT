@@ -29,4 +29,16 @@ class StoreCPLRequest extends FormRequest
             'desc' => 'required|string',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'nama_kode_cpl.required' => 'Kode CPL tidak boleh kosong.',
+            'nama_kode_cpl.string'   => 'Kode CPL harus berupa string',
+            'bobot_maksimum.required' => 'Bobot Maksimum tidak boleh kosong.',
+            'bobot_maksimum.integer'   => 'Bobot Maksimum harus berupa integer',
+            'desc.required' => 'Deskripsi CPL tidak boleh kosong.',
+            'desc.string'   => 'Deskripsi CPL harus berupa string',
+        ];
+    }
 }

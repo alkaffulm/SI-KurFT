@@ -18,6 +18,9 @@
         <form action="{{ route('sub-cpmk.update', $sub_cpmk) }}" method="POST">
             @csrf
             @method('PUT')
+
+            <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
+
             <div>
                 <label for="nama_kode_sub_cpmk">Nama Sub CPMK:</label><br>
                 @error('nama_kode_sub_cpmk')

@@ -22,6 +22,7 @@
             <tr>
                 <th class="border-2">Kode MK</th>
                 <th class="border-2">aksi</th>
+                <th class="border-2">Nama Prodi</th>
                 <th class="border-2">Nama MK</th>
             </tr>
             @foreach ($mata_kuliah as $mk )
@@ -35,6 +36,7 @@
                         </form> 
                         | <a href="{{ route('mata-kuliah.edit', $mk) }}">Edit</a>
                     </td>
+                    <td>{{$mk->programstudi->nama_prodi}}</td>
                     {{-- <td>{{$mk->cpmk?->nama_kode_cpmk ?? '-'}}</td>
                     <td>{{$mk?->id_cpmk ?? '-'}}</td> --}}
                     <td class="border-2">{{$mk->nama_matkul_id}}</td>

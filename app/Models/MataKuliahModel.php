@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ProdiScope;
 use Illuminate\Database\Eloquent\Model;
 
 class MataKuliahModel extends Model
 {
+
+
     protected $table = 'mata_kuliah';
     protected $primaryKey = 'id_mk';
     public $timestamps = false;
@@ -19,6 +22,11 @@ class MataKuliahModel extends Model
         'jumlah_sks',
         'semester',
     ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ProdiScope);
+    }
 
     /**
      * Relasi many-to-many ke CPMKModel melalui tabel mata_kuliah_cpmk_map.

@@ -21,14 +21,15 @@
 
         <table  cellpadding="5" > 
             <tr >
-                <th class="border-2">Kode MK</th>
+                <th class="border-2">Kode CPMK</th>
                 <th class="border-2 ">aksi</th>
+                <th class="border-2 ">Nama Program Studi</th>
                 <th class="border-2">Nama MK</th>
                 <th class="border-2">CPMK</th>
             </tr>
             @foreach ($cpmk as $cp )
                 <tr >
-                    <td class="border-2">{{ $cp->id_mk }}</td>
+                    <td class="border-2">{{ $cp->nama_kode_cpmk }}</td>
                     <td class="border-2">
                         <form action="{{ route('cpmk.destroy', $cp) }}}" method="POST">
                             @csrf
@@ -37,6 +38,7 @@
                         </form> 
                         | <a href="{{ route('cpmk.edit', $cp) }}">Edit</a>
                     </td>
+                    <td class="border-2">{{ $cp->programstudi->nama_prodi }}</td>
                     <td class="border-2">{{ $cp->matakuliah->nama_matkul_id }}</td>
                     <td class="border-2">{{ $cp->desc_cpmk_id }}</td>
                 </tr>
@@ -52,11 +54,12 @@
             <tr >
                 <th class="border-2">Kode Sub CPMK</th>
                 <th class="border-2 ">aksi</th>
+                <th class="border-2">Nama Program Studi</th>
                 <th class="border-2">Sub CPMK</th>
             </tr>
             @foreach ($sub_cpmk as $scp )
                 <tr >
-                    <td class="border-2">{{ $scp->id_sub_cpmk }}</td>
+                    <td class="border-2">{{ $scp->nama_kode_sub_cpmk }}</td>
                     <td class="border-2">
                         <form action="{{ route('sub-cpmk.destroy', $scp) }}}" method="POST">
                             @csrf
@@ -65,6 +68,7 @@
                         </form> 
                         | <a href="{{ route('sub-cpmk.edit', $scp) }}">Edit</a>
                     </td>
+                    <td class="border-2">{{ $scp->programstudi->nama_prodi }}</td>
                     <td class="border-2">{{ $scp->desc_sub_cpmk_id }}</td>
                 </tr>
             @endforeach

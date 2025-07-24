@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ProdiScope;
 use Illuminate\Database\Eloquent\Model;
 
 class CPMKModel extends Model
@@ -12,12 +13,17 @@ class CPMKModel extends Model
 
     protected $fillable = [
         'id_mk',
+        'id_ps',
         'nama_kode_cpmk',
         'kode_cpmk',
         'desc_cpmk_id',
         'desc_cpmk_en'
     ];
 
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ProdiScope);
+    }
     /**
      * Relasi many-to-many ke CPLModel melalui tabel cpmk_cpl_map.
      */
@@ -44,6 +50,10 @@ class CPMKModel extends Model
     public function mataKuliah()
     {
         return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');
+    }
+    public function programstudi()
+    {
+        return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }
 
     /**

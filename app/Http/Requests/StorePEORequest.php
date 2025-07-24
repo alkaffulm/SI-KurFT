@@ -22,8 +22,18 @@ class StorePEORequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kode_peo' => 'required|string',
+            'id_ps' => 'required|exists:program_Studi,id_ps', 
+            'kode_peo' => 'required|integer',
             'desc_peo' => 'required|string',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'kode_peo.required' => 'Kode PEO tidak boleh kosong.',
+            'kode_peo.integer'   => 'Kode PEO harus berupa integer',
+            'desc_peo.required' => ' Deskripsi wajib diisi.',
         ];
     }
 }

@@ -22,10 +22,25 @@ class StoreBahanKajianRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id_ps' => 'required|exists:program_studi,id_ps', 
             'nama_bk' => 'required|string',
             'kategori' => 'required|string',
             'desc_bk_id' => 'required|string',
             'desc_bk_en' => 'required|string',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'nama_bk.required' => 'Nama Bahan Kajian tidak boleh kosong.',
+            'nama_bk.string'   => 'Nama Bahan Kajian harus berupa string',
+            'kategori.required' => 'Kategori tidak boleh kosong.',
+            'kategori.string'   => 'Kategori harus berupa string',
+            'desc_bk_id.required' => 'Deskripsi Bahan Kajian (Indoneia) tidak boleh kosong.',
+            'desc_bk_id.string'   => 'Deskripsi Bahan Kajian (Indoneia) harus berupa string',
+            'desc_bk_en.required' => 'Deskripsi Bahan Kajian (English) tidak boleh kosong.',
+            'desc_bk_en.string'   => 'Deskripsi Bahan Kajian (English) harus berupa string',
         ];
     }
 }

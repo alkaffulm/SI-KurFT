@@ -22,13 +22,14 @@
     
         <table border="1" cellpadding="5" class="mt-4 w-full text-center"> 
             <tr>
-                <th class="border-2">id CPL</th>
+                <th class="border-2">Kode CPL</th>
                 <th class="border-2">aksi</th>
+                <th class="border-2">Nama Program Studi</th>
                 <th class="border-2">Deskripsi CPL</th>
             </tr>
             @foreach ($cpl as $c )
                 <tr>
-                    <td class="border-2">{{ $c->id_cpl }}</td>
+                    <td class="border-2">{{ $c->nama_kode_cpl }}</td>
                     <td class="border-2">
                        <form action="{{ route('cpl.destroy', $c) }}" method="POST">
                             @csrf
@@ -37,6 +38,7 @@
                         </form> 
                         | <a href="{{ route('cpl.edit', $c) }}">Edit</a>
                     </td>
+                    <td class="border-2">{{ $c->programstudi->nama_prodi }}</td>
                     <td class="border-2">{{ $c->desc }}</td>
                 </tr>
             @endforeach

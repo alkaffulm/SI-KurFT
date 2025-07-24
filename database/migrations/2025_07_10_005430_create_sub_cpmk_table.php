@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sub_cpmk', function (Blueprint $table) {
             $table->bigIncrements('id_sub_cpmk');
+            $table->unsignedBigInteger('id_ps');
             $table->unsignedBigInteger('id_cpmk')->nullable();
             // $table->unsignedBigInteger('id_cpmk');
             $table->string('nama_kode_sub_cpmk');
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->text('desc_sub_cpmk_en');
 
             $table->foreign('id_cpmk')->references('id_cpmk')->on('cpmk')->onDelete('cascade');
+            $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ProdiScope;
 use Illuminate\Database\Eloquent\Model;
 
 class KurikulumModel extends Model
@@ -14,6 +15,11 @@ class KurikulumModel extends Model
         'id_ps',
         'tahun',
     ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ProdiScope);
+    }
 
     // has many relation
     public function cpl(){

@@ -31,6 +31,8 @@
                 @csrf
                 @method('PUT')
 
+                <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
+
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
 
                     <div class="mb-10">

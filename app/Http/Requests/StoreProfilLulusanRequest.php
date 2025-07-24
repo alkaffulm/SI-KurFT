@@ -22,9 +22,22 @@ class StoreProfilLulusanRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'kode_pl' => 'required|string',
             'id_ps' => 'required|exists:program_Studi,id_ps', 
             'profil_lulusan' => 'required|string',
             'desc' => 'required|string'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'kode_pl.required' => 'Kode PL tidak boleh kosong.',
+            'kode_pl.string'   => 'Kode PL harus berupa string',
+            'profil_lulusan.required' => 'Profil Lulusan tidak boleh kosong.',
+            'profil_lulusan.string'   => 'Profil Lulusan harus berupa String',
+            'desc.required' => 'Deskripsi tidak boleh kosong.',
+            'desc.string'   => 'Deskripsi harus berupa string',
         ];
     }
 }

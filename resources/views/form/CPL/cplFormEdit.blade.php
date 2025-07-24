@@ -17,15 +17,17 @@
         <form action=" {{ route('cpl.update', $cpl) }} " method="POST">
             @csrf
             @method('PUT')
+
+            <input type="text" id="nama_kode_cpl" name="nama_kode_cpl" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{ old('nama_kode_cpl', $cpl->nama_kode_cpl)}}" required>
+            
             <div>
                 <label for="nama_kode_cpl">Kode CPL:</label><br>
                 @error('nama_kode_cpl')
                     {{$message}}
                 @enderror
-                <input type="text" id="nama_kode_cpl" name="nama_kode_cpl" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{ old('nama_kode_cpl', $cpl->nama_kode_cpl)}}" required>
             </div>
             <br>
-            <div>
+            {{-- <div>
                 <label for="id_ps">ID Prodi:</label><br>
                 @error('id_ps')
                     {{$message}}
@@ -36,7 +38,9 @@
                     @endforeach
                 </select>
             </div>
-            <br>
+            <br> --}}
+            <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
+
             <div>
                 <label for="id_kurikulum">ID Kurikulum:</label><br>
                 @error('id_kurikulum')

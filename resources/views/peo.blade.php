@@ -75,6 +75,9 @@
                                 <th scope="col" class="px-6 py-4 whitespace-nowrap">
                                     Kode PEO
                                 </th>
+                                <th scope="col" class="px-6 py-4 whitespace-nowrap">
+                                    Nama Program Studi
+                                </th>
                                 <th scope="col" class="px-6 py-4">
                                     Deskripsi PEO
                                 </th>
@@ -86,6 +89,10 @@
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">
                                         {{ $p->kode_peo }}
+                                    </th>
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">
+                                        {{ $p->programstudi->nama_prodi}}
                                     </th>
                                     <td class="px-6 py-4 text-left">
                                         {{ $p->desc_peo }}

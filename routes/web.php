@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Kaprodi\CPLPLMapController;
-use App\Http\Controllers\KurikulumController;
+use App\Http\Controllers\Kaprodi\KurikulumController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Kaprodi\BahanKajianController;
@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('sub-cpmk', SubCpmkController::class);
         Route::resource('mata-kuliah', MatkulController::class);
         Route::resource('profil-lulusan', ProfilLulusanController::class);
-        Route::resource('kurikulum', \App\Http\Controllers\kaprodi\KurikulumController::class);
+        Route::resource('kurikulum', KurikulumController::class);
 
         // PEO Routes
         Route::get('/peo/edit-all', [PeoController::class, 'editAll'])->name('peo.editAll'); // Rute baru untuk form edit massal

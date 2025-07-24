@@ -59,7 +59,7 @@
                                             @if (isset($cpl_pl_map[$cpl->id_cpl]) && in_array($item->id_pl, $cpl_pl_map[$cpl->id_cpl])) 
                                                 selected 
                                             @endif>
-                                            {{ $item->id_pl }}
+                                            {{ $item->kode_pl }}
                                         </option>
                                     @endforeach
                                 </select>

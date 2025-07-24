@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ProdiScope;
 use Illuminate\Database\Eloquent\Model;
 
 class CPLModel extends Model
@@ -16,6 +17,11 @@ class CPLModel extends Model
         'desc',
         'bobot_maksimum',
     ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ProdiScope);
+    }
 
     /**
      * Relasi many-to-many ke ProfilLulusanModel melalui tabel pl_cpl_map.

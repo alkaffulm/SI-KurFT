@@ -11,12 +11,15 @@
     @include('layouts.navbar', ['userRole' => $userRole])
 
     @include('layouts.sidebar', ['userRole' => $userRole])
-
+    
     <div class="ml-72 mx-8 mt-24">
-            <h2>Form Input CPL</h2>
-
+        <h2>Form Input CPL</h2>
+        
         <form action="{{ route('cpl.store') }}" method="POST">
             @csrf
+
+            <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
+            
             <div>
                 <label for="nama_kode_cpl">Kode CPL:</label><br>
                 @error('nama_kode_cpl')
@@ -25,7 +28,7 @@
 
                 <input type="text" id="nama_kode_cpl" name="nama_kode_cpl" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>
             </div>
-            <br>
+            {{-- <br>
             <div>
                 <label for="id_ps">ID Prodi:</label><br>
                 @error('id_ps')
@@ -36,7 +39,8 @@
                         <option value="{{$ps->id_ps}}">{{$ps->nama_prodi}}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
+
             <br>
             <div>
                 <label for="id_kurikulum">ID Kurikulum:</label><br>

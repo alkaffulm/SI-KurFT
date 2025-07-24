@@ -19,7 +19,10 @@
         <form action="{{ route('profil-lulusan.update', $profil_lulusan) }}" method="POST">
             @csrf
             @method('PUT')
-            <div>
+
+            <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
+            
+            {{-- <div>
                 <label for="id_ps">Nama Program Studi:</label><br>
                 @error('id_ps')
                     {{$message}}
@@ -29,7 +32,15 @@
                         <option value="{{$p->id_ps}}" {{old('id_ps', $p->id_ps) == $profil_lulusan->id_ps ? 'selected' : ''}}>{{$p->nama_prodi}}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
+            <br>
+            <div>
+            <label for="kode_pl">Kode Profil Lulusan:</label><br>
+                @error('kode_pl')
+                    {{$message}}
+                @enderror
+                <input type="text" id="kode_pl" name="kode_pl" value="{{old('kode_pl', $profil_lulusan->kode_pl)}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>
+            </div> 
             <br>
             <div>
                 <label for="profil_lulusan">Profil Lulusan:</label><br>

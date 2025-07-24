@@ -20,14 +20,16 @@
         <table border="1" cellpadding="5" class="mb-20 text-center w-full"> 
             <tr class="bg-gray-100">
                 <th class="border-2">ID Profil Lulusan</th>
-                <th class="border-2">ID Program Studi</th>
+                <th class="border-2">Kode Profil Lulusan</th>
+                <th class="border-2">Nama Program Studi</th>              
                 <th class="border-2">Deskripsi</th>
                 <th class="border-2">Aksi</th>
             </tr>
             @foreach ($profil_lulusan as $pl )
                 <tr>
                     <td class="border-2">{{$pl->id_pl}}</td>
-                    <td class="border-2">{{$pl->id_ps}}</td>
+                    <td class="border-2">{{$pl->kode_pl}}</td>
+                    <td class="border-2">{{$pl->programstudi->nama_prodi}}</td>
                     <td class="border-2">{{$pl->desc}}</td>
                     <td class="border-2 mb-2">
                         <div class="flex flex-col gap-4">

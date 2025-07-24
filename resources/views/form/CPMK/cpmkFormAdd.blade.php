@@ -12,12 +12,15 @@
     @include('layouts.navbar', ['userRole' => $userRole])
 
     @include('layouts.sidebar', ['userRole' => $userRole])
-
+    
     <div class="ml-72 mx-8 mt-24">
         <h2 class="text-2xl font-bold">Form Input CPMK</h2>
-
+        
         <form action="{{ route('cpmk.store') }}" method="POST">
             @csrf
+
+            <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
+
             <div>
                 <label for="nama_kode_cpmk">Nama CPMK:</label><br>
                 @error('nama_kode_cpmk')

@@ -17,6 +17,9 @@
     
         <form action={{ route('bahan-kajian.store') }} method="POST">
             @csrf
+            
+            <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
+
             <div>
                 <label for="nama_bk">Nama Bahan Kajian:</label><br>
                 @error('nama_bk')

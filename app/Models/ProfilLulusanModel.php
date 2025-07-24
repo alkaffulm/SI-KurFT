@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ProdiScope;
 use Illuminate\Database\Eloquent\Model;
 
 class ProfilLulusanModel extends Model
@@ -15,8 +16,12 @@ class ProfilLulusanModel extends Model
         'kode_pl',
         'profil_lulusan',
         'desc',
-        'kode_pl'
     ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ProdiScope);
+    }
 
     /**
      * Relasi many-to-many ke CPLModel melalui tabel pl_cpl_map.
