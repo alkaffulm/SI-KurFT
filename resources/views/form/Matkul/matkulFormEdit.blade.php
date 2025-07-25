@@ -16,73 +16,40 @@
     <div class="ml-72 mx-8 mt-24">
         <h2 class="text-2xl font-bold">Form Edit Mata Kuliah</h2>
         
-        <form action="{{ route('mata-kuliah.update', $mata_kuliah) }}" method="POST">
+        <form action="{{ route('mata-kuliah.updateAll') }}" method="POST">
             @csrf
             @method('PUT')
 
             <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
-            
-            {{-- <div>
-                <label for="id_ps">ID Program Studi:</label><br>
-                @error('id_ps')
-                    {{$message}}
-                @enderror
-                <select name="id_ps" id="id_ps" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2">
-                    @foreach ( $program_studi as $ps )
-                        <option value="{{$ps->id_ps}}" {{old('id_ps', $mata_kuliah->id_ps) == $ps->id_ps ? 'selected' : ''}}>{{$ps->nama_prodi}}</option>
-                    @endforeach
-                </select>
-            </div> --}}
 
-            <br>
-            <div>
+            @foreach ($mata_kuliah as $mk)
+                
+                <label for="kode_mk">Kode Mata Kuliah:</label><br>
+                <input type="text" id="kode_mk" name="matkul[{{ $mk->id_mk }}][kode_mk]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('matkul.'.$mk->id_mk.'.kode_mk', $mk->kode_mk)}}" required>                
+            
                 <label for="nama_matkul_id">Nama Mata Kuliah (Indonesia):</label><br>
-                @error('nama_matkul_id')
-                    {{$message}}
-                @enderror
-                <input type="text" id="nama_matkul_id" name="nama_matkul_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('nama_matkul_id', $mata_kuliah->nama_matkul_id)}}" required>
-            </div>
-            <br>
-            <div>
+                <input type="text" id="nama_matkul_id" name="matkul[{{ $mk->id_mk }}][nama_matkul_id]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('matkul.'.$mk->id_mk.'.nama_matkul_id', $mk->nama_matkul_id)}}" required>    
+                
                 <label for="nama_matkul_en">Nama Mata Kuliah (English):</label><br>
-                @error('nama_matkul_en')
-                    {{$message}}
-                @enderror
-                <input type="text" id="nama_matkul_en" name="nama_matkul_en" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('nama_matkul_en', $mata_kuliah->nama_matkul_en)}}" required>
-            </div>
-            <br>
-            <div>
+                <input type="text" id="nama_matkul_en" name="matkul[{{ $mk->id_mk }}][nama_matkul_en]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('matkul.'.$mk->id_mk.'.nama_matkul_en', $mk->nama_matkul_en)}}" required> 
+                
                 <label for="matkul_desc_id">Deskripsi (Indonesia):</label><br>
-                @error('matkul_desc_id')
-                    {{$message}}
-                @enderror
-                <textarea id="matkul_desc_id" name="matkul_desc_id" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{old('matkul_desc_id', $mata_kuliah->matkul_desc_id)}}</textarea>
-            </div>
-            <br>
-            <div>
+                <input type="text" id="matkul_desc_id" name="matkul[{{ $mk->id_mk }}][matkul_desc_id]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('matkul.'.$mk->id_mk.'.matkul_desc_id', $mk->matkul_desc_id)}}" required>      
+                
                 <label for="matkul_desc_en">Deskripsi (English):</label><br>
-                @error('matkul_desc_en')
-                    {{$message}}
-                @enderror
-                <textarea id="matkul_desc_en" name="matkul_desc_en" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{old('matkul_desc_en', $mata_kuliah->matkul_desc_en)}}</textarea>
-            </div>
-            <br>
-            <div>
+                <input type="text" id="matkul_desc_en" name="matkul[{{ $mk->id_mk }}][matkul_desc_en]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('matkul.'.$mk->id_mk.'.matkul_desc_en', $mk->matkul_desc_en)}}" required>     
+                
                 <label for="jumlah_sks">Jumlah SKS:</label><br>
-                @error('jumlah_sks')
-                    {{$message}}
-                @enderror
-                <input type="text" id="jumlah_sks" name="jumlah_sks" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('jumlah_sks', $mata_kuliah->jumlah_sks)}}" required>
-            </div>
-            <br>
-            <div>
+                <input type="text" id="jumlah_sks" name="matkul[{{ $mk->id_mk }}][jumlah_sks]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('matkul.'.$mk->id_mk.'.jumlah_sks', $mk->jumlah_sks)}}" required>           
+
                 <label for="semester">Semester:</label><br>
-                @error('semester')
-                    {{$message}}
-                @enderror
-                <input type="text" id="semester" name="semester" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('semester', $mata_kuliah->semester)}}" required>
-            </div>
-            <br>
+                <input type="text" id="semester" name="matkul[{{ $mk->id_mk }}][semester]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{old('matkul.'.$mk->id_mk.'.semester', $mk->semester)}}" required>      
+
+                <input type="checkbox" name="delete_ids[]" value="{{ $mk->id_mk }}">Hapus
+
+                <br><br><br><br>
+
+            @endforeach
             <div>
                 <button type="submit">update</button>
             </div>

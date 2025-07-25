@@ -28,7 +28,7 @@
             </tr>
             @foreach ($bahan_kajian as $bk )
                 <tr>
-                    <td class="border-2">{{ $bk->id_bk }}</td>
+                    <td class="border-2">{{ $bk->nama_kode_bk }}</td>
                     <td class="border-2">
                     <form action="{{ route('bahan-kajian.destroy', $bk) }}" method="POST">
                             @csrf

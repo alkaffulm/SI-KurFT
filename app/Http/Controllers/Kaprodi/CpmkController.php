@@ -4,6 +4,7 @@ namespace App\Http\Controllers\kaprodi;
 
 use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreCPMKRequest;
+use App\Http\Requests\UpdateAll\UpdateAllCPMKRequest;
 use App\Models\CPMKModel;
 use App\Models\MataKuliahModel;
 use App\Models\SubCPMKModel;
@@ -23,7 +24,7 @@ class CpmkController extends Controller
      */
     public function index()
     {
-        $cpmk = CPMKModel::all();
+        $cpmk = CPMKModel::orderBy('kode_cpmk')->get();
         $subCpmk = SubCPMKModel::all();
         return view('cpmk', ['cpmk' => $cpmk, 'sub_cpmk' => $subCpmk]);
     }
@@ -59,18 +60,35 @@ class CpmkController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CPMKModel $cpmk)
+    public function editAll()
     {
         $mata_kuliah = MataKuliahModel::all();
+        $cpmk = CPMKModel::orderBy('nama_kode_cpmk')->get();
+
         return view('form.CPMK.cpmkFormEdit', ['cpmk' => $cpmk, 'mata_kuliah' => $mata_kuliah]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreCPMKRequest $request, CPMKModel $cpmk)
+    public function updateAll(UpdateAllCPMKRequest $request)
     {
-        $cpmk->update($request->validated());
+        if ($request->has('delete_ids')) {
+            CPMKModel::destroy($request->delete_ids);
+        }
+
+        if (!$request->has('cpmk')) {
+            return to_route('cpmk.index')->with('success', 'CPMK berhasil disimpan!');
+        }
+
+        $validatedData = $request->validated()['cpmk'];
+
+        foreach ($validatedData as $id_cpmk => $data) {
+            $cpmk = CPMKModel::find($id_cpmk);
+            if ($cpmk) {
+                $cpmk->update($data);
+            }
+        }
 
         return to_route('cpmk.index')->with('success', 'CPMK berhasil diperbarui!');
     }

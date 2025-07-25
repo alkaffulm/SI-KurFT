@@ -16,6 +16,7 @@ use App\Http\Controllers\Kaprodi\PeoController;
 use App\Http\Controllers\Kaprodi\ProfilLulusanController;
 use App\Http\Controllers\Kaprodi\SubCpmkController;
 use App\Http\Controllers\Kaprodi\PLPEOMappingController;
+use App\Http\Controllers\MhsCplController;
 use App\Models\BKCPLMapModel;
 use App\Models\CPLPLMapModel;
 
@@ -34,17 +35,25 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:kaprodi')->prefix('kaprodi')->group(function () {
         Route::resource('bahan-kajian', BahanKajianController::class);
         Route::resource('cpl', CplController::class);
-        Route::resource('cpmk', CpmkController::class);
         Route::resource('sub-cpmk', SubCpmkController::class);
-        Route::resource('mata-kuliah', MatkulController::class);
         Route::resource('profil-lulusan', ProfilLulusanController::class);
         Route::resource('kurikulum', KurikulumController::class);
-
+        Route::resource('mhs-cpl', MhsCplController::class);
+        
         // PEO Routes
         Route::get('/peo/edit-all', [PeoController::class, 'editAll'])->name('peo.editAll'); // Rute baru untuk form edit massal
         Route::put('/peo/update-all', [PeoController::class, 'updateAll'])->name('peo.updateAll'); // Rute baru untuk update massal
         Route::resource('peo', PeoController::class);
-
+        
+        
+        Route::get('mata-kuliah/edit-all', [MatkulController::class, 'editAll'])->name('mata-kuliah.editAll');
+        Route::put('mata-kuliah/update-all', [MatkulController::class, 'updateAll'])->name('mata-kuliah.updateAll');
+        Route::resource('mata-kuliah', MatkulController::class);
+        
+        Route::get('cpmk/edit-all', [CpmkController::class, 'editAll'])->name('cpmk.editAll');
+        Route::put('cpmk/update-all', [CpmkController::class, 'updateAll'])->name('cpmk.updateAll');
+        Route::resource('cpmk', CpmkController::class);
+        
         // pl pe map
         Route::get('/mapping/pl-peo', [PLPEOMappingController::class, 'index'])->name('pl-peo-mapping.index'); 
 

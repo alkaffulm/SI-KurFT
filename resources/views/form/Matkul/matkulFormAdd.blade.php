@@ -19,17 +19,13 @@
             @csrf
 
             <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
-            
+
             <div>
-                {{-- <label for="id_ps">ID Program Studi:</label><br> --}}
-                {{-- @error('id_ps')
+                <label for="kode_mk">Kode Mata Kuliah:</label><br>
+                @error('kode_mk')
                     {{$message}}
                 @enderror
-                <select name="id_ps" id="id_ps" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2">
-                    @foreach ( $program_studi as $ps )
-                        <option value="{{$ps->id_ps}}">{{$ps->nama_prodi}}</option>
-                    @endforeach
-                </select> --}}
+                <input type="text" id="kode_mk" name="kode_mk" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>
             </div>
             <br>
             <div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\kaprodi;
 
 use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreMatkulRequest;
+use App\Http\Requests\UpdateAll\UpdateAllMatkulRequest;
 use App\Models\MataKuliahModel;
 use App\Models\ProgramStudiModel;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class MatkulController extends Controller
      */
     public function index()
     {
-        $mata_kuliah = MataKuliahModel::all();
+        $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->get();
         return view('matkul', ['mata_kuliah' => $mata_kuliah]);
     }
 
@@ -57,19 +58,34 @@ class MatkulController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MataKuliahModel $mata_kuliah)
-    {
-        $program_studi = ProgramStudiModel::all();
-        
-        return view('form.Matkul.matkulFormEdit', ['mata_kuliah' => $mata_kuliah, 'program_studi' => $program_studi]);
+    public function editAll()
+    {     
+        $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->get();   
+        return view('form.Matkul.matkulFormEdit', ['mata_kuliah' => $mata_kuliah]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreMatkulRequest $request, MataKuliahModel $mata_kuliah)
+    public function updateAll(UpdateAllMatkulRequest $request)
     {   
-        $mata_kuliah->update($request->validated());
+        // $mata_kuliah->update($request->validated());
+        if ($request->has('delete_ids')) {
+            MataKuliahModel::destroy($request->delete_ids);
+        }
+
+        if (!$request->has('matkul')) {
+            return to_route('mata-kuliah.index')->with('success', 'Mata Kuliah Disimpan');
+        }
+
+        $validatedData = $request->validated()['matkul'];
+
+        foreach ( $validatedData as $id_mk => $data) {
+            $matkul = MataKuliahModel::find($id_mk);
+            if($matkul) {
+                $matkul->update($data);
+            }
+        }
 
         return to_route('mata-kuliah.index')->with('success', 'Mata Kuliah berhasil diperbarui!');
     }

@@ -18,8 +18,9 @@
         <h2 class="text-2xl font-bold">Capaian Pembelajaran Mata Kuliah (CPMK)</h2>
 
         <a href="{{ route('cpmk.create') }}">Tambah </a>
+        <a href="{{ route('cpmk.editAll') }}">Edit </a>
 
-        <table  cellpadding="5" > 
+        {{-- <table  cellpadding="5" > 
             <tr >
                 <th class="border-2">Kode CPMK</th>
                 <th class="border-2 ">aksi</th>
@@ -39,6 +40,21 @@
                         | <a href="{{ route('cpmk.edit', $cp) }}">Edit</a>
                     </td>
                     <td class="border-2">{{ $cp->programstudi->nama_prodi }}</td>
+                    <td class="border-2">{{ $cp->matakuliah->nama_matkul_id }}</td>
+                    <td class="border-2">{{ $cp->desc_cpmk_id }}</td>
+                </tr>
+            @endforeach
+        </table> --}}
+
+        <table  cellpadding="5" > 
+            <tr >
+                <th class="border-2">Kode MK</th>
+                <th class="border-2">Nama MK</th>
+                <th class="border-2">CPMK</th>
+            </tr>
+            @foreach ($cpmk as $cp )
+                <tr >
+                    <td class="border-2">{{ $cp->matakuliah->kode_mk }}</td>
                     <td class="border-2">{{ $cp->matakuliah->nama_matkul_id }}</td>
                     <td class="border-2">{{ $cp->desc_cpmk_id }}</td>
                 </tr>
