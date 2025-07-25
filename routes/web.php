@@ -34,9 +34,9 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:kaprodi')->prefix('kaprodi')->group(function () {
         Route::resource('bahan-kajian', BahanKajianController::class);
-        Route::resource('cpl', CplController::class);
+        // Route::resource('cpl', CplController::class);
         Route::resource('sub-cpmk', SubCpmkController::class);
-        Route::resource('profil-lulusan', ProfilLulusanController::class);
+        // Route::resource('profil-lulusan', ProfilLulusanController::class);
         Route::resource('kurikulum', KurikulumController::class);
         Route::resource('mhs-cpl', MhsCplController::class);
         
@@ -45,6 +45,20 @@ Route::middleware('auth')->group(function () {
         Route::put('/peo/update-all', [PeoController::class, 'updateAll'])->name('peo.updateAll'); // Rute baru untuk update massal
         Route::resource('peo', PeoController::class);
         
+         // == PROFIL LULUSAN ROUTES ==
+        Route::get('/profil-lulusan', [ProfilLulusanController::class, 'index'])->name('profil-lulusan.index');
+        Route::get('/profil-lulusan/create', [ProfilLulusanController::class, 'create'])->name('profil-lulusan.create');
+        Route::post('/profil-lulusan', [ProfilLulusanController::class, 'store'])->name('profil-lulusan.store');
+        Route::get('/profil-lulusan/edit-all', [ProfilLulusanController::class, 'editAll'])->name('profil-lulusan.editAll');
+        Route::put('/profil-lulusan/update-all', [ProfilLulusanController::class, 'updateAll'])->name('profil-lulusan.updateAll');
+        Route::delete('/profil-lulusan/{profil_lulusan}', [ProfilLulusanController::class, 'destroy'])->name('profil-lulusan.destroy');
+
+        // == CPL ROUTES ==
+        Route::get('/cpl', [CplController::class, 'index'])->name('cpl.index');
+        Route::get('/cpl/create', [CplController::class, 'create'])->name('cpl.create');
+        Route::post('/cpl', [CplController::class, 'store'])->name('cpl.store');
+        Route::get('/cpl/edit-all', [CplController::class, 'editAll'])->name('cpl.editAll');
+        Route::put('/cpl/update-all', [CplController::class, 'updateAll'])->name('cpl.updateAll');
         
         Route::get('mata-kuliah/edit-all', [MatkulController::class, 'editAll'])->name('mata-kuliah.editAll');
         Route::put('mata-kuliah/update-all', [MatkulController::class, 'updateAll'])->name('mata-kuliah.updateAll');

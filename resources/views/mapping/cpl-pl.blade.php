@@ -1,83 +1,121 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabel Profi Lulusan</title>
+    <title>Edit Korelasi CPL dan PL</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+
+    {{-- Select2 CSS and JS for searchable dropdowns --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.select2').select2();
-        });
-    </script>
+
+    {{-- Custom styles to make Select2 fit the Tailwind design --}}
+    <style>
+        .select2-container--default .select2-selection--multiple {
+            border-radius: 0.5rem;
+            /* rounded-lg */
+            border-color: #D1D5DB;
+            /* border-gray-300 */
+            padding: 0.35rem;
+            min-height: 42px;
+            /* Sets a minimum height */
+        }
+
+        .select2-container {
+            width: 100% !important;
+            /* Forces the element to fill its container */
+        }
+    </style>
 </head>
-<body>
-    @include('layouts.navbar', ['userRole' => $userRole])
 
-    @include('layouts.sidebar', ['userRole' => $userRole])
+<body class="bg-gray-100 font-sans">
 
+    @include('layouts.navbar')
+    @include('layouts.sidebar')
 
-    <div class="ml-72 mx-8 mt-24 mb-24">
-        <a href="../cpl " class="mr-2 px-10 py-2 text-white bg-[#5FA9C8] rounded-lg hover:bg-[#2b7798]">
-            Kembali
-        </a>
-        {{-- bagian judul --}}
-        <div class="flex flex-col gap-4 mt-4">
-            <h1 class="font-bold text-3xl">Edit Tabel Korelasi CPL dengan Profil Lulusan (PL)</h1>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem inventore mollitia ab soluta accusamus ducimus, tempore praesentium at cumque nemo cupiditate est, 
-                odit illo ratione. Cum, nulla id. At, totam.
-            </p>
-        </div>
-
-        {{-- bagian tabel untuk mapping --}}
-        <div class="flex flex-col">
-            {{-- Form action menunjuk ke route update yang baru --}}
-            <form action="{{ route('cpl-pl-mapping.update') }}" name="editCPLPL" method="post">
+    <div class="p-4 sm:p-8 sm:ml-64">
+        <main class="mt-20 max-w-4xl mx-auto">
+            <form action="{{ route('cpl-pl-mapping.update') }}" method="POST">
                 @csrf
                 @method('PUT')
-                <table border="1" cellpadding="5" class="mb-2 text-center w-full mt-4"> 
-                    <tr class="bg-gray-300">
-                        <th class="border-2" rowspan="2">Kode CPL</th>
-                        <th class="border-2" colspan="1">Kode Profil Lulusan</th>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td class="border-2">Pilihan Kode PL</td>
-                    </tr>
-                    @foreach ($cpl as $cpl)
-                        <tr>
-                            <td class="border-2">{{$cpl->nama_kode_cpl}}</td>
-                            <td class="border-2">
-                                {{-- Tambahkan name attribute dan value untuk option --}}
-                                <select class="select2 w-full" multiple="multiple" style="width:100%" name="pl_mappings[{{ $cpl->id_cpl }}][]">
-                                    @foreach ($profil_lulusan as $item)
-                                        <option value="{{ $item->id_pl }}" 
-                                            @if (isset($cpl_pl_map[$cpl->id_cpl]) && in_array($item->id_pl, $cpl_pl_map[$cpl->id_cpl])) 
-                                                selected 
-                                            @endif>
-                                            {{ $item->kode_pl }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>  
-                <button type="submit" class="w-36 mb-24 px-4 py-2 text-white bg-[#5FA9C8] rounded-lg hover:bg-[#2b7798]">Ubah Data</button>
-            </form>
-        </div>
 
+                <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
+                    <div class="mb-5">
+                        <h1 class="text-4xl font-bold text-gray-800">Edit Korelasi CPL dan PL</h1>
+                        <p class="text-gray-500 mt-2 text-base">Pilih Profil Lulusan (PL) yang relevan untuk setiap
+                            Capaian Pembelajaran Lulusan (CPL).</p>
+                    </div>
+
+                    <div class="overflow-hidden rounded-lg border border-gray-400">
+                        <table class="w-full text-sm text-center text-gray-500">
+                            {{-- Table Header --}}
+                            <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                                <tr>
+                                    <th scope="col" class="px-6 py-4 whitespace-nowrap">Kode CPL</th>
+                                    <th scope="col" class="px-6 py-4 whitespace-nowrap">Profil Lulusan (PL)</th>
+                                </tr>
+                            </thead>
+                            {{-- Table Body --}}
+                            <tbody>
+                                @foreach ($cpl as $c)
+                                    <tr class="bg-white border-t border-gray-400">
+                                        <th scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                            {{ $c->nama_kode_cpl }}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{-- Select2 dropdown for PL selection --}}
+                                            <select class="select2 w-full" multiple="multiple"
+                                                name="pl_mappings[{{ $c->id_cpl }}][]">
+                                                @foreach ($profil_lulusan as $item)
+                                                    <option value="{{ $item->id_pl }}"
+                                                        @if (isset($cpl_pl_map[$c->id_cpl]) && in_array($item->id_pl, $cpl_pl_map[$c->id_cpl])) selected @endif>
+                                                        {{ $item->kode_pl }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {{-- Action Buttons --}}
+                    <div class="mt-12 pt-8 border-t border-gray-200 flex justify-end items-center gap-x-4">
+                        <a href="{{ route('cpl.index') }}"
+                            class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
+                            Kembali
+                        </a>
+                        <button type="submit"
+                            class="flex items-center gap-x-2 text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
+                                </path>
+                            </svg>
+                            Simpan Perubahan
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </main>
     </div>
 
-
-
-    {{-- <script>
-        alert("{{session('success')}}");
-    </script> --}}
-    
+    {{-- Script to initialize Select2 --}}
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: "Pilih PL",
+                allowClear: true
+            });
+        });
+    </script>
 </body>
+
 </html>

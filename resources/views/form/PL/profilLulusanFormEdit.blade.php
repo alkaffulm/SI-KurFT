@@ -1,70 +1,149 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Input Buku</title>
+    <title>Edit Profil Lulusan (PL)</title>
     @vite('resources/css/app.css')
-    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        .transition-opacity {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .is-deleting {
+            opacity: 0.4;
+        }
+    </style>
 </head>
-<body>
 
-    @include('layouts.navbar', ['userRole' => $userRole])
+<body class="bg-gray-100 font-sans">
 
-    @include('layouts.sidebar', ['userRole' => $userRole])
+    @include('layouts.navbar')
+    @include('layouts.sidebar')
 
-    <div class="ml-72 mx-8 mt-24">
-        <h2 class="text-2xl font-bold">Form Edit Profil Lulusan</h2>
+    <div class="p-4 sm:p-8 sm:ml-64">
+        <main class="mt-20 mb-4 max-w-5xl mx-auto">
 
-        <form action="{{ route('profil-lulusan.update', $profil_lulusan) }}" method="POST">
-            @csrf
-            @method('PUT')
+            <form action="{{ route('profil-lulusan.updateAll') }}" method="POST">
+                @csrf
+                @method('PUT')
 
-            <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
-            
-            {{-- <div>
-                <label for="id_ps">Nama Program Studi:</label><br>
-                @error('id_ps')
-                    {{$message}}
-                @enderror
-                <select name="id_ps" id="id_ps" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2">
-                    @foreach ( $program_studi as $p )
-                        <option value="{{$p->id_ps}}" {{old('id_ps', $p->id_ps) == $profil_lulusan->id_ps ? 'selected' : ''}}>{{$p->nama_prodi}}</option>
-                    @endforeach
-                </select>
-            </div> --}}
-            <br>
-            <div>
-            <label for="kode_pl">Kode Profil Lulusan:</label><br>
-                @error('kode_pl')
-                    {{$message}}
-                @enderror
-                <input type="text" id="kode_pl" name="kode_pl" value="{{old('kode_pl', $profil_lulusan->kode_pl)}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>
-            </div> 
-            <br>
-            <div>
-                <label for="profil_lulusan">Profil Lulusan:</label><br>
-                @error('profil_lulusan')
-                    {{$message}}
-                @enderror
-                <input type="text" id="profil_lulusan" name="profil_lulusan" value="{{old('profil_lulusan', $profil_lulusan->profil_lulusan)}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>
-            </div>
-            <br>
+                <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
 
-            <div>
-                <label for="desc">Deskripsi:</label><br>
-                @error('desc')
-                    {{$message}}
-                @enderror
-                <textarea id="desc" name="desc" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{old('desc', $profil_lulusan->desc)}}</textarea>
-            </div>
-            <br>
-            <div>
-                <button type="submit" class="inline-flex items-center px-5 py-2 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">Update</button>
-            </div>
-        </form>        
+                <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
+
+                    <div class="mb-10">
+                        <h1 class="text-4xl font-bold text-gray-800">Edit Profil Lulusan (PL)</h1>
+                    </div>
+
+                    @if ($errors->any())
+                        <div class="mb-8 p-4 text-sm text-red-800 rounded-lg bg-red-100" role="alert">
+                            <span class="font-bold">Terjadi Kesalahan:</span>
+                            <ul class="mt-2 list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <div class="space-y-10">
+                        @forelse ($pl_data as $pl)
+                            <div x-data="{ isDeleting: false }" class="transition-opacity"
+                                :class="{ 'is-deleting': isDeleting }">
+                                <div class="grid grid-cols-12 gap-x-6 gap-y-4">
+                                    {{-- Kode PL --}}
+                                    <div class="col-span-12 sm:col-span-2">
+                                        <label for="kode_pl_{{ $pl->id_pl }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Kode PL</label>
+                                        <input type="text" id="kode_pl_{{ $pl->id_pl }}"
+                                            name="pl[{{ $pl->id_pl }}][kode_pl]" :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                            value="{{ old('pl.' . $pl->id_pl . '.kode_pl', $pl->kode_pl) }}" required>
+                                    </div>
+
+                                    {{-- Profil Lulusan --}}
+                                    <div class="col-span-12 sm:col-span-9">
+                                        <label for="profil_lulusan_{{ $pl->id_pl }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Profil
+                                            Lulusan</label>
+                                        <input type="text" id="profil_lulusan_{{ $pl->id_pl }}"
+                                            name="pl[{{ $pl->id_pl }}][profil_lulusan]" :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                            value="{{ old('pl.' . $pl->id_pl . '.profil_lulusan', $pl->profil_lulusan) }}"
+                                            required>
+                                    </div>
+
+                                    {{-- Delete Checkbox --}}
+                                    <div class="col-span-1 flex items-center justify-center pt-8">
+                                        <input type="checkbox" id="delete_{{ $pl->id_pl }}" name="delete_pl[]"
+                                            value="{{ $pl->id_pl }}" class="hidden" x-model="isDeleting">
+                                        <label for="delete_{{ $pl->id_pl }}"
+                                            class="cursor-pointer text-gray-400 hover:text-red-600 transition"
+                                            title="Tandai untuk dihapus">
+                                            <svg :class="{ '!text-red-600': isDeleting }" class="w-7 h-7" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                </path>
+                                            </svg>
+                                        </label>
+                                    </div>
+
+                                    {{-- Deskripsi --}}
+                                    <div class="col-span-12">
+                                        <label for="desc_{{ $pl->id_pl }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi</label>
+                                        <textarea id="desc_{{ $pl->id_pl }}" name="pl[{{ $pl->id_pl }}][desc]" rows="4" :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('pl.' . $pl->id_pl . '.desc', $pl->desc) }}</textarea>
+                                    </div>
+                                </div>
+
+                                @if (!$loop->last)
+                                    <hr class="mt-10 border-gray-200">
+                                @endif
+                            </div>
+                        @empty
+                            <div class="text-center py-16 border-2 border-dashed border-gray-200 rounded-lg">
+                                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" aria-hidden="true">
+                                    <path vector-effect="non-scaling-stroke" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2"
+                                        d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                                </svg>
+                                <h3 class="mt-4 text-base font-semibold text-gray-900">Tidak Ada Data</h3>
+                                <p class="mt-1 text-base text-gray-500">Data Profil Lulusan belum tersedia untuk diedit.
+                                </p>
+                            </div>
+                        @endforelse
+                    </div>
+
+                    @if ($pl_data->isNotEmpty())
+                        <div class="mt-12 pt-8 border-t border-gray-200 flex justify-end items-center gap-x-4">
+                            <a href="{{ route('profil-lulusan.index') }}"
+                                class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
+                                Batal
+                            </a>
+                            <button type="submit"
+                                class="flex items-center gap-x-2 text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
+                                    </path>
+                                </svg>
+                                Simpan Perubahan
+                            </button>
+                        </div>
+                    @endif
+                </div>
+            </form>
+        </main>
     </div>
 
-
 </body>
+
 </html>

@@ -18,7 +18,7 @@
     @include('layouts.sidebar', ['userRole' => $userRole])
 
     <div class="sm:ml-64">
-        <main class="mt-20 p-8">
+        <main class="mt-16 p-8">
             {{-- Konten dinamis berdasarkan peran pengguna --}}
             @if ($userRole == 'kaprodi')
                 @include('partials.dashboard-kaprodi')

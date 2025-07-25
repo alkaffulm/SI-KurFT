@@ -1,122 +1,195 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabel CPL</title>
+    <title>Capaian Pembelajaran Lulusan (CPL)</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 </head>
-<body>
 
-    @include('layouts.navbar', ['userRole' => $userRole])
+<body class="bg-gray-100 font-sans">
 
-    @include('layouts.sidebar', ['userRole' => $userRole])
+    @include('layouts.navbar')
+    @include('layouts.sidebar')
 
-    {{-- tabel cpl --}}
-    <div class="ml-72 mx-8 mt-24 "> 
-        <h2 class="text-2xl font-bold mb-6">Capaian Profil Lulusan (CPL)</h2>
-    
-        <a href="{{ route('cpl.create') }}" class="mt-2 mb-2 text-white bg-[#5FA9C8] px-2 py-2 rounded-lg hover:bg-[#2b7798]">Tambah</a>
-    
-    
-        <table border="1" cellpadding="5" class="mt-4 w-full text-center"> 
-            <tr>
-                <th class="border-2">Kode CPL</th>
-                <th class="border-2">aksi</th>
-                <th class="border-2">Nama Program Studi</th>
-                <th class="border-2">Deskripsi CPL</th>
-            </tr>
-            @foreach ($cpl as $c )
-                <tr>
-                    <td class="border-2">{{ $c->nama_kode_cpl }}</td>
-                    <td class="border-2">
-                       <form action="{{ route('cpl.destroy', $c) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Hapus</button>
-                        </form> 
-                        | <a href="{{ route('cpl.edit', $c) }}">Edit</a>
-                    </td>
-                    <td class="border-2">{{ $c->programstudi->nama_prodi }}</td>
-                    <td class="border-2">{{ $c->desc }}</td>
-                </tr>
-            @endforeach
-        </table> 
+    <div class="py-8 px-16 sm:ml-64">
+        <main class="mt-16">
+            {{-- Bagian CPL --}}
+            <nav class="flex mb-4" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+                    <li class="inline-flex items-center">
+                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Kurikulum</span>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 9 4-4-4-4" />
+                            </svg>
+                            <span class="ms-1 text-sm font-medium text-gray-900 md:ms-2">CPL</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+            <div class="bg-white p-8 rounded-lg shadow-md mb-8">
+                <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">CAPAIAN PEMBELAJARAN LULUSAN (CPL)</h1>
+                <p class="text-gray-600 mb-6">
+                    CPL merupakan kompetensi yang diharapkan dimiliki mahasiswa setelah menyelesaikan program studi,
+                    mencakup aspek sikap, pengetahuan, dan keterampilan.
+                </p>
+
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel CPL</h2>
+                    <div class="space-x-2">
+                        <a href="{{ route('cpl.editAll') }}"
+                            class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                </path>
+                            </svg>
+                            Edit CPL
+                        </a>
+                        <a href="{{ route('cpl.create') }}"
+                            class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            Tambah CPL
+                        </a>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto rounded-lg border border-gray-400">
+                    <table class="w-full text-sm text-center text-gray-500">
+                        <thead class="text-white uppercase bg-teks-biru-custom">
+                            <tr>
+                                <th scope="col" class="px-6 py-4">Kode CPL</th>
+                                <th scope="col" class="px-6 py-4">Deskripsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($cpl as $c)
+                                <tr class="bg-white border-t border-gray-400">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        {{ $c->nama_kode_cpl }}
+                                    </th>
+                                    <td class="px-6 py-4 text-left">
+                                        {{ $c->desc }}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr class="bg-white border-t border-gray-400">
+                                    <td colspan="2" class="px-6 py-4 text-center text-gray-500">
+                                        Data CPL masih kosong.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Bagian Tabel Korelasi CPL dan PL --}}
+                <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Korelasi CPL dengan Profil Lulusan
+                    (PL)
+                </h1>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi CPL - PL</h2>
+                    <a href="{{ route('cpl-pl-mapping.edit') }}"
+                        class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                            </path>
+                        </svg>
+                        Edit Korelasi
+                    </a>
+                </div>
+                <div class="overflow-x-auto rounded-lg border border-gray-400">
+                    <table class="w-full text-sm text-center text-gray-500">
+                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode CPL</th>
+                                @foreach ($profil_lulusan as $pl)
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">{{ $pl->kode_pl }}
+                                    </th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($cpl as $c)
+                                <tr class="bg-white border-t border-gray-400">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        {{ $c->nama_kode_cpl }}
+                                    </th>
+                                    @foreach ($profil_lulusan as $pl)
+                                        @php
+                                            $isChecked =
+                                                isset($cpl_pl_map[$c->id_cpl]) &&
+                                                in_array($pl->id_pl, $cpl_pl_map[$c->id_cpl]);
+                                        @endphp
+                                        <td class="px-6 py-4 border-r border-gray-400">
+                                            @if ($isChecked)
+                                                <span class="text-black-500 font-bold">✓</span>
+                                            @endif
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Bagian Tabel Korelasi CPL dan PEO --}}
+                <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Korelasi CPL dengan Programme
+                    Educational Objective (PEO)</h1>
+                <div class="overflow-x-auto rounded-lg border border-gray-400">
+                    <table class="w-full text-sm text-center text-gray-500">
+                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode CPL</th>
+                                @foreach ($peo as $p)
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">{{ $p->kode_peo }}
+                                    </th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($cpl as $c)
+                                <tr class="bg-white border-t border-gray-400">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        {{ $c->nama_kode_cpl }}
+                                    </th>
+                                    @foreach ($peo as $p)
+                                        @php
+                                            $hasRelation =
+                                                isset($cpl_peo_map[$c->id_cpl]) &&
+                                                in_array($p->id_peo, array_unique($cpl_peo_map[$c->id_cpl] ?? []));
+                                        @endphp
+                                        <td class="px-6 py-4 border-r border-gray-400">
+                                            @if ($hasRelation)
+                                                <span class="text-black-500 font-bold">✓</span>
+                                            @endif
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
     </div>
-
-
-
-    <div class="ml-72 mx-8 mt-24 "> 
-        
-    {{-- bagian mapping --}}
-        <h2 class="text-2xl font-bold mb-4">Tabel Korelasi CPL dengan Profil Lulusan (PL)</h2>
-        <p class="mb-4">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia neque nobis quas provident cum dolorum? Blanditiis perferendis culpa illum adipisci accusamus, provident, 
-            odit porro pariatur dolor repudiandae labore fugit asperiores?
-        </p>
-    
-        <a href="mapping/edit-cpl-pl" class="mt-12 mb-2 text-white bg-[#5FA9C8] px-2 py-2 rounded-lg hover:bg-[#2b7798]">Edit</a>
-    
-        {{-- tabel mapping cpl --}}
-        <table border="1" cellpadding="5" class="border-black mt-4 w-full text-center mb-24 rounded-md"> 
-            <tr class="border-2 bg-gray-300">
-                <th class="border-2 bg-gray-300">Kode CPL</th>
-                @foreach ($profil_lulusan as $pl)
-                    <th class="border-2">{{ $pl->kode_pl }}</th>
-                @endforeach
-            </tr>
-
-            @foreach ($cpl as $c)
-                <tr>
-                    <td class="border-2">{{ $c->nama_kode_cpl }}</td>
-                    @foreach ($profil_lulusan as $pl)
-                        @php
-                            $cek = isset($cpl_pl_map[$c->id_cpl]) && in_array($pl->id_pl, $cpl_pl_map[$c->id_cpl]);
-                        @endphp
-                        <td class="border-2 text-center text-xl">
-                            {!! $cek ? 'ada' : '' !!} 
-                        </td>
-                    @endforeach
-                </tr>
-            @endforeach
-        </table>
-
-        {{-- table mapping cpl peo --}}
-        <h2 class="text-2xl font-bold mb-4">Tabel Korelasi CPL dengan Programme Educational Objective (PEO)</h2>
-        <p class="mb-4">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia neque nobis quas provident cum dolorum? Blanditiis perferendis culpa illum adipisci accusamus, provident, 
-            odit porro pariatur dolor repudiandae labore fugit asperiores?
-        </p>
-        <table border="1" cellpadding="5" class="mt-4 w-full text-center mb-24">
-            <tr>
-                <th class="border-2">Kode CPL</th>
-                @foreach ($peo as $p)
-                    <th class="border-2">{{ $p->kode_peo }}</th>
-                @endforeach
-            </tr>
-
-            @foreach ($cpl as $c)
-                <tr>
-                    <td class="border-2">{{ $c->nama_kode_cpl }}</td>
-                    @foreach ($peo as $p)
-                        @php
-                            $cek = isset($cpl_peo_map[$c->id_cpl]) && in_array($p->id_peo, $cpl_peo_map[$c->id_cpl]);
-                        @endphp
-                        <td class="border-2 text-center text-xl">
-                            {!! $cek ? 'V' : '' !!}
-                        </td>
-                    @endforeach
-                </tr>
-            @endforeach
-        </table>
-
-
-    </div>
-
-    {{-- <script>
-        alert("{{session('success')}}");
-    </script> --}}
-    
 </body>
+
 </html>

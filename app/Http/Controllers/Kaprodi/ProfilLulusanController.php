@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\kaprodi;
 
-use App\Http\Controllers\Controller; 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfilLulusanRequest;
 use App\Models\ProfilLulusanModel;
 use App\Models\ProgramStudiModel;
@@ -10,6 +10,7 @@ use App\Models\KurikulumModel;
 use App\Models\PEOModel;
 use App\Models\PLPEOMapModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProfilLulusanController extends Controller
 {
@@ -35,14 +36,15 @@ class ProfilLulusanController extends Controller
         foreach ($pl_peo_raw as $relasi) {
             $pl_peo_map[$relasi->id_pl][] = $relasi->id_peo;
         }
-        
-        return view('profilLulusan', [            
+
+        return view('profilLulusan', [
             'kurikulum' => $kurikulum,
-            'programStudi' => $programStudi, 
-            'userRole' => $userRole, 
-            'peo' => $peo, 
-            'pl_peo_map'=>$pl_peo_map,
-            'profil_lulusan' => $profil_lulusan] );
+            'programStudi' => $programStudi,
+            'userRole' => $userRole,
+            'peo' => $peo,
+            'pl_peo_map' => $pl_peo_map,
+            'profil_lulusan' => $profil_lulusan
+        ]);
     }
 
     /**
@@ -65,41 +67,51 @@ class ProfilLulusanController extends Controller
         return to_route('profil-lulusan.index')->with('success', 'Profil Lulusan berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function editAll()
     {
-        //
+        $pl_data = ProfilLulusanModel::orderBy('kode_pl', 'asc')->get();
+        return view('form.PL.profilLulusanFormEdit', ['pl_data' => $pl_data]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ProfilLulusanModel $profil_lulusan)
+    public function updateAll(Request $request)
     {
-        $program_studi = ProgramStudiModel::all();
+        if ($request->has('delete_pl')) {
+            ProfilLulusanModel::destroy($request->delete_pl);
+        }
 
-        return view('form.PL.profilLulusanFormEdit', ['profil_lulusan' => $profil_lulusan, 'program_studi' => $program_studi]);
+        if (!$request->has('pl')) {
+            return redirect()->route('profil-lulusan.index')->with('success', 'Perubahan berhasil disimpan!');
+        }
+
+        $rules = [
+            'pl.*.kode_pl' => 'required|string|max:10',
+            'pl.*.profil_lulusan' => 'required|string|max:255',
+            'pl.*.desc' => 'required|string',
+        ];
+        $messages = [
+            'pl.*.kode_pl.required' => 'Setiap kolom Kode PL wajib diisi.',
+            'pl.*.profil_lulusan.required' => 'Setiap kolom Profil Lulusan wajib diisi.',
+            'pl.*.desc.required' => 'Setiap kolom Deskripsi wajib diisi.',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect()->route('profil-lulusan.editAll')->withErrors($validator)->withInput();
+        }
+
+        $validatedData = $validator->validated()['pl'];
+
+        foreach ($validatedData as $id => $data) {
+            $pl = ProfilLulusanModel::find($id);
+            if ($pl) {
+                $pl->update($data);
+            }
+        }
+
+        return redirect()->route('profil-lulusan.index')->with('success', 'Perubahan Profil Lulusan berhasil disimpan!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(StoreProfilLulusanRequest $request, ProfilLulusanModel $profil_lulusan)
-    {
-        $profil_lulusan->update($request->validated());
-
-        return to_route('profil-lulusan.index')->with('success', 'Profil Lulusan berhasil diubah!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ProfilLulusanModel $profil_lulusan)
-    {
-        $profil_lulusan->delete();
-
-        return to_route('profil-lulusan.index')->with('success', 'Profil Lulusn berhasil dihapus!');
-    }
+    // You can add a destroy method here if you need to delete single items from somewhere else
+    // public function destroy(ProfilLulusanModel $profil_lulusan) { ... }
 }
