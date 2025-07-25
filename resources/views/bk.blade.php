@@ -91,9 +91,7 @@
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia neque nobis quas provident cum dolorum? Blanditiis perferendis culpa illum adipisci accusamus, provident, 
             odit porro pariatur dolor repudiandae labore fugit asperiores?
         </p>
-
         <a href="{{ route('bk-mk-mapping.edit') }}" class="mt-12 mb-2 text-white bg-[#5FA9C8] px-2 py-2 rounded-lg hover:bg-[#2b7798]">Edit</a>
-
         {{-- Tabel Mapping MK ke BK --}}
         <table border="1" cellpadding="5" class="border-black mt-4 w-full text-center mb-24 rounded-md"> 
             <tr class="border-2 bg-gray-300">
@@ -124,7 +122,6 @@
                 </tr>
             @endforeach
         </table>
-
     </div>
 
     {{-- <script>

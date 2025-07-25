@@ -42,6 +42,10 @@ class MataKuliahModel extends Model
     {
         return $this->hasMany(SubCPMKModel::class, 'id_mk', 'id_mk');
     }
+    public function mk_cpmk_sub_cpmk()
+    {
+        return $this->hasMany(MKCPMKSubCPMKMapModel::class, 'id_mk', 'id_mk');
+    }
 
     public function rps()
     {

@@ -37,6 +37,11 @@ class CPMKModel extends Model
     {
         return $this->hasMany(MataKuliahCPMKMapModel::class, 'id_cpmk', 'id_cpmk');
     }
+
+     public function mk_cpmk_sub_cpmk()
+    {
+        return $this->hasMany(MKCPMKSubCPMKMapModel::class, 'id_cpmk', 'id_cpmk');
+    }
     public function tpcpmkmap()
     {
         return $this->hasMany(TPCPMKMapModel::class, 'id_cpmk', 'id_cpmk');

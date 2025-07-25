@@ -46,7 +46,7 @@
             @endforeach
         </table> --}}
 
-        <table  cellpadding="5" > 
+        <table  cellpadding="5" border="1" class="w-full mb-24 text-center"> 
             <tr >
                 <th class="border-2">Kode MK</th>
                 <th class="border-2">Nama MK</th>
@@ -66,7 +66,7 @@
         <a href="{{ route('sub-cpmk.create') }}">Tambah </a>
 
 
-        <table  cellpadding="5" > 
+        <table  border="1" cellpadding="5" class="w-full mb-24 text-center" > 
             <tr >
                 <th class="border-2">Kode Sub CPMK</th>
                 <th class="border-2 ">aksi</th>
