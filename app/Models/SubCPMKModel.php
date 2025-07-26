@@ -28,6 +28,10 @@ class SubCPMKModel extends Model
     public function rps_detail(){
         return $this->hasMany(RPSDetailModel::class, 'id_sub_cpmk', 'id_sub_cpmk');
     }
+    public function mk_cpmk_sub_cpmk()
+    {
+        return $this->hasMany(MKCPMKSubCPMKMapModel::class, 'id_sub_cpmk', 'id_sub_cpmk');
+    }
 
     // belongs to relation
     public function mataKuliah(){

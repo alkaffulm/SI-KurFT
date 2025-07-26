@@ -7,6 +7,10 @@ use App\Http\Requests\StoreMatkulRequest;
 use App\Http\Requests\UpdateAll\UpdateAllMatkulRequest;
 use App\Models\MataKuliahModel;
 use App\Models\ProgramStudiModel;
+use App\Models\BahanKajianModel;
+use App\Models\CPLModel;
+use App\Models\BKCPLMapModel;
+use App\Models\BKMKMapModel;
 use Illuminate\Http\Request;
 
 class MatkulController extends Controller
@@ -23,7 +27,58 @@ class MatkulController extends Controller
     public function index()
     {
         $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->get();
-        return view('matkul', ['mata_kuliah' => $mata_kuliah]);
+        $bahan_kajian = BahanKajianModel::all();
+        $cpl = CPLModel::all();
+        $jumlah_bk = BahanKajianModel::count();
+        $bk_cpl_raw = BKCPLMapModel::all();
+        $bk_cpl_map = [];
+
+        foreach ($bk_cpl_raw as $relasi) {
+            $id_cpl = $relasi->id_cpl;
+            $id_bk = $relasi->id_bk;
+
+            if (!isset($bk_cpl_map[$id_cpl]) || !in_array($id_bk, $bk_cpl_map[$id_cpl])) {
+                $bk_cpl_map[$id_cpl][] = $id_bk;
+            }
+        }
+        $mata_kuliah2 = MataKuliahModel::all();
+        $bk_mk_raw = BKMKMapModel::all();
+        $bk_mk_map = [];
+
+        foreach ($bk_mk_raw as $relasi) {
+            $id_bk = $relasi->id_bk;
+            $id_mk = $relasi->id_mk;
+
+            if (!isset($bk_mk_map[$id_bk]) || !in_array($id_mk, $bk_mk_map[$id_bk])) {
+                $bk_mk_map[$id_bk][] = $id_mk;
+            }
+
+        }
+
+        $mk_cpl_map = [];
+
+        foreach ($mata_kuliah as $mk) {
+            $id_mk = $mk->id_mk;
+
+            foreach ($bk_mk_map as $id_bk => $list_mk) {
+                if (in_array($id_mk, $list_mk)) {
+                    foreach ($bk_cpl_map as $id_cpl => $list_bk) {
+                        if (in_array($id_bk, $list_bk)) {
+                            $mk_cpl_map[$id_mk][] = $id_cpl;
+                        }
+                    }
+                }
+            }
+    }            
+        return view('matkul', [
+            'mata_kuliah' => $mata_kuliah,
+            'bahan_kajian'=>$bahan_kajian,
+            'cpl'=>$cpl,
+            'jumlah_bk'=>$jumlah_bk,
+            'bk_cpl_map'=>$bk_cpl_map,
+            'bk_mk_map'=> $bk_mk_map,
+            'mk_cpl_map' => $mk_cpl_map,
+        ]);
     }
 
     /**
