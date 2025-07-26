@@ -23,7 +23,7 @@ class StorePEORequest extends FormRequest
     {
         return [
             'id_ps' => 'required|exists:program_Studi,id_ps', 
-            'kode_peo' => 'required|integer',
+            'kode_peo' => 'required|string',
             'desc_peo' => 'required|string',
         ];
     }
@@ -32,7 +32,7 @@ class StorePEORequest extends FormRequest
     {
         return [
             'kode_peo.required' => 'Kode PEO tidak boleh kosong.',
-            'kode_peo.integer'   => 'Kode PEO harus berupa integer',
+            'kode_peo.string'   => 'Kode PEO harus berupa string',
             'desc_peo.required' => ' Deskripsi wajib diisi.',
         ];
     }

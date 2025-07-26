@@ -32,7 +32,7 @@ class MataKuliahModel extends Model
     /**
      * Relasi many-to-many ke CPMKModel melalui tabel mata_kuliah_cpmk_map.
      */
-    public function cpmk()
+    public function cpmks()
     {
         return $this->belongsToMany(CPMKModel::class, 'mata_kuliah_cpmk_map', 'id_mk', 'id_cpmk');
     }

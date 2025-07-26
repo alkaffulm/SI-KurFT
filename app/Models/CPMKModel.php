@@ -50,6 +50,10 @@ class CPMKModel extends Model
     {
         return $this->hasMany(CPMKCPLMapModel::class, 'id_cpmk', 'id_cpmk');
     }
+    public function subCpmk() 
+    {
+        return $this->hasMany(SubCPMKModel::class, 'id_cpmk', 'id_cpmk');
+    }
 
     // belongs to relation
     public function mataKuliah()

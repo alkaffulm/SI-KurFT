@@ -101,7 +101,7 @@ class BKCPLMapController extends Controller
             }
         }
 
-        return redirect()->route('bk-cpl-mapping.edit')->with('success', 'Pemetaan BK-CPL berhasil diperbarui!');
+        return to_route('bahan-kajian.index')->with('success', 'Pemetaan BK-CPL berhasil diperbarui!');
     }
 
     

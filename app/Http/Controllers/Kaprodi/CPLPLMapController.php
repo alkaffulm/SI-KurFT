@@ -88,7 +88,7 @@ class CPLPLMapController extends Controller
             }
         }
 
-        return redirect()->route('cpl-pl-mapping.edit')->with('success', 'Pemetaan CPL-PL berhasil diperbarui!');
+        return redirect()->route('cpl.index')->with('success', 'Pemetaan CPL-PL berhasil diperbarui!');
     }
     
 }

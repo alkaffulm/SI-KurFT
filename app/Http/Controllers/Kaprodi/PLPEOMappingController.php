@@ -36,12 +36,9 @@ class PLPEOMappingController extends Controller
 
         // dd($profil_lulusan->toArray()); // Pastikan ini dikomentari atau dihapus setelah debugging
 
-        $userRole = session()->get('userRole');
-
         return view('kurikulum', [
             'kurikulum' => $kurikulum,
             'programStudi' => $programStudi, 
-            'userRole' => $userRole, 
             'peo' => $peo, 
             'pl_peo_map'=>$pl_peo_map,
             'profil_lulusan' => $profil_lulusan
@@ -86,7 +83,7 @@ class PLPEOMappingController extends Controller
             }
         }
 
-        return redirect()->route('pl-peo-mapping.edit')->with('success', 'Pemetaan PL-PEO berhasil diperbarui!');
+        return redirect()->route('profil-lulusan.index')->with('success', 'Pemetaan PL-PEO berhasil diperbarui!');
     }
     
 }

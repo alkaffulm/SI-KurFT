@@ -103,7 +103,7 @@ class BKMKMapController extends Controller
             }
         }
 
-        return redirect()->route('bk-mk-mapping.edit')->with('success', 'Pemetaan BK-MK berhasil diperbarui!');
+        return redirect()->route('bahan-kajian.index')->with('success', 'Pemetaan BK-MK berhasil diperbarui!');
     }
 
     

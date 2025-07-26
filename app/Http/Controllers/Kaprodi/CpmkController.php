@@ -77,9 +77,11 @@ class CpmkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id_mk)
     {
-        //
+        $mata_kuliah = MataKuliahModel::with('cpmk.subCpmk')->findOrFail($id_mk);
+
+        return view('cpmk', ['mata_kuliah' => $mata_kuliah]);
     }
 
     /**
