@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MKCPMKSubCPMKMapModel extends Model
 {
-    protected $table = 'mk_cpl_map';
-    protected $primaryKey = 'id_mk_cpl';
+    protected $table = 'mk_cpmk_sub_cpmk';
+    protected $primaryKey = 'id_mk_cpmk_sub_cpmk';
     public $timestamps = false;
     protected $fillable = [
         'id_cpmk',
