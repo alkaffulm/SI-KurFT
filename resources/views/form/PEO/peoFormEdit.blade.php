@@ -25,7 +25,7 @@
     @include('layouts.sidebar', ['userRole' => $userRole])
 
     <div class="p-4 sm:p-8 sm:ml-64">
-        <main class="mt-20 mb-4 max-w-5xl mx-auto">
+        <main class="mt-20 mb-5 max-w-5xl mx-auto">
 
             <form action="{{ route('peo.updateAll') }}" method="POST">
                 @csrf

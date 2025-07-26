@@ -1,63 +1,139 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Input Buku</title>
+    <title>Edit Bahan Kajian (BK)</title>
     @vite('resources/css/app.css')
-    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        .transition-opacity {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .is-deleting {
+            opacity: 0.4;
+        }
+    </style>
 </head>
-<body>
-    @include('layouts.navbar', ['userRole' => $userRole])
 
-    @include('layouts.sidebar', ['userRole' => $userRole])
+<body class="bg-gray-100 font-sans">
 
-    <div class="ml-72 mx-8 mt-24">
-        <h2 class="text-2xl font-bold">Form Edit Bahan Kajian</h2>
+    @include('layouts.navbar')
+    @include('layouts.sidebar')
 
-        <form action="{{ route('bahan-kajian.update', $bahan_kajian) }}" method="POST">
-            @csrf
-            @method('PUT')
+    <div class="p-4 sm:p-8 sm:ml-64">
+        <main class="mt-20 mb-5 max-w-5xl mx-auto">
 
-            <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
+            <form action="{{ route('bahan-kajian.updateAll') }}" method="POST">
+                @csrf
+                @method('PUT')
 
-            <div>
-                <label for="nama_bk">Nama Bahan Kajian:</label><br>
-                @error('nama_bk')
-                    {{$message}}
-                @enderror
-                <input type="text" id="nama_bk" name="nama_bk" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{ old('nama_bk', $bahan_kajian->nama_bk)}}" required>
-            </div>
-            <br>
-            <div>
-                <label for="kategori">Kategori:</label><br>
-                @error('kategori')
-                    {{$message}}
-                @enderror
-                <input type="text" id="kategori" name="kategori" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{ old('kategori', $bahan_kajian->kategori)}}" required>
-            </div>
-            <br>
-            <div>
-                <label for="desc_bk_id">Deskripsi Bahan Kajian (Indonesia):</label><br>
-                @error('desc_bk_id')
-                    {{$message}}
-                @enderror
-                <textarea id="desc_bk_id" name="desc_bk_id" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{ old('desc_bk_id', $bahan_kajian->desc_bk_id)}}</textarea>
-            </div>
-            <br>
-            <div>
-                <label for="desc_bk_en">Deskripsi Bahan Kajian (English):</label><br>
-                @error('desc_bk_en')
-                    {{$message}}
-                @enderror
-                <textarea id="desc_bk_en" name="desc_bk_en" rows="4" cols="50" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>{{ old('desc_bk_en', $bahan_kajian->desc_bk_en)}}</textarea>
-            </div>
-            <br>
-            <div>
-                <button type="submit" class="inline-flex items-center px-5 py-2 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">update</button>
-            </div>
-        </form>
+                <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
+
+                    <div class="mb-10">
+                        <h1 class="text-4xl font-bold text-gray-800">Edit Bahan Kajian (BK)</h1>
+                    </div>
+
+                    @if ($errors->any())
+                        <div class="mb-8 p-4 text-sm text-red-800 rounded-lg bg-red-100" role="alert">
+                            <span class="font-bold">Terjadi Kesalahan:</span>
+                            <ul class="mt-2 list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <div class="space-y-10">
+                        @forelse ($bk_data as $bk)
+                            <div x-data="{ isDeleting: false }" class="transition-opacity"
+                                :class="{ 'is-deleting': isDeleting }">
+                                <div class="grid grid-cols-12 gap-x-6 gap-y-4">
+                                    {{-- Kode BK --}}
+                                    <div class="col-span-12 sm:col-span-2">
+                                        <label for="nama_kode_bk_{{ $bk->id_bk }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Kode BK</label>
+                                        <input type="text" id="nama_kode_bk_{{ $bk->id_bk }}"
+                                            name="bk[{{ $bk->id_bk }}][nama_kode_bk]" :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                            value="{{ old('bk.' . $bk->id_bk . '.nama_kode_bk', $bk->nama_kode_bk) }}"
+                                            required>
+                                    </div>
+
+                                    {{-- Nama Bahan Kajian --}}
+                                    <div class="col-span-12 sm:col-span-4">
+                                        <label for="nama_bk_{{ $bk->id_bk }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Nama Bahan
+                                            Kajian</label>
+                                        <input type="text" id="nama_bk_{{ $bk->id_bk }}"
+                                            name="bk[{{ $bk->id_bk }}][nama_bk]" :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                            value="{{ old('bk.' . $bk->id_bk . '.nama_bk', $bk->nama_bk) }}" required>
+                                    </div>
+
+                                    {{-- Deskripsi --}}
+                                    <div class="col-span-11 sm:col-span-5">
+                                        <label for="desc_bk_id_{{ $bk->id_bk }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi</label>
+                                        <textarea id="desc_bk_id_{{ $bk->id_bk }}" name="bk[{{ $bk->id_bk }}][desc_bk_id]" rows="3"
+                                            :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('bk.' . $bk->id_bk . '.desc_bk_id', $bk->desc_bk_id) }}</textarea>
+                                    </div>
+
+                                    {{-- Delete Checkbox --}}
+                                    <div class="col-span-1 flex items-center justify-center pt-8">
+                                        <input type="checkbox" id="delete_{{ $bk->id_bk }}" name="delete_bk[]"
+                                            value="{{ $bk->id_bk }}" class="hidden" x-model="isDeleting">
+                                        <label for="delete_{{ $bk->id_bk }}"
+                                            class="cursor-pointer text-gray-400 hover:text-red-600 transition"
+                                            title="Tandai untuk dihapus">
+                                            <svg :class="{ '!text-red-600': isDeleting }" class="w-7 h-7" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                </path>
+                                            </svg>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                @if (!$loop->last)
+                                    <hr class="mt-10 border-gray-200">
+                                @endif
+                            </div>
+                        @empty
+                            <div class="text-center py-16 border-2 border-dashed border-gray-200 rounded-lg">
+                                <p class="text-base text-gray-500">Data Bahan Kajian belum tersedia untuk diedit.</p>
+                            </div>
+                        @endforelse
+                    </div>
+
+                    @if ($bk_data->isNotEmpty())
+                        <div class="mt-12 pt-8 border-t border-gray-200 flex justify-end items-center gap-x-4">
+                            <a href="{{ route('bahan-kajian.index') }}"
+                                class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
+                                Batal
+                            </a>
+                            <button type="submit"
+                                class="flex items-center gap-x-2 text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
+                                    </path>
+                                </svg>
+                                Simpan Perubahan
+                            </button>
+                        </div>
+                    @endif
+                </div>
+            </form>
+        </main>
     </div>
-
 </body>
+
 </html>

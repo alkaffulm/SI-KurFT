@@ -33,19 +33,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::middleware('role:kaprodi')->prefix('kaprodi')->group(function () {
-        Route::resource('bahan-kajian', BahanKajianController::class);
+        // Route::resource('bahan-kajian', BahanKajianController::class);
         // Route::resource('cpl', CplController::class);
         Route::resource('sub-cpmk', SubCpmkController::class);
         // Route::resource('profil-lulusan', ProfilLulusanController::class);
         Route::resource('kurikulum', KurikulumController::class);
         Route::resource('mhs-cpl', MhsCplController::class);
-        
+
         // PEO Routes
         Route::get('/peo/edit-all', [PeoController::class, 'editAll'])->name('peo.editAll'); // Rute baru untuk form edit massal
         Route::put('/peo/update-all', [PeoController::class, 'updateAll'])->name('peo.updateAll'); // Rute baru untuk update massal
         Route::resource('peo', PeoController::class);
-        
-         // == PROFIL LULUSAN ROUTES ==
+
+        // == PROFIL LULUSAN ROUTES ==
         Route::get('/profil-lulusan', [ProfilLulusanController::class, 'index'])->name('profil-lulusan.index');
         Route::get('/profil-lulusan/create', [ProfilLulusanController::class, 'create'])->name('profil-lulusan.create');
         Route::post('/profil-lulusan', [ProfilLulusanController::class, 'store'])->name('profil-lulusan.store');
@@ -59,17 +59,24 @@ Route::middleware('auth')->group(function () {
         Route::post('/cpl', [CplController::class, 'store'])->name('cpl.store');
         Route::get('/cpl/edit-all', [CplController::class, 'editAll'])->name('cpl.editAll');
         Route::put('/cpl/update-all', [CplController::class, 'updateAll'])->name('cpl.updateAll');
-        
+
+        // == BAHAN KAJIAN ROUTES (NEW) ==
+        Route::get('/bahan-kajian', [BahanKajianController::class, 'index'])->name('bahan-kajian.index');
+        Route::get('/bahan-kajian/create', [BahanKajianController::class, 'create'])->name('bahan-kajian.create');
+        Route::post('/bahan-kajian', [BahanKajianController::class, 'store'])->name('bahan-kajian.store');
+        Route::get('/bahan-kajian/edit-all', [BahanKajianController::class, 'editAll'])->name('bahan-kajian.editAll');
+        Route::put('/bahan-kajian/update-all', [BahanKajianController::class, 'updateAll'])->name('bahan-kajian.updateAll');
+
         Route::get('mata-kuliah/edit-all', [MatkulController::class, 'editAll'])->name('mata-kuliah.editAll');
         Route::put('mata-kuliah/update-all', [MatkulController::class, 'updateAll'])->name('mata-kuliah.updateAll');
         Route::resource('mata-kuliah', MatkulController::class);
-        
+
         Route::get('cpmk/edit-all', [CpmkController::class, 'editAll'])->name('cpmk.editAll');
         Route::put('cpmk/update-all', [CpmkController::class, 'updateAll'])->name('cpmk.updateAll');
         Route::resource('cpmk', CpmkController::class);
-        
+
         // pl pe map
-        Route::get('/mapping/pl-peo', [PLPEOMappingController::class, 'index'])->name('pl-peo-mapping.index'); 
+        Route::get('/mapping/pl-peo', [PLPEOMappingController::class, 'index'])->name('pl-peo-mapping.index');
 
         Route::get('/mapping/edit-pl-peo', [PLPEOMappingController::class, 'edit_pl_peo'])->name('pl-peo-mapping.edit');
         Route::put('/mapping/pl-peo', [PLPEOMappingController::class, 'updatePLPEOMap'])->name('pl-peo-mapping.update');

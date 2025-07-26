@@ -24,7 +24,7 @@
     @include('layouts.sidebar')
 
     <div class="p-4 sm:p-8 sm:ml-64">
-        <main class="mt-20 mb-4 max-w-5xl mx-auto">
+        <main class="mt-20 mb-5 max-w-5xl mx-auto">
 
             <form action="{{ route('profil-lulusan.updateAll') }}" method="POST">
                 @csrf
@@ -65,7 +65,7 @@
                                     </div>
 
                                     {{-- Profil Lulusan --}}
-                                    <div class="col-span-12 sm:col-span-9">
+                                    <div class="col-span-12 sm:col-span-4">
                                         <label for="profil_lulusan_{{ $pl->id_pl }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Profil
                                             Lulusan</label>
@@ -74,6 +74,14 @@
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                             value="{{ old('pl.' . $pl->id_pl . '.profil_lulusan', $pl->profil_lulusan) }}"
                                             required>
+                                    </div>
+
+                                    {{-- Deskripsi --}}
+                                    <div class="col-span-11 sm:col-span-5">
+                                        <label for="desc_{{ $pl->id_pl }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi</label>
+                                        <textarea id="desc_{{ $pl->id_pl }}" name="pl[{{ $pl->id_pl }}][desc]" rows="3" :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('pl.' . $pl->id_pl . '.desc', $pl->desc) }}</textarea>
                                     </div>
 
                                     {{-- Delete Checkbox --}}
@@ -92,14 +100,6 @@
                                             </svg>
                                         </label>
                                     </div>
-
-                                    {{-- Deskripsi --}}
-                                    <div class="col-span-12">
-                                        <label for="desc_{{ $pl->id_pl }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi</label>
-                                        <textarea id="desc_{{ $pl->id_pl }}" name="pl[{{ $pl->id_pl }}][desc]" rows="4" :disabled="isDeleting"
-                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('pl.' . $pl->id_pl . '.desc', $pl->desc) }}</textarea>
-                                    </div>
                                 </div>
 
                                 @if (!$loop->last)
@@ -108,15 +108,7 @@
                             </div>
                         @empty
                             <div class="text-center py-16 border-2 border-dashed border-gray-200 rounded-lg">
-                                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" aria-hidden="true">
-                                    <path vector-effect="non-scaling-stroke" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="2"
-                                        d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                                </svg>
-                                <h3 class="mt-4 text-base font-semibold text-gray-900">Tidak Ada Data</h3>
-                                <p class="mt-1 text-base text-gray-500">Data Profil Lulusan belum tersedia untuk diedit.
-                                </p>
+                                <p class="text-base text-gray-500">Data Profil Lulusan belum tersedia untuk diedit.</p>
                             </div>
                         @endforelse
                     </div>
@@ -143,7 +135,6 @@
             </form>
         </main>
     </div>
-
 </body>
 
 </html>
