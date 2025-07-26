@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateAll\UpdateAllCPMKRequest;
 use App\Models\CPMKModel;
 use App\Models\MataKuliahModel;
 use App\Models\SubCPMKModel;
+use App\Models\MKCPMKSubCPMKMapModel;
 use Illuminate\Http\Request;
 
 class CpmkController extends Controller
@@ -26,7 +27,31 @@ class CpmkController extends Controller
     {
         $cpmk = CPMKModel::orderBy('kode_cpmk')->get();
         $subCpmk = SubCPMKModel::all();
-        return view('cpmk', ['cpmk' => $cpmk, 'sub_cpmk' => $subCpmk]);
+        $mata_kuliah = MataKuliahModel::all();
+        $mk_cpmk_sub_cpmk_raw = MKCPMKSubCPMKMapModel::all();
+        $mk_cpmk_sub_cpmk_map = [];
+        foreach ($mk_cpmk_sub_cpmk_raw as $relasi) {
+            $id_mk = (int) $relasi->id_mk;
+            $id_cpmk = (int) $relasi->id_cpmk;
+            $id_sub_cpmk = (int) $relasi->id_sub_cpmk;
+
+            if (!isset($mk_cpmk_sub_cpmk_map[$id_mk])) {
+                $mk_cpmk_sub_cpmk_map[$id_mk] = [];
+            }
+
+            if (!isset($mk_cpmk_sub_cpmk_map[$id_mk][$id_cpmk])) {
+                $mk_cpmk_sub_cpmk_map[$id_mk][$id_cpmk] = [];
+            }
+
+            $mk_cpmk_sub_cpmk_map[$id_mk][$id_cpmk][] = $id_sub_cpmk;
+        }
+
+        return view('cpmk', [
+            'cpmk' => $cpmk, 
+            'sub_cpmk' => $subCpmk,
+            'mata_kuliah'=>$mata_kuliah,
+            'mk_cpmk_sub_cpmk_map'=>$mk_cpmk_sub_cpmk_map
+        ]);
     }
 
     /**
