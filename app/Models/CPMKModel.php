@@ -12,7 +12,6 @@ class CPMKModel extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id_mk',
         'id_ps',
         'nama_kode_cpmk',
         'kode_cpmk',
@@ -56,10 +55,6 @@ class CPMKModel extends Model
     }
 
     // belongs to relation
-    public function mataKuliah()
-    {
-        return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');
-    }
     public function programstudi()
     {
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');

@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @livewireStyles
 
+
     {{-- Custom styles to make Select2 fit the Tailwind design --}}
     <style>
         .select2-container--default .select2-selection--multiple {
@@ -198,10 +199,12 @@
         <div class="mb-24">
             <livewire:show-sub-cpmk/>
         </div>
+
    
     {{-- <script>
         alert("{{session('success')}}");
     </script> --}}
+@livewireScripts
 
 </body>
 </html>
