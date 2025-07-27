@@ -171,6 +171,43 @@
             </tbody>
         </table>       
 
+        {{-- ======================================================================================================== --}} 
+        {{-- mapping antara cpmk dan cpl --}}
+        <h2 class="text-2xl font-bold">Tabel Mapping Antara CPMK dengan Capaian Profil Lulusan (CPL)</h2>
+        <a href="{{ route('cpmk-cpl-mapping.edit') }}">Edit </a>
+        <p class="text-gray-600 mb-6">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, neque totam repellendus molestiae maxime eius doloribus accusantium doloremque ea! 
+            Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, neque totam repellendus 
+            molestiae maxime eius doloribus accusantium doloremque ea! Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. 
+        </p>
+        <table  border="1" cellpadding="5" class="w-full mb-24 text-center" > 
+            <thead>
+                <tr >
+                    <th class="border-2">Kode CPMK</th>
+                    @foreach ($cpl as $c)
+                        <th class="border-2">{{$c->nama_kode_cpl}}</th>
+                    @endforeach
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ( $cpmk as $cp )
+                    <tr >
+                        <td class="border-2">{{ $cp->nama_kode_cpmk }}</td>
+                        @foreach ($cpl as $c )
+                            <td class="border-2">
+                                @if ($cp->cpl->contains($c))
+                                    v
+                                @endif
+                            </td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </tbody>
+        </table> 
+
+
+        {{-- ======================================================================================================== --}}
+
         {{-- mapping per matkul untuk memuncul cpmk dan sub cpmk --}}
         <h2 class="text-2xl font-bold mb-2">Mapping CPMK dan Sub CPMK Berdasarkan Mata Kuliah (pake Livewire)</h2>
    

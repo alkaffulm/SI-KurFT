@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCPMKRequest;
 use App\Http\Requests\UpdateAll\UpdateAllCPMKRequest;
 use App\Models\CPMKModel;
+use App\Models\CPLModel;
 use App\Models\MataKuliahCPMKMapModel;
 use App\Models\MataKuliahModel;
 use App\Models\SubCPMKModel;
 use App\Models\MKCPMKSubCPMKMapModel;
+use App\Models\CPMKCPLMapModel;
 use Illuminate\Http\Request;
 
 class CpmkController extends Controller
@@ -48,11 +50,26 @@ class CpmkController extends Controller
             $mk_cpmk_sub_cpmk_map[$id_mk][$id_cpmk][] = $id_sub_cpmk;
         }
 
+        $cpl = CPLModel::all();
+        $cpmk_cpl_raw = CPMKCPLMapModel::all();
+        $cpmk_cpl_map = [];
+
+        foreach ($cpmk_cpl_raw as $relasi) {
+            $id_cpl = $relasi->id_cpl;
+            $id_cpmk = $relasi->id_cpmk;
+
+            if (!isset($cpmk_cpl_map[$id_cpl]) || !in_array($id_cpmk, $cpmk_cpl_map[$id_cpl])) {
+                $cpmk_cpl_map[$id_cpl][] = $id_cpmk;
+            }
+        }
+
         return view('cpmk', [
             'mata_kuliah' => $mata_kuliah,
             'cpmk' => $cpmk, 
             'sub_cpmk' => $subCpmk,
             'mk_cpmk_sub_cpmk_map'=>$mk_cpmk_sub_cpmk_map,
+            'cpmk_cpl_map' => $cpmk_cpl_map,
+            'cpl'=>$cpl
         ]);
     }
 
