@@ -72,7 +72,7 @@
                         <thead class="text-white uppercase bg-teks-biru-custom">
                             <tr>
                                 <th scope="col" class="px-6 py-4">Profil Lulusan (PL)</th>
-                                <th scope="col" class="px-6 py-4">Deskripsi</th>
+                                <th scope="col" class="px-6 py-4">Deskripsi Profil Lulusan</th>
                             </tr>
                         </thead>
                         <tbody>

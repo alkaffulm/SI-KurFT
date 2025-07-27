@@ -96,14 +96,12 @@
         <table  cellpadding="5" border="1" class="w-full mt-6 mb-24 text-center"> 
             <tr >
                 <th class="border-2">Kode CPMK</th>
-                <th class="border-2">Deskripsi Bahasa Indonesia</th>
-                <th class="border-2">Deskripsi Bahasa Inggris</th>
+                <th class="border-2">Deskripsi CPMK</th>
             </tr>
             @foreach ($cpmk as $cp )
                 <tr >
                     <td class="border-2">{{ $cp->nama_kode_cpmk }}</td>
                     <td class="border-2">{{ $cp->desc_cpmk_id }}</td>
-                    <td class="border-2">{{ $cp->desc_cpmk_en }}</td>
                 </tr>
             @endforeach
         </table>

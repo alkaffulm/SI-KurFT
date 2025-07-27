@@ -30,8 +30,7 @@
             <tr class="bg-gray-300">
                 <th class="border-2" rowspan="2">Kode Mata Kuliah</th>
                 <th class="border-2" rowspan="2">Nama Mata Kuliah</th>
-                <th class="border-2" rowspan="2">Deskripsi Indonesia</th>
-                <th class="border-2" rowspan="2">Deskripsi Inggris</th>
+                <th class="border-2" rowspan="2">Deskripsi Mata Kuliah</th>
             </tr>
             <tbody>
                 @foreach ($mata_kuliah as $mk)
@@ -39,7 +38,6 @@
                         <td class="border-2">{{ $mk->kode_mk }}</td>
                         <td class="border-2">{{ $mk->nama_matkul_id }}</td>
                         <td class="border-2 text-left px-2">{{ $mk->matkul_desc_id }}</td>
-                        <td class="border-2 text-left px-2">{{ $mk->matkul_desc_en }}</td>
                     </tr>
                 @endforeach
             </tbody>

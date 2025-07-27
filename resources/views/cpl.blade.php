@@ -71,7 +71,7 @@
                         <thead class="text-white uppercase bg-teks-biru-custom">
                             <tr>
                                 <th scope="col" class="px-6 py-4">Kode CPL</th>
-                                <th scope="col" class="px-6 py-4">Deskripsi</th>
+                                <th scope="col" class="px-6 py-4">Deskripsi CPL</th>
                             </tr>
                         </thead>
                         <tbody>

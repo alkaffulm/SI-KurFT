@@ -71,8 +71,8 @@
                         <thead class="text-white uppercase bg-teks-biru-custom">
                             <tr>
                                 <th scope="col" class="px-6 py-4">Kode BK</th>
-                                <th scope="col" class="px-6 py-4">Bahan Kajian</th>
-                                <th scope="col" class="px-6 py-4">Deskripsi</th>
+                                <th scope="col" class="px-6 py-4">BK</th>
+                                <th scope="col" class="px-6 py-4">Deskripsi BK</th>
                             </tr>
                         </thead>
                         <tbody>
