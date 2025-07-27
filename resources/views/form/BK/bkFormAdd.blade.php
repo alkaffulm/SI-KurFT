@@ -15,15 +15,11 @@
     @include('layouts.sidebar')
 
     <div class="p-4 sm:p-8 sm:ml-64">
-        <main class="mt-14 max-w-xl mx-auto">
-
+        <main class="mt-20 max-w-xl mx-auto">
             <form action="{{ route('bahan-kajian.store') }}" method="POST">
                 @csrf
-
                 <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
-
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
-
                     <div class="mb-5">
                         <h1 class="text-4xl font-bold text-gray-800">Tambah BK Baru</h1>
                         <p class="text-gray-500 mt-2 text-base">Isi formulir di bawah ini untuk menambahkan Bahan Kajian
@@ -65,8 +61,8 @@
                         </div>
 
                         <div>
-                            <label for="desc_bk_id"
-                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi</label>
+                            <label for="desc_bk_id" class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                                (Indonesia)</label>
                             <textarea id="desc_bk_id" name="desc_bk_id" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                 placeholder="Jelaskan deskripsi bahan kajian di sini..." required>{{ old('desc_bk_id') }}</textarea>
@@ -74,13 +70,23 @@
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+
+                        {{-- NEW FIELD FOR ENGLISH DESCRIPTION --}}
+                        <div>
+                            <label for="desc_bk_en" class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                                (English)</label>
+                            <textarea id="desc_bk_en" name="desc_bk_en" rows="4"
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                placeholder="Describe the study material here..." required>{{ old('desc_bk_en') }}</textarea>
+                            @error('desc_bk_en')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
 
                     <div class="mt-12 pt-8 border-t border-gray-200 flex justify-end items-center gap-x-4">
                         <a href="{{ route('bahan-kajian.index') }}"
-                            class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
-                            Batal
-                        </a>
+                            class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Batal</a>
                         <button type="submit"
                             class="flex items-center gap-x-2 text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -95,7 +101,6 @@
             </form>
         </main>
     </div>
-
 </body>
 
 </html>

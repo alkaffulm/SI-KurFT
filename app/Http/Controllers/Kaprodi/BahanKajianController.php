@@ -111,11 +111,15 @@ class BahanKajianController extends Controller
             'bk.*.nama_kode_bk' => 'required|string|max:255',
             'bk.*.nama_bk' => 'required|string|max:255',
             'bk.*.desc_bk_id' => 'required|string',
+            'bk.*.desc_bk_en' => 'required|string', // <-- ADD THIS LINE
+
         ];
         $messages = [
             'bk.*.nama_kode_bk.required' => 'Setiap kolom Kode BK wajib diisi.',
             'bk.*.nama_bk.required' => 'Setiap kolom Nama BK wajib diisi.',
-            'bk.*.desc_bk_id.required' => 'Setiap kolom Deskripsi wajib diisi.',
+            'bk.*.desc_bk_id.required' => 'Setiap kolom Deskripsi (ID) wajib diisi.',
+            'bk.*.desc_bk_en.required' => 'Setiap kolom Deskripsi (EN) wajib diisi.', // <-- ADD THIS LINE
+
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
