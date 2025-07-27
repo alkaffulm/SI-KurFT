@@ -10,6 +10,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    @livewireStyles
+
 
     {{-- Custom styles to make Select2 fit the Tailwind design --}}
     <style>
@@ -200,13 +202,15 @@
         {{-- mapping per matkul untuk memuncul cpmk dan sub cpmk --}}
         <h2 class="text-2xl font-bold mb-2">Mapping CPMK dan Sub CPMK Berdasarkan Mata Kuliah (pake Livewire)</h2>
    
-        <div>
+        <div class="mb-24">
             <livewire:show-sub-cpmk/>
         </div>
+
    
     {{-- <script>
         alert("{{session('success')}}");
     </script> --}}
-    
+@livewireScripts
+
 </body>
 </html>
