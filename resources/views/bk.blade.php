@@ -119,7 +119,7 @@
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode CPL</th>
+                                <th scope="col" class="px-6 py-3">Kode CPL</th>
                                 <th scope="col" class="px-6 py-3">Bahan Kajian Terkait</th>
                             </tr>
                         </thead>
@@ -176,11 +176,11 @@
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                             <tr>
                                 {{-- *** CHANGE IS HERE *** --}}
-                                <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode MK</th>
-                                <th scope="col" class="px-6 py-3 border-r border-gray-400">Mata Kuliah</th>
+                                <th scope="col" class="px-6 py-3">Kode MK</th>
+                                <th scope="col" class="px-6 py-3">Mata Kuliah</th>
                                 {{-- *** END CHANGE *** --}}
                                 @foreach ($bahan_kajian as $bk)
-                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">
+                                    <th scope="col" class="px-6 py-3">
                                         {{ $bk->nama_kode_bk }}</th>
                                 @endforeach
                             </tr>

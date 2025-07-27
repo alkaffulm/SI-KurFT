@@ -117,9 +117,9 @@
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode CPL</th>
+                                <th scope="col" class="px-6 py-3">Kode CPL</th>
                                 @foreach ($profil_lulusan as $pl)
-                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">{{ $pl->kode_pl }}
+                                    <th scope="col" class="px-6 py-3">{{ $pl->kode_pl }}
                                     </th>
                                 @endforeach
                             </tr>
@@ -156,9 +156,9 @@
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode CPL</th>
+                                <th scope="col" class="px-6 py-3">Kode CPL</th>
                                 @foreach ($peo as $p)
-                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">{{ $p->kode_peo }}
+                                    <th scope="col" class="px-6 py-3">{{ $p->kode_peo }}
                                     </th>
                                 @endforeach
                             </tr>

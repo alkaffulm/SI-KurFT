@@ -1,194 +1,235 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabel Mata Kuliah</title>
+    <title>Evaluasi Mahasiswa</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 </head>
-<body>
 
-    @include('layouts.navbar', ['userRole' => $userRole])
+<body class="bg-gray-100 font-sans">
 
-    @include('layouts.sidebar', ['userRole' => $userRole])
+    @include('layouts.navbar')
+    @include('layouts.sidebar')
 
-    <div class="ml-72 mx-8 mt-24"> 
-        <h2 class="text-2xl font-bold">Tabel Pembentukan Mata Kuliah (MK)</h2>
-        <p class="mb-4">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia neque nobis quas provident cum dolorum? Blanditiis perferendis culpa illum adipisci accusamus, provident, 
-            odit porro pariatur dolor repudiandae labore fugit asperiores?
-        </p>
+    <div class="py-8 px-16 sm:ml-64">
+        <main class="mt-16">
+            {{-- Bagian 1: Tabel Mata Kuliah --}}
+            <nav class="flex mb-4" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+                    <li class="inline-flex items-center">
+                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Kurikulum</span>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 9 4-4-4-4" />
+                            </svg>
+                            <span class="ms-1 text-sm font-medium text-gray-900 md:ms-2">Evaluasi Mahasiswa</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
 
-        <a href="{{ route('mata-kuliah.create') }}">Tambah </a>
-        <a href="{{ route('mata-kuliah.editAll')}}">Edit</a>
+            <div class="bg-white p-8 rounded-lg shadow-md mb-8">
+                <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Evaluasi Mahasiswa</h1>
+                <p class="text-gray-600 mb-6">
+                    Mata Kuliah adalah unit pembelajaran yang mencakup serangkaian topik atau bahan kajian tertentu,
+                    yang dirancang untuk mencapai Capaian Pembelajaran Lulusan (CPL).
+                </p>
 
-        <br><br>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Pembentukan Mata Kuliah</h2>
+                    <div class="space-x-2">
+                        <a href="{{ route('mata-kuliah.editAll') }}"
+                            class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                </path>
+                            </svg>
+                            Edit MK
+                        </a>
+                        <a href="{{ route('mata-kuliah.create') }}"
+                            class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            Tambah MK
+                        </a>
+                    </div>
+                </div>
 
-        {{-- tabel penjelasan mata kuliah  --}}
-        <table border="1" cellpadding="5" class="w-full mb-24 text-center">
-            <tr class="bg-gray-300">
-                <th class="border-2" rowspan="2">Kode Mata Kuliah</th>
-                <th class="border-2" rowspan="2">Nama Mata Kuliah</th>
-                <th class="border-2" rowspan="2">Deskripsi Mata Kuliah</th>
-            </tr>
-            <tbody>
-                @foreach ($mata_kuliah as $mk)
-                    <tr>
-                        <td class="border-2">{{ $mk->kode_mk }}</td>
-                        <td class="border-2">{{ $mk->nama_matkul_id }}</td>
-                        <td class="border-2 text-left px-2">{{ $mk->matkul_desc_id }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                <div class="overflow-x-auto rounded-lg border border-gray-400">
+                    <table class="w-full text-sm text-center text-gray-500">
+                        <thead class="text-white uppercase bg-teks-biru-custom">
+                            <tr>
+                                <th scope="col" class="px-6 py-4">Kode MK</th>
+                                <th scope="col" class="px-6 py-4">Nama Mata Kuliah</th>
+                                <th scope="col" class="px-6 py-4">Deskripsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($mata_kuliah as $mk)
+                                <tr class="bg-white border-t border-gray-400">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        {{ $mk->kode_mk }}
+                                    </th>
+                                    <td class="px-6 py-4 text-left border-r border-gray-400">
+                                        {{ $mk->nama_matkul_id }}
+                                    </td>
+                                    <td class="px-6 py-4 text-left">
+                                        {{ $mk->matkul_desc_id }}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr class="bg-white border-t border-gray-400">
+                                    <td colspan="3" class="px-6 py-4 text-center text-gray-500">
+                                        Data Mata Kuliah masih kosong.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
 
-        {{-- tabel susunan mata kuliah  per semester--}}
-        <h2 class="text-2xl font-bold">Tabel Susunan Mata Kuliah (MK)</h2>
-        <p class="mb-4">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia neque nobis quas provident cum dolorum? Blanditiis perferendis culpa illum adipisci accusamus, provident, 
-            odit porro pariatur dolor repudiandae labore fugit asperiores?
-        </p>
-        <table border="1" cellpadding="5" class="w-full"> 
-            <tr>
-                <th class="border-2" rowspan="2">Kode MK</th>
-                {{-- <th class="border-2" rowspan="2">aksi</th> --}}
-                {{-- <th class="border-2" rowspan="2">Nama Prodi</th> --}}
-                <th class="border-2" rowspan="2">Nama MK</th>
-                <th class="border-2" rowspan="2">SKS</th>
-                <th class="border-2" colspan="8">Semester</th>
-            </tr>
-            <tr>
-                {{-- @for ($i = 1 ; $i <= 8 ; $i++) 
-                    <th>{{$i}}</tr>                
-                @endfor --}}
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>5</th>
-                <th>6</th>
-                <th>7</th>
-                <th>8</th>
-            </tr>
-            <tr></tr>
-            @foreach ($mata_kuliah as $mk )
-                <tr>
-                    <td class="border-2">{{$mk->kode_mk}}</td>
-                    {{-- <td class="border-2">
-                    <form action="{{ route('mata-kuliah.destroy', $mk) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Hapus</button>
-                        </form> 
-                        | <a href="{{ route('mata-kuliah.edit', $mk) }}">Edit</a>
-                    </td> --}}
-                    {{-- <td>{{$mk->programstudi->nama_prodi}}</td> --}}
-                    {{-- <td>{{$mk->cpmk?->nama_kode_cpmk ?? '-'}}</td>
-                    <td>{{$mk?->id_cpmk ?? '-'}}</td> --}}
-                    <td class="border-2">{{$mk->nama_matkul_id}}</td>
-                    <td class="border-2">{{$mk->jumlah_sks}}</td>
-                    @for ($i = 1 ; $i <= 8 ; $i++) 
-                        <td class="border-2">
-                            @if ($mk->semester == $i)
-                                <span>v</span>
-                            @endif           
-                        </td>
-                    @endfor
-                </tr>
-            @endforeach
-        </table>
+                {{-- Bagian 2: Tabel Susunan Mata Kuliah per Semester --}}
+                <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Tabel Susunan Mata Kuliah</h2>
+                <div class="overflow-x-auto rounded-lg border border-gray-400">
+                    <table class="w-full text-sm text-center text-gray-500">
+                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                            <tr>
+                                <th scope="col" rowspan="2" class="px-6 py-3">Kode MK
+                                </th>
+                                <th scope="col" rowspan="2" class="px-6 py-3">Nama MK
+                                </th>
+                                <th scope="col" rowspan="2" class="px-6 py-3">SKS</th>
+                                <th scope="col" colspan="8" class="px-6 py-3">Semester</th>
+                            </tr>
+                            <tr>
+                                @for ($i = 1; $i <= 8; $i++)
+                                    <th scope="col" class="px-4 py-3">
+                                        {{ $i }}</th>
+                                @endfor
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($mata_kuliah as $mk)
+                                <tr class="bg-white border-t border-gray-400">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        {{ $mk->kode_mk }}
+                                    </th>
+                                    <td class="px-6 py-4 text-left border-r border-gray-400">
+                                        {{ $mk->nama_matkul_id }}
+                                    </td>
+                                    <td class="px-6 py-4 border-r border-gray-400">
+                                        {{ $mk->jumlah_sks }}
+                                    </td>
+                                    @for ($i = 1; $i <= 8; $i++)
+                                        <td class="px-6 py-4 border-r border-gray-400">
+                                            @if ($mk->semester == $i)
+                                                <span class="text-black-500 font-bold">✓</span>
+                                            @endif
+                                        </td>
+                                    @endfor
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
+                {{-- Bagian 3: Tabel Pemetaan BK-CPL-MK --}}
+                <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Tabel Pemetaan BK - CPL - MK</h2>
+                <div class="overflow-x-auto rounded-lg border border-gray-400">
+                    <table class="w-full text-sm text-center text-gray-500">
+                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">BK / CPL</th>
+                                @foreach ($cpl as $c)
+                                    <th scope="col" class="px-6 py-3">
+                                        {{ $c->nama_kode_cpl }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($bahan_kajian as $bk)
+                                <tr class="bg-white border-t border-gray-400">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        {{ $bk->nama_kode_bk }}
+                                    </th>
+                                    @foreach ($cpl as $c)
+                                        <td class="px-2 py-1 border-r border-gray-400 text-xs">
+                                            @if (isset($bk_cpl_map[$c->id_cpl]) && in_array($bk->id_bk, $bk_cpl_map[$c->id_cpl]))
+                                                @php
+                                                    $mk_ids = $bk_mk_map[$bk->id_bk] ?? [];
+                                                    $kode_mk_list = collect($mata_kuliah)
+                                                        ->whereIn('id_mk', $mk_ids)
+                                                        ->pluck('kode_mk')
+                                                        ->toArray();
+                                                @endphp
+                                                {{ implode(', ', $kode_mk_list) }}
+                                            @endif
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
-
-    {{-- mapping bk, mk, dan cpl --}}
-    <div class="mt-20 mr-8">
-        <h2 class="text-2xl font-bold mb-4">Tabel Pemetaan BK-CPL (Capaian Pembelajaran Lulusan) - MK</h2>
-        <p class="mb-4">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia neque nobis quas provident cum dolorum? Blanditiis perferendis culpa illum adipisci accusamus, provident, 
-            odit porro pariatur dolor repudiandae labore fugit asperiores?
-        </p>
-        {{-- Tabel Mapping MK ke BK --}}
-        <table border="1" cellpadding="5" class="border-black mt-4 w-full text-center mb-24 rounded-md"> 
-            <tr class="border-2 bg-gray-300">
-                <th class="border-2 bg-gray-300">BK/CPL</th>
-                @foreach ($cpl as $c)
-                    <th class="border-2 bg-gray-300 text-xl">{{ $c->nama_kode_cpl }}</th>
-                @endforeach
-            </tr>
-            @foreach ($bahan_kajian as $bk)
-                <tr>
-                    <td class="border-2 text-left text-xl px-4 py-2">
-                        {{ $bk->nama_kode_bk }} 
-                    </td>
-                    {{-- isi kolom ini adalah kode_mk yang mana id_mknya sesuai dengan id_bk dan ic_cpl --}}
-                    @foreach ($cpl as $c)
-                        <td class="border-2 text-sm px-2 py-1">
-                            @if (isset($bk_cpl_map[$c->id_cpl]) && in_array($bk->id_bk, $bk_cpl_map[$c->id_cpl]))
-                                @php
-                                    $mk_ids = $bk_mk_map[$bk->id_bk] ?? [];
-                                    $kode_mk_list = collect($mata_kuliah)
-                                        ->whereIn('id_mk', $mk_ids)
-                                        ->pluck('kode_mk')
-                                        ->toArray();
-                                @endphp
-                                {{ implode(', ', $kode_mk_list) }}
-                            @else
-                                -
-                            @endif
-                        </td>
-                    @endforeach
-
-                </tr>
-            @endforeach
-        </table>
+                {{-- Bagian 4: Tabel Bobot SKS --}}
+                <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Tabel Bobot SKS</h2>
+                <div class="overflow-x-auto rounded-lg border border-gray-400">
+                    <table class="w-full text-sm text-center text-gray-500">
+                        <thead class="text-white uppercase bg-teks-biru-custom">
+                            <tr>
+                                <th scope="col" class="px-6 py-4">Kode MK</th>
+                                <th scope="col" class="px-6 py-4">Nama Mata Kuliah</th>
+                                <th scope="col" class="px-6 py-4">CPL yang Dibebankan</th>
+                                <th scope="col" class="px-6 py-4">Bobot SKS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($mata_kuliah as $mk)
+                                <tr class="bg-white border-t border-gray-400">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        {{ $mk->kode_mk }}
+                                    </th>
+                                    <td class="px-6 py-4 text-left border-r border-gray-400">
+                                        {{ $mk->nama_matkul_id }}
+                                    </td>
+                                    <td class="px-6 py-4 border-r border-gray-400 text-center">
+                                        @php
+                                            $related_cpl_ids = $mk_cpl_map[$mk->id_mk] ?? [];
+                                            $related_cpls = collect($cpl)
+                                                ->whereIn('id_cpl', $related_cpl_ids)
+                                                ->pluck('nama_kode_cpl')
+                                                ->toArray();
+                                        @endphp
+                                        {{ implode(', ', $related_cpls) ?: '-' }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $mk->jumlah_sks }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
     </div>
-    
-    {{-- tabel bobot sks  --}}
-    <h2 class="text-2xl font-bold mb-4">Tabel Bobot SKS</h2>
-    <p class="mb-4">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia neque nobis quas provident cum dolorum? Blanditiis perferendis culpa illum adipisci accusamus, provident, 
-        odit porro pariatur dolor repudiandae labore fugit asperiores?
-    </p>
-    <table border="1" cellpadding="5" class="w-full mb-24 text-center">
-        <tr class="bg-gray-300">
-            <th class="border-2" rowspan="2">Kode Mata Kuliah</th>
-            <th class="border-2" rowspan="2">Nama Mata Kuliah</th>
-            <th class="border-2" rowspan="2">CPL yang Dibebankan</th>
-            <th class="border-2" rowspan="2">Bobot SKS</th>
-        </tr>
-        <tbody>
-            @foreach ($mata_kuliah as $mk)
-                <tr>
-                    <td class="border px-2">{{ $mk->kode_mk }}</td>
-                    <td class="border px-2">{{ $mk->nama_matkul_id }}</td>
-                    <td class="border px-2">
-                        @php
-                            $related_cpl_ids = $mk_cpl_map[$mk->id_mk] ?? [];
-                            $related_cpls = collect($cpl)
-                                ->whereIn('id_cpl', $related_cpl_ids)
-                                ->pluck('nama_kode_cpl')
-                                ->toArray();
-                        @endphp
-                        {{ implode(', ', $related_cpls) ?: '-' }}
-                    </td>
-                    {{-- bobot sks sesuai dengan id_mk --}}
-                    <td  class="border px-2">
-                        {{ $mk->jumlah_sks }}
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-
-    </div>
-
-
-
-    {{-- <script>
-        alert("{{session('success')}}");
-    </script> --}}
-    
 </body>
+
 </html>
