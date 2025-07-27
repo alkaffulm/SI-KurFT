@@ -22,7 +22,7 @@ class StoreCPMKRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_mk' => 'required|exists:mata_kuliah,id_mk', 
+            // 'id_mk' => 'required|exists:mata_kuliah,id_mk', 
             'id_ps' => 'required|exists:program_studi,id_ps', 
             // 'kode_cpmk' => 'required|integer',
             'nama_kode_cpmk' => 'required|string',

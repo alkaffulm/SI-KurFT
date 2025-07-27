@@ -37,7 +37,7 @@
                 <input type="text" id="kode_cpmk" name="kode_cpmk" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" required>
             </div>
             <br> --}}
-            <div>
+            {{-- <div>
                 <label for="id_mk">ID Matkul:</label><br>
                 @error('id_mk')
                     {{$message}}
@@ -48,7 +48,7 @@
                     @endforeach
                 </select>
             </div>
-            <br>
+            <br> --}}
             <div>
                 <label for="desc_cpmk_id">Deskripsi CPMK (Indonesia):</label><br>
                 @error('desc_cpmk_id')

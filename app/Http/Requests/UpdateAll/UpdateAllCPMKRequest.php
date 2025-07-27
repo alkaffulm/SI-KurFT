@@ -22,7 +22,7 @@ class UpdateAllCPMKRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cpmk.*.id_mk' => 'required|exists:mata_kuliah,id_mk', 
+            // 'cpmk.*.id_mk' => 'required|exists:mata_kuliah,id_mk', 
             // 'cpmk.*.kode_cpmk' => 'required|integer',
             'cpmk.*.nama_kode_cpmk' => 'required|string',
             'cpmk.*.desc_cpmk_id' => 'required|string',
