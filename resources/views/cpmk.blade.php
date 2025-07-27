@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    @livewireStyles
 
     {{-- Custom styles to make Select2 fit the Tailwind design --}}
     <style>
@@ -114,29 +115,23 @@
             Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, neque totam repellendus 
             molestiae maxime eius doloribus accusantium doloremque ea! Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. 
         </p>
+
         <a href="{{ route('sub-cpmk.create') }}">Tambah </a>
+        <a href="{{ route('sub-cpmk.editAll') }}">Edit </a>
+
         <table  border="1" cellpadding="5" class="w-full mb-24 text-center" > 
             <tr >
                 <th class="border-2">Kode Sub CPMK</th>
-                <th class="border-2">Nama Kode CPMK</th>
-                <th class="border-2 ">aksi</th>
-                <th class="border-2">Nama Program Studi</th>
                 <th class="border-2">Sub CPMK</th>
+                <th class="border-2">Nama Kode CPMK</th>
+                <th class="border-2">Nama Program Studi</th>
             </tr>
             @foreach ($sub_cpmk as $scp )
                 <tr >
                     <td class="border-2">{{ $scp->nama_kode_sub_cpmk }}</td>
-                    <td class="border-2">{{ $scp->cpmk->nama_kode_cpmk }}</td>
-                    <td class="border-2">
-                        <form action="{{ route('sub-cpmk.destroy', $scp) }}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Hapus</button>
-                        </form> 
-                        | <a href="{{ route('sub-cpmk.edit', $scp) }}">Edit</a>
-                    </td>
-                    <td class="border-2">{{ $scp->programstudi->nama_prodi }}</td>
                     <td class="border-2">{{ $scp->desc_sub_cpmk_id }}</td>
+                    <td class="border-2">{{ $scp->cpmk->nama_kode_cpmk }}</td>
+                    <td class="border-2">{{ $scp->programstudi->nama_prodi }}</td>
                 </tr>
             @endforeach
         </table>
@@ -200,13 +195,13 @@
         {{-- mapping per matkul untuk memuncul cpmk dan sub cpmk --}}
         <h2 class="text-2xl font-bold mb-2">Mapping CPMK dan Sub CPMK Berdasarkan Mata Kuliah (pake Livewire)</h2>
    
-        <div>
+        <div class="mb-24">
             <livewire:show-sub-cpmk/>
         </div>
    
     {{-- <script>
         alert("{{session('success')}}");
     </script> --}}
-    
+
 </body>
 </html>

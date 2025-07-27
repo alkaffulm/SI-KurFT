@@ -35,16 +35,15 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:kaprodi')->prefix('kaprodi')->group(function () {
         // Route::resource('bahan-kajian', BahanKajianController::class);
         // Route::resource('cpl', CplController::class);
-        Route::resource('sub-cpmk', SubCpmkController::class);
         // Route::resource('profil-lulusan', ProfilLulusanController::class);
         Route::resource('kurikulum', KurikulumController::class);
         Route::resource('mhs-cpl', MhsCplController::class);
-
+        
         // PEO Routes
         Route::get('/peo/edit-all', [PeoController::class, 'editAll'])->name('peo.editAll'); // Rute baru untuk form edit massal
         Route::put('/peo/update-all', [PeoController::class, 'updateAll'])->name('peo.updateAll'); // Rute baru untuk update massal
         Route::resource('peo', PeoController::class);
-
+        
         // == PROFIL LULUSAN ROUTES ==
         Route::get('/profil-lulusan', [ProfilLulusanController::class, 'index'])->name('profil-lulusan.index');
         Route::get('/profil-lulusan/create', [ProfilLulusanController::class, 'create'])->name('profil-lulusan.create');
@@ -52,24 +51,28 @@ Route::middleware('auth')->group(function () {
         Route::get('/profil-lulusan/edit-all', [ProfilLulusanController::class, 'editAll'])->name('profil-lulusan.editAll');
         Route::put('/profil-lulusan/update-all', [ProfilLulusanController::class, 'updateAll'])->name('profil-lulusan.updateAll');
         Route::delete('/profil-lulusan/{profil_lulusan}', [ProfilLulusanController::class, 'destroy'])->name('profil-lulusan.destroy');
-
+        
         // == CPL ROUTES ==
         Route::get('/cpl', [CplController::class, 'index'])->name('cpl.index');
         Route::get('/cpl/create', [CplController::class, 'create'])->name('cpl.create');
         Route::post('/cpl', [CplController::class, 'store'])->name('cpl.store');
         Route::get('/cpl/edit-all', [CplController::class, 'editAll'])->name('cpl.editAll');
         Route::put('/cpl/update-all', [CplController::class, 'updateAll'])->name('cpl.updateAll');
-
+        
         // == BAHAN KAJIAN ROUTES (NEW) ==
         Route::get('/bahan-kajian', [BahanKajianController::class, 'index'])->name('bahan-kajian.index');
         Route::get('/bahan-kajian/create', [BahanKajianController::class, 'create'])->name('bahan-kajian.create');
         Route::post('/bahan-kajian', [BahanKajianController::class, 'store'])->name('bahan-kajian.store');
         Route::get('/bahan-kajian/edit-all', [BahanKajianController::class, 'editAll'])->name('bahan-kajian.editAll');
         Route::put('/bahan-kajian/update-all', [BahanKajianController::class, 'updateAll'])->name('bahan-kajian.updateAll');
-
+        
         Route::get('mata-kuliah/edit-all', [MatkulController::class, 'editAll'])->name('mata-kuliah.editAll');
         Route::put('mata-kuliah/update-all', [MatkulController::class, 'updateAll'])->name('mata-kuliah.updateAll');
         Route::resource('mata-kuliah', MatkulController::class);
+        
+        Route::get('sub-cpmk/edit-all', [SubCpmkController::class, 'editAll'])->name('sub-cpmk.editAll');
+        Route::put('sub-cpmk/update-all', [SubCpmkController::class, 'updateAll'])->name('sub-cpmk.updateAll');
+        Route::resource('sub-cpmk', SubCpmkController::class);
 
         Route::get('cpmk/edit-all', [CpmkController::class, 'editAll'])->name('cpmk.editAll');
         Route::put('cpmk/update-all', [CpmkController::class, 'updateAll'])->name('cpmk.updateAll');
