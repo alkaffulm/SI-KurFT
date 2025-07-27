@@ -31,14 +31,14 @@
                     <input type="text" id="nama_kode_cpmk" name="cpmk[{{ $cp->id_cpmk }}][nama_kode_cpmk]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{ old('cpmk.'.$cp->id_cpmk.'.nama_kode_cpmk', $cp->nama_kode_cpmk)}}" required>
                 </div>
                 <br>
-                <div>
+                {{-- <div>
                     <label for="kode_cpmk">Kode CPMK:</label><br>
                     @error('kode_cpmk')
                         {{$message}}
                     @enderror
                     <input type="text" id="kode_cpmk" name="cpmk[{{$cp->id_cpmk}}][kode_cpmk]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2" value="{{ old('cpmk.'.$cp->id_cpmk.'.kode_cpmk', $cp->kode_cpmk)}}" required>
                 </div>
-                <br>
+                <br> --}}
                 <div>
                     <label for="id_mk">ID Matkul:</label><br>
                     @error('id_mk')

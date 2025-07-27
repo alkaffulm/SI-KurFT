@@ -26,7 +26,7 @@ class CpmkController extends Controller
      */
     public function index()
     {
-        $cpmk = CPMKModel::orderBy('kode_cpmk')->get();
+        $cpmk = CPMKModel::orderBy('nama_kode_cpmk')->get();
         $mata_kuliah = MataKuliahModel::with('cpmks')->orderBy('kode_mk')->get();
 
         $subCpmk = SubCPMKModel::all();

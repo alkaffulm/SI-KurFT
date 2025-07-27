@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_cpmk');
             $table->unsignedBigInteger('id_ps');
             $table->string('nama_kode_cpmk');
-            $table->integer('kode_cpmk');
+            // $table->integer('kode_cpmk');
             $table->text('desc_cpmk_id');
             $table->text('desc_cpmk_en');
 

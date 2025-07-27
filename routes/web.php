@@ -80,7 +80,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('cpmk', CpmkController::class);
 
         Route::get('/mapping/edit-mk-cpmk', [MKCPMKController::class, 'editMKCPMK'])->name('mk-cpmk-mapping.edit');
-        Route::put('/mapping/mk-cpmk', [MKCPMKController::class], 'updateMKCPMK')->name('mk-cpmk-mapping.update');
+        Route::put('/mapping/mk-cpmk', [MKCPMKController::class, 'updateMKCPMK'])->name('mk-cpmk-mapping.update');
 
         // pl pe map
         Route::get('/mapping/pl-peo', [PLPEOMappingController::class, 'index'])->name('pl-peo-mapping.index');

@@ -23,7 +23,6 @@ class UpdateAllSubCPMKRequest extends FormRequest
     {
         return [
             'subCpmk.*.id_cpmk' => 'required|exists:cpmk,id_cpmk',
-            'subCpmk.*.kode_sub_cpmk' => 'required|integer',
             'subCpmk.*.nama_kode_sub_cpmk' => 'required|string',
             'subCpmk.*.desc_sub_cpmk_id' => 'required|string',
             'subCpmk.*.desc_sub_cpmk_en' => 'required|string',
@@ -33,8 +32,6 @@ class UpdateAllSubCPMKRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'subCpmk.*.kode_sub_cpmk.required' => 'Kode Sub CPMK tidak boleh kosong.',
-            'subCpmk.*.kode_sub_cpmk.integer'   => 'Kode Sub CPMK harus berupa integer',
             'subCpmk.*.nama_kode_sub_cpmk.required' => 'Nama Kode Sub CPMK enak boleh kosong.',
             'subCpmk.*.nama_kode_sub_cpmk.string'   => 'Nama Kode Sub CPMK enrus berupa string',
             'subCpmk.*.desc_sub_cpmk_id.required' => 'Deskripsi Sub CPMK (Indoneia) tidak boleh kosong.',

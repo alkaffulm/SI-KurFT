@@ -28,7 +28,7 @@ public function run(): void
                 'id_cpmk' => $i,
                 'id_ps' => $id_ps, 
                 'nama_kode_sub_cpmk' => "SC-$i_local.$j",
-                'kode_sub_cpmk' => $j,
+                // 'kode_sub_cpmk' => $j,
                 'desc_sub_cpmk_id' => "Deskripsi untuk SC-$i_local.$j",
                 'desc_sub_cpmk_en' => "Description for SC-$i_local.$j",
             ];

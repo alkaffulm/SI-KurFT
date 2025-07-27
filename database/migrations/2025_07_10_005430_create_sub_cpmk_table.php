@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_cpmk')->nullable();
             // $table->unsignedBigInteger('id_cpmk');
             $table->string('nama_kode_sub_cpmk');
-            $table->integer('kode_sub_cpmk');
+            // $table->integer('kode_sub_cpmk')->nullable();
             $table->text('desc_sub_cpmk_id');
             $table->text('desc_sub_cpmk_en');
 

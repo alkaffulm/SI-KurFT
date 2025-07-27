@@ -63,7 +63,6 @@ class MKCPMKController extends Controller
      */
     public function updateMKCPMK(Request $request)
     {
-        dd($request);
         foreach ($request->cpmk_map as $id_mk => $cpmk_ids) {
             $matKul = MataKuliahModel::find($id_mk);
             if ($matKul) {
