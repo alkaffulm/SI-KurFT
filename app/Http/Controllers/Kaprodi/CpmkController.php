@@ -6,10 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCPMKRequest;
 use App\Http\Requests\UpdateAll\UpdateAllCPMKRequest;
 use App\Models\CPMKModel;
+use App\Models\CPLModel;
 use App\Models\MataKuliahCPMKMapModel;
 use App\Models\MataKuliahModel;
-use App\Models\SubCPMKModel;
 use App\Models\MKCPMKSubCPMKMapModel;
+use App\Models\SubCPMKModel;
+use App\Models\CPMKCPLMapModel;
+use App\Models\BahanKajianModel;
+use App\Models\BKMKMapModel;
 use Illuminate\Http\Request;
 
 class CpmkController extends Controller
@@ -48,11 +52,68 @@ class CpmkController extends Controller
             $mk_cpmk_sub_cpmk_map[$id_mk][$id_cpmk][] = $id_sub_cpmk;
         }
 
+        $bahan_kajian = BahanKajianModel::all();
+        $cpl = CPLModel::all();
+        $cpmk_cpl_raw = CPMKCPLMapModel::all();
+        $cpmk_cpl_map = [];
+
+        foreach ($cpmk_cpl_raw as $relasi) {
+            $id_cpl = $relasi->id_cpl;
+            $id_cpmk = $relasi->id_cpmk;
+
+            if (!isset($cpmk_cpl_map[$id_cpl]) || !in_array($id_cpmk, $cpmk_cpl_map[$id_cpl])) {
+                $cpmk_cpl_map[$id_cpl][] = $id_cpmk;
+            }
+        }
+
+        $bk_mk_raw = BKMKMapModel::all();
+        $bk_mk_map = [];
+        foreach ($bk_mk_raw as $relasi) {
+            $id_mk = (int) $relasi->id_mk;
+            $id_bk = (int) $relasi->id_bk;
+
+            if (!isset($bk_mk_map[$id_mk])) {
+                $bk_mk_map[$id_mk] = [];
+            }
+            if (!in_array($id_bk, $bk_mk_map[$id_mk])) { // Mencegah duplikasi id_bk
+                $bk_mk_map[$id_mk][] = $id_bk;
+            }
+        }
+
+        $mk_cpmk_only_map = [];   
+
+        foreach ($mk_cpmk_sub_cpmk_raw as $relasi) {
+            $id_mk = (int) $relasi->id_mk;
+            $id_cpmk = (int) $relasi->id_cpmk;
+            $id_sub_cpmk = (int) $relasi->id_sub_cpmk;
+
+            if (!isset($mk_cpmk_sub_cpmk_map[$id_mk])) {
+                $mk_cpmk_sub_cpmk_map[$id_mk] = [];
+            }
+            if (!isset($mk_cpmk_sub_cpmk_map[$id_mk][$id_cpmk])) {
+                $mk_cpmk_sub_cpmk_map[$id_mk][$id_cpmk] = [];
+            }
+            $mk_cpmk_sub_cpmk_map[$id_mk][$id_cpmk][] = $id_sub_cpmk;
+
+            if (!isset($mk_cpmk_only_map[$id_mk])) {
+                $mk_cpmk_only_map[$id_mk] = [];
+            }
+            if (!in_array($id_cpmk, $mk_cpmk_only_map[$id_mk])) {
+                $mk_cpmk_only_map[$id_mk][] = $id_cpmk;
+            }
+        }
+
+
         return view('cpmk', [
             'mata_kuliah' => $mata_kuliah,
             'cpmk' => $cpmk, 
+            'bahan_kajian'=>$bahan_kajian,
             'sub_cpmk' => $subCpmk,
             'mk_cpmk_sub_cpmk_map'=>$mk_cpmk_sub_cpmk_map,
+            'cpmk_cpl_map' => $cpmk_cpl_map,
+            'cpl'=>$cpl,
+            'bk_mk_map'=>$bk_mk_map,
+            'mk_cpmk_only_map' => $mk_cpmk_only_map,
         ]);
     }
 

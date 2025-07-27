@@ -15,9 +15,11 @@ use App\Models\CPLPLMapModel;
 use App\Models\BahanKajianModel;
 use App\Models\BKCPLMapModel;
 use App\Models\MataKuliahModel;
+use App\Models\CPMKCPLMapModel;
 use App\Models\BKMKMapModel;
+use App\Models\CPMKModel;
 
-class BKMKMapController extends Controller
+class CPMKMPLMapController extends Controller
 {
     public function __construct()
     {
@@ -53,59 +55,52 @@ class BKMKMapController extends Controller
         ]);
     }
 
-    public function edit_bk_mk()
+    public function edit_cpmk_cpl()
     {
-        $bahan_kajian = BahanKajianModel::all();
-        $mata_kuliah = MataKuliahModel::all();
-        $jumlah_bk = BahanKajianModel::count();
-        $bk_mk_raw = BKMKMapModel::all();
-        $bk_mk_map = [];
+        $cpmk = CPMKModel::all();
+        $cpl = CPLModel::all();
+        $cpmk_cpl_raw = CPMKCPLMapModel::all();
 
-        foreach ($bk_mk_raw as $relasi) {
-            $id_bk = $relasi->id_bk;
-            $id_mk = $relasi->id_mk;
+        $cpmk_cpl_map = [];
 
-            if (!isset($bk_mk_map[$id_mk])) {
-                $bk_mk_map[$id_mk] = [];
+        foreach ($cpmk_cpl_raw as $relasi) {
+            if (!isset($cpmk_cpl_map[$relasi->id_cpmk])) {
+                $cpmk_cpl_map[$relasi->id_cpmk] = [];
             }
-
-            $bk_mk_map[$id_mk][] = $id_bk;
+            $cpmk_cpl_map[$relasi->id_cpmk][] = $relasi->id_cpl;
         }
 
-
-        return view('/mapping/bk-mk', 
+        return view('/mapping/cpmk-cpl', 
         [
-            'bahan_kajian' => $bahan_kajian,
-            'mata_kuliah'=> $mata_kuliah,
-            'bk_mk_map'=>$bk_mk_map,
-            'jumlah_bk' => $jumlah_bk
+            'cpmk'=>$cpmk,
+            'cpl'=>$cpl,
+            'cpmk_cpl_map'=> $cpmk_cpl_map,
             ]
         );
     }
 
-    public function updateBKMKMap(Request $request)
+    public function updateCPMKCPLMap(Request $request)
     {
         $request->validate([
-            'mk_mappings' => 'array',
-            'mk_mappings.*' => 'array',
-            'mk_mappings.*.*' => 'integer|exists:bahan_kajian,id_bk',
+            'cpl_mappings' => 'array',
+            'cpl_mappings.*' => 'array',
+            'cpl_mappings.*.*' => 'integer|exists:cpl,id_cpl', 
         ]);
 
-        $mk_mappings = $request->input('mk_mappings', []);
-        foreach ($mk_mappings as $id_mk_from_form => $selected_bk_ids_from_form) {
-            BKMKMapModel::where('id_mk', $id_mk_from_form)->delete();
-
-            if (!empty($selected_bk_ids_from_form)) {
-                foreach ($selected_bk_ids_from_form as $single_selected_bk_id) {
-                    BKMKMapModel::create([
-                        'id_bk' => $single_selected_bk_id,
-                        'id_mk' => $id_mk_from_form,      
+        $cpl_mappings = $request->input('cpl_mappings', []);
+        foreach ($cpl_mappings as $id_cpmk => $selected_cpl_ids) {
+            CPMKCPLMapModel::where('id_cpmk', $id_cpmk)->delete();
+            if (!empty($selected_cpl_ids)) {
+                foreach ($selected_cpl_ids as $id_cpl) {
+                    CPMKCPLMapModel::create([
+                        'id_cpl' => $id_cpl,
+                        'id_cpmk' => $id_cpmk,
                     ]);
                 }
             }
         }
 
-        return redirect()->route('bahan-kajian.index')->with('success', 'Pemetaan BK-MK berhasil diperbarui!');
+        return redirect()->route('cpmk-cpl-mapping.edit')->with('success', 'Pemetaan CPMK-CPL berhasil diperbarui!');
     }
 
     

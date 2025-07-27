@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Edit Korelasi BK dan CPL</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 
@@ -12,7 +12,26 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    {{-- Custom styles to make Select2 fit the Tailwind design --}}
+    <style>
+        .select2-container--default .select2-selection--multiple {
+            border-radius: 0.5rem;
+            /* rounded-lg */
+            border-color: #D1D5DB;
+            /* border-gray-300 */
+            padding: 0.35rem;
+            min-height: 42px;
+            /* Sets a minimum height */
+        }
+
+        .select2-container {
+            width: 100% !important;
+            /* Forces the element to fill its container */
+        }
+    </style>
 </head>
+
 <body class="bg-gray-100 font-sans">
 
     @include('layouts.navbar')
@@ -20,15 +39,16 @@
 
     <div class="p-4 sm:p-8 sm:ml-64">
         <main class="mt-20 max-w-4xl mx-auto">
-            <form action="{{ route('mk-cpmk-mapping.update') }}" method="POST">
+            <form action="{{ route('cpmk-cpl-mapping.update') }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
                     <div class="mb-5">
-                        <h1 class="text-4xl font-bold text-gray-800">Edit Korelasi CPMK dan MK</h1>
-                        <p class="text-gray-500 mt-2 text-base">Pilih Capaian Mata Kuliah (CPMK) yang relevan untuk setiap Mata
-                            Kuliah (MK).</p>
+                        <h1 class="text-4xl font-bold text-gray-800">Edit Korelasi CPMK dan CPL</h1>
+                        <p class="text-gray-500 mt-2 text-base">
+                            Pilih CPL yang relevan untuk setiap CPMK.
+                        </p>
                     </div>
 
                     <div class="overflow-hidden rounded-lg border border-gray-400">
@@ -36,25 +56,25 @@
                             {{-- Table Header --}}
                             <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                                 <tr>
-                                    <th scope="col" class="px-6 py-4 whitespace-nowrap">Mata Kuliah</th>
-                                    <th scope="col" class="px-6 py-4 whitespace-nowrap">Capaian Mata Kuliah (CPMK)</th>
+                                    <th scope="col" class="px-6 py-4 whitespace-nowrap">Kode CPMK</th>
+                                    <th scope="col" class="px-6 py-4 whitespace-nowrap">Kode CPL</th>
                                 </tr>
                             </thead>
                             {{-- Table Body --}}
                             <tbody>
-                                @foreach ($mata_kuliah as $mk)
+                                @foreach ($cpmk as $cp)
                                     <tr class="bg-white border-t border-gray-400">
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                            {{ $mk->kode_mk }} - {{ $mk->nama_matkul_id }}
+                                            {{ $cp->nama_kode_cpmk }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{-- Select2 dropdown for CPMK selection --}}
-                                            <select class="select2 w-full" multiple="multiple" name="cpmk_map[{{ $mk->id_mk }}][]">
-                                                @foreach ($cpmk as $cp)
-                                                    <option value="{{ $cp->id_cpmk }}"
-                                                        @if (isset($mk_cpmk_only_map[$mk->id_mk]) && in_array($cp->id_cpmk, $mk_cpmk_only_map[$mk->id_mk])) selected @endif>
-                                                        {{ $cp->nama_kode_cpmk }} - {{ $cp->nama_cpmk }}
+                                            <select class="select2 w-full" multiple="multiple"
+                                                name="cpl_mappings[{{ $cp->id_cpmk }}][]">
+                                                @foreach ($cpl as $item)
+                                                    <option value="{{ $item->id_cpl }}" {{-- Gunakan id_cpl untuk value --}}
+                                                        @if (isset($cpmk_cpl_map[$cp->id_cpmk]) && in_array($item->id_cpl, $cpmk_cpl_map[$cp->id_cpmk])) selected @endif> {{-- Cek terhadap id_cpl di cpmk_cpl_map --}}
+                                                        {{ $item->nama_kode_cpl }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -67,7 +87,7 @@
 
                     {{-- Action Buttons --}}
                     <div class="mt-12 pt-8 border-t border-gray-200 flex justify-end items-center gap-x-4">
-                        <a href="{{ route('cpmk.index') }}" {{-- Ganti route kembali ke cpmk.index --}}
+                        <a href="{{ route('cpmk.index') }}"
                             class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
                             Kembali
                         </a>
@@ -91,10 +111,11 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2({
-                placeholder: "Pilih CPMK",
+                placeholder: "Pilih Bahan Kajian",
                 allowClear: true
             });
         });
     </script>
 </body>
+
 </html>

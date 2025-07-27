@@ -146,22 +146,22 @@
             Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, neque totam repellendus 
             molestiae maxime eius doloribus accusantium doloremque ea! Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. 
         </p>
-        <table  border="1" cellpadding="5" class="w-full mb-24 text-center" > 
+        <table border="1" cellpadding="5" class="w-full mb-24 text-center">
             <thead>
-                <tr >
+                <tr>
                     <th class="border-2">Mata Kuliah</th>
-                    @foreach ($cpmk as $cp )
-                        <th class="border-2">{{$cp->nama_kode_cpmk}}</th>
+                    @foreach ($cpmk as $cp)
+                        <th class="border-2">{{ $cp->nama_kode_cpmk }}</th>
                     @endforeach
                 </tr>
             </thead>
             <tbody>
-                @foreach ( $mata_kuliah as $mk )
-                    <tr >
+                @foreach ($mata_kuliah as $mk)
+                    <tr>
                         <td class="border-2">{{ $mk->nama_matkul_id }}</td>
-                        @foreach ($cpmk as $cp )
+                        @foreach ($cpmk as $cp)
                             <td class="border-2">
-                                @if ($mk->cpmks->contains($cp))
+                                @if (isset($mk_cpmk_only_map[$mk->id_mk]) && in_array($cp->id_cpmk, $mk_cpmk_only_map[$mk->id_mk]))
                                     v
                                 @endif
                             </td>
@@ -169,7 +169,104 @@
                     </tr>
                 @endforeach
             </tbody>
-        </table>       
+        </table>      
+
+        {{-- ======================================================================================================== --}} 
+        {{-- mapping antara cpmk dan cpl --}}
+        <h2 class="text-2xl font-bold">Tabel Mapping Antara CPMK dengan Capaian Profil Lulusan (CPL)</h2>
+        <a href="{{ route('cpmk-cpl-mapping.edit') }}">Edit </a>
+        <p class="text-gray-600 mb-6">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, neque totam repellendus molestiae maxime eius doloribus accusantium doloremque ea! 
+            Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, neque totam repellendus 
+            molestiae maxime eius doloribus accusantium doloremque ea! Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. 
+        </p>
+        <table  border="1" cellpadding="5" class="w-full mb-24 text-center" > 
+            <thead>
+                <tr >
+                    <th class="border-2">Kode CPMK</th>
+                    @foreach ($cpl as $c)
+                        <th class="border-2">{{$c->nama_kode_cpl}}</th>
+                    @endforeach
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ( $cpmk as $cp )
+                    <tr >
+                        <td class="border-2">{{ $cp->nama_kode_cpmk }}</td>
+                        @foreach ($cpl as $c )
+                            <td class="border-2">
+                                @if ($cp->cpl->contains($c))
+                                    v
+                                @endif
+                            </td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </tbody>
+        </table> 
+
+        {{-- bk cpmk --}}
+        <h2 class="text-2xl font-bold">Tabel Mapping Antara BK dan CPMK</h2>
+        <p class="text-gray-600 mb-6">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, neque totam repellendus molestiae maxime eius doloribus accusantium doloremque ea! 
+            Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, neque totam repellendus 
+            molestiae maxime eius doloribus accusantium doloremque ea! Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. 
+        </p>
+            <table border="1" cellpadding="5" class="w-full mb-24 text-center">
+                <thead >
+                    <tr>
+                        <th class="border-2">Mata Kuliah</th>
+                        <th class="border-2">Bahan Kajian Terkait</th>
+                        <th  class="border-2">CPMK Terkait</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($mata_kuliah as $mk)
+                        <tr>
+                            <td class="border-2"">
+                                {{ $mk->kode_mk }} - {{ $mk->nama_matkul_id }}
+                            </td>
+                            <td class="border-2">
+                                @if (isset($bk_mk_map[$mk->id_mk]))
+                                    <ul class="list-disc list-inside">
+                                        @foreach ($bk_mk_map[$mk->id_mk] as $bk_id)
+                                            @php
+                                                // Cari objek Bahan Kajian berdasarkan ID
+                                                $bk_item = $bahan_kajian->firstWhere('id_bk', $bk_id);
+                                            @endphp
+                                            @if ($bk_item)
+                                                <li>{{ $bk_item->nama_kode_bk }} - {{ $bk_item->nama_bk }}</li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p>Tidak ada Bahan Kajian terkait.</p>
+                                @endif
+                            </td>
+                            <td class="border-2">
+                                @if (isset($mk_cpmk_sub_cpmk_map[$mk->id_mk]))
+                                    <ul class="list-disc list-inside">
+                                        @foreach ($mk_cpmk_sub_cpmk_map[$mk->id_mk] as $cpmk_id => $sub_cpmk_ids)
+                                            @php
+                                                $cpmk_item = $cpmk->firstWhere('id_cpmk', $cpmk_id);
+                                            @endphp
+                                            @if ($cpmk_item)
+                                                <li>
+                                                    <strong>{{ $cpmk_item->nama_kode_cpmk }}</strong>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p>Tidak ada CPMK terkait.</p>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+        {{-- ======================================================================================================== --}}
 
         {{-- mapping per matkul untuk memuncul cpmk dan sub cpmk --}}
         <h2 class="text-2xl font-bold mb-2">Mapping CPMK dan Sub CPMK Berdasarkan Mata Kuliah (pake Livewire)</h2>

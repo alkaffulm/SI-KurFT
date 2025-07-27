@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\dosen\RPSController;
 use App\Http\Controllers\Kaprodi\BKCPLMapController;
 use App\Http\Controllers\Kaprodi\BKMKMapController;
+use App\Http\Controllers\Kaprodi\CPMKMPLMapController;
 use App\Http\Controllers\Kaprodi\MatkulController;
 use App\Http\Controllers\Kaprodi\MKCPMKController;
 use App\Http\Controllers\Kaprodi\PeoController;
@@ -98,6 +99,10 @@ Route::middleware('auth')->group(function () {
         // bk mk map  
         Route::get('/mapping/edit-bk-mk', [BKMKMapController::class, 'edit_bk_mk'])->name('bk-mk-mapping.edit');
         Route::put('/mapping/bk-mk', [BKMKMapController::class, 'updateBKMKMap'])->name('bk-mk-mapping.update');
+
+        // cpmk cpl map  
+        Route::get('/mapping/edit-cpmk-cpl', [CPMKMPLMapController::class, 'edit_cpmk_cpl'])->name('cpmk-cpl-mapping.edit');
+        Route::put('/mapping/cpmk-cpl', [CPMKMPLMapController::class, 'updateCPMKCPLMap'])->name('cpmk-cpl-mapping.update');
     });
 });
 
