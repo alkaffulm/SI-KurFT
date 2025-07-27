@@ -161,7 +161,7 @@
                         <td class="border-2">{{ $mk->nama_matkul_id }}</td>
                         @foreach ($cpmk as $cp)
                             <td class="border-2">
-                                @if (isset($mk_cpmk_only_map[$mk->id_mk]) && in_array($cp->id_cpmk, $mk_cpmk_only_map[$mk->id_mk]))
+                                @if ($mk->cpmks->contains($cp))
                                     v
                                 @endif
                             </td>

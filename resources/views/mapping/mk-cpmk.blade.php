@@ -52,9 +52,8 @@
                                             {{-- Select2 dropdown for CPMK selection --}}
                                             <select class="select2 w-full" multiple="multiple" name="cpmk_map[{{ $mk->id_mk }}][]">
                                                 @foreach ($cpmk as $cp)
-                                                    <option value="{{ $cp->id_cpmk }}"
-                                                        @if (isset($mk_cpmk_only_map[$mk->id_mk]) && in_array($cp->id_cpmk, $mk_cpmk_only_map[$mk->id_mk])) selected @endif>
-                                                        {{ $cp->nama_kode_cpmk }} - {{ $cp->nama_cpmk }}
+                                                    <option value="{{ $cp->id_cpmk }}" {{$mk->cpmks->contains($cp) ? 'selected' : ''}}>
+                                                        {{ $cp->nama_kode_cpmk }} 
                                                     </option>
                                                 @endforeach
                                             </select>
