@@ -101,8 +101,7 @@
                 </div>
 
                 {{-- Bagian Tabel Korelasi BK dan CPL --}}
-                <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Korelasi Bahan Kajian dengan CPL
-                </h1>
+                <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Pemetaan Bahan Kajian terhadap CPL</h1>
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi BK - CPL</h2>
                     <a href="{{ route('bk-cpl-mapping.edit') }}"
@@ -120,32 +119,36 @@
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" class="px-6 py-3 border-r border-gray-400">Bahan Kajian</th>
-                                @foreach ($cpl as $c)
-                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">
-                                        {{ $c->nama_kode_cpl }}</th>
-                                @endforeach
+                                <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode CPL</th>
+                                <th scope="col" class="px-6 py-3">Bahan Kajian Terkait</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bahan_kajian as $bk)
+                            @foreach ($cpl as $c)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                        {{ $bk->nama_kode_bk }}
+                                        {{ $c->nama_kode_cpl }}
                                     </th>
-                                    @foreach ($cpl as $c)
-                                        @php
-                                            $isChecked =
-                                                isset($bk_cpl_map[$c->id_cpl]) &&
-                                                in_array($bk->id_bk, $bk_cpl_map[$c->id_cpl]);
-                                        @endphp
-                                        <td class="px-6 py-4 border-r border-gray-400">
-                                            @if ($isChecked)
-                                                <span class="text-black-500 font-bold">✓</span>
+                                    <td class="px-6 py-4 text-left">
+                                        <div class="flex flex-wrap gap-2">
+                                            {{-- *** CHANGE IS HERE *** --}}
+                                            @php $found = false; @endphp
+                                            @foreach ($bahan_kajian as $bk)
+                                                @if (isset($bk_cpl_map[$c->id_cpl]) && in_array($bk->id_bk, $bk_cpl_map[$c->id_cpl]))
+                                                    <span
+                                                        class="bg-gray-200 text-gray-800 text-xs font-medium px-2.5 py-1 rounded-full">
+                                                        {{ $bk->nama_kode_bk }} - {{ $bk->nama_bk }}
+                                                    </span>
+                                                    @php $found = true; @endphp
+                                                @endif
+                                            @endforeach
+                                            @if (!$found)
+                                                <span class="text-gray-400">Tidak ada</span>
                                             @endif
-                                        </td>
-                                    @endforeach
+                                            {{-- *** END CHANGE *** --}}
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -153,9 +156,8 @@
                 </div>
 
                 {{-- Bagian Tabel Korelasi BK dan MK --}}
-                <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Korelasi Bahan Kajian dengan Mata
-                    Kuliah
-                    (MK)</h1>
+                <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Pemetaan Bahan Kajian terhadap Mata
+                    Kuliah</h1>
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi BK - MK</h2>
                     <a href="{{ route('bk-mk-mapping.edit') }}"
@@ -173,7 +175,10 @@
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                             <tr>
+                                {{-- *** CHANGE IS HERE *** --}}
+                                <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode MK</th>
                                 <th scope="col" class="px-6 py-3 border-r border-gray-400">Mata Kuliah</th>
+                                {{-- *** END CHANGE *** --}}
                                 @foreach ($bahan_kajian as $bk)
                                     <th scope="col" class="px-6 py-3 border-r border-gray-400">
                                         {{ $bk->nama_kode_bk }}</th>
@@ -183,10 +188,16 @@
                         <tbody>
                             @foreach ($mata_kuliah as $mk)
                                 <tr class="bg-white border-t border-gray-400">
+                                    {{-- *** CHANGE IS HERE *** --}}
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        {{ $mk->kode_mk }}
+                                    </th>
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-left">
                                         {{ $mk->nama_matkul_id }}
                                     </th>
+                                    {{-- *** END CHANGE *** --}}
                                     @foreach ($bahan_kajian as $bk)
                                         @php
                                             $isChecked =

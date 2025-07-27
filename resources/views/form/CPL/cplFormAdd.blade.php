@@ -57,7 +57,7 @@
                             <label for="id_kurikulum"
                                 class="block text-base font-medium text-gray-700 mb-2">Kurikulum</label>
                             <select name="id_kurikulum" id="id_kurikulum"
-                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition">
+                                class="select-custom w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition">
                                 @foreach ($kurikulum as $krk)
                                     <option value="{{ $krk->id_kurikulum }}">{{ $krk->tahun }}</option>
                                 @endforeach

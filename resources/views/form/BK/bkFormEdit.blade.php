@@ -25,13 +25,11 @@
 
     <div class="p-4 sm:p-8 sm:ml-64">
         <main class="mt-20 mb-5 max-w-5xl mx-auto">
-
             <form action="{{ route('bahan-kajian.updateAll') }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
-
                     <div class="mb-10">
                         <h1 class="text-4xl font-bold text-gray-800">Edit Bahan Kajian (BK)</h1>
                     </div>
@@ -53,7 +51,7 @@
                                 :class="{ 'is-deleting': isDeleting }">
                                 <div class="grid grid-cols-12 gap-x-6 gap-y-4">
                                     {{-- Kode BK --}}
-                                    <div class="col-span-12 sm:col-span-2">
+                                    <div class="col-span-12 sm:col-span-3">
                                         <label for="nama_kode_bk_{{ $bk->id_bk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Kode BK</label>
                                         <input type="text" id="nama_kode_bk_{{ $bk->id_bk }}"
@@ -64,7 +62,7 @@
                                     </div>
 
                                     {{-- Nama Bahan Kajian --}}
-                                    <div class="col-span-12 sm:col-span-4">
+                                    <div class="col-span-11 sm:col-span-8">
                                         <label for="nama_bk_{{ $bk->id_bk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Nama Bahan
                                             Kajian</label>
@@ -74,17 +72,8 @@
                                             value="{{ old('bk.' . $bk->id_bk . '.nama_bk', $bk->nama_bk) }}" required>
                                     </div>
 
-                                    {{-- Deskripsi --}}
-                                    <div class="col-span-11 sm:col-span-5">
-                                        <label for="desc_bk_id_{{ $bk->id_bk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi</label>
-                                        <textarea id="desc_bk_id_{{ $bk->id_bk }}" name="bk[{{ $bk->id_bk }}][desc_bk_id]" rows="3"
-                                            :disabled="isDeleting"
-                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('bk.' . $bk->id_bk . '.desc_bk_id', $bk->desc_bk_id) }}</textarea>
-                                    </div>
-
                                     {{-- Delete Checkbox --}}
-                                    <div class="col-span-1 flex items-center justify-center pt-8">
+                                    <div class="col-span-1 flex items-end justify-center pb-2">
                                         <input type="checkbox" id="delete_{{ $bk->id_bk }}" name="delete_bk[]"
                                             value="{{ $bk->id_bk }}" class="hidden" x-model="isDeleting">
                                         <label for="delete_{{ $bk->id_bk }}"
@@ -98,6 +87,26 @@
                                                 </path>
                                             </svg>
                                         </label>
+                                    </div>
+
+                                    {{-- Deskripsi (Indonesia) --}}
+                                    <div class="col-span-12 sm:col-span-6">
+                                        <label for="desc_bk_id_{{ $bk->id_bk }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                                            (Indonesia)</label>
+                                        <textarea id="desc_bk_id_{{ $bk->id_bk }}" name="bk[{{ $bk->id_bk }}][desc_bk_id]" rows="4"
+                                            :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('bk.' . $bk->id_bk . '.desc_bk_id', $bk->desc_bk_id) }}</textarea>
+                                    </div>
+
+                                    {{-- Deskripsi (English) --}}
+                                    <div class="col-span-12 sm:col-span-6">
+                                        <label for="desc_bk_en_{{ $bk->id_bk }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                                            (English)</label>
+                                        <textarea id="desc_bk_en_{{ $bk->id_bk }}" name="bk[{{ $bk->id_bk }}][desc_bk_en]" rows="4"
+                                            :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('bk.' . $bk->id_bk . '.desc_bk_en', $bk->desc_bk_en) }}</textarea>
                                     </div>
                                 </div>
 
@@ -115,9 +124,7 @@
                     @if ($bk_data->isNotEmpty())
                         <div class="mt-12 pt-8 border-t border-gray-200 flex justify-end items-center gap-x-4">
                             <a href="{{ route('bahan-kajian.index') }}"
-                                class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
-                                Batal
-                            </a>
+                                class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Batal</a>
                             <button type="submit"
                                 class="flex items-center gap-x-2 text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
