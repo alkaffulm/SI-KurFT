@@ -12,6 +12,7 @@ use App\Http\Controllers\dosen\RPSController;
 use App\Http\Controllers\Kaprodi\BKCPLMapController;
 use App\Http\Controllers\Kaprodi\BKMKMapController;
 use App\Http\Controllers\Kaprodi\MatkulController;
+use App\Http\Controllers\Kaprodi\MKCPMKController;
 use App\Http\Controllers\Kaprodi\PeoController;
 use App\Http\Controllers\Kaprodi\ProfilLulusanController;
 use App\Http\Controllers\Kaprodi\SubCpmkController;
@@ -78,9 +79,11 @@ Route::middleware('auth')->group(function () {
         Route::put('cpmk/update-all', [CpmkController::class, 'updateAll'])->name('cpmk.updateAll');
         Route::resource('cpmk', CpmkController::class);
 
+        Route::get('/mapping/edit-mk-cpmk', [MKCPMKController::class, 'editMKCPMK'])->name('mk-cpmk-mapping.edit');
+        Route::put('/mapping/mk-cpmk', [MKCPMKController::class], 'updateMKCPMK')->name('mk-cpmk-mapping.update');
+
         // pl pe map
         Route::get('/mapping/pl-peo', [PLPEOMappingController::class, 'index'])->name('pl-peo-mapping.index');
-
         Route::get('/mapping/edit-pl-peo', [PLPEOMappingController::class, 'edit_pl_peo'])->name('pl-peo-mapping.edit');
         Route::put('/mapping/pl-peo', [PLPEOMappingController::class, 'updatePLPEOMap'])->name('pl-peo-mapping.update');
 

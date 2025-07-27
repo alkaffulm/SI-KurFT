@@ -140,57 +140,37 @@
         {{-- ======================================================================================================== --}}
 
         {{-- mapping mk dengan cpmk coi --}}
+        
         <h2 class="text-2xl font-bold">Tabel Mapping Antara Mata Kuliah dan CPMK</h2>
+        <a href="{{ route('mk-cpmk-mapping.edit') }}">Edit </a>
         <p class="text-gray-600 mb-6">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, neque totam repellendus molestiae maxime eius doloribus accusantium doloremque ea! 
             Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, neque totam repellendus 
             molestiae maxime eius doloribus accusantium doloremque ea! Odit magnam qui fuga perferendis impedit provident velit, sint recusandae temporibus. 
         </p>
         <table  border="1" cellpadding="5" class="w-full mb-24 text-center" > 
-            <tr >
-                <th class="border-2">Kode Mata Kuliah</th>
-                <th class="border-2 ">Nama Mata Kuliah</th>
-                <th class="border-2 ">Deskripsi Mata Kuliah Indonesia</th>
-                <th class="border-2">Kode CPMK</th>
-                <th class="border-2">Aksi</th>
-            </tr>
-            @foreach ($mata_kuliah as $mk )
+            <thead>
                 <tr >
-                    <td class="border-2">{{ $mk->kode_mk }}</td>
-                    <td class="border-2">{{ $mk->nama_matkul_id }}</td>
-                    <td class="border-2">{{ $mk->matkul_desc_id }}</td>
-                    <td class="border-2">
-                        @php
-                            $map = $mk_cpmk_sub_cpmk_map[$mk->id_mk] ?? null;
-                        @endphp
-
-                        @if ($map)
-                            @foreach ($map as $id_cpmk => $sub_cpmk_ids)
-                                @php
-                                    $cpmk_found = $cpmk->firstWhere('id_cpmk', $id_cpmk);
-                                @endphp
-
-                                @if ($cpmk_found)
-                                    <div>
-                                        <strong>{{ $cpmk_found->nama_kode_cpmk }}</strong>
-                                    </div>
-                                @endif
-                            @endforeach
-                        @else
-                            <div><i>Tidak ada CPMK</i></div>
-                        @endif
-                    </td>
-
-                    <td class="border-2">
-                        <form action="{{ route('sub-cpmk.destroy', $mk) }}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Hapus</button>
-                        </form> 
-                        | <a href="{{ route('sub-cpmk.edit', $mk) }}">Edit</a>
-                    </td>
+                    <th class="border-2">Mata Kuliah</th>
+                    @foreach ($cpmk as $cp )
+                        <th class="border-2">{{$cp->nama_kode_cpmk}}</th>
+                    @endforeach
                 </tr>
-            @endforeach
+            </thead>
+            <tbody>
+                @foreach ( $mata_kuliah as $mk )
+                    <tr >
+                        <td class="border-2">{{ $mk->nama_matkul_id }}</td>
+                        @foreach ($cpmk as $cp )
+                            <td class="border-2">
+                                @if ($mk->cpmks->contains($cp))
+                                    v
+                                @endif
+                            </td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </tbody>
         </table>       
 
         {{-- mapping per matkul untuk memuncul cpmk dan sub cpmk --}}
