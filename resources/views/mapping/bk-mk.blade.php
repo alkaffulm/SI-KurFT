@@ -70,7 +70,7 @@
                                         <td class="px-6 py-4">
                                             {{-- Select2 dropdown for BK selection --}}
                                             <select class="select2 w-full" multiple="multiple"
-                                                name="bk_mappings[{{ $mk->id_mk }}][]">
+                                                name="mk_mappings[{{ $mk->id_mk }}][]">
                                                 @foreach ($bahan_kajian as $item)
                                                     <option value="{{ $item->id_bk }}"
                                                         @if (isset($bk_mk_map[$mk->id_mk]) && in_array($item->id_bk, $bk_mk_map[$mk->id_mk])) selected @endif>

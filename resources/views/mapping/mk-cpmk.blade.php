@@ -49,11 +49,12 @@
                                             {{ $mk->kode_mk }} - {{ $mk->nama_matkul_id }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{-- Select2 dropdown for BK selection --}}
+                                            {{-- Select2 dropdown for CPMK selection --}}
                                             <select class="select2 w-full" multiple="multiple" name="cpmk_map[{{ $mk->id_mk }}][]">
                                                 @foreach ($cpmk as $cp)
-                                                    <option value="{{ $cp->id_cpmk }}" {{$mk->cpmks->contains($cp) ? 'selected' : ''}}>
-                                                        {{ $cp->nama_kode_cpmk }} 
+                                                    <option value="{{ $cp->id_cpmk }}"
+                                                        @if (isset($mk_cpmk_only_map[$mk->id_mk]) && in_array($cp->id_cpmk, $mk_cpmk_only_map[$mk->id_mk])) selected @endif>
+                                                        {{ $cp->nama_kode_cpmk }} - {{ $cp->nama_cpmk }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -66,7 +67,7 @@
 
                     {{-- Action Buttons --}}
                     <div class="mt-12 pt-8 border-t border-gray-200 flex justify-end items-center gap-x-4">
-                        <a href="{{ route('bahan-kajian.index') }}"
+                        <a href="{{ route('cpmk.index') }}" {{-- Ganti route kembali ke cpmk.index --}}
                             class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
                             Kembali
                         </a>
