@@ -23,6 +23,7 @@ class StoreBahanKajianRequest extends FormRequest
     {
         return [
             'id_ps' => 'required|exists:program_studi,id_ps', 
+            'nama_kode_bk' => 'required',
             'nama_bk' => 'required|string',
             'kategori' => 'required|string',
             'desc_bk_id' => 'required|string',
@@ -35,6 +36,7 @@ class StoreBahanKajianRequest extends FormRequest
         return [
             'nama_bk.required' => 'Nama Bahan Kajian tidak boleh kosong.',
             'nama_bk.string'   => 'Nama Bahan Kajian harus berupa string',
+            'nama_kode_bk' => 'Kode BK Tidak Boleh Kosong',
             'kategori.required' => 'Kategori tidak boleh kosong.',
             'kategori.string'   => 'Kategori harus berupa string',
             'desc_bk_id.required' => 'Deskripsi Bahan Kajian (Indoneia) tidak boleh kosong.',
