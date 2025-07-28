@@ -1,50 +1,88 @@
-<div>
-    <label for="matakuliah_select">Nama Mata Kuliah</label>
-        <select wire:model.live="selectedMataKuliah" id="matakuliah_select" class="border" >
+<div class="space-y-6">
+    {{-- Dropdown Pemilihan Mata Kuliah --}}
+    <div>
+        <label for="matakuliah_select" class="block mb-2 text-sm font-medium text-gray-900">Pilih Mata Kuliah</label>
+        <select wire:model.live="selectedMataKuliah" id="matakuliah_select"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-biru-custom focus:border-biru-custom block w-full sm:w-1/3 p-2.5">
             <option value="">-- Pilih Mata Kuliah --</option>
-            @foreach ($mata_kuliah as $mk )
-                <option value="{{$mk->id_mk}}">{{$mk->nama_matkul_id}}</option>
+            @foreach ($mata_kuliah as $mk)
+                <option value="{{ $mk->id_mk }}">{{ $mk->kode_mk }} - {{ $mk->nama_matkul_id }}</option>
             @endforeach
         </select>
-    
-    @if (!empty($cpmks))
-    
-    <div>
-        <h1 class="Text-center font-bold ">{{$mataKuliah->nama_matkul_id}}</h1>
-        <p>{{$mataKuliah->matkul_desc_id}}</p> 
     </div>
-    @forelse ($cpmks as $cpmk )
-            <p><strong>{{$cpmk->nama_kode_cpmk}}: </strong>{{$cpmk->desc_cpmk_id}}</p>
-        @empty
-            <p>Tidak ada CPMK dan Sub CPMK untuk Mata Kuliah ini</p>
-        @endforelse
 
-            <table  border="1" cellpadding="5" class="w-full mb-24 text-center" > 
-                <tr >
-                    <th class="border-2 ">Kode Sub CPMK</th>
-                    <th class="border-2 ">Deskripsi Sub CPMK</th>
-                </tr>
-                @foreach ($cpmks as $cpmk )
-                    @foreach ($cpmk->subCpmk as $scp )
-                        <tr >
-                            <td class="border-2">{{ $scp->nama_kode_sub_cpmk }}</td>
-                            <td class="border-2">{{ $scp->desc_sub_cpmk_id }}</td>
+    {{-- Tampilkan Konten jika Mata Kuliah sudah dipilih --}}
+    @if (!empty($cpmks))
+        <div class="mt-6">
+            {{-- Header Informasi Mata Kuliah --}}
+            <div class="mb-8 pb-4 border-b border-gray-200">
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-800">{{ $mataKuliah->nama_matkul_id }}</h2>
+                <p class="mt-2 text-base text-gray-600">{{ $mataKuliah->matkul_desc_id }}</p>
+            </div>
+
+            {{-- Tabel CPMK dan Sub CPMK --}}
+            <div class="overflow-x-auto rounded-lg border border-gray-300">
+                <table class="w-full text-sm text-left text-gray-700">
+                    <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                        <tr>
+                            <th scope="col" class="px-6 py-4">
+                                Kode CPMK
+                            </th>
+                            <th scope="col" class="px-6 py-4">
+                                Deskripsi CPMK
+                            </th>
+                            <th scope="col" class="px-6 py-4">
+                                Sub-CPMK Terkait
+                            </th>
                         </tr>
-                    @endforeach
-                @endforeach
-            </table>          
-        {{-- <table  border="1" cellpadding="5" class="w-full mb-24 text-center" > 
-            <tr >
-                <th class="border-2 ">CPMK</th>
-                <th class="border-2 ">Deskripsi CPMK</th>
-            </tr>
-            @foreach ($cpmks as $cpmk )
-                <tr >
-                    <td class="border-2">{{ $cpmk->nama_kode_cpmk }}</td>
-                    <td class="border-2">{{ $cpmk->desc_cpmk_id }}</td>
-                </tr>
-            @endforeach
-        </table>      --}}
-        
+                    </thead>
+                    <tbody>
+                        @forelse ($cpmks as $cpmk)
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <th scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap align-top">
+                                    {{ $cpmk->nama_kode_cpmk }}
+                                </th>
+                                <td class="px-6 py-4 align-top">
+                                    {{ $cpmk->desc_cpmk_id }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    @if ($cpmk->subCpmk->isNotEmpty())
+                                        <ul class="space-y-2">
+                                            @foreach ($cpmk->subCpmk as $scp)
+                                                <li>
+                                                    <strong
+                                                        class="font-semibold">{{ $scp->nama_kode_sub_cpmk }}:</strong>
+                                                    <span>{{ $scp->desc_sub_cpmk_id }}</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        <p class="text-gray-400 italic">Tidak ada Sub-CPMK</p>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3" class="text-center py-8 text-gray-500 bg-white">
+                                    Tidak ada CPMK yang terhubung dengan mata kuliah ini.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @else
+        {{-- Pesan jika belum ada mata kuliah yang dipilih --}}
+        @if ($selectedMataKuliah)
+            <div class="text-center py-10">
+                <p class="text-gray-500">Tidak ada CPMK yang ditemukan untuk mata kuliah yang dipilih.</p>
+            </div>
+        @else
+            <div class="text-center py-10">
+                <p class="text-gray-500">Silakan pilih Mata Kuliah untuk menampilkan detail.</p>
+            </div>
+        @endif
     @endif
 </div>
