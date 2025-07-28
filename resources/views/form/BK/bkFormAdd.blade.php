@@ -19,6 +19,7 @@
             <form action="{{ route('bahan-kajian.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
+
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
                     <div class="mb-5">
                         <h1 class="text-4xl font-bold text-gray-800">Tambah BK Baru</h1>
@@ -38,15 +39,27 @@
                     @endif
 
                     <div class="space-y-5">
-                        <div>
-                            <label for="nama_kode_bk" class="block text-base font-medium text-gray-700 mb-2">Kode Bahan
-                                Kajian</label>
-                            <input type="text" id="nama_kode_bk" name="nama_kode_bk"
-                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                placeholder="Contoh: BK-1" value="{{ old('nama_kode_bk') }}" required>
-                            @error('nama_kode_bk')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label for="nama_kode_bk" class="block text-base font-medium text-gray-700 mb-2">Kode
+                                    BK</label>
+                                <input type="text" id="nama_kode_bk" name="nama_kode_bk"
+                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                    placeholder="Contoh: BK-1" value="{{ old('nama_kode_bk') }}" required>
+                                @error('nama_kode_bk')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-span-2">
+                                <label for="kategori"
+                                    class="block text-base font-medium text-gray-700 mb-2">Kategori</label>
+                                <input type="text" id="kategori" name="kategori"
+                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                    placeholder="Contoh: Inti" value="{{ old('kategori') }}" required>
+                                @error('kategori')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
                         <div>
@@ -71,7 +84,6 @@
                             @enderror
                         </div>
 
-                        {{-- NEW FIELD FOR ENGLISH DESCRIPTION --}}
                         <div>
                             <label for="desc_bk_en" class="block text-base font-medium text-gray-700 mb-2">Deskripsi
                                 (English)</label>

@@ -110,6 +110,7 @@ class BahanKajianController extends Controller
         $rules = [
             'bk.*.nama_kode_bk' => 'required|string|max:255',
             'bk.*.nama_bk' => 'required|string|max:255',
+            'bk.*.kategori' => 'required|string|max:255', // <-- TAMBAHKAN INI
             'bk.*.desc_bk_id' => 'required|string',
             'bk.*.desc_bk_en' => 'required|string', // <-- ADD THIS LINE
 
@@ -117,6 +118,7 @@ class BahanKajianController extends Controller
         $messages = [
             'bk.*.nama_kode_bk.required' => 'Setiap kolom Kode BK wajib diisi.',
             'bk.*.nama_bk.required' => 'Setiap kolom Nama BK wajib diisi.',
+            'bk.*.kategori.required' => 'Setiap kolom Kategori wajib diisi.', // <-- TAMBAHKAN INI
             'bk.*.desc_bk_id.required' => 'Setiap kolom Deskripsi (ID) wajib diisi.',
             'bk.*.desc_bk_en.required' => 'Setiap kolom Deskripsi (EN) wajib diisi.', // <-- ADD THIS LINE
 
