@@ -24,9 +24,7 @@ class PeoController extends Controller
     if (!session()->has('id_kurikulum_aktif')) {
         return redirect()->back()->with('error', 'Silakan pilih kurikulum terlebih dahulu.');
     }
-
-    $peo = PEOModel::orderBy('kode_peo', 'asc')->get();
-
+    $peo = PEOModel::orderBy('kode_peo', 'asc')->paginate(5);
     return view('peo', ['peo' => $peo]);
   }
 
