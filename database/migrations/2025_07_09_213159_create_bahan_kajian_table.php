@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_ps');
             $table->unsignedBigInteger('id_kurikulum');
             $table->string('nama_kode_bk');
-            $table->string('nama_bk');
+            $table->string('nama_bk_id');
+            $table->string('nama_bk_en');
             $table->string('kategori');
             $table->text('desc_bk_id');
             $table->text('desc_bk_en');
