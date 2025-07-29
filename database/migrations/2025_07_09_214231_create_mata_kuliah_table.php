@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('mata_kuliah', function (Blueprint $table) {
             $table->bigIncrements('id_mk');
             $table->unsignedBigInteger('id_ps');
+            $table->unsignedBigInteger('id_kurikulum');
             $table->string('kode_mk');
             $table->string('nama_matkul_id');
             $table->string('nama_matkul_en');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->integer('semester');
 
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
+            $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
         });
     }
 
