@@ -19,7 +19,8 @@ class RoleSeeder extends Seeder
             ['id_role' => 3, 'role' => 'Kaprodi'],
             ['id_role' => 4, 'role' => 'PimpinanFT'],
             ['id_role' => 5, 'role' => 'UPM'],
-            ['id_role' => 6, 'role' => 'Developer']
+            ['id_role' => 6, 'role' => 'Developer'],
         ]);
+
     }
 }

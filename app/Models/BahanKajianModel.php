@@ -4,9 +4,10 @@ namespace App\Models;
 
 use App\Models\BKMKMapModel;
 use App\Models\ProgramStudiModel;
-use App\Models\Scopes\ProdiScope;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\BKCPLMapModel;
+use App\Models\Scopes\ProdiScope;
+use App\Models\Scopes\KurikulumScope;
 
 class BahanKajianModel extends Model
 {
@@ -26,6 +27,7 @@ class BahanKajianModel extends Model
     protected static function booted(): void
     {
         static::addGlobalScope(new ProdiScope);
+        static::addGlobalScope(new KurikulumScope);
     }
 
     public function programstudi()

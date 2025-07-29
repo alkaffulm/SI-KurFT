@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Scopes\ProdiScope;
+use App\Models\Scopes\KurikulumScope;
 use Illuminate\Database\Eloquent\Model;
 
 class SubCPMKModel extends Model
@@ -14,6 +15,7 @@ class SubCPMKModel extends Model
     protected $fillable = [
         'id_ps',
         'id_cpmk',
+        'id_kurikulum',
         'nama_kode_sub_cpmk',
         'kode_sub_cpmk',
         'desc_sub_cpmk_id',
@@ -23,6 +25,7 @@ class SubCPMKModel extends Model
     protected static function booted(): void
     {
         static::addGlobalScope(new ProdiScope);
+        static::addGlobalScope(new KurikulumScope);
     }
     // has many relation
     public function rps_detail(){
