@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('profil_lulusan', function (Blueprint $table) {
             $table->bigIncrements('id_pl');
+            $table->unsignedBigInteger('id_kurikulum');
             $table->unsignedBigInteger('id_ps');
             $table->string('kode_pl');
             $table->string('nama_pl_id');
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->text('desc_pl_en');
 
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
+            $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
         });
     }
 

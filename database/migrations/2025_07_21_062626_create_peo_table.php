@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('peo', function (Blueprint $table) {
             $table->bigIncrements('id_peo');
             $table->unsignedBigInteger('id_ps');
+            $table->unsignedBigInteger('id_kurikulum');
             $table->string('kode_peo');
             // $table->text('desc_peo');
             $table->text('desc_peo_id');
             $table->text('desc_peo_en');
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
+            $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
 
         });
     }

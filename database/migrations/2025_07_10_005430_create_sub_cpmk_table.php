@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_sub_cpmk');
             $table->unsignedBigInteger('id_ps');
             $table->unsignedBigInteger('id_cpmk')->nullable();
+            $table->unsignedBigInteger('id_kurikulum');
             // $table->unsignedBigInteger('id_cpmk');
             $table->string('nama_kode_sub_cpmk');
             // $table->integer('kode_sub_cpmk')->nullable();
@@ -23,6 +24,7 @@ return new class extends Migration
 
             $table->foreign('id_cpmk')->references('id_cpmk')->on('cpmk')->onDelete('cascade');
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
+            $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
         });
     }
 

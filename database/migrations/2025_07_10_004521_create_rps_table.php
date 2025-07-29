@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_rps');
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_mk');
+            $table->unsignedBigInteger('id_kurikulum');
             $table->integer('tahun');
             $table->string('file_path');
             $table->integer('minggu');
@@ -23,6 +24,7 @@ return new class extends Migration
 
             $table->foreign('id_user')->references('id_user')->on('user')->onDelete('cascade');
             $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah')->onDelete('cascade');
+            $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
         });
     }
 
