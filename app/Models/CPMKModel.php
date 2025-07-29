@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Scopes\ProdiScope;
+use App\Models\Scopes\KurikulumScope;
 use Illuminate\Database\Eloquent\Model;
 
 class CPMKModel extends Model
@@ -22,6 +23,7 @@ class CPMKModel extends Model
     protected static function booted(): void
     {
         static::addGlobalScope(new ProdiScope);
+        static::addGlobalScope(new KurikulumScope);
     }
     /**
      * Relasi many-to-many ke CPLModel melalui tabel cpmk_cpl_map.

@@ -14,6 +14,7 @@ class CplSeeder extends Seeder
     public function run(): void
     {
         DB::table('cpl')->insert([
+            // kurikulum 2020
             ['id_cpl' => 1, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 1, 'id_kurikulum' => 1, 'desc' => 'Mampu menganalisis kebutuhan rekayasa', 'bobot_maksimum' => 100],
             ['id_cpl' => 2, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 1, 'id_kurikulum' => 1, 'desc' => 'Mampu merancang sistem teknik', 'bobot_maksimum' => 100],
             ['id_cpl' => 3, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 1, 'id_kurikulum' => 1, 'desc' => 'Mampu menggunakan perangkat teknik modern', 'bobot_maksimum' => 100],
@@ -49,6 +50,43 @@ class CplSeeder extends Seeder
             ['id_cpl' => 25, 'nama_kode_cpl' => 'CPL-1', 'id_ps' => 9, 'id_kurikulum' => 9, 'desc' => 'Mampu melakukan pemetaan geologi', 'bobot_maksimum' => 100],
             ['id_cpl' => 26, 'nama_kode_cpl' => 'CPL-2', 'id_ps' => 9, 'id_kurikulum' => 9, 'desc' => 'Mampu menganalisis struktur batuan', 'bobot_maksimum' => 100],
             ['id_cpl' => 27, 'nama_kode_cpl' => 'CPL-3', 'id_ps' => 9, 'id_kurikulum' => 9, 'desc' => 'Mampu melakukan interpretasi data geofisika', 'bobot_maksimum' => 100],
+
+            // kurikulum 2025
+            ['id_cpl' => 28, 'nama_kode_cpl' => '(2025)CPL-1', 'id_kurikulum' => 10, 'id_ps' => 1, 'desc' => '(2025)Mampu menganalisis kebutuhan rekayasa', 'bobot_maksimum' => 100],
+            ['id_cpl' => 29, 'nama_kode_cpl' => '(2025)CPL-2', 'id_kurikulum' => 10, 'id_ps' => 1, 'desc' => '(2025)Mampu merancang sistem teknik', 'bobot_maksimum' => 100],
+            ['id_cpl' => 30, 'nama_kode_cpl' => '(2025)CPL-3', 'id_kurikulum' => 10, 'id_ps' => 1, 'desc' => '(2025)Mampu menggunakan perangkat teknik modern', 'bobot_maksimum' => 100],
+
+            ['id_cpl' => 31, 'nama_kode_cpl' => '(2025)CPL-1', 'id_kurikulum' => 11, 'id_ps' => 2, 'desc' => '(2025)Mampu mengevaluasi proses pertambangan', 'bobot_maksimum' => 100],
+            ['id_cpl' => 32, 'nama_kode_cpl' => '(2025)CPL-2', 'id_kurikulum' => 11, 'id_ps' => 2, 'desc' => '(2025)Mampu mengelola keselamatan tambang', 'bobot_maksimum' => 100],
+            ['id_cpl' => 33, 'nama_kode_cpl' => '(2025)CPL-3', 'id_kurikulum' => 11, 'id_ps' => 2, 'desc' => '(2025)Mampu mengoperasikan alat berat tambang', 'bobot_maksimum' => 100],
+
+            ['id_cpl' => 34, 'nama_kode_cpl' => '(2025)CPL-1', 'id_kurikulum' => 12, 'id_ps' => 3, 'desc' => '(2025)Mampu merancang sistem mekanis', 'bobot_maksimum' => 100],
+            ['id_cpl' => 35, 'nama_kode_cpl' => '(2025)CPL-2', 'id_kurikulum' => 12, 'id_ps' => 3, 'desc' => '(2025)Mampu melakukan analisis termodinamika', 'bobot_maksimum' => 100],
+            ['id_cpl' => 36, 'nama_kode_cpl' => '(2025)CPL-3', 'id_kurikulum' => 12, 'id_ps' => 3, 'desc' => '(2025)Mampu menggunakan software teknik mesin', 'bobot_maksimum' => 100],
+
+            ['id_cpl' => 37, 'nama_kode_cpl' => '(2025)CPL-1', 'id_kurikulum' => 13, 'id_ps' => 4, 'desc' => '(2025)Mampu mengelola limbah secara berkelanjutan', 'bobot_maksimum' => 100],
+            ['id_cpl' => 38, 'nama_kode_cpl' => '(2025)CPL-2', 'id_kurikulum' => 13, 'id_ps' => 4, 'desc' => '(2025)Mampu menerapkan teknologi pengolahan air', 'bobot_maksimum' => 100],
+            ['id_cpl' => 39, 'nama_kode_cpl' => '(2025)CPL-3', 'id_kurikulum' => 13, 'id_ps' => 4, 'desc' => '(2025)Mampu melakukan audit lingkungan', 'bobot_maksimum' => 100],
+
+            ['id_cpl' => 40, 'nama_kode_cpl' => '(2025)CPL-1', 'id_kurikulum' => 14, 'id_ps' => 5, 'desc' => '(2025)Mampu mendesain bangunan yang estetis dan fungsional', 'bobot_maksimum' => 100],
+            ['id_cpl' => 41, 'nama_kode_cpl' => '(2025)CPL-2', 'id_kurikulum' => 14, 'id_ps' => 5, 'desc' => '(2025)Mampu mengintegrasikan nilai budaya dalam desain', 'bobot_maksimum' => 100],
+            ['id_cpl' => 42, 'nama_kode_cpl' => '(2025)CPL-3', 'id_kurikulum' => 14, 'id_ps' => 5, 'desc' => '(2025)Mampu menggunakan perangkat lunak arsitektur', 'bobot_maksimum' => 100],
+
+            ['id_cpl' => 43, 'nama_kode_cpl' => '(2025)CPL-1', 'id_kurikulum' => 15, 'id_ps' => 6, 'desc' => '(2025)Mampu menganalisis proses reaksi kimia', 'bobot_maksimum' => 100],
+            ['id_cpl' => 44, 'nama_kode_cpl' => '(2025)CPL-2', 'id_kurikulum' => 15, 'id_ps' => 6, 'desc' => '(2025)Mampu mengoperasikan alat industri kimia', 'bobot_maksimum' => 100],
+            ['id_cpl' => 45, 'nama_kode_cpl' => '(2025)CPL-3', 'id_kurikulum' => 15, 'id_ps' => 6, 'desc' => '(2025)Mampu merancang instalasi kimia', 'bobot_maksimum' => 100],
+
+            ['id_cpl' => 46, 'nama_kode_cpl' => '(2025)CPL-1', 'id_kurikulum' => 16, 'id_ps' => 7, 'desc' => '(2025)Mampu membangun aplikasi perangkat lunak', 'bobot_maksimum' => 100],
+            ['id_cpl' => 47, 'nama_kode_cpl' => '(2025)CPL-2', 'id_kurikulum' => 16, 'id_ps' => 7, 'desc' => '(2025)Mampu mengelola data secara efisien', 'bobot_maksimum' => 100],
+            ['id_cpl' => 48, 'nama_kode_cpl' => '(2025)CPL-3', 'id_kurikulum' => 16, 'id_ps' => 7, 'desc' => '(2025)Mampu menerapkan kecerdasan buatan', 'bobot_maksimum' => 100],
+
+            ['id_cpl' => 49, 'nama_kode_cpl' => '(2025)CPL-1', 'id_kurikulum' => 17, 'id_ps' => 8, 'desc' => '(2025)Mampu merancang sistem kontrol elektronik', 'bobot_maksimum' => 100],
+            ['id_cpl' => 50, 'nama_kode_cpl' => '(2025)CPL-2', 'id_kurikulum' => 17, 'id_ps' => 8, 'desc' => '(2025)Mampu melakukan analisis sinyal digital', 'bobot_maksimum' => 100],
+            ['id_cpl' => 51, 'nama_kode_cpl' => '(2025)CPL-3', 'id_kurikulum' => 17, 'id_ps' => 8, 'desc' => '(2025)Mampu menggunakan mikrokontroler dalam sistem', 'bobot_maksimum' => 100],
+
+            ['id_cpl' => 52, 'nama_kode_cpl' => '(2025)CPL-1', 'id_kurikulum' => 18, 'id_ps' => 9, 'desc' => '(2025)Mampu melakukan pemetaan geologi', 'bobot_maksimum' => 100],
+            ['id_cpl' => 53, 'nama_kode_cpl' => '(2025)CPL-2', 'id_kurikulum' => 18, 'id_ps' => 9, 'desc' => '(2025)Mampu menganalisis struktur batuan', 'bobot_maksimum' => 100],
+            ['id_cpl' => 54, 'nama_kode_cpl' => '(2025)CPL-3', 'id_kurikulum' => 18, 'id_ps' => 9, 'desc' => '(2025)Mampu melakukan interpretasi data geofisika', 'bobot_maksimum' => 100],
 
         ]);
 

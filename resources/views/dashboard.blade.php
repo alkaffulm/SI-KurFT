@@ -28,11 +28,8 @@
                 @include('partials.dashboard-pimpinan')
             @endif
 
-            <h1>Pilih Kurikulum: </h1>
-            <select name="" id="">
-                <option value="2020">2020</option>
-                <option value="2025">2025</option>
-            </select>
+            @livewire('kurikulum-selector')
+
 
         </main>
     </div>
