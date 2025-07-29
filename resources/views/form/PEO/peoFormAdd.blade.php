@@ -54,12 +54,23 @@
                         </div>
 
                         <div>
-                            <label for="desc_peo"
-                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi</label>
-                            <textarea id="desc_peo" name="desc_peo" rows="4"
+                            <label for="desc_peo_id"
+                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi PEO (Indonesia)</label>
+                            <textarea id="desc_peo_id" name="desc_peo_id" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                placeholder="Jelaskan deskripsi PEO di sini..." required>{{ old('desc_peo') }}</textarea>
-                            @error('desc_peo')
+                                placeholder="Jelaskan deskripsi PEO di sini..." required>{{ old('desc_peo_id') }}</textarea>
+                            @error('desc_peo_id')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="desc_peo_en"
+                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi PEO (English)</label>
+                            <textarea id="desc_peo_en" name="desc_peo_en" rows="4"
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                placeholder="Describe PEO here..." required>{{ old('desc_peo_en') }}</textarea>
+                            @error('desc_peo_en')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

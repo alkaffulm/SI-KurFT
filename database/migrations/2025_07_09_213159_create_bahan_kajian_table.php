@@ -15,7 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id_bk');
             $table->unsignedBigInteger('id_ps');
             $table->string('nama_kode_bk');
-            $table->string('nama_bk');
+            $table->string('nama_bk_id');
+            $table->string('nama_bk_en');
             $table->string('kategori');
             $table->text('desc_bk_id');
             $table->text('desc_bk_en');

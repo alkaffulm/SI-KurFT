@@ -15,7 +15,8 @@ class BahanKajianModel extends Model
     public $timestamps = false;
     protected $fillable = [
         'id_ps',
-        'nama_bk',
+        'nama_bk_id',
+        'nama_bk_en',
         'nama_kode_bk',
         'kategori',
         'desc_bk_id',

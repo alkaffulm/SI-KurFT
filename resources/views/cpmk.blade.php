@@ -97,6 +97,10 @@
                         </tbody>
                     </table>
                 </div>
+                {{-- menampilkan pagination --}}
+                <div>
+                    {{$cpmk->links()}}
+                </div>
 
                 {{-- Bagian 2: Tabel Sub-CPMK --}}
                 <div class="flex justify-between items-center mt-8 mb-4">
@@ -155,6 +159,10 @@
                             @endforelse
                         </tbody>
                     </table>
+                </div>
+                {{-- menampilkan pagination --}}
+                <div>
+                    {{$sub_cpmk->links()}} 
                 </div>
 
                 {{-- Bagian 3: Tabel Mapping MK dan CPMK --}}

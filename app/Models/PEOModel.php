@@ -14,7 +14,8 @@ class PEOModel extends Model
         'id_ps',
         'id_peo',
         'kode_peo',
-        'desc_peo',
+        'desc_peo_id',
+        'desc_peo_en'
     ];
 
     protected static function booted(): void

@@ -83,7 +83,7 @@
                                         {{ $bk->nama_kode_bk }}
                                     </th>
                                     <td class="px-6 py-4 text-left border-r border-gray-400">
-                                        {{ $bk->nama_bk }}
+                                        {{ $bk->nama_bk_id }}
                                     </td>
                                     <td class="px-6 py-4 text-left">
                                         {{ $bk->desc_bk_id }}
@@ -98,6 +98,10 @@
                             @endforelse
                         </tbody>
                     </table>
+                </div>
+                {{-- menampilkan pagination --}}
+                <div>
+                    {{$bahan_kajian->links()}}
                 </div>
 
                 {{-- Bagian Tabel Korelasi BK dan CPL --}}

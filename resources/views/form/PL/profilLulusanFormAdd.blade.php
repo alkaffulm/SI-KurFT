@@ -54,24 +54,47 @@
                         </div>
 
                         <div>
-                            <label for="profil_lulusan" class="block text-base font-medium text-gray-700 mb-2">Profil
-                                Lulusan</label>
-                            <input type="text" id="profil_lulusan" name="profil_lulusan"
+                            <label for="nama_pl_id" class="block text-base font-medium text-gray-700 mb-2">Nama Profil
+                                Lulusan (Indonesia)</label>
+                            <input type="text" id="nama_pl_id" name="nama_pl_id"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                placeholder="Contoh: Analis Keamanan Siber" value="{{ old('profil_lulusan') }}"
+                                placeholder="Contoh: Analis Keamanan Siber" value="{{ old('nama_pl_id') }}"
                                 required>
-                            @error('profil_lulusan')
+                            @error('nama_pl_id')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div>
-                            <label for="desc"
-                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi</label>
-                            <textarea id="desc" name="desc" rows="4"
+                            <label for="nama_pl_en" class="block text-base font-medium text-gray-700 mb-2">Nama Profil
+                                Lulusan (English)</label>
+                            <input type="text" id="nama_pl_en" name="nama_pl_en"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                placeholder="Jelaskan deskripsi profil lulusan di sini..." required>{{ old('desc') }}</textarea>
-                            @error('desc')
+                                placeholder="Contoh: cybersecurity analysis" value="{{ old('nama_pl_en') }}"
+                                required>
+                            @error('nama_pl_en')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="desc_pl_id"
+                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi Profil Lulusan (Indonesia)</label>
+                            <textarea id="desc_pl_id" name="desc_pl_id" rows="4"
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                placeholder="Jelaskan deskripsi profil lulusan di sini..." required>{{ old('desc_pl_id') }}</textarea>
+                            @error('desc_pl_id')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="desc_pl_en"
+                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi Profil Lulusan (English)</label>
+                            <textarea id="desc_pl_en" name="desc_pl_en" rows="4"
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                placeholder="Describe the graduate profile here..." required>{{ old('desc_pl_en') }}</textarea>
+                            @error('desc_pl_en')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

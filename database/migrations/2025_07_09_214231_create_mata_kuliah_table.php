@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('nama_matkul_en');
             $table->text('matkul_desc_id');
             $table->text('matkul_desc_en');
-            $table->integer('jumlah_sks');
+            // $table->integer('jumlah_sks');
+            $table->integer('sks_teori');
+            $table->integer('sks_praktikum');
             $table->integer('semester');
 
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');

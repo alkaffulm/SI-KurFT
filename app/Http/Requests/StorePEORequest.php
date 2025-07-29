@@ -24,7 +24,8 @@ class StorePEORequest extends FormRequest
         return [
             'id_ps' => 'required|exists:program_Studi,id_ps', 
             'kode_peo' => 'required|string',
-            'desc_peo' => 'required|string',
+            'desc_peo_id' => 'required|string',
+            'desc_peo_en' => 'required|string',
         ];
     }
 
@@ -33,7 +34,10 @@ class StorePEORequest extends FormRequest
         return [
             'kode_peo.required' => 'Kode PEO tidak boleh kosong.',
             'kode_peo.string'   => 'Kode PEO harus berupa string',
-            'desc_peo.required' => ' Deskripsi wajib diisi.',
+            'desc_peo_id.required' => 'Deskripsi PEO (Indonesia) tidak boleh kosong.',
+            'desc_peo_id.string' => 'Deskripsi PEO (Indonesia) harus berupa string',
+            'desc_peo_en.required' => 'Deskripsi PEO (English) tidak boleh kosong.',
+            'desc_peo_en.string' => 'Deskripsi PEO (English) harus berupa string',
         ];
     }
 }

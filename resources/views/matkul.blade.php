@@ -100,6 +100,10 @@
                         </tbody>
                     </table>
                 </div>
+                {{-- menampilkan pagination --}}
+                <div>
+                    {{$mata_kuliah->links()}}
+                </div>
 
                 {{-- Bagian 2: Tabel Susunan Mata Kuliah per Semester --}}
                 <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Tabel Susunan Mata Kuliah</h2>
@@ -132,7 +136,7 @@
                                         {{ $mk->nama_matkul_id }}
                                     </td>
                                     <td class="px-6 py-4 border-r border-gray-400">
-                                        {{ $mk->jumlah_sks }}
+                                        {{ $mk->jumlahSks }}
                                     </td>
                                     @for ($i = 1; $i <= 8; $i++)
                                         <td class="px-6 py-4 border-r border-gray-400">
@@ -145,6 +149,10 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                {{-- menampilkan pagination --}}
+                <div>
+                    {{$mata_kuliah->links()}}
                 </div>
 
                 {{-- Bagian 3: Tabel Pemetaan BK-CPL-MK --}}

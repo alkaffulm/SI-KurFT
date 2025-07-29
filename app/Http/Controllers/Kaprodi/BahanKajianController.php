@@ -4,6 +4,7 @@ namespace App\Http\Controllers\kaprodi;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBahanKajianRequest;
+use App\Http\Requests\UpdateAll\UpdateAllBahanKajianRequest;
 use App\Models\BahanKajianModel;
 use App\Models\CPLModel;
 use App\Models\BKCPLMapModel;
@@ -24,7 +25,7 @@ class BahanKajianController extends Controller
      */
     public function index()
     {
-        $bahan_kajian = BahanKajianModel::all();
+        $bahan_kajian = BahanKajianModel::paginate(5);
         $cpl = CPLModel::all();
         $jumlah_bk = BahanKajianModel::count();
         $bk_cpl_raw = BKCPLMapModel::all();
@@ -95,7 +96,7 @@ class BahanKajianController extends Controller
     /**
      * NEW: Process the mass update and delete request.
      */
-    public function updateAll(Request $request)
+    public function updateAll(UpdateAllBahanKajianRequest $request)
     {
         // 1. Process deletions
         if ($request->has('delete_bk')) {
@@ -107,30 +108,30 @@ class BahanKajianController extends Controller
         }
 
         // 2. Validate updates
-        $rules = [
-            'bk.*.nama_kode_bk' => 'required|string|max:255',
-            'bk.*.nama_bk' => 'required|string|max:255',
-            'bk.*.kategori' => 'required|string|max:255', // <-- TAMBAHKAN INI
-            'bk.*.desc_bk_id' => 'required|string',
-            'bk.*.desc_bk_en' => 'required|string', // <-- ADD THIS LINE
+        // $rules = [
+        //     'bk.*.nama_kode_bk' => 'required|string|max:255',
+        //     'bk.*.nama_bk' => 'required|string|max:255',
+        //     'bk.*.kategori' => 'required|string|max:255', // <-- TAMBAHKAN INI
+        //     'bk.*.desc_bk_id' => 'required|string',
+        //     'bk.*.desc_bk_en' => 'required|string', // <-- ADD THIS LINE
 
-        ];
-        $messages = [
-            'bk.*.nama_kode_bk.required' => 'Setiap kolom Kode BK wajib diisi.',
-            'bk.*.nama_bk.required' => 'Setiap kolom Nama BK wajib diisi.',
-            'bk.*.kategori.required' => 'Setiap kolom Kategori wajib diisi.', // <-- TAMBAHKAN INI
-            'bk.*.desc_bk_id.required' => 'Setiap kolom Deskripsi (ID) wajib diisi.',
-            'bk.*.desc_bk_en.required' => 'Setiap kolom Deskripsi (EN) wajib diisi.', // <-- ADD THIS LINE
+        // ];
+        // $messages = [
+        //     'bk.*.nama_kode_bk.required' => 'Setiap kolom Kode BK wajib diisi.',
+        //     'bk.*.nama_bk.required' => 'Setiap kolom Nama BK wajib diisi.',
+        //     'bk.*.kategori.required' => 'Setiap kolom Kategori wajib diisi.', // <-- TAMBAHKAN INI
+        //     'bk.*.desc_bk_id.required' => 'Setiap kolom Deskripsi (ID) wajib diisi.',
+        //     'bk.*.desc_bk_en.required' => 'Setiap kolom Deskripsi (EN) wajib diisi.', // <-- ADD THIS LINE
 
-        ];
+        // ];
 
-        $validator = Validator::make($request->all(), $rules, $messages);
+        // $validator = Validator::make($request->all(), $rules, $messages);
 
-        if ($validator->fails()) {
-            return redirect()->route('bahan-kajian.editAll')->withErrors($validator)->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->route('bahan-kajian.editAll')->withErrors($validator)->withInput();
+        // }
 
-        $validatedData = $validator->validated()['bk'];
+        $validatedData = $request->validated()['bk'];
 
         // 3. Loop and update data
         foreach ($validatedData as $id => $data) {

@@ -62,20 +62,22 @@ class CpmkSeeder extends Seeder
             ['id_cpmk' => 33, 'id_ps' => 7, 'nama_kode_cpmk' => 'CPMK-3',  'desc_cpmk_id' => 'Mampu merancang dan membuat query pada basis data relasional.', 'desc_cpmk_en' => 'Able to design and create queries on a relational database.'],
             ['id_cpmk' => 34, 'id_ps' => 7, 'nama_kode_cpmk' => 'CPMK-4',  'desc_cpmk_id' => 'Mampu menerapkan siklus hidup pengembangan perangkat lunak.', 'desc_cpmk_en' => 'Able to apply the software development life cycle.'],
             ['id_cpmk' => 35, 'id_ps' => 7, 'nama_kode_cpmk' => 'CPMK-5',  'desc_cpmk_id' => 'Mampu menerapkan algoritma dasar kecerdasan buatan.', 'desc_cpmk_en' => 'Able to implement basic artificial intelligence algorithms.'],
+            ['id_cpmk' => 36, 'id_ps' => 7, 'nama_kode_cpmk' => 'CPMK-6',  'desc_cpmk_id' => 'Mampu menerapkan algoritma dasar kecerdasan buatan.', 'desc_cpmk_en' => 'Able to implement basic artificial intelligence algorithms.'],
+
             
             // Teknik Elektro (id_ps = 8)
-            ['id_cpmk' => 36, 'id_ps' => 8, 'nama_kode_cpmk' => 'CPMK-1',  'desc_cpmk_id' => 'Mampu menganalisis rangkaian listrik arus searah (DC) dan bolak-balik (AC).', 'desc_cpmk_en' => 'Able to analyze direct current (DC) and alternating current (AC) electrical circuits.'],
-            ['id_cpmk' => 37, 'id_ps' => 8, 'nama_kode_cpmk' => 'CPMK-2',  'desc_cpmk_id' => 'Mampu merancang rangkaian elektronika analog sederhana.', 'desc_cpmk_en' => 'Able to design simple analog electronics circuits.'],
-            ['id_cpmk' => 38, 'id_ps' => 8, 'nama_kode_cpmk' => 'CPMK-3',  'desc_cpmk_id' => 'Mampu merancang rangkaian logika kombinasional dan sekuensial.', 'desc_cpmk_en' => 'Able to design combinational and sequential logic circuits.'],
-            ['id_cpmk' => 39, 'id_ps' => 8, 'nama_kode_cpmk' => 'CPMK-4',  'desc_cpmk_id' => 'Mampu memprogram mikrokontroler untuk aplikasi sistem tertanam.', 'desc_cpmk_en' => 'Able to program microcontrollers for embedded system applications.'],
-            ['id_cpmk' => 40, 'id_ps' => 8, 'nama_kode_cpmk' => 'CPMK-5',  'desc_cpmk_id' => 'Mampu menganalisis respon sistem kendali.', 'desc_cpmk_en' => 'Able to analyze the response of control systems.'],
+            ['id_cpmk' => 37, 'id_ps' => 8, 'nama_kode_cpmk' => 'CPMK-1',  'desc_cpmk_id' => 'Mampu menganalisis rangkaian listrik arus searah (DC) dan bolak-balik (AC).', 'desc_cpmk_en' => 'Able to analyze direct current (DC) and alternating current (AC) electrical circuits.'],
+            ['id_cpmk' => 38, 'id_ps' => 8, 'nama_kode_cpmk' => 'CPMK-2',  'desc_cpmk_id' => 'Mampu merancang rangkaian elektronika analog sederhana.', 'desc_cpmk_en' => 'Able to design simple analog electronics circuits.'],
+            ['id_cpmk' => 39, 'id_ps' => 8, 'nama_kode_cpmk' => 'CPMK-3',  'desc_cpmk_id' => 'Mampu merancang rangkaian logika kombinasional dan sekuensial.', 'desc_cpmk_en' => 'Able to design combinational and sequential logic circuits.'],
+            ['id_cpmk' => 40, 'id_ps' => 8, 'nama_kode_cpmk' => 'CPMK-4',  'desc_cpmk_id' => 'Mampu memprogram mikrokontroler untuk aplikasi sistem tertanam.', 'desc_cpmk_en' => 'Able to program microcontrollers for embedded system applications.'],
+            ['id_cpmk' => 41, 'id_ps' => 8, 'nama_kode_cpmk' => 'CPMK-5',  'desc_cpmk_id' => 'Mampu menganalisis respon sistem kendali.', 'desc_cpmk_en' => 'Able to analyze the response of control systems.'],
 
             // Teknik Geologi (id_ps = 9)
-            ['id_cpmk' => 41, 'id_ps' => 9, 'nama_kode_cpmk' => 'CPMK-1',  'desc_cpmk_id' => 'Mampu menjelaskan proses-proses yang membentuk bentang alam.', 'desc_cpmk_en' => 'Able to explain the processes that form landscapes.'],
-            ['id_cpmk' => 42, 'id_ps' => 9, 'nama_kode_cpmk' => 'CPMK-2',  'desc_cpmk_id' => 'Mampu mengidentifikasi mineral pembentuk batuan.', 'desc_cpmk_en' => 'Able to identify rock-forming minerals.'],
-            ['id_cpmk' => 43, 'id_ps' => 9, 'nama_kode_cpmk' => 'CPMK-3',  'desc_cpmk_id' => 'Mampu mengklasifikasikan jenis-jenis batuan beku, sedimen, dan metamorf.', 'desc_cpmk_en' => 'Able to classify types of igneous, sedimentary, and metamorphic rocks.'],
-            ['id_cpmk' => 44, 'id_ps' => 9, 'nama_kode_cpmk' => 'CPMK-4',  'desc_cpmk_id' => 'Mampu menginterpretasikan struktur lipatan dan sesar pada peta geologi.', 'desc_cpmk_en' => 'Able to interpret fold and fault structures on a geological map.'],
-            ['id_cpmk' => 45, 'id_ps' => 9, 'nama_kode_cpmk' => 'CPMK-5',  'desc_cpmk_id' => 'Mampu menilai stabilitas lereng dan pondasi dari sudut pandang geologi.', 'desc_cpmk_en' => 'Able to assess slope and foundation stability from a geological perspective.'],
+            ['id_cpmk' => 42, 'id_ps' => 9, 'nama_kode_cpmk' => 'CPMK-1',  'desc_cpmk_id' => 'Mampu menjelaskan proses-proses yang membentuk bentang alam.', 'desc_cpmk_en' => 'Able to explain the processes that form landscapes.'],
+            ['id_cpmk' => 43, 'id_ps' => 9, 'nama_kode_cpmk' => 'CPMK-2',  'desc_cpmk_id' => 'Mampu mengidentifikasi mineral pembentuk batuan.', 'desc_cpmk_en' => 'Able to identify rock-forming minerals.'],
+            ['id_cpmk' => 44, 'id_ps' => 9, 'nama_kode_cpmk' => 'CPMK-3',  'desc_cpmk_id' => 'Mampu mengklasifikasikan jenis-jenis batuan beku, sedimen, dan metamorf.', 'desc_cpmk_en' => 'Able to classify types of igneous, sedimentary, and metamorphic rocks.'],
+            ['id_cpmk' => 45, 'id_ps' => 9, 'nama_kode_cpmk' => 'CPMK-4',  'desc_cpmk_id' => 'Mampu menginterpretasikan struktur lipatan dan sesar pada peta geologi.', 'desc_cpmk_en' => 'Able to interpret fold and fault structures on a geological map.'],
+            ['id_cpmk' => 46, 'id_ps' => 9, 'nama_kode_cpmk' => 'CPMK-5',  'desc_cpmk_id' => 'Mampu menilai stabilitas lereng dan pondasi dari sudut pandang geologi.', 'desc_cpmk_en' => 'Able to assess slope and foundation stability from a geological perspective.'],
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\kaprodi;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfilLulusanRequest;
+use App\Http\Requests\UpdateAll\UpdateAllProfilLulusanRequest;
 use App\Models\ProfilLulusanModel;
 use App\Models\ProgramStudiModel;
 use App\Models\KurikulumModel;
@@ -25,7 +26,7 @@ class ProfilLulusanController extends Controller
      */
     public function index()
     {
-        $profil_lulusan = ProfilLulusanModel::all();
+        $profil_lulusan = ProfilLulusanModel::paginate(5);
         $kurikulum = KurikulumModel::all();
         $programStudi = ProgramStudiModel::all();
         $peo = PEOModel::all();
@@ -73,7 +74,7 @@ class ProfilLulusanController extends Controller
         return view('form.PL.profilLulusanFormEdit', ['pl_data' => $pl_data]);
     }
 
-    public function updateAll(Request $request)
+    public function updateAll(UpdateAllProfilLulusanRequest $request)
     {
         if ($request->has('delete_pl')) {
             ProfilLulusanModel::destroy($request->delete_pl);
@@ -83,24 +84,24 @@ class ProfilLulusanController extends Controller
             return redirect()->route('profil-lulusan.index')->with('success', 'Perubahan berhasil disimpan!');
         }
 
-        $rules = [
-            'pl.*.kode_pl' => 'required|string|max:10',
-            'pl.*.profil_lulusan' => 'required|string|max:255',
-            'pl.*.desc' => 'required|string',
-        ];
-        $messages = [
-            'pl.*.kode_pl.required' => 'Setiap kolom Kode PL wajib diisi.',
-            'pl.*.profil_lulusan.required' => 'Setiap kolom Profil Lulusan wajib diisi.',
-            'pl.*.desc.required' => 'Setiap kolom Deskripsi wajib diisi.',
-        ];
+        // $rules = [
+        //     'pl.*.kode_pl' => 'required|string|max:10',
+        //     'pl.*.profil_lulusan' => 'required|string|max:255',
+        //     'pl.*.desc' => 'required|string',
+        // ];
+        // $messages = [
+        //     'pl.*.kode_pl.required' => 'Setiap kolom Kode PL wajib diisi.',
+        //     'pl.*.profil_lulusan.required' => 'Setiap kolom Profil Lulusan wajib diisi.',
+        //     'pl.*.desc.required' => 'Setiap kolom Deskripsi wajib diisi.',
+        // ];
 
-        $validator = Validator::make($request->all(), $rules, $messages);
+        // $validator = Validator::make($request->all(), $rules, $messages);
 
-        if ($validator->fails()) {
-            return redirect()->route('profil-lulusan.editAll')->withErrors($validator)->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->route('profil-lulusan.editAll')->withErrors($validator)->withInput();
+        // }
 
-        $validatedData = $validator->validated()['pl'];
+        $validatedData = $request->validated()['pl'];
 
         foreach ($validatedData as $id => $data) {
             $pl = ProfilLulusanModel::find($id);

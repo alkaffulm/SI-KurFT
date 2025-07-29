@@ -14,8 +14,10 @@ class ProfilLulusanModel extends Model
         'id_pl',
         'id_ps',
         'kode_pl',
-        'profil_lulusan',
-        'desc',
+        'nama_pl_id',
+        'nama_pl_en',
+        'desc_pl_id',
+        'desc_pl_en'
     ];
 
     protected static function booted(): void
