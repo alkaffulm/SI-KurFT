@@ -104,6 +104,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/mapping/edit-cpmk-cpl', [CPMKMPLMapController::class, 'edit_cpmk_cpl'])->name('cpmk-cpl-mapping.edit');
         Route::put('/mapping/cpmk-cpl', [CPMKMPLMapController::class, 'updateCPMKCPLMap'])->name('cpmk-cpl-mapping.update');
     });
+
+    Route::middleware('role:dosen')->prefix('dosen')->group(function() {
+        Route::resource('rps', RPSController::class);
+    });
 });
 
 

@@ -1,4 +1,4 @@
-{{-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -16,29 +16,28 @@
     <div class="ml-72 mx-8 mt-24"> 
         <h2 class="text-2xl font-bold">RPS</h2>
        
-        <a href="{{ route('mata-kuliah.create') }}">Tambah </a>
+        <a href="{{ route('rps.create') }}">Tambah </a>
 
         <table border="1" cellpadding="5"> 
             <tr>
-                <th class="border-2">Kode BK</th>
+                <th class="border-2">Kode MK</th>
                 <th class="border-2">aksi</th>
-                <th class="border-2">BK</th>
+                <th class="border-2">Nama Mata Kuliah</th>
                 <th class="border-2">Deskripsi BK</th>
             </tr>
-            @foreach ($rps as $r )
+            @foreach ($mata_kuliah as $mk )
                 <tr>
-                    <td class="border-2">{{ $r->id_user }}</td>
-                    <td class="border-2">{{ $r->id_mk }}</td>
+                    <td class="border-2">{{ $mk->kode_mk }}</td>
                     <td class="border-2">
-                    <form action="{{ route('mata-kuliah.destroy', $r) }}" method="POST">
+                    <form action="{{ route('mata-kuliah.destroy', $mk) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit">Hapus</button>
                         </form> 
-                        | <a href="{{ route('mata-kuliah.edit', $r) }}">Edit</a>
+                        | <a href="{{ route('mata-kuliah.edit', $mk) }}">Edit</a>
                     </td>
-                    <td class="border-2">{{ $r->nama_bk }}</td>
-                    <td class="border-2">{{ $r->desc }}</td>
+                    <td class="border-2">{{ $mk->nama_matkul_id }}</td>
+                    <td class="border-2">{{ $mk->matkul_desc_id }}</td>
                 </tr>
             @endforeach
         </table>  
@@ -51,4 +50,4 @@
     </script> --}}
     
 </body>
-</html> --}}
+</html>
