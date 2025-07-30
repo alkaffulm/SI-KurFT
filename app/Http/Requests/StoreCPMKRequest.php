@@ -24,6 +24,7 @@ class StoreCPMKRequest extends FormRequest
         return [
             // 'id_mk' => 'required|exists:mata_kuliah,id_mk', 
             'id_ps' => 'required|exists:program_studi,id_ps', 
+            'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
             // 'kode_cpmk' => 'required|integer',
             'nama_kode_cpmk' => 'required|string',
             'desc_cpmk_id' => 'required|string',

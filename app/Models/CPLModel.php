@@ -13,7 +13,7 @@ class CPLModel extends Model
     public $timestamps = false;
     protected $fillable = [
         'id_ps',
-        // 'id_kurikulum',
+        'id_kurikulum',
         'nama_kode_cpl',
         'desc_cpl_id',
         'desc_cpl_en'

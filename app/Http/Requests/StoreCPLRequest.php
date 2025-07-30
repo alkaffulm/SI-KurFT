@@ -23,7 +23,7 @@ class StoreCPLRequest extends FormRequest
     {
         return [
             'id_ps' => 'required|exists:program_studi,id_ps', 
-            // 'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
+            'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
             'nama_kode_cpl' => 'required|string',
             // 'bobot_maksimum' => 'required|integer',
             'desc_cpl_id' => 'required|string',

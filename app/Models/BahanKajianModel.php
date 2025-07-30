@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\BKCPLMapModel;
 use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
+use App\Models\CPLModel;
+use App\Models\MataKuliahModel;
+
 
 class BahanKajianModel extends Model
 {
@@ -16,6 +19,7 @@ class BahanKajianModel extends Model
     public $timestamps = false;
     protected $fillable = [
         'id_ps',
+        'id_kurikulum',
         'nama_bk_id',
         'nama_bk_en',
         'nama_kode_bk',
@@ -40,6 +44,15 @@ class BahanKajianModel extends Model
     }
     public function bk_cpl(){
         return $this->hasMany(BKCPLMapModel::class, 'id_bk', 'id_bk');
+    }
+    public function cpl()
+    {
+        return $this->belongsToMany(CPLModel::class, 'bk_cpl_map', 'id_bk', 'id_cpl');
+    }
+
+    public function mataKuliah()
+    {
+        return $this->belongsToMany(MataKuliahModel::class, 'bk_mk_map', 'id_bk', 'id_mk');
     }
 
 }

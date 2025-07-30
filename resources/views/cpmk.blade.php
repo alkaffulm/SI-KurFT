@@ -147,7 +147,7 @@
                                         {{ $scp->desc_sub_cpmk_id }}
                                     </td>
                                     <td class="px-6 py-4 border-r border-gray-400">
-                                        {{ $scp->cpmk->nama_kode_cpmk }}
+                                        {{ $scp->cpmk?->nama_kode_cpmk ?? 'Belum Terhubung' }}
                                     </td>
                                 </tr>
                             @empty
@@ -213,7 +213,8 @@
                 {{-- Bagian 4: Tabel Mapping CPMK dan CPL --}}
                 <div class="flex justify-between items-center mt-8 mb-4">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi CPMK - CPL</h2>
-                    <a href="{{ route('cpmk-cpl-mapping.edit') }}"
+                    {{-- masih berteori hubungan tidak langsung --}}
+                    {{-- <a href="{{ route('cpmk-cpl-mapping.edit') }}"
                         class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
@@ -222,7 +223,7 @@
                             </path>
                         </svg>
                         Edit Korelasi
-                    </a>
+                    </a> --}}
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500">
@@ -237,14 +238,31 @@
                         </thead>
                         <tbody>
                             @foreach ($cpmk as $cp)
+                                @php
+                                    $relatedCPL = collect();
+
+                                    foreach ($cp->mk_cpmk as $mkMap) {
+                                        if (!$mkMap->mk) continue;
+
+                                        foreach ($mkMap->mk->bk_mk as $bkMap) {
+                                            if (!$bkMap->bk) continue;
+
+                                            foreach ($bkMap->bk->bk_cpl as $cplMap) {
+                                                $relatedCPL->push($cplMap->cpl);
+                                            }
+                                        }
+                                    }
+
+                                    $relatedCPL = $relatedCPL->unique('id_cpl');
+                                @endphp
+
                                 <tr class="bg-white border-t border-gray-400">
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $cp->nama_kode_cpmk }}
                                     </th>
                                     @foreach ($cpl as $c)
                                         <td class="px-6 py-4 border-r border-gray-400">
-                                            @if ($cp->cpl->contains($c))
+                                            @if ($relatedCPL->contains('id_cpl', $c->id_cpl))
                                                 <span class="text-black-500 font-bold">✓</span>
                                             @endif
                                         </td>

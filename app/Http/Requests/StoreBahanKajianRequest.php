@@ -23,6 +23,7 @@ class StoreBahanKajianRequest extends FormRequest
     {
         return [
             'id_ps' => 'required|exists:program_studi,id_ps', 
+            'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
             'nama_kode_bk' => 'required',
             'nama_bk_id' => 'required|string',
             'nama_bk_en' => 'required|string',

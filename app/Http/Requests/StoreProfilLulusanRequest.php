@@ -24,6 +24,7 @@ class StoreProfilLulusanRequest extends FormRequest
         return [
             'kode_pl' => 'required|string',
             'id_ps' => 'required|exists:program_Studi,id_ps', 
+            'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
             'nama_pl_id' => 'required|string',
             'nama_pl_en' => 'required|string',
             'desc_pl_id' => 'required|string',

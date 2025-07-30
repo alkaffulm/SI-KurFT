@@ -61,18 +61,21 @@ class PLPEOMappingController extends Controller
 
     public function updatePLPEOMap(Request $request)
     {
-
         $request->validate([
-            'peo_mappings' => 'array',
-            'peo_mappings.*' => 'array', 
-            'peo_mappings.*.*' => 'integer|exists:peo,id_peo', 
+            'peo_mappings' => 'nullable|array',
+            'peo_mappings.*' => 'nullable|array',
+            'peo_mappings.*.*' => 'nullable|integer|exists:peo,id_peo',
         ]);
 
-        $peo_mappings = $request->input('peo_mappings', []); 
+
+        $peo_mappings = $request->input('peo_mappings', []);
+        $all_pl_ids = ProfilLulusanModel::pluck('id_pl')->toArray();
+
+        foreach ($all_pl_ids as $id_pl) {
+            PLPEOMapModel::where('id_pl', $id_pl)->delete();
+        }
 
         foreach ($peo_mappings as $id_pl => $selected_peo_ids) {
-            PLPEOMapModel::where('id_pl', $id_pl)->delete();
-
             if (!empty($selected_peo_ids)) {
                 foreach ($selected_peo_ids as $id_peo) {
                     PLPEOMapModel::create([
@@ -85,5 +88,6 @@ class PLPEOMappingController extends Controller
 
         return redirect()->route('profil-lulusan.index')->with('success', 'Pemetaan PL-PEO berhasil diperbarui!');
     }
+
     
 }

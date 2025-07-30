@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\ProdiScope;
+use App\Models\Scopes\KurikulumScope;
 
 class BKCPLMapModel extends Model
 {
@@ -13,6 +15,12 @@ class BKCPLMapModel extends Model
         'id_bk',
         'id_cpl',
     ];
+
+    // protected static function booted(): void
+    // {
+    //     static::addGlobalScope(new ProdiScope);
+    //     static::addGlobalScope(new KurikulumScope);
+        // }
 
     // belongs to relation
     public function bahankajian(){

@@ -14,8 +14,8 @@ class CPMKModel extends Model
 
     protected $fillable = [
         'id_ps',
+        'id_kurikulum',
         'nama_kode_cpmk',
-        'kode_cpmk',
         'desc_cpmk_id',
         'desc_cpmk_en'
     ];
