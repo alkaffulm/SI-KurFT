@@ -17,8 +17,12 @@ return new class extends Migration
             $table->unsignedBigInteger('id_mk');
             $table->unsignedBigInteger('id_kurikulum');
             $table->unsignedBigInteger('id_ps');
-            $table->unsignedBigInteger('id_kurikulum');
-            $table->date('tanggal-disusun');
+            $table->unsignedBigInteger('id_bk');
+            $table->text('materi_pembelajaran')->nullable();
+            $table->text('pustaka_utama')->nullable();
+            $table->text('pustaka_pendukung')->nullable();
+            $table->date('tanggal_disusun');
+            // $table->foreignId('id_mk_syarat')->nullable()->constrained('mata_kuliah', 'id_mk');
             // $table->string('file_path');
             // $table->integer('minggu');
             // $table->decimal('penilaian');
@@ -27,7 +31,8 @@ return new class extends Migration
             $table->foreign('id_dosen_penyusun')->references('id_user')->on('user')->onDelete('cascade');
             $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah')->onDelete('cascade');
             $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
-            $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
+            $table->foreign('id_bk')->references('id_bk')->on('bahan_kajian')->onDelete('cascade');
+
         });
     }
 

@@ -34,11 +34,11 @@ class DatabaseSeeder extends Seeder
             UserRoleMapSeeder::class,             // 12
             UserPersonalisasiSeeder::class,       // 13
             CpmkSeeder::class,                    // 14
-            RpsSeeder::class,                     // 15
+            // RpsSeeder::class,                     // 15
             
             //  D. Level 3+ Dependency
             SubCpmkSeeder::class,                 // 16
-            PenilaianSeeder::class,               // 17
+            // PenilaianSeeder::class,               // 17
             
             // E. Tabel Mapping
             CpmkCplMapSeeder::class,              // 18

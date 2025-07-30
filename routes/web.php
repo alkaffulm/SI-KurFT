@@ -8,6 +8,7 @@ use App\Http\Controllers\Kaprodi\BahanKajianController;
 use App\Http\Controllers\Kaprodi\CplController;
 use App\Http\Controllers\Kaprodi\CpmkController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Dosen\MatkulController as DosenMatkulController;
 use App\Http\Controllers\dosen\RPSController;
 use App\Http\Controllers\Kaprodi\BKCPLMapController;
 use App\Http\Controllers\Kaprodi\BKMKMapController;
@@ -107,6 +108,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:dosen')->prefix('dosen')->group(function() {
         Route::resource('rps', RPSController::class);
+        Route::resource('matkul', MatkulController::class);
     });
 });
 

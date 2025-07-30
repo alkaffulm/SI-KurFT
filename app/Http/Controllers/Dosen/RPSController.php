@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Dosen;
 
-use App\Http\Controllers\Controller;
 use App\Models\CPLModel;
-use App\Models\MataKuliahModel;
 use App\Models\RPSModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use App\Models\MataKuliahModel;
+use App\Http\Controllers\Controller;
+use App\Models\BahanKajianModel;
+use Illuminate\Support\Facades\Auth;
 
 class RPSController extends Controller
 {
@@ -24,7 +26,7 @@ class RPSController extends Controller
     {
         $mata_kuliah = MataKuliahModel::all();
 
-        return view('dosen/rps', ['mata_kuliah' => $mata_kuliah]);
+        return view('dosen.rps', ['mata_kuliah' => $mata_kuliah]);
     }
 
     /**
@@ -36,9 +38,11 @@ class RPSController extends Controller
         $mata_kuliah = MataKuliahModel::findOrFail($id_mk);
 
         $cpl = CPLModel::all();
-        $dosen = UserModel::where('id_ps', session('userProfiId'))->get();
+        // $dosen = UserModel::where('id_ps', session('userProfiId'))->get();
+        $bahan_kajian = BahanKajianModel::all();
+        $allMatkul =MataKuliahModel::where('id_mk','!=', $id_mk)->get();
 
-        return view('rps.create', ['mata_kuliah' => $mata_kuliah, 'cpl' => $cpl, 'dosen' => $dosen]);
+        return view('dosen.form.rps.rpsFormAdd', ['mata_kuliah' => $mata_kuliah, 'allMatkul' => $allMatkul, 'allCpl' => $cpl,  'bahan_kajian' => $bahan_kajian]);
     }
 
     /**
@@ -48,24 +52,35 @@ class RPSController extends Controller
     {
         $validated = $request->validate([
             'id_mk' => 'required|exists:mata_kuliah,id_mk',
-            'id_dosen_penyusun' => 'required|exists:users,id_user',
-            'deskripsi_singkat' => 'nullable|string',
+            // 'id_dosen_penyusun' => 'required|exists:users,id_user',
+            // 'deskripsi_singkat' => 'nullable|string',
+            'id_bk' => 'required|exists:bahan_kajian,id_bk',
+            'id_mk_syarat' => 'nullable|exists:mata_kuliah,id_mk',
             'cpl_ids' => 'required|array',
             'cpl_ids.*' => 'exists:cpl,id_cpl', // Pastikan setiap ID CPL valid
+            'materi_pembelajaran' => 'nullable|string',
+            'pustaka_utama' => 'nullable|string',
+            'pustaka_pendukung' => 'nullable|string',
         ]);
 
         $rps = RPSModel::create([
             'id_mk' => $validated['id_mk'],
-            'id_dosen_penyusun' => $validated['id_dosen_penyusun'],
-            'deskripsi_singkat' => $validated['deskripsi_singkat'],
-            'id_kurikulum' => session('active_kurikulum_id'), // Ambil dari sesi
-            'id_ps' => session('userProdiId'), // Ambil dari sesi
+            'id_dosen_penyusun' => Auth::id(),
+            // 'deskripsi_singkat' => $validated['deskripsi_singkat'],
+            'id_bk' => $validated['id_bk'],
+            'id_kurikulum' => session('id_kurikulum_aktif'), // Ambil dari sesi
+            // 'id_kurikulum' => 7, // sementara kita hardcode jadi kurikulum 2020
+            'id_ps' => session('userRoleId'), // Ambil dari sesi
             'tanggal_disusun' => now(),
+            'materi_pembelajaran' => $validated['materi_pembelajaran'] ?? null,
+            'pustaka_utama' => $validated['pustaka_utama'] ?? null,
+            'pustaka_pendukung' => $validated['pustaka_pendukung'] ?? null,
         ]);
 
         $rps->cpls()->sync($validated['cpl_ids']);
+        $rps->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
 
-        return to_route('rps.show')->with('success', 'Berhasi membuat data induk RPS');
+        return to_route('matkul.index')->with('success', 'Berhasi membuat data induk RPS');
     }
 
     /**
@@ -73,7 +88,21 @@ class RPSController extends Controller
      */
     public function show(RPSModel $rps)
     {
-        return view('rps.show', ['rps' => $rps]);
+        $rps->load([
+            'mataKuliah', 
+            'dosenPenyusun', 
+            'kurikulum',
+            'programStudi',
+            'cpls', // Relasi Many-to-Many ke CPL
+            // 'details' => function ($query) {
+            //     // Urutkan detail mingguan berdasarkan nomor minggu
+            //     $query->orderBy('minggu_ke', 'asc');
+            // },
+            // 'details.subCpmk' // Muat juga relasi Sub-CPMK dari setiap detail
+        ]);
+
+        dd($rps->id_rps);
+        return view('dosen.showrps', ['rps' => $rps]);
     }
 
     /**

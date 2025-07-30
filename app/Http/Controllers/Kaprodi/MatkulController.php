@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\kaprodi;
 
+use App\Models\CPLModel;
+use App\Models\BKMKMapModel;
+use Illuminate\Http\Request;
+use App\Models\BKCPLMapModel;
+use App\Models\MataKuliahModel;
+use App\Models\BahanKajianModel;
+use App\Models\ProgramStudiModel;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreMatkulRequest;
 use App\Http\Requests\UpdateAll\UpdateAllMatkulRequest;
-use App\Models\MataKuliahModel;
-use App\Models\ProgramStudiModel;
-use App\Models\BahanKajianModel;
-use App\Models\CPLModel;
-use App\Models\BKCPLMapModel;
-use App\Models\BKMKMapModel;
-use Illuminate\Http\Request;
 
 class MatkulController extends Controller
 {
@@ -69,16 +70,22 @@ class MatkulController extends Controller
                     }
                 }
             }
-    }            
-        return view('matkul', [
-            'mata_kuliah' => $mata_kuliah,
-            'bahan_kajian'=>$bahan_kajian,
-            'cpl'=>$cpl,
-            'jumlah_bk'=>$jumlah_bk,
-            'bk_cpl_map'=>$bk_cpl_map,
-            'bk_mk_map'=> $bk_mk_map,
-            'mk_cpl_map' => $mk_cpl_map,
-        ]);
+    }    
+    
+        if (session('userRole') == 'kaprodi') {
+            return view('matkul', [
+                'mata_kuliah' => $mata_kuliah,
+                'bahan_kajian'=>$bahan_kajian,
+                'cpl'=>$cpl,
+                'jumlah_bk'=>$jumlah_bk,
+                'bk_cpl_map'=>$bk_cpl_map,
+                'bk_mk_map'=> $bk_mk_map,
+                'mk_cpl_map' => $mk_cpl_map,
+            ]);
+        }
+        else {
+            return view('dosen.matkul', ['mata_kuliah' => $mata_kuliah]);
+        }
     }
 
     /**
@@ -114,7 +121,7 @@ class MatkulController extends Controller
      * Show the form for editing the specified resource.
      */
     public function editAll()
-    {     
+    {             
         $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->get();   
         return view('form.Matkul.matkulFormEdit', ['mata_kuliah' => $mata_kuliah]);
     }
@@ -123,7 +130,7 @@ class MatkulController extends Controller
      * Update the specified resource in storage.
      */
     public function updateAll(UpdateAllMatkulRequest $request)
-    {   
+    { 
         // $mata_kuliah->update($request->validated());
         if ($request->has('delete_ids')) {
             MataKuliahModel::destroy($request->delete_ids);

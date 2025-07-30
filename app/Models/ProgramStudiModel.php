@@ -11,6 +11,11 @@ class ProgramStudiModel extends Model
     public $timestamps = false;
     protected $fillable = ['nama_prodi'];
 
+
+    // public function Kaprodi() {
+    //     return $this->belongsTo(userModel::class, '')
+    // }
+
     // has many relation
     public function userModel(){
         return $this->hasMany(UserModel::class, 'id_ps', 'id_ps');
