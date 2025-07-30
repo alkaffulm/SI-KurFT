@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Scopes\ProdiScope;
+use App\Models\Scopes\KurikulumScope;
 use Illuminate\Database\Eloquent\Model;
 
 class RPSModel extends Model
@@ -20,10 +21,11 @@ class RPSModel extends Model
         // 'deskripsi_singkat',
     ];
 
-    protected static function booted(): void {
+    protected static function booted(): void
+    {
         static::addGlobalScope(new ProdiScope);
+        static::addGlobalScope(new KurikulumScope);
     }
-
     // has many relation
     public function rpsDetail(){
         return $this->hasMany(RPSDetailModel::class, 'id_rps', 'id_rps');

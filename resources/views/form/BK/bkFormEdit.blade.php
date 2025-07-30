@@ -71,13 +71,23 @@
                                     </div>
 
                                     <div class="col-span-11 sm:col-span-6">
-                                        <label for="nama_bk_{{ $bk->id_bk }}"
+                                        <label for="nama_bk_id_{{ $bk->id_bk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Nama Bahan
-                                            Kajian</label>
-                                        <input type="text" id="nama_bk_{{ $bk->id_bk }}"
-                                            name="bk[{{ $bk->id_bk }}][nama_bk]" :disabled="isDeleting"
+                                            Kajian (Indonesia)</label>
+                                        <input type="text" id="nama_bk_id_{{ $bk->id_bk }}"
+                                            name="bk[{{ $bk->id_bk }}][nama_bk_id]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                            value="{{ old('bk.' . $bk->id_bk . '.nama_bk', $bk->nama_bk) }}" required>
+                                            value="{{ old('bk.' . $bk->id_bk . '.nama_bk_id', $bk->nama_bk_id) }}" required>
+                                    </div>
+
+                                    <div class="col-span-11 sm:col-span-6">
+                                        <label for="nama_bk_en_{{ $bk->id_bk }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Nama Bahan
+                                            Kajian (English)</label>
+                                        <input type="text" id="nama_bk_en_{{ $bk->id_bk }}"
+                                            name="bk[{{ $bk->id_bk }}][nama_bk_en]" :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                            value="{{ old('bk.' . $bk->id_bk . '.nama_bk_en', $bk->nama_bk_en) }}" required>
                                     </div>
 
                                     <div class="col-span-1 flex items-end justify-center pb-2">

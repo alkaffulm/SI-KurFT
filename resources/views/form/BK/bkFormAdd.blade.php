@@ -19,6 +19,7 @@
             <form action="{{ route('bahan-kajian.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
+                <input type="hidden" name="id_kurikulum" value="{{ session('id_kurikulum_aktif') }}">
 
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
                     <div class="mb-5">
@@ -63,12 +64,23 @@
                         </div>
 
                         <div>
-                            <label for="nama_bk" class="block text-base font-medium text-gray-700 mb-2">Nama Bahan
-                                Kajian</label>
-                            <input type="text" id="nama_bk" name="nama_bk"
+                            <label for="nama_bk_id" class="block text-base font-medium text-gray-700 mb-2">Nama Bahan
+                                Kajian (Indonesia)</label>
+                            <input type="text" id="nama_bk_id" name="nama_bk_id"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                placeholder="Contoh: Algoritma dan Struktur Data" value="{{ old('nama_bk') }}" required>
-                            @error('nama_bk')
+                                placeholder="Contoh: Algoritma dan Struktur Data" value="{{ old('nama_bk_id') }}" required>
+                            @error('nama_bk_id')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="nama_bk_en" class="block text-base font-medium text-gray-700 mb-2">Nama Bahan
+                                Kajian (English)</label>
+                            <input type="text" id="nama_bk_en" name="nama_bk_en"
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                placeholder="Contoh: Algorithms and Data Structures" value="{{ old('nama_bk_en') }}" required>
+                            @error('nama_bk_en')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -78,7 +90,7 @@
                                 (Indonesia)</label>
                             <textarea id="desc_bk_id" name="desc_bk_id" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                placeholder="Jelaskan deskripsi bahan kajian di sini..." required>{{ old('desc_bk_id') }}</textarea>
+                                placeholder="Jelaskan deskripsi bahan kajian dalam bahasa Indonesia di sini..." required>{{ old('desc_bk_id') }}</textarea>
                             @error('desc_bk_id')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -89,7 +101,7 @@
                                 (English)</label>
                             <textarea id="desc_bk_en" name="desc_bk_en" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                placeholder="Describe the study material here..." required>{{ old('desc_bk_en') }}</textarea>
+                                placeholder="Describe the study material in English here..." required>{{ old('desc_bk_en') }}</textarea>
                             @error('desc_bk_en')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror

@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\Scopes\ProdiScope;
+use App\Models\Scopes\KurikulumScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class MataKuliahModel extends Model
 {
@@ -16,17 +18,26 @@ class MataKuliahModel extends Model
     protected $fillable = [
         'id_ps',
         'kode_mk',
+        'id_kurikulum',
         'nama_matkul_id',
         'nama_matkul_en',
         'matkul_desc_id',
         'matkul_desc_en',
-        'jumlah_sks',
+        'sks_teori',
+        'sks_praktikum',
         'semester',
     ];
+
+    protected function jumlahSks(): Attribute {
+        return Attribute::make(
+            get: fn() => $this->sks_teori + $this->sks_praktikum 
+        );
+    }
 
     protected static function booted(): void
     {
         static::addGlobalScope(new ProdiScope);
+        static::addGlobalScope(new KurikulumScope);
     }
 
     /**

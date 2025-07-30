@@ -27,8 +27,13 @@
             @elseif($userRole == 'pimpinan')
                 @include('partials.dashboard-pimpinan')
             @endif
+
+            @livewire('kurikulum-selector')
+
+
         </main>
     </div>
+
 
 </body>
 

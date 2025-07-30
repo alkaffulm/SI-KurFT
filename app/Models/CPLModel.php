@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Scopes\ProdiScope;
+use App\Models\Scopes\KurikulumScope;
 use Illuminate\Database\Eloquent\Model;
 
 class CPLModel extends Model
@@ -14,15 +15,16 @@ class CPLModel extends Model
         'id_ps',
         'id_kurikulum',
         'nama_kode_cpl',
-        'desc',
-        'bobot_maksimum',
+        'desc_cpl_id',
+        'desc_cpl_en'
+        // 'bobot_maksimum',
     ];
 
     protected static function booted(): void
     {
         static::addGlobalScope(new ProdiScope);
+        static::addGlobalScope(new KurikulumScope);
     }
-
     /**
      * Relasi many-to-many ke ProfilLulusanModel melalui tabel pl_cpl_map.
      */

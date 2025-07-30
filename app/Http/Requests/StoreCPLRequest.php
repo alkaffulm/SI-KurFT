@@ -25,8 +25,9 @@ class StoreCPLRequest extends FormRequest
             'id_ps' => 'required|exists:program_studi,id_ps', 
             'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
             'nama_kode_cpl' => 'required|string',
-            'bobot_maksimum' => 'required|integer',
-            'desc' => 'required|string',
+            // 'bobot_maksimum' => 'required|integer',
+            'desc_cpl_id' => 'required|string',
+            'desc_cpl_en' => 'required|string',
         ];
     }
 
@@ -35,10 +36,12 @@ class StoreCPLRequest extends FormRequest
         return [
             'nama_kode_cpl.required' => 'Kode CPL tidak boleh kosong.',
             'nama_kode_cpl.string'   => 'Kode CPL harus berupa string',
-            'bobot_maksimum.required' => 'Bobot Maksimum tidak boleh kosong.',
-            'bobot_maksimum.integer'   => 'Bobot Maksimum harus berupa integer',
-            'desc.required' => 'Deskripsi CPL tidak boleh kosong.',
-            'desc.string'   => 'Deskripsi CPL harus berupa string',
+            // 'bobot_maksimum.required' => 'Bobot Maksimum tidak boleh kosong.',
+            // 'bobot_maksimum.integer'   => 'Bobot Maksimum harus berupa integer',
+            'desc_cpl_id.required' => 'Deskripsi CPL (Indonesia) tidak boleh kosong.',
+            'desc_cpl_id.string'   => 'Deskripsi CPL (Indonesia) harus berupa string',
+            'desc_cpl_en.required' => 'Deskripsi CPL (English) enak boleh kosong.',
+            'desc_cpl_en.string'   => 'Deskripsi CPL (English) harus berupa string',
         ];
     }
 }

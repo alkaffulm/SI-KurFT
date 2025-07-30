@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_rps');
             $table->unsignedBigInteger('id_dosen_penyusun');
             $table->unsignedBigInteger('id_mk');
+            $table->unsignedBigInteger('id_kurikulum');
             $table->unsignedBigInteger('id_ps');
             $table->unsignedBigInteger('id_kurikulum');
             $table->date('tanggal-disusun');
@@ -25,6 +26,7 @@ return new class extends Migration
 
             $table->foreign('id_dosen_penyusun')->references('id_user')->on('user')->onDelete('cascade');
             $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah')->onDelete('cascade');
+            $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
             $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
         });
     }

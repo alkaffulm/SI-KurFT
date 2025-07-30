@@ -23,8 +23,10 @@ class StoreBahanKajianRequest extends FormRequest
     {
         return [
             'id_ps' => 'required|exists:program_studi,id_ps', 
+            'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
             'nama_kode_bk' => 'required',
-            'nama_bk' => 'required|string',
+            'nama_bk_id' => 'required|string',
+            'nama_bk_en' => 'required|string',
             'kategori' => 'required|string',
             'desc_bk_id' => 'required|string',
             'desc_bk_en' => 'required|string',
@@ -34,8 +36,10 @@ class StoreBahanKajianRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nama_bk.required' => 'Nama Bahan Kajian tidak boleh kosong.',
-            'nama_bk.string'   => 'Nama Bahan Kajian harus berupa string',
+            'nama_bk_id.required' => 'Nama Bahan Kajian (Indonesia) tidak boleh kosong.',
+            'nama_bk_id.string'   => 'Nama Bahan Kajian (Indonesia) harus berupa string',
+            'nama_bk_en.required' => 'Nama Bahan Kajian (English) tidak boleh kosong.',
+            'nama_bk_en.string'   => 'Nama Bahan Kajian (English) harus berupa string',
             'nama_kode_bk' => 'Kode BK Tidak Boleh Kosong',
             'kategori.required' => 'Kategori tidak boleh kosong.',
             'kategori.string'   => 'Kategori harus berupa string',

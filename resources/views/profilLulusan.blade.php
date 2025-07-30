@@ -83,12 +83,16 @@
                                         {{ $pl->kode_pl }}
                                     </th>
                                     <td class="px-6 py-4 text-left border-r border-gray-400">
-                                        {{ $pl->desc }}
+                                        {{ $pl->desc_pl_id }}
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                {{-- menampilkan pagination --}}
+                <div>
+                   {{$profil_lulusan->links()}} 
                 </div>
 
                 {{-- Bagian Tabel Korelasi PL dan PEO --}}

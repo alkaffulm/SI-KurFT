@@ -88,7 +88,7 @@
                                         {{ $p->kode_peo }}
                                     </th>
                                     <td class="px-6 py-4 text-left">
-                                        {{ $p->desc_peo }}
+                                        {{ $p->desc_peo_id }}
                                     </td>
                                 </tr>
                             @empty
@@ -100,6 +100,10 @@
                             @endforelse
                         </tbody>
                     </table>
+                </div>
+                {{-- menampilkan pagination --}}
+                <div>
+                   {{$peo->links()}} 
                 </div>
             </div>
         </main>

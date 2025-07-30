@@ -26,7 +26,7 @@ class MatkulController extends Controller
      */
     public function index()
     {
-        $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->get();
+        $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->paginate(5);
         $bahan_kajian = BahanKajianModel::all();
         $cpl = CPLModel::all();
         $jumlah_bk = BahanKajianModel::count();

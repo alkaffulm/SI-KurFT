@@ -79,12 +79,21 @@
                                             required>
                                     </div>
                                     <div class="col-span-6 sm:col-span-1">
-                                        <label for="jumlah_sks_{{ $mk->id_mk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">SKS</label>
-                                        <input type="number" id="jumlah_sks_{{ $mk->id_mk }}"
-                                            name="matkul[{{ $mk->id_mk }}][jumlah_sks]" :disabled="isDeleting"
+                                        <label for="sks_teoi_{{ $mk->id_mk }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">SKS Teori</label>
+                                        <input type="number" id="sks_teoi_{{ $mk->id_mk }}"
+                                            name="matkul[{{ $mk->id_mk }}][sks_teori]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
-                                            value="{{ old('matkul.' . $mk->id_mk . '.jumlah_sks', $mk->jumlah_sks) }}"
+                                            value="{{ old('matkul.' . $mk->id_mk . '.sks_teori', $mk->sks_teori) }}"
+                                            required>
+                                    </div>
+                                    <div class="col-span-6 sm:col-span-1">
+                                        <label for="sks_praktikum_{{ $mk->id_mk }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">SKS Praktikum</label>
+                                        <input type="number" id="sks_praktikum_{{ $mk->id_mk }}"
+                                            name="matkul[{{ $mk->id_mk }}][sks_praktikum]" :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
+                                            value="{{ old('matkul.' . $mk->id_mk . '.sks_praktikum', $mk->sks_praktikum) }}"
                                             required>
                                     </div>
                                     <div class="col-span-5 sm:col-span-1">

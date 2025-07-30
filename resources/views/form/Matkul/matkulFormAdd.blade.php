@@ -21,13 +21,14 @@
                 @csrf
 
                 <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
+                <input type="hidden" name="id_kurikulum" value="{{ session('id_kurikulum_aktif') }}">
 
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
 
                     <div class="mb-5">
                         <h1 class="text-4xl font-bold text-gray-800">Tambah MK Baru</h1>
                         <p class="text-gray-500 mt-2 text-base">Isi formulir di bawah ini untuk menambahkan Mata Kuliah
-                            baru.</p>
+                            baru. </p>
                     </div>
 
                     @if ($errors->any())
@@ -54,13 +55,33 @@
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div>
+                            {{-- <div>
                                 <label for="jumlah_sks" class="block text-base font-medium text-gray-700 mb-2">Jumlah
                                     SKS</label>
                                 <input type="number" id="jumlah_sks" name="jumlah_sks" min="1" max="6"
                                     class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                     placeholder="Contoh: 3" value="{{ old('jumlah_sks') }}" required>
                                 @error('jumlah_sks')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div> --}}
+                            <div>
+                                <label for="sks_teori" class="block text-base font-medium text-gray-700 mb-2">Jumlah
+                                    SKS Teori</label>
+                                <input type="number" id="sks_teori" name="sks_teori"  max="6"
+                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                    placeholder="Contoh: 3" value="{{ old('sks_teori') }}" required>
+                                @error('sks_teori')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="sks_praktikum" class="block text-base font-medium text-gray-700 mb-2">Jumlah
+                                    SKS Praktikum</label>
+                                <input type="number" id="sks_praktikum" name="sks_praktikum"  max="6"
+                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                    placeholder="Contoh: 3" value="{{ old('sks_praktikum') }}" required>
+                                @error('sks_praktikum')
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>

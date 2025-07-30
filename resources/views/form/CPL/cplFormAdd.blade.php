@@ -21,6 +21,7 @@
                 @csrf
 
                 <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
+                <input type="hidden" name="id_kurikulum" value="{{ session('id_kurikulum_aktif') }}">
 
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
 
@@ -53,7 +54,7 @@
                             @enderror
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <label for="id_kurikulum"
                                 class="block text-base font-medium text-gray-700 mb-2">Kurikulum</label>
                             <select name="id_kurikulum" id="id_kurikulum"
@@ -76,15 +77,26 @@
                             @error('bobot_maksimum')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
+                        </div> --}}
+
+                        <div>
+                            <label for="desc_cpl_id"
+                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi CPL (Indonesia)</label>
+                            <textarea id="desc_cpl_id" name="desc_cpl_id" rows="4"
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                placeholder="Jelaskan deskripsi CPL dalam di sini..." required>{{ old('desc_cpl_id') }}</textarea>
+                            @error('desc_cpl_id')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
-                            <label for="desc"
-                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi</label>
-                            <textarea id="desc" name="desc" rows="4"
+                            <label for="desc_cpl_en"
+                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi CPL (English)</label>
+                            <textarea id="desc_cpl_en" name="desc_cpl_en" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                placeholder="Jelaskan deskripsi CPL di sini..." required>{{ old('desc') }}</textarea>
-                            @error('desc')
+                                placeholder="Describe the CPL in here..." required>{{ old('desc_cpl_en') }}</textarea>
+                            @error('desc_cpl_en')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

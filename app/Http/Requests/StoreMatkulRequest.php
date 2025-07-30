@@ -23,12 +23,15 @@ class StoreMatkulRequest extends FormRequest
     {
         return [
             'id_ps' => 'required|exists:program_Studi,id_ps', 
+            'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
             'kode_mk' => 'required|string',
             'nama_matkul_id' => 'required|string',
             'nama_matkul_en' => 'required|string',
             'matkul_desc_id' => 'required|string',
             'matkul_desc_en' => 'required|string',
-            'jumlah_sks' => 'required|integer',
+            // 'jumlah_sks' => 'required|integer',
+            'sks_teori' => 'integer',
+            'sks_praktikum' => 'integer',
             'semester' => 'required|integer|min:1|max:8'
         ];
     }
@@ -42,8 +45,10 @@ class StoreMatkulRequest extends FormRequest
             'nama_matkul_id.string'   => 'Nama Mata Kuliah (Indonesia) harus berupa string',
             'nama_matkul_en.required' => 'Nama Mata Kuliah (English) enak boleh kosong.',
             'nama_matkul_en.string'   => 'Nama Mata Kuliah (English) enrus berupa string',
-            'jumlah_sks.required' => 'Jumlah SKS tidak boleh kosong.',
-            'jumlah_sks.integer'   => 'Jumlah SKS harus berupa integer',
+            // 'jumlah_sks.required' => 'Jumlah SKS tidak boleh kosong.',
+            // 'jumlah_sks.integer'   => 'Jumlah SKS harus berupa integer',
+            'sks_teori.integer'   => 'Jumlah SKS Teori harus berupa integer',
+            'sks_praktikum.integer'   => 'Jumlah SKS Praktikum harus berupa integer', 
             'semester.required' => 'Semester tidak boleh kosong.',
             'semester.integer'   => 'Semester harus berupa integer',
             'semester.min' => 'Semester tidak bisa dibawah 1.',

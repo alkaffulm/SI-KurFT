@@ -65,12 +65,21 @@
                                     </div>
 
                                     <div class="col-span-11 sm:col-span-7">
-                                        <label for="desc_peo_{{ $p->id_peo }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi</label>
-                                        <textarea id="desc_peo_{{ $p->id_peo }}" name="peo[{{ $p->id_peo }}][desc_peo]" rows="4"
+                                        <label for="desc_peo_id_{{ $p->id_peo }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi PEO (Indonesia)</label>
+                                        <textarea id="desc_peo_id_{{ $p->id_peo }}" name="peo[{{ $p->id_peo }}][desc_peo_id]" rows="4"
                                             :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                            required>{{ old('peo.' . $p->id_peo . '.desc_peo', $p->desc_peo) }}</textarea>
+                                            required>{{ old('peo.' . $p->id_peo . '.desc_peo_id', $p->desc_peo_id) }}</textarea>
+                                    </div>
+
+                                    <div class="col-span-11 sm:col-span-7">
+                                        <label for="desc_peo_en_{{ $p->id_peo }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi PEO (English)</label>
+                                        <textarea id="desc_peo_en_{{ $p->id_peo }}" name="peo[{{ $p->id_peo }}][desc_peo_en]" rows="4"
+                                            :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                            required>{{ old('peo.' . $p->id_peo . '.desc_peo_en', $p->desc_peo_en) }}</textarea>
                                     </div>
 
                                     <div class="col-span-1 flex items-center justify-center pt-8">

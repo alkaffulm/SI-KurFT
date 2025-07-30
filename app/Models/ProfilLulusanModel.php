@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Scopes\ProdiScope;
+use App\Models\Scopes\KurikulumScope;
 use Illuminate\Database\Eloquent\Model;
 
 class ProfilLulusanModel extends Model
@@ -12,15 +13,19 @@ class ProfilLulusanModel extends Model
     public $timestamps = false;
     protected $fillable = [
         'id_pl',
+        'id_kurikulum',
         'id_ps',
         'kode_pl',
-        'profil_lulusan',
-        'desc',
+        'nama_pl_id',
+        'nama_pl_en',
+        'desc_pl_id',
+        'desc_pl_en'
     ];
 
     protected static function booted(): void
     {
         static::addGlobalScope(new ProdiScope);
+        static::addGlobalScope(new KurikulumScope);
     }
 
     /**

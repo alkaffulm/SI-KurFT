@@ -82,7 +82,7 @@
                                         {{ $c->nama_kode_cpl }}
                                     </th>
                                     <td class="px-6 py-4 text-left">
-                                        {{ $c->desc }}
+                                        {{ $c->desc_cpl_id }}
                                     </td>
                                 </tr>
                             @empty
@@ -94,6 +94,10 @@
                             @endforelse
                         </tbody>
                     </table>
+                </div>
+                {{-- menampilkan pagination --}}
+                <div>
+                   {{$cpl->links()}} 
                 </div>
 
                 {{-- Bagian Tabel Korelasi CPL dan PL --}}

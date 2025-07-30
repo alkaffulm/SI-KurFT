@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Scopes\ProdiScope;
+use App\Models\Scopes\KurikulumScope;
 use Illuminate\Database\Eloquent\Model;
 
 class PEOModel extends Model
@@ -13,13 +14,16 @@ class PEOModel extends Model
     protected $fillable = [
         'id_ps',
         'id_peo',
+        'id_kurikulum',
         'kode_peo',
-        'desc_peo',
+        'desc_peo_id',
+        'desc_peo_en'
     ];
 
     protected static function booted(): void
     {
         static::addGlobalScope(new ProdiScope);
+        static::addGlobalScope(new KurikulumScope);
     }
 
     public function programStudi()

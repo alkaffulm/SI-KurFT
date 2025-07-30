@@ -15,7 +15,7 @@ class ProdiScope implements Scope
     public function apply(Builder $builder, Model $model): void
     {
         if (Auth::check()) {
-            $userRole = session()->get('userRole');
+           
             $userRoleId = session()->get('userRoleId');
 
             if ($userRoleId) {
