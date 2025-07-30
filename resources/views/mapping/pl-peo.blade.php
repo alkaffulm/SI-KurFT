@@ -70,6 +70,7 @@
                                             {{ $pl->kode_pl }}
                                         </th>
                                         <td class="px-6 py-4">
+                                            <input type="hidden" name="peo_mappings[{{ $pl->id_pl }}]" value="" />
                                             <select class="select2 w-full" multiple="multiple"
                                                 name="peo_mappings[{{ $pl->id_pl }}][]">
                                                 @foreach ($peo as $item)

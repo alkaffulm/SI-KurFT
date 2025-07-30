@@ -13,6 +13,7 @@ class ProfilLulusanModel extends Model
     public $timestamps = false;
     protected $fillable = [
         'id_pl',
+        'id_kurikulum',
         'id_ps',
         'kode_pl',
         'nama_pl_id',

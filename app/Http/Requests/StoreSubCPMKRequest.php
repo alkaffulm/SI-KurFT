@@ -24,6 +24,7 @@ class StoreSubCPMKRequest extends FormRequest
         return [
             'id_cpmk' => 'required|exists:cpmk,id_cpmk',
             'id_ps' => 'required|exists:program_studi,id_ps',  
+            'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
             'nama_kode_sub_cpmk' => 'required|string',
             'desc_sub_cpmk_id' => 'required|string',
             'desc_sub_cpmk_en' => 'required|string',

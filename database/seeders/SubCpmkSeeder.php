@@ -20,13 +20,15 @@ class SubCpmkSeeder extends Seeder
 
             for ($nomor_cpmk = 1; $nomor_cpmk <= 5; $nomor_cpmk++) {
                 for ($i = 1; $i <= 3; $i++) {
+                    $prefix = ($id_kurikulum >= 10) ? '(2025) ' : '';
+
                     $subCpmks[] = [
                         'id_ps' => $id_ps,
                         'id_kurikulum' => $id_kurikulum,
                         'id_cpmk' => $id_cpmk,
-                        'nama_kode_sub_cpmk' => "SubCPMK-{$nomor_cpmk}.{$i}",
-                        'desc_sub_cpmk_id' => "Deskripsi untuk SubCPMK-{$nomor_cpmk}.{$i}.",
-                        'desc_sub_cpmk_en' => "Description For SubCPMK-{$nomor_cpmk}.{$i}.",
+                        'nama_kode_sub_cpmk' => "{$prefix}SubCPMK-{$nomor_cpmk}.{$i}",
+                        'desc_sub_cpmk_id' => "{$prefix}Deskripsi untuk SubCPMK-{$nomor_cpmk}.{$i}.",
+                        'desc_sub_cpmk_en' => "{$prefix}Description For SubCPMK-{$nomor_cpmk}.{$i}.",
                     ];
                 }
                 $id_cpmk++;
@@ -35,4 +37,5 @@ class SubCpmkSeeder extends Seeder
 
         DB::table('sub_cpmk')->insert($subCpmks);
     }
+
 }

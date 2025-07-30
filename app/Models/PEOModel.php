@@ -14,6 +14,7 @@ class PEOModel extends Model
     protected $fillable = [
         'id_ps',
         'id_peo',
+        'id_kurikulum',
         'kode_peo',
         'desc_peo_id',
         'desc_peo_en'

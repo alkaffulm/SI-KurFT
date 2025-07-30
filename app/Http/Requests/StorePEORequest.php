@@ -23,6 +23,7 @@ class StorePEORequest extends FormRequest
     {
         return [
             'id_ps' => 'required|exists:program_Studi,id_ps', 
+            'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
             'kode_peo' => 'required|string',
             'desc_peo_id' => 'required|string',
             'desc_peo_en' => 'required|string',

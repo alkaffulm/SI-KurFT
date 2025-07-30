@@ -45,6 +45,7 @@
 
             {{-- form --}}
             <form action="{{ route('kurikulum.store') }}" method="POST" class="mt-6 space-y-4">
+                <input type="hidden" name="id_kurikulum" value="{{ session('id_kurikulum_aktif') }}">
                 @csrf
                 {{-- Input ID Program Studi --}}
                 <div>

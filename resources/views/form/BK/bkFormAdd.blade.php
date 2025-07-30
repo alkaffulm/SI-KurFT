@@ -19,6 +19,7 @@
             <form action="{{ route('bahan-kajian.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
+                <input type="hidden" name="id_kurikulum" value="{{ session('id_kurikulum_aktif') }}">
 
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
                     <div class="mb-5">

@@ -15,6 +15,12 @@ class MataKuliahCPMKMapModel extends Model
     ];
 
     // belongs to relation
+
+    public function mk()
+    {
+        return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');
+    }
+
     
     public function matakuliah(){
         return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');

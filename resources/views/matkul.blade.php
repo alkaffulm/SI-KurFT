@@ -163,8 +163,7 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3">BK / CPL</th>
                                 @foreach ($cpl as $c)
-                                    <th scope="col" class="px-6 py-3">
-                                        {{ $c->nama_kode_cpl }}</th>
+                                    <th scope="col" class="px-6 py-3">{{ $c->nama_kode_cpl }}</th>
                                 @endforeach
                             </tr>
                         </thead>
@@ -177,15 +176,9 @@
                                     </th>
                                     @foreach ($cpl as $c)
                                         <td class="px-2 py-1 border-r border-gray-400 text-xs">
-                                            @if (isset($bk_cpl_map[$c->id_cpl]) && in_array($bk->id_bk, $bk_cpl_map[$c->id_cpl]))
-                                                @php
-                                                    $mk_ids = $bk_mk_map[$bk->id_bk] ?? [];
-                                                    $kode_mk_list = collect($mata_kuliah)
-                                                        ->whereIn('id_mk', $mk_ids)
-                                                        ->pluck('kode_mk')
-                                                        ->toArray();
-                                                @endphp
-                                                {{ implode(', ', $kode_mk_list) }}
+                                            @if ($bk->cpl->contains('id_cpl', $c->id_cpl))
+                                                {{-- Tampilkan semua MK yang berelasi dengan BK ini --}}
+                                                {{ $bk->mataKuliah->pluck('kode_mk')->implode(', ') }}
                                             @endif
                                         </td>
                                     @endforeach
@@ -194,6 +187,8 @@
                         </tbody>
                     </table>
                 </div>
+
+
 
                 {{-- Bagian 4: Tabel Bobot SKS --}}
                 <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Tabel Bobot SKS</h2>
