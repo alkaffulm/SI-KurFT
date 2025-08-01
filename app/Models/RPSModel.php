@@ -31,8 +31,9 @@ class RPSModel extends Model
         static::addGlobalScope(new KurikulumScope);
     }
     // has many relation
-    public function rpsDetail(){
-        return $this->hasMany(RPSDetailModel::class, 'id_rps', 'id_rps');
+    public function topics()
+    {
+        return $this->hasMany(RPSTopicModel::class, 'id_rps', 'id_rps');
     }
 
     // belongs to relation

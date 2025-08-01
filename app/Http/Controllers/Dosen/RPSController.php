@@ -9,15 +9,14 @@ use Illuminate\Http\Request;
 use App\Models\MataKuliahModel;
 use App\Http\Controllers\Controller;
 use App\Models\BahanKajianModel;
+use App\Models\RPSDetailModel;
 use Illuminate\Support\Facades\Auth;
 
 class RPSController extends Controller
 {
     public function __construct()
     {
-        $userRole = session()->get('userRole');
-
-        return view()->share('userRole', $userRole);
+        view()->share('userRole', session()->get('userRole'));
     }
     /**
      * Display a listing of the resource.
@@ -80,20 +79,25 @@ class RPSController extends Controller
         $rps->cpls()->sync($validated['cpl_ids']);
         $rps->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
 
-        return to_route('matkul.index')->with('success', 'Berhasi membuat data induk RPS');
+        // return to_route('matkul.index')->with('success', 'Berhasi membuat data induk RPS');
+        return to_route('rps.edit', $rps)->with('success', 'Berhasi membuat data induk RPS');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(RPSModel $rps)
+    public function show(RPSModel $rp)
     {
-        $rps->load([
+        $rp->load([
             'mataKuliah', 
             'dosenPenyusun', 
             'kurikulum',
             'programStudi',
-            'cpls', // Relasi Many-to-Many ke CPL
+            'cpls',
+            'mataKuliah.cpmks' => function($query) {
+                $query->with(['cpl', 'subCpmk']);
+            } 
             // 'details' => function ($query) {
             //     // Urutkan detail mingguan berdasarkan nomor minggu
             //     $query->orderBy('minggu_ke', 'asc');
@@ -101,31 +105,59 @@ class RPSController extends Controller
             // 'details.subCpmk' // Muat juga relasi Sub-CPMK dari setiap detail
         ]);
 
-        dd($rps->id_rps);
-        return view('dosen.showrps', ['rps' => $rps]);
+        return view('dosen.showrps', ['rps' => $rp]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(RPSModel $rp)
     {
-        //
+        // $rp->load(['cpls', 'mataKuliahSyarat']);
+
+        // $cpl = CPLModel::all();
+        // // $dosen = UserModel::where('id_ps', session('userProfiId'))->get();
+        // $bahan_kajian = BahanKajianModel::all();
+        // $allMatkul =MataKuliahModel::where('id_mk','!=', $rp->id_mk)->get();
+
+        return view('livewire.rps-edit-page', [ 'rps' => $rp]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    // public function update(Request $request, RPSModel $rp)
+    // {
+    //     $validated = $request->validate([
+    //         'id_bk' => 'required|exists:bahan_kajian,id_bk',
+    //         'id_mk_syarat' => 'nullable|exists:mata_kuliah,id_mk',
+    //         'cpl_ids' => 'required|array',
+    //         'cpl_ids.*' => 'exists:cpl,id_cpl', // Pastikan setiap ID CPL valid
+    //         'materi_pembelajaran' => 'nullable|string',
+    //         'pustaka_utama' => 'nullable|string',
+    //         'pustaka_pendukung' => 'nullable|string',
+    //     ]);
+
+    //     $rp->update([
+    //         'id_bk' => $validated['id_bk'],
+    //         'materi_pembelajaran' => $validated['materi_pembelajaran'] ?? null,
+    //         'pustaka_utama' => $validated['pustaka_utama'] ?? null,
+    //         'pustaka_pendukung' => $validated['pustaka_pendukung'] ?? null,
+    //     ]);
+
+    //     $rp->cpls()->sync($validated['cpl_ids']);
+    //     $rp->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
+
+    //     return to_route('rps.show', $rp)->with('success', 'Berhasil memperbarui RPS!');
+    // }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(RPSModel $rp)
     {
-        //
+        $rp->delete();
+
+        return to_route('matkul.index')->with('success', 'Berhasil Menghapus RPS!');
     }
 }

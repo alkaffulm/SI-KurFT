@@ -29,8 +29,8 @@
                 <tr>
                     <td class="border-2">{{ $mk->kode_mk }}</td>
                     <td class="border-2">
-                        @if ($mk->rps->isNotEmpty() )
-                            <a href="{{ route('rps.show', $mk->rps->first()) }}">Lihat RPS</a>
+                        @if ($mk->rps->where('id_kurikulum', session('id_kurikulum_aktif'))->first() )
+                            <a href="{{ route('rps.show', $mk->rps->where('id_kurikulum', session('id_kurikulum_aktif'))->first()) }}">Lihat RPS</a>
                         @else    
                             <a href="{{ route('rps.create', ['id_mk' => $mk->id_mk]) }}">Buat RPS</a>
                         @endif
@@ -40,7 +40,7 @@
                     <td class="border-2">{{ $mk->semester }}</td>
                 </tr>
             @endforeach
-        </table>  
+        </table>  ADA BUG SEHINGGA DATARPS DARI DATAASE TIDAK BISA DITAMPLKAN KARENA NULL
     </div>
 
 

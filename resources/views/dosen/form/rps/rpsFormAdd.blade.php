@@ -42,6 +42,9 @@
             </div>
             <br>
 
+            <h1 class="text-xl font-bold">RPS Induk</h1>
+
+            <br>
             <div>
                 <label for="id_bk">Bahan Kajian:</label><br>
                 <select name="id_bk" required>
@@ -66,7 +69,7 @@
 
             <div>
                 <label for="id_mk_syarat">Mata Kuliah Prasyarat:</label><br>
-                <select name="id_mk_syarat" >
+                <select name="id_mk_syarat" required>
                     <option value="">Tidak ada Matkul Prasyarat</option>
                     @foreach ($allMatkul as $mk)
                         <option value="{{ $mk->id_mk }}">{{ $mk->nama_matkul_id }}</option>
@@ -77,23 +80,27 @@
             <br>
             <div>
                 <label for="materi_pembelajaran">Materi Pembelajaran:</label><br>
-                <textarea name="materi_pembelajaran" rows="5"></textarea>
+                <textarea name="materi_pembelajaran" rows="5" required></textarea>
             </div>
 
             <br>
             
             <div>
                 <label for="pustaka_utama">Pustaka Utama:</label><br>
-                <textarea name="pustaka_utama" rows="5"></textarea>
+                <textarea name="pustaka_utama" rows="5" required></textarea>
             </div>
 
             <br>
 
             <div>
                 <label for="pustaka_pendukung">Pustaka pendukung:</label><br>
-                <textarea name="pustaka_pendukung" rows="5"></textarea>
+                <textarea name="pustaka_pendukung" rows="5" required></textarea>
             </div>
             <br>
+
+            <h1 class="text-xl font-bold">RPS Mingguan</h1>
+
+
             <button type="submit">Simpan RPS</button>
         </form>
     </div>
