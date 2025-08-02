@@ -97,12 +97,9 @@ class RPSController extends Controller
             'cpls',
             'mataKuliah.cpmks' => function($query) {
                 $query->with(['cpl', 'subCpmk']);
-            } 
-            // 'details' => function ($query) {
-            //     // Urutkan detail mingguan berdasarkan nomor minggu
-            //     $query->orderBy('minggu_ke', 'asc');
-            // },
-            // 'details.subCpmk' // Muat juga relasi Sub-CPMK dari setiap detail
+            } ,
+            'topics.weeks',
+            'topics.subCpmk',
         ]);
 
         return view('dosen.showrps', ['rps' => $rp]);
@@ -120,7 +117,7 @@ class RPSController extends Controller
         // $bahan_kajian = BahanKajianModel::all();
         // $allMatkul =MataKuliahModel::where('id_mk','!=', $rp->id_mk)->get();
 
-        return view('livewire.rps-edit-page', [ 'rps' => $rp]);
+        return view('dosen.form.rps.rpsFormEdit', [ 'rps' => $rp]);
     }
 
     /**

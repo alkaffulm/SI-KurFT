@@ -53,6 +53,7 @@
                         <option value="{{ $bk->id_bk }}">{{ $bk->nama_kode_bk }} - {{ $bk->nama_bk_id }}</option>
                     @endforeach
                 </select>
+                @error('id_bk') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
             </div>
             <br>
 
@@ -64,6 +65,7 @@
                         <option value="{{ $cpl->id_cpl }}">{{ $cpl->nama_kode_cpl }}</option>
                     @endforeach
                 </select>
+                @error('cpl_ids') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
             </div>
             <br>
 
@@ -74,34 +76,34 @@
                     @foreach ($allMatkul as $mk)
                         <option value="{{ $mk->id_mk }}">{{ $mk->nama_matkul_id }}</option>
                     @endforeach
-                </select>                
+                </select>   
+                @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
             </div>
 
             <br>
             <div>
                 <label for="materi_pembelajaran">Materi Pembelajaran:</label><br>
-                <textarea name="materi_pembelajaran" rows="5" required></textarea>
+                <textarea name="materi_pembelajaran" rows="5" cols="80" cols="80"  required></textarea>
+                @error('materi_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
             </div>
 
             <br>
             
             <div>
                 <label for="pustaka_utama">Pustaka Utama:</label><br>
-                <textarea name="pustaka_utama" rows="5" required></textarea>
+                <textarea name="pustaka_utama" rows="5" cols="80" required></textarea>
+                @error('pustaka_utama') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
             </div>
 
             <br>
 
             <div>
                 <label for="pustaka_pendukung">Pustaka pendukung:</label><br>
-                <textarea name="pustaka_pendukung" rows="5" required></textarea>
+                <textarea name="pustaka_pendukung" rows="5" cols="80" required></textarea>
+                @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
             </div>
             <br>
-
-            <h1 class="text-xl font-bold">RPS Mingguan</h1>
-
-
-            <button type="submit">Simpan RPS</button>
+            <button type="submit">Simpan RPS dan lanjut Mengisi Rencana Mingguan</button>
         </form>
     </div>
         <script>

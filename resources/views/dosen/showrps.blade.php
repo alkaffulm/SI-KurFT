@@ -16,22 +16,27 @@
     
     <div class="py-8 px-16 sm:ml-64 mt-16">
 
-        <div class="flex justify-end gap-4">
-            {{-- Tombol Aksi di Kanan Atas --}}
-            <div class="flex justify-end mb-4">
-                <a href="{{route('rps.edit', $rps)}}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                    Edit RPS
-                </a>
-            </div>
+        <div>
+            <a href="/dosen/matkul">Kembali</a>
+            <div class="flex justify-end gap-4">
+                {{-- Tombol Aksi di Kanan Atas --}}
+                <div class="flex justify-end mb-4">
+                    <a href="{{route('rps.edit', $rps)}}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                        Edit RPS
+                    </a>
+                </div>
 
-            <div class="flex justify-end mb-4">
-                <form action="{{route('rps.destroy', $rps)}}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button>Hapus RPS</button>
-                </form>
-            </div>            
+                <div class="flex justify-end mb-4">
+                    <form action="{{route('rps.destroy', $rps)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button>Hapus RPS</button>
+                    </form>
+                </div>            
+            </div>  
         </div>
+
+
 
 
         {{-- SECTION 1: KOP SURAT & INFO UTAMA --}}
@@ -198,39 +203,79 @@
         </div>
 
         {{-- SECTION 5: RENCANA MINGGUAN --}}
-        {{-- <div class="mt-8">
-            <h2 class="font-bold text-lg mb-2">Rencana Pembelajaran Mingguan</h2>
+        <div>
             <table class="w-full text-sm border-2 border-black">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+                <thead class="text-xs text-gray-700 uppercase bg-[#9cc2e4]">
                     <tr class="border-b-2 border-black">
-                        <th class="p-2 border-x-2 border-black">Mg Ke-</th>
-                        <th class="p-2 border-x-2 border-black">Kemampuan Akhir (Sub-CPMK)</th>
-                        <th class="p-2 border-x-2 border-black">Materi Pembelajaran</th>
-                        <th class="p-2 border-x-2 border-black">Metode Pembelajaran</th>
-                        <th class="p-2 border-x-2 border-black">Bobot (%)</th>
+                        <th class="p-2 border-x-2 border-black align-top">Minggu Ke-</th>
+                        <th class="p-2 border-x-2 border-black align-top">Kemampuan akhir tiap tahapan belajar (Sub-CPMK)</th>
+                        <th class="p-2 border-x-2 border-black align-top">Indikator</th>
+                        <th class="p-2 border-x-2 border-black align-top">Kriteria & Teknik Penilaian</th>
+                        <th class="p-2 border-x-2 border-black align-top">Bentuk Pembelajaran; Metode Pembelajaran; Penugasan Mahasiswa</th>
+                        <th class="p-2 border-x-2 border-black align-top">Materi Pembelajaran [Pustaka/Referensi]</th>
+                        <th class="p-2 border-x-2 border-black align-top">Bobot Penilaian (%)</th>
+                    </tr>
+                    <tr class="border-b-2 border-black text-center">
+                        <th class="p-1 border-x-2 border-black">(1)</th>
+                        <th class="p-1 border-x-2 border-black">(2)</th>
+                        <th class="p-1 border-x-2 border-black">(3)</th>
+                        <th class="p-1 border-x-2 border-black">(4)</th>
+                        <th class="p-1 border-x-2 border-black">(5)</th>
+                        <th class="p-1 border-x-2 border-black">(6)</th>
+                        <th class="p-1 border-x-2 border-black">(7)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($rps->details as $detail)
+                    @forelse ($rps->topics as $topic)
                         <tr class="bg-white border-b border-black">
-                            <td class="p-2 border-x-2 border-black text-center">{{ $detail->minggu_ke }}</td>
-                            <td class="p-2 border-x-2 border-black">
-                                @if($detail->subCpmk)
-                                    <strong>{{ $detail->subCpmk->nama_kode_sub_cpmk }}:</strong> {{ $detail->subCpmk->desc_sub_cpmk_id }}
+                            {{-- (1) Minggu Ke- --}}
+                            {{-- Mengambil semua minggu dari relasi, mengurutkan, dan menggabungkannya dengan koma --}}
+                            <td class="p-2 border-x-2 border-black text-center align-top font-semibold">
+                                {{ $topic->weeks->pluck('minggu_ke')->sort()->implode(', ') }}
+                            </td>
+                            
+                            {{-- (2) Sub-CPMK --}}
+                            <td class="p-2 border-x-2 border-black align-top">
+                                @if($topic->subCpmk)
+                                    {{ $topic->subCpmk->desc_sub_cpmk_id }}
+                                @else
+                                    -
                                 @endif
                             </td>
-                            <td class="p-2 border-x-2 border-black">{!! nl2br(e($detail->materi_pembelajaran)) !!}</td>
-                            <td class="p-2 border-x-2 border-black">{!! nl2br(e($detail->metode_pembelajaran)) !!}</td>
-                            <td class="p-2 border-x-2 border-black text-center">{{ $detail->bobot_penilaian }}%</td>
+
+                            {{-- (3) Indikator --}}
+                            <td class="p-2 border-x-2 border-black align-top">
+                                {!! nl2br(e($topic->indikator)) !!}
+                            </td>
+
+                            {{-- (4) Kriteria & Teknik Penilaian --}}
+                            <td class="p-2 border-x-2 border-black align-top">
+                                {!! nl2br(e($topic->kriteria_teknik_penilaian)) !!}
+                            </td>
+
+                            {{-- (5) Metode Pembelajaran --}}
+                            <td class="p-2 border-x-2 border-black align-top">
+                                {!! nl2br(e($topic->metode_pembelajaran)) !!}
+                            </td>
+
+                            {{-- (6) Materi Pembelajaran --}}
+                            <td class="p-2 border-x-2 border-black align-top">
+                                {!! nl2br(e($topic->materi_pembelajaran)) !!}
+                            </td>
+
+                            {{-- (7) Bobot Penilaian --}}
+                            <td class="p-2 border-x-2 border-black text-center align-top">
+                                {{ $topic->bobot_penilaian }}
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="p-4 text-center">Rencana mingguan belum diisi.</td>
+                            <td colspan="7" class="p-4 text-center border-x-2 border-black">Rencana mingguan belum diisi.</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
-        </div> --}}
+        </div>
     </div> 
 </body>
 </html>

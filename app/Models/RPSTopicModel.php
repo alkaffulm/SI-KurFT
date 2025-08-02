@@ -30,4 +30,8 @@ class RPSTopicModel extends Model
         return $this->belongsTo(SubCPMKModel::class, 'id_sub_cpmk', 'id_sub_cpmk');
     }
 
+    public function weeks() {
+        return $this->hasMany(TopicWeekMapModel::class, 'id_topic', 'id_topic');
+    }
+
 }

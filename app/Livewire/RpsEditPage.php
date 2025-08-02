@@ -93,7 +93,7 @@ class RpsEditPage extends Component
         'topics.*.materi_pembelajaran' => 'required|string',
         'topics.*.metode_pembelajaran' => 'required|string',
         'topics.*.bobot_penilaian' => 'required|integer|min:0|max:100',
-        'topics.*.minggu_ke' => 'required|array|min:1', 
+        'topics.*.minggu_ke' => 'array|min:1', 
 
         // validasi RPS Induk
         'id_bk' => 'required|exists:bahan_kajian,id_bk',
@@ -142,13 +142,12 @@ class RpsEditPage extends Component
                 TopicWeekMapModel::insert($weekMappings);                
             }
         });
-
         return redirect(route('rps.show', $this->rps))->with('Success', 'Berhasil Memperbarui Rencana pembelajaran mingguan');
     }  
 
     public function render()
     {
-        return view('livewire.rps-detail-manager');
+        return view('livewire.rps-edit-page');
     }
 
 }
