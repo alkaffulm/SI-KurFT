@@ -75,7 +75,10 @@ class RpsEditPage extends Component
             'materi_pembelajaran' => '',
             'bobot_penilaian' => 0,
             'minggu_ke' => [], 
+
         ];
+        // Dispatch event ke frontend untuk reinisialisasi Select2
+        $this->dispatch('rowAdded');
     }
 
     public function removeRow($index) {
@@ -84,6 +87,9 @@ class RpsEditPage extends Component
         }
         unset($this->topics[$index]);
         $this->topics = array_values($this->topics); // Re-index array
+
+        // Dispatch event ke frontend untuk reinisialisasi Select2
+        $this->dispatch('rowRemoved');
     }  
 
     public function saveRps() {

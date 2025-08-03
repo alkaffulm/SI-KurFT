@@ -20,7 +20,6 @@
                     </div>
                 </a>
             </div>
-            <h1 class="text-xl font-bold">SIKUR-FT TRIAL</h1>
             <div class="flex items-center">
 
                 {{-- Bagian Nama dan Role --}}

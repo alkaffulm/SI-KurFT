@@ -140,8 +140,10 @@
                     <table class="w-full text-sm">
                         <thead>
                             <tr>
-                                <th class="p-2 border-r border-black">Kode CPMK</th>
-                                <th class="p-2 row-span-1 border-r border-black">Kode CPL</th>
+                                <th class="p-2 border-r border-black" rowspan="2">Kode CPMK</th>
+                                <th class="p-2 row-span-1 border-b border-black"  >CPL yang didukung</th>
+                            </tr>
+                            <tr>                                
                                 @foreach ($rps->cpls as $cpl )
                                     <th class="p-2 border-r border-black">{{ $cpl->nama_kode_cpl }}</th>
                                 @endforeach
