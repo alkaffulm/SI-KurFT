@@ -8,7 +8,7 @@
                 <span class="ms-2 text-xs font-semibold text-gray-500 uppercase">Menu Utama</span>
             </li>
             <li>
-                <a href="/dashboard" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                <a href="{{ route('dashboard') }}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                     {{-- Dashboard Icon --}}
                     <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">

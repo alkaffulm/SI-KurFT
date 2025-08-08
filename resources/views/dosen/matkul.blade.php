@@ -40,7 +40,7 @@
                     <td class="border-2">{{ $mk->semester }}</td>
                 </tr>
             @endforeach
-        </table>  ADA BUG SEHINGGA DATARPS DARI DATAASE TIDAK BISA DITAMPLKAN KARENA NULL
+        </table> 
     </div>
 
 

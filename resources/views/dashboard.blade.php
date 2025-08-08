@@ -9,6 +9,7 @@
     <link rel="icon" href="{{ asset('images/logo ulm 1.png') }}" type="image/x-icon">
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    @livewireStyles
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -34,7 +35,7 @@
         </main>
     </div>
 
-
+    @livewireScripts
 </body>
 
 </html>

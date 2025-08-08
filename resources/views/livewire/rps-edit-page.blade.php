@@ -40,21 +40,21 @@
             <br>
             <div>
                 <label for="materi_pembelajaran">Materi Pembelajaran:</label><br>
-                <textarea wire:model="materi_pembelajaran" rows="5" class="p-2 border"></textarea>
+                <textarea wire:model="materi_pembelajaran"  class="p-2 border w-96 h-48"></textarea>
             </div>
 
             <br>
             
             <div>
                 <label for="pustaka_utama">Pustaka Utama:</label><br>
-                <textarea wire:model="pustaka_utama" rows="5" class="p-2 border"></textarea>
+                <textarea wire:model="pustaka_utama"  class="p-2 border w-96 h-48"></textarea>
             </div>
 
             <br>
 
             <div>
                 <label for="pustaka_pendukung">Pustaka pendukung:</label><br>
-                <textarea wire:model="pustaka_pendukung" rows="5" class="p-2 border"></textarea>
+                <textarea wire:model="pustaka_pendukung"  class="p-2 border w-96 h-48"></textarea>
             </div>
             <br>
 
@@ -62,25 +62,25 @@
 
 
             <div class="overflow-x-auto">
-                <table class="w-full text-sm border">
+                <table class="w-full text-sm border table-fixed">
                     <thead>
                         <tr>
-                            <th class="p-2 border" >Minggu Ke-</th>
-                            <th class="p-2 border">Sub-CPMK</th>
-                            <th class="p-2 border">Indikator</th>
-                            <th class="p-2 border">Kriteria & Teknik Penilaian</th>
-                            <th class="p-2 border">Metode</th>
-                            <th class="p-2 border">Materi Pembelajaran</th>
-                            <th class="p-2 border">Bobot (%)</th>
-                            <th class="p-2 border">Aksi</th>                        
+                            <th class="p-2 border w-[150px]" >Minggu Ke-</th>
+                            <th class="p-2 border w-[180px]">Sub-CPMK</th>
+                            <th class="p-2 border w-[300px]">Indikator</th>
+                            <th class="p-2 border w-[300px]">Kriteria & Teknik Penilaian</th>
+                            <th class="p-2 border w-[300px]">Metode</th>
+                            <th class="p-2 border w-[300px]">Materi Pembelajaran</th>
+                            <th class="p-2 border w-[90px]">Bobot (%)</th>
+                            <th class="p-2 border w-[90px]">Aksi</th>                        
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($topics as $index => $topic )
-                        <tr wire:key="topic-{{ $index }}">
-                                <td>
-                                    <div wire:ignore.self>
-                                        <select class="select2-weeks" multiple="multiple" data-index="{{ $index }}" wire:key="select-weeks-{{ $index }}" id="">
+                        <tr wire:key="topic-{{ $index }}" >
+                                <td >
+                                    <div wire:ignore>
+                                        <select class="select2-weeks w-full" multiple="multiple" data-index="{{ $index }}" wire:key="select-weeks-{{ $index }}" id="">
                                             @for ($i = 1 ; $i <= 16 ; $i++)
                                                 <option value="{{$i}}" {{ in_array($i, $topic['minggu_ke']) ? 'selected' : '' }}> {{$i}} </option>
                                             @endfor
@@ -89,8 +89,7 @@
                                     @error('topics.'.$index.'.minggu_ke') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                 </td>
                                 <td class="p-2 border" >
-                                    <label for="">SubCpmk</label>
-                                    <select wire:model="topics.{{ $index }}.id_sub_cpmk" >
+                                    <select wire:model="topics.{{ $index }}.id_sub_cpmk"  class="w-full">
                                         <option value="">--pilih Sub-CPMK--</option>
                                         @foreach ($allSubCpmks as $scp )
                                             <option value="{{ $scp->id_sub_cpmk }}">{{ $scp->nama_kode_sub_cpmk }}</option>
@@ -99,23 +98,23 @@
                                     @error('topics.'.$index.'.id_sub_cpmk') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                 </td>
                                 <td>
-                                    <textarea wire:model="topics.{{$index}}.indikator" id="indikator" cols="30" rows="10" class="border"></textarea>
+                                    <textarea wire:model="topics.{{$index}}.indikator" id="indikator" class="border w-full h-48"></textarea>
                                     @error('topics.'.$index.'.indikator') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                 </td>
                                 <td>
-                                    <textarea wire:model="topics.{{$index}}.kriteria_teknik_penilaian" id="kriteria_teknik_penilaian" cols="30" rows="10" class="border"></textarea>
+                                    <textarea wire:model="topics.{{$index}}.kriteria_teknik_penilaian" id="kriteria_teknik_penilaian" class="border w-full h-48"></textarea>
                                     @error('topics.'.$index.'.kriteria_teknik_penilaian') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                 </td>                            
                                 <td>
-                                    <textarea wire:model="topics.{{$index}}.materi_pembelajaran" id="materi_pembelajaran" cols="30" rows="10" class="border"></textarea>
+                                    <textarea wire:model="topics.{{$index}}.materi_pembelajaran" id="materi_pembelajaran"  class="border w-full h-48"></textarea>
                                     @error('topics.'.$index.'.mater_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                 </td>                            
                                 <td>
-                                    <textarea wire:model="topics.{{$index}}.metode_pembelajaran" id="metode_pembelajaran" cols="30" rows="10" class="border"></textarea>
+                                    <textarea wire:model="topics.{{$index}}.metode_pembelajaran" id="metode_pembelajaran" class="border w-full h-48"></textarea>
                                     @error('topics.'.$index.'.indikator') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                 </td>                            
                                 <td>
-                                    <input type="number" step="any" wire:model="topics.{{$index}}.bobot_penilaian" id="bobot_penilaian"  class="border"></input>
+                                    <input type="text" wire:model="topics.{{$index}}.bobot_penilaian" id="bobot_penilaian" class="border w-full"></input>
                                     @error('topics.'.$index.'.bobot_penilaian') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                 </td>
                                 <td>
@@ -125,7 +124,9 @@
                                 </td>
                             </tr>
                         @empty
-                            <td colspan="8" class="text-center p-4 text-gray-500">Belum ada topik. Silakan tambah baris baru.</td>                     
+                            <tr>
+                                <td colspan="8" class="text-center p-4 text-gray-500">Belum ada topik. Silakan tambah baris baru.</td>                     
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -166,25 +167,36 @@
             });
 
             // untuk multiselect minggu-ke
+            // function initWeekSelects() {
+            //     // Hapus semua instance Select2 yang sudah ada untuk mencegah duplikasi
+            //     $('.select2-weeks').each(function() {
+            //         if ($(this).hasClass('select2-hidden-accessible')) {
+            //             $(this).select2('destroy');
+            //         }
+            //     });
+            //     // Target semua select dengan class 'select2-weeks'
+            //     $('.select2-weeks').select2({
+            //         placeholder: "Pilih Minggu",
+            //         allowClear: true
+            //     }).off('change.livewire').on('change.livewire', function (e) {
+            //         // Ambil index dari atribut data-index
+            //         const index = $(this).data('index');
+            //         // Kirim data yang dipilih ke properti Livewire yang benar
+            //         // Contoh: topics.0.minggu_ke, topics.1.minggu_ke, dst.
+            //         @this.set('topics.' + index + '.minggu_ke', $(this).val());
+            //     });
+            // }
+
             function initWeekSelects() {
-                // Hapus semua instance Select2 yang sudah ada untuk mencegah duplikasi
-                $('.select2-weeks').each(function() {
-                    if ($(this).hasClass('select2-hidden-accessible')) {
-                        $(this).select2('destroy');
-                    }
-                });
-                // Target semua select dengan class 'select2-weeks'
-                $('.select2-weeks').select2({
-                    placeholder: "Pilih Minggu",
-                    allowClear: true
-                }).off('change.livewire').on('change.livewire', function (e) {
-                    // Ambil index dari atribut data-index
-                    const index = $(this).data('index');
-                    // Kirim data yang dipilih ke properti Livewire yang benar
-                    // Contoh: topics.0.minggu_ke, topics.1.minggu_ke, dst.
-                    @this.set('topics.' + index + '.minggu_ke', $(this).val());
-                });
-            }
+            // Kita tidak perlu lagi menghancurkan instance lama di sini
+            $('.select2-weeks:not(.select2-hidden-accessible)').select2({
+                placeholder: "Pilih Minggu",
+                allowClear: true
+            }).on('change', function () {
+                const index = $(this).data('index');
+                @this.set('topics.' + index + '.minggu_ke', $(this).val());
+            });
+        }
 
             // Panggil inisialisasi saat halaman pertama kali dimuat
             initWeekSelects();
@@ -196,31 +208,27 @@
                 cplSelect.val(cplIds).trigger('change');
             });
 
-            Livewire.hook('morph.updated', (el, component) => {
-                // Delay sedikit untuk memastikan DOM sudah terupdate
-                setTimeout(() => {
-                    initWeekSelects();
-                }, 100);
-            });
-            // Tambahan: Hook untuk setelah request selesai (setelah addRow dipanggil)
-            Livewire.hook('request.finished', (response, payload) => {
-                setTimeout(() => {
-                    initWeekSelects();
-                }, 150);
-            });
+            // Livewire.hook('morph.updated', (el, component) => {
+            //     // Delay sedikit untuk memastikan DOM sudah terupdate
+            //     setTimeout(() => {
+            //         initWeekSelects();
+            //     }, 100);
+            // });
+            // // Tambahan: Hook untuk setelah request selesai (setelah addRow dipanggil)
+            // Livewire.hook('request.finished', (response, payload) => {
+            //     setTimeout(() => {
+            //         initWeekSelects();
+            //     }, 150);
+            // });
 
             // Event listener khusus untuk penambahan baris baru
-            Livewire.on('rowAdded', () => {
-                setTimeout(() => {
-                    initWeekSelects();
-                }, 200);
+            Livewire.hook('morph.updated', (el) => {
+                initWeekSelects();
             });
 
-            // Event listener untuk penghapusan baris
-            Livewire.on('rowRemoved', () => {
-                setTimeout(() => {
-                    initWeekSelects();
-                }, 200);
-            });
+            // // Event listener untuk penghapusan baris
+            // Livewire.on('rowRemoved', () => {
+            //     initWeekSelects();
+            // });
         });
     </script>

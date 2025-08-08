@@ -77,8 +77,6 @@ class RpsEditPage extends Component
             'minggu_ke' => [], 
 
         ];
-        // Dispatch event ke frontend untuk reinisialisasi Select2
-        $this->dispatch('rowAdded');
     }
 
     public function removeRow($index) {
@@ -88,8 +86,6 @@ class RpsEditPage extends Component
         unset($this->topics[$index]);
         $this->topics = array_values($this->topics); // Re-index array
 
-        // Dispatch event ke frontend untuk reinisialisasi Select2
-        $this->dispatch('rowRemoved');
     }  
 
     public function saveRps() {
@@ -98,7 +94,7 @@ class RpsEditPage extends Component
         'topics.*.id_sub_cpmk' => 'required|exists:sub_cpmk,id_sub_cpmk',
         'topics.*.materi_pembelajaran' => 'required|string',
         'topics.*.metode_pembelajaran' => 'required|string',
-        'topics.*.bobot_penilaian' => 'required|integer|min:0|max:100',
+        'topics.*.bobot_penilaian' => 'required|min:0|max:100',
         'topics.*.minggu_ke' => 'array|min:1', 
 
         // validasi RPS Induk
