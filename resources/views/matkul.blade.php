@@ -176,7 +176,7 @@
                                     </th>
                                     @foreach ($cpl as $c)
                                         <td class="px-2 py-1 border-r border-gray-400 text-xs">
-                                            @if ($bk->cpl->contains('id_cpl', $c->id_cpl))
+                                            @if ($bk->cpls->contains('id_cpl', $c->id_cpl))
                                                 {{-- Tampilkan semua MK yang berelasi dengan BK ini --}}
                                                 {{ $bk->mataKuliah->pluck('kode_mk')->implode(', ') }}
                                             @endif

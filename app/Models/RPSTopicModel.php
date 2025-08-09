@@ -10,7 +10,10 @@ class RPSTopicModel extends Model
 {
     use HasFactory;
 
+    // protected $touches = ['rps'];
+    
     protected $table = 'rps_topics';
+    public $timestamps = true;
     protected $primaryKey = 'id_topic';
     protected $fillable = [
         'id_rps',
@@ -21,6 +24,24 @@ class RPSTopicModel extends Model
         'materi_pembelajaran',
         'bobot_penilaian'
     ];
+
+    // protected static function booted(): void {
+    //     static::saved(function ($topic) {
+    //         $rps = $topic->rps;
+
+    //         if($rps && $rps->isRevisi) {
+    //             $rps->increment('jumlah_revisi');
+    //         }
+    //     });
+
+    //     static::deleted(function ($topic) {
+    //         $rps = $topic->rps;
+
+    //         if($rps && $rps->isRevisi) {
+    //             $rps->increment('jumlah_revisi');
+    //         }
+    //     });
+    // }
 
     public function rps() {
         return $this->belongsTo(RPSModel::class, 'id_rps', 'id_rps');

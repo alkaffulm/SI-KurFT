@@ -37,7 +37,7 @@ return new class extends Migration
             $table->text('materi_pembelajaran')->nullable();
 
             // Kolom "Bobot Penilaian (%)"
-            $table->integer('bobot_penilaian')->default(0);
+            $table->float('bobot_penilaian')->default(0);
 
             // Timestamps standar Laravel
             $table->timestamps();

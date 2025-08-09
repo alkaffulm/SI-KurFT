@@ -1,11 +1,75 @@
 <div class="py-8 px-16 sm:ml-64 mt-16">
-        <h2>Edit RPS untuk: {{ $rps->mataKuliah->nama_matkul_id }}</h2>
+
+        <a href="/dosen/matkul">Kembali</a>
+        <h2 class="text-2xl font-bold">Edit RPS </h2>
 
         <form wire:submit.prevent="saveRps">
+            <br>
+            <h1 class="font-bold">RPS INDUK</h1>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mata Kuliah </th>
+                        <td>: {{ $rps->mataKuliah->nama_matkul_id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Kode</th>
+                        <td>: {{$rps->mataKuliah->kode_mk}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bobot</th>
+                        <td>: SKS Teori {{$rps->mataKuliah->sks_teori}} | SKS Praktikum: {{$rps->mataKuliah->sks_praktikum}}</td>
+                    </tr>
+                    <tr>
+                        <th>Semester</th>
+                        <td>: {{$rps->mataKuliah->semester}}</td>
+                    </tr>
+                    <tr>
+                        <th>Deskripsi</th>
+                        <td>: {{$rps->mataKuliah->matkul_desc_id}}</td>
+                    </tr>
+                </thead>
+            </table>
 
-            <h1>RPS INDUK</h1>
+            <br>
+            <div>
+                <h4>CPL Prodi yang dibebankan pada MK:</h4>
+                <ul class="list-disc list-inside">
+                    @forelse ($assocCpls as $cpl)
+                        <li>{{ $cpl->nama_kode_cpl }}</li>
+                    @empty
+                        <li class="text-gray-500 mt-2">Belum ada CPL yang terhubung dengan mata kuliah ini.</li>
+                    @endforelse
+                </ul>
+            </div>
+            <br>
+        
+            <div>
+                <h4>Bahan Kajian (BK):</h4>
+                <ul class="list-disc list-inside">
+                    @forelse ($rps->mataKuliah->bahanKajian as $bk)
+                        <li>{{ $bk->nama_bk_id }}</li>
+                    @empty
+                        <li class="text-gray-500 mt-2">Belum ada BK yang terhubung dengan mata kuliah ini.</li>
+                    @endforelse
+                </ul>
+            </div>
+            <br>
 
             <div>
+                <h4>CPMK untuk Mata Kuliah ini:</h4>
+                <ul class="list-disc list-inside">
+                    @forelse ($rps->mataKuliah->cpmks as $cpmk)
+                        <li>{{ $cpmk->nama_kode_cpmk }}</li>
+                    @empty
+                        <li class="text-gray-500 mt-2">Belum ada CPMK yang terhubung dengan mata kuliah ini.</li>
+                    @endforelse
+                </ul>
+            </div>
+            <br>
+
+            {{-- <div>
                 <label for="id_bk">Bahan Kajian:</label><br>
                 <select class="p-2 border" wire:model="id_bk" required>
                     <option value="">-- Pilih Bahan Kajian --</option>
@@ -14,18 +78,18 @@
                     @endforeach
                 </select> 
             </div>
-            <br>
+            <br> --}}
 
-            <div wire:ignore>
+            {{-- <div wire:ignore>
                 <label for="cpl_ids_select">CPL yang Dibebankan:</label><br>
                 {{-- Gunakan Select2 untuk pengalaman yang lebih baik --}}
-                <select  id="cpl_ids_select"  class="select2 w-48 p-2 border" multiple="multiple" required>
-                    @foreach ($allCpl as $cpl)
+                {{-- <select  id="cpl_ids_select"  class="select2 w-48 p-2 border" multiple="multiple" required> --}} --}}
+                    {{-- @foreach ($allCpl as $cpl)
                         <option value="{{ $cpl->id_cpl }}" >{{ $cpl->nama_kode_cpl }}</option>
-                    @endforeach
-                </select>
+                    @endforeach --}}
+                {{-- </select>
             </div>
-            <br>
+            <br> --}}
 
             <div>
                 <label for="id_mk_syarat">Mata Kuliah Prasyarat:</label><br>
@@ -58,9 +122,8 @@
             </div>
             <br>
 
-            <h1>RPS DETAIL</h1>
-
-
+            <h1 class="font-bold">RPS DETAIL</h1>
+            <br>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm border table-fixed">
                     <thead>
@@ -143,28 +206,27 @@
         document.addEventListener('livewire:init', () => {
             
             // Inisialisasi Select2 untuk CPL
-            const cplSelect = $('#cpl_ids_select');
+            // const cplSelect = $('#cpl_ids_select');
             
-            // unruk multiselect cpl
-            function initCplSelect() {
-                cplSelect.select2({
-                    placeholder: "Pilih CPL",
-                    allowClear: true
-                });
-            }
+            // // unruk multiselect cpl
+            // function initCplSelect() {
+            //     cplSelect.select2({
+            //         placeholder: "Pilih CPL",
+            //         allowClear: true
+            //     });
+            // }
 
-            // Panggil inisialisasi saat halaman pertama kali dimuat
-            initCplSelect();
+            // // Panggil inisialisasi saat halaman pertama kali dimuat
+            // initCplSelect();
 
-            // Set nilai awal Select2 dari data Livewire
-            // JSON akan mengubah array PHP menjadi array JavaScript
-            cplSelect.val(@json($cpl_ids)).trigger('change');
+            // // Set nilai awal Select2 dari data Livewire
+            // // JSON akan mengubah array PHP menjadi array JavaScript
 
-            // Kirim perubahan dari Select2 kembali ke Livewire
-            cplSelect.on('change', function (e) {
-                // @this.set() adalah cara JavaScript untuk mengubah properti di backend
-                @this.set('cpl_ids', $(this).val());
-            });
+            // // Kirim perubahan dari Select2 kembali ke Livewire
+            // cplSelect.on('change', function (e) {
+            //     // @this.set() adalah cara JavaScript untuk mengubah properti di backend
+            //     @this.set('cpl_ids', $(this).val());
+            // });
 
             // untuk multiselect minggu-ke
             // function initWeekSelects() {
@@ -204,9 +266,9 @@
             // Ini bagian pentingnya: dengarkan event dari Livewire
             // Jika ada perubahan pada properti cpl_ids di backend,
             // perbarui tampilan Select2 di frontend.
-            Livewire.on('cplIdsUpdated', (cplIds) => {
-                cplSelect.val(cplIds).trigger('change');
-            });
+            // Livewire.on('cplIdsUpdated', (cplIds) => {
+            //     cplSelect.val(cplIds).trigger('change');
+            // });
 
             // Livewire.hook('morph.updated', (el, component) => {
             //     // Delay sedikit untuk memastikan DOM sudah terupdate

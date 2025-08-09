@@ -16,20 +16,38 @@ class RPSModel extends Model
         'id_kurikulum',
         'id_ps',
         'id_mk',
-        'id_bk',
+        // 'id_bk',
         'id_dosen_penyusun',
         'tanggal_disusun',
         'materi_pembelajaran',
         'pustaka_utama',
-        'pustaka_pendukung'
+        'pustaka_pendukung',
+        'tanggal_revisi',
+        'jumlah_revisi',
+        'isRevisi'
         // 'deskripsi_singkat',
     ];
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new ProdiScope);
-        static::addGlobalScope(new KurikulumScope);
-    }
+    protected $casts = ['tanggal_disusun' => 'date'];
+
+    // protected static function booted(): void
+    // {
+    //     static::addGlobalScope(new ProdiScope);
+    //     static::addGlobalScope(new KurikulumScope);
+
+    //     static::creating(function($rps) {
+    //         $rps->jumlah_revisi = 0;
+    //     });
+
+    //     static::updating(function($rps) {
+    //         if($rps->isRevisi == false) {
+    //             $rps->isRevisi = true;
+    //         }
+    //         else {
+    //             $rps->jumlah_revisi += 1;
+    //         }
+    //     });
+    // }
     // has many relation
     public function topics()
     {

@@ -17,7 +17,7 @@
 <body>
     @include('layouts.navbar')
     @include('layouts.sidebar')
-
+    
     <livewire:rps-edit-page :rps="$rps" />
     @livewireScripts
 </body>
