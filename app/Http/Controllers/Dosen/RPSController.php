@@ -52,6 +52,13 @@ class RPSController extends Controller
      */
     public function store(Request $request)
     {
+        $programStudi = UserModel::find(Auth::id())->programStudiModel;
+        if($programStudi) {
+            $kaprodi = $programStudi->userModel()->whereHas('roles', function ($query) {
+                $query->where('role.id_role', 3);
+            })->first();
+        }
+
         $validated = $request->validate([
             'id_mk' => 'required|exists:mata_kuliah,id_mk',
             // 'id_dosen_penyusun' => 'required|exists:users,id_user',
@@ -68,6 +75,7 @@ class RPSController extends Controller
         $rps = RPSModel::create([
             'id_mk' => $validated['id_mk'],
             'id_dosen_penyusun' => Auth::id(),
+            'id_kaprodi' => $kaprodi->id_user ,
             // 'deskripsi_singkat' => $validated['deskripsi_singkat'],
             // 'id_bk' => $validated['id_bk'],
             'id_kurikulum' => session('id_kurikulum_aktif'), // Ambil dari sesi
@@ -96,6 +104,7 @@ class RPSController extends Controller
             // 'mataKuliah', 
             'mataKuliah.bahanKajian.cpls', 
             'dosenPenyusun', 
+            'dosenPenyusun.programStudiModel',
             'kurikulum',
             'programStudi',
             // 'cpls',
@@ -112,6 +121,8 @@ class RPSController extends Controller
         $assocCpls = $rp->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {
             return $bahanKajian->cpls;
         })->unique('id_cpl');
+
+
 
         // $cplsForCorrelationTable = $rp->mataKuliah->cpmks->flatMap(function ($cpmk) {
         //     return $cpmk->cpls;

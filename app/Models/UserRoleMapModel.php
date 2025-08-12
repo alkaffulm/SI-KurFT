@@ -20,6 +20,6 @@ class UserRoleMapModel extends Model
     }
 
     public function role(){
-        return $this->belongsTo(UserModel::class, 'id_user', 'id_user');
+        return $this->belongsTo(RoleModel::class, 'id_role', 'id_role');
     }
 }

@@ -17,6 +17,7 @@ class RPSModel extends Model
         'id_ps',
         'id_mk',
         // 'id_bk',
+        'id_kaprodi',
         'id_dosen_penyusun',
         'tanggal_disusun',
         'materi_pembelajaran',
@@ -60,6 +61,9 @@ class RPSModel extends Model
     }
     public function dosenPenyusun(){
         return $this->belongsTo(UserModel::class, 'id_dosen_penyusun', 'id_user');
+    }
+    public function kaprodi() {
+        return $this->belongsTo(UserModel::class, 'id_kaprodi', 'id_user');
     }
     public function kurikulum() {
         return $this->belongsTo(KurikulumModel::class, 'id_kurikulum', 'id_kurikulum');

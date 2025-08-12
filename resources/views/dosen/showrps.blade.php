@@ -101,9 +101,9 @@
             </div>
             <div class="grid grid-cols-12 h-24">
                 <div class="col-span-3 row-span-2 px-2 border-r border-black "></div>
-                <div class="col-span-3 row-span-2 px-2 border-r  border-t border-black grid items-end">{{ $rps->dosenPenyusun->NIP }}</div>
+                <div class="col-span-3 row-span-2 px-2 border-r  border-t border-black grid items-end">{{ $rps->dosenPenyusun->username }}</div>
                 <div class="col-span-3 row-span-2 px-2 border-r border-t border-black"></div>
-                <div class="col-span-3 row-span-2 px-2  border-black grid items-end">KAP7001</div>
+                <div class="col-span-3 row-span-2 px-2  border-black grid items-end">{{$rps->kaprodi?->username ?? 'Kaprodi tidak ditemukan'}}</div>
             </div>
         </div>
 
@@ -222,7 +222,7 @@
             </div>
             <div class="grid grid-cols-12 border-t border-black">
                 <div class="col-span-2 px-2 border-r border-black font-bold">Dosen Pengampu</div>
-                <div class="col-span-10 px-2">{{ $rps->dosenPenyusun->NIP    }}</div>
+                <div class="col-span-10 px-2">{{ $rps->dosenPenyusun->username    }}</div>
             </div>
             <div class="grid grid-cols-12 border-t border-black">
                 <div class="col-span-2 px-2 border-r border-black font-bold">Matakuliah Syarat</div>
@@ -245,7 +245,7 @@
                         <th class="p-2 border border-black align-top">Kemampuan akhir tiap tahapan belajar (Sub-CPMK)</th>
                         <th class="p-2 border border-black align-top">Indikator</th>
                         <th class="p-2 border border-black align-top">Kriteria & Teknik </th>
-                        <th class="p-2 border border-black align-top">Bentuk Pembelajaran; Metode Pembelajaran; Penugasan Mahasiswa [Estimasi Waktu]</th>
+                        <th class="p-2 border border-black align-top" colspan="2">Bentuk Pembelajaran; Metode Pembelajaran; Penugasan Mahasiswa [Estimasi Waktu]</th>
                         <th class="p-2 border border-black align-top">Materi Pembelajaran [Pustaka/Referensi]</th>
                         <th class="p-2 border border-black align-top">Bobot Penilaian (%)</th>
                     </tr>
@@ -254,9 +254,10 @@
                         <th class="p-1 border border-black">(2)</th>
                         <th class="p-1 border border-black">(3)</th>
                         <th class="p-1 border border-black">(4)</th>
-                        <th class="p-1 border border-black">(5)</th>
-                        <th class="p-1 border border-black">(6)</th>
+                        <th class="p-1 border border-black">Luring (5)</th>
+                        <th class="p-1 border border-black">Daring (6)</th>
                         <th class="p-1 border border-black">(7)</th>
+                        <th class="p-1 border border-black">(8)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -287,17 +288,20 @@
                                 {!! nl2br(e($topic->kriteria_teknik_penilaian)) !!}
                             </td>
 
-                            {{-- (5) Metode Pembelajaran --}}
+                            {{-- Luring (5) Metode Pembelajaran --}}
                             <td class="p-2 border border-black align-top">
                                 {!! nl2br(e($topic->metode_pembelajaran)) !!}
                             </td>
 
-                            {{-- (6) Materi Pembelajaran --}}
+                            {{-- Luring (5) Metode Pembelajaran --}}
+                            <td></td>
+
+                            {{-- (7) Materi Pembelajaran --}}
                             <td class="p-2 border border-black align-top">
                                 {!! nl2br(e($topic->materi_pembelajaran)) !!}
                             </td>
 
-                            {{-- (7) Bobot Penilaian --}}
+                            {{-- (8) Bobot Penilaian --}}
                             <td class="p-2 border border-black text-center align-top">
                                 {{ $topic->bobot_penilaian }}
                             </td>
