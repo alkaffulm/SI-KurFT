@@ -29,7 +29,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ms-1 text-sm font-medium text-gray-900 md:ms-2">Evaluasi Mahasiswa</span>
+                            <span class="ms-1 text-sm font-medium text-gray-900 md:ms-2">Mata Kuliah</span>
                         </div>
                     </li>
                 </ol>

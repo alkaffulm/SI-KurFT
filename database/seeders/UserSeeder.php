@@ -60,10 +60,10 @@ class UserSeeder extends Seeder
             ['id_user' => 38, 'id_ps' => 6, 'NIP' => 'DSN6002', 'username' => 'dosen62', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO'],
             ['id_user' => 39, 'id_ps' => 6, 'NIP' => 'DSN6003', 'username' => 'dosen63', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO'],
 
-            ['id_user' => 40, 'id_ps' => 7, 'NIP' => 'KAP7001', 'username' => 'Andreyan Rizky Baskara, S.Kom., M.Kom.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO'],
+            ['id_user' => 40, 'id_ps' => 7, 'NIP' => '199307032019031011', 'username' => 'Andreyan Rizky Baskara, S.Kom., M.Kom.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO'],
             ['id_user' => 41, 'id_ps' => 7, 'NIP' => 'ADM7001', 'username' => 'admin71', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO'],
             ['id_user' => 42, 'id_ps' => 7, 'NIP' => 'ADM7002', 'username' => 'admin72', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO'],
-            ['id_user' => 43, 'id_ps' => 7, 'NIP' => 'DSN7001', 'username' => "Muti'a Maulida, S.Kom., M.T.I", 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO'],
+            ['id_user' => 43, 'id_ps' => 7, 'NIP' => '198810272019032013', 'username' => "Muti'a Maulida, S.Kom., M.T.I", 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO'],
             ['id_user' => 44, 'id_ps' => 7, 'NIP' => 'DSN7002', 'username' => 'dosen72', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO'],
             ['id_user' => 45, 'id_ps' => 7, 'NIP' => 'DSN7003', 'username' => 'dosen73', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO'],
 

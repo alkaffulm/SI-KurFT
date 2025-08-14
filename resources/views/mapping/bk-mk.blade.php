@@ -74,7 +74,7 @@
                                                 @foreach ($bahan_kajian as $item)
                                                     <option value="{{ $item->id_bk }}"
                                                         @if (isset($bk_mk_map[$mk->id_mk]) && in_array($item->id_bk, $bk_mk_map[$mk->id_mk])) selected @endif>
-                                                        {{ $item->nama_kode_bk }} - {{ $item->nama_bk }}
+                                                        {{ $item->nama_kode_bk }} - {{ $item->nama_bk_id }}
                                                     </option>
                                                 @endforeach
                                             </select>

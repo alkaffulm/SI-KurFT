@@ -49,7 +49,7 @@
                         <td>: {{$mata_kuliah->semester}}</td>
                     </tr>
                     <tr>
-                        <th>Deskripsi</th>
+                        <th class="flex align-top">Deskripsi</th>
                         <td>: {{$mata_kuliah->matkul_desc_id}}</td>
                     </tr>
                 </thead>
