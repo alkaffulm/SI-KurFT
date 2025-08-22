@@ -59,11 +59,18 @@
             <div>
                 <h4>CPL Prodi yang dibebankan pada MK:</h4>
                 <ul class="list-disc list-inside">
-                    @forelse ($assocCpls as $cpl)
-                        <li>{{ $cpl->nama_kode_cpl }}</li>
-                    @empty
-                        <li class="text-gray-500 mt-2">Belum ada CPL yang terhubung dengan mata kuliah ini.</li>
-                    @endforelse
+                    <table>
+                        @forelse ($assocCpls as $cpl)
+                            <tr>
+                                <td class="w-[90px] flex align-top"><li>{{ $cpl->nama_kode_cpl }} = </li></td>
+                                <td >{{ $cpl->desc_cpl_id }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td><li class="text-gray-500 mt-2">Belum ada CPL yang terhubung dengan mata kuliah ini.</li></td>
+                            </tr>
+                        @endforelse
+                    </table>
                 </ul>
             </div>
             <br>
@@ -83,11 +90,18 @@
             <div>
                 <h4>CPMK untuk Mata Kuliah ini:</h4>
                 <ul class="list-disc list-inside">
-                    @forelse ($mata_kuliah->cpmks as $cpmk)
-                        <li>{{ $cpmk->nama_kode_cpmk }}</li>
-                    @empty
-                        <li class="text-gray-500 mt-2">Belum ada CPMK yang terhubung dengan mata kuliah ini.</li>
-                    @endforelse
+                    <table>
+                        @forelse ($mata_kuliah->cpmks as $cpmk)
+                            <tr>
+                                <td class="w-[90px] flex align-top"><li>{{ $cpmk->nama_kode_cpmk }} = </li></td>
+                                <td >{{ $cpmk->desc_cpmk_id }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td><li class="text-gray-500 mt-2">Belum ada CPMK yang terhubung dengan mata kuliah ini.</li></td>
+                            </tr>
+                        @endforelse
+                    </table>
                 </ul>
             </div>
             <br>
@@ -119,7 +133,7 @@
 
             <div>
                 <label for="id_mk_syarat">Mata Kuliah Prasyarat:</label><br>
-                <select class="border" name="id_mk_syarat" required>
+                <select class="border" name="id_mk_syarat" >
                     <option value="">Tidak ada Matkul Prasyarat</option>
                     @foreach ($allMatkul as $mk)
                         <option value="{{ $mk->id_mk }}">{{ $mk->nama_matkul_id }}</option>

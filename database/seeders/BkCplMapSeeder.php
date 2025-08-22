@@ -91,6 +91,11 @@ class BkCplMapSeeder extends Seeder
             ['id_bk' => 6, 'id_cpl' => 26],
             ['id_bk' => 7, 'id_cpl' => 27],
             ['id_bk' => 8, 'id_cpl' => 27],
+
+            ['id_bk' => 29, 'id_cpl' => 24],
+            ['id_bk' => 29, 'id_cpl' => 26],
+            ['id_bk' => 29, 'id_cpl' => 29],
+
         ]);
     }
 }

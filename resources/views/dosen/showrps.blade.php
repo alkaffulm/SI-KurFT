@@ -119,7 +119,7 @@
                 <div class="grid grid-cols-12  border-black">
                     <div class="col-span-2 px-2 border-r border-black text-center font-bold"></div>
                     <div class="col-span-1 px-2 border-b border-r border-black text-center ">{{ $cpl->nama_kode_cpl }}</div>
-                    <div class="col-span-9 px-2 border-b  border-black">{{ $cpl->desc_cpl_id }}</div>
+                    <div class="col-span-9 px-2 border-b  border-black text-sm/6">{{ $cpl->desc_cpl_id }}</div>
                 </div>
             @endforeach
             
@@ -133,7 +133,7 @@
             <div class="grid grid-cols-12  border-black">
                 <div class="col-span-2 px-2 border-r border-black text-center font-bold"></div>
                 <div class="col-span-1 px-2 border-b border-r border-black text-center ">{{ $cpmk->nama_kode_cpmk }}</div>
-                <div class="col-span-9 px-2 border-b  border-black">{{ $cpmk->desc_cpmk_id }}</div>
+                <div class="col-span-9 px-2 border-b  border-black text-sm/6">{{ $cpmk->desc_cpmk_id }}</div>
             </div>
             @endforeach
             
@@ -148,7 +148,7 @@
                     <div class="grid grid-cols-12  border-black">
                         <div class="col-span-2 px-2 border-r border-black text-center font-bold"></div>
                         <div class="col-span-1 px-2 border-r border-b border-black text-center ">{{ $sc->nama_kode_sub_cpmk }}</div>
-                        <div class="col-span-9 px-2  border-b border-black">{{ $sc->desc_sub_cpmk_id }}</div>
+                        <div class="col-span-9 px-2  border-b border-black text-sm/6">{{ $sc->desc_sub_cpmk_id }}</div>
                     </div>   
                 @endforeach
             @endforeach
@@ -241,13 +241,13 @@
             <table class="w-full text-sm border border-black">
                 <thead class="text-xs text-gray-700  bg-[#9cc2e4]">
                     <tr class="border border-black">
-                        <th class="p-2 border border-black align-top">Minggu Ke-</th>
-                        <th class="p-2 border border-black align-top">Kemampuan akhir tiap tahapan belajar (Sub-CPMK)</th>
-                        <th class="p-2 border border-black align-top">Indikator</th>
-                        <th class="p-2 border border-black align-top">Kriteria & Teknik </th>
-                        <th class="p-2 border border-black align-top" colspan="2">Bentuk Pembelajaran; Metode Pembelajaran; Penugasan Mahasiswa [Estimasi Waktu]</th>
-                        <th class="p-2 border border-black align-top">Materi Pembelajaran [Pustaka/Referensi]</th>
-                        <th class="p-2 border border-black align-top">Bobot Penilaian (%)</th>
+                        <th class="p-2 border border-black align-top text-[14px]">Minggu Ke-</th>
+                        <th class="p-2 border border-black align-top text-[14px]">Kemampuan akhir tiap tahapan belajar (Sub-CPMK)</th>
+                        <th class="p-2 border border-black align-top text-[14px]">Indikator</th>
+                        <th class="p-2 border border-black align-top text-[14px]">Kriteria & Teknik </th>
+                        <th class="p-2 border border-black align-top text-[14px]" colspan="2">Bentuk Pembelajaran; Metode Pembelajaran; Penugasan Mahasiswa [Estimasi Waktu]</th>
+                        <th class="p-2 border border-black align-top text-[14px]">Materi Pembelajaran [Pustaka/Referensi]</th>
+                        <th class="p-2 border border-black align-top text-[14px]">Bobot Penilaian (%)</th>
                     </tr>
                     <tr class="border border-black text-center">
                         <th class="p-1 border border-black">(1)</th>
@@ -268,39 +268,44 @@
                             <td class="p-2 border border-black text-center align-top font-semibold">
                                 {{ $topic->weeks->pluck('minggu_ke')->sort()->implode(', ') }}
                             </td>
-                            
-                            {{-- (2) Sub-CPMK --}}
-                            <td class="p-2 border border-black align-top">
-                                @if($topic->subCpmk)
-                                    {{ $topic->subCpmk->desc_sub_cpmk_id }}
-                                @else
-                                    -
-                                @endif
-                            </td>
+                            @if ($topic->tipe == 'topik')
+                                {{-- (2) Sub-CPMK --}}
+                                <td class="p-2 border border-black align-top">
+                                    @if($topic->subCpmk)
+                                        {{ $topic->subCpmk->desc_sub_cpmk_id }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
 
-                            {{-- (3) Indikator --}}
-                            <td class="p-2 border border-black align-top">
-                                {!! nl2br(e($topic->indikator)) !!}
-                            </td>
+                                {{-- (3) Indikator --}}
+                                <td class="p-2 border border-black align-top">
+                                    {!! nl2br(e($topic->indikator)) !!}
+                                </td>
 
-                            {{-- (4) Kriteria & Teknik Penilaian --}}
-                            <td class="p-2 border border-black align-top">
-                                {!! nl2br(e($topic->kriteria_teknik_penilaian)) !!}
-                            </td>
+                                {{-- (4) Kriteria & Teknik Penilaian --}}
+                                <td class="p-2 border border-black align-top">
+                                    <p class="font-bold text-xs mb-1">Kriteria Penilaian:</p>
+                                    {!! nl2br(e($topic->kriteriaPenilaian->pluck('nama_kriteria_penilaian')->implode(', '))) !!}
+                                    <p class="font-bold text-xs mt-6 mb-1">Teknik Penilaian:</p>
+                                    {!! nl2br(e($topic->teknikPenilaianFormatted)) !!}
+                                </td>
 
-                            {{-- Luring (5) Metode Pembelajaran --}}
-                            <td class="p-2 border border-black align-top">
-                                {!! nl2br(e($topic->metode_pembelajaran)) !!}
-                            </td>
+                                {{-- Luring (5) Metode Pembelajaran --}}
+                                <td class="p-2 border border-black align-top">
+                                    {!! nl2br(e($topic->metode_pembelajaran)) !!}
+                                </td>
 
-                            {{-- Luring (5) Metode Pembelajaran --}}
-                            <td></td>
+                                {{-- Daring (6) Metode Pembelajaran --}}
+                                <td></td>
 
-                            {{-- (7) Materi Pembelajaran --}}
-                            <td class="p-2 border border-black align-top">
-                                {!! nl2br(e($topic->materi_pembelajaran)) !!}
-                            </td>
-
+                                {{-- (7) Materi Pembelajaran --}}
+                                <td class="p-2 border border-black align-top">
+                                    {!! nl2br(e($topic->materi_pembelajaran)) !!}
+                                </td>
+                            @else
+                                <td colspan="6" class="text-center bg-[#9cc2e4] font-bold">{{$topic->tipe == 'uts' ? 'UJIAN TENGAH SEMESTER' : 'UJIAN AKHIR SEMESTER'}}</td>
+                            @endif
                             {{-- (8) Bobot Penilaian --}}
                             <td class="p-2 border border-black text-center align-top">
                                 {{ $topic->bobot_penilaian }}
@@ -308,7 +313,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="p-4 text-center border border-black">Rencana mingguan belum diisi.</td>
+                            <td colspan="8" class="p-4 text-center border border-black">Rencana mingguan belum diisi.</td>
                         </tr>
                     @endforelse
                 </tbody>

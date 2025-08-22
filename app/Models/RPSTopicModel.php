@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute; 
+use Database\Seeders\KriteriaPenilaianSeeder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,29 +21,12 @@ class RPSTopicModel extends Model
         'id_rps',
         'id_sub_cpmk',
         'indikator',
-        'kriteria_teknik_penilaian',
+        'tipe',
+        'teknik_penilaian_kategori',
         'metode_pembelajaran',
         'materi_pembelajaran',
         'bobot_penilaian'
     ];
-
-    // protected static function booted(): void {
-    //     static::saved(function ($topic) {
-    //         $rps = $topic->rps;
-
-    //         if($rps && $rps->isRevisi) {
-    //             $rps->increment('jumlah_revisi');
-    //         }
-    //     });
-
-    //     static::deleted(function ($topic) {
-    //         $rps = $topic->rps;
-
-    //         if($rps && $rps->isRevisi) {
-    //             $rps->increment('jumlah_revisi');
-    //         }
-    //     });
-    // }
 
     public function rps() {
         return $this->belongsTo(RPSModel::class, 'id_rps', 'id_rps');
@@ -55,4 +40,36 @@ class RPSTopicModel extends Model
         return $this->hasMany(TopicWeekMapModel::class, 'id_topic', 'id_topic');
     }
 
+    public function kriteriaPenilaian() {
+        return $this->belongsToMany(KriteriaPenilaianModel::class, 'rps_topic_kriteria_penilaian', 'id_topic', 'id_kriteria_penilaian');
+    }
+
+    public function teknikPenilaian() {
+        return $this->belongsToMany(TeknikPenilaianModel::class, 'rps_topic_teknik_penilaian', 'id_topic', 'id_teknik_penilaian');
+    }
+
+    protected function teknikPenilaianFormatted(): Attribute {
+        return Attribute::make(
+            get: function () {
+                // Jika tidak ada kategori yang dipilih, kembalikan string kosong.
+                if (empty($this->teknik_penilaian_kategori)) {
+                    return '';
+                }
+
+                // Ambil semua nama teknik yang terhubung, gabungkan dengan koma.
+                $teknikNames = $this->teknikPenilaian->pluck('nama_teknik_penilaian')->implode(', ');
+
+                // Format kategori (misal: 'non-tes' menjadi 'Non tes')
+                $categoryName = ucfirst(str_replace('-', ' ', $this->teknik_penilaian_kategori));
+
+                // Jika tidak ada teknik yang dipilih, tampilkan kategorinya saja.
+                if ($teknikNames === '') {
+                    return $categoryName;
+                }
+
+                // Gabungkan menjadi format akhir.
+                return "{$categoryName} ({$teknikNames})";
+            }
+        );
+    }
 }
