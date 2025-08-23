@@ -32,7 +32,7 @@ class RpsTopicSeeder extends Seeder
                                     mengidentifikasi 
                                     elemen desain UI 
                                     yang efektif ', 
-                'metode_pembelajaran' => '1. Konsep dasar IMK dan 
+                'materi_pembelajaran' => '1. Konsep dasar IMK dan 
                                             ruang lingkupnya 
                                             2. Sejarah perkembangan 
                                             IMK 
@@ -50,7 +50,7 @@ class RpsTopicSeeder extends Seeder
                                             warna, ikon) 
                                             7. Contoh UI yang baik 
                                             dan buruk ', 
-                'materi_pembelajaran' => 'Bentuk 
+                'metode_pembelajaran' => 'Bentuk 
                                             Pembelajaran 
                                             Kuliah (TM) 
                                             Metode 
@@ -106,7 +106,7 @@ class RpsTopicSeeder extends Seeder
                                     antarmuka yang 
                                     meminimalkan 
                                     beban kognitif. ', 
-                'metode_pembelajaran' => '1. Pengenalan psikologi 
+                'materi_pembelajaran' => '1. Pengenalan psikologi 
                                             kognitif dalam IMK 
                                             2. Persepsi visual dan 
                                             auditory pengguna 
@@ -121,7 +121,7 @@ class RpsTopicSeeder extends Seeder
                                             frustrasi, kebingungan, 
                                             dan kenyamanan 
                                             kognitif  ', 
-                'materi_pembelajaran' => 'Bentuk 
+                'metode_pembelajaran' => 'Bentuk 
                                             Pembelajaran 
                                             Kuliah (TM) 
                                             Metode 
@@ -193,7 +193,7 @@ class RpsTopicSeeder extends Seeder
                                     kesesuaian dengan 
                                     model mental 
                                     pengguna ', 
-                'metode_pembelajaran' => '1. Pengertian model 
+                'materi_pembelajaran' => '1. Pengertian model 
                                             mental: definisi dan 
                                             karakteristik 
                                             2. Perbedaan antara 
@@ -210,7 +210,7 @@ class RpsTopicSeeder extends Seeder
                                             5. Strategi desain untuk 
                                             menjembatani model 
                                             mental dan sistem ', 
-                'materi_pembelajaran' => 'Bentuk 
+                'metode_pembelajaran' => 'Bentuk 
                                             Pembelajaran 
                                             Kuliah ™ 
                                             Metode 
@@ -279,7 +279,7 @@ class RpsTopicSeeder extends Seeder
                                     mengumpulkan data 
                                     pengguna secara etis 
                                     dan tepat sasaran ', 
-                'metode_pembelajaran' => '1. Teknik pengumpulan 
+                'materi_pembelajaran' => '1. Teknik pengumpulan 
                                             data pengguna: 
                                             observasi, wawancara, 
                                             kuesioner 
@@ -296,7 +296,7 @@ class RpsTopicSeeder extends Seeder
                                             pengumpulan data dan 
                                             perlindungan privasi 
                                             pengguna ', 
-                'materi_pembelajaran' => 'Bentuk 
+                'metode_pembelajaran' => 'Bentuk 
                                             Pembelajaran 
                                             Kuliah (TM) 
                                             Metode 
@@ -369,7 +369,7 @@ class RpsTopicSeeder extends Seeder
                                     user journey untuk 
                                     mendukung proses 
                                     desain sistem', 
-                'metode_pembelajaran' => '1. Definisi dan elemen 
+                'materi_pembelajaran' => '1. Definisi dan elemen 
                                             utama persona 
                                             2. Teknik membangun 
                                             persona dari data 
@@ -383,7 +383,7 @@ class RpsTopicSeeder extends Seeder
                                             5. Studi kasus persona 
                                             dan skenario dalam 
                                             sistem nyata ', 
-                'materi_pembelajaran' => 'Bentuk 
+                'metode_pembelajaran' => 'Bentuk 
                                             Pembelajaran 
                                             Kuliah ™ 
                                             Metode 
@@ -456,7 +456,7 @@ class RpsTopicSeeder extends Seeder
                                     menggunakan 
                                     prinsip-prinsip 
                                     usability dasar  ', 
-                'metode_pembelajaran' => '1. Definisi dan 
+                'materi_pembelajaran' => '1. Definisi dan 
                                             karakteristik wireframe 
                                             2. Perbedaan wireframe, 
                                             mockup, dan prototype 
@@ -478,7 +478,7 @@ class RpsTopicSeeder extends Seeder
                                             7. Penerapan feedback 
                                             untuk perbaikan desain 
                                             awal', 
-                'materi_pembelajaran' => 'Bentuk 
+                'metode_pembelajaran' => 'Bentuk 
                                             Pembelajaran 
                                             Kuliah (TM) 
                                             Metode 
@@ -526,8 +526,8 @@ class RpsTopicSeeder extends Seeder
                 'id_sub_cpmk' => null, 
                 'teknik_penilaian_kategori' => null, 
                 'indikator' => null, 
-                'metode_pembelajaran' => null, 
                 'materi_pembelajaran' => null, 
+                'metode_pembelajaran' => null, 
                 'bobot_penilaian' => 15
             ],
             [
@@ -554,7 +554,7 @@ class RpsTopicSeeder extends Seeder
                                     fidelity interaktif 
                                     dengan visualisasi 
                                     estetis  ', 
-                'metode_pembelajaran' => '1. Perbedaan dan 
+                'materi_pembelajaran' => '1. Perbedaan dan 
                                             keterkaitan: wireframe, 
                                             mockup, dan prototype 
                                             2. Elemen desain visual: 
@@ -578,7 +578,7 @@ class RpsTopicSeeder extends Seeder
                                             usability 
                                             7. Studi kasus antarmuka 
                                             aplikasi nyata', 
-                'materi_pembelajaran' => 'Bentuk 
+                'metode_pembelajaran' => 'Bentuk 
                                             Pembelajaran 
                                             Kuliah (TM) 
                                             Metode 
@@ -651,7 +651,7 @@ class RpsTopicSeeder extends Seeder
                                     pengujian usability 
                                     dan prinsip user
                                     centered design ', 
-                'metode_pembelajaran' => '1. Prinsip dasar pengujian 
+                'materi_pembelajaran' => '1. Prinsip dasar pengujian 
                                             usability: learnability, 
                                             efficiency, error rate, 
                                             satisfaction 
@@ -674,7 +674,7 @@ class RpsTopicSeeder extends Seeder
                                             rekomendasi desain 
                                             berdasarkan temuan 
                                             pengujian ', 
-                'materi_pembelajaran' => 'Bentuk 
+                'metode_pembelajaran' => 'Bentuk 
                                             Pembelajaran 
                                             Kuliah (TM) 
                                             Metode 
@@ -748,7 +748,7 @@ class RpsTopicSeeder extends Seeder
                                     pemahaman
                                     terhadap tren dan 
                                     isu dalam IMK', 
-                'metode_pembelajaran' => '1. Tren teknologi dalam 
+                'materi_pembelajaran' => '1. Tren teknologi dalam 
                                             IMK: Gesture-based 
                                             interaction, Voice User 
                                             Interface (VUI), 
@@ -764,7 +764,7 @@ class RpsTopicSeeder extends Seeder
                                             fisik 
                                             4. Isu etika dalam desain 
                                             antarmuka:', 
-                'materi_pembelajaran' => 'Bentuk 
+                'metode_pembelajaran' => 'Bentuk 
                                             Pembelajaran 
                                             Kuliah (TM) 
                                             Metode 
@@ -799,8 +799,8 @@ class RpsTopicSeeder extends Seeder
                 'id_sub_cpmk' => null, 
                 'teknik_penilaian_kategori' => null, 
                 'indikator' => null, 
-                'metode_pembelajaran' => null, 
                 'materi_pembelajaran' => null, 
+                'metode_pembelajaran' => null, 
                 'bobot_penilaian' => 20
             ],
         ]);

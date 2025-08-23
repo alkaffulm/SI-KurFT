@@ -14,7 +14,6 @@ return new class extends Migration
             $table->foreignId('id_kriteria_penilaian')->constrained('kriteria_penilaian', 'id_kriteria_penilaian')->onDelete('cascade');
 
             // Set primary key gabungan untuk mencegah duplikasi
-            // (satu topic tidak bisa memiliki kriteria yang sama lebih dari sekali)
             $table->primary(['id_topic', 'id_kriteria_penilaian']);
         });
     }

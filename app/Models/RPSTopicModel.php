@@ -37,7 +37,7 @@ class RPSTopicModel extends Model
     }
 
     public function weeks() {
-        return $this->hasMany(TopicWeekMapModel::class, 'id_topic', 'id_topic');
+        return $this->hasMany(RpsTopicWeekMapModel::class, 'id_topic', 'id_topic');
     }
 
     public function kriteriaPenilaian() {

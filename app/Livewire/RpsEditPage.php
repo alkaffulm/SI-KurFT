@@ -9,6 +9,7 @@ use App\Models\RPSTopicModel;
 use App\Models\MataKuliahModel;
 use App\Models\BahanKajianModel;
 use App\Models\KriteriaPenilaianModel;
+use App\Models\RpsTopicWeekMapModel;
 use App\Models\TeknikPenilaianModel;
 use App\Models\TopicWeekMapModel;
 use Illuminate\Support\Facades\DB;
@@ -183,12 +184,12 @@ class RpsEditPage extends Component
                 ]
             );
 
-            TopicWeekMapModel::where('id_topic', $topic->id_topic)->delete();
+            RpsTopicWeekMapModel::where('id_topic', $topic->id_topic)->delete();
             $weekMappings = [];
             foreach ($topicData['minggu_ke'] as $week) {
                 $weekMappings[] = ['id_topic' => $topic->id_topic, 'minggu_ke' => $week];                
             }
-            TopicWeekMapModel::insert($weekMappings);  
+            RpsTopicWeekMapModel::insert($weekMappings);  
                 
             $topic->kriteriaPenilaian()->sync($topicData['selected_kriteria'] ?? []);
             $topic->teknikPenilaian()->sync($topicData['selected_teknik'] ?? []);

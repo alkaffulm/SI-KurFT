@@ -57,6 +57,10 @@ class DatabaseSeeder extends Seeder
             MKCPMKSubCPMKMapSeeder::class,         // 31
 
             RpsTopicSeeder::class,
+            RpsTopicWeekSeeder::class,
+            RpsTopicKriteriaPenilaianSeeder::class,
+            RpsTopicTeknikPenilaianSeeder::class,
+
         ]);
     }
 }

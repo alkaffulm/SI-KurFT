@@ -17,6 +17,9 @@ class MataKuliahCmpkMapSeeder extends Seeder
             ['id_mk' => 1, 'id_cpmk' => 1],
             ['id_mk' => 1, 'id_cpmk' => 2],
             ['id_mk' => 2, 'id_cpmk' => 3],
+            ['id_mk' => 34, 'id_cpmk' => 31],
+            ['id_mk' => 34, 'id_cpmk' => 32],
+            ['id_mk' => 34, 'id_cpmk' => 33],
         ]);
     }
 }

@@ -272,6 +272,7 @@
                                 {{-- (2) Sub-CPMK --}}
                                 <td class="p-2 border border-black align-top">
                                     @if($topic->subCpmk)
+                                        <p class="font-bold">{{ $topic->subCpmk->nama_kode_sub_cpmk}}</p>
                                         {{ $topic->subCpmk->desc_sub_cpmk_id }}
                                     @else
                                         -

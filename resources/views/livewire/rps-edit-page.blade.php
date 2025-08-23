@@ -228,7 +228,11 @@
                                     </td> 
                                 @else
                                     <td colspan="5">
-                                        {{strtoupper($topics[$index]['tipe'])}}
+                                        @if ($topics[$index]['tipe'] == 'uts')
+                                            <p class="text-center">UJIAN TENGAH SEMESTER</p>
+                                        @else
+                                            <p class="text-center">UJIAN AKHIR SEMESTER</p>
+                                        @endif
                                     </td>                           
                                 @endif
                                 <td>
