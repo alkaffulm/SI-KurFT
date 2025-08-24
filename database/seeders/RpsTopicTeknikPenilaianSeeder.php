@@ -14,6 +14,7 @@ class RpsTopicTeknikPenilaianSeeder extends Seeder
     public function run(): void
     {
         DB::table('rps_topic_teknik_penilaian')->insert([
+            // untuk matkul IMK kurikulum 2020
             ['id_topic' => 1, 'id_teknik_penilaian' => 1],
             ['id_topic' => 2, 'id_teknik_penilaian' => 2],
             ['id_topic' => 3, 'id_teknik_penilaian' => 4],
@@ -28,6 +29,22 @@ class RpsTopicTeknikPenilaianSeeder extends Seeder
             ['id_topic' => 9, 'id_teknik_penilaian' => 4],
             ['id_topic' => 9, 'id_teknik_penilaian' => 5],
             ['id_topic' => 10, 'id_teknik_penilaian' => 1],
+
+            // untuk matkul IMK kurikulum 2025
+            ['id_topic' => 12, 'id_teknik_penilaian' => 1],
+            ['id_topic' => 13, 'id_teknik_penilaian' => 2],
+            ['id_topic' => 14, 'id_teknik_penilaian' => 4],
+            ['id_topic' => 15, 'id_teknik_penilaian' => 2],
+            ['id_topic' => 15, 'id_teknik_penilaian' => 3],
+            ['id_topic' => 16, 'id_teknik_penilaian' => 4],
+            ['id_topic' => 16, 'id_teknik_penilaian' => 5],
+            ['id_topic' => 17, 'id_teknik_penilaian' => 3],
+            ['id_topic' => 17, 'id_teknik_penilaian' => 4],
+            ['id_topic' => 19, 'id_teknik_penilaian' => 4],
+            ['id_topic' => 19, 'id_teknik_penilaian' => 5],
+            ['id_topic' => 20, 'id_teknik_penilaian' => 4],
+            ['id_topic' => 20, 'id_teknik_penilaian' => 5],
+            ['id_topic' => 21, 'id_teknik_penilaian' => 1],
         ]);
     }
 }

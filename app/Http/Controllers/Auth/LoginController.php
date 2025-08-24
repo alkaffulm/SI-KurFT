@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\KurikulumModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -126,8 +127,29 @@ class LoginController extends Controller
         $request->session()->put('userProdi', $prodi ? $prodi->nama_prodi : 'Fakultas Teknik');
         $request->session()->put('userRoleId', $user->id_ps);
 
-        // Terakhir, arahkan ke intended URL. Sekarang session sudah terisi dengan benar.
-        return redirect()->intended('/dashboard');
+        // $activeKurikulum = KurikulumModel::where('id_ps', $user->id_ps)->orderBy('tahun', 'asc')->first();
+        // if($activeKurikulum) {
+        //   $request->session()->put('tahun', $activeKurikulum->tahun);
+        //   $request->session()->put('id_kurikulum_aktif', $activeKurikulum->id_kurikulum);
+        // }
+
+        $activeKurikulum = null;
+        // bekerja jika user mengalami session_timeout atau logout
+        if($user->last_active_kurikulum_id) {
+          $activeKurikulum = KurikulumModel::find($user->last_active_kurikulum_id);
+        }
+
+        // bekerja jika user baru pertama kali login ke website atau migrate:fresh
+        if(!$activeKurikulum) {
+          $activeKurikulum = KurikulumModel::where('id_ps', $user->id_ps)->orderBy('tahun', 'asc')->first();
+        }
+
+        if($activeKurikulum) {
+          $request->session()->put('tahun', $activeKurikulum->tahun);
+          $request->session()->put('id_kurikulum_aktif', $activeKurikulum->id_kurikulum);
+        }
+
+        return redirect()->intended('dashboard');
     }
 
   public function logout(Request $request){

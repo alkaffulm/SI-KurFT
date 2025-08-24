@@ -14,6 +14,7 @@ class RpsTopicWeekSeeder extends Seeder
     public function run(): void
     {
         DB::table('rps_topic_week')->insert([
+            // untuk matkul IMK kurikulum 2020
             ['id_topic' => 1, 'minggu_ke' => 1],
             ['id_topic' => 2, 'minggu_ke' => 2],
             ['id_topic' => 3, 'minggu_ke' => 3],
@@ -30,6 +31,24 @@ class RpsTopicWeekSeeder extends Seeder
             ['id_topic' => 9, 'minggu_ke' => 14],
             ['id_topic' => 10, 'minggu_ke' => 15],
             ['id_topic' => 11, 'minggu_ke' => 16],
+
+            // untuk matkul IMK kurikulum 2025
+            ['id_topic' => 12, 'minggu_ke' => 1],
+            ['id_topic' => 13, 'minggu_ke' => 2],
+            ['id_topic' => 14, 'minggu_ke' => 3],
+            ['id_topic' => 15, 'minggu_ke' => 4],
+            ['id_topic' => 16, 'minggu_ke' => 5],
+            ['id_topic' => 17, 'minggu_ke' => 6],
+            ['id_topic' => 17, 'minggu_ke' => 7],
+            ['id_topic' => 18, 'minggu_ke' => 8],
+            ['id_topic' => 19, 'minggu_ke' => 9],
+            ['id_topic' => 19, 'minggu_ke' => 10],
+            ['id_topic' => 19, 'minggu_ke' => 11],
+            ['id_topic' => 20, 'minggu_ke' => 12],
+            ['id_topic' => 20, 'minggu_ke' => 13],
+            ['id_topic' => 20, 'minggu_ke' => 14],
+            ['id_topic' => 21, 'minggu_ke' => 15],
+            ['id_topic' => 22, 'minggu_ke' => 16],
 
         ]);
     }

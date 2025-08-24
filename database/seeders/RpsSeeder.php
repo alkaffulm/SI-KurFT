@@ -136,7 +136,30 @@ Sutcliffe, A. G., HUMAN-COMPUTER INTERFACE DESIGN, 2ND Edition, MacMillan, Londo
             // ['id_rps' => 75, 'id_kurikulum' => 15, 'id_user' => 34, 'id_mk' => 75, 'tahun' => 2025, 'file_path' => 'rps/rps_75.pdf', 'minggu' => 1, 'penilaian' => 50, 'bobot' => 4.0],
 
             // // Teknologi Informasi (id_ps = 7)
-            // ['id_rps' => 76, 'id_kurikulum' => 16, 'id_user' => 40, 'id_mk' => 76, 'tahun' => 2025, 'file_path' => 'rps/rps_76.pdf', 'minggu' => 1, 'penilaian' => 50, 'bobot' => 4.0],
+            ['id_rps' => 2, 'id_dosen_penyusun' => 43, 'id_kaprodi' => 40, 'id_kurikulum' => 16, 'id_mk' => 80, 'id_ps' => 7, 'materi_pembelajaran' => 'Desain User Experience dengan pokok bahasan: 
+1. Pengantar dan Konsep Interaksi Manusia Komputer 
+2. Prinsip Dasar IMK dan User Centered Design 
+3. Aspek Psikologis dan Kognitif Pengguna 
+4. Model Mental dalam Interaksi 
+5. Teknik Pengumpulan Data 
+6. Persona dan Skenario dalam UCD 
+7. Wireframe dan Prototype Low-Fidelity 
+8. Evaluasi Awal Desain dan Prinsip Usability 
+9. Prinsip Usability dan User Experience dalam desain user interface 
+10. Mockup dan High-Fidelity Prototype 
+11. Pengujian usability 
+12. Tren Teknologi dalam IMK 
+13. Isu Etika dan Tanggung Jawab Desain Modern', 'pustaka_utama' => '[1] Dix, Alan et.al, HUMAN-COMPUTER INTERACTION, 2nd Edition, Prentice Hall, Europe, 1998. 
+[2] Galitz, W. O, The Essential Guide to User Inteface Design : An Introduction to GUI Design Principles and Techniques, John Wiley & 
+Sons, Canada, 1996. 
+[3] Johnson, P., HUMAN-COMPUTER INTERACTION : Psychology, Task Analysis and Software Engineering, McGraw-Hill, England 
+UK, 1992. 
+[4] Newman, W. M and Lamming, M. G, Interactive System Design, Addison Wesley, Cambrigde, Great Britain, 1995. 
+[5] P. Insap Santoso, Interaksi Manusia dan Komputer : Teori dan Praktek, Andi Offset, Yogyakarta, 2004. 
+[6] Raskin, J, The Human Interface, Addison Wesley, 2000 
+[7] Shneiderman, B, Designing The User Interface, 3rd Edition, Addison Wesley, 1998 
+Sutcliffe, A. G., HUMAN-COMPUTER INTERFACE DESIGN, 2ND Edition, MacMillan, London, 1995.', 'pustaka_pendukung' => '[9] B Hewett, Baecker, et.al, ACM SIGCHI Curricula for Human-Computer Interaction (folder : IMK-ACM.rar) 
+[10] Folder: IMK-cc-Gatech-edu.rar','jumlah_revisi' => 0, 'isRevisi' => false, 'tanggal_revisi' => null, 'tanggal_disusun' => now()],
             // ['id_rps' => 77, 'id_kurikulum' => 16, 'id_user' => 40, 'id_mk' => 77, 'tahun' => 2025, 'file_path' => 'rps/rps_77.pdf', 'minggu' => 1, 'penilaian' => 50, 'bobot' => 4.0],
             // ['id_rps' => 78, 'id_kurikulum' => 16, 'id_user' => 40, 'id_mk' => 78, 'tahun' => 2025, 'file_path' => 'rps/rps_78.pdf', 'minggu' => 1, 'penilaian' => 50, 'bobot' => 4.0],
             // ['id_rps' => 79, 'id_kurikulum' => 16, 'id_user' => 40, 'id_mk' => 79, 'tahun' => 2025, 'file_path' => 'rps/rps_79.pdf', 'minggu' => 1, 'penilaian' => 50, 'bobot' => 4.0],

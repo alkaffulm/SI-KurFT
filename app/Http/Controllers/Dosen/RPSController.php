@@ -101,26 +101,30 @@ class RPSController extends Controller
     public function show(RPSModel $rp)
     {
         $rp->load([
-            // 'mataKuliah', 
+            'mataKuliah', 
             'mataKuliah.bahanKajian.cpls', 
+            'mataKuliah.cpmks.subCpmk',
+            'mataKuliah.cpmks.cpls',
             'dosenPenyusun', 
             'dosenPenyusun.programStudiModel',
             'kurikulum',
             'programStudi',
-            // 'cpls',
             'bahanKajian.cpls',
-            // 'mataKuliah.cpmks' => function($query) {
-            //     $query->with(['subCpmk']);
-            // } ,
-            'mataKuliah.cpmks.subCpmk',
-            'mataKuliah.cpmks.cpls',
             'topics.weeks',
             'topics.subCpmk',
         ]);
 
-        $assocCpls = $rp->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {
-            return $bahanKajian->cpls;
-        })->unique('id_cpl');
+        $assocCpls = collect();
+
+        if($rp->mataKuliah) {
+            $assocCpls = $rp->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {
+                return $bahanKajian->cpls;
+            })->unique('id_cpl');
+        }
+
+        // $assocCpls = $rp->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {
+        //     return $bahanKajian->cpls;
+        // })->unique('id_cpl');
 
 
 
