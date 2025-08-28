@@ -10,11 +10,14 @@ use App\Http\Controllers\Kaprodi\CpmkController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Dosen\MatkulController as DosenMatkulController;
 use App\Http\Controllers\dosen\RPSController;
+use App\Http\Controllers\kaprodi\AdminController;
 use App\Http\Controllers\Kaprodi\BKCPLMapController;
 use App\Http\Controllers\Kaprodi\BKMKMapController;
+use App\Http\Controllers\Kaprodi\CPLCPMKController;
 use App\Http\Controllers\Kaprodi\CPMKMPLMapController;
 use App\Http\Controllers\Kaprodi\MatkulController;
 use App\Http\Controllers\Kaprodi\MKCPMKController;
+use App\Http\Controllers\Kaprodi\MKCPMKCPLController;
 use App\Http\Controllers\Kaprodi\PeoController;
 use App\Http\Controllers\Kaprodi\ProfilLulusanController;
 use App\Http\Controllers\Kaprodi\SubCpmkController;
@@ -84,6 +87,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/mapping/edit-mk-cpmk', [MKCPMKController::class, 'editMKCPMK'])->name('mk-cpmk-mapping.edit');
         Route::put('/mapping/mk-cpmk', [MKCPMKController::class, 'updateMKCPMK'])->name('mk-cpmk-mapping.update');
 
+        // routes untuk mk-cpmk-cpl yang baru
+        Route::get('/mapping/edit-mk-cpl', [MKCPMKCPLController::class, 'editMKCPL'])->name('mk-cpl-mapping.edit');
+        Route::put('/mapping/mk-cpl-update', [MKCPMKCPLController::class, 'updateMKCPL'])->name('mk-cpl-mapping.update');
+        Route::get('/mapping/edit-cpl-cpmk', [CPLCPMKController::class, 'editCPLCPMK'])->name('cpl-cpmk-mapping.edit');
+        Route::put('/mapping/cpl-cpmk-update', [CPLCPMKController::class, 'updateCPLCPMK'])->name('cpl-cpmk-mapping.update');
+
         // pl pe map
         Route::get('/mapping/pl-peo', [PLPEOMappingController::class, 'index'])->name('pl-peo-mapping.index');
         Route::get('/mapping/edit-pl-peo', [PLPEOMappingController::class, 'edit_pl_peo'])->name('pl-peo-mapping.edit');
@@ -104,6 +113,9 @@ Route::middleware('auth')->group(function () {
         // cpmk cpl map  
         Route::get('/mapping/edit-cpmk-cpl', [CPMKMPLMapController::class, 'edit_cpmk_cpl'])->name('cpmk-cpl-mapping.edit');
         Route::put('/mapping/cpmk-cpl', [CPMKMPLMapController::class, 'updateCPMKCPLMap'])->name('cpmk-cpl-mapping.update');
+
+        // coba admin
+        Route::get('/roleadmin', [AdminController::class, 'index'])->name('role_admin');
     });
 
     Route::middleware('role:dosen')->prefix('dosen')->group(function() {

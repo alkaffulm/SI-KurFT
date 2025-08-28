@@ -14,11 +14,9 @@ use App\Models\SubCPMKModel;
 use App\Models\CPMKCPLMapModel;
 use App\Models\BahanKajianModel;
 use App\Models\BKMKMapModel;
-use App\Models\MK_CPMK_CPL_Map;
-use App\Models\MK_CPMK_CPL_MapModel;
 use Illuminate\Http\Request;
 
-class CpmkController extends Controller
+class AdminController extends Controller
 {
     public function __construct()
     {
@@ -33,7 +31,6 @@ class CpmkController extends Controller
     public function index()
     {
         $cpmk = CPMKModel::orderBy('nama_kode_cpmk')->paginate(5);
-        $cpmkAll = CPMKModel::all();
         $mata_kuliah = MataKuliahModel::with('cpmks')->orderBy('kode_mk')->get();
 
         $subCpmk = SubCPMKModel::with('cpmk')->orderBy('nama_kode_sub_cpmk')->paginate(5);
@@ -107,46 +104,8 @@ class CpmkController extends Controller
             }
         }
 
-        $mk_cpmk_cpl_raw = MK_CPMK_CPL_MapModel::all();
-        $mk_cpmk_cpl_map = [];
-        $mk_cpmk_only_map = [];
 
-        foreach ($mk_cpmk_cpl_raw as $relasi) {
-            $id_mk   = (int) $relasi->id_mk;
-            $id_cpmk = (int) $relasi->id_cpmk;
-            $id_cpl  = (int) $relasi->id_cpl;
-
-            // Mapping: MK → CPL → [CPMK]
-            if (!isset($mk_cpmk_cpl_map[$id_mk])) {
-                $mk_cpmk_cpl_map[$id_mk] = [];
-            }
-            if (!isset($mk_cpmk_cpl_map[$id_mk][$id_cpl])) {
-                $mk_cpmk_cpl_map[$id_mk][$id_cpl] = [];
-            }
-            if (!in_array($id_cpmk, $mk_cpmk_cpl_map[$id_mk][$id_cpl])) {
-                $mk_cpmk_cpl_map[$id_mk][$id_cpl][] = $id_cpmk;
-            }
-
-            // Mapping tambahan: MK → [CPMK] (tanpa CPL)
-            if (!isset($mk_cpmk_only_map[$id_mk])) {
-                $mk_cpmk_only_map[$id_mk] = [];
-            }
-            if (!in_array($id_cpmk, $mk_cpmk_only_map[$id_mk])) {
-                $mk_cpmk_only_map[$id_mk][] = $id_cpmk;
-            }
-        }
-
-
-        // Ganti debug sebelumnya dengan ini:
-        // dd([
-        //     'mk_cpmk_cpl_raw_sample' => $mk_cpmk_cpl_raw->toArray(), // lihat semua data mentah
-        //     'mk_cpmk_cpl_map_detail' => $mk_cpmk_cpl_map, // lihat struktur mapping
-        //     'cpmkAll_detail' => $cpmkAll->toArray(), // lihat semua CPMK
-        //     'mata_kuliah_ids' => $mata_kuliah->pluck('id_mk')->toArray(), // lihat ID mata kuliah
-        //     'cpl_ids' => $cpl->pluck('id_cpl')->toArray() // lihat ID CPL
-        // ]);
-
-        return view('cpmk', [
+        return view('admin', [
             'mata_kuliah' => $mata_kuliah,
             'cpmk' => $cpmk, 
             'bahan_kajian'=>$bahan_kajian,
@@ -156,8 +115,6 @@ class CpmkController extends Controller
             'cpl'=>$cpl,
             'bk_mk_map'=>$bk_mk_map,
             'mk_cpmk_only_map' => $mk_cpmk_only_map,
-            'mk_cpmk_cpl_map'=>$mk_cpmk_cpl_map,
-            'cpmkAll'=>$cpmkAll
         ]);
     }
 

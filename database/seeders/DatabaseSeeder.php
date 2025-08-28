@@ -53,7 +53,8 @@ class DatabaseSeeder extends Seeder
             TpCpmkMapSeeder::class,               // 27 
             PLPEOSeeder::class,                   // 29
             CPLPLMapSeeder::class,                // 30
-            MKCPMKSubCPMKMapSeeder::class         // 31
+            MKCPMKSubCPMKMapSeeder::class,        // 31
+            MKCPMKCPLMapSeeder::class             // 32
         ]);
     }
 }
