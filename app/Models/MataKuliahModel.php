@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\Kaprodi\MKCPMKController;
 use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
 use Illuminate\Database\Eloquent\Model;
@@ -56,6 +57,11 @@ class MataKuliahModel extends Model
     public function sub_cpmk()
     {
         return $this->hasMany(SubCPMKModel::class, 'id_mk', 'id_mk');
+    }
+
+    public function mkcpmkcpl()
+    {
+        return $this->hasMany(MK_CPMK_CPL_MapModel::class, 'id_mk', 'id_mk');
     }
     public function mk_cpmk_sub_cpmk()
     {

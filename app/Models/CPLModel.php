@@ -41,6 +41,11 @@ class CPLModel extends Model
         return $this->belongsToMany(CPMKModel::class, 'cpmk_cpl_map', 'id_cpl', 'id_cpmk');
     }
 
+    public function mkcpmkcpl()
+    {
+        return $this->hasMany(MK_CPMK_CPL_MapModel::class, 'id_cpl', 'id_cpl');
+    }
+
     // has many relation
     public function pl_cpl()
     {

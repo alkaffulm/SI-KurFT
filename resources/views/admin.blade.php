@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CPMK dan Sub-CPMK</title>
+    <title>Role Admin SiKurFT</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     @livewireStyles
@@ -30,21 +30,20 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ms-1 text-sm font-medium text-gray-900 md:ms-2">CPMK</span>
+                            <span class="ms-1 text-sm font-medium text-gray-900 md:ms-2">Role Admin</span>
                         </div>
                     </li>
                 </ol>
             </nav>
             <div class="bg-white p-8 rounded-lg shadow-md mb-8">
 
-                <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">CAPAIAN PEMBELAJARAN MATA KULIAH (CPMK)</h1>
+                <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Ini Role Admin</h1>
                 <p class="text-gray-600 mb-6">
-                    CPMK adalah kemampuan spesifik yang dijabarkan dari CPL yang dibebankan pada mata kuliah, yang dapat
-                    diukur dan dinilai.
+                    Pindahkan ke halaman admin kena jop lah
                 </p>
 
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-biru-custom">Tabel CPMK</h2>
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel BK MK</h2>
                     <div class="space-x-2">
                         <a href="{{ route('cpmk.editAll') }}"
                             class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
@@ -165,117 +164,54 @@
                     {{$sub_cpmk->links()}} 
                 </div>
 
-                {{-- Bagian 3: Tabel Mapping MK dan CPL dengan CPMK --}}
-                <div class="flex justify-between items-center mt-12 mb-4">
-                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi Mata Kuliah dan CPL dengan CPMK</h2>
-                    <div>
-                        <a href="{{ route('mk-cpl-mapping.edit') }}"
-                            class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                </path>
-                            </svg>
-                            Edit Korelasi CPL per Mata Kuliah
-                        </a>
-                        <a href="{{ route('cpl-cpmk-mapping.edit') }}"
-                            class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                </path>
-                            </svg>
-                            Edit Korelasi CPMK per CPL
+                {{-- Bagian 3: Tabel Mapping MK dan CPMK --}}
+                <div class="flex justify-between items-center mt-8 mb-4">
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi MK - CPMK</h2>
+                    <a href="{{ route('mk-cpmk-mapping.edit') }}"
+                        class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                            </path>
+                        </svg>
+                        Edit Korelasi
                     </a>
-                    </div>
-
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500">
-                        <thead class="text-sm text-white uppercase bg-teks-biru-custom">
+                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" class="px-3 py-6">Mata Kuliah</th>
-                                @foreach ($cpl as $cp)
-                                    <th scope="col" class="px-3 py-6">
-                                        {{ $cp->nama_kode_cpl }}</th>
+                                <th scope="col" class="px-6 py-3">Mata Kuliah</th>
+                                @foreach ($cpmk as $cp)
+                                    <th scope="col" class="px-6 py-3">
+                                        {{ $cp->nama_kode_cpmk }}</th>
                                 @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($mata_kuliah as $mk)
+                            @foreach ($mata_kuliah as $mk)
                                 <tr class="bg-white border-t border-gray-400">
-                                    <th class="px-6 py-4 border-r text-left">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-left">
                                         {{ $mk->nama_matkul_id }}
                                     </th>
-
-                                    @foreach ($cpl as $cp)
-                                        <td class="px-6 py-4 border-r">
-                                            @php
-                                                $relatedCpmks = [];
-                                                if (isset($mk_cpmk_cpl_map[$mk->id_mk])) {
-                                                    foreach ($mk_cpmk_cpl_map[$mk->id_mk] as $cpmkId => $cplList) {
-                                                        if (in_array($cp->id_cpl, $cplList)) {
-                                                            $cpmkObj = $cpmkAll->firstWhere('id_cpmk', $cpmkId);
-                                                            if ($cpmkObj) {
-                                                                $relatedCpmks[] = $cpmkObj->nama_kode_cpmk;
-                                                                // Debug: tampilkan data yang ditemukan
-                                                                dd($cpmkObj->nama_kode_cpmk);
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                // Debug: lihat hasil akhir
-                                                // dd($relatedCpmks);
-                                            @endphp
-                                            @if (!empty($relatedCpmks))
-                                                <ul class="list-disc list-inside text-left">
-                                                    @foreach ($relatedCpmks as $nama)
-                                                        <li>{{ $nama }}</li>
-                                                    @endforeach
-                                                </ul>
+                                    @foreach ($cpmk as $cp)
+                                        <td class="px-6 py-4 border-r border-gray-400">
+                                            @if ($mk->cpmks->contains($cp))
+                                                <span class="text-black-500 font-bold">✓</span>
                                             @endif
                                         </td>
                                     @endforeach
                                 </tr>
-                                @endforeach --}}
-                                @foreach ($mata_kuliah as $mk)
-                                    <tr class="bg-white border-t border-gray-400">
-                                        <th class="px-6 py-4 border-r text-left">
-                                            {{ $mk->nama_matkul_id }}
-                                        </th>
-                                        @foreach ($cpl as $cp)
-                                            <td class="px-6 py-4 border-r">
-                                                @php
-                                                    $relatedCpmks = [];
-                                                    if (isset($mk_cpmk_cpl_map[$mk->id_mk][$cp->id_cpl])) {
-                                                        foreach ($mk_cpmk_cpl_map[$mk->id_mk][$cp->id_cpl] as $cpmkId) {
-                                                            $cpmkObj = $cpmkAll->firstWhere('id_cpmk', $cpmkId);
-                                                            if ($cpmkObj) {
-                                                                $relatedCpmks[] = $cpmkObj->nama_kode_cpmk;
-                                                            }
-                                                        }
-                                                    }
-                                                @endphp
-                                                @if (!empty($relatedCpmks))
-                                                    <ul class="list-disc list-inside text-left">
-                                                        @foreach ($relatedCpmks as $nama)
-                                                            <li>{{ $nama }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
-                                            </td>
-                                        @endforeach
-                                    </tr>
-                                @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
 
                 {{-- Bagian 4: Tabel Mapping CPMK dan CPL --}}
-                {{-- <div class="flex justify-between items-center mt-8 mb-4">
-                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi Mata Kuliah dan CPl dengan CPMK</h2> --}}
+                <div class="flex justify-between items-center mt-8 mb-4">
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi CPMK - CPL</h2>
                     {{-- masih berteori hubungan tidak langsung --}}
                     {{-- <a href="{{ route('cpmk-cpl-mapping.edit') }}"
                         class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
@@ -287,7 +223,7 @@
                         </svg>
                         Edit Korelasi
                     </a> --}}
-                {{-- </div>
+                </div>
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">
@@ -334,70 +270,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div> --}}
-
-                {{-- Bagian 5: Tabel Mapping MK dan CPL --}}
-                {{-- <div class="flex justify-between items-center mt-8 mb-4">
-                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi MK-CPL</h2> --}}
-                    {{-- masih berteori hubungan tidak langsung --}}
-                    {{-- <a href="{{ route('cpmk-cpl-mapping.edit') }}"
-                        class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                            </path>
-                        </svg>
-                        Edit Korelasi
-                    </a> --}}
-                {{-- </div>
-                <div class="overflow-x-auto rounded-lg border border-gray-400">
-                    <table class="w-full text-sm text-center text-gray-500">
-                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">Kode CPMK</th>
-                                @foreach ($cpl as $c)
-                                    <th scope="col" class="px-6 py-3">
-                                        {{ $c->nama_kode_cpl }}</th>
-                                @endforeach
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($cpmk as $cp)
-                                @php
-                                    $relatedCPL = collect();
-
-                                    foreach ($cp->mk_cpmk as $mkMap) {
-                                        if (!$mkMap->mk) continue;
-
-                                        foreach ($mkMap->mk->bk_mk as $bkMap) {
-                                            if (!$bkMap->bk) continue;
-
-                                            foreach ($bkMap->bk->bk_cpl as $cplMap) {
-                                                $relatedCPL->push($cplMap->cpl);
-                                            }
-                                        }
-                                    }
-
-                                    $relatedCPL = $relatedCPL->unique('id_cpl');
-                                @endphp
-
-                                <tr class="bg-white border-t border-gray-400">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                        {{ $cp->nama_kode_cpmk }}
-                                    </th>
-                                    @foreach ($cpl as $c)
-                                        <td class="px-6 py-4 border-r border-gray-400">
-                                            @if ($relatedCPL->contains('id_cpl', $c->id_cpl))
-                                                <span class="text-black-500 font-bold">✓</span>
-                                            @endif
-                                        </td>
-                                    @endforeach
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div> --}}
+                </div>
 
                 {{-- Bagian 5: Livewire Component --}}
                 <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Detail Sub-CPMK per Mata Kuliah</h2>
