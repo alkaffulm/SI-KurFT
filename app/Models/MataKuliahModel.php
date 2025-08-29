@@ -49,6 +49,10 @@ class MataKuliahModel extends Model
         return $this->belongsToMany(CPMKModel::class, 'mata_kuliah_cpmk_map', 'id_mk', 'id_cpmk');
     }
 
+    public function bahanKajian() {
+        return $this->belongsToMany(BahanKajianModel::class, 'bk_mk_map', 'id_mk', 'id_bk');
+    }
+
     // has many relation
     public function sub_cpmk()
     {

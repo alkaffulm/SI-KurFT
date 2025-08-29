@@ -45,7 +45,7 @@ class BahanKajianModel extends Model
     public function bk_cpl(){
         return $this->hasMany(BKCPLMapModel::class, 'id_bk', 'id_bk');
     }
-    public function cpl()
+    public function cpls()
     {
         return $this->belongsToMany(CPLModel::class, 'bk_cpl_map', 'id_bk', 'id_cpl');
     }

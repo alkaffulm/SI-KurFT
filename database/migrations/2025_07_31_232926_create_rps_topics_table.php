@@ -14,32 +14,14 @@ return new class extends Migration
         Schema::create('rps_topics', function (Blueprint $table) {
             // Kunci utama untuk setiap baris detail
             $table->id('id_topic');
-
-            // Kunci asing yang menghubungkan detail ini ke RPS induknya
-            // onDelete('cascade') berarti jika RPS induk dihapus, detail ini akan ikut terhapus.
-            $table->foreignId('id_rps')->constrained('rps', 'id_rps')->onDelete('cascade');
-
-            // --- Kolom-kolom sesuai tabel di PDF ---
-
-            // Kolom "Kemampuan akhir (Sub-CPMK)" - kita simpan ID-nya
-            $table->foreignId('id_sub_cpmk')->constrained('sub_cpmk', 'id_sub_cpmk');
-
-            // Kolom "Indikator" - tipe text karena bisa panjang
+            $table->foreignId('id_rps')->constrained('rps', 'id_rps')->onDelete('cascade'); // onDelete('cascade') berarti jika RPS induk dihapus, detail ini akan ikut terhapus.
+            $table->string('tipe')->default('topik');
+            $table->foreignId('id_sub_cpmk')->nullable()->constrained('sub_cpmk', 'id_sub_cpmk');
+            $table->string('teknik_penilaian_kategori')->nullable();
             $table->text('indikator')->nullable();
-
-            // Kolom "Kriteria & Teknik Penilaian"
-            $table->text('kriteria_teknik_penilaian')->nullable();
-            
-            // Kolom "Bentuk Pembelajaran; Metode Pembelajaran; Penugasan Mahasiswa"
             $table->text('metode_pembelajaran')->nullable();
-
-            // Kolom "Materi Pembelajaran"
             $table->text('materi_pembelajaran')->nullable();
-
-            // Kolom "Bobot Penilaian (%)"
-            $table->integer('bobot_penilaian')->default(0);
-
-            // Timestamps standar Laravel
+            $table->float('bobot_penilaian')->default(0);
             $table->timestamps();
         });
     }
@@ -49,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('rps_topics');
     }
 };

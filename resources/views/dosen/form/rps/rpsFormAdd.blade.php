@@ -17,34 +17,97 @@
 
     @include('layouts.navbar')
     @include('layouts.sidebar')
-
+    
     <div class="py-8 px-16 sm:ml-64 mt-16">
-        <h2>Generate RPS untuk: {{ $mata_kuliah->nama_matkul_id }}</h2>
-
+        <a href="/dosen/matkul">Kembali</a>
+        <h2>Generate RPS</h2>
+        
         <form action="{{ route('rps.store') }}" method="post">
             @csrf
 
             <input type="hidden" name="id_mk" value="{{ $mata_kuliah->id_mk }}">
 
-            <p>Kode: {{$mata_kuliah->kode_matkul}}</p>
-            <p>Bobot: </p>
-            <p>SKS Teori: {{$mata_kuliah->sks_teori}} | SKS Praktikum: {{$mata_kuliah->sks_praktikum}}</p>
-            <p>Semester: {{$mata_kuliah->semester}}</p>
-            <p>Deskripsi: {{$mata_kuliah->matkul_desc_id}}</p>
-            
+            <br>
+            <h1 class="text-xl font-bold">RPS Induk</h1>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mata Kuliah </th>
+                        <td>: {{ $mata_kuliah->nama_matkul_id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Kode</th>
+                        <td>: {{$mata_kuliah->kode_mk}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bobot</th>
+                        <td>: SKS Teori {{$mata_kuliah->sks_teori}} | SKS Praktikum: {{$mata_kuliah->sks_praktikum}}</td>
+                    </tr>
+                    <tr>
+                        <th>Semester</th>
+                        <td>: {{$mata_kuliah->semester}}</td>
+                    </tr>
+                    <tr>
+                        <th class="flex align-top">Deskripsi</th>
+                        <td>: {{$mata_kuliah->matkul_desc_id}}</td>
+                    </tr>
+                </thead>
+            </table>
+
+            <br>
             <div>
-                <h4>CPMK untuk Mata Kuliah ini:</h4>
-                <ul>
-                    @foreach ($mata_kuliah->cpmks as $cpmk)
-                        <li>{{ $cpmk->nama_kode_cpmk }}</li>
-                    @endforeach
+                <h4>CPL Prodi yang dibebankan pada MK:</h4>
+                <ul class="list-disc list-inside">
+                    <table>
+                        @forelse ($assocCpls as $cpl)
+                            <tr>
+                                <td class="w-[90px] flex align-top"><li>{{ $cpl->nama_kode_cpl }} = </li></td>
+                                <td >{{ $cpl->desc_cpl_id }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td><li class="text-gray-500 mt-2">Belum ada CPL yang terhubung dengan mata kuliah ini.</li></td>
+                            </tr>
+                        @endforelse
+                    </table>
+                </ul>
+            </div>
+            <br>
+        
+            <div>
+                <h4>Bahan Kajian (BK):</h4>
+                <ul class="list-disc list-inside">
+                    @forelse ($mata_kuliah->bahanKajian as $bk)
+                        <li>{{ $bk->nama_bk_id }}</li>
+                    @empty
+                        <li class="text-gray-500 mt-2">Belum ada BK yang terhubung dengan mata kuliah ini.</li>
+                    @endforelse
                 </ul>
             </div>
             <br>
 
-            <h1 class="text-xl font-bold">RPS Induk</h1>
-
+            <div>
+                <h4>CPMK untuk Mata Kuliah ini:</h4>
+                <ul class="list-disc list-inside">
+                    <table>
+                        @forelse ($mata_kuliah->cpmks as $cpmk)
+                            <tr>
+                                <td class="w-[90px] flex align-top"><li>{{ $cpmk->nama_kode_cpmk }} = </li></td>
+                                <td >{{ $cpmk->desc_cpmk_id }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td><li class="text-gray-500 mt-2">Belum ada CPMK yang terhubung dengan mata kuliah ini.</li></td>
+                            </tr>
+                        @endforelse
+                    </table>
+                </ul>
+            </div>
             <br>
+
+
+            {{-- <br>
             <div>
                 <label for="id_bk">Bahan Kajian:</label><br>
                 <select name="id_bk" required>
@@ -54,24 +117,23 @@
                     @endforeach
                 </select>
                 @error('id_bk') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-            </div>
-            <br>
+            </div> --}}
 
-            <div>
-                <label for="cpl_ids">CPL yang Dibebankan:</label><br>
+            {{-- <div> --}}
+                {{-- <label for="cpl_ids">CPL yang Dibebankan:</label><br> --}}
                 {{-- Gunakan Select2 untuk pengalaman yang lebih baik --}}
-                <select name="cpl_ids[]" class="select2 w-48" multiple="multiple" required>
+                {{-- <select name="cpl_ids[]" class="select2 w-48" multiple="multiple" required>
                     @foreach ($allCpl as $cpl)
                         <option value="{{ $cpl->id_cpl }}">{{ $cpl->nama_kode_cpl }}</option>
                     @endforeach
-                </select>
-                @error('cpl_ids') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-            </div>
+                </select> --}}
+                {{-- @error('cpl_ids') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror --}}
+            {{-- </div> --}}
             <br>
 
             <div>
                 <label for="id_mk_syarat">Mata Kuliah Prasyarat:</label><br>
-                <select name="id_mk_syarat" required>
+                <select class="border" name="id_mk_syarat" >
                     <option value="">Tidak ada Matkul Prasyarat</option>
                     @foreach ($allMatkul as $mk)
                         <option value="{{ $mk->id_mk }}">{{ $mk->nama_matkul_id }}</option>
@@ -83,7 +145,7 @@
             <br>
             <div>
                 <label for="materi_pembelajaran">Materi Pembelajaran:</label><br>
-                <textarea name="materi_pembelajaran" rows="5" cols="80" cols="80"  required></textarea>
+                <textarea class="border" name="materi_pembelajaran" rows="5" cols="80" cols="80"  required></textarea>
                 @error('materi_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
             </div>
 
@@ -91,7 +153,7 @@
             
             <div>
                 <label for="pustaka_utama">Pustaka Utama:</label><br>
-                <textarea name="pustaka_utama" rows="5" cols="80" required></textarea>
+                <textarea class="border" name="pustaka_utama" rows="5" cols="80" required></textarea>
                 @error('pustaka_utama') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
             </div>
 
@@ -99,11 +161,11 @@
 
             <div>
                 <label for="pustaka_pendukung">Pustaka pendukung:</label><br>
-                <textarea name="pustaka_pendukung" rows="5" cols="80" required></textarea>
+                <textarea class="border" name="pustaka_pendukung" rows="5" cols="80" required></textarea>
                 @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
             </div>
             <br>
-            <button type="submit">Simpan RPS dan lanjut Mengisi Rencana Mingguan</button>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Simpan RPS dan lanjut Mengisi Rencana Mingguan</button>
         </form>
     </div>
         <script>

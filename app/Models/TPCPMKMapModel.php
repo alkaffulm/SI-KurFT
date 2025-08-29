@@ -22,9 +22,9 @@ class TPCPMKMapModel extends Model
     public function rubrikanalitik(){
         return $this->belongsTo(RubrikAnalitikModel::class, 'id_ra', 'id_ra');
     }
-    public function teknikpenilaian(){
-        return $this->belongsTo(TeknikPenilaianModel::class, 'id_tp', 'id_tp');
-    }
+    // public function teknikpenilaian(){
+    //     return $this->belongsTo(TeknikPenilaianModel::class, 'id_tp', 'id_tp');
+    // }
     
     public function cpl(){
         return $this->belongsTo(CPLModel::class, 'id_cpl', 'id_cpl');

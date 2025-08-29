@@ -41,6 +41,10 @@
                 </tr>
             @endforeach
         </table> 
+        {{-- menampilkan pagination --}}
+        <div>
+            {{$mata_kuliah->links()}}
+        </div>        
     </div>
 
 

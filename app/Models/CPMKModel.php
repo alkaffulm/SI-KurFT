@@ -28,7 +28,7 @@ class CPMKModel extends Model
     /**
      * Relasi many-to-many ke CPLModel melalui tabel cpmk_cpl_map.
      */
-    public function cpl()
+    public function cpls()
     {
         return $this->belongsToMany(CPLModel::class, 'cpmk_cpl_map', 'id_cpmk', 'id_cpl');
     }

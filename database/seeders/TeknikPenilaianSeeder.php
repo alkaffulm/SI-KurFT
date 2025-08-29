@@ -14,10 +14,11 @@ class TeknikPenilaianSeeder extends Seeder
     public function run(): void
     {
         DB::table('teknik_penilaian')->insert([
-            ['id_tp' => 1, 'tahap_penilaian' => 'Formatif', 'teknik_penilaian' => 'Quiz', 'instrumen' => 'Soal Pilihan Ganda', 'kriteria' => 'Pemahaman Konsep', 'bobot_total' => 20],
-            ['id_tp' => 2, 'tahap_penilaian' => 'Sumatif', 'teknik_penilaian' => 'UTS', 'instrumen' => 'Soal Essay', 'kriteria' => 'Analisis dan Sintesis', 'bobot_total' => 30],
-            ['id_tp' => 3, 'tahap_penilaian' => 'Sumatif', 'teknik_penilaian' => 'UAS', 'instrumen' => 'Soal Komprehensif', 'kriteria' => 'Evaluasi dan Kreasi', 'bobot_total' => 40],
-            ['id_tp' => 4, 'tahap_penilaian' => 'Formatif', 'teknik_penilaian' => 'Tugas', 'instrumen' => 'Project', 'kriteria' => 'Aplikasi dan Implementasi', 'bobot_total' => 10],
+            ['nama_teknik_penilaian' => 'Quiz', 'kategori' => 'test'],
+            ['nama_teknik_penilaian' => 'Tanya jawab', 'kategori' => 'non-test'],
+            ['nama_teknik_penilaian' => 'Observasi', 'kategori' => 'non-test'],
+            ['nama_teknik_penilaian' => 'Presentasi', 'kategori' => 'non-test'],
+            ['nama_teknik_penilaian' => 'Tugas kelompok', 'kategori' => 'non-test'],
         ]);
     }
 }
