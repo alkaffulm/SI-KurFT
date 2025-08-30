@@ -42,10 +42,12 @@
                     Pindahkan ke halaman admin kena jop lah
                 </p>
 
+                {{-- @livewire('kurikulum-tahun-selector') --}}
+                {{-- kurikulum dan tahun akademik --}}
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-biru-custom">Tabel BK MK</h2>
+                    <h2 class="text-2xl font-bold text-biru-custom">Tabel Tahun Akademik dan Kurikulum</h2>
                     <div class="space-x-2">
-                        <a href="{{ route('cpmk.editAll') }}"
+                        {{-- <a href="{{ route('cpmk.editAll') }}"
                             class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -53,230 +55,40 @@
                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                                 </path>
                             </svg>
-                            Edit CPMK
-                        </a>
-                        <a href="{{ route('cpmk.create') }}"
+                            Edit Kelas
+                        </a> --}}
+                        <a href="{{ route('ta-kurikulum-mapping.add') }}"
                             class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
-                            Tambah CPMK
+                            Tambah Tahun Akademik
                         </a>
                     </div>
                 </div>
+                <livewire:kurikulum-tahun-selector />
 
-                <div class="overflow-x-auto rounded-lg border border-gray-400">
-                    <table class="w-full text-sm text-center text-gray-500">
-                        <thead class="text-white uppercase bg-teks-biru-custom">
-                            <tr>
-                                <th scope="col" class="px-6 py-4">Kode CPMK</th>
-                                <th scope="col" class="px-6 py-4">Deskripsi CPMK</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($cpmk as $cp)
-                                <tr class="bg-white border-t border-gray-400">
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                        {{ $cp->nama_kode_cpmk }}
-                                    </th>
-                                    <td class="px-6 py-4 text-left">
-                                        {{ $cp->desc_cpmk_id }}
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr class="bg-white border-t border-gray-400">
-                                    <td colspan="2" class="px-6 py-4 text-center text-gray-500">
-                                        Data CPMK masih kosong.
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                {{-- menampilkan pagination --}}
-                <div>
-                    {{$cpmk->links()}}
-                </div>
-
-                {{-- Bagian 2: Tabel Sub-CPMK --}}
-                <div class="flex justify-between items-center mt-8 mb-4">
-                    <h2 class="text-xl font-bold text-biru-custom">Tabel Sub-CPMK</h2>
+                <br><br><br><br>
+                <div class="flex justify-between items-center mb-4 mt-12">
+                    <h2 class="text-2xl font-bold text-biru-custom">Tabel Kelas per Tahun Akademik dan Kurikulum</h2>
                     <div class="space-x-2">
-                        <a href="{{ route('sub-cpmk.editAll') }}"
-                            class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                </path>
-                            </svg>
-                            Edit Sub-CPMK
-                        </a>
-                        <a href="{{ route('sub-cpmk.create') }}"
+                        <a href="{{ route('kelas.add') }}"
                             class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
-                            Tambah Sub-CPMK
+                            Tambah Kelas
                         </a>
                     </div>
                 </div>
-                <div class="overflow-x-auto rounded-lg border border-gray-400">
-                    <table class="w-full text-sm text-center text-gray-500">
-                        <thead class="text-white uppercase bg-teks-biru-custom">
-                            <tr>
-                                <th scope="col" class="px-6 py-4">Kode Sub-CPMK</th>
-                                <th scope="col" class="px-6 py-4">Deskripsi Sub-CPMK</th>
-                                <th scope="col" class="px-6 py-4">CPMK Induk</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($sub_cpmk as $scp)
-                                <tr class="bg-white border-t border-gray-400">
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                        {{ $scp->nama_kode_sub_cpmk }}
-                                    </th>
-                                    <td class="px-6 py-4 text-left border-r border-gray-400">
-                                        {{ $scp->desc_sub_cpmk_id }}
-                                    </td>
-                                    <td class="px-6 py-4 border-r border-gray-400">
-                                        {{ $scp->cpmk?->nama_kode_cpmk ?? 'Belum Terhubung' }}
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr class="bg-white border-t border-gray-400">
-                                    <td colspan="3" class="px-6 py-4 text-center text-gray-500">
-                                        Data Sub-CPMK masih kosong.
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                {{-- menampilkan pagination --}}
-                <div>
-                    {{$sub_cpmk->links()}} 
-                </div>
+                <livewire:tahun-kelas-selector />
 
-                {{-- Bagian 3: Tabel Mapping MK dan CPMK --}}
-                <div class="flex justify-between items-center mt-8 mb-4">
-                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi MK - CPMK</h2>
-                    <a href="{{ route('mk-cpmk-mapping.edit') }}"
-                        class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                            </path>
-                        </svg>
-                        Edit Korelasi
-                    </a>
-                </div>
-                <div class="overflow-x-auto rounded-lg border border-gray-400">
-                    <table class="w-full text-sm text-center text-gray-500">
-                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">Mata Kuliah</th>
-                                @foreach ($cpmk as $cp)
-                                    <th scope="col" class="px-6 py-3">
-                                        {{ $cp->nama_kode_cpmk }}</th>
-                                @endforeach
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($mata_kuliah as $mk)
-                                <tr class="bg-white border-t border-gray-400">
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-left">
-                                        {{ $mk->nama_matkul_id }}
-                                    </th>
-                                    @foreach ($cpmk as $cp)
-                                        <td class="px-6 py-4 border-r border-gray-400">
-                                            @if ($mk->cpmks->contains($cp))
-                                                <span class="text-black-500 font-bold">✓</span>
-                                            @endif
-                                        </td>
-                                    @endforeach
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
 
-                {{-- Bagian 4: Tabel Mapping CPMK dan CPL --}}
-                <div class="flex justify-between items-center mt-8 mb-4">
-                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi CPMK - CPL</h2>
-                    {{-- masih berteori hubungan tidak langsung --}}
-                    {{-- <a href="{{ route('cpmk-cpl-mapping.edit') }}"
-                        class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                            </path>
-                        </svg>
-                        Edit Korelasi
-                    </a> --}}
-                </div>
-                <div class="overflow-x-auto rounded-lg border border-gray-400">
-                    <table class="w-full text-sm text-center text-gray-500">
-                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">Kode CPMK</th>
-                                @foreach ($cpl as $c)
-                                    <th scope="col" class="px-6 py-3">
-                                        {{ $c->nama_kode_cpl }}</th>
-                                @endforeach
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($cpmk as $cp)
-                                @php
-                                    $relatedCPL = collect();
 
-                                    foreach ($cp->mk_cpmk as $mkMap) {
-                                        if (!$mkMap->mk) continue;
-
-                                        foreach ($mkMap->mk->bk_mk as $bkMap) {
-                                            if (!$bkMap->bk) continue;
-
-                                            foreach ($bkMap->bk->bk_cpl as $cplMap) {
-                                                $relatedCPL->push($cplMap->cpl);
-                                            }
-                                        }
-                                    }
-
-                                    $relatedCPL = $relatedCPL->unique('id_cpl');
-                                @endphp
-
-                                <tr class="bg-white border-t border-gray-400">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                        {{ $cp->nama_kode_cpmk }}
-                                    </th>
-                                    @foreach ($cpl as $c)
-                                        <td class="px-6 py-4 border-r border-gray-400">
-                                            @if ($relatedCPL->contains('id_cpl', $c->id_cpl))
-                                                <span class="text-black-500 font-bold">✓</span>
-                                            @endif
-                                        </td>
-                                    @endforeach
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                {{-- Bagian 5: Livewire Component --}}
-                <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Detail Sub-CPMK per Mata Kuliah</h2>
-                <livewire:show-sub-cpmk />
-            </div>
-        </main>
     </div>
 
     @livewireScripts

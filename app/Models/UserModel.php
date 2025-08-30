@@ -30,6 +30,10 @@ class UserModel extends Authenticatable
         return $this->hasMany(UserMataKuliahMapModel::class, 'id_user', 'id_user');
     }
 
+        public function kelas()
+    {
+        return $this->hasMany(Kelas::class, 'id_mk', 'id_mk');
+    }
 
     // belongs to relation
     public function programStudiModel()

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('sks_teori');
             $table->integer('sks_praktikum');
             $table->integer('semester');
+            $table->string('muncul')->nullable();
 
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
             $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');

@@ -14,6 +14,7 @@ use App\Models\SubCPMKModel;
 use App\Models\CPMKCPLMapModel;
 use App\Models\BahanKajianModel;
 use App\Models\BKMKMapModel;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -31,6 +32,7 @@ class AdminController extends Controller
     public function index()
     {
         $cpmk = CPMKModel::orderBy('nama_kode_cpmk')->paginate(5);
+        $user = UserModel::all();
         $mata_kuliah = MataKuliahModel::with('cpmks')->orderBy('kode_mk')->get();
 
         $subCpmk = SubCPMKModel::with('cpmk')->orderBy('nama_kode_sub_cpmk')->paginate(5);
@@ -115,6 +117,7 @@ class AdminController extends Controller
             'cpl'=>$cpl,
             'bk_mk_map'=>$bk_mk_map,
             'mk_cpmk_only_map' => $mk_cpmk_only_map,
+            'user'=>$user
         ]);
     }
 
@@ -123,8 +126,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        $mata_kuliah = MataKuliahModel::all();
-        return view('form.CPMK.cpmkFormAdd', ['mata_kuliah' => $mata_kuliah]);
+        // $mata_kuliah = MataKuliahModel::all();
+        // return view('form.CPMK.cpmkFormAdd', ['mata_kuliah' => $mata_kuliah]);
     }
 
     /**
@@ -132,10 +135,10 @@ class AdminController extends Controller
      */
     public function store(StoreCPMKRequest $request)
     {
-        // dd($request->validated());
-        CPMKModel::create($request->validated());
+        // // dd($request->validated());
+        // CPMKModel::create($request->validated());
 
-        return to_route('cpmk.index')->with('success', 'Berhasil menambahkan CPMK!');
+        // return to_route('cpmk.index')->with('success', 'Berhasil menambahkan CPMK!');
     }
 
     /**
@@ -143,9 +146,7 @@ class AdminController extends Controller
      */
     public function show($id_mk)
     {
-        $mata_kuliah = MataKuliahModel::with('cpmk.subCpmk')->findOrFail($id_mk);
 
-        return view('cpmk', ['mata_kuliah' => $mata_kuliah]);
     }
 
     /**
@@ -153,10 +154,7 @@ class AdminController extends Controller
      */
     public function editAll()
     {
-        $mata_kuliah = MataKuliahModel::all();
-        $cpmk = CPMKModel::orderBy('nama_kode_cpmk')->get();
 
-        return view('form.CPMK.cpmkFormEdit', ['cpmk' => $cpmk, 'mata_kuliah' => $mata_kuliah]);
     }
 
     /**
@@ -164,24 +162,7 @@ class AdminController extends Controller
      */
     public function updateAll(UpdateAllCPMKRequest $request)
     {
-        if ($request->has('delete_ids')) {
-            CPMKModel::destroy($request->delete_ids);
-        }
 
-        if (!$request->has('cpmk')) {
-            return to_route('cpmk.index')->with('success', 'CPMK berhasil disimpan!');
-        }
-
-        $validatedData = $request->validated()['cpmk'];
-
-        foreach ($validatedData as $id_cpmk => $data) {
-            $cpmk = CPMKModel::find($id_cpmk);
-            if ($cpmk) {
-                $cpmk->update($data);
-            }
-        }
-
-        return to_route('cpmk.index')->with('success', 'CPMK berhasil diperbarui!');
     }
 
     /**
@@ -189,8 +170,6 @@ class AdminController extends Controller
      */
     public function destroy(CPMKModel $cpmk) 
     {
-        $cpmk->delete();
 
-        return to_route('cpmk.index')->with('success', 'Berhasil menghapus CPMK!');
     }
 }

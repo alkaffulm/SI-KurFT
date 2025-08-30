@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ProgramStudi;
+use App\Models\TahunAkademik;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -54,7 +55,10 @@ class DatabaseSeeder extends Seeder
             PLPEOSeeder::class,                   // 29
             CPLPLMapSeeder::class,                // 30
             MKCPMKSubCPMKMapSeeder::class,        // 31
-            MKCPMKCPLMapSeeder::class             // 32
+            MKCPMKCPLMapSeeder::class,            // 32
+            TahunAkademikSeeder::class,           // 33
+            KurikulumTahunAkademikSeeder::class,  // 34
+            KelasSeeder::class                    // 35
         ]);
     }
 }
