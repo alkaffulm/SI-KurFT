@@ -2,7 +2,9 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\KurikulumModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class KurikulumSelector extends Component
 {
@@ -11,53 +13,58 @@ class KurikulumSelector extends Component
     
     public function mount()
     {
-        $this->kurikulum = session('tahun', '2020');
+        // $this->kurikulum = session('tahun', '2020');
 
-        $this->debug = [
-            'kurikulum_mount' => $this->kurikulum,
-            'userRoleId_mount' => session('userRoleId'),
-            'id_kurikulum_aktif_mount' => session('id_kurikulum_aktif')
-        ];
+        // $this->debug = [
+        //     'kurikulum_mount' => $this->kurikulum,
+        //     'userRoleId_mount' => session('userRoleId'),
+        //     'id_kurikulum_aktif_mount' => session('id_kurikulum_aktif')
+        // ];
         
-        if (!session('id_kurikulum_aktif') && session('userRoleId')) {
-            $this->setKurikulumAktif($this->kurikulum);
+        // if (!session('id_kurikulum_aktif') && session('userRoleId')) {
+        //     $this->setKurikulumAktif($this->kurikulum);
+        // }
+
+        if(session('id_kurikulum_aktif')) {
+            $kurikulumDB = KurikulumModel::find(session('id_kurikulum_aktif'));
+            if($kurikulumDB) {
+                $this->kurikulum = $kurikulumDB->tahun;
+                session(['tahun' => $kurikulumDB->tahun]);
+            }
+        }
+        elseif (session('userRoleId')) {
+            $defaultKurikulum = KurikulumModel::where('id_ps', session('userRoleId'))->orderBy('tahun', 'asc')->first();
+            if($defaultKurikulum) {
+                $this->kurikulum = $defaultKurikulum->tahun;
+                session(['tahun' => $defaultKurikulum->tahun]);
+                session(['id_kurikulum_aktif' => $defaultKurikulum->id_kurikulum]);
+            }
         }
     }
+
     
     public function updatedKurikulum($value)
     {
         session(['tahun' => $value]);
-        $this->setKurikulumAktif($value);
+        $this->setActiveKurikulum($value);
     }
     
-    private function setKurikulumAktif($tahun)
-    {
-        $userRoleId = session('userRoleId');
-        
-        $this->debug['userRoleId_update'] = $userRoleId;
-        $this->debug['tahun_update'] = $tahun;
-        
-        if (!$userRoleId) {
-            $this->debug['error'] = 'userRoleId tidak ditemukan';
-            return;
-        }
-        
-        $idKurikulum = DB::table('kurikulum')
-            ->where('tahun', $tahun)
-            ->where('id_ps', $userRoleId)
-            ->value('id_kurikulum');
-            
-        $this->debug['query_result'] = $idKurikulum;
-        $this->debug['query_params'] = [
-            'tahun' => $tahun,
-            'id_ps' => $userRoleId
-        ];
-        
-        if ($idKurikulum) {
+    // setiap kurikulum berubah akan disimpan ke table user
+    private function setActiveKurikulum($tahun) {
+        $idKurikulum = KurikulumModel::where('id_ps', session('userRoleId'))->where('tahun', $tahun)->value('id_kurikulum');
+
+        if($idKurikulum) {
             session(['id_kurikulum_aktif' => $idKurikulum]);
-            $this->debug['session_set'] = $idKurikulum;
+
+            if(Auth::check()) {
+                /** @var \App\Models\UserModel $user */
+                $user = Auth::user();
+                $user->last_active_kurikulum_id = $idKurikulum;
+                $user->save();
+            }
             $this->dispatch('kurikulum-changed', $idKurikulum);
-        } else {
+        }
+        else {
             session()->forget('id_kurikulum_aktif');
             $this->debug['error'] = 'Kurikulum tidak ditemukan di database';
         }

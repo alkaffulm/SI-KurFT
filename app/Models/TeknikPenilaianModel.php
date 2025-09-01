@@ -7,18 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class TeknikPenilaianModel extends Model
 {
     protected $table = 'teknik_penilaian';
-    protected $primaryKey = 'id_tp';
+    protected $primaryKey = 'id_teknik_penilaian';
     public $timestamps = false;
     protected $fillable = [
-        'tahap_penilaian',
-        'teknik_penilaian',
-        'instrumen',
-        'kriteria',
-        'bobot_total',
+        'nama_teknik_penilaian',
+        'kategori',
     ];
 
     // has many relation
-    public function tpcpmkmap(){
-        return $this->hasMany(TPCPMKMapModel::class, 'id_tp', 'id_tp');
-    } 
+    // public function tpcpmkmap(){
+    //     return $this->hasMany(TPCPMKMapModel::class, 'id_tp', 'id_tp');
+    // } 
 }

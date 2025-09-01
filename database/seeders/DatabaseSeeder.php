@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             RubrikAnalitikSeeder::class,          // 5
             TeknikPenilaianSeeder::class,         // 6
             PEOSeeder::class,                     // 28
+            KriteriaPenilaianSeeder::class,
             
             //  B. Level 1 Dependency
             UserSeeder::class,                    // 7
@@ -35,7 +36,7 @@ class DatabaseSeeder extends Seeder
             UserRoleMapSeeder::class,             // 12
             UserPersonalisasiSeeder::class,       // 13
             CpmkSeeder::class,                    // 14
-            // RpsSeeder::class,                     // 15
+            RpsSeeder::class,                     // 15
             
             //  D. Level 3+ Dependency
             SubCpmkSeeder::class,                 // 16
@@ -51,14 +52,20 @@ class DatabaseSeeder extends Seeder
             BkMkMapSeeder::class,                 // 24
             BkCplMapSeeder::class,                // 25
             MkCplMapSeeder::class,                // 26
-            TpCpmkMapSeeder::class,               // 27 
+            // TpCpmkMapSeeder::class,               // 27 
             PLPEOSeeder::class,                   // 29
             CPLPLMapSeeder::class,                // 30
             MKCPMKSubCPMKMapSeeder::class,        // 31
             MKCPMKCPLMapSeeder::class,            // 32
             TahunAkademikSeeder::class,           // 33
             KurikulumTahunAkademikSeeder::class,  // 34
-            KelasSeeder::class                    // 35
+            KelasSeeder::class,                    // 35
+
+            RpsTopicSeeder::class,
+            RpsTopicWeekSeeder::class,
+            RpsTopicKriteriaPenilaianSeeder::class,
+            RpsTopicTeknikPenilaianSeeder::class,
+
         ]);
     }
 }

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TopicWeekMapModel extends Model
+class RpsTopicWeekMapModel extends Model
 {
-    protected $table = 'topic_week_map';
+    protected $table = 'rps_topic_week';
     protected $primaryKey = 'id_week_topic';
     public $timestamps = false;
 

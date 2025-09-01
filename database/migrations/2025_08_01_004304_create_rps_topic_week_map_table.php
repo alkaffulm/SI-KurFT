@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topic_week_map', function (Blueprint $table) {
+        Schema::create('rps_topic_week', function (Blueprint $table) {
             $table->id('id_week_topic');
             $table->foreignId('id_topic')->constrained('rps_topics', 'id_topic')->onDelete('cascade');
             $table->integer('minggu_ke');

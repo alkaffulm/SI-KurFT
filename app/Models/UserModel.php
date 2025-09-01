@@ -40,4 +40,9 @@ class UserModel extends Authenticatable
     {
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }
+
+    // belongs to many
+    public function roles() {
+        return $this->belongsToMany(RoleModel::class, 'user_role_map', 'id_user', 'id_role');
+    }
 }
