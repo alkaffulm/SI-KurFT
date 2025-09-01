@@ -15,11 +15,14 @@ class UserRoleMapModel extends Model
         'id_role',
     ];
 
+    // Relasi ke User
     public function user(){
         return $this->belongsTo(UserModel::class, 'id_user', 'id_user');
     }
 
+    // Relasi ke Role
     public function role(){
         return $this->belongsTo(RoleModel::class, 'id_role', 'id_role');
     }
 }
+

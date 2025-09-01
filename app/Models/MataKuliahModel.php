@@ -27,6 +27,7 @@ class MataKuliahModel extends Model
         'sks_teori',
         'sks_praktikum',
         'semester',
+        'muncul'
     ];
 
     protected function jumlahSks(): Attribute {
@@ -54,6 +55,11 @@ class MataKuliahModel extends Model
     }
 
     // has many relation
+
+    public function kelas()
+    {
+        return $this->hasMany(Kelas::class, 'id_mk', 'id_mk');
+    }
     public function sub_cpmk()
     {
         return $this->hasMany(SubCPMKModel::class, 'id_mk', 'id_mk');
@@ -102,4 +108,9 @@ class MataKuliahModel extends Model
     {
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }
+    // public function tahunAkademiks()
+    // {
+    //     return $this->belongsToMany(TahunAkademik::class, 'kurikulum_tahun_akademik_map', 'id_kurikulum', 'id_tahun_akademik');
+    // }
+
 }

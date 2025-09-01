@@ -32,6 +32,7 @@ class StoreMatkulRequest extends FormRequest
             // 'jumlah_sks' => 'required|integer',
             'sks_teori' => 'integer',
             'sks_praktikum' => 'integer',
+            'muncul' => 'required|string',
             'semester' => 'required|integer|min:1|max:8'
         ];
     }
@@ -57,6 +58,7 @@ class StoreMatkulRequest extends FormRequest
             'matkul_desc_id.string'   => 'Deskripsi Mata Kuliah (Indoneia) harus berupa string',
             'matkul_desc_en.required' => 'Deskripsi Mata Kuliah (English) tidak boleh kosong.',
             'matkul_desc_en.string'   => 'Deskripsi Mata Kuliah (English) harus berupa string',
+            'muncul' => 'Kemunculan Mata Kuliah tidak boleh kosong.',
         ];
     }
 }

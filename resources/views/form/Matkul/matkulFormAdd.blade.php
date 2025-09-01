@@ -95,6 +95,22 @@
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+                            <div>
+                                <label for="muncul"
+                                    class="block text-base font-medium text-gray-700 mb-2">Semester</label>
+                                <select id="muncul" name="muncul"
+                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                    required>
+                                    <option value="" disabled selected>Pilih Kemunculan Mata Kuliah</option>
+                                    <option value="ganjil" {{ old('muncul') == 'ganjil' ? 'selected' : '' }}>Ganjil</option>
+                                    <option value="genap" {{ old('muncul') == 'genap' ? 'selected' : '' }}>Genap</option>
+                                    <option value="semua" {{ old('munculr') == 'semua' ? 'selected' : '' }}>Semua</option>
+                                </select>
+                                @error('muncul')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
                         </div>
 
                         <div>
