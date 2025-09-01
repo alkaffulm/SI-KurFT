@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\MataKuliahModel;
 use App\Http\Controllers\Controller;
 use App\Models\BahanKajianModel;
+use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\RPSDetailModel;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,12 +40,21 @@ class RPSController extends Controller
             return $bahanKajian->cpls;
         })->unique('id_cpl');
 
+        $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $mata_kuliah->id_mk)->with('cpl', 'cpmk')->get();
+        $relevantCpl = $mappings->pluck('cpl')->unique('id_cpl')->sortBy('nama_kode_cpl');
+        $relevantCpmk = $mappings->pluck('cpmk')->unique('id_cpmk')->sortBy('nama_kode_cpmk');
+
+        $correlationCpmkCplMap = [];
+        foreach($mappings as $mapping) {
+            $correlationCpmkCplMap[$mapping->id_cpmk][] = $mapping->id_cpl;
+        }
+
         // $cpl = CPLModel::all();
         // $dosen = UserModel::where('id_ps', session('userProfiId'))->get();
         // $bahan_kajian = BahanKajianModel::all();
         $allMatkul =MataKuliahModel::where('id_mk','!=', $id_mk)->get();
 
-        return view('dosen.form.rps.rpsFormAdd', ['mata_kuliah' => $mata_kuliah, 'allMatkul' => $allMatkul, 'assocCpls' => $assocCpls]);
+        return view('dosen.form.rps.rpsFormAdd', ['mata_kuliah' => $mata_kuliah, 'allMatkul' => $allMatkul, 'assocCpls' => $relevantCpl, 'assocCpmk' => $relevantCpmk]);
     }
 
     /**
@@ -114,6 +124,15 @@ class RPSController extends Controller
             'topics.subCpmk',
         ]);
 
+        $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rp->id_mk)->with('cpl', 'cpmk')->get();
+        $relevantCpl = $mappings->pluck('cpl')->unique('id_cpl')->sortBy('nama_kode_cpl');
+        $relevantCpmk = $mappings->pluck('cpmk')->unique('id_cpmk')->sortBy('nama_kode_cpmk');
+
+        $correlationCpmkCplMap = [];
+        foreach($mappings as $mapping) {
+            $correlationCpmkCplMap[$mapping->id_cpmk][] = $mapping->id_cpl;
+        }
+
         $assocCpls = collect();
 
         if($rp->mataKuliah) {
@@ -132,7 +151,7 @@ class RPSController extends Controller
         //     return $cpmk->cpls;
         // })->unique('id_cpl');
         
-        return view('dosen.showrps', ['rps' => $rp, 'assocCpls' => $assocCpls]);
+        return view('dosen.showrps', ['rps' => $rp, 'assocCpls' => $relevantCpl, 'assocCpmk' => $relevantCpmk, 'correlationCpmkCplMap' => $correlationCpmkCplMap]);
     }
 
     /**

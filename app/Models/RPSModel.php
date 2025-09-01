@@ -31,24 +31,6 @@ class RPSModel extends Model
 
     protected $casts = ['tanggal_disusun' => 'date'];
 
-    // protected static function booted(): void
-    // {
-    //     static::addGlobalScope(new ProdiScope);
-    //     static::addGlobalScope(new KurikulumScope);
-
-    //     static::creating(function($rps) {
-    //         $rps->jumlah_revisi = 0;
-    //     });
-
-    //     static::updating(function($rps) {
-    //         if($rps->isRevisi == false) {
-    //             $rps->isRevisi = true;
-    //         }
-    //         else {
-    //             $rps->jumlah_revisi += 1;
-    //         }
-    //     });
-    // }
     // has many relation
     public function topics()
     {

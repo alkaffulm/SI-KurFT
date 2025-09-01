@@ -9,6 +9,7 @@ use App\Models\RPSTopicModel;
 use App\Models\MataKuliahModel;
 use App\Models\BahanKajianModel;
 use App\Models\KriteriaPenilaianModel;
+use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\RpsTopicWeekMapModel;
 use App\Models\TeknikPenilaianModel;
 use App\Models\TopicWeekMapModel;
@@ -21,7 +22,9 @@ class RpsEditPage extends Component
    // Properti untuk data induk RPS
     public $id_bk;
     // public $cpl_ids = [];
-    public $assocCpls = [];
+    public $assocCpls;
+    public $assocCpmk;
+    public $correlationCpmkCplMap = [];
     public $id_mk_syarat;
     public $indikator;
     public $kriteria_teknik_penilaian;
@@ -51,6 +54,15 @@ class RpsEditPage extends Component
         $this->pustaka_pendukung = $rps->pustaka_pendukung;
 
         $this->assocCpls = $rps->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {return $bahanKajian->cpls;})->unique('id_cpl');
+
+        $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rps->id_mk)->with('cpl', 'cpmk')->get();
+        $this->assocCpls = $mappings->pluck('cpl')->unique('id_cpl')->sortBy('nama_kode_cpl');
+        $this->assocCpmk = $mappings->pluck('cpmk')->unique('id_cpmk')->sortBy('nama_kode_cpmk');
+
+        $this->correlationCpmkCplMap = [];
+        foreach($mappings as $mapping) {
+            $correlationCpmkCplMap[$mapping->id_cpmk][] = $mapping->id_cpl;
+        }
 
         // untuk dropdown
         // $this->allCpl = CPLModel::all();

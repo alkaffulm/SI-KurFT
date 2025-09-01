@@ -68,7 +68,7 @@
                 <h4>CPMK untuk Mata Kuliah ini:</h4>
                 <ul class="list-disc list-inside">
                     <table>
-                        @forelse ($rps->mataKuliah->cpmks as $cpmk)
+                        @forelse ($assocCpmk as $cpmk)
                             <tr>
                                 <td class="w-[90px] flex align-top"><li>{{ $cpmk->nama_kode_cpmk }} = </li></td>
                                 <td >{{ $cpmk->desc_cpmk_id }}</td>

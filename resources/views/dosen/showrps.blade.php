@@ -129,7 +129,7 @@
                 <div class="col-span-6  px-2 border-b  border-black "></div>
             </div>
             {{-- Loop untuk CPMK --}}
-            @foreach($rps->mataKuliah->cpmks as $cpmk)
+            @foreach($assocCpmk as $cpmk)
             <div class="grid grid-cols-12  border-black">
                 <div class="col-span-2 px-2 border-r border-black text-center font-bold"></div>
                 <div class="col-span-1 px-2 border-b border-r border-black text-center ">{{ $cpmk->nama_kode_cpmk }}</div>
@@ -143,7 +143,7 @@
                 <div class="col-span-6  px-2 border-b  border-black "></div>            
             </div>
             {{-- Loop untuk Sub-CPMK --}}
-            @foreach($rps->mataKuliah->cpmks as $cpmk)
+            @foreach($assocCpmk as $cpmk)
                 @foreach ($cpmk->subCpmk as $sc )
                     <div class="grid grid-cols-12  border-black">
                         <div class="col-span-2 px-2 border-r border-black text-center font-bold"></div>
@@ -168,24 +168,32 @@
                                 <th class="px-2  border-b border-black" colspan="{{count($assocCpls)}}"  >CPL yang didukung</th>
                             </tr>
                             <tr>                                
-                                @foreach ($assocCpls as $cpl )
+                                @forelse ($assocCpls as $cpl )
                                     <th class="px-2 border-r border-black">{{ $cpl->nama_kode_cpl }}</th>
-                                @endforeach
+                                @empty
+                                    <th class="px-2 border-r border-black">-</th>
+                                @endforelse
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($rps->mataKuliah->cpmks as $cpmk)
+                            @forelse ($assocCpmk as $cpmk)
                                 <tr class="border-t border-black">
                                     <td class="px-2 border-r border-black ">{{$cpmk->nama_kode_cpmk}}</td>
-                                    @foreach ($rps->cpls as $cpl )
+                                    @foreach ($assocCpls as $cpl )
                                         <td class="px-2 border-r border-black text-center">
-                                            @if ($cpmk->cpl->contains($cpl))
-                                                ✓
+                                            @if (isset($correlationCpmkCplMap[$cpmk->id_cpmk]) && in_array($cpl->id_cpl, $correlationCpmkCplMap[$cpmk->id_cpmk]))
+                                                 ✔    
                                             @endif
                                         </td>
                                     @endforeach
                                 </tr> 
-                            @endforeach
+                            @empty
+                                <tr class="border-t border-black">
+                                    <td class="px-2 border-r border-black" colspan="{{ $associatedCpls->count() + 1 }}">
+                                        Belum ada pemetaan CPMK.
+                                    </td>
+                                </tr>                                
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
