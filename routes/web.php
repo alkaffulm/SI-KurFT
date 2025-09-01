@@ -15,6 +15,7 @@ use App\Http\Controllers\Kaprodi\BKCPLMapController;
 use App\Http\Controllers\Kaprodi\BKMKMapController;
 use App\Http\Controllers\Kaprodi\CPLCPMKController;
 use App\Http\Controllers\Kaprodi\CPMKMPLMapController;
+use App\Http\Controllers\Kaprodi\KelasController;
 use App\Http\Controllers\Kaprodi\MatkulController;
 use App\Http\Controllers\Kaprodi\MKCPMKController;
 use App\Http\Controllers\Kaprodi\MKCPMKCPLController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Kaprodi\PeoController;
 use App\Http\Controllers\Kaprodi\ProfilLulusanController;
 use App\Http\Controllers\Kaprodi\SubCpmkController;
 use App\Http\Controllers\Kaprodi\PLPEOMappingController;
+use App\Http\Controllers\Kaprodi\TahunakademikController;
 use App\Http\Controllers\MhsCplController;
 use App\Models\BKCPLMapModel;
 use App\Models\CPLPLMapModel;
@@ -116,12 +118,24 @@ Route::middleware('auth')->group(function () {
 
         // coba admin
         Route::get('/roleadmin', [AdminController::class, 'index'])->name('role_admin');
+
+        //Route::put('/mapping/cpmk-cpl', [CPMKMPLMapController::class, 'updateCPMKCPLMap'])->name('cpmk-cpl-mapping.update');
     });
 
     Route::middleware('role:dosen')->prefix('dosen')->group(function() {
         Route::resource('rps', RPSController::class);
         Route::resource('matkul', MatkulController::class);
     });
+    Route::get('/mapping/tahun-akademik-kurikulum/tambah', [TahunakademikController::class, 'tambahTA'])->name('ta-kurikulum-mapping.add');
+    Route::get('/mapping/tahun-akademik-kurikulum/index', [TahunakademikController::class, 'index'])->name('ta.index');
+    Route::post('/mapping/tahun-akademik-kurikulum/update', [TahunakademikController::class, 'updateTA'])->name('ta.update');
+    Route::get('/mapping/tahun-akademik-kurikulum', [TahunakademikController::class, 'index'])->name('ta.index');
+
+    // buat kelas
+    Route::get('/mapping/kelas/index', [KelasController::class, 'index'])->name('kelas.index');
+    Route::get('/mapping/kelas/tambah', [KelasController::class, 'tambahKelas'])->name('kelas.add');
+
+
 });
 
 
