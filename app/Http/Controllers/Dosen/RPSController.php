@@ -8,6 +8,7 @@ use App\Models\UserModel;
 use Illuminate\Http\Request;
 use App\Models\MataKuliahModel;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRPSRequest;
 use App\Models\BahanKajianModel;
 use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\RPSDetailModel;
@@ -60,7 +61,7 @@ class RPSController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRPSRequest $request)
     {
         $programStudi = UserModel::find(Auth::id())->programStudiModel;
         if($programStudi) {
@@ -69,18 +70,7 @@ class RPSController extends Controller
             })->first();
         }
 
-        $validated = $request->validate([
-            'id_mk' => 'required|exists:mata_kuliah,id_mk',
-            // 'id_dosen_penyusun' => 'required|exists:users,id_user',
-            // 'deskripsi_singkat' => 'nullable|string',
-            // 'id_bk' => 'required|exists:bahan_kajian,id_bk',
-            'id_mk_syarat' => 'nullable|exists:mata_kuliah,id_mk',
-            // 'cpl_ids' => 'required|array',
-            // 'cpl_ids.*' => 'exists:cpl,id_cpl', // Pastikan setiap ID CPL valid
-            'materi_pembelajaran' => 'nullable|string',
-            'pustaka_utama' => 'nullable|string',
-            'pustaka_pendukung' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
 
         $rps = RPSModel::create([
             'id_mk' => $validated['id_mk'],
@@ -127,7 +117,7 @@ class RPSController extends Controller
         $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rp->id_mk)->with('cpl', 'cpmk')->get();
         $relevantCpl = $mappings->pluck('cpl')->unique('id_cpl')->sortBy('nama_kode_cpl');
         $relevantCpmk = $mappings->pluck('cpmk')->unique('id_cpmk')->sortBy('nama_kode_cpmk');
-
+        
         $correlationCpmkCplMap = [];
         foreach($mappings as $mapping) {
             $correlationCpmkCplMap[$mapping->id_cpmk][] = $mapping->id_cpl;

@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rps_topic_week', function (Blueprint $table) {
-            $table->id('id_week_topic');
-            $table->foreignId('id_topic')->constrained('rps_topics', 'id_topic')->onDelete('cascade');
-            $table->integer('id_week')->constraine('weeks', 'id_week')->onDelete('cascade');
+        Schema::create('weeks', function (Blueprint $table) {
+            $table->id('id_week');
+            $table->string('week');
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topic_week_map');
+        Schema::dropIfExists('weeks');
     }
 };

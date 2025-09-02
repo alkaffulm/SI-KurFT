@@ -112,13 +112,15 @@
                     @foreach ($allMataKuliah as $mk)
                         <option value="{{ $mk->id_mk }}" >{{ $mk->nama_matkul_id }}</option>
                     @endforeach
-                </select>                
+                </select>  
+                @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror                           
             </div>
 
             <br>
             <div>
                 <label for="materi_pembelajaran">Materi Pembelajaran:</label><br>
                 <textarea wire:model="materi_pembelajaran"  class="p-2 border w-96 h-48"></textarea>
+                @error('materi_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
             </div>
 
             <br>
@@ -126,6 +128,7 @@
             <div>
                 <label for="pustaka_utama">Pustaka Utama:</label><br>
                 <textarea wire:model="pustaka_utama"  class="p-2 border w-96 h-48"></textarea>
+                @error('pustaka_utama') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
             </div>
 
             <br>
@@ -133,6 +136,7 @@
             <div>
                 <label for="pustaka_pendukung">Pustaka pendukung:</label><br>
                 <textarea wire:model="pustaka_pendukung"  class="p-2 border w-96 h-48"></textarea>
+                @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror                         
             </div>
             <br>
 
@@ -156,12 +160,17 @@
                     <tbody>
                         @forelse ($topics as $index => $topic )
                         <tr wire:key="topic-{{ $index }}" >
+                                 @error('topics.'.$index.'.id_topic') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
+
                                 <td >
                                     <div wire:ignore>
                                         <select class="select2-weeks w-full" multiple="multiple" data-index="{{ $index }}" wire:key="select-weeks-{{ $index }}" id="" required>
-                                            @for ($i = 1 ; $i <= 16 ; $i++)
+                                            @foreach ($allWeek as $week)
+                                                <option value="{{$week->id_week}}" {{ in_array($week->id_week, $topic['minggu_ke']) ? 'selected' : '' }}> {{$week->week}} </option>
+                                            @endforeach
+                                            {{-- @for ($i = 1 ; $i <= 16 ; $i++)
                                                 <option value="{{$i}}" {{ in_array($i, $topic['minggu_ke']) ? 'selected' : '' }}> {{$i}} </option>
-                                            @endfor
+                                            @endfor --}}
                                         </select>
                                     </div>
                                     @error('topics.'.$index.'.minggu_ke') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
@@ -177,7 +186,7 @@
                                     <td class="p-2 border" >
                                         <select wire:model="topics.{{ $index }}.id_sub_cpmk"  class="w-full" required>
                                             <option value="">--pilih Sub-CPMK--</option>
-                                            @foreach ($allSubCpmks as $scp )
+                                            @foreach ($assocSubCpmk as $scp )
                                                 <option value="{{ $scp->id_sub_cpmk }}" >{{ $scp->nama_kode_sub_cpmk }}</option>
                                             @endforeach
                                         </select>
@@ -219,13 +228,13 @@
                                         @error('topics.'.$index.'.kriteria_teknik_penilaian') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </td>                            
                                     <td>
+                                        <textarea wire:model="topics.{{$index}}.metode_pembelajaran" id="metode_pembelajaran" class="border w-full  h-48" required></textarea>
+                                        @error('topics.'.$index.'.metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                    </td> 
+                                    <td>
                                         <textarea wire:model="topics.{{$index}}.materi_pembelajaran" id="materi_pembelajaran"  class="border w-full  h-48" required></textarea>
                                         @error('topics.'.$index.'.materi_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </td>                            
-                                    <td>
-                                        <textarea wire:model="topics.{{$index}}.metode_pembelajaran" id="metode_pembelajaran" class="border w-full  h-48" required></textarea>
-                                        @error('topics.'.$index.'.indikator') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                    </td> 
                                 @else
                                     <td colspan="5">
                                         @if ($topics[$index]['tipe'] == 'uts')
@@ -252,6 +261,7 @@
                         @endforelse
                     </tbody>
                 </table>
+                @error('topics') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
             </div>
 
             <div class="mt-4 flex justify-between">

@@ -60,7 +60,8 @@ class DatabaseSeeder extends Seeder
             TahunAkademikSeeder::class,           // 33
             KurikulumTahunAkademikSeeder::class,  // 34
             KelasSeeder::class,                    // 35
-
+            
+            WeekSeeder::class,
             RpsTopicSeeder::class,
             RpsTopicWeekSeeder::class,
             RpsTopicKriteriaPenilaianSeeder::class,

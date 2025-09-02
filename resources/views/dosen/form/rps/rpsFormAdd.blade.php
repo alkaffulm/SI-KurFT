@@ -136,7 +136,7 @@
                 <select class="border" name="id_mk_syarat" >
                     <option value="">Tidak ada Matkul Prasyarat</option>
                     @foreach ($allMatkul as $mk)
-                        <option value="{{ $mk->id_mk }}">{{ $mk->nama_matkul_id }}</option>
+                        <option value="{{ $mk->id_mk }}" {{old('id_mk_syarat') == $mk->id_mk ? 'selected' : ''}}>{{ $mk->nama_matkul_id }}</option>
                     @endforeach
                 </select>   
                 @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
@@ -145,7 +145,7 @@
             <br>
             <div>
                 <label for="materi_pembelajaran">Materi Pembelajaran:</label><br>
-                <textarea class="border" name="materi_pembelajaran" rows="5" cols="80" cols="80"  required></textarea>
+                <textarea class="border" name="materi_pembelajaran" rows="5" cols="80" cols="80"  required>{{old('materi_pembelajaran')}}</textarea>
                 @error('materi_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
             </div>
 
@@ -153,7 +153,7 @@
             
             <div>
                 <label for="pustaka_utama">Pustaka Utama:</label><br>
-                <textarea class="border" name="pustaka_utama" rows="5" cols="80" required></textarea>
+                <textarea class="border" name="pustaka_utama" rows="5" cols="80" required>{{old('pustaka_utama')}}</textarea>
                 @error('pustaka_utama') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
             </div>
 
@@ -161,7 +161,7 @@
 
             <div>
                 <label for="pustaka_pendukung">Pustaka pendukung:</label><br>
-                <textarea class="border" name="pustaka_pendukung" rows="5" cols="80" required></textarea>
+                <textarea class="border" name="pustaka_pendukung" rows="5" cols="80" required>{{old('pustaka_pendukung')}}</textarea>
                 @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
             </div>
             <br>

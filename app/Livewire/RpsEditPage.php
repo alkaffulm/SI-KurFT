@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Http\Requests\StoreRPSTopicRequest;
 use Livewire\Component;
 use App\Models\CPLModel;
 use App\Models\RPSModel;
@@ -13,6 +14,7 @@ use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\RpsTopicWeekMapModel;
 use App\Models\TeknikPenilaianModel;
 use App\Models\TopicWeekMapModel;
+use App\Models\WeekModel;
 use Illuminate\Support\Facades\DB;
 
 class RpsEditPage extends Component
@@ -34,10 +36,12 @@ class RpsEditPage extends Component
 
     // Properti untuk data detail mingguan
     public $topics = [];
-    public $allSubCpmks = [];
+    // public $allSubCpmks = [];
+    public $assocSubCpmk = [];
     public $teknikTersedia = [];
     public $allKriteria = [];
     public $allTeknik = [];
+    public $allWeek = [];
     
     // Properti untuk pilihan dropdown
     public $allBahanKajian = [];
@@ -53,11 +57,12 @@ class RpsEditPage extends Component
         $this->pustaka_utama = $rps->pustaka_utama;
         $this->pustaka_pendukung = $rps->pustaka_pendukung;
 
-        $this->assocCpls = $rps->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {return $bahanKajian->cpls;})->unique('id_cpl');
+        // $this->assocCpls = $rps->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {return $bahanKajian->cpls;})->unique('id_cpl');
 
         $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rps->id_mk)->with('cpl', 'cpmk')->get();
         $this->assocCpls = $mappings->pluck('cpl')->unique('id_cpl')->sortBy('nama_kode_cpl');
         $this->assocCpmk = $mappings->pluck('cpmk')->unique('id_cpmk')->sortBy('nama_kode_cpmk');
+        $this->assocSubCpmk = $this->assocCpmk->pluck('subCpmk')->flatten();
 
         $this->correlationCpmkCplMap = [];
         foreach($mappings as $mapping) {
@@ -70,9 +75,10 @@ class RpsEditPage extends Component
         $this->allKriteria = KriteriaPenilaianModel::all();
         $this->allTeknik = TeknikPenilaianModel::all();
         $this->allMataKuliah = MataKuliahModel::where('id_mk', '!=', $rps->id_mk)->get();
+        $this->allWeek = WeekModel::all();
 
         // untuk RPS Detail atau RPS Topic
-        $this->allSubCpmks = $rps->mataKuliah->cpmks->pluck('subCpmk')->flatten();
+        // $this->allSubCpmks = $rps->mataKuliah->cpmks->pluck('subCpmk')->flatten();
         $this->topics = $rps->topics()->with(['weeks', 'kriteriaPenilaian', 'teknikPenilaian'])->get()->map(function ($topic, $index) {
             if($topic->teknik_penilaian_kategori) {
                 $this->teknikTersedia[$index] = TeknikPenilaianModel::where('kategori', $topic->teknik_penilaian_kategori)->get();
@@ -89,7 +95,7 @@ class RpsEditPage extends Component
                 'teknik_penilaian_kategori' => $topic->teknik_penilaian_kategori,
                 'selected_kriteria' => $topic->kriteriaPenilaian->pluck('id_kriteria_penilaian')->toArray(),
                 'selected_teknik' => $topic->teknikPenilaian->pluck('id_teknik_penilaian')->toArray(),
-                'minggu_ke' => $topic->weeks->pluck('minggu_ke')->toArray(),                
+                'minggu_ke' => $topic->weeks->pluck('id_week')->toArray(),                
             ];
         })->toArray();
 
@@ -137,85 +143,53 @@ class RpsEditPage extends Component
 
     }  
 
-    public function saveRps() {
-        $this->validate([
-            // validasi RPS Detail
-            'topics.*.id_sub_cpmk' => 'required_if:topics.*.tipe,topik|nullable|exists:sub_cpmk,id_sub_cpmk',
-            'topics.*.indikator' => 'nullable|string',
-            'topics.*.tipe' => 'required|in:topik,uts,uas',
-            'topics.*.materi_pembelajaran' => 'required_if:topics.*.tipe,topik|nullable|string',
-            'topics.*.metode_pembelajaran' => 'required_if:topics.*.tipe,topik|nullable|string',
-            'topics.*.bobot_penilaian' => 'required|min:0|max:100|numeric',
-            'topics.*.minggu_ke' => 'array|min:1', 
-            'topics.*.teknik_penilaian_kategori' => 'nullable|string', 
-            'topics.*.selected_kriteria' => 'nullable|array', 
-            'topics.*.selected_teknik' => 'nullable|array', 
+    public function saveRps( ) {
+        $request = new StoreRPSTopicRequest();
+        $validated = $this->validate($request->rules(), $request->messages());
 
-            // validasi RPS Induk
-            // 'id_bk' => 'required|exists:bahan_kajian,id_bk',
-            'id_mk_syarat' => 'nullable|exists:mata_kuliah,id_mk',
-            // 'cpl_ids' => 'required|array',
-            // 'cpl_ids.*' => 'exists:cpl,id_cpl', // Pastikan setiap ID CPL valid
-            'materi_pembelajaran' => 'nullable|string',
-            'pustaka_utama' => 'nullable|string',
-            'pustaka_pendukung' => 'nullable|string',
-        ]);
-
-    // protected $messages = [
-    //     'topics.*.id_sub_cpmk.required' => 'Setiap topik harus memiliki Sub-CPMK.',
-    //     'topics.*.materi_pembelajaran.required' => 'Setiap topik harus memiliki materi pembelajaran.',
-    //     'topics.*.minggu_ke.required' => 'Setiap topik harus dijadwalkan setidaknya untuk satu minggu.',        
-    // ];
-
-        DB::transaction(function () {
+        DB::transaction(function () use ($validated) {
         
-        $isRevisi = $this->rps->isRevisi;
+            $isRevisi = $this->rps->isRevisi;
 
-        $this->rps->update([
-            // 'id_bk' => $this->id_bk,
-            'materi_pembelajaran' => $this->materi_pembelajaran,
-            'pustaka_utama' => $this->pustaka_utama,
-            'pustaka_pendukung' => $this->pustaka_pendukung,
-        ]);
+            $this->rps->update([
+                // 'id_bk' => $this->id_bk,
+                'materi_pembelajaran' => $validated['materi_pembelajaran'],
+                'pustaka_utama' => $validated['pustaka_utama'],
+                'pustaka_pendukung' => $validated['pustaka_pendukung'],
+            ]);
 
-        // $this->rps->cpls()->sync($this->cpl_ids);
-        $this->rps->mataKuliahSyarat()->sync($this->id_mk_syarat ?? []);
-        
-        foreach ($this->topics as $topicData) {
-            $topic = RPSTopicModel::updateOrCreate(
-                ['id_topic' => $topicData['id_topic'] ?? null],
-                [
-                    'id_rps' => $this->rps->id_rps,
-                    'id_sub_cpmk' => empty($topicData['id_sub_cpmk'] ) ? null : $topicData['id_sub_cpmk'],
-                    'indikator' => $topicData['indikator'] ?? null,
-                    'tipe' => $topicData['tipe'],
-                    'teknik_penilaian_kategori' => $topicData['teknik_penilaian_kategori'] ?? null,
-                    'metode_pembelajaran' => $topicData['metode_pembelajaran'] ?? null,
-                    'materi_pembelajaran' => $topicData['materi_pembelajaran'] ?? null,
-                    'bobot_penilaian' => $topicData['bobot_penilaian'] ?? 0,                    
-                ]
-            );
+            // $this->rps->cpls()->sync($this->cpl_ids);
+            $this->rps->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
+            
+            foreach ($validated['topics'] as $topicData) {
+                $topic = RPSTopicModel::updateOrCreate(
+                    ['id_topic' => $topicData['id_topic'] ?? null],
+                    [
+                        'id_rps' => $this->rps->id_rps,
+                        'id_sub_cpmk' => empty($topicData['id_sub_cpmk'] ) ? null : $topicData['id_sub_cpmk'],
+                        'indikator' => $topicData['indikator'] ?? null,
+                        'tipe' => $topicData['tipe'],
+                        'teknik_penilaian_kategori' => $topicData['teknik_penilaian_kategori'] ?? null,
+                        'metode_pembelajaran' => $topicData['metode_pembelajaran'] ?? null,
+                        'materi_pembelajaran' => $topicData['materi_pembelajaran'] ?? null,
+                        'bobot_penilaian' => $topicData['bobot_penilaian'] ?? 0,                    
+                    ]
+                );
 
-            RpsTopicWeekMapModel::where('id_topic', $topic->id_topic)->delete();
-            $weekMappings = [];
-            foreach ($topicData['minggu_ke'] as $week) {
-                $weekMappings[] = ['id_topic' => $topic->id_topic, 'minggu_ke' => $week];                
+                $topic->weeks()->sync($topicData['minggu_ke'] ?? []);
+                $topic->kriteriaPenilaian()->sync($topicData['selected_kriteria'] ?? []);
+                $topic->teknikPenilaian()->sync($topicData['selected_teknik'] ?? []);
+                    
             }
-            RpsTopicWeekMapModel::insert($weekMappings);  
-                
-            $topic->kriteriaPenilaian()->sync($topicData['selected_kriteria'] ?? []);
-            $topic->teknikPenilaian()->sync($topicData['selected_teknik'] ?? []);
-                
-        }
 
-        // untuk jumlah revisi dan tanggal revisi
-        if($isRevisi) {
-            $this->rps->increment('jumlah_revisi');
-            $this->rps->forceFill(['tanggal_revisi' => now()])->saveQuietly();
-        }
-        else {
-            $this->rps->forceFill(['isRevisi' => true])->saveQuietly();
-        }
+            // untuk jumlah revisi dan tanggal revisi
+            if($isRevisi) {
+                $this->rps->increment('jumlah_revisi');
+                $this->rps->forceFill(['tanggal_revisi' => now()])->saveQuietly();
+            }
+            else {
+                $this->rps->forceFill(['isRevisi' => true])->saveQuietly();
+            }
         });
         return redirect(route('rps.show', $this->rps))->with('Success', 'Berhasil Memperbarui Rencana pembelajaran mingguan');
     }  

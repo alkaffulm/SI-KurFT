@@ -189,7 +189,7 @@
                                 </tr> 
                             @empty
                                 <tr class="border-t border-black">
-                                    <td class="px-2 border-r border-black" colspan="{{ $associatedCpls->count() + 1 }}">
+                                    <td class="px-2 border-r border-black" colspan="{{ count($assocCpls) }}">
                                         Belum ada pemetaan CPMK.
                                     </td>
                                 </tr>                                
@@ -274,7 +274,7 @@
                             {{-- (1) Minggu Ke- --}}
                             {{-- Mengambil semua minggu dari relasi, mengurutkan, dan menggabungkannya dengan koma --}}
                             <td class="p-2 border border-black text-center align-top font-semibold">
-                                {{ $topic->weeks->pluck('minggu_ke')->sort()->implode(', ') }}
+                                {{ $topic->weeks->pluck('week')->sort()->implode(', ') }}
                             </td>
                             @if ($topic->tipe == 'topik')
                                 {{-- (2) Sub-CPMK --}}

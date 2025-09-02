@@ -18,7 +18,7 @@ class RpsTopicSeeder extends Seeder
             [
                 'id_rps' => 1, 
                 'tipe' => 'topik', 
-                'id_sub_cpmk' => 91, 
+                'id_sub_cpmk' => 94, 
                 'teknik_penilaian_kategori' => 'test', 
                 'indikator' => '1. Ketepatan dalam 
                                     menganalisa 
@@ -85,7 +85,7 @@ class RpsTopicSeeder extends Seeder
             [
                 'id_rps' => 1, 
                 'tipe' => 'topik', 
-                'id_sub_cpmk' => 92, 
+                'id_sub_cpmk' => 95, 
                 'teknik_penilaian_kategori' => 'non-test', 
                 'indikator' => '1. Ketepatan dalam 
                                     menjelaskan konsep 
@@ -171,7 +171,7 @@ class RpsTopicSeeder extends Seeder
             [
                 'id_rps' => 1, 
                 'tipe' => 'topik', 
-                'id_sub_cpmk' => 92, 
+                'id_sub_cpmk' => 95, 
                 'teknik_penilaian_kategori' => 'non-test', 
                 'indikator' => '1. Ketepatan dalam 
                                     menjelaskan konsep 
@@ -255,7 +255,7 @@ class RpsTopicSeeder extends Seeder
             [
                 'id_rps' => 1, 
                 'tipe' => 'topik', 
-                'id_sub_cpmk' => 93, 
+                'id_sub_cpmk' => 96, 
                 'teknik_penilaian_kategori' => 'non-test', 
                 'indikator' => '1. Ketepatan dalam 
                                     menjelaskan 
@@ -347,7 +347,7 @@ class RpsTopicSeeder extends Seeder
             [
                 'id_rps' => 1, 
                 'tipe' => 'topik', 
-                'id_sub_cpmk' => 93, 
+                'id_sub_cpmk' => 96, 
                 'teknik_penilaian_kategori' => 'non-test', 
                 'indikator' => '1. Ketepatan dalam 
                                     menjelaskan peran 
@@ -434,7 +434,7 @@ class RpsTopicSeeder extends Seeder
             [
                 'id_rps' => 1, 
                 'tipe' => 'topik', 
-                'id_sub_cpmk' => 94, 
+                'id_sub_cpmk' => 97, 
                 'teknik_penilaian_kategori' => 'non-test', 
                 'indikator' => '1. Ketepatan dalam 
                                     menjelaskan fungsi 
@@ -534,7 +534,7 @@ class RpsTopicSeeder extends Seeder
             [
                 'id_rps' => 1, 
                 'tipe' => 'topik', 
-                'id_sub_cpmk' => 95, 
+                'id_sub_cpmk' => 98, 
                 'teknik_penilaian_kategori' => 'non-test', 
                 'indikator' => '1. Ketepatan dalam 
                                     menjelaskan proses 
@@ -629,7 +629,7 @@ class RpsTopicSeeder extends Seeder
             [
                 'id_rps' => 1, 
                 'tipe' => 'topik', 
-                'id_sub_cpmk' => 96, 
+                'id_sub_cpmk' => 98, 
                 'teknik_penilaian_kategori' => 'non-test', 
                 'indikator' => '1. Ketepatan dalam 
                                     menjelaskan metode 
@@ -725,7 +725,7 @@ class RpsTopicSeeder extends Seeder
             [
                 'id_rps' => 1, 
                 'tipe' => 'topik', 
-                'id_sub_cpmk' => 97, 
+                'id_sub_cpmk' => 99, 
                 'teknik_penilaian_kategori' => 'test', 
                 'indikator' => '1. Ketepatan dalam 
                                     menjelaskan tren 

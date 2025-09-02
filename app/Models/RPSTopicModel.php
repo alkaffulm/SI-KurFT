@@ -36,8 +36,12 @@ class RPSTopicModel extends Model
         return $this->belongsTo(SubCPMKModel::class, 'id_sub_cpmk', 'id_sub_cpmk');
     }
 
+    // public function weeks() {
+    //     return $this->hasMany(RpsTopicWeekMapModel::class, 'id_topic', 'id_topic');
+    // }
+
     public function weeks() {
-        return $this->hasMany(RpsTopicWeekMapModel::class, 'id_topic', 'id_topic');
+        return $this->belongsToMany(WeekModel::class, 'rps_topic_week','id_topic', 'id_week');
     }
 
     public function kriteriaPenilaian() {
