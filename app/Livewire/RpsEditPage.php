@@ -23,7 +23,6 @@ class RpsEditPage extends Component
 
    // Properti untuk data induk RPS
     public $id_bk;
-    // public $cpl_ids = [];
     public $assocCpls;
     public $assocCpmk;
     public $correlationCpmkCplMap = [];
@@ -36,7 +35,6 @@ class RpsEditPage extends Component
 
     // Properti untuk data detail mingguan
     public $topics = [];
-    // public $allSubCpmks = [];
     public $assocSubCpmk = [];
     public $teknikTersedia = [];
     public $allKriteria = [];
@@ -44,20 +42,15 @@ class RpsEditPage extends Component
     public $allWeek = [];
     
     // Properti untuk pilihan dropdown
-    public $allBahanKajian = [];
     public $allMataKuliah = [];
 
     public function mount(RPSModel $rps) {
-        $this->rps = $rps->load('mataKuliah.bahanKajian.cpls');
         // untuk RPS Induk
         $this->id_bk = $rps->id_bk;
-        // $this->cpl_ids = $rps->cpls->pluck('id_cpl')->toArray();
         $this->id_mk_syarat = $rps->mataKuliahSyarat->first()?->id_mk;
         $this->materi_pembelajaran = $rps->materi_pembelajaran;
         $this->pustaka_utama = $rps->pustaka_utama;
         $this->pustaka_pendukung = $rps->pustaka_pendukung;
-
-        // $this->assocCpls = $rps->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {return $bahanKajian->cpls;})->unique('id_cpl');
 
         $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rps->id_mk)->with('cpl', 'cpmk')->get();
         $this->assocCpls = $mappings->pluck('cpl')->unique('id_cpl')->sortBy('nama_kode_cpl');
@@ -70,15 +63,12 @@ class RpsEditPage extends Component
         }
 
         // untuk dropdown
-        // $this->allCpl = CPLModel::all();
-        // $this->allBahanKajian = BahanKajianModel::all();
         $this->allKriteria = KriteriaPenilaianModel::all();
         $this->allTeknik = TeknikPenilaianModel::all();
         $this->allMataKuliah = MataKuliahModel::where('id_mk', '!=', $rps->id_mk)->get();
         $this->allWeek = WeekModel::all();
 
         // untuk RPS Detail atau RPS Topic
-        // $this->allSubCpmks = $rps->mataKuliah->cpmks->pluck('subCpmk')->flatten();
         $this->topics = $rps->topics()->with(['weeks', 'kriteriaPenilaian', 'teknikPenilaian'])->get()->map(function ($topic, $index) {
             if($topic->teknik_penilaian_kategori) {
                 $this->teknikTersedia[$index] = TeknikPenilaianModel::where('kategori', $topic->teknik_penilaian_kategori)->get();
@@ -158,7 +148,6 @@ class RpsEditPage extends Component
                 'pustaka_pendukung' => $validated['pustaka_pendukung'],
             ]);
 
-            // $this->rps->cpls()->sync($this->cpl_ids);
             $this->rps->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
             
             foreach ($validated['topics'] as $topicData) {

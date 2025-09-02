@@ -83,28 +83,6 @@
             </div>
             <br>
 
-            {{-- <div>
-                <label for="id_bk">Bahan Kajian:</label><br>
-                <select class="p-2 border" wire:model="id_bk" required>
-                    <option value="">-- Pilih Bahan Kajian --</option>
-                    @foreach ($allBahanKajian as $bk)
-                        <option value="{{ $bk->id_bk }}" >{{ $bk->nama_kode_bk }} - {{ $bk->nama_bk_id }}</option>
-                    @endforeach
-                </select> 
-            </div>
-            <br> --}}
-
-            {{-- <div wire:ignore>
-                <label for="cpl_ids_select">CPL yang Dibebankan:</label><br>
-                {{-- Gunakan Select2 untuk pengalaman yang lebih baik --}}
-                {{-- <select  id="cpl_ids_select"  class="select2 w-48 p-2 border" multiple="multiple" required> --}} --}}
-                    {{-- @foreach ($allCpl as $cpl)
-                        <option value="{{ $cpl->id_cpl }}" >{{ $cpl->nama_kode_cpl }}</option>
-                    @endforeach --}}
-                {{-- </select>
-            </div>
-            <br> --}}
-
             <div>
                 <label for="id_mk_syarat">Mata Kuliah Prasyarat:</label><br>
                 <select class="p-2 border" wire:model="id_mk_syarat" >
@@ -161,16 +139,12 @@
                         @forelse ($topics as $index => $topic )
                         <tr wire:key="topic-{{ $index }}" >
                                  @error('topics.'.$index.'.id_topic') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
-
                                 <td >
                                     <div wire:ignore>
                                         <select class="select2-weeks w-full" multiple="multiple" data-index="{{ $index }}" wire:key="select-weeks-{{ $index }}" id="" required>
                                             @foreach ($allWeek as $week)
                                                 <option value="{{$week->id_week}}" {{ in_array($week->id_week, $topic['minggu_ke']) ? 'selected' : '' }}> {{$week->week}} </option>
                                             @endforeach
-                                            {{-- @for ($i = 1 ; $i <= 16 ; $i++)
-                                                <option value="{{$i}}" {{ in_array($i, $topic['minggu_ke']) ? 'selected' : '' }}> {{$i}} </option>
-                                            @endfor --}}
                                         </select>
                                     </div>
                                     @error('topics.'.$index.'.minggu_ke') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
@@ -207,6 +181,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                                @error('topics.'.$index.'.selected_kriteria') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                             </div>
                                             <div class="flex flex-col gap-y-1">
                                                 <label class="font-bold">Teknik Penilaian:</label>
@@ -215,17 +190,17 @@
                                                     <option value="test">Test</option>
                                                     <option value="non-test">Non Test</option>
                                                 </select>
+                                                @error('topics.'.$index.'.teknik_penilaian_kategori') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                 <div >
                                                     <select class="select2-teknik-penilaian w-full" data-index="{{ $index }}" multiple="multiple" required>
                                                         @foreach ($teknikTersedia[$index] ?? [] as $teknik)
-                                                        {{-- @foreach ($allTeknik ?? [] as $teknik) diganti jadi allTeknik agar semua jenis tekniknya langsung muncul --}}
                                                             <option value="{{ $teknik->id_teknik_penilaian }}" {{ in_array($teknik->id_teknik_penilaian, $topic['selected_teknik']) ? 'selected' : '' }}>{{ $teknik->nama_teknik_penilaian }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                                @error('topics.'.$index.'.selected_teknik') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
-                                        @error('topics.'.$index.'.kriteria_teknik_penilaian') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </td>                            
                                     <td>
                                         <textarea wire:model="topics.{{$index}}.metode_pembelajaran" id="metode_pembelajaran" class="border w-full  h-48" required></textarea>
@@ -311,9 +286,5 @@
                 initSelects();
             });
 
-            // // Event listener untuk penghapusan baris
-            // Livewire.on('rowRemoved', () => {
-            //     initWeekSelects();
-            // });
         });
     </script>
