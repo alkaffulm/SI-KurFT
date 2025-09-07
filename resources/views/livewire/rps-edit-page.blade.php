@@ -124,22 +124,27 @@
                 <table class="w-full text-sm border table-fixed">
                     <thead>
                         <tr>
-                            <th class="p-2 border w-[180px]" >Minggu Ke-</th>
-                            <th class="p-2 border w-[180px]" >Jenis</th>
-                            <th class="p-2 border w-[180px]">Sub-CPMK</th>
-                            <th class="p-2 border w-[300px]">Indikator</th>
-                            <th class="p-2 border w-[300px]">Kriteria & Teknik Penilaian</th>
-                            <th class="p-2 border w-[300px]">Metode</th>
-                            <th class="p-2 border w-[300px]">Materi Pembelajaran</th>
-                            <th class="p-2 border w-[90px]">Bobot (%)</th>
-                            <th class="p-2 border w-[90px]">Aksi</th>                        
+                            <th class="p-2 border border-black w-[180px]" rowspan="2">Minggu Ke-</th>
+                            <th class="p-2 border border-black w-[180px]" rowspan="2">Jenis</th>
+                            <th class="p-2 border border-black w-[180px]" rowspan="2">Sub-CPMK</th>
+                            <th class="p-2 border border-black w-[300px]" rowspan="2">Indikator</th>
+                            <th class="p-2 border border-black w-[300px]" rowspan="2">Kriteria & Teknik Penilaian</th>
+                            <th class="p-2 border border-black w-[600px]" colspan="2">Metode</th>
+                            <th class="p-2 border border-black w-[300px]" rowspan="2">Materi Pembelajaran</th>
+                            <th class="p-2 border border-black w-[90px]" rowspan="2">Bobot (%)</th>
+                            <th class="p-2 border border-black w-[90px]" rowspan="2">Aksi</th>                        
+                        </tr>
+                        <tr>
+                            <th class="p-2 border border-blac w-[300px]">Luring</th>
+                            <th class="p-2 border border-blac w-[300px]">Daring</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         @forelse ($topics as $index => $topic )
-                        <tr wire:key="topic-{{ $index }}" >
-                                 @error('topics.'.$index.'.id_topic') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
-                                <td >
+                        <tr wire:key="topic-{{ $index }}" class="border border-black">
+                                @error('topics.'.$index.'.id_topic') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror          
+                                {{-- minggu ke --}}
+                                <td class="p-2 border border-black align-top">
                                     <div wire:ignore>
                                         <select class="select2-weeks w-full" multiple="multiple" data-index="{{ $index }}" wire:key="select-weeks-{{ $index }}" id="" required>
                                             @foreach ($allWeek as $week)
@@ -149,16 +154,20 @@
                                     </div>
                                     @error('topics.'.$index.'.minggu_ke') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                 </td>
-                                <td>
-                                    <select wire:model.live="topics.{{ $index }}.tipe">
+
+                                {{-- jenis --}}
+                                <td class="p-2 border border-black align-top">
+                                    <select wire:model.live="topics.{{ $index }}.tipe" class="border">
                                         <option value="topik">Topik Mingguan</option>
                                         <option value="uts">Ujian Tengah Semester</option>
                                         <option value="uas">Ujian Akhir Semester</option>
                                     </select>
                                 </td>
                                 @if ($topics[$index]['tipe'] == 'topik')
-                                    <td class="p-2 border" >
-                                        <select wire:model="topics.{{ $index }}.id_sub_cpmk"  class="w-full" required>
+
+                                    {{-- subCpmk --}}
+                                    <td class="p-2 border border-black align-top" >
+                                        <select wire:model="topics.{{ $index }}.id_sub_cpmk"  class="w-full border" required>
                                             <option value="">--pilih Sub-CPMK--</option>
                                             @foreach ($assocSubCpmk as $scp )
                                                 <option value="{{ $scp->id_sub_cpmk }}" >{{ $scp->nama_kode_sub_cpmk }}</option>
@@ -166,11 +175,15 @@
                                         </select>
                                         @error('topics.'.$index.'.id_sub_cpmk') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </td>
-                                    <td>
+
+                                    {{-- indikator --}}
+                                    <td class="p-2 border border-black align-top">
                                         <textarea wire:model="topics.{{$index}}.indikator" id="indikator" class="border w-full h-48" required></textarea>
                                         @error('topics.'.$index.'.indikator') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </td>
-                                    <td>
+
+                                    {{-- kriteria dan teknik penilaian --}}
+                                    <td class="p-2 border border-black align-top">
                                         <div class="flex flex-col gap-y-3">
                                             <div>
                                                 <div wire:ignore>
@@ -191,7 +204,7 @@
                                                     <option value="non-test">Non Test</option>
                                                 </select>
                                                 @error('topics.'.$index.'.teknik_penilaian_kategori') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                                <div >
+                                                <div>
                                                     <select class="select2-teknik-penilaian w-full" data-index="{{ $index }}" multiple="multiple" required>
                                                         @foreach ($teknikTersedia[$index] ?? [] as $teknik)
                                                             <option value="{{ $teknik->id_teknik_penilaian }}" {{ in_array($teknik->id_teknik_penilaian, $topic['selected_teknik']) ? 'selected' : '' }}>{{ $teknik->nama_teknik_penilaian }}</option>
@@ -201,37 +214,123 @@
                                                 @error('topics.'.$index.'.selected_teknik') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
-                                    </td>                            
-                                    <td>
-                                        <textarea wire:model="topics.{{$index}}.metode_pembelajaran" id="metode_pembelajaran" class="border w-full  h-48" required></textarea>
-                                        @error('topics.'.$index.'.metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </td> 
-                                    <td>
+
+                                    {{-- metode: luring  --}}
+                                    <td class="p-2 border border-black align-top">
+                                        {{-- <textarea wire:model="topics.{{$index}}.metode_pembelajaran" id="metode_pembelajaran" class="border w-full  h-48" required></textarea>
+                                        @error('topics.'.$index.'.metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror --}}
+                                        <div >
+                                            <p class="font-bold">TM</p>
+                                            <div>
+                                                <p>Bentuk Pembelajaran</p>
+                                                <p>Kuliah</p>
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <div wire:ignore>
+                                                    <label >Metode Pembelajaran</label>
+                                                    <select class="select2-metode-pembelajaran w-full" data-index="{{$index}}" data-tipe="TM" multiple="multiple" required>
+                                                        @foreach ($allMetodePembelajaran as $metode)
+                                                            <option value="{{$metode->id_metode_pembelajaran}}" {{in_array($metode->id_metode_pembelajaran, $topic['aktivitas_pembelajaran']['TM']['selected_metode_pembelajaran']) ? 'selected' : ''}}>{{$metode->nama_metode_pembelajaran}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.TM.selected_metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <label>Penugasan Mahasiswa</label>
+                                                <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.TM.penugasan_mahasiswa"  class="w-full border" required></textarea>
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.TM.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror                                            
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <p class="font-bold">BM</p>
+                                            <div>
+                                                <p>Bentuk Pembelajaran</p>
+                                                <p>Belajar Mandiri</p>                                                
+                                            </div>
+                                            <br>
+                                            <div >
+                                                <div wire:ignore>
+                                                    <label >Metode Pembelajaran</label>
+                                                    <select class="select2-metode-pembelajaran w-full" data-index="{{$index}}" data-tipe="BM" multiple="multiple" required>
+                                                        @foreach ($allMetodePembelajaran as $metode)
+                                                            <option value="{{$metode->id_metode_pembelajaran}}" {{in_array($metode->id_metode_pembelajaran, $topic['aktivitas_pembelajaran']['BM']['selected_metode_pembelajaran']) ? 'selected' : ''}}>{{$metode->nama_metode_pembelajaran}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.BM.selected_metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <label for="penugasan_mahasiswa">Penugasan Mahasiswa</label>
+                                                <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.BM.penugasan_mahasiswa" id="penugasan_mahasiswa" class="w-full border" required></textarea>
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.BM.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            </div>
+                                        </div>
+                                    </td>
+                                    
+                                    {{-- metode: daring --}}
+                                    <td class="p-2 border border-black align-top">
+                                        <div>
+                                            <p class="font-bold">PT</p>
+                                            <div>
+                                                <p>Bentuk Pembelajaran</p>
+                                                <p>Penugasan Terstruktur</p>
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <div wire:ignore>
+                                                    <label >Metode Pembelajaran</label>
+                                                    <select  class="select2-metode-pembelajaran w-full" data-index="{{$index}}" data-tipe="PT" multiple="multiple" required>
+                                                        @foreach ($allMetodePembelajaran as $metode)
+                                                            <option value="{{$metode->id_metode_pembelajaran}}" {{in_array($metode->id_metode_pembelajaran, $topic['aktivitas_pembelajaran']['PT']['selected_metode_pembelajaran']) ? 'selected' : ''}} >{{$metode->nama_metode_pembelajaran}}</option>                                                            
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.PT.selected_metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <label >Penugasan Mahasiswa</label>
+                                                <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.PT.penugasan_mahasiswa" class="w-full border" required></textarea>
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.PT.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    {{-- materi pembelajaran --}}
+                                    <td class="p-2 border border-black align-top">
                                         <textarea wire:model="topics.{{$index}}.materi_pembelajaran" id="materi_pembelajaran"  class="border w-full  h-48" required></textarea>
                                         @error('topics.'.$index.'.materi_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </td>                            
-                                @else
-                                    <td colspan="5">
+                                    @else
+                                    <td colspan="6" class="p-2 border border-black">
                                         @if ($topics[$index]['tipe'] == 'uts')
-                                            <p class="text-center">UJIAN TENGAH SEMESTER</p>
+                                        <p class="text-center">UJIAN TENGAH SEMESTER</p>
                                         @else
-                                            <p class="text-center">UJIAN AKHIR SEMESTER</p>
+                                        <p class="text-center">UJIAN AKHIR SEMESTER</p>
                                         @endif
                                     </td>                           
-                                @endif
-                                <td>
-                                    <input type="text" wire:model="topics.{{$index}}.bobot_penilaian" id="bobot_penilaian" class="border w-full" required ></input>
-                                    @error('topics.'.$index.'.bobot_penilaian') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                </td>
-                                <td>
+                                    @endif
+
+                                    {{-- bobot penilaian --}}
+                                    <td class="p-2 border border-black align-top">
+                                        <input type="text" wire:model="topics.{{$index}}.bobot_penilaian" id="bobot_penilaian" class="border w-full" required ></input>
+                                        @error('topics.'.$index.'.bobot_penilaian') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                    </td>
+                                <td class="p-2 border border-black">
                                     <button type="button" wire:click="removeRow({{ $index }})" class="text-red-600 hover:text-red-800 font-bold">
                                         Hapus
                                     </button>                                
                                 </td>
                             </tr>
                         @empty
-                            <tr>
-                                <td colspan="8" class="text-center p-4 text-gray-500">Belum ada topik. Silakan tambah baris baru.</td>                     
+                            <tr >
+                                <td colspan="8" class="text-center p-4 text-gray-500 border border-black">Belum ada topik. Silakan tambah baris baru.</td>                     
                             </tr>
                         @endforelse
                     </tbody>
@@ -276,6 +375,16 @@
                     const index = $(this).data('index');
                     @this.set('topics.' + index + '.selected_teknik', $(this).val());
                 });
+
+                // untuk metode pembelajaran
+                $('.select2-metode-pembelajaran:not(.select2-hidden-accessible)').select2({
+                    placeholder: "Pilih Metode Pembelajaran",
+                    allowClear: true
+                }).on('change', function () {
+                    const index = $(this).data('index');
+                    const tipe = $(this).data('tipe');
+                    @this.set('topics.' + index + '.aktivitas_pembelajaran.' + tipe + '.selected_metode_pembelajaran', $(this).val());
+                })                
             }
 
             // Panggil inisialisasi saat halaman pertama kali dimuat

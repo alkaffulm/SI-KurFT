@@ -19,7 +19,9 @@ return new class extends Migration
             $table->foreignId('id_sub_cpmk')->nullable()->constrained('sub_cpmk', 'id_sub_cpmk');
             $table->string('teknik_penilaian_kategori')->nullable();
             $table->text('indikator')->nullable();
-            $table->text('metode_pembelajaran')->nullable();
+            // $table->text('metode_pembelajaran')->nullable();
+            // $table->text('penugasan_mahasiswa')->nullable();
+            // $table->foreignId('id_bentuk_pembelajaran')->nullable()->constrained('bentuk_pembelajaran', 'id_bentuk_pembelajaran')->onDelete('set null');
             $table->text('materi_pembelajaran')->nullable();
             $table->float('bobot_penilaian')->default(0);
             $table->timestamps();

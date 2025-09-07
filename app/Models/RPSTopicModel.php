@@ -23,7 +23,9 @@ class RPSTopicModel extends Model
         'indikator',
         'tipe',
         'teknik_penilaian_kategori',
-        'metode_pembelajaran',
+        // 'metode_pembelajaran',
+        // 'penugasan_mahasiswa',
+        // 'id_bentuk_pembelajaran',
         'materi_pembelajaran',
         'bobot_penilaian'
     ];
@@ -51,6 +53,14 @@ class RPSTopicModel extends Model
     public function teknikPenilaian() {
         return $this->belongsToMany(TeknikPenilaianModel::class, 'rps_topic_teknik_penilaian', 'id_topic', 'id_teknik_penilaian');
     }
+
+    public function aktivitasPembelajaran() {
+        return $this->hasMany(AktivitasPembelajaranModel::class, 'id_topic', 'id_topic');
+    }
+
+    // public function metodePembelajaran() {
+    //     return $this->belongsToMany();
+    // }
 
     protected function teknikPenilaianFormatted(): Attribute {
         return Attribute::make(

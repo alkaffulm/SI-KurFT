@@ -29,12 +29,16 @@ class StoreRPSTopicRequest extends FormRequest
             'topics.*.indikator' => 'required_if:topics.*.tipe,topik|nullable|string',
             'topics.*.tipe' => 'required|in:topik,uts,uas',
             'topics.*.materi_pembelajaran' => 'required_if:topics.*.tipe,topik|nullable|string',
-            'topics.*.metode_pembelajaran' => 'required_if:topics.*.tipe,topik|nullable|string',
+            // 'topics.*.metode_pembelajaran' => 'required_if:topics.*.tipe,topik|nullable|string',
             'topics.*.bobot_penilaian' => 'required|min:1|max:20|numeric',
             'topics.*.minggu_ke' => 'required|array|min:1', 
             'topics.*.teknik_penilaian_kategori' => 'required_if:topics.*.tipe,topik|nullable', 
             'topics.*.selected_kriteria' => 'required_if:topics.*.tipe,topik|nullable|array', 
             'topics.*.selected_teknik' => 'required_if:topics.*.tipe,topik|nullable|array', 
+            'topics.*.aktivitas_pembelajaran' => 'required_if:topics.*.tipe,topik|array',
+            'topics.*.aktivitas_pembelajaran.*.id_bentuk_pembelajaran' => 'required_if:topics.*.tipe,topik',
+            'topics.*.aktivitas_pembelajaran.*.penugasan_mahasiswa' => 'nullable|string',
+            'topics.*.aktivitas_pembelajaran.*.selected_metode_pembelajaran' => 'required_if:topics.*.tipe,topik',
 
             // validasi RPS Induk di halaman edit
             'id_mk_syarat' => 'nullable|exists:mata_kuliah,id_mk',
@@ -64,6 +68,7 @@ class StoreRPSTopicRequest extends FormRequest
             'topics.*.selected_kriteria.required_if' => 'Kriteria Wajib Diisi!',
             'topics.*.selected_teknik.required_if' => 'Teknik Penilaian Wajib Diisi!',
             'topics.*.minggu_ke.required' => 'Minggu Ke Wajib Diisi!', 
+            'topics.*.aktivitas_pembelajaran.*.selected_metode_pembelajaran.required_if' => 'Metode Pembelajaran Wajib Diisi',
 
             // validasi RPS Induk di halaman edit
             'materi_pembelajaran.string' => 'Materi Pembelajaran Harus Berupa String!',

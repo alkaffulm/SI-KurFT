@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class MataKuliahModel extends Model
 {
-
-
     protected $table = 'mata_kuliah';
     protected $primaryKey = 'id_mk';
     public $timestamps = false;
@@ -113,4 +111,14 @@ class MataKuliahModel extends Model
     //     return $this->belongsToMany(TahunAkademik::class, 'kurikulum_tahun_akademik_map', 'id_kurikulum', 'id_tahun_akademik');
     // }
 
+    protected function uniqueCpls(): Attribute {
+        return Attribute::make(
+            get: fn () => $this->mkcpmkcpl
+                ->map(fn ($map) => $map->cpl)
+                ->filter()
+                ->unique('id_cpl')  // supaya kd duplikat cplnya
+                ->pluck('nama_kode_cpl') // hanya ambil nama_kode_cpl
+                ->implode(', ') // memberikan tanda koma di antara cpl
+        );
+    }
 }

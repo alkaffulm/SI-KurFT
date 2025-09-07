@@ -72,7 +72,10 @@
                     <div class="col-span-2 px-2 border-b border-black font-bold">Tgl Penyusunan</div>
                 </div>
                 <div class="grid grid-cols-12 bg-[#9cc2e4]">
-                    <div class="col-span-3 px-2 border-r border-black">{{ $rps->mataKuliah->nama_matkul_id }}</div>
+                    <div class="col-span-3 px-2 border-r border-black">
+                        <p>{{ $rps->mataKuliah->nama_matkul_id }}</p>
+                        <p class="italic text-sm">{{ $rps->mataKuliah->nama_matkul_en }}</p>
+                    </div>
                     <div class="col-span-1 px-2 border-r border-black">{{ $rps->mataKuliah->kode_mk }}</div>
                     <div class="col-span-3 px-2 border-r border-black">
                         @foreach ($rps->mataKuliah->bahanKajian as $bk)
@@ -302,11 +305,89 @@
 
                                 {{-- Luring (5) Metode Pembelajaran --}}
                                 <td class="p-2 border border-black align-top">
-                                    {!! nl2br(e($topic->metode_pembelajaran)) !!}
+                                    <div>
+                                        <p class="font-bold">TM</p>
+                                        <div>
+                                            <p class="underline underline-offset-2">Bentuk Pembelajaran</p>
+                                            <p>Kuliah</p>
+                                        </div>
+
+                                        <div>
+                                            <p class="underline underline-offset-2">Metode Pembelajaran</p>
+                                            <ul class="list-disc list-inside">
+                                                @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->metodePembelajaran ?? [] as $metode)
+                                                    <li>{{$metode->nama_metode_pembelajaran}}</li>
+                                                @empty
+                                                    <p>-</p> 
+                                                @endforelse
+                                            </ul>
+                                        </div>
+                                        
+                                        <div>
+                                            <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
+                                             @if ($topic->aktivitasPembelajaran->firstWhere('tipe','PT'))
+                                                <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->penugasan_mahasiswa}}</p>
+                                            @else
+                                                <p>-</p>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <br>
+
+                                    <div>
+                                        <p class="font-bold">BM</p>
+                                        <div>
+                                            <p class="underline underline-offset-2">Bentuk Pembelajaran</p>
+                                            <p>Belajar Mandiri</p>
+                                        </div>
+                                        
+                                        <div>
+                                            <p class="underline underline-offset-2">Metode Pembelajaran</p>
+                                            <ul class="list-disc list-inside">
+                                                @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->metodePembelajaran ?? [] as $item)
+                                                    <li>{{$item->nama_metode_pembelajaran}}</li>
+                                                @empty
+                                                    <p>-</p>
+                                                @endforelse
+                                            </ul>
+                                        </div>
+
+                                        <div>
+                                            <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
+                                            @if ($topic->aktivitasPembelajaran->firstWhere('tipe','PT'))
+                                                <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->penugasan_mahasiswa}}</p>
+                                            @else
+                                                <p>-</p>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </td>
 
                                 {{-- Daring (6) Metode Pembelajaran --}}
-                                <td></td>
+                                <td class="p-2 border border-black align-top">
+                                    <div>
+                                        <p class="font-bold">PT</p>
+                                        <p class="underline underline-offset-2">Bentuk Pembelajaran</p>
+                                        <p>Penugasan Terstruktur</p>
+
+                                        <p class="underline underline-offset-2">Metode Pembelajaran</p>
+                                            <ul class="list-disc list-inside">
+                                                @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->metodePembelajaran ?? [] as $item)
+                                                    <li>{{$item->nama_metode_pembelajaran}}</li>
+                                                @empty
+                                                    <p>-</p>
+                                                @endforelse
+                                            </ul>
+
+                                        <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
+                                        @if ($topic->aktivitasPembelajaran->firstWhere('tipe','PT'))
+                                            <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->penugasan_mahasiswa}}</p>
+                                        @else
+                                            <p>-</p>
+                                        @endif
+                                    </div>
+                                </td>
 
                                 {{-- (7) Materi Pembelajaran --}}
                                 <td class="p-2 border border-black align-top">

@@ -213,14 +213,7 @@
                                         {{ $mk->nama_matkul_id }}
                                     </td>
                                     <td class="px-6 py-4 border-r border-gray-400 text-center">
-                                        @php
-                                            $related_cpl_ids = $mk_cpl_map[$mk->id_mk] ?? [];
-                                            $related_cpls = collect($cpl)
-                                                ->whereIn('id_cpl', $related_cpl_ids)
-                                                ->pluck('nama_kode_cpl')
-                                                ->toArray();
-                                        @endphp
-                                        {{ implode(', ', $related_cpls) ?: '-' }}
+                                         {{$mk->uniqueCpls}}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ $mk->jumlah_sks }}
