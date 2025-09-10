@@ -18,157 +18,186 @@
     @include('layouts.navbar')
     @include('layouts.sidebar')
     
-    <div class="py-8 px-16 sm:ml-64 mt-16">
-        <a href="/dosen/matkul">Kembali</a>
-        <h2>Generate RPS</h2>
-        
-        <form action="{{ route('rps.store') }}" method="post">
-            @csrf
-
-            <input type="hidden" name="id_mk" value="{{ $mata_kuliah->id_mk }}">
-
-            <br>
-            <h1 class="text-xl font-bold">RPS Induk</h1>
-            <br>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mata Kuliah </th>
-                        <td>: {{ $mata_kuliah->nama_matkul_id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Kode</th>
-                        <td>: {{$mata_kuliah->kode_mk}}</td>
-                    </tr>
-                    <tr>
-                        <th>Bobot</th>
-                        <td>: SKS Teori {{$mata_kuliah->sks_teori}} | SKS Praktikum: {{$mata_kuliah->sks_praktikum}}</td>
-                    </tr>
-                    <tr>
-                        <th>Semester</th>
-                        <td>: {{$mata_kuliah->semester}}</td>
-                    </tr>
-                    <tr>
-                        <th class="flex align-top">Deskripsi</th>
-                        <td>: {{$mata_kuliah->matkul_desc_id}}</td>
-                    </tr>
-                </thead>
-            </table>
-
-            <br>
-            <div>
-                <h4>CPL Prodi yang dibebankan pada MK:</h4>
-                <ul class="list-disc list-inside">
+    <div class="py-8 px-16 sm:ml-64 mt-16 bg-gray-100">
+        <div class="bg-white p-8">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold">Membuat RPS</h2>
+                <a href="/dosen/matkul" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
+            </div>
+            
+            <form action="{{ route('rps.store') }}" method="post">
+                @csrf
+    
+                <input type="hidden" name="id_mk" value="{{ $mata_kuliah->id_mk }}">
+    
+                <br>
+                <h1 class="font-bold">RPS INDUK</h1>
+                <br>
+                <table>
+                    <thead>
+                        <tr class="border border-gray-300 px-2 align-top">
+                            <td class="w-28 font-semibold">Mata Kuliah</td>
+                            <td class="border border-gray-300 px-2"> 
+                                <p>{{ $mata_kuliah->nama_matkul_id }}</p> 
+                                <p class="italic text-sm text-[#7397b6]">{{ $mata_kuliah->nama_matkul_en }}</p>
+                            </td>
+                        </tr>
+                        <tr class="border border-gray-300 px-2 align-top">
+                            <td class="font-semibold">Bahan Kajian</td>
+                            <td class="border px-2">
+                                @forelse ($mata_kuliah->bahanKajian as $bk)
+                                    <p>{{ $bk->nama_bk_id }} </p>
+                                    <p class="italic text-sm text-[#7397b6]">{{ $bk->nama_bk_en }}</p>
+                                @empty
+                                    <p class="text-gray-500 mt-2">Belum ada BK yang terhubung dengan mata kuliah ini.</p>
+                                @endforelse
+                            </td>
+                        </tr>
+                        <tr class="border border-gray-300 px-2">
+                            <td class="font-semibold">Kode</td>
+                            <td class="border border-gray-300 px-2">{{$mata_kuliah->kode_mk}}</td>
+                        </tr>
+                        <tr class="border border-gray-300 px-2">
+                            <td class="font-semibold" >Bobot</td>
+                            <td class="border border-gray-300 px-2">SKS Teori {{$mata_kuliah->sks_teori}} | SKS Praktikum: {{$mata_kuliah->sks_praktikum}}</td>
+                        </tr>
+                        <tr class="border border-gray-300 px-2">
+                            <td class="font-semibold">Semester</td>
+                            <td class="border border-gray-300 px-2">{{$mata_kuliah->semester}}</td>
+                        </tr>
+                        <tr class="border border-gray-300 px-2 align-top">
+                            <td class="font-semibold">Deskripsi</td>
+                            <td class="border border-gray-300 px-2">
+                                <p class="text-justify">{{$mata_kuliah->matkul_desc_id}}</p>
+                                <p class="italic text-justify text-sm text-[#7397b6]">{{$mata_kuliah->matkul_desc_en}}</p>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+    
+                <br>
+                <div>
+                    <h4 class="font-semibold mb-2">CPL Prodi yang dibebankan pada MK:</h4>
                     <table>
                         @forelse ($assocCpls as $cpl)
-                            <tr>
-                                <td class="w-[90px] flex align-top"><li>{{ $cpl->nama_kode_cpl }} = </li></td>
-                                <td >{{ $cpl->desc_cpl_id }}</td>
+                            <tr class="border border-gray-300 ">
+                                <td class="w-[90px] flex align-top">
+                                    <p class="font-semibold px-2">{{ $cpl->nama_kode_cpl }}</p>
+                                </td>
+                                <td class=" border border-gray-300 px-2">
+                                    <p class="text-justify">{{ $cpl->desc_cpl_id }}</p>
+                                    <p class="italic text-justify text-sm text-[#7397b6]">{{ $cpl->desc_cpl_en }}</p>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td><li class="text-gray-500 mt-2">Belum ada CPL yang terhubung dengan mata kuliah ini.</li></td>
+                                <td><p class="text-gray-500 mt-2">Belum ada CPL yang terhubung dengan mata kuliah ini.</p></td>
                             </tr>
                         @endforelse
                     </table>
-                </ul>
-            </div>
-            <br>
-        
-            <div>
-                <h4>Bahan Kajian (BK):</h4>
-                <ul class="list-disc list-inside">
-                    @forelse ($mata_kuliah->bahanKajian as $bk)
-                        <li>{{ $bk->nama_bk_id }}</li>
-                    @empty
-                        <li class="text-gray-500 mt-2">Belum ada BK yang terhubung dengan mata kuliah ini.</li>
-                    @endforelse
-                </ul>
-            </div>
-            <br>
-
-            <div>
-                <h4>CPMK untuk Mata Kuliah ini:</h4>
-                <ul class="list-disc list-inside">
+                </div>
+                <br>
+            
+                {{-- <div>
+                    <h4>Bahan Kajian (BK):</h4>
+                    <ul class="list-disc list-inside">
+                        @forelse ($mata_kuliah->bahanKajian as $bk)
+                            <li>{{ $bk->nama_bk_id }}</li>
+                        @empty
+                            <li class="text-gray-500 mt-2">Belum ada BK yang terhubung dengan mata kuliah ini.</li>
+                        @endforelse
+                    </ul>
+                </div>
+                <br> --}}
+    
+                <div>
+                    <h4 class="font-semibold mb-2">CPMK untuk Mata Kuliah ini:</h4>
                     <table>
                         @forelse ($assocCpmk as $cpmk)
-                            <tr>
-                                <td class="w-[90px] flex align-top"><li>{{ $cpmk->nama_kode_cpmk }} = </li></td>
-                                <td >{{ $cpmk->desc_cpmk_id }}</td>
+                            <tr class="border border-gray-300 ">
+                                <td class="w-[90px] flex align-top">
+                                    <p class="font-semibold px-2">{{ $cpmk->nama_kode_cpmk }} </p>
+                                </td>
+                                <td class="border border-gray-300 px-2">
+                                    <p class="text-justify">{{ $cpmk->desc_cpmk_id }}</p>
+                                    <p class="italic text-justify text-sm text-[#7397b6]">{{ $cpmk->desc_cpmk_en }}</p>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td><li class="text-gray-500 mt-2">Belum ada CPMK yang terhubung dengan mata kuliah ini.</li></td>
+                                <td><p class="text-gray-500 mt-2">Belum ada CPMK yang terhubung dengan mata kuliah ini.</p></td>
                             </tr>
-                        @endforelse
+                            @endforelse
                     </table>
-                </ul>
-            </div>
-            <br>
-
-
-            {{-- <br>
-            <div>
-                <label for="id_bk">Bahan Kajian:</label><br>
-                <select name="id_bk" required>
-                    <option value="">-- Pilih Bahan Kajian --</option>
-                    @foreach ($bahan_kajian as $bk)
-                        <option value="{{ $bk->id_bk }}">{{ $bk->nama_kode_bk }} - {{ $bk->nama_bk_id }}</option>
-                    @endforeach
-                </select>
-                @error('id_bk') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-            </div> --}}
-
-            {{-- <div> --}}
-                {{-- <label for="cpl_ids">CPL yang Dibebankan:</label><br> --}}
-                {{-- Gunakan Select2 untuk pengalaman yang lebih baik --}}
-                {{-- <select name="cpl_ids[]" class="select2 w-48" multiple="multiple" required>
-                    @foreach ($allCpl as $cpl)
-                        <option value="{{ $cpl->id_cpl }}">{{ $cpl->nama_kode_cpl }}</option>
-                    @endforeach
-                </select> --}}
-                {{-- @error('cpl_ids') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror --}}
-            {{-- </div> --}}
-            <br>
-
-            <div>
-                <label for="id_mk_syarat">Mata Kuliah Prasyarat:</label><br>
-                <select class="border" name="id_mk_syarat" >
-                    <option value="">Tidak ada Matkul Prasyarat</option>
-                    @foreach ($allMatkul as $mk)
-                        <option value="{{ $mk->id_mk }}" {{old('id_mk_syarat') == $mk->id_mk ? 'selected' : ''}}>{{ $mk->nama_matkul_id }}</option>
-                    @endforeach
-                </select>   
-                @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
-            </div>
-
-            <br>
-            <div>
-                <label for="materi_pembelajaran">Materi Pembelajaran:</label><br>
-                <textarea class="border" name="materi_pembelajaran" rows="5" cols="80" cols="80"  required>{{old('materi_pembelajaran')}}</textarea>
-                @error('materi_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-            </div>
-
-            <br>
-            
-            <div>
-                <label for="pustaka_utama">Pustaka Utama:</label><br>
-                <textarea class="border" name="pustaka_utama" rows="5" cols="80" required>{{old('pustaka_utama')}}</textarea>
-                @error('pustaka_utama') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-            </div>
-
-            <br>
-
-            <div>
-                <label for="pustaka_pendukung">Pustaka pendukung:</label><br>
-                <textarea class="border" name="pustaka_pendukung" rows="5" cols="80" required>{{old('pustaka_pendukung')}}</textarea>
-                @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-            </div>
-            <br>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Simpan RPS dan lanjut Mengisi Rencana Mingguan</button>
-        </form>
+                </div>
+                <br>
+    
+    
+                {{-- <br>
+                <div>
+                    <label for="id_bk">Bahan Kajian:</label><br>
+                    <select name="id_bk" required>
+                        <option value="">-- Pilih Bahan Kajian --</option>
+                        @foreach ($bahan_kajian as $bk)
+                            <option value="{{ $bk->id_bk }}">{{ $bk->nama_kode_bk }} - {{ $bk->nama_bk_id }}</option>
+                        @endforeach
+                    </select>
+                    @error('id_bk') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                </div> --}}
+    
+                {{-- <div> --}}
+                    {{-- <label for="cpl_ids">CPL yang Dibebankan:</label><br> --}}
+                    {{-- Gunakan Select2 untuk pengalaman yang lebih baik --}}
+                    {{-- <select name="cpl_ids[]" class="select2 w-48" multiple="multiple" required>
+                        @foreach ($allCpl as $cpl)
+                            <option value="{{ $cpl->id_cpl }}">{{ $cpl->nama_kode_cpl }}</option>
+                        @endforeach
+                    </select> --}}
+                    {{-- @error('cpl_ids') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror --}}
+                {{-- </div> --}}
+    
+                <div>
+                    <label for="id_mk_syarat" class="font-semibold mb-2">Mata Kuliah Prasyarat:</label><br>
+                    <select class="border p-2 rounded-lg border-gray-300 bg-gray-100" name="id_mk_syarat" >
+                        <option value="">Tidak ada Matkul Prasyarat</option>
+                        @foreach ($allMatkul as $mk)
+                            <option value="{{ $mk->id_mk }}" {{old('id_mk_syarat') == $mk->id_mk ? 'selected' : ''}}>{{ $mk->nama_matkul_id }}</option>
+                        @endforeach
+                    </select>   
+                    @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
+                </div>
+    
+                <br>
+                <div>
+                    <label for="materi_pembelajaran" class="font-semibold ">Materi Pembelajaran:</label><br>
+                    <textarea class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2" name="materi_pembelajaran" rows="5" cols="80" cols="80"  required>{{old('materi_pembelajaran')}}</textarea>
+                    @error('materi_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                </div>
+    
+                <br>
+                
+                <div>
+                    <label for="pustaka_utama" class="font-semibold ">Pustaka Utama:</label><br>
+                    <textarea class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2" name="pustaka_utama" rows="5" cols="80" required>{{old('pustaka_utama')}}</textarea>
+                    @error('pustaka_utama') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                </div>
+    
+                <br>
+    
+                <div>
+                    <label for="pustaka_pendukung" class="font-semibold ">Pustaka pendukung:</label><br>
+                    <textarea class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2" name="pustaka_pendukung" rows="5" cols="80" required>{{old('pustaka_pendukung')}}</textarea>
+                    @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                </div>
+                <br>
+                <div class="flex justify-end">
+                    <button type="submit" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">Simpan RPS dan lanjut Mengisi Rencana Mingguan</button>
+                </div>
+            </form>
+        </div>
     </div>
-        <script>
+
+    <script>
         $(document).ready(function() {
             $('.select2').select2();
         });

@@ -115,8 +115,8 @@ class RPSController extends Controller
         ]);
 
         $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rp->id_mk)->with('cpl', 'cpmk')->get();
-        $relevantCpl = $mappings->pluck('cpl')->unique('id_cpl')->sortBy('nama_kode_cpl');
-        $relevantCpmk = $mappings->pluck('cpmk')->unique('id_cpmk')->sortBy('nama_kode_cpmk');
+        $relevantCpl = $mappings->pluck('cpl')->unique('id_cpl');
+        $relevantCpmk = $mappings->pluck('cpmk')->unique('id_cpmk');
         
         $correlationCpmkCplMap = [];
         foreach($mappings as $mapping) {

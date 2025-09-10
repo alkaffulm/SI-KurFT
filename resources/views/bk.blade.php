@@ -86,7 +86,8 @@
                                         {{ $bk->nama_bk_id }}
                                     </td>
                                     <td class="px-6 py-4 text-left">
-                                        {{ $bk->desc_bk_id }}
+                                        <p>{{ $bk->desc_bk_id }}</p>
+                                        <p class="italic text-sm text-[#7397b6]">{{ $bk->desc_bk_en }}</p>
                                     </td>
                                 </tr>
                             @empty
@@ -105,7 +106,7 @@
                 </div>
 
                 {{-- Bagian Tabel Korelasi BK dan CPL --}}
-                <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Pemetaan Bahan Kajian terhadap CPL</h1>
+                {{-- <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Pemetaan Bahan Kajian terhadap CPL</h1>
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi BK - CPL</h2>
                     <a href="{{ route('bk-cpl-mapping.edit') }}"
@@ -127,17 +128,17 @@
                                 <th scope="col" class="px-6 py-3">Bahan Kajian Terkait</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($cpl as $c)
+                        <tbody> --}}
+                            {{-- @foreach ($cpl as $c)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $c->nama_kode_cpl }}
                                     </th>
                                     <td class="px-6 py-4 text-left">
-                                        <div class="flex flex-wrap gap-2">
+                                        <div class="flex flex-wrap gap-2"> --}}
                                             {{-- *** CHANGE IS HERE *** --}}
-                                            @php $found = false; @endphp
+                                            {{-- @php $found = false; @endphp
                                             @foreach ($bahan_kajian as $bk)
                                                 @if (isset($bk_cpl_map[$c->id_cpl]) && in_array($bk->id_bk, $bk_cpl_map[$c->id_cpl]))
                                                     <span
@@ -149,15 +150,15 @@
                                             @endforeach
                                             @if (!$found)
                                                 <span class="text-gray-400">Tidak ada</span>
-                                            @endif
+                                            @endif --}}
                                             {{-- *** END CHANGE *** --}}
-                                        </div>
+                                        {{-- </div>
                                     </td>
                                 </tr>
-                            @endforeach
-                        </tbody>
+                            @endforeach --}}
+                        {{-- </tbody>
                     </table>
-                </div>
+                </div> --}}
 
                 {{-- Bagian Tabel Korelasi BK dan MK --}}
                 <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Pemetaan Bahan Kajian terhadap Mata

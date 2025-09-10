@@ -62,8 +62,8 @@ class RpsEditPage extends Component
         $this->pustaka_pendukung = $rps->pustaka_pendukung;
 
         $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rps->id_mk)->with('cpl', 'cpmk')->get();
-        $this->assocCpls = $mappings->pluck('cpl')->unique('id_cpl')->sortBy('nama_kode_cpl');
-        $this->assocCpmk = $mappings->pluck('cpmk')->unique('id_cpmk')->sortBy('nama_kode_cpmk');
+        $this->assocCpls = $mappings->pluck('cpl')->unique('id_cpl');
+        $this->assocCpmk = $mappings->pluck('cpmk')->unique('id_cpmk');
         $this->assocSubCpmk = $this->assocCpmk->pluck('subCpmk')->flatten();
 
         $this->correlationCpmkCplMap = [];

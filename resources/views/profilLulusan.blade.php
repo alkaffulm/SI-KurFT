@@ -83,7 +83,8 @@
                                         {{ $pl->kode_pl }}
                                     </th>
                                     <td class="px-6 py-4 text-left border-r border-gray-400">
-                                        {{ $pl->desc_pl_id }}
+                                        <p>{{ $pl->desc_pl_id }}</p>
+                                        <p class="italic text-sm text-[#7397b6]">{{ $pl->desc_pl_en }}</p>
                                     </td>
                                 </tr>
                             @endforeach

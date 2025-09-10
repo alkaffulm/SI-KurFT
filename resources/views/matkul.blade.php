@@ -84,10 +84,12 @@
                                         {{ $mk->kode_mk }}
                                     </th>
                                     <td class="px-6 py-4 text-left border-r border-gray-400">
-                                        {{ $mk->nama_matkul_id }}
+                                        <p>{{ $mk->nama_matkul_id }}</p>
+                                        <p class="italic text-sm text-[#7397b6]">{{ $mk->nama_matkul_en }}</p>
                                     </td>
                                     <td class="px-6 py-4 text-left">
-                                        {{ $mk->matkul_desc_id }}
+                                        <p>{{ $mk->matkul_desc_id }}</p>
+                                        <p class="italic text-sm text-[#7397b6]">{{ $mk->matkul_desc_en }}</p>
                                     </td>
                                 </tr>
                             @empty
@@ -156,7 +158,7 @@
                 </div>
 
                 {{-- Bagian 3: Tabel Pemetaan BK-CPL-MK --}}
-                <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Tabel Pemetaan BK - CPL - MK</h2>
+                {{-- <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Tabel Pemetaan BK - CPL - MK</h2>
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">
@@ -167,8 +169,8 @@
                                 @endforeach
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($bahan_kajian as $bk)
+                        <tbody> --}}
+                            {{-- @foreach ($bahan_kajian as $bk)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap border-r border-gray-400">
@@ -176,17 +178,17 @@
                                     </th>
                                     @foreach ($cpl as $c)
                                         <td class="px-2 py-1 border-r border-gray-400 text-xs">
-                                            @if ($bk->cpls->contains('id_cpl', $c->id_cpl))
+                                            @if ($bk->cpls->contains('id_cpl', $c->id_cpl)) --}}
                                                 {{-- Tampilkan semua MK yang berelasi dengan BK ini --}}
-                                                {{ $bk->mataKuliah->pluck('kode_mk')->implode(', ') }}
+                                                {{-- {{ $bk->mataKuliah->pluck('kode_mk')->implode(', ') }}
                                             @endif
                                         </td>
                                     @endforeach
                                 </tr>
-                            @endforeach
-                        </tbody>
+                            @endforeach --}}
+                        {{-- </tbody>
                     </table>
-                </div>
+                </div> --}}
 
 
 

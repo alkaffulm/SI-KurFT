@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('NIP');
             $table->string('username');
             $table->string('password');
+            $table->string('email');
             $table->unsignedBigInteger('last_active_kurikulum_id')->nullable();
 
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('set null');

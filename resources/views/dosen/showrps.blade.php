@@ -16,10 +16,9 @@
     
     <div class="py-8 px-16 sm:ml-64 mt-16">
 
-        <div>
+        <div class="flex justify-between items-center">
             <a href="/dosen/matkul">Kembali</a>
-            <div class="flex justify-end gap-4">
-                {{-- Tombol Aksi di Kanan Atas --}}
+            <div class="flex justify-end items-center gap-4">
                 <div class="flex justify-end mb-4">
                     <a href="{{route('rps.edit', $rps)}}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
                         Edit RPS
@@ -71,15 +70,16 @@
                     <div class="col-span-1 px-2 border-r border-b border-black font-bold">SEMESTER</div>
                     <div class="col-span-2 px-2 border-b border-black font-bold">Tgl Penyusunan</div>
                 </div>
-                <div class="grid grid-cols-12 bg-[#9cc2e4]">
+                <div class="grid grid-cols-12 bg-white">
                     <div class="col-span-3 px-2 border-r border-black">
                         <p>{{ $rps->mataKuliah->nama_matkul_id }}</p>
-                        <p class="italic text-sm">{{ $rps->mataKuliah->nama_matkul_en }}</p>
+                        <p class="italic text-sm text-[#7397b6]">{{ $rps->mataKuliah->nama_matkul_en }}</p>
                     </div>
                     <div class="col-span-1 px-2 border-r border-black">{{ $rps->mataKuliah->kode_mk }}</div>
                     <div class="col-span-3 px-2 border-r border-black">
                         @foreach ($rps->mataKuliah->bahanKajian as $bk)
-                            {{$bk->nama_bk_id}}
+                            <p>{{$bk->nama_bk_id}}</p>
+                            <p class="italic text-sm text-[#7397b6]">{{$bk->nama_bk_en}}</p>
                         @endforeach
                     </div>
                     <div class="col-span-2 border-r border-black">
@@ -122,7 +122,10 @@
                 <div class="grid grid-cols-12  border-black">
                     <div class="col-span-2 px-2 border-r border-black text-center font-bold"></div>
                     <div class="col-span-1 px-2 border-b border-r border-black text-center ">{{ $cpl->nama_kode_cpl }}</div>
-                    <div class="col-span-9 px-2 border-b  border-black text-sm/6">{{ $cpl->desc_cpl_id }}</div>
+                    <div class="col-span-9 px-2 border-b  border-black text-sm/6">
+                        <p>{{ $cpl->desc_cpl_id }}</p>
+                        <p class="italic text-sm text-[#7397b6]">{{ $cpl->desc_cpl_en }}</p>
+                    </div>
                 </div>
             @endforeach
             
@@ -136,7 +139,10 @@
             <div class="grid grid-cols-12  border-black">
                 <div class="col-span-2 px-2 border-r border-black text-center font-bold"></div>
                 <div class="col-span-1 px-2 border-b border-r border-black text-center ">{{ $cpmk->nama_kode_cpmk }}</div>
-                <div class="col-span-9 px-2 border-b  border-black text-sm/6">{{ $cpmk->desc_cpmk_id }}</div>
+                <div class="col-span-9 px-2 border-b  border-black text-sm/6">
+                    <p>{{ $cpmk->desc_cpmk_id }} </p>
+                    <p class="italic text-sm text-[#7397b6]">{{ $cpmk->desc_cpmk_en }}</p>
+                </div>
             </div>
             @endforeach
             
@@ -151,7 +157,10 @@
                     <div class="grid grid-cols-12  border-black">
                         <div class="col-span-2 px-2 border-r border-black text-center font-bold"></div>
                         <div class="col-span-1 px-2 border-r border-b border-black text-center ">{{ $sc->nama_kode_sub_cpmk }}</div>
-                        <div class="col-span-9 px-2  border-b border-black text-sm/6">{{ $sc->desc_sub_cpmk_id }}</div>
+                        <div class="col-span-9 px-2  border-b border-black text-sm/6">
+                             <p>{{ $sc->desc_sub_cpmk_id }}</p>
+                             <p class="italic text-sm text-[#7397b6]">{{ $sc->desc_sub_cpmk_en }}</p>
+                        </div>
                     </div>   
                 @endforeach
             @endforeach
@@ -207,7 +216,10 @@
         <div class="border border-black border-t-0 text-sm">
             <div class="grid grid-cols-12">
                 <div class="col-span-2 p-2 border-r border-black font-bold">Deskripsi Singkat MK</div>
-                <div class="col-span-10 p-2">{{ $rps->mataKuliah->matkul_desc_id }}</div>
+                <div class="col-span-10 p-2">
+                     <p>{{ $rps->mataKuliah->matkul_desc_id }}</p>
+                     <p class="italic text-sm text-[#7397b6]">{{ $rps->mataKuliah->matkul_desc_en }}</p>
+                </div>
             </div>
             <div class="grid grid-cols-12 border-t border-black">
                 <div class="col-span-2 p-2 border-r border-black font-bold">Bahan Kajian: <br>Materi Pembelajaran</div>
@@ -284,7 +296,8 @@
                                 <td class="p-2 border border-black align-top">
                                     @if($topic->subCpmk)
                                         <p class="font-bold">{{ $topic->subCpmk->nama_kode_sub_cpmk}}</p>
-                                        {{ $topic->subCpmk->desc_sub_cpmk_id }}
+                                        <p>{{ $topic->subCpmk->desc_sub_cpmk_id }}</p>
+                                        <p class="italic text-sm text-[#7397b6]">{{ $topic->subCpmk->desc_sub_cpmk_en }}</p>
                                     @else
                                         -
                                     @endif
@@ -325,8 +338,8 @@
                                         
                                         <div>
                                             <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
-                                             @if ($topic->aktivitasPembelajaran->firstWhere('tipe','PT'))
-                                                <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->penugasan_mahasiswa}}</p>
+                                             @if ($topic->aktivitasPembelajaran->firstWhere('tipe','TM'))
+                                                <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->penugasan_mahasiswa}}</p>
                                             @else
                                                 <p>-</p>
                                             @endif
@@ -355,8 +368,8 @@
 
                                         <div>
                                             <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
-                                            @if ($topic->aktivitasPembelajaran->firstWhere('tipe','PT'))
-                                                <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->penugasan_mahasiswa}}</p>
+                                            @if ($topic->aktivitasPembelajaran->firstWhere('tipe','BM'))
+                                                <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->penugasan_mahasiswa}}</p>
                                             @else
                                                 <p>-</p>
                                             @endif

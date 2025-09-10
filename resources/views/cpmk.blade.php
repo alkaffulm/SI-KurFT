@@ -84,7 +84,8 @@
                                         {{ $cp->nama_kode_cpmk }}
                                     </th>
                                     <td class="px-6 py-4 text-left">
-                                        {{ $cp->desc_cpmk_id }}
+                                        <p>{{ $cp->desc_cpmk_id }}</p>
+                                        <p class="italic text-sm text-[#7397b6]">{{ $cp->desc_cpmk_en }}</p>
                                     </td>
                                 </tr>
                             @empty
@@ -144,7 +145,8 @@
                                         {{ $scp->nama_kode_sub_cpmk }}
                                     </th>
                                     <td class="px-6 py-4 text-left border-r border-gray-400">
-                                        {{ $scp->desc_sub_cpmk_id }}
+                                        <p>{{ $scp->desc_sub_cpmk_id }}</p>
+                                        <p class="italic text-sm text-[#7397b6]">{{ $scp->desc_sub_cpmk_en }}</p>
                                     </td>
                                     <td class="px-6 py-4 border-r border-gray-400">
                                         {{ $scp->cpmk?->nama_kode_cpmk ?? 'Belum Terhubung' }}
