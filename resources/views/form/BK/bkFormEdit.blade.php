@@ -51,7 +51,7 @@
                                 :class="{ 'is-deleting': isDeleting }">
                                 <div class="grid grid-cols-12 gap-x-6 gap-y-4">
 
-                                    <div class="col-span-12 sm:col-span-2">
+                                    <div class="col-span-12 sm:col-span-5">
                                         <label for="nama_kode_bk_{{ $bk->id_bk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Kode BK</label>
                                         <input type="text" id="nama_kode_bk_{{ $bk->id_bk }}"
@@ -61,7 +61,7 @@
                                             required>
                                     </div>
 
-                                    <div class="col-span-12 sm:col-span-3">
+                                    <div class="col-span-12 sm:col-span-5">
                                         <label for="kategori_{{ $bk->id_bk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Kategori</label>
                                         <input type="text" id="kategori_{{ $bk->id_bk }}"
@@ -70,24 +70,26 @@
                                             value="{{ old('bk.' . $bk->id_bk . '.kategori', $bk->kategori) }}" required>
                                     </div>
 
-                                    <div class="col-span-11 sm:col-span-6">
+                                    <div class="col-span-12 sm:col-span-5">
                                         <label for="nama_bk_id_{{ $bk->id_bk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Nama Bahan
                                             Kajian (Indonesia)</label>
                                         <input type="text" id="nama_bk_id_{{ $bk->id_bk }}"
                                             name="bk[{{ $bk->id_bk }}][nama_bk_id]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                            value="{{ old('bk.' . $bk->id_bk . '.nama_bk_id', $bk->nama_bk_id) }}" required>
+                                            value="{{ old('bk.' . $bk->id_bk . '.nama_bk_id', $bk->nama_bk_id) }}"
+                                            required>
                                     </div>
 
-                                    <div class="col-span-11 sm:col-span-6">
+                                    <div class="col-span-12 sm:col-span-5">
                                         <label for="nama_bk_en_{{ $bk->id_bk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Nama Bahan
                                             Kajian (English)</label>
                                         <input type="text" id="nama_bk_en_{{ $bk->id_bk }}"
                                             name="bk[{{ $bk->id_bk }}][nama_bk_en]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                            value="{{ old('bk.' . $bk->id_bk . '.nama_bk_en', $bk->nama_bk_en) }}" required>
+                                            value="{{ old('bk.' . $bk->id_bk . '.nama_bk_en', $bk->nama_bk_en) }}"
+                                            required>
                                     </div>
 
                                     <div class="col-span-1 flex items-end justify-center pb-2">
@@ -109,7 +111,8 @@
                                     <div class="col-span-12 sm:col-span-6">
                                         <label for="desc_bk_id_{{ $bk->id_bk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Deskripsi
-                                            (Indonesia)</label>
+                                            (Indonesia)
+                                        </label>
                                         <textarea id="desc_bk_id_{{ $bk->id_bk }}" name="bk[{{ $bk->id_bk }}][desc_bk_id]" rows="4"
                                             :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('bk.' . $bk->id_bk . '.desc_bk_id', $bk->desc_bk_id) }}</textarea>

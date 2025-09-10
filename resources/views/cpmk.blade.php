@@ -190,11 +190,83 @@
                                 </path>
                             </svg>
                             Edit Korelasi CPMK per CPL
-                    </a>
+                        </a>
                     </div>
 
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
+                    <table class="w-full text-sm text-center text-gray-500 table-fixed">
+                        <thead class="text-sm text-white uppercase bg-teks-biru-custom">
+                            <tr>
+                                <th scope="col" class="px-3 py-6 w-64">Mata Kuliah</th>
+                                @foreach ($cpl as $cp)
+                                    <th scope="col" class="px-3 py-6 w-32">
+                                        {{ $cp->nama_kode_cpl }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($mata_kuliah as $mk)
+                                <tr class="bg-white border-t border-gray-400">
+                                    <th class="px-6 py-4 border-r text-left whitespace-normal">
+                                        {{ $mk->nama_matkul_id }}
+                                    </th>
+                                    @foreach ($cpl as $cp)
+                                        <td class="px-6 py-4 border-r">
+                                            @php
+                                                $relatedCpmks = [];
+                                                if (isset($mk_cpmk_cpl_map[$mk->id_mk][$cp->id_cpl])) {
+                                                    foreach ($mk_cpmk_cpl_map[$mk->id_mk][$cp->id_cpl] as $cpmkId) {
+                                                        $cpmkObj = $cpmkAll->firstWhere('id_cpmk', $cpmkId);
+                                                        if ($cpmkObj) {
+                                                            $relatedCpmks[] = $cpmkObj->nama_kode_cpmk;
+                                                        }
+                                                    }
+                                                }
+                                            @endphp
+                                            @if (!empty($relatedCpmks))
+                                                <ul class="list-disc list-inside text-left">
+                                                    @foreach ($relatedCpmks as $nama)
+                                                        <li>{{ $nama }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Bagian 3: Tabel Mapping MK dan CPL dengan CPMK --}}
+                {{-- <div class="flex justify-between items-center mt-12 mb-4">
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi Mata Kuliah dan CPL dengan CPMK</h2>
+                    <div>
+                        <a href="{{ route('mk-cpl-mapping.edit') }}"
+                            class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                </path>
+                            </svg>
+                            Edit Korelasi CPL per Mata Kuliah
+                        </a>
+                        <a href="{{ route('cpl-cpmk-mapping.edit') }}"
+                            class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                </path>
+                            </svg>
+                            Edit Korelasi CPMK per CPL
+                    </a>
+                    </div>
+
+                </div> --}}
+                {{-- <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-sm text-white uppercase bg-teks-biru-custom">
                             <tr>
@@ -205,7 +277,7 @@
                                 @endforeach
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody> --}}
                             {{-- @foreach ($mata_kuliah as $mk)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th class="px-6 py-4 border-r text-left">
@@ -242,7 +314,7 @@
                                     @endforeach
                                 </tr>
                                 @endforeach --}}
-                                @foreach ($mata_kuliah as $mk)
+                                {{-- @foreach ($mata_kuliah as $mk)
                                     <tr class="bg-white border-t border-gray-400">
                                         <th class="px-6 py-4 border-r text-left">
                                             {{ $mk->nama_matkul_id }}
@@ -273,7 +345,7 @@
                                 @endforeach
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
 
                 {{-- Bagian 4: Tabel Mapping CPMK dan CPL --}}
                 {{-- <div class="flex justify-between items-center mt-8 mb-4">

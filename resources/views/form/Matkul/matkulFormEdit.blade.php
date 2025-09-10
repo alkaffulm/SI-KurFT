@@ -51,16 +51,17 @@
                                 :class="{ 'is-deleting': isDeleting }">
                                 <div class="grid grid-cols-12 gap-x-6 gap-y-4">
 
-                                    {{-- Baris 1: Kode, Nama ID, Nama EN, SKS, Semester --}}
-                                    <div class="col-span-12 sm:col-span-2">
+                                    <div class="col-span-12 ">
                                         <label for="kode_mk_{{ $mk->id_mk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Kode MK</label>
                                         <input type="text" id="kode_mk_{{ $mk->id_mk }}"
                                             name="matkul[{{ $mk->id_mk }}][kode_mk]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
-                                            value="{{ old('matkul.' . $mk->id_mk . '.kode_mk', $mk->kode_mk) }}" required>
+                                            value="{{ old('matkul.' . $mk->id_mk . '.kode_mk', $mk->kode_mk) }}"
+                                            required>
                                     </div>
-                                    <div class="col-span-12 sm:col-span-4">
+
+                                    <div class="col-span-12 sm:col-span-6">
                                         <label for="nama_matkul_id_{{ $mk->id_mk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Nama MK (ID)</label>
                                         <input type="text" id="nama_matkul_id_{{ $mk->id_mk }}"
@@ -69,7 +70,8 @@
                                             value="{{ old('matkul.' . $mk->id_mk . '.nama_matkul_id', $mk->nama_matkul_id) }}"
                                             required>
                                     </div>
-                                    <div class="col-span-12 sm:col-span-3">
+
+                                    <div class="col-span-12 sm:col-span-6">
                                         <label for="nama_matkul_en_{{ $mk->id_mk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Nama MK (EN)</label>
                                         <input type="text" id="nama_matkul_en_{{ $mk->id_mk }}"
@@ -78,16 +80,18 @@
                                             value="{{ old('matkul.' . $mk->id_mk . '.nama_matkul_en', $mk->nama_matkul_en) }}"
                                             required>
                                     </div>
-                                    <div class="col-span-6 sm:col-span-1">
-                                        <label for="sks_teoi_{{ $mk->id_mk }}"
+
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="sks_teori_{{ $mk->id_mk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">SKS Teori</label>
-                                        <input type="number" id="sks_teoi_{{ $mk->id_mk }}"
+                                        <input type="number" id="sks_teori_{{ $mk->id_mk }}"
                                             name="matkul[{{ $mk->id_mk }}][sks_teori]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
                                             value="{{ old('matkul.' . $mk->id_mk . '.sks_teori', $mk->sks_teori) }}"
                                             required>
                                     </div>
-                                    <div class="col-span-6 sm:col-span-1">
+
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="sks_praktikum_{{ $mk->id_mk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">SKS Praktikum</label>
                                         <input type="number" id="sks_praktikum_{{ $mk->id_mk }}"
@@ -96,7 +100,8 @@
                                             value="{{ old('matkul.' . $mk->id_mk . '.sks_praktikum', $mk->sks_praktikum) }}"
                                             required>
                                     </div>
-                                    <div class="col-span-5 sm:col-span-1">
+
+                                    <div class="col-span-5 sm:col-span-3">
                                         <label for="semester_{{ $mk->id_mk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Semester</label>
                                         <input type="number" id="semester_{{ $mk->id_mk }}"
@@ -105,6 +110,7 @@
                                             value="{{ old('matkul.' . $mk->id_mk . '.semester', $mk->semester) }}"
                                             required>
                                     </div>
+
                                     <div class="col-span-1 flex items-end justify-center pb-2">
                                         <input type="checkbox" id="delete_{{ $mk->id_mk }}" name="delete_ids[]"
                                             value="{{ $mk->id_mk }}" class="hidden" x-model="isDeleting">
@@ -121,11 +127,11 @@
                                         </label>
                                     </div>
 
-                                    {{-- Baris 2: Deskripsi --}}
                                     <div class="col-span-12 sm:col-span-6">
                                         <label for="matkul_desc_id_{{ $mk->id_mk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Deskripsi
-                                            (ID)</label>
+                                            (ID)
+                                        </label>
                                         <textarea id="matkul_desc_id_{{ $mk->id_mk }}" name="matkul[{{ $mk->id_mk }}][matkul_desc_id]" rows="3"
                                             :disabled="isDeleting" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
                                             required>{{ old('matkul.' . $mk->id_mk . '.matkul_desc_id', $mk->matkul_desc_id) }}</textarea>

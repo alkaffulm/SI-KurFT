@@ -31,7 +31,7 @@
                 @csrf
                 @method('PUT')
 
-                <input type="hidden" name="id_ps" value="{{session()->get('userRoleId')}}">
+                <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
 
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
 
@@ -64,22 +64,13 @@
                                             value="{{ old('peo.' . $p->id_peo . '.kode_peo', $p->kode_peo) }}" required>
                                     </div>
 
-                                    <div class="col-span-11 sm:col-span-7">
+                                    <div class="col-span-11">
                                         <label for="desc_peo_id_{{ $p->id_peo }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi PEO (Indonesia)</label>
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi PEO
+                                            (Indonesia)</label>
                                         <textarea id="desc_peo_id_{{ $p->id_peo }}" name="peo[{{ $p->id_peo }}][desc_peo_id]" rows="4"
                                             :disabled="isDeleting"
-                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                            required>{{ old('peo.' . $p->id_peo . '.desc_peo_id', $p->desc_peo_id) }}</textarea>
-                                    </div>
-
-                                    <div class="col-span-11 sm:col-span-7">
-                                        <label for="desc_peo_en_{{ $p->id_peo }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi PEO (English)</label>
-                                        <textarea id="desc_peo_en_{{ $p->id_peo }}" name="peo[{{ $p->id_peo }}][desc_peo_en]" rows="4"
-                                            :disabled="isDeleting"
-                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                            required>{{ old('peo.' . $p->id_peo . '.desc_peo_en', $p->desc_peo_en) }}</textarea>
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('peo.' . $p->id_peo . '.desc_peo_id', $p->desc_peo_id) }}</textarea>
                                     </div>
 
                                     <div class="col-span-1 flex items-center justify-center pt-8">
@@ -96,6 +87,15 @@
                                                 </path>
                                             </svg>
                                         </label>
+                                    </div>
+
+                                    <div class="col-span-11">
+                                        <label for="desc_peo_en_{{ $p->id_peo }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi PEO
+                                            (English)</label>
+                                        <textarea id="desc_peo_en_{{ $p->id_peo }}" name="peo[{{ $p->id_peo }}][desc_peo_en]" rows="4"
+                                            :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('peo.' . $p->id_peo . '.desc_peo_en', $p->desc_peo_en) }}</textarea>
                                     </div>
                                 </div>
 

@@ -43,19 +43,17 @@
                     @endif
 
                     <div class="space-y-5">
-                        {{-- Grid for Kode, SKS, Semester --}}
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <label for="kode_mk" class="block text-base font-medium text-gray-700 mb-2">Kode
-                                    MK</label>
-                                <input type="text" id="kode_mk" name="kode_mk"
-                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                    placeholder="Contoh: TIS123" value="{{ old('kode_mk') }}" required>
-                                @error('kode_mk')
-                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            {{-- <div>
+                        <div>
+                            <label for="kode_mk" class="block text-base font-medium text-gray-700 mb-2">Kode
+                                MK</label>
+                            <input type="text" id="kode_mk" name="kode_mk"
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                placeholder="Contoh: TIS123" value="{{ old('kode_mk') }}" required>
+                            @error('kode_mk')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        {{-- <div>
                                 <label for="jumlah_sks" class="block text-base font-medium text-gray-700 mb-2">Jumlah
                                     SKS</label>
                                 <input type="number" id="jumlah_sks" name="jumlah_sks" min="1" max="6"
@@ -65,10 +63,11 @@
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div> --}}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="sks_teori" class="block text-base font-medium text-gray-700 mb-2">Jumlah
                                     SKS Teori</label>
-                                <input type="number" id="sks_teori" name="sks_teori"  max="6"
+                                <input type="number" id="sks_teori" name="sks_teori" max="6"
                                     class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                     placeholder="Contoh: 3" value="{{ old('sks_teori') }}" required>
                                 @error('sks_teori')
@@ -78,13 +77,15 @@
                             <div>
                                 <label for="sks_praktikum" class="block text-base font-medium text-gray-700 mb-2">Jumlah
                                     SKS Praktikum</label>
-                                <input type="number" id="sks_praktikum" name="sks_praktikum"  max="6"
+                                <input type="number" id="sks_praktikum" name="sks_praktikum" max="6"
                                     class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                     placeholder="Contoh: 3" value="{{ old('sks_praktikum') }}" required>
                                 @error('sks_praktikum')
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="semester"
                                     class="block text-base font-medium text-gray-700 mb-2">Semester</label>
@@ -97,20 +98,22 @@
                             </div>
                             <div>
                                 <label for="muncul"
-                                    class="block text-base font-medium text-gray-700 mb-2">Semester</label>
+                                    class="block text-base font-medium text-gray-700 mb-2">Kemunculan</label>
                                 <select id="muncul" name="muncul"
                                     class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                     required>
-                                    <option value="" disabled selected>Pilih Kemunculan Mata Kuliah</option>
-                                    <option value="ganjil" {{ old('muncul') == 'ganjil' ? 'selected' : '' }}>Ganjil</option>
-                                    <option value="genap" {{ old('muncul') == 'genap' ? 'selected' : '' }}>Genap</option>
-                                    <option value="semua" {{ old('munculr') == 'semua' ? 'selected' : '' }}>Semua</option>
+                                    <option value="" disabled selected>Pilih Kemunculan</option>
+                                    <option value="ganjil" {{ old('muncul') == 'ganjil' ? 'selected' : '' }}>Ganjil
+                                    </option>
+                                    <option value="genap" {{ old('muncul') == 'genap' ? 'selected' : '' }}>Genap
+                                    </option>
+                                    <option value="semua" {{ old('muncul') == 'semua' ? 'selected' : '' }}>Semua
+                                    </option>
                                 </select>
                                 @error('muncul')
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-
                         </div>
 
                         <div>
@@ -149,7 +152,8 @@
                         </div>
 
                         <div>
-                            <label for="matkul_desc_en" class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                            <label for="matkul_desc_en"
+                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi
                                 (English)</label>
                             <textarea id="matkul_desc_en" name="matkul_desc_en" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"

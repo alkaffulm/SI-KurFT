@@ -54,8 +54,7 @@
                             <div x-data="{ isDeleting: false }" class="transition-opacity"
                                 :class="{ 'is-deleting': isDeleting }">
                                 <div class="grid grid-cols-12 gap-x-6 gap-y-4">
-                                    {{-- Baris 1: Kode CPMK --}}
-                                    <div class="col-span-11">
+                                    <div class="col-span-12 sm:col-span-4">
                                         <label for="nama_kode_cpmk_{{ $cp->id_cpmk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Kode CPMK</label>
                                         <input type="text" id="nama_kode_cpmk_{{ $cp->id_cpmk }}"
@@ -65,7 +64,17 @@
                                             required>
                                     </div>
 
-                                    <div class="col-span-1 flex items-end justify-center pb-2">
+                                    <div class="col-span-11">
+                                        <label for="desc_cpmk_id_{{ $cp->id_cpmk }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                                            (ID)
+                                        </label>
+                                        <textarea id="desc_cpmk_id_{{ $cp->id_cpmk }}" name="cpmk[{{ $cp->id_cpmk }}][desc_cpmk_id]" rows="4"
+                                            :disabled="isDeleting" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
+                                            required>{{ old('cpmk.' . $cp->id_cpmk . '.desc_cpmk_id', $cp->desc_cpmk_id) }}</textarea>
+                                    </div>
+
+                                    <div class="col-span-1 flex items-center justify-center pt-8">
                                         <input type="checkbox" id="delete_{{ $cp->id_cpmk }}" name="delete_ids[]"
                                             value="{{ $cp->id_cpmk }}" class="hidden" x-model="isDeleting">
                                         <label for="delete_{{ $cp->id_cpmk }}"
@@ -81,17 +90,7 @@
                                         </label>
                                     </div>
 
-                                    {{-- Baris 2: Deskripsi --}}
-                                    <div class="col-span-12 sm:col-span-6">
-                                        <label for="desc_cpmk_id_{{ $cp->id_cpmk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
-                                            (ID)
-                                        </label>
-                                        <textarea id="desc_cpmk_id_{{ $cp->id_cpmk }}" name="cpmk[{{ $cp->id_cpmk }}][desc_cpmk_id]" rows="4"
-                                            :disabled="isDeleting" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
-                                            required>{{ old('cpmk.' . $cp->id_cpmk . '.desc_cpmk_id', $cp->desc_cpmk_id) }}</textarea>
-                                    </div>
-                                    <div class="col-span-12 sm:col-span-6">
+                                    <div class="col-span-11">
                                         <label for="desc_cpmk_en_{{ $cp->id_cpmk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Deskripsi
                                             (EN)</label>

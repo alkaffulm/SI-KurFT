@@ -8,6 +8,7 @@
     @vite('resources/css/app.css')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
+        /* Transisi halus untuk efek visual */
         .transition-opacity {
             transition: opacity 0.3s ease-in-out;
         }
@@ -51,65 +52,53 @@
                             <div x-data="{ isDeleting: false }" class="transition-opacity"
                                 :class="{ 'is-deleting': isDeleting }">
                                 <div class="grid grid-cols-12 gap-x-6 gap-y-4">
-
-                                    {{-- Kolom untuk Kode CPL, Bobot, dan Kurikulum --}}
-                                    <div class="col-span-12 sm:col-span-4 space-y-4">
-                                        {{-- Input Kode CPL --}}
-                                        <div>
-                                            <label for="nama_kode_cpl_{{ $cpl->id_cpl }}"
-                                                class="block text-base font-medium text-gray-700 mb-2">Kode CPL</label>
-                                            <input type="text" id="nama_kode_cpl_{{ $cpl->id_cpl }}"
-                                                name="cpl[{{ $cpl->id_cpl }}][nama_kode_cpl]" :disabled="isDeleting"
-                                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                                value="{{ old('cpl.' . $cpl->id_cpl . '.nama_kode_cpl', $cpl->nama_kode_cpl) }}"
-                                                required>
-                                        </div>
-
-                                        {{-- Input Bobot Maksimum --}}
-                                        {{-- <div>
-                                            <label for="bobot_maksimum_{{ $cpl->id_cpl }}"
-                                                class="block text-base font-medium text-gray-700 mb-2">Bobot
-                                                Maksimum</label>
-                                            <input type="text" id="bobot_maksimum_{{ $cpl->id_cpl }}"
-                                                name="cpl[{{ $cpl->id_cpl }}][bobot_maksimum]" :disabled="isDeleting"
-                                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                                value="{{ old('cpl.' . $cpl->id_cpl . '.bobot_maksimum', $cpl->bobot_maksimum) }}"
-                                                required>
-                                        </div> --}}
-
-                                        {{-- Dropdown Kurikulum --}}
-                                        {{-- <div>
-                                            <label for="id_kurikulum_{{ $cpl->id_cpl }}"
-                                                class="block text-base font-medium text-gray-700 mb-2">Kurikulum</label>
-                                            <select name="cpl[{{ $cpl->id_cpl }}][id_kurikulum]"
-                                                id="id_kurikulum_{{ $cpl->id_cpl }}" :disabled="isDeleting"
-                                                class="select-custom w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition">
-                                                @foreach ($kurikulum as $krk)
-                                                    <option value="{{ $krk->id_kurikulum }}"
-                                                        {{ old('cpl.' . $cpl->id_cpl . '.id_kurikulum', $cpl->id_kurikulum) == $krk->id_kurikulum ? 'selected' : '' }}>
-                                                        {{ $krk->tahun }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div> --}}
+                                    <div class="col-span-12 sm:col-span-4">
+                                        <label for="nama_kode_cpl_{{ $cpl->id_cpl }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Kode CPL</label>
+                                        <input type="text" id="nama_kode_cpl_{{ $cpl->id_cpl }}"
+                                            name="cpl[{{ $cpl->id_cpl }}][nama_kode_cpl]" :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                            value="{{ old('cpl.' . $cpl->id_cpl . '.nama_kode_cpl', $cpl->nama_kode_cpl) }}"
+                                            required>
                                     </div>
 
-                                    {{-- Kolom Deskripsi --}}
-                                    <div class="col-span-11 sm:col-span-7">
+                                    {{-- Input Bobot Maksimum --}}
+                                    {{-- <div>
+                                        <label for="bobot_maksimum_{{ $cpl->id_cpl }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Bobot
+                                            Maksimum</label>
+                                        <input type="text" id="bobot_maksimum_{{ $cpl->id_cpl }}"
+                                            name="cpl[{{ $cpl->id_cpl }}][bobot_maksimum]" :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                            value="{{ old('cpl.' . $cpl->id_cpl . '.bobot_maksimum', $cpl->bobot_maksimum) }}"
+                                            required>
+                                    </div> --}}
+
+                                    {{-- Dropdown Kurikulum --}}
+                                    {{-- <div>
+                                        <label for="id_kurikulum_{{ $cpl->id_cpl }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Kurikulum</label>
+                                        <select name="cpl[{{ $cpl->id_cpl }}][id_kurikulum]"
+                                            id="id_kurikulum_{{ $cpl->id_cpl }}" :disabled="isDeleting"
+                                            class="select-custom w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition">
+                                            @foreach ($kurikulum as $krk)
+                                                <option value="{{ $krk->id_kurikulum }}"
+                                                    {{ old('cpl.' . $cpl->id_cpl . '.id_kurikulum', $cpl->id_kurikulum) == $krk->id_kurikulum ? 'selected' : '' }}>
+                                                    {{ $krk->tahun }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div> --}}
+
+                                    <div class="col-span-11">
                                         <label for="desc_cpl_id_{{ $cpl->id_cpl }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi CPL (Indonesia)</label>
-                                        <textarea id="desc_cpl_id_{{ $cpl->id_cpl }}" name="cpl[{{ $cpl->id_cpl }}][desc_cpl_id]" rows="9" :disabled="isDeleting"
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi CPL
+                                            (Indonesia)</label>
+                                        <textarea id="desc_cpl_id_{{ $cpl->id_cpl }}" name="cpl[{{ $cpl->id_cpl }}][desc_cpl_id]" rows="4"
+                                            :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('cpl.' . $cpl->id_cpl . '.desc_cpl_id', $cpl->desc_cpl_id) }}</textarea>
                                     </div>
 
-                                    <div class="col-span-11 sm:col-span-7">
-                                        <label for="desc_cpl_en_{{ $cpl->id_cpl }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi CPL (English)</label>
-                                        <textarea id="desc_cpl_en_{{ $cpl->id_cpl }}" name="cpl[{{ $cpl->id_cpl }}][desc_cpl_en]" rows="9" :disabled="isDeleting"
-                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('cpl.' . $cpl->id_cpl . '.desc_cpl_en', $cpl->desc_cpl_en) }}</textarea>
-                                    </div>
-
-                                    {{-- Kolom Delete Checkbox --}}
                                     <div class="col-span-1 flex items-center justify-center pt-8">
                                         <input type="checkbox" id="delete_{{ $cpl->id_cpl }}" name="delete_cpl[]"
                                             value="{{ $cpl->id_cpl }}" class="hidden" x-model="isDeleting">
@@ -124,6 +113,15 @@
                                                 </path>
                                             </svg>
                                         </label>
+                                    </div>
+
+                                    <div class="col-span-11">
+                                        <label for="desc_cpl_en_{{ $cpl->id_cpl }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi CPL
+                                            (English)</label>
+                                        <textarea id="desc_cpl_en_{{ $cpl->id_cpl }}" name="cpl[{{ $cpl->id_cpl }}][desc_cpl_en]" rows="4"
+                                            :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('cpl.' . $cpl->id_cpl . '.desc_cpl_en', $cpl->desc_cpl_en) }}</textarea>
                                     </div>
                                 </div>
 
