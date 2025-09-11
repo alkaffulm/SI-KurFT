@@ -95,7 +95,7 @@ class BkMkMapSeeder extends Seeder
             // untuk matkul IMK kurikulum 2020
             ['id_bk' => 29, 'id_mk' => 34],
 
-            // untuk matkul IMK kurikulum 2020
+            // untuk matkul IMK kurikulum 2025
             ['id_bk' => 57, 'id_mk' => 80],
         ]);
     }

@@ -62,9 +62,11 @@ class DatabaseSeeder extends Seeder
             KelasSeeder::class,                    // 35
             
             WeekSeeder::class,
+            RpsTopicSeeder::class,
             BentukPembelajaranSeeder::class,
             MetodePembelajaranSeeder::class,
-            RpsTopicSeeder::class,
+            AktivitasPembelajaranSeeder::class,
+            AktivitasMetodePembelajaranSeeder::class,
             RpsTopicWeekSeeder::class,
             RpsTopicKriteriaPenilaianSeeder::class,
             RpsTopicTeknikPenilaianSeeder::class,

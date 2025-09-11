@@ -30,10 +30,10 @@ class MKCPMKCPLMapSeeder extends Seeder
 
 
             // // untuk MK IMK kurikulum 2025
-            // ['id_mk' => 80, 'id_cpl' => 57, 'id_cpmk'=>76],
-            // ['id_mk' => 80, 'id_cpl' => 58, 'id_cpmk'=>77],
-            // ['id_mk' => 80, 'id_cpl' => 58, 'id_cpmk'=>78],
-            // ['id_mk' => 80, 'id_cpl' => 59, 'id_cpmk'=>79],
+            ['id_mk' => 80, 'id_cpl' => 57, 'id_cpmk'=>76],
+            ['id_mk' => 80, 'id_cpl' => 58, 'id_cpmk'=>77],
+            ['id_mk' => 80, 'id_cpl' => 58, 'id_cpmk'=>78],
+            ['id_mk' => 80, 'id_cpl' => 59, 'id_cpmk'=>79],
         ]);
     }
 }

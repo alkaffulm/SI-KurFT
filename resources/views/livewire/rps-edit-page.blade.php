@@ -269,7 +269,7 @@
                                                 <br>
                                                 <div>
                                                     <label>Penugasan Mahasiswa</label>
-                                                    <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.TM.penugasan_mahasiswa"  class="w-full border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea>
+                                                    <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.TM.penugasan_mahasiswa"  class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea>
                                                     @error('topics.'.$index.'.aktivitas_pembelajaran.TM.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror                                            
                                                 </div>
                                             </div>
@@ -295,7 +295,7 @@
                                                 <br>
                                                 <div>
                                                     <label for="penugasan_mahasiswa">Penugasan Mahasiswa</label>
-                                                    <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.BM.penugasan_mahasiswa" id="penugasan_mahasiswa" class="w-full border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea>
+                                                    <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.BM.penugasan_mahasiswa" id="penugasan_mahasiswa" class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea>
                                                     @error('topics.'.$index.'.aktivitas_pembelajaran.BM.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
                                             </div>
@@ -324,7 +324,7 @@
                                                 <br>
                                                 <div>
                                                     <label >Penugasan Mahasiswa</label>
-                                                    <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.PT.penugasan_mahasiswa" class="w-full border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea>
+                                                    <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.PT.penugasan_mahasiswa" class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea>
                                                     @error('topics.'.$index.'.aktivitas_pembelajaran.PT.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
                                             </div>
