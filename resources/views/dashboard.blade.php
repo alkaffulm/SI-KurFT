@@ -29,9 +29,9 @@
                 @include('partials.dashboard-pimpinan')
             @endif
 
+            @include('visikeilmuan', ['visi' => $visi])
+
             @livewire('kurikulum-selector')
-
-
         </main>
     </div>
 

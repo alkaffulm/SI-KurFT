@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-            $this->call([
+        $this->call([
             RoleSeeder::class,                    // 1
             ProgramStudiSeeder::class,            // 2
             KurikulumSeeder::class,               // 3
@@ -24,24 +24,24 @@ class DatabaseSeeder extends Seeder
             TeknikPenilaianSeeder::class,         // 6
             PEOSeeder::class,                     // 28
             KriteriaPenilaianSeeder::class,
-            
+
             //  B. Level 1 Dependency
             UserSeeder::class,                    // 7
             MataKuliahSeeder::class,              // 8
             MahasiswaSeeder::class,               // 9
             CplSeeder::class,                     // 10
             ProfilLulusanSeeder::class,           // 11
-            
+
             // C. Level 2 Dependency
             UserRoleMapSeeder::class,             // 12
             UserPersonalisasiSeeder::class,       // 13
             CpmkSeeder::class,                    // 14
             RpsSeeder::class,                     // 15
-            
+
             //  D. Level 3+ Dependency
             SubCpmkSeeder::class,                 // 16
             // PenilaianSeeder::class,               // 17
-            
+
             // E. Tabel Mapping
             CpmkCplMapSeeder::class,              // 18
             MataKuliahCmpkMapSeeder::class,       // 19
@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
             BkMkMapSeeder::class,                 // 24
             BkCplMapSeeder::class,                // 25
             MkCplMapSeeder::class,                // 26
-            // TpCpmkMapSeeder::class,               // 27 
+            // TpCpmkMapSeeder::class,               // 27
             PLPEOSeeder::class,                   // 29
             CPLPLMapSeeder::class,                // 30
             MKCPMKSubCPMKMapSeeder::class,        // 31
@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
             TahunAkademikSeeder::class,           // 33
             KurikulumTahunAkademikSeeder::class,  // 34
             KelasSeeder::class,                    // 35
-            
+
             WeekSeeder::class,
             RpsTopicSeeder::class,
             BentukPembelajaranSeeder::class,
@@ -70,6 +70,8 @@ class DatabaseSeeder extends Seeder
             RpsTopicWeekSeeder::class,
             RpsTopicKriteriaPenilaianSeeder::class,
             RpsTopicTeknikPenilaianSeeder::class,
+
+            VisiKeilmuanSeeder::class,
         ]);
     }
 }
