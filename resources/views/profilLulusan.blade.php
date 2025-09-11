@@ -78,6 +78,7 @@
                         <tbody>
                             @foreach ($profil_lulusan as $pl)
                                 <tr class="bg-white border-t border-gray-400">
+                                    {{-- REVISI: Menghapus hover dari kode PL --}}
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $pl->kode_pl }}
@@ -91,9 +92,8 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- menampilkan pagination --}}
                 <div>
-                   {{$profil_lulusan->links()}} 
+                    {{ $profil_lulusan->links() }}
                 </div>
 
                 {{-- Bagian Tabel Korelasi PL dan PEO --}}
@@ -119,14 +119,14 @@
                     <table class="w-full text-sm text-center">
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" rowspan="2" class="px-6 py-3">Kode PL
-                                </th>
+                                <th scope="col" rowspan="2" class="px-6 py-3">Kode PL</th>
                                 <th scope="col" colspan="{{ count($peo) }}" class="px-6 py-3">Programme Educational
                                     Objective (PEO)</th>
                             </tr>
                             <tr>
                                 @foreach ($peo as $p)
-                                    <th scope="col" class="px-6 py-3">
+                                    {{-- Hover tetap ada di sini untuk PEO --}}
+                                    <th scope="col" class="px-6 py-3" title="{{ $p->desc_peo_id }}">
                                         {{ $p->kode_peo }}</th>
                                 @endforeach
                             </tr>
@@ -134,6 +134,7 @@
                         <tbody>
                             @foreach ($profil_lulusan as $pl)
                                 <tr class="bg-white border-t border-gray-400">
+                                    {{-- REVISI: Menghapus hover dari kode PL --}}
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $pl->kode_pl }}

@@ -13,20 +13,14 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    {{-- STYLES TO FIX SELECT2 WIDTH AND HEIGHT --}}
     <style>
-        /* Custom styles to make Select2 fit the Tailwind design */
         .select2-container--default .select2-selection--multiple {
             border-radius: 0.5rem;
-            /* rounded-lg */
             border-color: #D1D5DB;
-            /* border-gray-300 */
             padding: 0.35rem;
-            /* This sets a minimum height to prevent the box from collapsing */
             min-height: 42px;
         }
 
-        /* This forces the entire Select2 component to fill the parent container (the <td>) */
         .select2-container {
             width: 100% !important;
         }
@@ -43,7 +37,6 @@
             <form action="{{ route('pl-peo-mapping.update') }}" method="POST">
                 @csrf
                 @method('PUT')
-
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
                     <div class="mb-5">
                         <h1 class="text-4xl font-bold text-gray-800">Edit Korelasi PL dan PEO</h1>
@@ -53,7 +46,6 @@
 
                     <div class="overflow-hidden rounded-lg border border-gray-400">
                         <table class="w-full text-sm text-center text-gray-500">
-                            {{-- Table Header --}}
                             <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                                 <tr>
                                     <th scope="col" class="px-6 py-4 whitespace-nowrap">Kode Profil Lulusan</th>
@@ -61,20 +53,23 @@
                                         Objective (PEO)</th>
                                 </tr>
                             </thead>
-                            {{-- Table Body (No changes needed here) --}}
                             <tbody>
                                 @foreach ($profil_lulusan as $pl)
                                     <tr class="bg-white border-t border-gray-400">
+                                        {{-- PERBAIKAN: Menambahkan kembali 'title' untuk hover --}}
                                         <th scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400"
+                                            title="{{ $pl->desc_pl_id }}">
                                             {{ $pl->kode_pl }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            <input type="hidden" name="peo_mappings[{{ $pl->id_pl }}]" value="" />
+                                            <input type="hidden" name="peo_mappings[{{ $pl->id_pl }}]"
+                                                value="" />
                                             <select class="select2 w-full" multiple="multiple"
                                                 name="peo_mappings[{{ $pl->id_pl }}][]">
                                                 @foreach ($peo as $item)
                                                     <option value="{{ $item->id_peo }}"
+                                                        title="{{ $item->desc_peo_id ?? $item->deskripsi_peo }}"
                                                         @if (isset($pl_peo_map[$pl->id_pl]) && in_array($item->id_peo, $pl_peo_map[$pl->id_pl])) selected @endif>
                                                         {{ $item->kode_peo }}
                                                     </option>
@@ -114,7 +109,39 @@
         $(document).ready(function() {
             $('.select2').select2({
                 placeholder: "Pilih PEO",
-                allowClear: true
+                allowClear: true,
+                templateResult: function(data) {
+                    if (!data.id) {
+                        return data.text;
+                    }
+                    var $option = $(data.element);
+                    var $wrapper = $('<span></span>');
+                    $wrapper.attr('title', $option.attr('title'));
+                    $wrapper.text(data.text);
+                    return $wrapper;
+                }
+            });
+
+            $('.select2').on('select2:select', function(e) {
+                $(this).next().find('.select2-selection__choice').each(function() {
+                    var $this = $(this);
+                    var option_title = e.params.data.element.title;
+                    if ($this.attr('title') === undefined && e.params.data.text === $this.text()
+                        .replace('×', '')) {
+                        $this.attr('title', option_title);
+                    }
+                });
+            }).on('select2:open', function() {
+                var values = $(this).val();
+                if (values) {
+                    var $options = $(this).find('option');
+                    var $list = $('.select2-results__options').find('li');
+                    $options.each(function(i, opt) {
+                        if (values.indexOf($(opt).val()) > -1) {
+                            $($list[i]).attr('title', $(opt).attr('title'));
+                        }
+                    });
+                }
             });
         });
     </script>

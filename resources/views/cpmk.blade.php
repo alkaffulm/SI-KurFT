@@ -100,7 +100,7 @@
                 </div>
                 {{-- menampilkan pagination --}}
                 <div>
-                    {{$cpmk->links()}}
+                    {{ $cpmk->links() }}
                 </div>
 
                 {{-- Bagian 2: Tabel Sub-CPMK --}}
@@ -164,7 +164,7 @@
                 </div>
                 {{-- menampilkan pagination --}}
                 <div>
-                    {{$sub_cpmk->links()}} 
+                    {{ $sub_cpmk->links() }}
                 </div>
 
                 {{-- Bagian 3: Tabel Mapping MK dan CPL dengan CPMK --}}
@@ -192,7 +192,6 @@
                             Edit Korelasi CPMK per CPL
                         </a>
                     </div>
-
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500 table-fixed">
@@ -200,8 +199,9 @@
                             <tr>
                                 <th scope="col" class="px-3 py-6 w-64">Mata Kuliah</th>
                                 @foreach ($cpl as $cp)
-                                    <th scope="col" class="px-3 py-6 w-32">
-                                        {{ $cp->nama_kode_cpl }}</th>
+                                    <th scope="col" class="px-3 py-6 w-32" title="{{ $cp->desc_cpl_id }}">
+                                        {{ $cp->nama_kode_cpl }}
+                                    </th>
                                 @endforeach
                             </tr>
                         </thead>
@@ -214,20 +214,21 @@
                                     @foreach ($cpl as $cp)
                                         <td class="px-6 py-4 border-r">
                                             @php
-                                                $relatedCpmks = [];
+                                                $relatedCpmkObjects = [];
                                                 if (isset($mk_cpmk_cpl_map[$mk->id_mk][$cp->id_cpl])) {
                                                     foreach ($mk_cpmk_cpl_map[$mk->id_mk][$cp->id_cpl] as $cpmkId) {
                                                         $cpmkObj = $cpmkAll->firstWhere('id_cpmk', $cpmkId);
                                                         if ($cpmkObj) {
-                                                            $relatedCpmks[] = $cpmkObj->nama_kode_cpmk;
+                                                            $relatedCpmkObjects[] = $cpmkObj;
                                                         }
                                                     }
                                                 }
                                             @endphp
-                                            @if (!empty($relatedCpmks))
+                                            @if (!empty($relatedCpmkObjects))
                                                 <ul class="list-disc list-inside text-left">
-                                                    @foreach ($relatedCpmks as $nama)
-                                                        <li>{{ $nama }}</li>
+                                                    @foreach ($relatedCpmkObjects as $cpmkData)
+                                                        <li title="{{ $cpmkData->desc_cpmk_id }}">
+                                                            {{ $cpmkData->nama_kode_cpmk }}</li>
                                                     @endforeach
                                                 </ul>
                                             @endif
@@ -278,7 +279,7 @@
                             </tr>
                         </thead>
                         <tbody> --}}
-                            {{-- @foreach ($mata_kuliah as $mk)
+                {{-- @foreach ($mata_kuliah as $mk)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th class="px-6 py-4 border-r text-left">
                                         {{ $mk->nama_matkul_id }}
@@ -314,7 +315,7 @@
                                     @endforeach
                                 </tr>
                                 @endforeach --}}
-                                {{-- @foreach ($mata_kuliah as $mk)
+                {{-- @foreach ($mata_kuliah as $mk)
                                     <tr class="bg-white border-t border-gray-400">
                                         <th class="px-6 py-4 border-r text-left">
                                             {{ $mk->nama_matkul_id }}
@@ -350,8 +351,8 @@
                 {{-- Bagian 4: Tabel Mapping CPMK dan CPL --}}
                 {{-- <div class="flex justify-between items-center mt-8 mb-4">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi Mata Kuliah dan CPl dengan CPMK</h2> --}}
-                    {{-- masih berteori hubungan tidak langsung --}}
-                    {{-- <a href="{{ route('cpmk-cpl-mapping.edit') }}"
+                {{-- masih berteori hubungan tidak langsung --}}
+                {{-- <a href="{{ route('cpmk-cpl-mapping.edit') }}"
                         class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
@@ -413,8 +414,8 @@
                 {{-- Bagian 5: Tabel Mapping MK dan CPL --}}
                 {{-- <div class="flex justify-between items-center mt-8 mb-4">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi MK-CPL</h2> --}}
-                    {{-- masih berteori hubungan tidak langsung --}}
-                    {{-- <a href="{{ route('cpmk-cpl-mapping.edit') }}"
+                {{-- masih berteori hubungan tidak langsung --}}
+                {{-- <a href="{{ route('cpmk-cpl-mapping.edit') }}"
                         class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">

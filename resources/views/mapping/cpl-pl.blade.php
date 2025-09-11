@@ -17,17 +17,13 @@
     <style>
         .select2-container--default .select2-selection--multiple {
             border-radius: 0.5rem;
-            /* rounded-lg */
             border-color: #D1D5DB;
-            /* border-gray-300 */
             padding: 0.35rem;
             min-height: 42px;
-            /* Sets a minimum height */
         }
 
         .select2-container {
             width: 100% !important;
-            /* Forces the element to fill its container */
         }
     </style>
 </head>
@@ -63,8 +59,10 @@
                             <tbody>
                                 @foreach ($cpl as $c)
                                     <tr class="bg-white border-t border-gray-400">
+                                        {{-- PERUBAHAN 1: Menambahkan title pada kode CPL untuk hover --}}
                                         <th scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400"
+                                            title="{{ $c->desc_cpl_id }}">
                                             {{ $c->nama_kode_cpl }}
                                         </th>
                                         <td class="px-6 py-4">
@@ -72,7 +70,8 @@
                                             <select class="select2 w-full" multiple="multiple"
                                                 name="pl_mappings[{{ $c->id_cpl }}][]">
                                                 @foreach ($profil_lulusan as $item)
-                                                    <option value="{{ $item->id_pl }}"
+                                                    {{-- PERUBAHAN 2: Menambahkan title pada opsi PL untuk hover --}}
+                                                    <option value="{{ $item->id_pl }}" title="{{ $item->desc_pl_id }}"
                                                         @if (isset($cpl_pl_map[$c->id_cpl]) && in_array($item->id_pl, $cpl_pl_map[$c->id_cpl])) selected @endif>
                                                         {{ $item->kode_pl }}
                                                     </option>
@@ -107,12 +106,44 @@
         </main>
     </div>
 
-    {{-- Script to initialize Select2 --}}
+    {{-- PERUBAHAN 3: Menambahkan skrip Select2 yang sama seperti di pl-peo --}}
     <script>
         $(document).ready(function() {
             $('.select2').select2({
-                placeholder: "Pilih PL",
-                allowClear: true
+                placeholder: "Pilih PL", // Menyesuaikan placeholder
+                allowClear: true,
+                templateResult: function(data) {
+                    if (!data.id) {
+                        return data.text;
+                    }
+                    var $option = $(data.element);
+                    var $wrapper = $('<span></span>');
+                    $wrapper.attr('title', $option.attr('title'));
+                    $wrapper.text(data.text);
+                    return $wrapper;
+                }
+            });
+
+            $('.select2').on('select2:select', function(e) {
+                $(this).next().find('.select2-selection__choice').each(function() {
+                    var $this = $(this);
+                    var option_title = e.params.data.element.title;
+                    if ($this.attr('title') === undefined && e.params.data.text === $this.text()
+                        .replace('×', '')) {
+                        $this.attr('title', option_title);
+                    }
+                });
+            }).on('select2:open', function() {
+                var values = $(this).val();
+                if (values) {
+                    var $options = $(this).find('option');
+                    var $list = $('.select2-results__options').find('li');
+                    $options.each(function(i, opt) {
+                        if (values.indexOf($(opt).val()) > -1) {
+                            $($list[i]).attr('title', $(opt).attr('title'));
+                        }
+                    });
+                }
             });
         });
     </script>

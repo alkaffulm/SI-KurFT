@@ -78,7 +78,8 @@
                             @forelse ($cpl as $c)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400"
+                                        title="{{ $c->desc_cpl_id }}">
                                         {{ $c->nama_kode_cpl }}
                                     </th>
                                     <td class="px-6 py-4 text-left">
@@ -98,7 +99,7 @@
                 </div>
                 {{-- menampilkan pagination --}}
                 <div>
-                   {{$cpl->links()}} 
+                    {{ $cpl->links() }}
                 </div>
 
                 {{-- Bagian Tabel Korelasi CPL dan PL --}}
@@ -124,7 +125,9 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3">Kode CPL</th>
                                 @foreach ($profil_lulusan as $pl)
-                                    <th scope="col" class="px-6 py-3">{{ $pl->kode_pl }}
+                                    {{-- PERUBAHAN 1: Menambahkan title pada header PL --}}
+                                    <th scope="col" class="px-6 py-3" title="{{ $pl->desc_pl_id }}">
+                                        {{ $pl->kode_pl }}
                                     </th>
                                 @endforeach
                             </tr>
@@ -163,7 +166,9 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3">Kode CPL</th>
                                 @foreach ($peo as $p)
-                                    <th scope="col" class="px-6 py-3">{{ $p->kode_peo }}
+                                    {{-- PERUBAHAN 2: Menambahkan title pada header PEO --}}
+                                    <th scope="col" class="px-6 py-3" title="{{ $p->desc_peo_id }}">
+                                        {{ $p->kode_peo }}
                                     </th>
                                 @endforeach
                             </tr>
