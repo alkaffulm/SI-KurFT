@@ -8,7 +8,9 @@ use App\Http\Controllers\Kaprodi\BahanKajianController;
 use App\Http\Controllers\Kaprodi\CplController;
 use App\Http\Controllers\Kaprodi\CpmkController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Dosen\EvaluasiMahasiswaController;
 use App\Http\Controllers\Dosen\MatkulController as DosenMatkulController;
+use App\Http\Controllers\Dosen\RencanaAsesmenController;
 use App\Http\Controllers\dosen\RPSController;
 use App\Http\Controllers\kaprodi\AdminController;
 use App\Http\Controllers\Kaprodi\BKCPLMapController;
@@ -24,6 +26,7 @@ use App\Http\Controllers\Kaprodi\ProfilLulusanController;
 use App\Http\Controllers\Kaprodi\SubCpmkController;
 use App\Http\Controllers\Kaprodi\PLPEOMappingController;
 use App\Http\Controllers\Kaprodi\TahunakademikController;
+use App\Http\Controllers\Kaprodi\VisiKeilmuanController;
 use App\Http\Controllers\MhsCplController;
 use App\Models\BKCPLMapModel;
 use App\Models\CPLPLMapModel;
@@ -46,6 +49,7 @@ Route::middleware('auth')->group(function () {
         // Route::resource('profil-lulusan', ProfilLulusanController::class);
         Route::resource('kurikulum', KurikulumController::class);
         Route::resource('mhs-cpl', MhsCplController::class);
+        Route::resource('visi-keilmuan', VisiKeilmuanController::class);
         
         // PEO Routes
         Route::get('/peo/edit-all', [PeoController::class, 'editAll'])->name('peo.editAll'); // Rute baru untuk form edit massal
@@ -125,6 +129,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:dosen')->prefix('dosen')->group(function() {
         Route::resource('rps', RPSController::class);
         Route::resource('matkul', MatkulController::class);
+        Route::resource('rencana-assesment', RencanaAsesmenController::class);
+        Route::resource('evaluasi-mahasiswa', EvaluasiMahasiswaController::class);
     });
     Route::get('/mapping/tahun-akademik-kurikulum/tambah', [TahunakademikController::class, 'tambahTA'])->name('ta-kurikulum-mapping.add');
     Route::get('/mapping/tahun-akademik-kurikulum/index', [TahunakademikController::class, 'index'])->name('ta.index');

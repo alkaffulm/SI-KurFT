@@ -69,7 +69,8 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 border-r border-gray-400">
-                                        {{ $mk->nama_matkul_id }}
+                                        <p>{{ $mk->nama_matkul_id }}</p> 
+                                        <p class="italic text-sm text-[#7397b6]">{{ $mk->nama_matkul_en }}</p>
                                     </td>
                                     <td class="px-6 py-4 border-r border-gray-400">
                                         {{ $mk->jumlahSks }}

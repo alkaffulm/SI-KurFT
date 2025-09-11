@@ -20,7 +20,7 @@ class VisiKeilmuanController extends Controller
 
     public function index()
     {
-        $visi = BahanKajianModel::all();
+        $visi = VisiKeilmuanModel::all();
 
         return view('visikeilmuan', ['visi' => $visi]);
     }

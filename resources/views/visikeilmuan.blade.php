@@ -17,7 +17,7 @@
                 <!-- <p class="text-gray-700">Menjadi program studi yang unggul dalam bidang teknologi informasi dan komunikasi, berkontribusi pada pengembangan ilmu pengetahuan, teknologi, dan seni yang berlandaskan nilai-nilai keislaman serta mendukung pembangunan nasional.</p> -->
                 @if($visi)
                     @foreach($visi as $vk)
-                        <p class="text-gray-700">{{ $vk->nama_bk_id }}</p>
+                        <p class="text-gray-700">{{ $vk->desc_vk_id }}</p>
                     @endforeach
                 @else
                     <p class="text-gray-500 italic">Visi keilmuan untuk program studi dan kurikulum ini belum diatur.</p>
@@ -26,7 +26,7 @@
 
             <div class="flex justify-between items-center mb-4">
                 <div class="space-x-2">
-                    <a href="{{ route('visikeilmuan.edit') }}" class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
+                    {{-- <a href="{{ route('visi-keilmuan.edit') }}" class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -34,7 +34,7 @@
                             </path>
                         </svg>
                         Edit Visi Keilmuan
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </div>
