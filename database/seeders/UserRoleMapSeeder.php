@@ -52,7 +52,7 @@ class UserRoleMapSeeder extends Seeder
             ['id_user_role' => 33, 'id_role' => 2, 'id_user' => 33], // Dosen
             ['id_user_role' => 34, 'id_role' => 2, 'id_user' => 34], // Dosen
 
-            // id_ps => 2 (Teknik Lingkungan)
+            // id_ps => 2 (Teknik Pertambanan)
             ['id_user_role' => 35, 'id_role' => 3, 'id_user' => 35], // Kaprodi
             ['id_user_role' => 36, 'id_role' => 1, 'id_user' => 36], // Admin
             ['id_user_role' => 37, 'id_role' => 1, 'id_user' => 37], // Admin
@@ -71,7 +71,7 @@ class UserRoleMapSeeder extends Seeder
             ['id_user_role' => 50, 'id_role' => 2, 'id_user' => 50], // Dosen
             ['id_user_role' => 51, 'id_role' => 2, 'id_user' => 51], // Dosen
 
-            // id_ps => 3 (Arsitektur)
+            // id_ps => 3 (Teknik Mesin)
             ['id_user_role' => 52, 'id_role' => 3, 'id_user' => 52], // Kaprodi
             ['id_user_role' => 53, 'id_role' => 1, 'id_user' => 53], // Admin
             ['id_user_role' => 54, 'id_role' => 1, 'id_user' => 54], // Admin
@@ -86,7 +86,7 @@ class UserRoleMapSeeder extends Seeder
             ['id_user_role' => 63, 'id_role' => 2, 'id_user' => 63], // Dosen
             ['id_user_role' => 64, 'id_role' => 2, 'id_user' => 64], // Dosen
 
-            // id_ps => 4 (Teknik Kimia)
+            // id_ps => 4 (Teknik Lingkungan)
             ['id_user_role' => 65, 'id_role' => 3, 'id_user' => 65], // Kaprodi
             ['id_user_role' => 66, 'id_role' => 1, 'id_user' => 66], // Admin
             ['id_user_role' => 67, 'id_role' => 1, 'id_user' => 67], // Admin
@@ -107,7 +107,7 @@ class UserRoleMapSeeder extends Seeder
             ['id_user_role' => 82, 'id_role' => 2, 'id_user' => 82], // Dosen
             ['id_user_role' => 83, 'id_role' => 2, 'id_user' => 83], // Dosen
 
-            // id_ps => 5 (Perencanaan Wilayah & Kota)
+            // id_ps => 5 (Arsitektur)
             ['id_user_role' => 84, 'id_role' => 3, 'id_user' => 84], // Kaprodi
             ['id_user_role' => 85, 'id_role' => 1, 'id_user' => 85], // Admin
             ['id_user_role' => 86, 'id_role' => 1, 'id_user' => 86], // Admin
@@ -127,7 +127,7 @@ class UserRoleMapSeeder extends Seeder
             ['id_user_role' => 100, 'id_role' => 2, 'id_user' => 100], // Dosen
             ['id_user_role' => 101, 'id_role' => 2, 'id_user' => 101], // Dosen
 
-            // id_ps => 6 (Teknik Pertambangan)
+            // id_ps => 6 (Teknik Kimia)
             ['id_user_role' => 102, 'id_role' => 3, 'id_user' => 102], // Kaprodi
             ['id_user_role' => 103, 'id_role' => 1, 'id_user' => 103], // Admin
             ['id_user_role' => 104, 'id_role' => 1, 'id_user' => 104], // Admin
@@ -159,46 +159,44 @@ class UserRoleMapSeeder extends Seeder
             ['id_user_role' => 128, 'id_role' => 2, 'id_user' => 128], // Dosen
             ['id_user_role' => 129, 'id_role' => 2, 'id_user' => 129], // Dosen
             ['id_user_role' => 130, 'id_role' => 2, 'id_user' => 130], // Dosen
-            ['id_user_role' => 131, 'id_role' => 2, 'id_user' => 131], // Dosen
-            ['id_user_role' => 132, 'id_role' => 2, 'id_user' => 132], // Dosen
 
-            // id_ps => 8 (Teknik Mesin)
-            ['id_user_role' => 133, 'id_role' => 3, 'id_user' => 133], // Kaprodi
-            ['id_user_role' => 134, 'id_role' => 1, 'id_user' => 134], // Admin
-            ['id_user_role' => 135, 'id_role' => 1, 'id_user' => 135], // Admin
+            // id_ps => 8 (Rekaya Elektro)
+            ['id_user_role' => 131, 'id_role' => 3, 'id_user' => 131], // Kaprodi
+            ['id_user_role' => 132, 'id_role' => 1, 'id_user' => 132], // Admin
+            ['id_user_role' => 133, 'id_role' => 1, 'id_user' => 133], // Admin
+            ['id_user_role' => 134, 'id_role' => 2, 'id_user' => 134], // Dosen
+            ['id_user_role' => 135, 'id_role' => 2, 'id_user' => 135], // Dosen
             ['id_user_role' => 136, 'id_role' => 2, 'id_user' => 136], // Dosen
             ['id_user_role' => 137, 'id_role' => 2, 'id_user' => 137], // Dosen
             ['id_user_role' => 138, 'id_role' => 2, 'id_user' => 138], // Dosen
             ['id_user_role' => 139, 'id_role' => 2, 'id_user' => 139], // Dosen
             ['id_user_role' => 140, 'id_role' => 2, 'id_user' => 140], // Dosen
             ['id_user_role' => 141, 'id_role' => 2, 'id_user' => 141], // Dosen
-            ['id_user_role' => 142, 'id_role' => 2, 'id_user' => 142], // Dosen
-            ['id_user_role' => 143, 'id_role' => 2, 'id_user' => 143], // Dosen
 
-            // id_ps => 9 (Teknik Geologi)
-            ['id_user_role' => 144, 'id_role' => 3, 'id_user' => 144], // Kaprodi
-            ['id_user_role' => 145, 'id_role' => 1, 'id_user' => 145], // Admin
-            ['id_user_role' => 146, 'id_role' => 1, 'id_user' => 146], // Admin
+            // id_ps => 9 (Rekayasa Geologi)
+            ['id_user_role' => 142, 'id_role' => 3, 'id_user' => 142], // Kaprodi
+            ['id_user_role' => 143, 'id_role' => 1, 'id_user' => 143], // Admin
+            ['id_user_role' => 144, 'id_role' => 1, 'id_user' => 144], // Admin
+            ['id_user_role' => 145, 'id_role' => 2, 'id_user' => 145], // Dosen
+            ['id_user_role' => 146, 'id_role' => 2, 'id_user' => 146], // Dosen
             ['id_user_role' => 147, 'id_role' => 2, 'id_user' => 147], // Dosen
             ['id_user_role' => 148, 'id_role' => 2, 'id_user' => 148], // Dosen
             ['id_user_role' => 149, 'id_role' => 2, 'id_user' => 149], // Dosen
             ['id_user_role' => 150, 'id_role' => 2, 'id_user' => 150], // Dosen
-            ['id_user_role' => 151, 'id_role' => 2, 'id_user' => 151], // Dosen
-            ['id_user_role' => 152, 'id_role' => 2, 'id_user' => 152], // Dosen
 
             // Role Tambahan
-            ['id_user_role' => 153, 'id_role' => 5, 'id_user' => 5],
-            ['id_user_role' => 154, 'id_role' => 5, 'id_user' => 36],
-            ['id_user_role' => 155, 'id_role' => 5, 'id_user' => 53],
-            ['id_user_role' => 156, 'id_role' => 5, 'id_user' => 66],
-            ['id_user_role' => 157, 'id_role' => 5, 'id_user' => 85],
-            ['id_user_role' => 158, 'id_role' => 5, 'id_user' => 103],
-            ['id_user_role' => 159, 'id_role' => 5, 'id_user' => 118],
-            ['id_user_role' => 160, 'id_role' => 5, 'id_user' => 134],
-            ['id_user_role' => 161, 'id_role' => 5, 'id_user' => 145],
+            // ['id_user_role' => 151, 'id_role' => 5, 'id_user' => 5],
+            // ['id_user_role' => 152, 'id_role' => 5, 'id_user' => 36],
+            // ['id_user_role' => 153, 'id_role' => 5, 'id_user' => 53],
+            // ['id_user_role' => 154, 'id_role' => 5, 'id_user' => 66],
+            // ['id_user_role' => 155, 'id_role' => 5, 'id_user' => 85],
+            // ['id_user_role' => 156, 'id_role' => 5, 'id_user' => 103],
+            // ['id_user_role' => 157, 'id_role' => 5, 'id_user' => 118],
+            // ['id_user_role' => 158, 'id_role' => 5, 'id_user' => 134],
+            // ['id_user_role' => 159, 'id_role' => 5, 'id_user' => 145],
 
-            ['id_user_role' => 162, 'id_role' => 6, 'id_user' => 124],
-            ['id_user_role' => 163, 'id_role' => 6, 'id_user' => 131],
+            // ['id_user_role' => 160, 'id_role' => 6, 'id_user' => 124],
+            // ['id_user_role' => 161, 'id_role' => 6, 'id_user' => 131],
 
         ]);
     }
