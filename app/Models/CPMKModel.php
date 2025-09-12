@@ -49,7 +49,7 @@ class CPMKModel extends Model
     }
     public function cpmkcpl()
     {
-        return $this->hasMany(CPMKCPLMapModel::class, 'id_cpmk', 'id_cpmk');
+        return $this->hasMany(MK_CPMK_CPL_MapModel::class, 'id_cpmk', 'id_cpmk');
     }
     public function subCpmk() 
     {

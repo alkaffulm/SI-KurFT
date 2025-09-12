@@ -189,7 +189,24 @@
                     <textarea class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2" name="pustaka_pendukung" rows="5" cols="80" required>{{old('pustaka_pendukung')}}</textarea>
                     @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
                 </div>
+
                 <br>
+
+                <div>
+                    <label for="media_perangkat_lunak" class="font-semibold ">Media Pembelajaran (Perangkat Lunak):</label><br>
+                    <select name="" id="media_perangkat_lunak" class="border p-2 rounded-lg border-gray-300 bg-gray-100">
+                        <option value="">E-learning ULM</option>
+                    </select>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="media_perangkat_keras" class="font-semibold ">Media Pembelajaran (Perangkat Keras):</label><br>
+                    <select name="" id="media_perangkat_keras" class="border p-2 rounded-lg border-gray-300 bg-gray-100">
+                        <option value="">Komputer</option>
+                    </select>
+                </div>
                 <div class="flex justify-end">
                     <button type="submit" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">Simpan RPS dan lanjut Mengisi Rencana Mingguan</button>
                 </div>
