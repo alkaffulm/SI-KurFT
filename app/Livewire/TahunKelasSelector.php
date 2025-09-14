@@ -39,7 +39,7 @@ class TahunKelasSelector extends Component
     public function updatedIdTahunAkademik($value)
     {
         $this->kelas = Kelas::with(['userModel', 'mataKuliahModel' => function($q){
-            $q->withoutGlobalScopes(); // atau bisa juga $q->withoutGlobalScope(ProdiScope::class)
+            $q->withoutGlobalScopes(); 
         }])
         ->where('id_kurikulum', $this->id_kurikulum)
         ->where('id_tahun_akademik', $value)

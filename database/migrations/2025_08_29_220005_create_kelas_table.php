@@ -19,10 +19,11 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
 
             $table->integer('paralel_ke');
-            $table->string('hari');
-            $table->text('jam');
-            $table->string('ruangan');
+            // $table->string('hari');
+            // $table->text('jam');
+            // $table->string('ruangan');
             $table->string('jumlah_mhs');
+            $table->text('excel_daftar_mahasiswa')->nullable();
 
 
             $table->foreign('id_tahun_akademik')->references('id_tahun_akademik')->on('tahun_akademik')->onDelete('cascade');
