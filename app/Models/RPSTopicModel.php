@@ -27,7 +27,8 @@ class RPSTopicModel extends Model
         // 'penugasan_mahasiswa',
         // 'id_bentuk_pembelajaran',
         'materi_pembelajaran',
-        'bobot_penilaian'
+        // 'bobot_penilaian'
+        'refrensi'
     ];
 
     public function rps() {

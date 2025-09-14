@@ -117,7 +117,7 @@
         {{-- SECTION 3: CAPAIAN PEMBELAJARAN, CPL, CPMK, SUB-CPMK, TABEL KORELASI CPLCPMK --}}
         <div class="border border-black border-t-0 text-sm">
             <div class="grid grid-cols-12">
-                <div class="col-span-1 px-2 border-r border-black flex font-bold "><p>Capaian Pembelaja-ran</p></div>
+                <div class="col-span-1 px-2 border-r border-black flex font-bold ">Capaian Pembelaja<br>ran</div>
                 <div class="col-span-11 border-b border-r  border-black">
                     {{-- CPL --}}
                     <div class="  border-black border-b bg-gray-300 px-2 font-bold">Capaian Pembelajaran Lulusan (CPL) Prodi yang dibebankan pada MK</div>
@@ -240,8 +240,8 @@
 
                 </div>
             </div>
-            <div class="grid grid-cols-12 border-t border-black">
-                <div class="col-span-1 p-2 border-r border-black font-bold">Pokok Bahasan</div>
+            <div class="grid grid-cols-12 border-t border-black ">
+                <div class="col-span-1 p-2 border-r border-black font-bold break-words">Bahan Kajian: Materi Pembelajaran</div>
                 <div class="col-span-11 p-2">{!! nl2br(e($rps->materi_pembelajaran)) !!}</div>
             </div>
             <div class="grid grid-cols-12 border-t border-black">
@@ -276,15 +276,15 @@
             </div>
 
             <div class="grid grid-cols-12 border-t border-black">
-                <div class="col-span-1 px-2 border-r border-black font-bold">Media Pembela-jaran</div>
+                <div class="col-span-1 px-2 border-r border-black font-bold break-words">Media Pembelajaran</div>
                 <div class="col-span-11  border-r border-black ">
                     <div class="grid grid-cols-12">
                         <div class="col-span-6 px-2 border-r border-black font-bold bg-gray-300">Perangkat Lunak:</div>
                         <div class="col-span-6 px-2  border-black font-bold bg-gray-300">Perangkat Keras:</div>
                     </div>
                     <div class="grid grid-cols-12">
-                        <div class="col-span-6 px-2 border-r border-black ">test</div>
-                        <div class="col-span-6 px-2  border-black ">test</div>
+                        <div class="col-span-6 px-2  border-black border-r ">{{$rps->mediaPerangkatLunak}}</div>
+                        <div class="col-span-6 px-2  border-black ">{{$rps->mediaPerangkatKeras}}</div>
                     </div>
                 </div>
             </div>
@@ -292,20 +292,20 @@
 
         {{-- SECTION 5: RENCANA MINGGUAN --}}
         <div>
-            <table class="w-full text-sm border border-black">
+            <table class="w-full text-sm border border-black table-fixed">
                 <thead class="text-xs text-gray-700  bg-gray-300">
                     <tr class="border border-black">
-                        <th class="p-2 border border-black align-top text-[14px]" rowspan="2">Minggu Ke-</th>
+                        <th class="p-2 border border-black align-top text-[14px] w-[94px]" rowspan="2">Minggu Ke-</th>
                         <th class="p-2 border border-black align-top text-[14px]" rowspan="2">ID CPMK</th>
                         <th class="p-2 border border-black align-top text-[14px]" rowspan="2">Deskripsi Sub-CPMK</th>
                         <th class="p-2 border border-black align-top text-[14px]" colspan="2">Penilaian</th>
-                        <th class="p-2 border border-black align-top text-[14px]" rowspan="2">Pokok Bahasan</th>
+                        <th class="p-2 border border-black align-top text-[14px] " rowspan="2">Pokok Bahasan</th>
                         <th class="p-2 border border-black align-top text-[14px]" rowspan="2">Model Pembelajaran </th>
                         <th class="p-2 border border-black align-top text-[14px]" colspan="2">Bentuk Pembelajaran <br>[Estimasi Waktu]</th>
                         <th class="p-2 border border-black align-top text-[14px]" rowspan="2">Refrensi</th>
                     </tr>
                     <tr class="border border-black text-center bg-[#f7cbac]">
-                        <th class="p-1 border border-black">Indikator</th>
+                        <th class="p-1 border border-black ">Indikator</th>
                         <th class="p-1 border border-black">Kriteria & Bentuk</th>
                         <th class="p-1 border border-black">Synchronous</th>
                         <th class="p-1 border border-black">Asynchoronous</th>
@@ -346,7 +346,7 @@
                                 </td>
 
                                 {{-- (4) Indikator --}}
-                                <td class="p-2 border border-black align-top">
+                                <td class="p-2 border border-black align-top break-words">
                                     {!! nl2br(e($topic->indikator)) !!}
                                 </td>
 
@@ -359,7 +359,7 @@
                                 </td>
 
                                 {{-- (6) Pokok Bahasan --}}
-                                <td class="p-2 border border-black align-top">
+                                <td class="p-2 border border-black align-top break-words">
                                     {!! nl2br(e($topic->materi_pembelajaran)) !!}
                                 </td>
 
@@ -454,7 +454,7 @@
                                 
                                 {{-- (10) Refrensi --}}
                                 <td class="p-2 border border-black text-center align-top">
-                                    2,5 hardcoded
+                                    {{$topic->refrensi}}
                                 </td>
 
                             @else

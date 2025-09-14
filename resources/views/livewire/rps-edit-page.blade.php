@@ -8,7 +8,6 @@
         <br>
 
         <form wire:submit.prevent="saveRps" >
-
                 <h1 class="font-bold">RPS INDUK</h1>
                 <br>
                 <table>
@@ -109,7 +108,6 @@
                     </table>
                 </div>
                 <br>
-    
                 <div>
                     <label for="id_mk_syarat" class="font-semibold">Mata Kuliah Prasyarat:</label><br>
                     <select class="p-2 border rounded-lg border-gray-300 bg-gray-100 mt-2" wire:model="id_mk_syarat" >
@@ -120,45 +118,44 @@
                     </select>  
                     @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror                           
                 </div>
-    
                 <br>
                 <div>
                     <label for="materi_pembelajaran" class="font-semibold">Materi Pembelajaran:</label><br>
                     <textarea wire:model="materi_pembelajaran"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2"></textarea>
                     @error('materi_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
                 </div>
-    
                 <br>
-                
                 <div>
                     <label for="pustaka_utama" class="font-semibold">Pustaka Utama:</label><br>
                     <textarea wire:model="pustaka_utama"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2"></textarea>
                     @error('pustaka_utama') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
-                </div>
-    
-                <br>
-    
+                </div>    
+                <br>    
                 <div>
                     <label for="pustaka_pendukung" class="font-semibold">Pustaka pendukung:</label><br>
                     <textarea wire:model="pustaka_pendukung"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2"></textarea>
                     @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror                         
                 </div>
                 <br>
-                    <div>
+                <div wire:ignore>
                     <label for="media_perangkat_lunak" class="font-semibold ">Media Pembelajaran (Perangkat Lunak):</label><br>
-                    <select name="" id="media_perangkat_lunak" class="border p-2 rounded-lg border-gray-300 bg-gray-100">
-                        <option value="">E-learning ULM</option>
+                    <select id="media_perangkat_lunak" class="select2-perangkat-lunak border p-2 rounded-lg border-gray-300 bg-gray-100 w-48" multiple="multiple">
+                        @foreach ($allMediaPerangkatLunak as $mpl )
+                            <option value="{{$mpl->id_media_pembelajaran}}" {{in_array($mpl->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : ''}}>{{$mpl->nama_media_pembelajaran}}</option>
+                        @endforeach
                     </select>
-                </div>
-
+                </div>    
+                @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
                 <br>
-
-                <div>
+                <div wire:ignore>
                     <label for="media_perangkat_keras" class="font-semibold ">Media Pembelajaran (Perangkat Keras):</label><br>
-                    <select name="" id="media_perangkat_keras" class="border p-2 rounded-lg border-gray-300 bg-gray-100">
-                        <option value="">Komputer</option>
+                    <select id="media_perangkat_keras" class="select2-perangkat-keras border p-2 rounded-lg border-gray-300 bg-gray-100 w-48" multiple="multiple">
+                        @foreach ($allMediaPerangkatKeras as $mpk )
+                            <option value="{{$mpk->id_media_pembelajaran}}" {{in_array($mpk->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : ''}}>{{$mpk->nama_media_pembelajaran}}</option>
+                        @endforeach
                     </select>
-                </div>
+                </div>    
+                @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
                 <br>
 
                 <h1 class="font-bold">RPS DETAIL</h1>
@@ -352,9 +349,15 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        
+                                        {{-- refrensi --}}
+                                        <td class="p-2 border border-black align-top">
+                                            <input type="text" wire:model="topics.{{$index}}.refrensi" id="refrensi" class="border w-full bg-gray-100 px-2" required ></input>
+                                            @error('topics.'.$index.'.refrensi') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                        </td>
     
                                         @else
-                                        <td colspan="6" class="p-2 border border-black">
+                                        <td colspan="8" class="p-2 border border-black">
                                             @if ($topics[$index]['tipe'] == 'uts')
                                                 <p class="text-center">UJIAN TENGAH SEMESTER</p>
                                             @else
@@ -363,11 +366,6 @@
                                         </td>                           
                                         @endif
     
-                                        {{-- bobot penilaian --}}
-                                        <td class="p-2 border border-black align-top">
-                                            <input type="text" wire:model="topics.{{$index}}.bobot_penilaian" id="bobot_penilaian" class="border w-full bg-gray-100 px-2" required ></input>
-                                            @error('topics.'.$index.'.bobot_penilaian') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                        </td>
                                     <td class="p-2 border border-black">
                                         <button type="button" wire:click="removeRow({{ $index }})" class="text-red-600 hover:text-red-800 font-bold">
                                             Hapus
@@ -391,11 +389,78 @@
             </div>
         </form>
     </div>
-    <script>
+    {{-- <script>
         // Gunakan event 'livewire:init' untuk memastikan Livewire siap
         document.addEventListener('livewire:init', () => {
 
-            function initSelects() {
+            // function initSelects() {
+            //     // untuk minggu-ke
+            //     $('.select2-weeks:not(.select2-hidden-accessible)').select2({
+            //         placeholder: "Pilih Minggu",
+            //         allowClear: true
+            //     }).on('change', function () {
+            //         const index = $(this).data('index');
+            //         @this.set('topics.' + index + '.minggu_ke', $(this).val());
+            //     });
+
+            //     // untuk kriteria penilaian
+            //     $('.select2-kriteria-penilaian:not(.select2-hidden-accessible)').select2({
+            //         placeholder: "Pilih Kriteria Penilaian",
+            //         allowClear: true
+            //     }).on('change', function () {
+            //         const index = $(this).data('index');
+            //         @this.set('topics.' + index + '.selected_kriteria', $(this).val());
+            //     });
+
+            //     // untuk teknik penilaian
+            //     $('.select2-teknik-penilaian:not(.select2-hidden-accessible)').select2({
+            //         placeholder: "Pilih Teknik Penilaian",
+            //         allowClear: true
+            //     }).on('change', function () {
+            //         const index = $(this).data('index');
+            //         @this.set('topics.' + index + '.selected_teknik', $(this).val());
+            //     });
+
+            //     // untuk metode pembelajaran
+            //     $('.select2-metode-pembelajaran:not(.select2-hidden-accessible)').select2({
+            //         placeholder: "Pilih Metode Pembelajaran",
+            //         allowClear: true
+            //     }).on('change', function () {
+            //         const index = $(this).data('index');
+            //         const tipe = $(this).data('tipe');
+            //         @this.set('topics.' + index + '.aktivitas_pembelajaran.' + tipe + '.selected_metode_pembelajaran', $(this).val());
+            //     })     
+                
+            //     function updateMediaPembelajaran() {
+            //         // Ambil nilai TERKINI dari kedua dropdown
+            //         let softwareValues = $('.select2-perangkat-lunak').val() || [];
+            //         let hardwareValues = $('.select2-perangkat-keras').val() || [];
+                    
+            //         // [PERBAIKAN LOGIKA] Gabungkan keduanya menjadi satu array dengan concat sederhana
+            //         let combinedValues = softwareValues.concat(hardwareValues);
+                    
+            //         // Kirim array gabungan ke properti 'media_pembelajaran' di backend
+            //         @this.set('media_pembelajaran', combinedValues);
+            //     }
+
+            //     // untuk media pembelajaran: perangkat lunak
+            //     $('.select2-perangkat-lunak').select2({
+            //         placeholder: "Pilih Perangkat Lunak",
+            //         allowClear: true
+            //     }).on('change', function () {
+            //         updateMediaPembelajaran();
+            //     });
+            //     // untuk media pembelajaran: perangkat keras
+            //     $('.select2-perangkat-keras').select2({
+            //         placeholder: "Pilih Perangkat keras",
+            //         allowClear: true
+            //     }).on('change', function () {
+            //         updateMediaPembelajaran();
+            //     });
+
+            //     updateMediaPembelajaran();
+            // }
+            function initDynamicSelects() {
                 // untuk minggu-ke
                 $('.select2-weeks:not(.select2-hidden-accessible)').select2({
                     placeholder: "Pilih Minggu",
@@ -405,6 +470,7 @@
                     @this.set('topics.' + index + '.minggu_ke', $(this).val());
                 });
 
+                // ... (kode select2 lainnya untuk 'kriteria', 'teknik', 'metode' tetap di sini)
                 // untuk kriteria penilaian
                 $('.select2-kriteria-penilaian:not(.select2-hidden-accessible)').select2({
                     placeholder: "Pilih Kriteria Penilaian",
@@ -431,16 +497,136 @@
                     const index = $(this).data('index');
                     const tipe = $(this).data('tipe');
                     @this.set('topics.' + index + '.aktivitas_pembelajaran.' + tipe + '.selected_metode_pembelajaran', $(this).val());
-                })                
+                });
+            }   
+            
+                    // --- FUNGSI KHUSUS UNTUK MEDIA PEMBELAJARAN (YANG STATIS) ---
+            function initMediaPembelajaranSelects() {
+                // Fungsi untuk membaca dan mengirim nilai ke Livewire
+                const syncMediaValues = () => {
+                    let softwareValues = $('#media_perangkat_lunak').val() || [];
+                    let hardwareValues = $('#media_perangkat_keras').val() || [];
+                    
+                    // Gabungkan nilai dari kedua select
+                    let combinedValues = [...softwareValues, ...hardwareValues];
+                    
+                    // Kirim data gabungan ke properti 'media_pembelajaran'
+                    @this.set('media_pembelajaran', combinedValues);
+                };
+
+                // Inisialisasi Select2 Perangkat Lunak
+                $('#media_perangkat_lunak').select2({
+                    placeholder: "Pilih Perangkat Lunak",
+                    allowClear: true
+                }).on('change', syncMediaValues); // Sinkronkan saat ada perubahan
+
+                // Inisialisasi Select2 Perangkat Keras
+                $('#media_perangkat_keras').select2({
+                    placeholder: "Pilih Perangkat Keras",
+                    allowClear: true
+                }).on('change', syncMediaValues); // Sinkronkan saat ada perubahan
+                
+                // ==========================================================
+                // 👇 INI BAGIAN PALING PENTING DARI SOLUSINYA 👇
+                // Panggil fungsi sync sekali setelah inisialisasi untuk mengirim nilai awal
+                // ==========================================================
+                syncMediaValues();
             }
 
-            // Panggil inisialisasi saat halaman pertama kali dimuat
-            initSelects();
+                    // --- EKSEKUSI ---
+
+            // 1. Panggil inisialisasi untuk select2 yang dinamis (dalam tabel)
+            initDynamicSelects();
+            
+            // 2. Panggil inisialisasi untuk select2 media pembelajaran
+            initMediaPembelajaranSelects();
+
+            // // Panggil inisialisasi saat halaman pertama kali dimuat
+            // initSelects();
 
             // Event listener khusus untuk penambahan baris baru
             Livewire.hook('morph.updated', () => {
-                initSelects();
+                // initSelects();
+                initDynamicSelects();
             });
 
         });
-    </script>
+    </script> --}}
+    <script>
+    document.addEventListener('livewire:init', () => {
+
+        // Fungsi untuk menginisialisasi semua Select2 yang ada di dalam tabel dinamis
+        const initDynamicSelects = () => {
+            $('.select2-weeks:not(.select2-hidden-accessible)').select2({
+                placeholder: "Pilih Minggu",
+                allowClear: true
+            }).on('change', function () {
+                @this.set('topics.' + $(this).data('index') + '.minggu_ke', $(this).val());
+            });
+
+            $('.select2-kriteria-penilaian:not(.select2-hidden-accessible)').select2({
+                placeholder: "Pilih Kriteria Penilaian",
+                allowClear: true
+            }).on('change', function () {
+                @this.set('topics.' + $(this).data('index') + '.selected_kriteria', $(this).val());
+            });
+
+            $('.select2-teknik-penilaian:not(.select2-hidden-accessible)').select2({
+                placeholder: "Pilih Teknik Penilaian",
+                allowClear: true
+            }).on('change', function () {
+                @this.set('topics.' + $(this).data('index') + '.selected_teknik', $(this).val());
+            });
+
+            $('.select2-metode-pembelajaran:not(.select2-hidden-accessible)').select2({
+                placeholder: "Pilih Metode Pembelajaran",
+                allowClear: true
+            }).on('change', function () {
+                const index = $(this).data('index');
+                const tipe = $(this).data('tipe');
+                @this.set('topics.' + index + '.aktivitas_pembelajaran.' + tipe + '.selected_metode_pembelajaran', $(this).val());
+            });
+        };
+
+        // Fungsi khusus untuk inisialisasi dan sinkronisasi Select2 media pembelajaran
+        const initMediaPembelajaranSelects = () => {
+            const syncMediaValues = () => {
+                const softwareValues = $('#media_perangkat_lunak').val() || [];
+                const hardwareValues = $('#media_perangkat_keras').val() || [];
+                const combinedValues = [...softwareValues, ...hardwareValues];
+
+                // Untuk Debugging: Cek nilai di console browser
+                console.log('Syncing Media Pembelajaran:', combinedValues);
+
+                @this.set('media_pembelajaran', combinedValues);
+            };
+
+            $('#media_perangkat_lunak').select2({
+                placeholder: "Pilih Perangkat Lunak",
+                allowClear: true
+            }).on('change', syncMediaValues);
+
+            $('#media_perangkat_keras').select2({
+                placeholder: "Pilih Perangkat Keras",
+                allowClear: true
+            }).on('change', syncMediaValues);
+
+            // Panggil sync sekali untuk mengirim nilai awal
+            setTimeout(() => {
+                syncMediaValues();
+            }, 1);
+        };
+
+        // --- EKSEKUSI SCRIPT ---
+
+        // Panggil kedua fungsi inisialisasi saat halaman pertama kali dimuat
+        initDynamicSelects();
+        initMediaPembelajaranSelects();
+
+        // Atur listener agar Select2 dinamis diinisialisasi ulang
+        // setiap kali Livewire menambahkan/menghapus baris
+        Livewire.hook('morph.updated', () => {
+            initDynamicSelects();
+        });
+    });
+</script>

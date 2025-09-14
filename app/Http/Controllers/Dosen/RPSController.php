@@ -10,6 +10,7 @@ use App\Models\MataKuliahModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRPSRequest;
 use App\Models\BahanKajianModel;
+use App\Models\MediaPembelajaranModel;
 use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\RPSDetailModel;
 use Illuminate\Support\Facades\Auth;
@@ -53,9 +54,19 @@ class RPSController extends Controller
         // $cpl = CPLModel::all();
         // $dosen = UserModel::where('id_ps', session('userProfiId'))->get();
         // $bahan_kajian = BahanKajianModel::all();
-        $allMatkul =MataKuliahModel::where('id_mk','!=', $id_mk)->get();
+        $allMatkul = MataKuliahModel::where('id_mk','!=', $id_mk)->get();
 
-        return view('dosen.form.rps.rpsFormAdd', ['mata_kuliah' => $mata_kuliah, 'allMatkul' => $allMatkul, 'assocCpls' => $relevantCpl, 'assocCpmk' => $relevantCpmk]);
+        $mediaPerangkatLunak = MediaPembelajaranModel::where('tipe', 'perangkat_lunak')->get();
+        $mediaPerangkatKeras = MediaPembelajaranModel::where('tipe', 'perangkat_keras')->get();
+
+        return view('dosen.form.rps.rpsFormAdd', [
+            'mata_kuliah' => $mata_kuliah, 
+            'allMatkul' => $allMatkul, 
+            'assocCpls' => $relevantCpl, 
+            'assocCpmk' => $relevantCpmk,
+            'mediaPerangkatLunak' => $mediaPerangkatLunak,
+            'mediaPerangkatKeras' => $mediaPerangkatKeras,
+        ]);
     }
 
     /**
@@ -89,6 +100,8 @@ class RPSController extends Controller
 
         // $rps->cpls()->sync($validated['cpl_ids']);
         $rps->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
+        $rps->mediaPembelajaran()->sync($validated['media_pembelajaran'] ?? []);
+        
 
         // return to_route('matkul.index')->with('success', 'Berhasi membuat data induk RPS');
         return to_route('rps.edit', $rps)->with('success', 'Berhasi membuat data induk RPS');
@@ -102,6 +115,7 @@ class RPSController extends Controller
     {
         $rp->load([
             'mataKuliah', 
+            'mediaPembelajaran',
             'mataKuliah.bahanKajian.cpls', 
             'mataKuliah.cpmks.subCpmk',
             'mataKuliah.cpmks.cpls',
@@ -117,7 +131,8 @@ class RPSController extends Controller
         $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rp->id_mk)->with('cpl', 'cpmk')->get();
         $relevantCpl = $mappings->pluck('cpl')->unique('id_cpl');
         $relevantCpmk = $mappings->pluck('cpmk')->unique('id_cpmk');
-        
+        // $relevantsubCpmk = $mappings->cpmk->subCpmk->pluck('nama_kode_sub_cpmk')->unique('id_sub_cpmk');
+
         $correlationCpmkCplMap = [];
         foreach($mappings as $mapping) {
             $correlationCpmkCplMap[$mapping->id_cpmk][] = $mapping->id_cpl;

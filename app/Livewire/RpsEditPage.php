@@ -11,6 +11,7 @@ use App\Models\MataKuliahModel;
 use App\Models\BahanKajianModel;
 use App\Models\BentukPembelajaranModel;
 use App\Models\KriteriaPenilaianModel;
+use App\Models\MediaPembelajaranModel;
 use App\Models\MetodePembelajaranModel;
 use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\RpsTopicWeekMapModel;
@@ -34,11 +35,18 @@ class RpsEditPage extends Component
     public $materi_pembelajaran;
     public $pustaka_utama;
     public $pustaka_pendukung;
+    public $media_pembelajaran = [];
 
-    // Properti untuk data detail mingguan
+    // Properti untuk data rps detail mingguan
     public $topics = [];
     public $assocSubCpmk = [];
     public $teknikTersedia = [];
+    public $bentukKuliahId;
+    public $bentukBelajarMandiriId;
+    public $bentukPenugasanTerstrukturId;
+    
+    // Properti untuk pilihan dropdown rps induk dan detail
+    public $allMataKuliah = [];
     public $allKriteria = [];
     public $allTeknik = [];
     public $allWeek = [];
@@ -46,17 +54,14 @@ class RpsEditPage extends Component
     public $allBentukPembelajaran = [];
     /** @var Collection|MetodePembelajaranModel[] */
     public $allMetodePembelajaran = [];
-    public $bentukKuliahId;
-    public $bentukBelajarMandiriId;
-    public $bentukPenugasanTerstrukturId;
-
-    // Properti untuk pilihan dropdown
-    public $allMataKuliah = [];
-
+    public $allMediaPerangkatLunak = [];
+    public $allMediaPerangkatKeras = [];
+    
     public function mount(RPSModel $rps) {
         // untuk RPS Induk
         $this->id_bk = $rps->id_bk;
         $this->id_mk_syarat = $rps->mataKuliahSyarat->first()?->id_mk;
+        $this->media_pembelajaran = $rps->mediaPembelajaran->pluck('id_media_pembelajaran')->toArray();
         $this->materi_pembelajaran = $rps->materi_pembelajaran;
         $this->pustaka_utama = $rps->pustaka_utama;
         $this->pustaka_pendukung = $rps->pustaka_pendukung;
@@ -78,6 +83,8 @@ class RpsEditPage extends Component
         $this->allWeek = WeekModel::all();
         $this->allBentukPembelajaran = BentukPembelajaranModel::all();
         $this->allMetodePembelajaran = MetodePembelajaranModel::all();
+        $this->allMediaPerangkatKeras = MediaPembelajaranModel::where('tipe', 'perangkat_keras')->get();
+        $this->allMediaPerangkatLunak = MediaPembelajaranModel::where('tipe', 'perangkat_lunak')->get();
 
         $this->bentukKuliahId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Kuliah')?->id_bentuk_pembelajaran;
         $this->bentukBelajarMandiriId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Belajar Mandiri')?->id_bentuk_pembelajaran;
@@ -126,7 +133,7 @@ class RpsEditPage extends Component
                 'tipe' => $topic->tipe,
                 // 'metode_pembelajaran' => $topic->metode_pembelajaran,
                 'materi_pembelajaran' => $topic->materi_pembelajaran,
-                'bobot_penilaian' => $topic->bobot_penilaian,
+                'refrensi' => $topic->refrensi,
                 'teknik_penilaian_kategori' => $topic->teknik_penilaian_kategori,
                 'aktivitas_pembelajaran' => array_replace_recursive($defaultAktivitas,$aktivitasPembelajaran),
                 'selected_kriteria' => $topic->kriteriaPenilaian->pluck('id_kriteria_penilaian')->toArray(),
@@ -181,7 +188,7 @@ class RpsEditPage extends Component
                 ],
             ],
             'materi_pembelajaran' => '',
-            'bobot_penilaian' => 0,
+            'refrensi' => '',
             'minggu_ke' => [], 
 
         ];
@@ -212,6 +219,7 @@ class RpsEditPage extends Component
             ]);
 
             $this->rps->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
+            $this->rps->mediaPembelajaran()->sync($validated['media_pembelajaran'] ?? []);
             
             foreach ($validated['topics'] as $topicData) {
                 $topic = RPSTopicModel::updateOrCreate(
@@ -224,7 +232,7 @@ class RpsEditPage extends Component
                         'teknik_penilaian_kategori' => $topicData['teknik_penilaian_kategori'] ?? null,
                         // 'metode_pembelajaran' => $topicData['metode_pembelajaran'] ?? null,
                         'materi_pembelajaran' => $topicData['materi_pembelajaran'] ?? null,
-                        'bobot_penilaian' => $topicData['bobot_penilaian'] ?? 0,                    
+                        'refrensi' => $topicData['refrensi'] ?? null,                    
                     ]
                 );
 

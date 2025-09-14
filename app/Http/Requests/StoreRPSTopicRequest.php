@@ -30,7 +30,7 @@ class StoreRPSTopicRequest extends FormRequest
             'topics.*.tipe' => 'required|in:topik,uts,uas',
             'topics.*.materi_pembelajaran' => 'required_if:topics.*.tipe,topik|nullable|string',
             // 'topics.*.metode_pembelajaran' => 'required_if:topics.*.tipe,topik|nullable|string',
-            'topics.*.bobot_penilaian' => 'required|min:1|max:20|numeric',
+            'topics.*.refrensi' => 'required_if:topics.*.tipe,topik|nullable',
             'topics.*.minggu_ke' => 'required|array|min:1', 
             'topics.*.teknik_penilaian_kategori' => 'required_if:topics.*.tipe,topik|nullable', 
             'topics.*.selected_kriteria' => 'required_if:topics.*.tipe,topik|nullable|array', 
@@ -45,6 +45,8 @@ class StoreRPSTopicRequest extends FormRequest
             'materi_pembelajaran' => 'required|string',
             'pustaka_utama' => 'required|string',
             'pustaka_pendukung' => 'required|string',
+            'media_pembelajaran' => 'nullable',
+            'media_pembelajaran.*' => 'string|exists:media_pembelajaran,id_media_pembelajaran'
         ];
     }
 
@@ -60,10 +62,7 @@ class StoreRPSTopicRequest extends FormRequest
             'topics.*.materi_pembelajaran.required_if' => 'Materi Pembelajan Wajib Diisi!',
             'topics.*.materi_pembelajaran.string' => 'Materi Pembelajaran Harus Berupa String!',
             'topics.*.metode_pembelajaran.required_if' => 'Metode Pembelajaran Wajib Diisi!',
-            'topics.*.bobot_penilaian.required' => 'Bobot Penilaian Wajib Diisi!',
-            'topics.*.bobot_penilaian.min' => 'Bobot Penilaian Minimal Bernilai 1!',
-            'topics.*.bobot_penilaian.max' => 'Bobot Penilaian Maximal Bernilai 20!',
-            'topics.*.bobot_penilaian.numeric' => 'Bobot Penilaian Harus Berupa Angka!',
+            'topics.*.refrensi.required_if' => 'Refrensi Wajib Diisi!',
             'topics.*.teknik_penilaian_kategori.required_if' => 'Kategori Teknik Penilaian Wajib Diisi!',
             'topics.*.selected_kriteria.required_if' => 'Kriteria Wajib Diisi!',
             'topics.*.selected_teknik.required_if' => 'Teknik Penilaian Wajib Diisi!',
@@ -77,7 +76,7 @@ class StoreRPSTopicRequest extends FormRequest
             'pustaka_utama.required' => 'Pustaka Utama Wajib Diisi!',
             'pustaka_pendukung.string' => 'Pustaka Pendukung Harus Berupa String!',
             'pustaka_pendukung.required' => 'Pustaka Pendukung Wajib Diisi!',
-
+            // 'media_pembelajaran.required' => 'Media Pembelajaran Wajib Diisi!'
         ];
     }
 }

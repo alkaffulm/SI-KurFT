@@ -27,6 +27,10 @@ class StoreRPSRequest extends FormRequest
             'materi_pembelajaran' => 'required|string',
             'pustaka_utama' => 'required|string',
             'pustaka_pendukung' => 'required|string',
+            // 'media_pembelajaran' => 'required|array',
+            // 'media_pembelajaran.*' => 'string'
+            'media_pembelajaran' => 'required|array',
+            'media_pembelajaran.*' => 'string|exists:media_pembelajaran,id_media_pembelajaran'
         ];
     }
 

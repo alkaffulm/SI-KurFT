@@ -51,7 +51,6 @@ class RpsTopicSeeder extends Seeder
                                             warna, ikon) 
                                             7. Contoh UI yang baik 
                                             dan buruk ', 
-                'bobot_penilaian' => 5
             ],
             [
                 'id_rps' => 1, 
@@ -92,8 +91,7 @@ class RpsTopicSeeder extends Seeder
                                             terhadap antarmuka: 
                                             frustrasi, kebingungan, 
                                             dan kenyamanan 
-                                            kognitif  ', 
-                'bobot_penilaian' => 2.5
+                                            kognitif  ',                                                   
             ],
             [
                 'id_rps' => 1, 
@@ -138,7 +136,6 @@ class RpsTopicSeeder extends Seeder
                                             5. Strategi desain untuk 
                                             menjembatani model 
                                             mental dan sistem ', 
-                'bobot_penilaian' => 2.5
             ],
             [
                 'id_rps' => 1, 
@@ -185,7 +182,6 @@ class RpsTopicSeeder extends Seeder
                                             pengumpulan data dan 
                                             perlindungan privasi 
                                             pengguna ', 
-                'bobot_penilaian' => 2.5
             ],
             [
                 'id_rps' => 1, 
@@ -227,7 +223,6 @@ class RpsTopicSeeder extends Seeder
                                             5. Studi kasus persona 
                                             dan skenario dalam 
                                             sistem nyata ', 
-                'bobot_penilaian' => 7.5
             ],
             [
                 'id_rps' => 1, 
@@ -277,7 +272,6 @@ class RpsTopicSeeder extends Seeder
                                             7. Penerapan feedback 
                                             untuk perbaikan desain 
                                             awal',  
-                'bobot_penilaian' => 10
             ],
             [
                 'id_rps' => 1, 
@@ -286,7 +280,6 @@ class RpsTopicSeeder extends Seeder
                 'teknik_penilaian_kategori' => null, 
                 'indikator' => null, 
                 'materi_pembelajaran' => null, 
-                'bobot_penilaian' => 15
             ],
             [
                 'id_rps' => 1, 
@@ -336,7 +329,6 @@ class RpsTopicSeeder extends Seeder
                                             usability 
                                             7. Studi kasus antarmuka 
                                             aplikasi nyata', 
-                'bobot_penilaian' => 15
             ],
             [
                 'id_rps' => 1, 
@@ -387,7 +379,6 @@ class RpsTopicSeeder extends Seeder
                                             rekomendasi desain 
                                             berdasarkan temuan 
                                             pengujian ', 
-                'bobot_penilaian' => 15
             ],
             [
                 'id_rps' => 1, 
@@ -432,7 +423,6 @@ class RpsTopicSeeder extends Seeder
                                             fisik 
                                             4. Isu etika dalam desain 
                                             antarmuka:', 
-                'bobot_penilaian' => 5
             ],
             [
                 'id_rps' => 1, 
@@ -441,7 +431,6 @@ class RpsTopicSeeder extends Seeder
                 'teknik_penilaian_kategori' => null, 
                 'indikator' => null, 
                 'materi_pembelajaran' => null, 
-                'bobot_penilaian' => 20
             ],
 
             // untuk RPS IMK Kurikulum 2025
@@ -481,7 +470,6 @@ class RpsTopicSeeder extends Seeder
                                             warna, ikon) 
                                             7. Contoh UI yang baik 
                                             dan buruk ', 
-                'bobot_penilaian' => 5
             ],
             [
                 'id_rps' => 2, 
@@ -522,8 +510,7 @@ class RpsTopicSeeder extends Seeder
                                             terhadap antarmuka: 
                                             frustrasi, kebingungan, 
                                             dan kenyamanan 
-                                            kognitif  ', 
-                'bobot_penilaian' => 2.5
+                                            kognitif  ',                     
             ],
             [
                 'id_rps' => 2, 
@@ -567,8 +554,7 @@ class RpsTopicSeeder extends Seeder
                                             learnability
                                             5. Strategi desain untuk 
                                             menjembatani model 
-                                            mental dan sistem ', 
-                'bobot_penilaian' => 2.5
+                                            mental dan sistem ',                               
             ],
             [
                 'id_rps' => 2, 
@@ -615,7 +601,6 @@ class RpsTopicSeeder extends Seeder
                                             pengumpulan data dan 
                                             perlindungan privasi 
                                             pengguna ', 
-                'bobot_penilaian' => 2.5
             ],
             [
                 'id_rps' => 2, 
@@ -657,7 +642,6 @@ class RpsTopicSeeder extends Seeder
                                             5. Studi kasus persona 
                                             dan skenario dalam 
                                             sistem nyata ', 
-                'bobot_penilaian' => 7.5
             ],
             [
                 'id_rps' => 2, 
@@ -707,7 +691,6 @@ class RpsTopicSeeder extends Seeder
                                             7. Penerapan feedback 
                                             untuk perbaikan desain 
                                             awal',  
-                'bobot_penilaian' => 10
             ],
             [
                 'id_rps' => 2, 
@@ -716,7 +699,6 @@ class RpsTopicSeeder extends Seeder
                 'teknik_penilaian_kategori' => null, 
                 'indikator' => null, 
                 'materi_pembelajaran' => null, 
-                'bobot_penilaian' => 15
             ],
             [
                 'id_rps' => 2, 
@@ -766,7 +748,6 @@ class RpsTopicSeeder extends Seeder
                                             usability 
                                             7. Studi kasus antarmuka 
                                             aplikasi nyata', 
-                'bobot_penilaian' => 15
             ],
             [
                 'id_rps' => 2, 
@@ -817,7 +798,6 @@ class RpsTopicSeeder extends Seeder
                                             rekomendasi desain 
                                             berdasarkan temuan 
                                             pengujian ', 
-                'bobot_penilaian' => 15
             ],
             [
                 'id_rps' => 2, 
@@ -862,7 +842,6 @@ class RpsTopicSeeder extends Seeder
                                             fisik 
                                             4. Isu etika dalam desain 
                                             antarmuka:', 
-                'bobot_penilaian' => 5
             ],
             [
                 'id_rps' => 2, 
@@ -871,7 +850,6 @@ class RpsTopicSeeder extends Seeder
                 'teknik_penilaian_kategori' => null, 
                 'indikator' => null, 
                 'materi_pembelajaran' => null, 
-                'bobot_penilaian' => 20
             ],
         ]);
     }

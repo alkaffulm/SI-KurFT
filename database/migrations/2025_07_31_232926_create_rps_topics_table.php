@@ -23,7 +23,7 @@ return new class extends Migration
             // $table->text('penugasan_mahasiswa')->nullable();
             // $table->foreignId('id_bentuk_pembelajaran')->nullable()->constrained('bentuk_pembelajaran', 'id_bentuk_pembelajaran')->onDelete('set null');
             $table->text('materi_pembelajaran')->nullable();
-            $table->float('bobot_penilaian')->default(0);
+            $table->string('refrensi')->nullable();
             $table->timestamps();
         });
     }

@@ -194,18 +194,25 @@
 
                 <div>
                     <label for="media_perangkat_lunak" class="font-semibold ">Media Pembelajaran (Perangkat Lunak):</label><br>
-                    <select name="" id="media_perangkat_lunak" class="border p-2 rounded-lg border-gray-300 bg-gray-100">
-                        <option value="">E-learning ULM</option>
+                    <select name="media_pembelajaran[]" id="media_perangkat_lunak" class="select2-perangkat-lunak border p-2 rounded-lg border-gray-300 bg-gray-100" multiple="multiple">
+                        @foreach ($mediaPerangkatLunak as $mpl )
+                            <option value="{{$mpl->id_media_pembelajaran}}">{{$mpl->nama_media_pembelajaran}}</option>
+                        @endforeach
                     </select>
-                </div>
+                    @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                </div>                                                                                                                       
 
                 <br>
 
                 <div>
                     <label for="media_perangkat_keras" class="font-semibold ">Media Pembelajaran (Perangkat Keras):</label><br>
-                    <select name="" id="media_perangkat_keras" class="border p-2 rounded-lg border-gray-300 bg-gray-100">
-                        <option value="">Komputer</option>
+                    <select name="media_pembelajaran[]" id="media_perangkat_keras" class="select2-perangkat-keras border p-2 rounded-lg border-gray-300 bg-gray-100" multiple="multiple">
+                        <option value="">-Pilih Perangkat Keras--</option>
+                        @foreach ($mediaPerangkatKeras as $mpk )
+                            <option value="{{$mpk->id_media_pembelajaran}}">{{$mpk->nama_media_pembelajaran}}</option>
+                        @endforeach
                     </select>
+                    @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
                 </div>
                 <div class="flex justify-end">
                     <button type="submit" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">Simpan RPS dan lanjut Mengisi Rencana Mingguan</button>
@@ -216,7 +223,12 @@
 
     <script>
         $(document).ready(function() {
-            $('.select2').select2();
+            $('.select2-perangkat-lunak').select2({
+                placeholder: "Pilih Perangkat Lunak"
+            });
+            $('.select2-perangkat-keras').select2({
+                placeholder: "Pilih Perangkat keras"
+            });
         });
     </script>
 </body>

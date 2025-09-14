@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 use Illuminate\Database\Eloquent\Model;
 
 class RPSModel extends Model
@@ -63,5 +65,26 @@ class RPSModel extends Model
     }
     public function mataKuliahSyarat() {
         return $this->belongsToMany(MataKuliahModel::class, 'rps_matakuliah_syarat_map', 'id_rps', 'id_mk_syarat');
+    }
+    public function mediaPembelajaran() {
+        return $this->belongsToMany(MediaPembelajaranModel::class, 'rps_media_pembelajaran', 'id_rps', 'id_media_pembelajaran');
+    }
+
+    protected function mediaPerangkatKeras(): Attribute {
+        return Attribute::make(
+            get: fn () => $this->mediaPembelajaran
+                    ->where('tipe', 'perangkat_keras')
+                    ->pluck('nama_media_pembelajaran')
+                    ->implode(', ')
+        );
+    }
+
+    protected function mediaPerangkatLunak(): Attribute {
+        return Attribute::make(
+            get: fn () => $this->mediaPembelajaran
+                    ->where('tipe', 'perangkat_lunak')
+                    ->pluck('nama_media_pembelajaran')
+                    ->implode(', ')
+        );
     }
 }
