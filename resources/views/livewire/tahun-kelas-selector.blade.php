@@ -47,11 +47,12 @@
                             <th class="px-4 py-2 border">Kode MK</th>
                             <th class="px-4 py-2 border">Nama Matkul (ID)</th>
                             <th class="px-4 py-2 border">Nama Matkul (EN)</th>
-                            <th class="px-4 py-2 border">Dosen (Username)</th>
+                            <th class="px-4 py-2 border">Dosen Pengampu</th>
                             <th class="px-4 py-2 border">Paralel</th>
-                            <th class="px-4 py-2 border">Hari</th>
+                            <th class="px-4 py-2 border">Daftar Mahasiswa</th>
+                            {{-- <th class="px-4 py-2 border">Hari</th>
                             <th class="px-4 py-2 border">Jam</th>
-                            <th class="px-4 py-2 border">Ruangan</th>
+                            <th class="px-4 py-2 border">Ruangan</th> --}}
                             <th class="px-4 py-2 border">Kuota Mahasiswa Per Kelas</th>
                             <th class="px-4 py-2 border">Tersedia pada semester</th>
                             <th class="px-4 py-2 border" colspan="2">Options</th>
@@ -66,14 +67,35 @@
                                 <td class="px-4 py-2 border">{{ $k->mataKuliahModel->nama_matkul_en ?? '-' }}</td>
                                 <td class="px-4 py-2 border">{{ $k->userModel->username ?? '-' }}</td>
                                 <td class="px-4 py-2 border text-center">{{ $k->paralel_ke }}</td>
-                                <td class="px-4 py-2 border text-center">{{ $k->hari }}</td>
+                                {{-- <td class="px-4 py-2 border text-center">{{ $k->hari }}</td>
                                 <td class="px-4 py-2 border text-center">{{ $k->jam }}</td>
-                                <td class="px-4 py-2 border text-center">{{ $k->ruangan }}</td>
-                                <td class="px-4 py-2 border text-center">{{ $k->jumlah_mhs }}</td>
+                                <td class="px-4 py-2 border text-center">{{ $k->ruangan }}</td>--}}
+                                <td class="px-4 py-2 border text-center">
+                                    @if($k->excel_daftar_mahasiswa)
+                                        <a href="{{ asset($k->excel_daftar_mahasiswa) }}" 
+                                        class="underline text-biru-custom hover:text-blue-700" 
+                                        download>
+                                        Download Daftar Mahasiswa Kelas Ini
+                                        </a>
+                                    @else
+                                        <span class="text-gray-400">Belum ada file</span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-2 border text-center">{{ $k->jumlah_mhs }}</td> 
                                 <td class="px-4 py-2 border text-center">{{ $k->mataKuliahModel->muncul ?? '-'}}</td>
-                                <td class="px-4 py-2 border text-center"> <a href="#" class="underline hover:text-biru-custom">Update</a> </td>
-                                <td class="px-4 py-2 border text-center"> <a href="#" class="underline hover:text-biru-custom">Hapus</a> </td>
-                            </tr>
+                                <td class="px-4 py-2 border text-center"> 
+                                    <a href="{{ route('kelas.edit', $k->id_kelas) }}" class="underline hover:text-biru-custom">
+                                        Update
+                                    </a> 
+                                </td>
+                                <td class="px-4 py-2 border text-center"> 
+                                    <a href="{{ route('kelas.hapus', $k->id_kelas) }}" 
+                                    class="underline hover:text-biru-custom"
+                                    onclick="return confirm('Yakin ingin menghapus kelas ini?')">
+                                        Hapus
+                                    </a> 
+                                </td>
+                                                            </tr>
                         @endforeach
                     </tbody>
 

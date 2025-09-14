@@ -23,7 +23,7 @@
         </div>
     @endif
 
-    <form wire:submit.prevent="save">
+    <form wire:submit.prevent="save" enctype="multipart/form-data">
         {{-- kurikulum --}} 
         <div> 
             <label for="kurikulum_select" class="block mb-2 text-sm font-medium text-gray-900"> 
@@ -92,6 +92,7 @@
         </div>
 
         {{-- Form Paralel Dinamis --}}
+        {{-- Form Paralel Dinamis --}}
         @if($id_mk && count($paralels) > 0)
             @foreach($paralels as $i => $p)
                 <div class="mt-6 p-6 border rounded-xl bg-gray-50 shadow-sm">
@@ -111,29 +112,6 @@
                         @enderror
                     </div>
 
-                    {{-- Hari --}}
-                    <div class="mb-4">
-                        <label class="block mb-1 font-medium text-gray-700">Hari</label>
-                        <select wire:model.live="paralels.{{ $i }}.hari" class="w-full sm:w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
-                            <option value="">-- Pilih Hari --</option>
-                            @foreach(['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'] as $hari)
-                                <option value="{{ $hari }}">{{ $hari }}</option>
-                            @endforeach
-                        </select>
-                        @error("paralels.{$i}.hari")
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    {{-- Ruangan --}}
-                    <div class="mb-4">
-                        <label class="block mb-1 font-medium text-gray-700">Ruangan</label>
-                        <input placeholder="Contoh: Ruangan A15 FT BJM" type="text" wire:model.live="paralels.{{ $i }}.ruangan" class="w-full sm:w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
-                        @error("paralels.{$i}.ruangan")
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
-                    </div>
-
                     {{-- Jumlah Mahasiswa --}}
                     <div class="mb-4">
                         <label class="block mb-1 font-medium text-gray-700">Jumlah Mahasiswa</label>
@@ -143,13 +121,55 @@
                         @enderror
                     </div>
 
-                    {{-- Jam --}}
+                    {{-- File Upload untuk setiap paralel - PERBAIKAN DI SINI --}}
                     <div class="mb-4">
-                        <label class="block mb-1 font-medium text-gray-700">Jam</label>
-                        <input placeholder="08.00-10.30 WITA" type="text" wire:model.live="paralels.{{ $i }}.jam" class="w-full sm:w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
-                        @error("paralels.{$i}.jam")
+                        <a href="{{ asset('template_kelas_sikurft.xlsx') }}"  
+                        download  
+                        class="mb-2 text-sm text-biru-custom underline text-right">
+                        Template Daftar Mahasiswa
+                        </a>
+
+                        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input_{{ $i }}">
+                            Upload file Excel Mahasiswa (Paralel {{ $i+1 }}) - Opsional
+                        </label>
+                        
+                        {{-- TAMBAHKAN KEY YANG UNIK --}}
+                        <input 
+                            type="file"
+                            wire:model="paralel_files.{{ $i }}"
+                            accept=".xls,.xlsx"
+                            id="file_input_{{ $i }}"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+                        />
+                        
+                        {{-- Loading indicator dengan target yang lebih spesifik --}}
+                        <div wire:loading wire:target="paralel_files.{{ $i }}" class="text-blue-500 text-sm mt-1">
+                            <span class="inline-flex items-center">
+                                <svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Mengupload file untuk paralel {{ $i}}...
+                            </span>
+                        </div>
+                        
+                        {{-- Error message --}}
+                        @error("paralel_files.{$i}")
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
+
+                        {{-- Display selected file name dengan validasi --}}
+                        @if(isset($paralel_files[$i]) && $paralel_files[$i])
+                            <div class="text-sm text-green-600 mt-1">
+                                <span class="inline-flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z"/>
+                                    </svg>
+                                    {{ $paralel_files[$i]->getClientOriginalName() }} 
+                                    ({{ number_format($paralel_files[$i]->getSize() / 1024, 2) }} KB)
+                                </span>
+                            </div>
+                        @endif
                     </div>
 
                     {{-- Paralel Ke --}}
@@ -158,6 +178,8 @@
                         <input type="text" wire:model.live="paralels.{{ $i }}.paralel_ke" class="w-24 p-3 border rounded-lg bg-gray-100" disabled />
                     </div>
                 </div>
+
+
             @endforeach
         @endif
 
@@ -171,3 +193,28 @@
         </div>
     </form>
 </div>
+
+
+
+<script>
+document.addEventListener('change', function(e) {
+    if (e.target && e.target.id && e.target.id.startsWith('file_input_')) {
+        const paralelIndex = e.target.id.replace('file_input_', '');
+        const display = document.getElementById('file_name_' + paralelIndex);
+        
+        if (display) {
+            const fileName = e.target.files.length > 0 ? e.target.files[0].name : "";
+            if (fileName) {
+                const fileSize = (e.target.files[0].size / 1024).toFixed(2);
+                display.textContent = `📂 ${fileName} (${fileSize} KB)`;
+                display.classList.add('text-green-600');
+                display.classList.remove('text-gray-600');
+            } else {
+                display.textContent = "";
+                display.classList.add('text-gray-600');
+                display.classList.remove('text-green-600');
+            }
+        }
+    }
+});
+</script>

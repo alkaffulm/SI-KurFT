@@ -1,6 +1,19 @@
 <?php
+// 1. PASTIKAN KONFIGURASI PHP.INI SUDAH BENAR
+/*
+Tambahkan di php.ini:
+file_uploads = On
+upload_max_filesize = 10M
+post_max_size = 10M
+max_file_uploads = 20
+memory_limit = 256M
+max_execution_time = 300
+*/
+
+// 2. TAMBAHKAN KONFIGURASI DI LIVEWIRE COMPONENT
 namespace App\Livewire;
 
+use Livewire\WithFileUploads;
 use App\Models\MataKuliahModel;
 use App\Models\UserModel;
 use Livewire\Component;
@@ -11,9 +24,14 @@ use App\Models\Kelas;
 use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Validate;
 
 class FormKelasSelector extends Component
 {
+    use WithFileUploads;
+    
+    // 3. UBAH VALIDASI UNTUK ARRAY FILES
+    public $file_excel;
     public $id_kurikulum;
     public $id_tahun_akademik;
     public $kurikulums = [];
@@ -22,17 +40,18 @@ class FormKelasSelector extends Component
     public $jumlah_paralel = 1;
     public $paralels = [];
     public $kelas = [];
-    public $muncul = null; // ganjil, genap, semua
+    public $muncul = null;
     public $id_mk = null;
-    public $dosens = []; // Tambahkan property ini
+    public $dosens = [];
+    
+    // Tambahkan property khusus untuk file upload per paralel
+    public $paralel_files = [];
 
     public function mount()
     {
         $this->kurikulums = KurikulumModel::all();
         $this->paralels = [];
-        // Inisialisasi dosens
         $this->loadDosens();
-        // Inisialisasi paralel pertama
         $this->initializeParalels();
     }
 
@@ -46,17 +65,19 @@ class FormKelasSelector extends Component
     private function initializeParalels()
     {
         $this->paralels = [];
+        $this->paralel_files = [];
+
         for ($i = 0; $i < $this->jumlah_paralel; $i++) {
             $this->paralels[$i] = [
-                'id_user' => null, // Konsisten dengan nama property
-                'hari' => null,
-                'ruangan' => null,
+                'id_user' => null,
                 'jumlah_mhs' => null,
-                'jam' => null,
-                'paralel_ke' => $i + 1
+                'paralel_ke' => $i + 1,
             ];
+
+            $this->paralel_files[$i] = null;
         }
     }
+
 
     public function updatedIdKurikulum($value)
     {
@@ -67,11 +88,10 @@ class FormKelasSelector extends Component
         if ($value) {
             $this->tahunAkademiks = TahunAkademik::whereIn('id_tahun_akademik', function($q) use ($value) {
                 $q->select('id_tahun_akademik')
-                  ->from((new Kurikulum_TahunAkademik)->getTable())
-                  ->where('id_kurikulum', $value);
+                ->from((new Kurikulum_TahunAkademik)->getTable())
+                ->where('id_kurikulum', $value);
             })->get();
             
-            // Update dosens berdasarkan prodi dari kurikulum
             $kurikulum = KurikulumModel::find($value);
             if ($kurikulum) {
                 $this->dosens = UserModel::whereHas('userRoleMap', function($q){
@@ -102,6 +122,33 @@ class FormKelasSelector extends Component
         $this->initializeParalels();
     }
 
+    // 5. TAMBAHKAN METHOD UNTUK HANDLE FILE UPLOAD
+    public function updatedParalelFiles($value, $key)
+    {
+        // Debug: tampilkan info file
+        if ($value) {
+            logger()->info("Paralel file uploaded", [
+                'key' => $key,
+                'name' => $value->getClientOriginalName(),
+                'size' => $value->getSize(),
+                'mime' => $value->getMimeType(),
+                'valid' => $value->isValid(),
+            ]);
+        } else {
+            logger()->info("Paralel file is null", ['key' => $key]);
+        }
+
+        // Validasi file
+        $this->validateOnly("paralel_files.{$key}", [
+            "paralel_files.{$key}" => 'nullable|file|mimes:xlsx,xls|max:2048',
+        ], [
+            "paralel_files.{$key}.file" => "File paralel " . ($key + 1) . " harus berupa file.",
+            "paralel_files.{$key}.mimes" => "File paralel " . ($key + 1) . " harus berformat Excel (.xlsx atau .xls).",
+            "paralel_files.{$key}.max" => "File paralel " . ($key + 1) . " maksimal 2MB.",
+        ]);
+    }
+
+
     private function updateMataKuliahs()
     {
         if (!$this->id_kurikulum) {
@@ -112,13 +159,10 @@ class FormKelasSelector extends Component
         $query = MataKuliahModel::withoutGlobalScopes([ProdiScope::class, KurikulumScope::class])
             ->where('id_kurikulum', $this->id_kurikulum);
 
-        // Filter semester / muncul
         if ($this->muncul) {
             if ($this->muncul === 'semua') {
-                // Hanya matkul yang kolom muncul = 'semua'
                 $query->where('muncul', 'semua');
             } else {
-                // Hanya matkul yang kolom muncul = 'ganjil' atau 'genap' atau 'semua'
                 $query->whereIn('muncul', [$this->muncul, 'semua']);
             }
         }
@@ -128,50 +172,102 @@ class FormKelasSelector extends Component
 
     public function save()
     {
-        // Perbaiki validasi
-        $this->validate([
+        // 6. PERBAIKI VALIDASI
+        $rules = [
             'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
             'id_tahun_akademik' => 'required|exists:tahun_akademik,id_tahun_akademik',
             'id_mk' => 'required|exists:mata_kuliah,id_mk',
-            'paralels.*.id_user' => 'required|exists:user,id_user', // Gunakan id_user sesuai struktur tabel
-            'paralels.*.hari' => 'required|string',
-            'paralels.*.ruangan' => 'required|string',
-            'paralels.*.jumlah_mhs' => 'required|numeric|min:1', // Ubah ke numeric
-            'paralels.*.jam' => 'required|string',
-        ], [
-            // Pesan error kustom
+            'paralels.*.id_user' => 'required|exists:user,id_user',
+            'paralels.*.jumlah_mhs' => 'required|numeric|min:1',
+        ];
+
+        // Tambahkan validasi file hanya jika ada file yang diupload
+        foreach ($this->paralel_files as $index => $file) {
+            if ($file) {
+                $rules["paralel_files.{$index}"] = 'file|mimes:xlsx,xls|max:2048';
+            }
+        }
+
+        $messages = [
             'id_kurikulum.required' => 'Kurikulum harus dipilih',
             'id_tahun_akademik.required' => 'Tahun akademik harus dipilih',
             'id_mk.required' => 'Mata kuliah harus dipilih',
             'paralels.*.id_user.required' => 'Dosen harus dipilih untuk setiap paralel',
-            'paralels.*.hari.required' => 'Hari harus dipilih untuk setiap paralel',
-            'paralels.*.ruangan.required' => 'Ruangan harus diisi untuk setiap paralel',
             'paralels.*.jumlah_mhs.required' => 'Jumlah mahasiswa harus diisi',
             'paralels.*.jumlah_mhs.numeric' => 'Jumlah mahasiswa harus berupa angka',
-            'paralels.*.jam.required' => 'Jam harus diisi untuk setiap paralel',
-        ]);
+        ];
+
+        // Tambahkan pesan error untuk file
+        foreach ($this->paralel_files as $index => $file) {
+            if ($file) {
+                $paralelNum = $index + 1;
+                $messages["paralel_files.{$index}.file"] = "File paralel {$paralelNum} harus berupa file yang valid";
+                $messages["paralel_files.{$index}.mimes"] = "File paralel {$paralelNum} harus berformat Excel (.xlsx atau .xls)";
+                $messages["paralel_files.{$index}.max"] = "File paralel {$paralelNum} maksimal 2MB";
+            }
+        }
+
+        $this->validate($rules, $messages);
 
         try {
-            DB::transaction(function() {
-                foreach ($this->paralels as $p) {
+            DB::transaction(function () {
+                foreach ($this->paralels as $index => $p) {
+                    $excelPath = null;
+
+                    // 7. PERBAIKI PENGECEKAN DAN PENYIMPANAN FILE
+                    if (isset($this->paralel_files[$index]) && $this->paralel_files[$index] !== null) {
+                        try {
+                            $file = $this->paralel_files[$index];
+
+                            // Debug info file sebelum disimpan
+                            logger()->info("Saving paralel file", [
+                                'index' => $index,
+                                'name' => $file->getClientOriginalName(),
+                                'size' => $file->getSize(),
+                                'valid' => $file->isValid(),
+                            ]);
+
+                            if ($file && $file->isValid()) {
+                                $fileName = time() . "_{$index}_" . $file->getClientOriginalName();
+                                $filePath = $file->storeAs('excel_mhs', $fileName, 'public');
+                                $excelPath = $filePath;
+                            }
+                        } catch (\Exception $e) {
+                            logger()->error("Error uploading file for paralel {$index}", [
+                                'message' => $e->getMessage()
+                            ]);
+                            throw new \Exception("Gagal mengupload file untuk paralel " . ($index + 1) . ": " . $e->getMessage());
+                        }
+                    }
+
+
                     Kelas::create([
                         'id_kurikulum' => $this->id_kurikulum,
                         'id_tahun_akademik' => $this->id_tahun_akademik,
                         'id_mk' => $this->id_mk,
                         'id_user' => $p['id_user'],
-                        'hari' => $p['hari'],
-                        'ruangan' => $p['ruangan'],
                         'jumlah_mhs' => $p['jumlah_mhs'],
-                        'jam' => $p['jam'],
-                        'paralel_ke' => $p['paralel_ke']
+                        'paralel_ke' => $p['paralel_ke'],
+                        'excel_daftar_mahasiswa' => $excelPath,
                     ]);
                 }
             });
 
+            // Flash success message
             session()->flash('message', 'Kelas berhasil ditambahkan!');
-            $this->reset(['id_kurikulum','id_tahun_akademik','id_mk','muncul','jumlah_paralel']);
-            $this->initializeParalels(); // Reset paralels
-            $this->mount(); // Reload data
+
+            // Reset form
+            $this->reset([
+                'id_kurikulum',
+                'id_tahun_akademik',
+                'id_mk',
+                'muncul',
+                'jumlah_paralel',
+            ]);
+
+            $this->paralel_files = [];
+            $this->initializeParalels();
+            $this->mount();
 
         } catch (\Exception $e) {
             session()->flash('error', 'Terjadi kesalahan saat menyimpan: ' . $e->getMessage());
