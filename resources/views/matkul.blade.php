@@ -71,30 +71,39 @@
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-white uppercase bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" class="px-6 py-4">Kode MK</th>
-                                <th scope="col" class="px-6 py-4">Nama Mata Kuliah</th>
-                                <th scope="col" class="px-6 py-4">Deskripsi</th>
+                                <th scope="col" class="px-3 py-4 w-[70px]">Kode MK</th>
+                                <th scope="col" class="px-3 py-4 w-[100px]">RPS</th>
+                                <th scope="col" class="px-3 py-4">Nama Mata Kuliah</th>
+                                <th scope="col" class="px-3 py-4">Deskripsi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($mata_kuliah as $mk)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $mk->kode_mk }}
                                     </th>
-                                    <td class="px-6 py-4 text-left border-r border-gray-400">
+                                    <td class="px-3 py-4  border-r border-gray-400">
+                                        @if ($mk->rps->where('id_kurikulum', session('id_kurikulum_aktif'))->first() )
+                                            <a href="{{ route('rps.show', $mk->rps->where('id_kurikulum', session('id_kurikulum_aktif'))->first()) }}" class="font-medium text-blue-600 hover:underline">Lihat RPS</a>
+                                        @else
+                                            {{-- <a href="{{ route('rps.create', ['id_mk' => $mk->id_mk]) }}" class="font-medium text-green-600 hover:underline">Buat RPS</a> --}}
+                                            <i>Belum Ada RPS</i>
+                                        @endif
+                                    </td>
+                                    <td class="px-3 py-4 text-left border-r border-gray-400">
                                         <p>{{ $mk->nama_matkul_id }}</p>
                                         <p class="italic text-sm text-[#7397b6]">{{ $mk->nama_matkul_en }}</p>
                                     </td>
-                                    <td class="px-6 py-4 text-left">
+                                    <td class="px-3 py-4 text-left">
                                         <p>{{ $mk->matkul_desc_id }}</p>
                                         <p class="italic text-sm text-[#7397b6]">{{ $mk->matkul_desc_en }}</p>
                                     </td>
                                 </tr>
                             @empty
                                 <tr class="bg-white border-t border-gray-400">
-                                    <td colspan="3" class="px-6 py-4 text-center text-gray-500">
+                                    <td colspan="3" class="px-3 py-4 text-center text-gray-500">
                                         Data Mata Kuliah masih kosong.
                                     </td>
                                 </tr>

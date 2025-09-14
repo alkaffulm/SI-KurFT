@@ -169,7 +169,7 @@
                                 <th class="p-2 border border-black w-[180px]" rowspan="2">Jenis</th>
                                 <th class="p-2 border border-black w-[150px]" rowspan="2">Sub-CPMK</th>
                                 <th class="p-2 border border-black w-[400px]" colspan="2">Penilaian</th>
-                                <th class="p-2 border border-black w-[300px]" rowspan="2">Pokok Bahasan</th>
+                                <th class="p-2 border border-black w-[300px]" rowspan="2">Materi Pembelajaran</th>
                                 <th class="p-2 border border-black w-[180px]" rowspan="2">Model Pembelajaran</th>
                                 <th class="p-2 border border-black w-[600px]" colspan="2">Bentuk Pembelajaran</th>
                                 <th class="p-2 border border-black w-[120px]" rowspan="2">Refrensi</th>

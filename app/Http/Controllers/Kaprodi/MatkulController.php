@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreMatkulRequest;
 use App\Http\Requests\UpdateAll\UpdateAllMatkulRequest;
+use App\Models\RPSModel;
 
 class MatkulController extends Controller
 {

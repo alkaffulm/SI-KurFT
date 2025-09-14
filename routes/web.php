@@ -42,6 +42,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Dashboard Route (Protected by auth middleware)
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('rps', RPSController::class);
 
     Route::middleware('role:kaprodi')->prefix('kaprodi')->group(function () {
         // Route::resource('bahan-kajian', BahanKajianController::class);
@@ -127,7 +128,6 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('role:dosen')->prefix('dosen')->group(function() {
-        Route::resource('rps', RPSController::class);
         Route::resource('matkul', MatkulController::class);
         Route::resource('rencana-assesment', RencanaAsesmenController::class);
         Route::resource('evaluasi-mahasiswa', EvaluasiMahasiswaController::class);
@@ -136,7 +136,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/mapping/tahun-akademik-kurikulum/index', [TahunakademikController::class, 'index'])->name('ta.index');
     Route::post('/mapping/tahun-akademik-kurikulum/update', [TahunakademikController::class, 'updateTA'])->name('ta.update');
     Route::get('/mapping/tahun-akademik-kurikulum', [TahunakademikController::class, 'index'])->name('ta.index');
-
+    
     // buat kelas
     Route::get('/mapping/kelas/index', [KelasController::class, 'index'])->name('kelas.index');
     Route::get('/mapping/kelas/tambah', [KelasController::class, 'tambahKelas'])->name('kelas.add');
