@@ -141,6 +141,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/mapping/kelas/index', [KelasController::class, 'index'])->name('kelas.index');
     Route::get('/mapping/kelas/tambah', [KelasController::class, 'tambahKelas'])->name('kelas.add');
 
+    // Edit kelas
+    Route::get('/mapping/kelas/{id}/edit', [KelasController::class, 'editKelas'])->name('kelas.edit');
+    // update kelas
+    Route::put('/mapping/kelas/{id}', [KelasController::class, 'updateKelas'])->name('kelas.update');
+
+    // hapus kelas
+    Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
+
+
+
+
 
 });
 

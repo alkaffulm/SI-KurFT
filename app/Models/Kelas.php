@@ -20,10 +20,11 @@ class Kelas extends Model
         'id_mk',
         'id_user',
         'paralel_ke',
-        'hari',
-        'jam',
-        'ruangan',
-        'jumlah_mhs'
+        // 'hari',
+        // 'jam',
+        // 'ruangan',
+        'jumlah_mhs',
+        'excel_daftar_mahasiswa'
     ];
 
     // Relasi ke Mata Kuliah
