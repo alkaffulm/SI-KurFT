@@ -7,6 +7,7 @@ use App\Models\CPMKModel;
 use App\Models\MataKuliahModel;
 use App\Models\CPLModel;
 use App\Models\MK_CPMK_CPL_MapModel;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class KelasController extends Controller
@@ -61,6 +62,64 @@ class KelasController extends Controller
             'kurikulums' => $kurikulums,
             'tahunAkademiks' => $tahunAkademiks
         ]);
+    }
+
+    public function editKelas($id)
+    {
+        $kelas = \App\Models\Kelas::findOrFail($id);
+
+        $kurikulum = \App\Models\KurikulumModel::find($kelas->id_kurikulum);
+
+        $dosens = UserModel::whereHas('userRoleMap', function($q) {
+                $q->where('id_role', 2);
+            })
+            ->where('id_ps', $kurikulum->id_ps)
+            ->get();
+
+        $kurikulums = \App\Models\KurikulumModel::all();
+        $tahunAkademiks = \App\Models\TahunAkademik::all();
+
+        return view('form.Kelas.FormEditKelas', [
+            'kurikulums'     => $kurikulums,
+            'tahunAkademiks' => $tahunAkademiks,
+            'kelas'          => $kelas,
+            'dosens'         => $dosens,
+        ]);
+    }
+    public function updateKelas(Request $request, $id)
+    {
+        $kelas = \App\Models\Kelas::findOrFail($id);
+
+        $request->validate([
+            'id_user' => 'required|exists:user,id_user',
+            'jumlah_mhs' => 'required|integer|min:1',
+            'excel_daftar_mahasiswa' => 'nullable|file|mimes:xlsx,xls',
+        ]);
+
+        $kelas->id_user = $request->id_user;
+        $kelas->jumlah_mhs = $request->jumlah_mhs;
+
+        if ($request->hasFile('excel_daftar_mahasiswa')) {
+            $path = $request->file('excel_daftar_mahasiswa')->store('uploads/excel', 'public');
+            $kelas->excel_daftar_mahasiswa = $path;
+        }
+
+        $kelas->save();
+
+        return redirect()->route('kelas.index')->with('success', 'Kelas berhasil diperbarui.');
+    }
+
+
+    public function hapusKelas($id)
+    {
+        try {
+            $kelas = \App\Models\Kelas::findOrFail($id);
+            $kelas->delete(); 
+
+            return redirect()->route('kelas.index')->with('message', 'Kelas berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('kelas.index')->with('error', 'Gagal menghapus kelas: ' . $e->getMessage());
+        }
     }
 
 
