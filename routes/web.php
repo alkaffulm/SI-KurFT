@@ -148,6 +148,8 @@ Route::middleware('auth')->group(function () {
 
     // hapus kelas
     Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
+    // hapus kelas
+    Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
 
 
 
