@@ -25,6 +25,8 @@ use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
+use App\Imports\KelasMahasiswaImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FormKelasSelector extends Component
 {
@@ -172,7 +174,6 @@ class FormKelasSelector extends Component
 
     public function save()
     {
-        // 6. PERBAIKI VALIDASI
         $rules = [
             'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
             'id_tahun_akademik' => 'required|exists:tahun_akademik,id_tahun_akademik',
@@ -181,67 +182,30 @@ class FormKelasSelector extends Component
             'paralels.*.jumlah_mhs' => 'required|numeric|min:1',
         ];
 
-        // Tambahkan validasi file hanya jika ada file yang diupload
         foreach ($this->paralel_files as $index => $file) {
             if ($file) {
                 $rules["paralel_files.{$index}"] = 'file|mimes:xlsx,xls|max:2048';
             }
         }
 
-        $messages = [
-            'id_kurikulum.required' => 'Kurikulum harus dipilih',
-            'id_tahun_akademik.required' => 'Tahun akademik harus dipilih',
-            'id_mk.required' => 'Mata kuliah harus dipilih',
-            'paralels.*.id_user.required' => 'Dosen harus dipilih untuk setiap paralel',
-            'paralels.*.jumlah_mhs.required' => 'Jumlah mahasiswa harus diisi',
-            'paralels.*.jumlah_mhs.numeric' => 'Jumlah mahasiswa harus berupa angka',
-        ];
-
-        // Tambahkan pesan error untuk file
-        foreach ($this->paralel_files as $index => $file) {
-            if ($file) {
-                $paralelNum = $index + 1;
-                $messages["paralel_files.{$index}.file"] = "File paralel {$paralelNum} harus berupa file yang valid";
-                $messages["paralel_files.{$index}.mimes"] = "File paralel {$paralelNum} harus berformat Excel (.xlsx atau .xls)";
-                $messages["paralel_files.{$index}.max"] = "File paralel {$paralelNum} maksimal 2MB";
-            }
-        }
-
-        $this->validate($rules, $messages);
+        $this->validate($rules);
 
         try {
             DB::transaction(function () {
                 foreach ($this->paralels as $index => $p) {
                     $excelPath = null;
 
-                    // 7. PERBAIKI PENGECEKAN DAN PENYIMPANAN FILE
                     if (isset($this->paralel_files[$index]) && $this->paralel_files[$index] !== null) {
-                        try {
-                            $file = $this->paralel_files[$index];
-
-                            // Debug info file sebelum disimpan
-                            logger()->info("Saving paralel file", [
-                                'index' => $index,
-                                'name' => $file->getClientOriginalName(),
-                                'size' => $file->getSize(),
-                                'valid' => $file->isValid(),
-                            ]);
-
-                            if ($file && $file->isValid()) {
-                                $fileName = time() . "_{$index}_" . $file->getClientOriginalName();
-                                $filePath = $file->storeAs('excel_mhs', $fileName, 'public');
-                                $excelPath = $filePath;
-                            }
-                        } catch (\Exception $e) {
-                            logger()->error("Error uploading file for paralel {$index}", [
-                                'message' => $e->getMessage()
-                            ]);
-                            throw new \Exception("Gagal mengupload file untuk paralel " . ($index + 1) . ": " . $e->getMessage());
+                        $file = $this->paralel_files[$index];
+                        if ($file && $file->isValid()) {
+                            $fileName = time() . "_{$index}_" . $file->getClientOriginalName();
+                            $filePath = $file->storeAs('excel_mhs', $fileName, 'public');
+                            $excelPath = $filePath;
                         }
                     }
 
-
-                    Kelas::create([
+                    // Buat kelas baru
+                    $kelas = Kelas::create([
                         'id_kurikulum' => $this->id_kurikulum,
                         'id_tahun_akademik' => $this->id_tahun_akademik,
                         'id_mk' => $this->id_mk,
@@ -250,13 +214,16 @@ class FormKelasSelector extends Component
                         'paralel_ke' => $p['paralel_ke'],
                         'excel_daftar_mahasiswa' => $excelPath,
                     ]);
+
+                    // Import mahasiswa kalau ada file
+                    if ($excelPath) {
+                        $fullPath = storage_path("app/public/" . $excelPath);
+                        Excel::import(new KelasMahasiswaImport($kelas->id_kelas), $fullPath);
+                    }
                 }
             });
 
-            // Flash success message
             session()->flash('message', 'Kelas berhasil ditambahkan!');
-
-            // Reset form
             $this->reset([
                 'id_kurikulum',
                 'id_tahun_akademik',
@@ -264,7 +231,6 @@ class FormKelasSelector extends Component
                 'muncul',
                 'jumlah_paralel',
             ]);
-
             $this->paralel_files = [];
             $this->initializeParalels();
             $this->mount();
@@ -272,7 +238,7 @@ class FormKelasSelector extends Component
         } catch (\Exception $e) {
             session()->flash('error', 'Terjadi kesalahan saat menyimpan: ' . $e->getMessage());
         }
-    }
+}
 
     public function render()
     {
