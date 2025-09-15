@@ -51,6 +51,7 @@ class RpsTopicSeeder extends Seeder
                                             warna, ikon) 
                                             7. Contoh UI yang baik 
                                             dan buruk ', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 1, 
@@ -91,7 +92,8 @@ class RpsTopicSeeder extends Seeder
                                             terhadap antarmuka: 
                                             frustrasi, kebingungan, 
                                             dan kenyamanan 
-                                            kognitif  ',                                                   
+                                            kognitif  ', 
+                'refrensi' => '1,2,3'                                                  
             ],
             [
                 'id_rps' => 1, 
@@ -136,6 +138,7 @@ class RpsTopicSeeder extends Seeder
                                             5. Strategi desain untuk 
                                             menjembatani model 
                                             mental dan sistem ', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 1, 
@@ -182,6 +185,7 @@ class RpsTopicSeeder extends Seeder
                                             pengumpulan data dan 
                                             perlindungan privasi 
                                             pengguna ', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 1, 
@@ -223,6 +227,7 @@ class RpsTopicSeeder extends Seeder
                                             5. Studi kasus persona 
                                             dan skenario dalam 
                                             sistem nyata ', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 1, 
@@ -272,6 +277,7 @@ class RpsTopicSeeder extends Seeder
                                             7. Penerapan feedback 
                                             untuk perbaikan desain 
                                             awal',  
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 1, 
@@ -280,6 +286,7 @@ class RpsTopicSeeder extends Seeder
                 'teknik_penilaian_kategori' => null, 
                 'indikator' => null, 
                 'materi_pembelajaran' => null, 
+                'refrensi' => null
             ],
             [
                 'id_rps' => 1, 
@@ -328,7 +335,8 @@ class RpsTopicSeeder extends Seeder
                                             berdasarkan feedback 
                                             usability 
                                             7. Studi kasus antarmuka 
-                                            aplikasi nyata', 
+                                            aplikasi nyata',
+                'refrensi' => '1,2,3' 
             ],
             [
                 'id_rps' => 1, 
@@ -379,6 +387,7 @@ class RpsTopicSeeder extends Seeder
                                             rekomendasi desain 
                                             berdasarkan temuan 
                                             pengujian ', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 1, 
@@ -423,6 +432,7 @@ class RpsTopicSeeder extends Seeder
                                             fisik 
                                             4. Isu etika dalam desain 
                                             antarmuka:', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 1, 
@@ -431,6 +441,7 @@ class RpsTopicSeeder extends Seeder
                 'teknik_penilaian_kategori' => null, 
                 'indikator' => null, 
                 'materi_pembelajaran' => null, 
+                'refrensi' => null
             ],
 
             // untuk RPS IMK Kurikulum 2025
@@ -470,6 +481,7 @@ class RpsTopicSeeder extends Seeder
                                             warna, ikon) 
                                             7. Contoh UI yang baik 
                                             dan buruk ', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 2, 
@@ -510,7 +522,8 @@ class RpsTopicSeeder extends Seeder
                                             terhadap antarmuka: 
                                             frustrasi, kebingungan, 
                                             dan kenyamanan 
-                                            kognitif  ',                     
+                                            kognitif  ', 
+                'refrensi' => '1,2,3'                                                
             ],
             [
                 'id_rps' => 2, 
@@ -554,7 +567,8 @@ class RpsTopicSeeder extends Seeder
                                             learnability
                                             5. Strategi desain untuk 
                                             menjembatani model 
-                                            mental dan sistem ',                               
+                                            mental dan sistem ',
+                'refrensi' => '1,2,3'                                                           
             ],
             [
                 'id_rps' => 2, 
@@ -601,6 +615,7 @@ class RpsTopicSeeder extends Seeder
                                             pengumpulan data dan 
                                             perlindungan privasi 
                                             pengguna ', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 2, 
@@ -642,6 +657,7 @@ class RpsTopicSeeder extends Seeder
                                             5. Studi kasus persona 
                                             dan skenario dalam 
                                             sistem nyata ', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 2, 
@@ -691,6 +707,7 @@ class RpsTopicSeeder extends Seeder
                                             7. Penerapan feedback 
                                             untuk perbaikan desain 
                                             awal',  
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 2, 
@@ -699,6 +716,7 @@ class RpsTopicSeeder extends Seeder
                 'teknik_penilaian_kategori' => null, 
                 'indikator' => null, 
                 'materi_pembelajaran' => null, 
+                'refrensi' => null
             ],
             [
                 'id_rps' => 2, 
@@ -748,6 +766,7 @@ class RpsTopicSeeder extends Seeder
                                             usability 
                                             7. Studi kasus antarmuka 
                                             aplikasi nyata', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 2, 
@@ -798,6 +817,7 @@ class RpsTopicSeeder extends Seeder
                                             rekomendasi desain 
                                             berdasarkan temuan 
                                             pengujian ', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 2, 
@@ -842,6 +862,7 @@ class RpsTopicSeeder extends Seeder
                                             fisik 
                                             4. Isu etika dalam desain 
                                             antarmuka:', 
+                'refrensi' => '1,2,3'
             ],
             [
                 'id_rps' => 2, 
@@ -850,6 +871,7 @@ class RpsTopicSeeder extends Seeder
                 'teknik_penilaian_kategori' => null, 
                 'indikator' => null, 
                 'materi_pembelajaran' => null, 
+                'refrensi' => null
             ],
         ]);
     }

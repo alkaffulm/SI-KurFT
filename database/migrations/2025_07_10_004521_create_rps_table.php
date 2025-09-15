@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rps', function (Blueprint $table) {
             $table->bigIncrements('id_rps');
-            $table->unsignedBigInteger('id_dosen_penyusun');
+            // $table->unsignedBigInteger('id_dosen_penyusun');
             $table->unsignedBigInteger('id_kaprodi')->nullable();
             $table->unsignedBigInteger('id_mk');
             $table->unsignedBigInteger('id_kurikulum');
@@ -33,7 +33,7 @@ return new class extends Migration
             // $table->decimal('bobot');
 
             $table->foreign('id_kaprodi')->references('id_user')->on('user')->onDelete('set null');
-            $table->foreign('id_dosen_penyusun')->references('id_user')->on('user')->onDelete('cascade');
+            // $table->foreign('id_dosen_penyusun')->references('id_user')->on('user')->onDelete('cascade');
             $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah')->onDelete('cascade');
             $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
             // $table->foreign('id_bk')->references('id_bk')->on('bahan_kajian')->onDelete('cascade');

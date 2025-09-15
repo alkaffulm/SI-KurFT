@@ -20,7 +20,7 @@ class RPSModel extends Model
         'id_mk',
         // 'id_bk',
         'id_kaprodi',
-        'id_dosen_penyusun',
+        // 'id_dosen_penyusun',
         'tanggal_disusun',
         'materi_pembelajaran',
         'pustaka_utama',

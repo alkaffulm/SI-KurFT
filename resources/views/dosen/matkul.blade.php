@@ -56,37 +56,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($mata_kuliah as $mk )
+                            @forelse ($tanggungJawabDosen as $tjd )
                                 <tr class="bg-white border-t border-gray-400">
                                     <td class="px-6 py-4 border-r border-gray-400 font-medium text-gray-900">
-                                        {{ $mk->kode_mk }}
+                                        {{ $tjd->kode_mk }}
                                     </td>
                                     <td class="px-6 py-4 border-r border-gray-400">
-                                        @if ($mk->rps->where('id_kurikulum', session('id_kurikulum_aktif'))->first() )
-                                            <a href="{{ route('rps.show', $mk->rps->where('id_kurikulum', session('id_kurikulum_aktif'))->first()) }}" class="font-medium text-blue-600 hover:underline">Lihat RPS</a>
-                                        @else
-                                            <a href="{{ route('rps.create', ['id_mk' => $mk->id_mk]) }}" class="font-medium text-green-600 hover:underline">Buat RPS</a>
+                                        @if ($tjd->rps->where('id_kurikulum', session('id_kurikulum_aktif'))->first() )
+                                            <a href="{{ route('rps.show', $tjd->rps->where('id_kurikulum', session('id_kurikulum_aktif'))->first()) }}" class="font-medium text-blue-600 hover:underline">Lihat RPS</a>
+                                        @elseif($tjd->id_pengembang_rps == Auth::id())
+                                            <a href="{{ route('rps.create', ['id_mk' => $tjd->id_mk]) }}" class="font-medium text-green-600 hover:underline">Buat RPS</a>
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 border-r border-gray-400">
-                                        <p>{{ $mk->nama_matkul_id }}</p> 
-                                        <p class="italic text-sm text-[#7397b6]">{{ $mk->nama_matkul_en }}</p>
+                                        <p>{{ $tjd->nama_matkul_id }}</p> 
+                                        <p class="italic text-sm text-[#7397b6]">{{ $tjd->nama_matkul_en }}</p>
                                     </td>
                                     <td class="px-6 py-4 border-r border-gray-400">
-                                        {{ $mk->jumlahSks }}
+                                        {{ $tjd->jumlahSks }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $mk->semester }}
+                                        {{ $tjd->semester }}
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr >
+                                    <td colspan="6" class="p-4 text-center ">Belum Ada Mata Kuliah Yang Diampu</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
 
                 <!-- PAGINATION DIBERI JARAK ATAS -->
                 <div class="mt-4">
-                    {{$mata_kuliah->links()}}
+                    {{$tanggungJawabDosen->links()}}
                 </div>
             </div>
         </main>

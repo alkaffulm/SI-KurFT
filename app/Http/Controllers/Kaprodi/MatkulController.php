@@ -3,17 +3,20 @@
 namespace App\Http\Controllers\kaprodi;
 
 use App\Models\CPLModel;
+use App\Models\RPSModel;
+use App\Models\UserModel;
 use App\Models\BKMKMapModel;
 use Illuminate\Http\Request;
 use App\Models\BKCPLMapModel;
 use App\Models\MataKuliahModel;
 use App\Models\BahanKajianModel;
+use App\Models\UserRoleMapModel;
 use App\Models\ProgramStudiModel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreMatkulRequest;
 use App\Http\Requests\UpdateAll\UpdateAllMatkulRequest;
-use App\Models\RPSModel;
 
 class MatkulController extends Controller
 {
@@ -29,6 +32,7 @@ class MatkulController extends Controller
     public function index()
     {
         $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->paginate(5);
+        $tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())->with('rps')->paginate(5);
         $bahan_kajian = BahanKajianModel::all();
         $cpl = CPLModel::all();
         $jumlah_bk = BahanKajianModel::count();
@@ -85,7 +89,7 @@ class MatkulController extends Controller
             ]);
         }
         else {
-            return view('dosen.matkul', ['mata_kuliah' => $mata_kuliah]);
+            return view('dosen.matkul', ['mata_kuliah' => $mata_kuliah, 'tanggungJawabDosen' => $tanggungJawabDosen]);
         }
     }
 
@@ -94,10 +98,11 @@ class MatkulController extends Controller
      */
     public function create()
     {
-        $mata_kuliah = MataKuliahModel::all();
-        $program_studi = ProgramStudiModel:: all();
+        // $mata_kuliah = MataKuliahModel::all();
+        // $program_studi = ProgramStudiModel:: all();
+        $dosenProdi = UserModel::forProdi(session('userRoleId'))->isDosen()->get();
 
-        return view('form.Matkul.matkulFormAdd',['mata_kuliah' => $mata_kuliah, 'program_studi' => $program_studi]);
+        return view('form.Matkul.matkulFormAdd',['dosenProdi' => $dosenProdi]);
     }
 
     /**
@@ -123,8 +128,10 @@ class MatkulController extends Controller
      */
     public function editAll()
     {             
-        $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->get();   
-        return view('form.Matkul.matkulFormEdit', ['mata_kuliah' => $mata_kuliah]);
+        $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->get();  
+        $dosenProdi = UserModel::forProdi(session('userRoleId'))->isDosen()->get();
+ 
+        return view('form.Matkul.matkulFormEdit', ['mata_kuliah' => $mata_kuliah, 'dosenProdi' => $dosenProdi]);
     }
 
     /**

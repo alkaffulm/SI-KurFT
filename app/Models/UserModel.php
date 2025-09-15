@@ -30,7 +30,7 @@ class UserModel extends Authenticatable
         return $this->hasMany(UserMataKuliahMapModel::class, 'id_user', 'id_user');
     }
 
-        public function kelas()
+    public function kelas()
     {
         return $this->hasMany(Kelas::class, 'id_mk', 'id_mk');
     }
@@ -45,4 +45,16 @@ class UserModel extends Authenticatable
     public function roles() {
         return $this->belongsToMany(RoleModel::class, 'user_role_map', 'id_user', 'id_role');
     }
+
+    public function scopeForProdi($query, $id_ps) {
+        return $query->where('id_ps', $id_ps);
+    }
+
+    public function scopeIsDosen($query) {
+        return $query->whereHas('userRoleMap', function ($subQuery) {
+            $subQuery->where('id_role',2);
+        });
+    }
+
+    
 }

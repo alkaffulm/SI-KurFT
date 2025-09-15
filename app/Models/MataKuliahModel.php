@@ -18,6 +18,8 @@ class MataKuliahModel extends Model
         'id_ps',
         'kode_mk',
         'id_kurikulum',
+        'id_pengembang_rps',
+        'id_koordinator_mk',
         'nama_matkul_id',
         'nama_matkul_en',
         'matkul_desc_id',
@@ -38,6 +40,20 @@ class MataKuliahModel extends Model
     {
         static::addGlobalScope(new ProdiScope);
         static::addGlobalScope(new KurikulumScope);
+    }
+
+    public function scopeTanggungJawabDosen($query, $userId) {
+        return $query->where(function($subQuery) use ($userId) {
+            $subQuery->where('id_pengembang_rps', $userId)->orWhere('id_koordinator_mk', $userId);
+        });
+    }
+
+    public function pengembangRps() {
+        return $this->belongsTo(UserModel::class, 'id_pengembang_rps', 'id_user');
+    }
+
+    public function koordinatorMk() {
+        return $this->belongsTo(UserModel::class, 'id_koordinator_mk', 'id_user');
     }
 
     /**
@@ -106,6 +122,8 @@ class MataKuliahModel extends Model
     {
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }
+
+    
     // public function tahunAkademiks()
     // {
     //     return $this->belongsToMany(TahunAkademik::class, 'kurikulum_tahun_akademik_map', 'id_kurikulum', 'id_tahun_akademik');

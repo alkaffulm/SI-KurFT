@@ -24,6 +24,8 @@ class StoreMatkulRequest extends FormRequest
         return [
             'id_ps' => 'required|exists:program_Studi,id_ps', 
             'id_kurikulum' => 'required|exists:kurikulum,id_kurikulum',
+            'id_pengembang_rps' => 'required',
+            'id_koordinator_mk' => 'required',
             'kode_mk' => 'required|string',
             'nama_matkul_id' => 'required|string',
             'nama_matkul_en' => 'required|string',
@@ -48,6 +50,8 @@ class StoreMatkulRequest extends FormRequest
             'nama_matkul_en.string'   => 'Nama Mata Kuliah (English) enrus berupa string',
             // 'jumlah_sks.required' => 'Jumlah SKS tidak boleh kosong.',
             // 'jumlah_sks.integer'   => 'Jumlah SKS harus berupa integer',
+            'id_pengembang_rps.required' => 'Dosen Pengembang RPS Wajib Diisi!',
+            'id_koordinator_mk.required' => 'Dosen Koordinator Mata Kuliah Wajib Diisi!',
             'sks_teori.integer'   => 'Jumlah SKS Teori harus berupa integer',
             'sks_praktikum.integer'   => 'Jumlah SKS Praktikum harus berupa integer', 
             'semester.required' => 'Semester tidak boleh kosong.',

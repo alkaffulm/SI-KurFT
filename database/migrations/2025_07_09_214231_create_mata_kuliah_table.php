@@ -15,6 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id_mk');
             $table->unsignedBigInteger('id_ps');
             $table->unsignedBigInteger('id_kurikulum');
+            $table->unsignedBigInteger('id_pengembang_rps')->nullable();
+            $table->unsignedBigInteger('id_koordinator_mk')->nullable();
             $table->string('kode_mk');
             $table->string('nama_matkul_id');
             $table->string('nama_matkul_en');
@@ -26,6 +28,8 @@ return new class extends Migration
             $table->integer('semester');
             $table->string('muncul')->nullable();
 
+            $table->foreign('id_pengembang_rps')->references('id_user')->on('user')->onDelete('set null');
+            $table->foreign('id_koordinator_mk')->references('id_user')->on('user')->onDelete('set null');
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
             $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
         });

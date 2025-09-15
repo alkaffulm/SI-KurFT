@@ -51,7 +51,7 @@ class RpsSeeder extends Seeder
             // ['id_rps' => 29, 'id_kurikulum' => 6, 'id_user' => 34, 'id_mk' => 29, 'tahun' => 2025, 'file_path' => 'rps/rps_29.pdf', 'minggu' => 1, 'penilaian' => 50, 'bobot' => 4.0],
             // ['id_rps' => 30, 'id_kurikulum' => 6, 'id_user' => 34, 'id_mk' => 30, 'tahun' => 2023, 'file_path' => 'rps/rps_30.pdf', 'minggu' => 1, 'penilaian' => 50, 'bobot' => 4.0],
             
-            ['id_rps' => 1, 'id_dosen_penyusun' => 123, 'id_kaprodi' => 117, 'id_kurikulum' => 7, 'id_mk' => 34, 'id_ps' => 7, 'materi_pembelajaran' => 'Desain User Experience dengan pokok bahasan: 
+            ['id_rps' => 1, 'id_kaprodi' => 117, 'id_kurikulum' => 7, 'id_mk' => 34, 'id_ps' => 7, 'materi_pembelajaran' => 'Desain User Experience dengan pokok bahasan: 
 1. Pengantar dan Konsep Interaksi Manusia Komputer 
 2. Prinsip Dasar IMK dan User Centered Design 
 3. Aspek Psikologis dan Kognitif Pengguna 
@@ -136,7 +136,7 @@ Sutcliffe, A. G., HUMAN-COMPUTER INTERFACE DESIGN, 2ND Edition, MacMillan, Londo
             // ['id_rps' => 75, 'id_kurikulum' => 15, 'id_user' => 34, 'id_mk' => 75, 'tahun' => 2025, 'file_path' => 'rps/rps_75.pdf', 'minggu' => 1, 'penilaian' => 50, 'bobot' => 4.0],
 
             // // Teknologi Informasi (id_ps = 7)
-            ['id_rps' => 2, 'id_dosen_penyusun' => 43, 'id_kaprodi' => 40, 'id_kurikulum' => 16, 'id_mk' => 80, 'id_ps' => 7, 'materi_pembelajaran' => 'Desain User Experience dengan pokok bahasan: 
+            ['id_rps' => 2, 'id_kaprodi' => 40, 'id_kurikulum' => 16, 'id_mk' => 80, 'id_ps' => 7, 'materi_pembelajaran' => 'Desain User Experience dengan pokok bahasan: 
 1. Pengantar dan Konsep Interaksi Manusia Komputer 
 2. Prinsip Dasar IMK dan User Centered Design 
 3. Aspek Psikologis dan Kognitif Pengguna 

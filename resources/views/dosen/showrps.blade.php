@@ -113,8 +113,8 @@
             </div>
             <div class="grid grid-cols-12 h-24">
                 <div class="col-span-1 px-2 border-r border-black "></div>
-                <div class="col-span-4 px-2 border-r  border-t border-black grid items-end">{{ $rps->dosenPenyusun->username }}</div>
-                <div class="col-span-3 px-2 border-r border-t border-black"></div>
+                <div class="col-span-4 px-2 border-r  border-t border-black grid items-end">{{$rps->mataKuliah->pengembangRps?->username ?? 'Pengembang RPS tidak ditemukan'}}</div>
+                <div class="col-span-3 px-2 border-r border-t border-black grid items-end">{{ $rps->mataKuliah->koordinatorMk?->username ?? 'Koordinator MK tidak ditemukan'}}</div>
                 <div class="col-span-4 px-2  border-black grid items-end">{{$rps->kaprodi?->username ?? 'Kaprodi tidak ditemukan'}}</div>
             </div>
         </div>
