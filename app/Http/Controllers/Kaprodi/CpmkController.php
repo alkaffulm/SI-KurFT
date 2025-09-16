@@ -32,11 +32,11 @@ class CpmkController extends Controller
      */
     public function index()
     {
-        $cpmk = CPMKModel::orderBy('nama_kode_cpmk')->paginate(5);
+        $cpmk = CPMKModel::orderBy('nama_kode_cpmk')->paginate(5, ['*'], 'cpmk');
         $cpmkAll = CPMKModel::all();
         $mata_kuliah = MataKuliahModel::with('cpmks')->orderBy('kode_mk')->get();
 
-        $subCpmk = SubCPMKModel::with('cpmk')->orderBy('nama_kode_sub_cpmk')->paginate(5);
+        $subCpmk = SubCPMKModel::with('cpmk')->orderBy('nama_kode_sub_cpmk')->paginate(5, ['*'], 'sub-cpmk');
 
         $mk_cpmk_sub_cpmk_raw = MKCPMKSubCPMKMapModel::all();
         $mk_cpmk_sub_cpmk_map = [];

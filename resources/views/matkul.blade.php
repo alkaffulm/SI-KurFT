@@ -76,7 +76,6 @@
                                 <th scope="col" class="px-3 py-4 w-24">RPS</th>
                                 <th scope="col" class="px-3 py-4  w-48">Pengembang RPS</th>
                                 <th scope="col" class="px-3 py-4 w-48">Koordinator MK</th>
-                                <th scope="col" class="px-3 py-4  w-48">Semester</th>
                                 <th scope="col" class="px-3 py-4 w-[800px]">Deskripsi</th>
                             </tr>
                         </thead>
@@ -104,10 +103,7 @@
                                     </td>
                                     <td class="px-3 py-4 text-left border-r border-gray-400">
                                         <p>{{ $mk->koordinatorMk->username }}</p>
-                                    </td>
-                                    <td class="px-3 py-4 text-left border-r border-gray-400">
-                                        <p class="text-center">{{ $mk->semester}}</p>                                                                              
-                                    </td>                                    
+                                    </td>                                  
                                     <td class="px-3 py-4 text-left ">
                                         <p class="text-justify">{{ $mk->matkul_desc_id }}</p>
                                         <p class="text-justify italic text-sm text-[#7397b6]">{{ $mk->matkul_desc_en }}</p>

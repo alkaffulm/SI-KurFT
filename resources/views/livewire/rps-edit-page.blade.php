@@ -303,12 +303,12 @@
                                                     </div>
                                                     @error('topics.'.$index.'.aktivitas_pembelajaran.TM.selected_metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
-                                                <br>
+                                                {{-- <br>
                                                 <div>
                                                     <label>Penugasan Mahasiswa</label>
                                                     <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.TM.penugasan_mahasiswa"  class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea>
                                                     @error('topics.'.$index.'.aktivitas_pembelajaran.TM.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror                                            
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </td>
                                         

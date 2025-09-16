@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreMatkulRequest;
 use App\Http\Requests\UpdateAll\UpdateAllMatkulRequest;
+use App\Models\ModelPembelajaranModel;
 
 class MatkulController extends Controller
 {
@@ -31,8 +32,8 @@ class MatkulController extends Controller
      */
     public function index()
     {
-        $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->paginate(5);
-        $tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())->with('rps')->paginate(5);
+        $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->paginate(5, ['*'], 'mata-kuliah');
+        $tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())->with('rps')->paginate(5, ['*'], 'mata-kuliah');
         $bahan_kajian = BahanKajianModel::all();
         $cpl = CPLModel::all();
         $jumlah_bk = BahanKajianModel::count();
@@ -101,8 +102,9 @@ class MatkulController extends Controller
         // $mata_kuliah = MataKuliahModel::all();
         // $program_studi = ProgramStudiModel:: all();
         $dosenProdi = UserModel::forProdi(session('userRoleId'))->isDosen()->get();
+        $modelPembelajaran = ModelPembelajaranModel::all();
 
-        return view('form.Matkul.matkulFormAdd',['dosenProdi' => $dosenProdi]);
+        return view('form.Matkul.matkulFormAdd',['dosenProdi' => $dosenProdi, 'modelPembelajaran' => $modelPembelajaran]);
     }
 
     /**

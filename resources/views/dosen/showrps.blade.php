@@ -171,7 +171,6 @@
                                 <div class="col-span-1 px-2 border-r border-b border-black text-center ">{{ $sc->nama_kode_sub_cpmk }}</div>
                                 <div class="col-span-9 px-2  border-b border-black text-sm/6">
                                      <p>{{ $sc->desc_sub_cpmk_id }}</p>
-                                     <p class="italic text-sm text-[#7397b6]">{{ $sc->desc_sub_cpmk_en }}</p>
                                 </div>
                                 <div class="col-span-2 px-2 border-l border-b  border-black text-center ">{{$sc->cpmk->nama_kode_cpmk}}</div>
                             </div>   
@@ -376,7 +375,7 @@
                                 {{--  (8) Synchronous --}}
                                 <td class="p-2 border border-black align-top">
                                     <div>
-                                        <p class="font-bold">TM</p>
+                                        {{-- <p class="font-bold">TM</p> --}}
                                         {{-- <div>
                                             <p class="underline underline-offset-2">Bentuk Pembelajaran</p>
                                             <p>Kuliah</p>
@@ -432,7 +431,7 @@
                                         @endif
                                     </div> --}}
                                     <div>
-                                        <p class="font-bold">BM</p>
+                                        {{-- <p class="font-bold">BM</p> --}}
                                         {{-- <div>
                                             <p class="underline underline-offset-2">Bentuk Pembelajaran</p>
                                             <p>Belajar Mandiri</p>
