@@ -368,9 +368,12 @@
                                     {!! nl2br(e($topic->materi_pembelajaran)) !!}
                                 </td>
 
-                                <td class="align-top">Case Based Learnin (CBL) hardcoded</td>
+                                {{-- (7) Model Pembelajaran --}}
+                                <td class="p-2 border border-black align-top">
+                                    {{$topic->rps->modelPembelajaran->nama_model_pembelajaran ?? "Model Pembelajaran Belum di Tentukan"}}
+                                </td>
 
-                                {{-- Luring (5) Metode Pembelajaran --}}
+                                {{--  (8) Synchronous --}}
                                 <td class="p-2 border border-black align-top">
                                     <div>
                                         <p class="font-bold">TM</p>
@@ -392,7 +395,7 @@
                                         
                                         <div>
                                             <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
-                                             @if ($topic->aktivitasPembelajaran->firstWhere('tipe','TM'))
+                                            @if ($topic->aktivitasPembelajaran->firstWhere('tipe','TM'))
                                                 <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->penugasan_mahasiswa}}</p>
                                             @else
                                                 <p>-</p>
@@ -405,7 +408,7 @@
 
                                 </td>
 
-                                {{-- Daring (6) Metode Pembelajaran --}}
+                                {{--  (9) Asynchronous --}}
                                 <td class="p-2 border border-black align-top">
                                     {{-- <div>
                                         <p class="font-bold">PT</p>

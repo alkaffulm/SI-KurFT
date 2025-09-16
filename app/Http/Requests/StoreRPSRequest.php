@@ -24,6 +24,7 @@ class StoreRPSRequest extends FormRequest
         return [
             'id_mk' => 'required|exists:mata_kuliah,id_mk',
             'id_mk_syarat' => 'nullable|exists:mata_kuliah,id_mk',
+            'id_model_pembelajaran' => 'required|exists:model_pembelajaran,id_model_pembelajaran',
             'materi_pembelajaran' => 'required|string',
             'pustaka_utama' => 'required|string',
             'pustaka_pendukung' => 'required|string',
@@ -40,6 +41,7 @@ class StoreRPSRequest extends FormRequest
             'id_mk.required' => 'Mata Kuliah Tidak Boleh Kosong!',
             'materi_pembelajaran.numeric' => 'Materi Pembelajaran Harus Berupa String!',
             'materi_pembelajaran.required' => 'Materi Pembelajaran Wajib Diisi!',
+            'id_model_pembelajaran.required' => 'Model Pembelajaran Wajib Diisi!',
             'pustaka_utama.string' => 'Pustaka Utama Harus Berupa String!',
             'pustaka_utama.required' => 'Pustaka Utama Wajib Diisi!',
             'pustaka_pendukung.string' => 'Pustaka Pendukung Harus Berupa String!',

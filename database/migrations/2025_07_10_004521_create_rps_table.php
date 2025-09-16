@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_kurikulum');
             $table->unsignedBigInteger('id_ps');
             // $table->unsignedBigInteger('id_bk');
+            $table->unsignedBigInteger('id_model_pembelajaran')->nullable();
             $table->text('materi_pembelajaran')->nullable();
             $table->text('pustaka_utama')->nullable();
             $table->text('pustaka_pendukung')->nullable();
@@ -34,6 +35,7 @@ return new class extends Migration
 
             $table->foreign('id_kaprodi')->references('id_user')->on('user')->onDelete('set null');
             // $table->foreign('id_dosen_penyusun')->references('id_user')->on('user')->onDelete('cascade');
+            $table->foreign('id_model_pembelajaran')->references('id_model_pembelajaran')->on('model_pembelajaran')->onDelete('set null');
             $table->foreign('id_mk')->references('id_mk')->on('mata_kuliah')->onDelete('cascade');
             $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
             // $table->foreign('id_bk')->references('id_bk')->on('bahan_kajian')->onDelete('cascade');

@@ -46,7 +46,9 @@ class StoreRPSTopicRequest extends FormRequest
             'pustaka_utama' => 'required|string',
             'pustaka_pendukung' => 'required|string',
             'media_pembelajaran' => 'nullable',
-            'media_pembelajaran.*' => 'string|exists:media_pembelajaran,id_media_pembelajaran'
+            'media_pembelajaran.*' => 'string|exists:media_pembelajaran,id_media_pembelajaran',
+            'id_model_pembelajaran' => 'required|exists:model_pembelajaran,id_model_pembelajaran',
+
         ];
     }
 
@@ -76,6 +78,7 @@ class StoreRPSTopicRequest extends FormRequest
             'pustaka_utama.required' => 'Pustaka Utama Wajib Diisi!',
             'pustaka_pendukung.string' => 'Pustaka Pendukung Harus Berupa String!',
             'pustaka_pendukung.required' => 'Pustaka Pendukung Wajib Diisi!',
+            'id_model_pembelajaran.required' => 'Model Pembelajaran Wajib Diisi!',
             // 'media_pembelajaran.required' => 'Media Pembelajaran Wajib Diisi!'
         ];
     }

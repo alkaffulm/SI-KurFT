@@ -12,6 +12,7 @@ use App\Http\Requests\StoreRPSRequest;
 use App\Models\BahanKajianModel;
 use App\Models\MediaPembelajaranModel;
 use App\Models\MK_CPMK_CPL_MapModel;
+use App\Models\ModelPembelajaranModel;
 use App\Models\RPSDetailModel;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,6 +59,7 @@ class RPSController extends Controller
 
         $mediaPerangkatLunak = MediaPembelajaranModel::where('tipe', 'perangkat_lunak')->get();
         $mediaPerangkatKeras = MediaPembelajaranModel::where('tipe', 'perangkat_keras')->get();
+        $modelPembelajaran = ModelPembelajaranModel::all();
 
         return view('dosen.form.rps.rpsFormAdd', [
             'mata_kuliah' => $mata_kuliah, 
@@ -66,6 +68,7 @@ class RPSController extends Controller
             'assocCpmk' => $relevantCpmk,
             'mediaPerangkatLunak' => $mediaPerangkatLunak,
             'mediaPerangkatKeras' => $mediaPerangkatKeras,
+            'modelPembelajaran' => $modelPembelajaran,
         ]);
     }
 
@@ -85,8 +88,9 @@ class RPSController extends Controller
 
         $rps = RPSModel::create([
             'id_mk' => $validated['id_mk'],
-            'id_dosen_penyusun' => Auth::id(),
+            // 'id_dosen_penyusun' => Auth::id(),
             'id_kaprodi' => $kaprodi->id_user ,
+            'id_model_pembelajaran' => $validated['id_model_pembelajaran'] ?? null,
             // 'deskripsi_singkat' => $validated['deskripsi_singkat'],
             // 'id_bk' => $validated['id_bk'],
             'id_kurikulum' => session('id_kurikulum_aktif'), // Ambil dari sesi

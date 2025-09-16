@@ -68,15 +68,16 @@
                 </div>
 
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
-                    <table class="w-full text-sm text-center text-gray-500 ">
+                    <table class="w-full text-sm text-center text-gray-500 table-fixed">
                         <thead class="text-white uppercase bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" class="px-3 py-4 ">Kode MK</th>
-                                <th scope="col" class="px-3 py-4 ">Pengembang RPS</th>
-                                <th scope="col" class="px-3 py-4 ">Koordinator MK</th>
-                                <th scope="col" class="px-3 py-4 ">RPS</th>
-                                <th scope="col" class="px-3 py-4">Nama Mata Kuliah</th>
-                                <th scope="col" class="px-3 py-4">Deskripsi</th>
+                                <th scope="col" class="px-3 py-4 w-24">Kode MK</th>
+                                <th scope="col" class="px-3 py-4 w-48">Nama Mata Kuliah</th>
+                                <th scope="col" class="px-3 py-4 w-24">RPS</th>
+                                <th scope="col" class="px-3 py-4  w-48">Pengembang RPS</th>
+                                <th scope="col" class="px-3 py-4 w-48">Koordinator MK</th>
+                                <th scope="col" class="px-3 py-4  w-48">Semester</th>
+                                <th scope="col" class="px-3 py-4 w-[800px]">Deskripsi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,10 +88,8 @@
                                         {{ $mk->kode_mk }}
                                     </th>
                                     <td class="px-3 py-4 text-left border-r border-gray-400">
-                                        <p>{{ $mk->pengembangRps->username }}</p>
-                                    </td>
-                                    <td class="px-3 py-4 text-left border-r border-gray-400">
-                                        <p>{{ $mk->koordinatorMk->username }}</p>
+                                        <p>{{ $mk->nama_matkul_id }}</p>
+                                        <p class="italic text-sm text-[#7397b6]">{{ $mk->nama_matkul_en }}</p>
                                     </td>
                                     <td class="px-3 py-4  border-r border-gray-400">
                                         @if ($mk->rps->where('id_kurikulum', session('id_kurikulum_aktif'))->first() )
@@ -101,12 +100,17 @@
                                         @endif
                                     </td>
                                     <td class="px-3 py-4 text-left border-r border-gray-400">
-                                        <p>{{ $mk->nama_matkul_id }}</p>
-                                        <p class="italic text-sm text-[#7397b6]">{{ $mk->nama_matkul_en }}</p>
+                                        <p>{{ $mk->pengembangRps->username }} </p>
                                     </td>
-                                    <td class="px-3 py-4 text-left">
-                                        <p>{{ $mk->matkul_desc_id }}</p>
-                                        <p class="italic text-sm text-[#7397b6]">{{ $mk->matkul_desc_en }}</p>
+                                    <td class="px-3 py-4 text-left border-r border-gray-400">
+                                        <p>{{ $mk->koordinatorMk->username }}</p>
+                                    </td>
+                                    <td class="px-3 py-4 text-left border-r border-gray-400">
+                                        <p class="text-center">{{ $mk->semester}}</p>                                                                              
+                                    </td>                                    
+                                    <td class="px-3 py-4 text-left ">
+                                        <p class="text-justify">{{ $mk->matkul_desc_id }}</p>
+                                        <p class="text-justify italic text-sm text-[#7397b6]">{{ $mk->matkul_desc_en }}</p>
                                     </td>
                                 </tr>
                             @empty

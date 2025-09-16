@@ -14,6 +14,7 @@ use App\Models\KriteriaPenilaianModel;
 use App\Models\MediaPembelajaranModel;
 use App\Models\MetodePembelajaranModel;
 use App\Models\MK_CPMK_CPL_MapModel;
+use App\Models\ModelPembelajaranModel;
 use App\Models\RpsTopicWeekMapModel;
 use App\Models\TeknikPenilaianModel;
 use App\Models\TopicWeekMapModel;
@@ -36,6 +37,7 @@ class RpsEditPage extends Component
     public $pustaka_utama;
     public $pustaka_pendukung;
     public $media_pembelajaran = [];
+    public $id_model_pembelajaran;
 
     // Properti untuk data rps detail mingguan
     public $topics = [];
@@ -56,6 +58,7 @@ class RpsEditPage extends Component
     public $allMetodePembelajaran = [];
     public $allMediaPerangkatLunak = [];
     public $allMediaPerangkatKeras = [];
+    public $allModelPembelajaran = [];
     
     public function mount(RPSModel $rps) {
         // untuk RPS Induk
@@ -65,6 +68,7 @@ class RpsEditPage extends Component
         $this->materi_pembelajaran = $rps->materi_pembelajaran;
         $this->pustaka_utama = $rps->pustaka_utama;
         $this->pustaka_pendukung = $rps->pustaka_pendukung;
+        $this->id_model_pembelajaran = $rps->id_model_pembelajaran;
 
         $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rps->id_mk)->with('cpl', 'cpmk')->get();
         $this->assocCpls = $mappings->pluck('cpl')->unique('id_cpl');
@@ -85,6 +89,7 @@ class RpsEditPage extends Component
         $this->allMetodePembelajaran = MetodePembelajaranModel::all();
         $this->allMediaPerangkatKeras = MediaPembelajaranModel::where('tipe', 'perangkat_keras')->get();
         $this->allMediaPerangkatLunak = MediaPembelajaranModel::where('tipe', 'perangkat_lunak')->get();
+        $this->allModelPembelajaran = ModelPembelajaranModel::all();
 
         $this->bentukKuliahId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Kuliah')?->id_bentuk_pembelajaran;
         $this->bentukBelajarMandiriId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Belajar Mandiri')?->id_bentuk_pembelajaran;
@@ -211,16 +216,19 @@ class RpsEditPage extends Component
         
             $isRevisi = $this->rps->isRevisi;
 
+            // Rps Induk
             $this->rps->update([
                 // 'id_bk' => $this->id_bk,
                 'materi_pembelajaran' => $validated['materi_pembelajaran'],
                 'pustaka_utama' => $validated['pustaka_utama'],
                 'pustaka_pendukung' => $validated['pustaka_pendukung'],
+                'id_model_pembelajaran' => $validated['id_model_pembelajaran'],
             ]);
 
             $this->rps->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
             $this->rps->mediaPembelajaran()->sync($validated['media_pembelajaran'] ?? []);
             
+            // RPs Topic 
             foreach ($validated['topics'] as $topicData) {
                 $topic = RPSTopicModel::updateOrCreate(
                     ['id_topic' => $topicData['id_topic'] ?? null],
@@ -270,5 +278,4 @@ class RpsEditPage extends Component
     {
         return view('livewire.rps-edit-page');
     }
-
 }
