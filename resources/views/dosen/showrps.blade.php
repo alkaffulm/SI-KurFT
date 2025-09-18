@@ -17,7 +17,12 @@
     <div class="py-8 px-16 sm:ml-64 mt-16">
 
         <div class="flex justify-between items-center">
-            <a href="/dosen/matkul">Kembali</a>
+            @if (session('userRole') == 'dosen')
+                <a href="/dosen/matkul">Kembali</a>
+            @elseif(session('userRole') == 'kaprodi')
+                <a href="/kaprodi/mata-kuliah">Kembali</a>
+            @endif
+            
             <div class="flex justify-end items-center gap-4">
                 <div class="flex justify-end mb-4">
                     <a href="{{route('rps.edit', $rps)}}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
@@ -108,8 +113,8 @@
             </div>
             <div class="grid grid-cols-12 h-24">
                 <div class="col-span-1 px-2 border-r border-black "></div>
-                <div class="col-span-4 px-2 border-r  border-t border-black grid items-end">{{ $rps->dosenPenyusun->username }}</div>
-                <div class="col-span-3 px-2 border-r border-t border-black"></div>
+                <div class="col-span-4 px-2 border-r  border-t border-black grid items-end">{{$rps->mataKuliah->pengembangRps?->username ?? 'Pengembang RPS tidak ditemukan'}}</div>
+                <div class="col-span-3 px-2 border-r border-t border-black grid items-end">{{ $rps->mataKuliah->koordinatorMk?->username ?? 'Koordinator MK tidak ditemukan'}}</div>
                 <div class="col-span-4 px-2  border-black grid items-end">{{$rps->kaprodi?->username ?? 'Kaprodi tidak ditemukan'}}</div>
             </div>
         </div>
@@ -166,7 +171,6 @@
                                 <div class="col-span-1 px-2 border-r border-b border-black text-center ">{{ $sc->nama_kode_sub_cpmk }}</div>
                                 <div class="col-span-9 px-2  border-b border-black text-sm/6">
                                      <p>{{ $sc->desc_sub_cpmk_id }}</p>
-                                     <p class="italic text-sm text-[#7397b6]">{{ $sc->desc_sub_cpmk_en }}</p>
                                 </div>
                                 <div class="col-span-2 px-2 border-l border-b  border-black text-center ">{{$sc->cpmk->nama_kode_cpmk}}</div>
                             </div>   
@@ -295,14 +299,14 @@
             <table class="w-full text-sm border border-black table-fixed">
                 <thead class="text-xs text-gray-700  bg-gray-300">
                     <tr class="border border-black">
-                        <th class="p-2 border border-black align-top text-[14px] w-[94px]" rowspan="2">Minggu Ke-</th>
-                        <th class="p-2 border border-black align-top text-[14px]" rowspan="2">ID CPMK</th>
-                        <th class="p-2 border border-black align-top text-[14px]" rowspan="2">Deskripsi Sub-CPMK</th>
-                        <th class="p-2 border border-black align-top text-[14px]" colspan="2">Penilaian</th>
-                        <th class="p-2 border border-black align-top text-[14px] " rowspan="2">Pokok Bahasan</th>
-                        <th class="p-2 border border-black align-top text-[14px]" rowspan="2">Model Pembelajaran </th>
-                        <th class="p-2 border border-black align-top text-[14px]" colspan="2">Bentuk Pembelajaran <br>[Estimasi Waktu]</th>
-                        <th class="p-2 border border-black align-top text-[14px]" rowspan="2">Refrensi</th>
+                        <th class="p-2 border border-black text-[14px] w-[94px]" rowspan="2">Minggu Ke-</th>
+                        <th class="p-2 border border-black text-[14px]" rowspan="2">ID CPMK</th>
+                        <th class="p-2 border border-black text-[14px]" rowspan="2">Deskripsi Sub-CPMK</th>
+                        <th class="p-2 border border-black text-[14px]" colspan="2">Penilaian</th>
+                        <th class="p-2 border border-black text-[14px] " rowspan="2">Materi Pembelajaran</th>
+                        <th class="p-2 border border-black text-[14px]" rowspan="2">Model Pembelajaran </th>
+                        <th class="p-2 border border-black text-[14px]" colspan="2">Bentuk Pembelajaran <br>[Estimasi Waktu]</th>
+                        <th class="p-2 border border-black text-[14px]" rowspan="2">Refrensi</th>
                     </tr>
                     <tr class="border border-black text-center bg-[#f7cbac]">
                         <th class="p-1 border border-black ">Indikator</th>
@@ -332,7 +336,7 @@
                             </td>
                             @if ($topic->tipe == 'topik')
                                 {{-- (2) ID CPMK --}}
-                                <td class="align-top text-center">
+                                <td class="p-2 align-top text-center">
                                     {{$topic->subCpmk->cpmk->nama_kode_cpmk}}
                                 </td>
                                 {{-- (3) Sub-CPMK --}}
@@ -363,12 +367,15 @@
                                     {!! nl2br(e($topic->materi_pembelajaran)) !!}
                                 </td>
 
-                                <td class="align-top">Case Based Learnin (CBL) hardcoded</td>
+                                {{-- (7) Model Pembelajaran --}}
+                                <td class="p-2 border border-black align-top">
+                                    {{$topic->rps->modelPembelajaran->nama_model_pembelajaran ?? "Model Pembelajaran Belum di Tentukan"}}
+                                </td>
 
-                                {{-- Luring (5) Metode Pembelajaran --}}
+                                {{--  (8) Synchronous --}}
                                 <td class="p-2 border border-black align-top">
                                     <div>
-                                        <p class="font-bold">TM</p>
+                                        {{-- <p class="font-bold">TM</p> --}}
                                         {{-- <div>
                                             <p class="underline underline-offset-2">Bentuk Pembelajaran</p>
                                             <p>Kuliah</p>
@@ -387,7 +394,7 @@
                                         
                                         <div>
                                             <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
-                                             @if ($topic->aktivitasPembelajaran->firstWhere('tipe','TM'))
+                                            @if ($topic->aktivitasPembelajaran->firstWhere('tipe','TM'))
                                                 <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->penugasan_mahasiswa}}</p>
                                             @else
                                                 <p>-</p>
@@ -400,7 +407,7 @@
 
                                 </td>
 
-                                {{-- Daring (6) Metode Pembelajaran --}}
+                                {{--  (9) Asynchronous --}}
                                 <td class="p-2 border border-black align-top">
                                     {{-- <div>
                                         <p class="font-bold">PT</p>
@@ -424,7 +431,7 @@
                                         @endif
                                     </div> --}}
                                     <div>
-                                        <p class="font-bold">BM</p>
+                                        {{-- <p class="font-bold">BM</p> --}}
                                         {{-- <div>
                                             <p class="underline underline-offset-2">Bentuk Pembelajaran</p>
                                             <p>Belajar Mandiri</p>

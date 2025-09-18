@@ -66,6 +66,7 @@ class DatabaseSeeder extends Seeder
             BentukPembelajaranSeeder::class,
             MetodePembelajaranSeeder::class,
             MediaPembelajaranSeeder::class,
+            ModelPembelajaranSeeder::class,
             AktivitasPembelajaranSeeder::class,
             AktivitasMetodePembelajaranSeeder::class,
             RpsTopicWeekSeeder::class,

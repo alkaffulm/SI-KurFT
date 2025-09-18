@@ -23,13 +23,13 @@
             {{-- Konten dinamis berdasarkan peran pengguna --}}
             @if ($userRole == 'kaprodi')
                 @include('partials.dashboard-kaprodi')
+                @include('visikeilmuan', ['visi' => $visi])
             @elseif($userRole == 'dosen')
-                @include('partials.dashboard-dosen')
+                @include('partials.dashboard-dosen', ['tanggungJawabDosen' => $tanggungJawabDosen])
             @elseif($userRole == 'pimpinan')
                 @include('partials.dashboard-pimpinan')
             @endif
 
-            @include('visikeilmuan', ['visi' => $visi])
 
             @livewire('kurikulum-selector')
         </main>

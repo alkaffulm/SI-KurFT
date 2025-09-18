@@ -20,7 +20,8 @@ class RPSModel extends Model
         'id_mk',
         // 'id_bk',
         'id_kaprodi',
-        'id_dosen_penyusun',
+        'id_model_pembelajaran',
+        // 'id_dosen_penyusun',
         'tanggal_disusun',
         'materi_pembelajaran',
         'pustaka_utama',
@@ -57,6 +58,9 @@ class RPSModel extends Model
     }
     public function bahanKajian() {
         return $this->belongsTo(BahanKajianModel::class, 'id_bk', 'id_bk');
+    }
+    public function modelPembelajaran() {
+        return $this->belongsTo(ModelPembelajaranModel::class, 'id_model_pembelajaran','id_model_pembelajaran');
     }
 
      // belongs to Many relation

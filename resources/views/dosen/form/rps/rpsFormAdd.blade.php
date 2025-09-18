@@ -166,16 +166,24 @@
                     </select>   
                     @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
                 </div>
-    
+                <br>
+                <div>
+                    <label for="id_model_pembelajaran" class="font-semibold mb-2">Model Pembelajaran:</label><br>
+                    <select class="border p-2 rounded-lg border-gray-300 bg-gray-100" name="id_model_pembelajaran" >
+                        <option value="">Pilih Model Pembelajaran</option>
+                        @foreach ($modelPembelajaran as $mp)
+                            <option value="{{ $mp->id_model_pembelajaran }}" {{old('id_model_pembelajaran') == $mp->id_model_pembelajaran ? 'selected' : ''}}>{{ $mp->nama_model_pembelajaran }}</option>
+                        @endforeach
+                    </select>   
+                    @error('id_model_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
+                </div>
                 <br>
                 <div>
                     <label for="materi_pembelajaran" class="font-semibold ">Materi Pembelajaran:</label><br>
                     <textarea class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2" name="materi_pembelajaran" rows="5" cols="80" cols="80"  required>{{old('materi_pembelajaran')}}</textarea>
                     @error('materi_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
                 </div>
-    
                 <br>
-                
                 <div>
                     <label for="pustaka_utama" class="font-semibold ">Pustaka Utama:</label><br>
                     <textarea class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2" name="pustaka_utama" rows="5" cols="80" required>{{old('pustaka_utama')}}</textarea>

@@ -127,6 +127,31 @@
                                         </label>
                                     </div>
 
+                                    <div class="col-span-6">
+                                        <label for="id_pengembang_rps" class="block text-base font-medium text-gray-700 mb-2">Pengembang RPS</label>
+                                        <select id="id_pengembang_rps" name="matkul[{{ $mk->id_mk }}][id_pengembang_rps]" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>
+                                            <option value="" >Pilih Pengembang RPS</option>
+                                            @foreach ($dosenProdi as $user )
+                                                <option value="{{$user->id_user}}" {{ old('matkul.' . $mk->id_mk . '.id_pengembang_rps', $mk->id_pengembang_rps) == $user->id_user ? 'selected' : '' }}>{{$user->username}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_pengembang_rps')
+                                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="col-span-6">
+                                        <label for="id_koordinator_mk" class="block text-base font-medium text-gray-700 mb-2">Koordinator Mata Kuliah</label>
+                                        <select id="id_koordinator_mk" name="matkul[{{ $mk->id_mk }}][id_koordinator_mk]" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>
+                                            <option value="" >Pilih Koordinator MK</option>
+                                            @foreach ($dosenProdi as $user )
+                                                <option value="{{$user->id_user}}" {{ old('matkul.' . $mk->id_mk . '.id_koordinator_mk', $mk->id_koordinator_mk) == $user->id_user ? 'selected' : '' }}>{{$user->username}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_koordinator_mk')
+                                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
                                     <div class="col-span-12 sm:col-span-6">
                                         <label for="matkul_desc_id_{{ $mk->id_mk }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Deskripsi
