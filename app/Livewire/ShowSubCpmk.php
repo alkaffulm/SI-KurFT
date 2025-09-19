@@ -10,7 +10,7 @@ class ShowSubCpmk extends Component
 {
     public $mata_kuliah;
     public $selectedMataKuliah;
-    public $cpmks = [];
+    public $assocCpmks = [];
     public $subCpmks = [];
     public $mataKuliah;
 
@@ -23,10 +23,10 @@ class ShowSubCpmk extends Component
             $this->mataKuliah = MataKuliahModel::find($id_mk);
             // $this->cpmks = CPMKModel::where('id_mk', $id_mk)->get();
 
-            $this->cpmks = $this->mataKuliah->cpmks()->with('subCpmk')->get();
+            $this->assocCpmks = $this->mataKuliah->mkcpmkcpl()->with('cpmk')->get();
         }
         else {
-            $this->cpmks = [];
+            $this->assocCpmks = [];
             $this->subCpmks = [];
         }
     }

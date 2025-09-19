@@ -12,7 +12,7 @@
     </div>
 
     {{-- Tampilkan Konten jika Mata Kuliah sudah dipilih --}}
-    @if (!empty($cpmks))
+    @if (!empty($assocCpmks))
         <div class="mt-6">
             {{-- Header Informasi Mata Kuliah --}}
             <div class="mb-8 pb-4 border-b border-gray-200">
@@ -37,19 +37,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($cpmks as $cpmk)
+                        @forelse ($assocCpmks as $cpmks)
                             <tr class="bg-white border-b hover:bg-gray-50">
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap align-top">
-                                    {{ $cpmk->nama_kode_cpmk }}
+                                    {{ $cpmks->cpmk->nama_kode_cpmk }}
                                 </th>
                                 <td class="px-6 py-4 align-top">
-                                    {{ $cpmk->desc_cpmk_id }}
+                                    {{ $cpmks->cpmk->desc_cpmk_id }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    @if ($cpmk->subCpmk->isNotEmpty())
+                                    @if ($cpmks->cpmk->subCpmk->isNotEmpty())
                                         <ul class="space-y-2">
-                                            @foreach ($cpmk->subCpmk as $scp)
+                                            @foreach ($cpmks->cpmk->subCpmk as $scp)
                                                 <li>
                                                     <strong
                                                         class="font-semibold">{{ $scp->nama_kode_sub_cpmk }}:</strong>
