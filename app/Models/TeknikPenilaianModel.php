@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\ProdiScope;
 
 class TeknikPenilaianModel extends Model
 {
@@ -12,8 +13,12 @@ class TeknikPenilaianModel extends Model
     protected $fillable = [
         'nama_teknik_penilaian',
         'kategori',
+        'id_ps'
     ];
-
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ProdiScope);
+    }
     // has many relation
     // public function tpcpmkmap(){
     //     return $this->hasMany(TPCPMKMapModel::class, 'id_tp', 'id_tp');

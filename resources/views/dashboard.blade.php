@@ -28,10 +28,14 @@
                 @include('partials.dashboard-dosen', ['tanggungJawabDosen' => $tanggungJawabDosen])
             @elseif($userRole == 'pimpinan')
                 @include('partials.dashboard-pimpinan')
+            @elseif($userRole == 'admin')
+                @include('partials.dashboard-admin')
             @endif
 
 
-            @livewire('kurikulum-selector')
+            @if ($userRole != 'admin')
+                @livewire('kurikulum-selector')
+            @endif
         </main>
     </div>
 

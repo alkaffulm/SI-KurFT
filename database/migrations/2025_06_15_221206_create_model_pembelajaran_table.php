@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('model_pembelajaran', function (Blueprint $table) {
             $table->id('id_model_pembelajaran');
             $table->string('nama_model_pembelajaran');
+            $table->unsignedBigInteger('id_ps');
+            $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
         });
     }
 

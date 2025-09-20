@@ -173,6 +173,72 @@
                 </li>
             @endif
 
+            {{-- Menu khusus admin --}}
+            @if ($userRole == 'admin')
+                <li>
+                    <a href="{{ route('teknik-penilaian.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                        {{-- PEO Icon --}}
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="ms-3">Teknik Penilaian</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('kriteria-penilaian.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                        {{-- Profil Lulusan Icon --}}
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        <span class="ms-3">Kriteria Penilaian</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('model-pembelajaran.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                        {{-- CPL Icon --}}
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                            </path>
+                        </svg>
+                        <span class="ms-3">Model Pembelajaran</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('metode-pembelajaran.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                        {{-- Bahan Kajian Icon --}}
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
+                        </svg>
+                        <span class="ms-3">Metode Pembelajaran</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('ta.admin.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                        {{-- Mata Kuliah Icon --}}
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                        </svg>
+                        <span class="ms-3">Kelas per Mata Kuliah</span>
+                    </a>
+                </li>
+            @endif
+
         </ul>
     </div>
 </aside>

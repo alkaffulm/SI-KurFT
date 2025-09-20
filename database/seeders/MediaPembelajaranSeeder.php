@@ -14,6 +14,7 @@ class MediaPembelajaranSeeder extends Seeder
     public function run(): void
     {
         DB::table('media_pembelajaran')->insert([
+          // id_ps=1
           ['nama_media_pembelajaran' => 'E-learning ULM', 'tipe' => 'perangkat_lunak'],  
           ['nama_media_pembelajaran' => 'PPT Materi', 'tipe' => 'perangkat_lunak'],  
           ['nama_media_pembelajaran' => 'E-Book', 'tipe' => 'perangkat_lunak'],  
