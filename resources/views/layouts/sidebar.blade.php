@@ -36,7 +36,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('rencana-assesment.index') }}"
+                    <a href="{{ route('rencana-asesmen.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                         {{-- Mata Kuliah Icon --}}
                         <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"

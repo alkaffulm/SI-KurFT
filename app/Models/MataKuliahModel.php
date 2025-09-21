@@ -61,7 +61,7 @@ class MataKuliahModel extends Model
      */
     public function cpmks()
     {
-        return $this->belongsToMany(CPMKModel::class, 'mata_kuliah_cpmk_map', 'id_mk', 'id_cpmk');
+        return $this->belongsToMany(CPMKModel::class, 'mk_cpmk_cpl_map', 'id_mk', 'id_cpmk');
     }
 
     public function bahanKajian() {
@@ -117,6 +117,10 @@ class MataKuliahModel extends Model
         return $this->hasMany(TPCPMKMapModel::class, 'id_mk', 'id_mk');
     }
 
+    public function rencanaAsesmen() {
+        return $this->hasMany(RencanaAsesmenModel::class, 'id_mk', 'id_mk');
+    }
+
     // belongs to relation
     public function programStudi()
     {
@@ -137,6 +141,12 @@ class MataKuliahModel extends Model
                 ->unique('id_cpl')  // supaya kd duplikat cplnya
                 ->pluck('nama_kode_cpl') // hanya ambil nama_kode_cpl
                 ->implode(', ') // memberikan tanda koma di antara cpl
+        );
+    }
+    // menghitung jumlah keseluruhan bobot komponen evaluasi dengan CPMK
+    public function totalBobotKeseluruhan(): Attribute {
+        return Attribute::make(
+            get: fn () => $this->rencanaAsesmen->sum('totalBobotKomponenEvaluasi')
         );
     }
 }

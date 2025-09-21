@@ -99,10 +99,10 @@
                                         @endif
                                     </td>
                                     <td class="px-3 py-4 text-left border-r border-gray-400">
-                                        <p>{{ $mk->pengembangRps->username }} </p>
+                                        <p>{{ $mk->pengembangRps->username ?? 'Pengembang RPS Belum Ditentukan'}} </p>
                                     </td>
                                     <td class="px-3 py-4 text-left border-r border-gray-400">
-                                        <p>{{ $mk->koordinatorMk->username }}</p>
+                                        <p>{{ $mk->koordinatorMk->username ?? 'Koordinator Mata Kuliah Belum Ditentukan'}}</p>
                                     </td>                                  
                                     <td class="px-3 py-4 text-left ">
                                         <p class="text-justify">{{ $mk->matkul_desc_id }}</p>

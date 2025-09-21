@@ -28,6 +28,8 @@ use App\Http\Controllers\Kaprodi\PLPEOMappingController;
 use App\Http\Controllers\Kaprodi\TahunakademikController;
 use App\Http\Controllers\Kaprodi\VisiKeilmuanController;
 use App\Http\Controllers\MhsCplController;
+use App\Livewire\RencanaAsesmenForm;
+use App\Livewire\RencanaAssesment;
 use App\Models\BKCPLMapModel;
 use App\Models\CPLPLMapModel;
 
@@ -129,8 +131,11 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:dosen')->prefix('dosen')->group(function() {
         Route::resource('matkul', MatkulController::class);
-        Route::resource('rencana-assesment', RencanaAsesmenController::class);
         Route::resource('evaluasi-mahasiswa', EvaluasiMahasiswaController::class);
+        
+        Route::resource('rencana-asesmen', RencanaAsesmenController::class);
+        Route::get('rencana-asesmen/form/{mataKuliah}', RencanaAsesmenForm::class)->name('rencana-asesmen.create');
+
     });
     Route::get('/mapping/tahun-akademik-kurikulum/tambah', [TahunakademikController::class, 'tambahTA'])->name('ta-kurikulum-mapping.add');
     Route::get('/mapping/tahun-akademik-kurikulum/index', [TahunakademikController::class, 'index'])->name('ta.index');

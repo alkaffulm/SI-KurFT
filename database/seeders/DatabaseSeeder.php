@@ -31,10 +31,11 @@ class DatabaseSeeder extends Seeder
             MahasiswaSeeder::class,               // 9
             CplSeeder::class,                     // 10
             ProfilLulusanSeeder::class,           // 11
-
+            
             // C. Level 2 Dependency
             UserRoleMapSeeder::class,             // 12
             UserPersonalisasiSeeder::class,       // 13
+            ModelPembelajaranSeeder::class,
             CpmkSeeder::class,                    // 14
             RpsSeeder::class,                     // 15
 
@@ -61,14 +62,16 @@ class DatabaseSeeder extends Seeder
             KurikulumTahunAkademikSeeder::class,  // 34
             KelasSeeder::class,                    // 35
 
+            RencanaAsesmenSeeder::class,
+            RencanaAsesmenCPMKBobotSeeder::class,
             WeekSeeder::class,
             RpsTopicSeeder::class,
             BentukPembelajaranSeeder::class,
             MetodePembelajaranSeeder::class,
             MediaPembelajaranSeeder::class,
-            ModelPembelajaranSeeder::class,
             AktivitasPembelajaranSeeder::class,
             AktivitasMetodePembelajaranSeeder::class,
+            RpsMediaPembelajaranSeeder::class,
             RpsTopicWeekSeeder::class,
             RpsTopicKriteriaPenilaianSeeder::class,
             RpsTopicTeknikPenilaianSeeder::class,

@@ -229,7 +229,7 @@
             </div> --}}
         </div>
 
-        {{-- SECTION 4: DESKRIPSI, PUSTAKA, BAHAN KAJIAN, DOSEN PENGAMPU, MATAKULIAH SYARAT --}}
+        {{-- SECTION 4: DESKRIPSI, PUSTAKA, BAHAN KAJIAN, PENILAIAN, MATAKULIAH SYARAT --}}
         <div class="border border-black border-t-0 text-sm">
             <div class="grid grid-cols-12">
                 <div class="col-span-1 p-2 border-r border-black font-bold">Deskripsi Mata Kuliah</div>
@@ -241,7 +241,103 @@
             <div class="grid grid-cols-12 border-t border-black">
                 <div class="col-span-1 p-2 border-r border-black font-bold">Penilaian</div>
                 <div class="col-span-11 p-2">
-
+                    <table class="w-full text-center text-xs border-collapse border border-black">
+                        <thead class="bg-gray-200">
+                            <tr class="border border-black">
+                                <th class="border border-black p-1" rowspan="3">CPL</th>
+                                <th class="border border-black p-1 w-16" rowspan="3">Kode CPMK dan</th>
+                                <th class="border border-black p-1 w-24" rowspan="3">Bobot tiap CPMK mendukung CPL (%)</th>
+                                <th class="border border-black p-1" colspan="11">Bobot tiap bentuk penilaian</th>
+                            </tr>
+                            <tr class="border border-black ">
+                                <th class="border border-black p-1" colspan="2">Kegiatan Partisipatif*</th>
+                                <th class="border border-black p-1" colspan="2">Hasil Proyek*</th>
+                                <th class="border border-black p-1" colspan="2">Tugas</th>
+                                <th class="border border-black p-1" colspan="2">UTS</th>
+                                <th class="border border-black p-1" colspan="2">UAS</th>
+                                <th class="border border-black p-1" rowspan="2">Total %</th>
+                            </tr>
+                            <tr class="border border-black bg-[#f7cbac]">
+                                <th class="border border-black p-1">(%)</th>
+                                <th class="border border-black p-1">N-maka</th>
+                                <th class="border border-black p-1">(%)</th>
+                                <th class="border border-black p-1">N-maka</th>
+                                <th class="border border-black p-1">(%)</th>
+                                <th class="border border-black p-1">N-maka</th>
+                                <th class="border border-black p-1">(%)</th>
+                                <th class="border border-black p-1">N-maka</th>
+                                <th class="border border-black p-1">(%)</th>
+                                <th class="border border-black p-1">N-maka</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border border-black">
+                                <td class="border border-black p-1">CPL1</td>
+                                <td class="border border-black p-1">CPMK1</td>
+                                <td class="border border-black p-1">50</td>
+                                <td class="border border-black p-1">50</td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
+                                <td class="border border-black p-1"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+                                <td class="border border-black p-1"></td>
+                                <td class="border border-black p-1"></td>
+                                <td class="border border-black p-1">50</td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]">50</td>
+                                <td class="border border-black p-1"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
+                            </tr>
+                            <tr class="border border-black">
+                                <td class="border border-black p-1">CPL2</td>
+                                <td class="border border-black p-1">CPMK2</td>
+                                <td class="border border-black p-1">30</td>
+                                <td class="border border-black p-1"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+                                <td class="border border-black p-1">50</td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
+                                <td class="border border-black p-1"></td>
+                                <td class="border border-black p-1"></td>
+                                <td class="border border-black p-1">50</td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]">50</td>
+                                <td class="border border-black p-1"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
+                            </tr>
+                            <tr class="border border-black">
+                                <td class="border border-black p-1">CPL2</td>
+                                <td class="border border-black p-1">CPMK3</td>
+                                <td class="border border-black p-1">20</td>
+                                <td class="border border-black p-1"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+                                <td class="border border-black p-1"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+                                <td class="border border-black p-1">50</td>
+                                <td class="border border-black p-1 ">100</td>
+                                <td class="border border-black p-1 "></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+                                <td class="border border-black p-1">50</td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="border border-black font-bold">
+                                <td class="border border-black p-1" colspan="3"></td>
+                                <td class="border border-black p-1 bg-black"></td>
+                                <td class="border border-black p-1  bg-[#f7cbac7d]">100</td>
+                                <td class="border border-black p-1 bg-black"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d] ">100</td>
+                                <td class="border border-black p-1 bg-black"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d] ">100</td>
+                                <td class="border border-black p-1 bg-black"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d] ">100</td>
+                                <td class="border border-black p-1 bg-black"></td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d] ">100</td>
+                                <td class="border border-black p-1 bg-black "></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <p class="text-xs mt-2 italic">*Keterangan: Kegiatan partisipatif dan atau hasil proyek wajib masuk dalam komponen penilaian dengan porsi nilai akhir minimal 50%</p>
                 </div>
             </div>
             <div class="grid grid-cols-12 border-t border-black ">
