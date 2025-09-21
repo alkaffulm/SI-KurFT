@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             // C. Level 2 Dependency
             UserRoleMapSeeder::class,             // 12
             UserPersonalisasiSeeder::class,       // 13
-            ModelPembelajaranSeeder::class,
+            // ModelPembelajaranSeeder::class,
             CpmkSeeder::class,                    // 14
             RpsSeeder::class,                     // 15
 
@@ -71,7 +71,6 @@ class DatabaseSeeder extends Seeder
             BentukPembelajaranSeeder::class,
 
             MediaPembelajaranSeeder::class,
-
             AktivitasPembelajaranSeeder::class,
             AktivitasMetodePembelajaranSeeder::class,
             RpsMediaPembelajaranSeeder::class,

@@ -6,7 +6,6 @@ use App\Livewire\RencanaAsesmenForm;
 use App\Models\TeknikPenilaianModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MhsCplController;
-use App\Http\Controllers\MhsCplController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\dosen\RPSController;
 use App\Http\Controllers\Auth\LoginController;
@@ -21,18 +20,14 @@ use App\Http\Controllers\Kaprodi\BKMKMapController;
 use App\Http\Controllers\Kaprodi\CPLCPMKController;
 use App\Http\Controllers\Kaprodi\SubCpmkController;
 use App\Http\Controllers\Admin\KelasAdminController;
-use App\Http\Controllers\Admin\KelasAdminController;
 use App\Http\Controllers\Kaprodi\BKCPLMapController;
 use App\Http\Controllers\Kaprodi\CPLPLMapController;
-use App\Http\Controllers\Kaprodi\CPLPLMapController;
-use App\Http\Controllers\Kaprodi\KurikulumController;
 use App\Http\Controllers\Kaprodi\KurikulumController;
 use App\Http\Controllers\Kaprodi\MKCPMKCPLController;
 use App\Http\Controllers\Kaprodi\CPMKMPLMapController;
 use App\Http\Controllers\Kaprodi\BahanKajianController;
 use App\Http\Controllers\Dosen\RencanaAsesmenController;
 use App\Http\Controllers\Kaprodi\PLPEOMappingController;
-use App\Http\Controllers\Kaprodi\VisiKeilmuanController;
 use App\Http\Controllers\Kaprodi\VisiKeilmuanController;
 
 // Controller Admin

@@ -173,7 +173,7 @@
 
                 <br>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm border table-fixed">
+                    <table class="w-full text-sm border border-black table-fixed">
                         <thead>
                             <tr>
                                 <th class="p-2 border border-black w-[150px]" rowspan="2">Minggu Ke-</th>
@@ -181,7 +181,6 @@
                                 <th class="p-2 border border-black w-[150px]" rowspan="2">Sub-CPMK</th>
                                 <th class="p-2 border border-black w-[400px]" colspan="2">Penilaian</th>
                                 <th class="p-2 border border-black w-[300px]" rowspan="2">Materi Pembelajaran</th>
-                                <th class="p-2 border border-black w-[180px]" rowspan="2">Model Pembelajaran</th>
                                 <th class="p-2 border border-black w-[600px]" colspan="2">Bentuk Pembelajaran</th>
                                 <th class="p-2 border border-black w-[120px]" rowspan="2">Refrensi</th>
                                 <th class="p-2 border border-black w-[90px]" rowspan="2">Aksi</th>                        
@@ -275,16 +274,7 @@
                                         <td class="p-2 border border-black align-top">
                                             <textarea wire:model="topics.{{$index}}.materi_pembelajaran" id="materi_pembelajaran"  class="border w-full h-[500px] bg-gray-100 px-2 rounded-md" required></textarea>
                                             @error('topics.'.$index.'.materi_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                        </td>    
-                                        
-                                        {{-- Model pembelajaran --}}
-                                        <td class="p-2 border border-black align-top">
-                                            <select name="" id="" class="w-full border bg-gray-100 py-2 rounded-md">
-                                                <option value="">Case Based Learning</option>
-                                                <option value="">Project Based Learning</option>
-                                            </select>
-                                            @error('topics.'.$index.'.materi_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                        </td>  
+                                        </td>     
                                         
                                         {{-- metode: luring  --}}
                                         <td class="p-2 border border-black align-top">
