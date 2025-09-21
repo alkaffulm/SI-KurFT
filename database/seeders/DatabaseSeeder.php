@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             TeknikPenilaianSeeder::class,         // 6
             PEOSeeder::class,                     // 28
             KriteriaPenilaianSeeder::class,
+            ModelPembelajaranSeeder::class,
+            MetodePembelajaranSeeder::class,
 
             //  B. Level 1 Dependency
             UserSeeder::class,                    // 7
@@ -67,8 +69,9 @@ class DatabaseSeeder extends Seeder
             WeekSeeder::class,
             RpsTopicSeeder::class,
             BentukPembelajaranSeeder::class,
-            MetodePembelajaranSeeder::class,
+
             MediaPembelajaranSeeder::class,
+
             AktivitasPembelajaranSeeder::class,
             AktivitasMetodePembelajaranSeeder::class,
             RpsMediaPembelajaranSeeder::class,

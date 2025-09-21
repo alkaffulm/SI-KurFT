@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\ProdiScope;
 
 class MetodePembelajaranModel extends Model
 {
@@ -12,5 +13,10 @@ class MetodePembelajaranModel extends Model
 
     protected $fillable = [
         'nama_metode_pembelajaran',
+        'id_ps'
     ];
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ProdiScope);
+    }
 }

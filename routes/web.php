@@ -1,37 +1,50 @@
 <?php
 
-use App\Http\Controllers\Kaprodi\CPLPLMapController;
-use App\Http\Controllers\Kaprodi\KurikulumController;
+use App\Models\BKCPLMapModel;
+use App\Models\CPLPLMapModel;
+use App\Livewire\RencanaAsesmenForm;
+use App\Models\TeknikPenilaianModel;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Kaprodi\BahanKajianController;
-use App\Http\Controllers\Kaprodi\CplController;
-use App\Http\Controllers\Kaprodi\CpmkController;
+use App\Http\Controllers\MhsCplController;
+use App\Http\Controllers\MhsCplController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Dosen\EvaluasiMahasiswaController;
-use App\Http\Controllers\Dosen\MatkulController as DosenMatkulController;
-use App\Http\Controllers\Dosen\RencanaAsesmenController;
 use App\Http\Controllers\dosen\RPSController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Kaprodi\CplController;
+use App\Http\Controllers\Kaprodi\PeoController;
+use App\Http\Controllers\Kaprodi\CpmkController;
 use App\Http\Controllers\kaprodi\AdminController;
-use App\Http\Controllers\Kaprodi\BKCPLMapController;
-use App\Http\Controllers\Kaprodi\BKMKMapController;
-use App\Http\Controllers\Kaprodi\CPLCPMKController;
-use App\Http\Controllers\Kaprodi\CPMKMPLMapController;
 use App\Http\Controllers\Kaprodi\KelasController;
 use App\Http\Controllers\Kaprodi\MatkulController;
 use App\Http\Controllers\Kaprodi\MKCPMKController;
-use App\Http\Controllers\Kaprodi\MKCPMKCPLController;
-use App\Http\Controllers\Kaprodi\PeoController;
-use App\Http\Controllers\Kaprodi\ProfilLulusanController;
+use App\Http\Controllers\Kaprodi\BKMKMapController;
+use App\Http\Controllers\Kaprodi\CPLCPMKController;
 use App\Http\Controllers\Kaprodi\SubCpmkController;
+use App\Http\Controllers\Admin\KelasAdminController;
+use App\Http\Controllers\Admin\KelasAdminController;
+use App\Http\Controllers\Kaprodi\BKCPLMapController;
+use App\Http\Controllers\Kaprodi\CPLPLMapController;
+use App\Http\Controllers\Kaprodi\CPLPLMapController;
+use App\Http\Controllers\Kaprodi\KurikulumController;
+use App\Http\Controllers\Kaprodi\KurikulumController;
+use App\Http\Controllers\Kaprodi\MKCPMKCPLController;
+use App\Http\Controllers\Kaprodi\CPMKMPLMapController;
+use App\Http\Controllers\Kaprodi\BahanKajianController;
+use App\Http\Controllers\Dosen\RencanaAsesmenController;
 use App\Http\Controllers\Kaprodi\PLPEOMappingController;
-use App\Http\Controllers\Kaprodi\TahunakademikController;
 use App\Http\Controllers\Kaprodi\VisiKeilmuanController;
-use App\Http\Controllers\MhsCplController;
-use App\Livewire\RencanaAsesmenForm;
-use App\Livewire\RencanaAssesment;
-use App\Models\BKCPLMapModel;
-use App\Models\CPLPLMapModel;
+use App\Http\Controllers\Kaprodi\VisiKeilmuanController;
+
+// Controller Admin
+use App\Http\Controllers\Kaprodi\ProfilLulusanController;
+use App\Http\Controllers\Kaprodi\TahunakademikController;
+use App\Http\Controllers\Admin\ModelPembelajaranController;
+
+use App\Http\Controllers\Dosen\EvaluasiMahasiswaController;
+use App\Http\Controllers\Admin\MetodePembelajaranController;
+use App\Http\Controllers\Admin\TahunakademikAdminController;
+use App\Http\Controllers\Admin\TeknikPenilaianAdminController;
+use App\Http\Controllers\Admin\KriteriaPenilaianAdminController;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
@@ -157,15 +170,92 @@ Route::middleware('auth')->group(function () {
     Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
 
 
+    // ROLE ADMIN
+    Route::middleware('role:admin')->prefix('admin')->group(function () {
+        // KURIKULUM, TAHUN AKADEMIK, DAN KELAS
+            Route::get('/mapping/tahun-akademik-kurikulum/tambah', [TahunakademikController::class, 'tambahTA'])->name('ta-kurikulum-mapping.add');
+            Route::get('/mapping/tahun-akademik-kurikulum/index', [TahunakademikController::class, 'index'])->name('ta.index');
+            Route::post('/mapping/tahun-akademik-kurikulum/update', [TahunakademikController::class, 'updateTA'])->name('ta.update');
+            Route::get('/mapping/tahun-akademik-kurikulum', [TahunakademikController::class, 'index'])->name('ta.index');
+            // buat kelas
+            Route::get('/mapping/kelas/index', [KelasController::class, 'index'])->name('kelas.index');
+            Route::get('/mapping/kelas/tambah', [KelasController::class, 'tambahKelas'])->name('kelas.add');
+            // Edit kelas
+            Route::get('/mapping/kelas/{id}/edit', [KelasController::class, 'editKelas'])->name('kelas.edit');
+            // update kelas
+            Route::put('/mapping/kelas/{id}', [KelasController::class, 'updateKelas'])->name('kelas.update');
+            // hapus kelas
+            Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
+            // hapus kelas
+            Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
 
+        // TAHUN AKADEMIK DAN KELAS
+            Route::get('/mapping/tahun-akademik-kurikulum/tambah', [TahunakademikAdminController::class, 'tambahTA'])->name('ta-kurikulum-mapping.add');
+            Route::get('/mapping/tahun-akademik-kurikulum/index', [TahunakademikAdminController::class, 'index'])->name('ta.admin.index');
+            Route::post('/mapping/tahun-akademik-kurikulum/update', [TahunakademikAdminController::class, 'updateTA'])->name('ta.update');
+            Route::get('/mapping/tahun-akademik-kurikulum', [TahunakademikAdminController::class, 'index'])->name('ta.admin.index');
+            
+            // buat kelas
+            Route::get('/mapping/kelas/index', [KelasAdminController::class, 'index'])->name('kelas.index');
+            Route::get('/mapping/kelas/tambah', [KelasAdminController::class, 'tambahKelas'])->name('kelas.add');
+
+            // Edit kelas
+            Route::get('/mapping/kelas/{id}/edit', [KelasAdminController::class, 'editKelas'])->name('kelas.edit');
+            // update kelas
+            Route::put('/mapping/kelas/{id}', [KelasAdminController::class, 'updateKelas'])->name('kelas.update');
+
+            // hapus kelas
+            Route::get('/mapping/kelas/{id}/hapus', [KelasAdminController::class, 'hapusKelas'])->name('kelas.hapus');
+            // hapus kelas
+            Route::get('/mapping/kelas/{id}/hapus', [KelasAdminController::class, 'hapusKelas'])->name('kelas.hapus');
+        
+        // TEKNIK PENILAIAN
+            Route::get('/teknik-penilaian', [TeknikPenilaianAdminController::class, 'index'])->name('teknik-penilaian.index');
+            Route::get('/teknik-penilaian/edit', [TeknikPenilaianAdminController::class, 'editAll'])->name('teknik-penilaian.edit'); 
+            Route::get('/teknik-penilaian/create', [TeknikPenilaianAdminController::class, 'create'])->name('teknik-penilaian.create'); 
+
+            // edit teknik penilaian
+            Route::put('/teknik-penilaian/update-all', [TeknikPenilaianAdminController::class, 'updateAll'])->name('teknik-penilaian.updateAll');
+
+            // tambah teknik penilaian
+            Route::post('/teknik-penilaian/store', [TeknikPenilaianAdminController::class, 'store'])->name('teknik-penilaian.store');
+
+        // KRITERIA PENILAIAN 
+            Route::get('/kriteria-penilaian', [KriteriaPenilaianAdminController::class, 'index'])->name('kriteria-penilaian.index'); 
+            Route::get('/kriteria-penilaian/edit', [KriteriaPenilaianAdminController::class, 'editAll'])->name('kriteria-penilaian.edit'); 
+            Route::get('/kriteria-penilaian/create', [KriteriaPenilaianAdminController::class, 'create'])->name('kriteria-penilaian.create'); 
+
+            // edit teknik penilaian
+            Route::put('/kriteria-penilaian/update-all', [KriteriaPenilaianAdminController::class, 'updateAll'])->name('kriteria-penilaian.updateAll');
+
+            // tambah teknik penilaian
+            Route::post('/kriteria-penilaian/store', [KriteriaPenilaianAdminController::class, 'store'])->name('kriteria-penilaian.store');
+
+        // MODEL PEMBELAJARAN 
+            Route::get('/model-pembelajaran', [ModelPembelajaranController::class, 'index'])->name('model-pembelajaran.index'); 
+            Route::get('/model-pembelajaran/edit', [ModelPembelajaranController::class, 'editAll'])->name('model-pembelajaran.edit'); 
+            Route::get('/model-pembelajaran/create', [ModelPembelajaranController::class, 'create'])->name('model-pembelajaran.create'); 
+
+            // edit teknik penilaian
+            Route::put('/model-pembelajaran/update-all', [ModelPembelajaranController::class, 'updateAll'])->name('model-pembelajaran.updateAll');
+
+            // tambah teknik penilaian
+            Route::post('/model-pembelajaran/store', [ModelPembelajaranController::class, 'store'])->name('model-pembelajaran.store');
+
+        // METODE PMEBELAJARAN
+            Route::get('/metode-pembelajaran', [MetodePembelajaranController::class, 'index'])->name('metode-pembelajaran.index'); 
+            Route::get('/metode-pembelajaran/edit', [MetodePembelajaranController::class, 'editAll'])->name('metode-pembelajaran.edit'); 
+            Route::get('/metode-pembelajaran/create', [MetodePembelajaranController::class, 'create'])->name('metode-pembelajaran.create'); 
+
+            // edit teknik penilaian
+            Route::put('/metode-pembelajaran/update-all', [MetodePembelajaranController::class, 'updateAll'])->name('metode-pembelajaran.updateAll');
+
+            // tambah teknik penilaian
+            Route::post('/metode-pembelajaran/store', [MetodePembelajaranController::class, 'store'])->name('metode-pembelajaran.store');
+
+
+
+    });
 
 
 });
-
-
-// rute untuk mapping pl peo
-// Route::get('/mapping/edit-pl-peo', [PLPEOMappingController::class, 'edit_pl_peo']);
-// Route::get('/mapping/edit-pl-peo/edit', [PLPEOMappingController::class, 'edit_pl_peo']);
-// Route::get('/mapping/edit-pl-peo', [App\Http\Controllers\PLPEOMappingController::class, 'edit_pl_peo'])->name('pl-peo-mapping.edit');
-// Route::put('/mapping/update-pl-peo', [App\Http\Controllers\PLPEOMappingController::class, 'updatePLPEOMap'])->name('pl-peo-mapping.update');
-//Route::get('/profil-lulusan', [App\Http\Controllers\ProfilLulusanController::class, 'index'])->name('profil-lulusan.index');

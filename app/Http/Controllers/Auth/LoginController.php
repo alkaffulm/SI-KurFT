@@ -92,6 +92,7 @@ class LoginController extends Controller
                 'Pimpinan FT' => 'PimpinanFT',
                 'Dosen' => 'Dosen',
                 'UPM' => 'UPM',
+                'Admin' => 'Admin'
             ];
             $roleName = $roleMap[$credentials['login_as']] ?? null;
             $role = DB::table('role')->where('role', $roleName)->first();
@@ -114,10 +115,10 @@ class LoginController extends Controller
         $request->session()->regenerate();
         
         // AMBIL dan SIMPAN SEMUA DATA PENTING KE SESSION BARU
-        $roleMap = [ 'Koordinator Program Studi' => 'Kaprodi', 'Pimpinan FT' => 'PimpinanFT', 'Dosen' => 'Dosen', 'UPM' => 'UPM' ];
+        $roleMap = [ 'Koordinator Program Studi' => 'Kaprodi', 'Pimpinan FT' => 'PimpinanFT', 'Dosen' => 'Dosen', 'UPM' => 'UPM', 'Admin' => 'Admin'];
         $roleName = $roleMap[$request->input('login_as')] ?? null;
         
-        $viewRoleMap = [ 'Kaprodi' => 'kaprodi', 'Dosen' => 'dosen', 'PimpinanFT' => 'pimpinan'];
+        $viewRoleMap = [ 'Kaprodi' => 'kaprodi', 'Dosen' => 'dosen', 'PimpinanFT' => 'pimpinan', 'Admin' => 'admin'];
         $sessionRole = $viewRoleMap[$roleName] ?? 'dosen';
         
         $prodi = $user->id_ps ? DB::table('program_studi')->where('id_ps', $user->id_ps)->first() : null;

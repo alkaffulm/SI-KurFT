@@ -10,8 +10,11 @@ return new class extends Migration
     {
         Schema::create('teknik_penilaian', function (Blueprint $table) {
             $table->id('id_teknik_penilaian');
+            $table->unsignedBigInteger('id_ps');
             $table->string('nama_teknik_penilaian');
             $table->string('kategori');
+            $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
+
         });
     }
 
