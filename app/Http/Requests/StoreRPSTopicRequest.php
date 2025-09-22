@@ -39,6 +39,8 @@ class StoreRPSTopicRequest extends FormRequest
             'topics.*.aktivitas_pembelajaran.*.id_bentuk_pembelajaran' => 'required_if:topics.*.tipe,topik',
             'topics.*.aktivitas_pembelajaran.*.penugasan_mahasiswa' => 'nullable',
             'topics.*.aktivitas_pembelajaran.*.selected_metode_pembelajaran' => 'nullable',
+            'topics.*.aktivitas_pembelajaran.*.jumlah_pertemuan' => 'nullable',
+            'topics.*.aktivitas_pembelajaran.*.jumlah_sks' => 'nullable',
 
             // validasi RPS Induk di halaman edit
             'id_mk_syarat' => 'nullable|exists:mata_kuliah,id_mk',

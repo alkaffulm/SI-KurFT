@@ -17,6 +17,8 @@ return new class extends Migration
             $table->enum('tipe', ['TM', 'BM', 'PT']);
             $table->foreignId('id_bentuk_pembelajaran')->constrained('bentuk_pembelajaran', 'id_bentuk_pembelajaran');
             $table->text('penugasan_mahasiswa')->nullable();
+            $table->string('jumlah_pertemuan')->nullable();
+            $table->string('jumlah_sks')->nullable();
         });
     }
 

@@ -15,6 +15,8 @@ class AktivitasPembelajaranModel extends Model
         'tipe',
         'id_bentuk_pembelajaran',
         'penugasan_mahasiswa',
+        'jumlah_pertemuan',
+        'jumlah_sks',
     ];
 
     public function metodePembelajaran() {

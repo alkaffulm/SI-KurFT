@@ -366,9 +366,9 @@
             </div> --}}
             <div class="grid grid-cols-12 border-t border-black">
                 <div class="col-span-1 px-2 border-r border-black font-bold">Mata kuliah PraSyarat</div>
-                <div class="col-span-11 px-2">
+                <div class="col-span-11 px-2 ">
                     @forelse($rps->mataKuliahSyarat as $mk_syarat)
-                        {{ $mk_syarat->nama_matkul_id }} <br>
+                        {{ $mk_syarat->nama_matkul_id }} 
                     @empty
                         -
                     @endforelse
@@ -487,18 +487,20 @@
                                                 @endforelse
                                             </ul>
                                         </div>
-                                        
                                         <div>
+                                            <p>[TM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')->jumlah_pertemuan}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')->jumlah_sks}})]</p>  
+                                        </div>
+                                        
+                                        {{-- <div>
                                             <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
                                             @if ($topic->aktivitasPembelajaran->firstWhere('tipe','TM'))
                                                 <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->penugasan_mahasiswa}}</p>
                                             @else
                                                 <p>-</p>
                                             @endif
-                                        </div>
+                                        </div> --}}
                                     </div>
 
-                                    <br>
 
 
                                 </td>
@@ -547,10 +549,14 @@
                                         <div>
                                             <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
                                             @if ($topic->aktivitasPembelajaran->firstWhere('tipe','BM'))
-                                                <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->penugasan_mahasiswa}}</p>
+                                                <p class="break-words">{{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->penugasan_mahasiswa}}</p>
                                             @else
                                                 <p>-</p>
                                             @endif
+                                        </div>
+
+                                        <div>
+                                            <p>[BM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_pertemuan}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_sks}})]</p>  
                                         </div>
                                     </div>
                                 </td>

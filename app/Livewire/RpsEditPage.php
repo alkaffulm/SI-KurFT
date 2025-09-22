@@ -46,6 +46,8 @@ class RpsEditPage extends Component
     public $bentukKuliahId;
     public $bentukBelajarMandiriId;
     public $bentukPenugasanTerstrukturId;
+    public $jumlah_pertemuan;
+    public $jumlah_sks;
     
     // Properti untuk pilihan dropdown rps induk dan detail
     public $allMataKuliah = [];
@@ -106,19 +108,25 @@ class RpsEditPage extends Component
                     'id_aktivitas_pembelajaran' => null,
                     'id_bentuk_pembelajaran' => $this->bentukKuliahId,
                     'penugasan_mahasiswa' => '',
-                    'selected_metode_pembelajaran' => []
+                    'selected_metode_pembelajaran' => [],
+                    'jumlah_pertemuan' => '',
+                    'jumlah_sks' => '',
                 ],
                 'BM' => [
                     'id_aktivitas_pembelajaran' => null,
                     'id_bentuk_pembelajaran' => $this->bentukBelajarMandiriId,
                     'penugasan_mahasiswa' => '',
-                    'selected_metode_pembelajaran' => []
+                    'selected_metode_pembelajaran' => [],
+                    'jumlah_pertemuan' => '',
+                    'jumlah_sks' => '',
                 ],
                 'PT' => [
                     'id_aktivitas_pembelajaran' => null,
                     'id_bentuk_pembelajaran' => $this->bentukPenugasanTerstrukturId,
                     'penugasan_mahasiswa' => '',
-                    'selected_metode_pembelajaran' => []
+                    'selected_metode_pembelajaran' => [],
+                    'jumlah_pertemuan' => '',
+                    'jumlah_sks' => '',
                 ],
             ];
 
@@ -179,17 +187,23 @@ class RpsEditPage extends Component
                 'TM' => [
                     'id_bentuk_pembelajaran' => $this->bentukKuliahId,
                     'selected_metode_pembelajaran' => [],
-                    'penugasan_mahasiswa' => ''
+                    'penugasan_mahasiswa' => '',
+                    'jumlah_pertemuan' => '',
+                    'jumlah_sks' => '',
                 ],
                 'BM' => [
                     'id_bentuk_pembelajaran' => $this->bentukBelajarMandiriId,
                     'selected_metode_pembelajaran' => [],
-                    'penugasan_mahasiswa' => ''
+                    'penugasan_mahasiswa' => '',
+                    'jumlah_pertemuan' => '',
+                    'jumlah_sks' => '',            
                 ],
                 'PT' => [
                     'id_bentuk_pembelajaran' => $this->bentukPenugasanTerstrukturId,
                     'selected_metode_pembelajaran' => [],
-                    'penugasan_mahasiswa' => ''
+                    'penugasan_mahasiswa' => '',
+                    'jumlah_pertemuan' => '',
+                    'jumlah_sks' => '',
                 ],
             ],
             'materi_pembelajaran' => '',
@@ -250,7 +264,9 @@ class RpsEditPage extends Component
                             ['tipe' => $tipe],
                             [
                                 'id_bentuk_pembelajaran' => $aktivitasData['id_bentuk_pembelajaran'],
-                                'penugasan_mahasiswa' => $aktivitasData['penugasan_mahasiswa']
+                                'penugasan_mahasiswa' => $aktivitasData['penugasan_mahasiswa'],
+                                'jumlah_pertemuan' => $aktivitasData['jumlah_pertemuan'],
+                                'jumlah_sks' => $aktivitasData['jumlah_sks'],
                             ]
                         );
                         $aktivitas->metodePembelajaran()->sync($aktivitasData['selected_metode_pembelajaran'] ?? []);

@@ -179,7 +179,7 @@
                                 <th class="p-2 border border-black w-[150px]" rowspan="2">Minggu Ke-</th>
                                 <th class="p-2 border border-black w-[180px]" rowspan="2">Jenis</th>
                                 <th class="p-2 border border-black w-[150px]" rowspan="2">Sub-CPMK</th>
-                                <th class="p-2 border border-black w-[400px]" colspan="2">Penilaian</th>
+                                <th class="p-2 border border-black w-[600px]" colspan="2">Penilaian</th>
                                 <th class="p-2 border border-black w-[300px]" rowspan="2">Materi Pembelajaran</th>
                                 <th class="p-2 border border-black w-[600px]" colspan="2">Bentuk Pembelajaran</th>
                                 <th class="p-2 border border-black w-[120px]" rowspan="2">Refrensi</th>
@@ -281,8 +281,8 @@
                                             {{-- <textarea wire:model="topics.{{$index}}.metode_pembelajaran" id="metode_pembelajaran" class="border w-full  h-48" required></textarea>
                                             @error('topics.'.$index.'.metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror --}}
                                             <div >
-                                                <p class="font-bold">TM</p>
                                                 <div>
+                                                    <p class="font-bold">TM</p>
                                                     <div wire:ignore>
                                                         <label >Metode Pembelajaran</label>
                                                         <select class="select2-metode-pembelajaran w-full" data-index="{{$index}}" data-tipe="TM" multiple="multiple" >
@@ -292,6 +292,22 @@
                                                         </select>
                                                     </div>
                                                     @error('topics.'.$index.'.aktivitas_pembelajaran.TM.selected_metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                </div>
+
+                                                <div>
+                                                    <p class="font-bold">Jumlah Pertemuan dan SKS</p>
+                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.TM.jumlah_pertemuan" class="border bg-gray-100 py-2 rounded-md">
+                                                        <option value="">Pilih Jumlah Pertemuan</option>
+                                                        <option value="1">1x</option>
+                                                        <option value="2">2x</option>
+                                                        <option value="3">3x</option>
+                                                    </select>      
+                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.TM.jumlah_sks" class="border bg-gray-100 py-2 rounded-md">
+                                                        <option value="">Pilih Jumlah SKS</option>
+                                                        <option value="1x50">1x50</option>
+                                                        <option value="2x50">2x50</option>
+                                                        <option value="3x50">3x50</option>
+                                                    </select>                                                             
                                                 </div>
                                                 {{-- <br>
                                                 <div>
@@ -330,8 +346,8 @@
                                                 </div>
                                             </div> --}}
                                             <div>
-                                                <p class="font-bold">BM</p>
                                                 <div >
+                                                    <p class="font-bold">BM</p>
                                                     <div wire:ignore>
                                                         <label >Metode Pembelajaran</label>
                                                         <select class="select2-metode-pembelajaran w-full" data-index="{{$index}}" data-tipe="BM" multiple="multiple" >
@@ -348,12 +364,27 @@
                                                     <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.BM.penugasan_mahasiswa" id="penugasan_mahasiswa" class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea>
                                                     @error('topics.'.$index.'.aktivitas_pembelajaran.BM.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
+                                                <div>
+                                                    <p class="font-bold">Jumlah Pertemuan dan SKS</p>
+                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.BM.jumlah_pertemuan" class="border bg-gray-100 py-2 rounded-md">
+                                                        <option value="">Pilih Jumlah Pertemuan</option>
+                                                        <option value="1">1x</option>
+                                                        <option value="2">2x</option>
+                                                        <option value="3">3x</option>
+                                                    </select>      
+                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.BM.jumlah_sks" class="border bg-gray-100 py-2 rounded-md">
+                                                        <option value="">Pilih Jumlah SKS</option>                                                        
+                                                        <option value="1x50">1x50</option>
+                                                        <option value="2x50">2x50</option>
+                                                        <option value="3x50">3x50</option>
+                                                    </select>                                                             
+                                                </div>                                            
                                             </div>
                                         </td>
                                         
                                         {{-- refrensi --}}
                                         <td class="p-2 border border-black align-top">
-                                            <input type="text" wire:model="topics.{{$index}}.refrensi" id="refrensi" class="border w-full bg-gray-100 px-2" required ></input>
+                                            <input type="text" wire:model="topics.{{$index}}.refrensi" id="refrensi" class="p-2 border rounded-lg border-gray-300 w-full  bg-gray-100 mt-2" required ></input>
                                             @error('topics.'.$index.'.refrensi') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </td>
     
