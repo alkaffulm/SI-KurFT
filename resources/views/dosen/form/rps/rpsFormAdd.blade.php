@@ -28,8 +28,7 @@
             <form action="{{ route('rps.store') }}" method="post">
                 @csrf
     
-                <input type="hidden" name="id_mk" value="{{ $mata_kuliah->id_mk }}">
-    
+                <input type="hidden" name="id_mk" value="{{ $mata_kuliah->id_mk }}">   
                 <br>
                 <h1 class="font-bold">RPS INDUK</h1>
                 <br>

@@ -140,7 +140,7 @@
                     {{-- CPMK --}}
                     <div class="grid grid-cols-12  border-black">
                         <div class="col-span-10  px-2 border-b border-r border-black bg-gray-300 font-bold">Capaian Pembelajaran Mata Kuliah (CPMK): melalui mata kuliah ini mahasiswa diharapkan mampu</div>
-                        <div class="col-span-2  px-2 border-b border-r border-black bg-gray-300 font-bold">CPL yang didukung</div>
+                        <div class="col-span-2  px-2 border-b  border-black bg-gray-300 font-bold">CPL yang didukung</div>
                     </div>
                     {{-- Loop untuk CPMK --}}
                     @foreach($assocCpmk as $cpmk)
@@ -162,7 +162,7 @@
                     {{-- SubCPMK --}}
                     <div class="grid grid-cols-12  border-black">
                         <div class="col-span-10  px-2 border-r border-b border-black bg-gray-300 font-bold">Kemampuan akhir tiap tahapan pembelajaran (Sub-Capaian Pembelajaran MK - Sub CPMK)  </div>
-                        <div class="col-span-2  px-2 border-r border-b border-black bg-gray-300 font-bold">CPMK yang didukung</div>
+                        <div class="col-span-2  px-2  border-b border-black bg-gray-300 font-bold">CPMK yang didukung</div>
                     </div>
                     {{-- Loop untuk Sub-CPMK --}}
                     @foreach($assocCpmk as $cpmk)
@@ -241,6 +241,7 @@
             <div class="grid grid-cols-12 border-t border-black">
                 <div class="col-span-1 p-2 border-r border-black font-bold">Penilaian</div>
                 <div class="col-span-11 p-2">
+                    HARDCODED
                     <table class="w-full text-center text-xs border-collapse border border-black">
                         <thead class="bg-gray-200">
                             <tr class="border border-black">

@@ -4,20 +4,16 @@ namespace App\Livewire;
 
 use App\Http\Requests\StoreRPSTopicRequest;
 use Livewire\Component;
-use App\Models\CPLModel;
 use App\Models\RPSModel;
 use App\Models\RPSTopicModel;
 use App\Models\MataKuliahModel;
-use App\Models\BahanKajianModel;
 use App\Models\BentukPembelajaranModel;
 use App\Models\KriteriaPenilaianModel;
 use App\Models\MediaPembelajaranModel;
 use App\Models\MetodePembelajaranModel;
 use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\ModelPembelajaranModel;
-use App\Models\RpsTopicWeekMapModel;
 use App\Models\TeknikPenilaianModel;
-use App\Models\TopicWeekMapModel;
 use App\Models\WeekModel;
 use Illuminate\Support\Facades\DB;
 
@@ -63,7 +59,7 @@ class RpsEditPage extends Component
     public $allModelPembelajaran = [];
     
     public function mount(RPSModel $rps) {
-        // untuk RPS Induk
+        // untuk halaman edit RPS Induk
         $this->id_bk = $rps->id_bk;
         $this->id_mk_syarat = $rps->mataKuliahSyarat->first()?->id_mk;
         $this->media_pembelajaran = $rps->mediaPembelajaran->pluck('id_media_pembelajaran')->toArray();
@@ -97,47 +93,51 @@ class RpsEditPage extends Component
         $this->bentukBelajarMandiriId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Belajar Mandiri')?->id_bentuk_pembelajaran;
         $this->bentukPenugasanTerstrukturId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Penugasan Terstruktur')?->id_bentuk_pembelajaran;
 
-        // untuk RPS Detail atau RPS Topic
+        // untuk halaman edit Rps topic
+        $this->loadRpsTopic($rps);
+    }
+    
+    public function loadRpsTopic(RPSModel $rps) {
         $this->topics = $rps->topics()->with(['weeks', 'kriteriaPenilaian', 'teknikPenilaian', 'aktivitasPembelajaran.metodePembelajaran', 'aktivitasPembelajaran.bentukPembelajaran'])->get()->map(function ($topic, $index) {
-            if($topic->teknik_penilaian_kategori) {
-                $this->teknikTersedia[$index] = TeknikPenilaianModel::where('kategori', $topic->teknik_penilaian_kategori)->get();
-            }
-            // memberikan nilai default, jika pada kasus aktivitas_pembelajaran tidak ada isinya atau null
-             $defaultAktivitas = [
-                'TM' => [
-                    'id_aktivitas_pembelajaran' => null,
-                    'id_bentuk_pembelajaran' => $this->bentukKuliahId,
-                    'penugasan_mahasiswa' => '',
-                    'selected_metode_pembelajaran' => [],
-                    'jumlah_pertemuan' => '',
-                    'jumlah_sks' => '',
-                ],
-                'BM' => [
-                    'id_aktivitas_pembelajaran' => null,
-                    'id_bentuk_pembelajaran' => $this->bentukBelajarMandiriId,
-                    'penugasan_mahasiswa' => '',
-                    'selected_metode_pembelajaran' => [],
-                    'jumlah_pertemuan' => '',
-                    'jumlah_sks' => '',
-                ],
-                'PT' => [
-                    'id_aktivitas_pembelajaran' => null,
-                    'id_bentuk_pembelajaran' => $this->bentukPenugasanTerstrukturId,
-                    'penugasan_mahasiswa' => '',
-                    'selected_metode_pembelajaran' => [],
-                    'jumlah_pertemuan' => '',
-                    'jumlah_sks' => '',
-                ],
-            ];
+        if($topic->teknik_penilaian_kategori) {
+            $this->teknikTersedia[$index] = TeknikPenilaianModel::where('kategori', $topic->teknik_penilaian_kategori)->get();
+        }
+        // memberikan nilai default, jika pada kasus aktivitas_pembelajaran tidak ada isinya atau null
+        $defaultAktivitas = [
+            'TM' => [
+                'id_aktivitas_pembelajaran' => null,
+                'id_bentuk_pembelajaran' => $this->bentukKuliahId,
+                'penugasan_mahasiswa' => '',
+                'selected_metode_pembelajaran' => [],
+                'jumlah_pertemuan' => '',
+                'jumlah_sks' => '',
+            ],
+            'BM' => [
+                'id_aktivitas_pembelajaran' => null,
+                'id_bentuk_pembelajaran' => $this->bentukBelajarMandiriId,
+                'penugasan_mahasiswa' => '',
+                'selected_metode_pembelajaran' => [],
+                'jumlah_pertemuan' => '',
+                'jumlah_sks' => '',
+            ],
+            'PT' => [
+                'id_aktivitas_pembelajaran' => null,
+                'id_bentuk_pembelajaran' => $this->bentukPenugasanTerstrukturId,
+                'penugasan_mahasiswa' => '',
+                'selected_metode_pembelajaran' => [],
+                'jumlah_pertemuan' => '',
+                'jumlah_sks' => '',
+            ],
+        ];
 
-            $aktivitasPembelajaran = $topic->aktivitasPembelajaran->keyBy('tipe')->map(function ($aktivitas) {
-                return [
+        $aktivitasPembelajaran = $topic->aktivitasPembelajaran->keyBy('tipe')->map(function ($aktivitas) {
+            return [
                     'id_aktivitas_pembelajaran' => $aktivitas->id_aktivitas_pembelajaran,
                     'id_bentuk_pembelajaran' => $aktivitas->id_bentuk_pembelajaran,
                     'penugasan_mahasiswa' => $aktivitas->penugasan_mahasiswa,
                     'selected_metode_pembelajaran' => $aktivitas->metodePembelajaran->pluck('id_metode_pembelajaran')->toArray()
-                ];
-            })->toArray();
+            ];
+        })->toArray();
 
             return [
                 'id_topic' => $topic->id_topic,
@@ -154,9 +154,8 @@ class RpsEditPage extends Component
                 'minggu_ke' => $topic->weeks->pluck('id_week')->toArray(),                
             ];
         })->toArray();
-
     }
-
+    
     public function updatedTopics($value, $key) {
         $parts = explode('.', $key);
         $index = $parts[0];
@@ -209,7 +208,6 @@ class RpsEditPage extends Component
             'materi_pembelajaran' => '',
             'refrensi' => '',
             'minggu_ke' => [], 
-
         ];
     }
 

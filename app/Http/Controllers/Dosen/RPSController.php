@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers\Dosen;
 
-use App\Models\CPLModel;
 use App\Models\RPSModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use App\Models\MataKuliahModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRPSRequest;
-use App\Models\BahanKajianModel;
 use App\Models\MediaPembelajaranModel;
 use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\ModelPembelajaranModel;
-use App\Models\RPSDetailModel;
 use Illuminate\Support\Facades\Auth;
 
 class RPSController extends Controller
@@ -168,13 +165,6 @@ class RPSController extends Controller
      */
     public function edit(RPSModel $rp)
     {
-        // $rp->load(['cpls', 'mataKuliahSyarat']);
-
-        // $cpl = CPLModel::all();
-        // // $dosen = UserModel::where('id_ps', session('userProfiId'))->get();
-        // $bahan_kajian = BahanKajianModel::all();
-        // $allMatkul =MataKuliahModel::where('id_mk','!=', $rp->id_mk)->get();
-
         return view('dosen.form.rps.rpsFormEdit', [ 'rps' => $rp]);
     }
 

@@ -12,6 +12,7 @@
                 <br>
                 <table>
                     <thead>
+                        {{-- informasi mata kuliah --}}
                         <tr class="border border-gray-300  align-top">
                             <td class="w-28 font-semibold px-2">Mata Kuliah</td>
                             <td class="border border-gray-300 px-2"> 
@@ -54,6 +55,7 @@
     
                 <br>
                 <div>
+                    {{-- CPL yang terkait --}}
                     <h4 class="font-semibold mb-2">CPL Prodi yang dibebankan pada MK:</h4>
                     <table>
                         @forelse ($assocCpls as $cpl)
@@ -74,20 +76,8 @@
                     </table>
                 </div>
                 <br>
-            
-                {{-- <div>
-                    <h4>Bahan Kajian (BK):</h4>
-                    <ul class="list-disc list-inside">
-                        @forelse ($rps->mataKuliah->bahanKajian as $bk)
-                            <li>{{ $bk->nama_bk_id }}</li>
-                        @empty
-                            <li class="text-gray-500 mt-2">Belum ada BK yang terhubung dengan mata kuliah ini.</li>
-                        @endforelse
-                    </ul>
-                </div>
-                <br> --}}
-    
                 <div>
+                    {{-- CPMK yang terkait --}}
                     <h4 class="font-semibold mb-2">CPMK untuk Mata Kuliah ini:</h4>
                     <table>
                         @forelse ($assocCpmk as $cpmk)
@@ -109,6 +99,7 @@
                 </div>
                 <br>
                 <div>
+                    {{-- Mata Kuliah Syarat --}}
                     <label for="id_mk_syarat" class="font-semibold">Mata Kuliah Prasyarat:</label><br>
                     <select class="p-2 border rounded-lg border-gray-300 bg-gray-100 mt-2" wire:model="id_mk_syarat" >
                         <option value="">Tidak ada Matkul Prasyarat</option>
@@ -120,6 +111,7 @@
                 </div>
                 <br>
                 <div>
+                    {{-- Model Pembelajaran --}}
                     <label for="id_model_pembelajaran" class="font-semibold mb-2">Model Pembelajaran:</label><br>
                     <select class="border p-2 rounded-lg border-gray-300 bg-gray-100" wire:model="id_model_pembelajaran" >
                         <option value="">Pilih Model Pembelajaran</option>
@@ -131,24 +123,28 @@
                 </div>
                 <br>
                 <div>
+                    {{-- Materi Pembelakaran --}}
                     <label for="materi_pembelajaran" class="font-semibold">Materi Pembelajaran:</label><br>
                     <textarea wire:model="materi_pembelajaran"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2"></textarea>
                     @error('materi_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
                 </div>
                 <br>
                 <div>
+                    {{-- Pustaka Utama --}}
                     <label for="pustaka_utama" class="font-semibold">Pustaka Utama:</label><br>
                     <textarea wire:model="pustaka_utama"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2"></textarea>
                     @error('pustaka_utama') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
                 </div>    
                 <br>    
                 <div>
+                    {{-- Pustaka Pendukung --}}
                     <label for="pustaka_pendukung" class="font-semibold">Pustaka pendukung:</label><br>
                     <textarea wire:model="pustaka_pendukung"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2"></textarea>
                     @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror                         
                 </div>
                 <br>
                 <div wire:ignore>
+                    {{-- Media Perangkat Lunak --}}
                     <label for="media_perangkat_lunak" class="font-semibold ">Media Pembelajaran (Perangkat Lunak):</label><br>
                     <select id="media_perangkat_lunak" class="select2-perangkat-lunak border p-2 rounded-lg border-gray-300 bg-gray-100 w-48" multiple="multiple">
                         @foreach ($allMediaPerangkatLunak as $mpl )
@@ -159,6 +155,7 @@
                 @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
                 <br>
                 <div wire:ignore>
+                    {{-- Media Perangkat Keras --}}
                     <label for="media_perangkat_keras" class="font-semibold ">Media Pembelajaran (Perangkat Keras):</label><br>
                     <select id="media_perangkat_keras" class="select2-perangkat-keras border p-2 rounded-lg border-gray-300 bg-gray-100 w-48" multiple="multiple">
                         @foreach ($allMediaPerangkatKeras as $mpk )
@@ -389,13 +386,13 @@
                                         </td>
     
                                         @else
-                                        <td colspan="8" class="p-2 border border-black">
-                                            @if ($topics[$index]['tipe'] == 'uts')
-                                                <p class="text-center">UJIAN TENGAH SEMESTER</p>
-                                            @else
-                                                <p class="text-center">UJIAN AKHIR SEMESTER</p>
-                                            @endif
-                                        </td>                           
+                                            <td colspan="7" class="p-2 border border-black">
+                                                @if ($topics[$index]['tipe'] == 'uts')
+                                                    <p class="text-center">UJIAN TENGAH SEMESTER</p>
+                                                @else
+                                                    <p class="text-center">UJIAN AKHIR SEMESTER</p>
+                                                @endif
+                                            </td>                           
                                         @endif
     
                                     <td class="p-2 border border-black">
@@ -421,169 +418,6 @@
             </div>
         </form>
     </div>
-    {{-- <script>
-        // Gunakan event 'livewire:init' untuk memastikan Livewire siap
-        document.addEventListener('livewire:init', () => {
-
-            // function initSelects() {
-            //     // untuk minggu-ke
-            //     $('.select2-weeks:not(.select2-hidden-accessible)').select2({
-            //         placeholder: "Pilih Minggu",
-            //         allowClear: true
-            //     }).on('change', function () {
-            //         const index = $(this).data('index');
-            //         @this.set('topics.' + index + '.minggu_ke', $(this).val());
-            //     });
-
-            //     // untuk kriteria penilaian
-            //     $('.select2-kriteria-penilaian:not(.select2-hidden-accessible)').select2({
-            //         placeholder: "Pilih Kriteria Penilaian",
-            //         allowClear: true
-            //     }).on('change', function () {
-            //         const index = $(this).data('index');
-            //         @this.set('topics.' + index + '.selected_kriteria', $(this).val());
-            //     });
-
-            //     // untuk teknik penilaian
-            //     $('.select2-teknik-penilaian:not(.select2-hidden-accessible)').select2({
-            //         placeholder: "Pilih Teknik Penilaian",
-            //         allowClear: true
-            //     }).on('change', function () {
-            //         const index = $(this).data('index');
-            //         @this.set('topics.' + index + '.selected_teknik', $(this).val());
-            //     });
-
-            //     // untuk metode pembelajaran
-            //     $('.select2-metode-pembelajaran:not(.select2-hidden-accessible)').select2({
-            //         placeholder: "Pilih Metode Pembelajaran",
-            //         allowClear: true
-            //     }).on('change', function () {
-            //         const index = $(this).data('index');
-            //         const tipe = $(this).data('tipe');
-            //         @this.set('topics.' + index + '.aktivitas_pembelajaran.' + tipe + '.selected_metode_pembelajaran', $(this).val());
-            //     })     
-                
-            //     function updateMediaPembelajaran() {
-            //         // Ambil nilai TERKINI dari kedua dropdown
-            //         let softwareValues = $('.select2-perangkat-lunak').val() || [];
-            //         let hardwareValues = $('.select2-perangkat-keras').val() || [];
-                    
-            //         // [PERBAIKAN LOGIKA] Gabungkan keduanya menjadi satu array dengan concat sederhana
-            //         let combinedValues = softwareValues.concat(hardwareValues);
-                    
-            //         // Kirim array gabungan ke properti 'media_pembelajaran' di backend
-            //         @this.set('media_pembelajaran', combinedValues);
-            //     }
-
-            //     // untuk media pembelajaran: perangkat lunak
-            //     $('.select2-perangkat-lunak').select2({
-            //         placeholder: "Pilih Perangkat Lunak",
-            //         allowClear: true
-            //     }).on('change', function () {
-            //         updateMediaPembelajaran();
-            //     });
-            //     // untuk media pembelajaran: perangkat keras
-            //     $('.select2-perangkat-keras').select2({
-            //         placeholder: "Pilih Perangkat keras",
-            //         allowClear: true
-            //     }).on('change', function () {
-            //         updateMediaPembelajaran();
-            //     });
-
-            //     updateMediaPembelajaran();
-            // }
-            function initDynamicSelects() {
-                // untuk minggu-ke
-                $('.select2-weeks:not(.select2-hidden-accessible)').select2({
-                    placeholder: "Pilih Minggu",
-                    allowClear: true
-                }).on('change', function () {
-                    const index = $(this).data('index');
-                    @this.set('topics.' + index + '.minggu_ke', $(this).val());
-                });
-
-                // ... (kode select2 lainnya untuk 'kriteria', 'teknik', 'metode' tetap di sini)
-                // untuk kriteria penilaian
-                $('.select2-kriteria-penilaian:not(.select2-hidden-accessible)').select2({
-                    placeholder: "Pilih Kriteria Penilaian",
-                    allowClear: true
-                }).on('change', function () {
-                    const index = $(this).data('index');
-                    @this.set('topics.' + index + '.selected_kriteria', $(this).val());
-                });
-
-                // untuk teknik penilaian
-                $('.select2-teknik-penilaian:not(.select2-hidden-accessible)').select2({
-                    placeholder: "Pilih Teknik Penilaian",
-                    allowClear: true
-                }).on('change', function () {
-                    const index = $(this).data('index');
-                    @this.set('topics.' + index + '.selected_teknik', $(this).val());
-                });
-
-                // untuk metode pembelajaran
-                $('.select2-metode-pembelajaran:not(.select2-hidden-accessible)').select2({
-                    placeholder: "Pilih Metode Pembelajaran",
-                    allowClear: true
-                }).on('change', function () {
-                    const index = $(this).data('index');
-                    const tipe = $(this).data('tipe');
-                    @this.set('topics.' + index + '.aktivitas_pembelajaran.' + tipe + '.selected_metode_pembelajaran', $(this).val());
-                });
-            }   
-            
-                    // --- FUNGSI KHUSUS UNTUK MEDIA PEMBELAJARAN (YANG STATIS) ---
-            function initMediaPembelajaranSelects() {
-                // Fungsi untuk membaca dan mengirim nilai ke Livewire
-                const syncMediaValues = () => {
-                    let softwareValues = $('#media_perangkat_lunak').val() || [];
-                    let hardwareValues = $('#media_perangkat_keras').val() || [];
-                    
-                    // Gabungkan nilai dari kedua select
-                    let combinedValues = [...softwareValues, ...hardwareValues];
-                    
-                    // Kirim data gabungan ke properti 'media_pembelajaran'
-                    @this.set('media_pembelajaran', combinedValues);
-                };
-
-                // Inisialisasi Select2 Perangkat Lunak
-                $('#media_perangkat_lunak').select2({
-                    placeholder: "Pilih Perangkat Lunak",
-                    allowClear: true
-                }).on('change', syncMediaValues); // Sinkronkan saat ada perubahan
-
-                // Inisialisasi Select2 Perangkat Keras
-                $('#media_perangkat_keras').select2({
-                    placeholder: "Pilih Perangkat Keras",
-                    allowClear: true
-                }).on('change', syncMediaValues); // Sinkronkan saat ada perubahan
-                
-                // ==========================================================
-                // 👇 INI BAGIAN PALING PENTING DARI SOLUSINYA 👇
-                // Panggil fungsi sync sekali setelah inisialisasi untuk mengirim nilai awal
-                // ==========================================================
-                syncMediaValues();
-            }
-
-                    // --- EKSEKUSI ---
-
-            // 1. Panggil inisialisasi untuk select2 yang dinamis (dalam tabel)
-            initDynamicSelects();
-            
-            // 2. Panggil inisialisasi untuk select2 media pembelajaran
-            initMediaPembelajaranSelects();
-
-            // // Panggil inisialisasi saat halaman pertama kali dimuat
-            // initSelects();
-
-            // Event listener khusus untuk penambahan baris baru
-            Livewire.hook('morph.updated', () => {
-                // initSelects();
-                initDynamicSelects();
-            });
-
-        });
-    </script> --}}
     <script>
     document.addEventListener('livewire:init', () => {
 
