@@ -55,7 +55,7 @@
                                 @foreach ($asesmen->bobotCpmk as $bobot )
                                     <td  class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">{{$bobot->pivot->bobot}}%</td>                                    
                                 @endforeach
-                                <td  class="px-6 py-4 text-center font-semibold text-gray-900">{{$asesmen->totalBobotKomponenEvaluasi}}%</td>
+                                <td  class="px-6 py-4 text-center font-semibold text-gray-900">{{$asesmen->totalBobotKomponenEvaluasi}}</td>
                             </tr> 
                         @empty
                             <tr >
