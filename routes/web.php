@@ -40,6 +40,7 @@ use App\Http\Controllers\Admin\MetodePembelajaranController;
 use App\Http\Controllers\Admin\TahunakademikAdminController;
 use App\Http\Controllers\Admin\TeknikPenilaianAdminController;
 use App\Http\Controllers\Admin\KriteriaPenilaianAdminController;
+use App\Http\Controllers\Dosen\KelasDosenController;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
@@ -143,6 +144,21 @@ Route::middleware('auth')->group(function () {
         
         Route::resource('rencana-asesmen', RencanaAsesmenController::class);
         Route::get('rencana-asesmen/form/{mataKuliah}', RencanaAsesmenForm::class)->name('rencana-asesmen.create');
+
+
+        // Kelas
+            // masuk ke halaman kelas
+            Route::get('/dosen/kelas/index', [KelasDosenController::class, 'index'])->name('dosen_kelas.index');
+
+
+            // lihat daftar mahasiswa untuk kelas
+            Route::get('/dosen/kelas/lihat/{id}', [KelasDosenController::class, 'lihatKelas'])->name('dosen.kelas.lihat');
+
+        // Penilaian Mahasiswa Per Kelas
+            // lihat daftar mahasiswa untuk kelas
+            Route::get('/dosen/kelas/penilaian/kelas/{id}', [KelasDosenController::class, 'nilaiKelas'])->name('dosen.kelas.penilaian');
+
+
 
     });
     Route::get('/mapping/tahun-akademik-kurikulum/tambah', [TahunakademikController::class, 'tambahTA'])->name('ta-kurikulum-mapping.add');
