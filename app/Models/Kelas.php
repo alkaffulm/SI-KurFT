@@ -20,9 +20,6 @@ class Kelas extends Model
         'id_mk',
         'id_user',
         'paralel_ke',
-        // 'hari',
-        // 'jam',
-        // 'ruangan',
         'jumlah_mhs',
         'excel_daftar_mahasiswa'
     ];
@@ -41,6 +38,18 @@ class Kelas extends Model
     public function kelasMahasiswaModel()
     {
         return $this->hasMany(KelasMahasiswaModel::class, 'id_kelas', 'id_kelas');
+    }
+
+    public function mahasiswa()
+    {
+        return $this->belongsToMany(
+            MahasiswaModel::class,
+            'kelas_mahasiswa', // nama tabel pivot
+            'id_kelas',        // foreign key di pivot ke kelas
+            'nim',             // foreign key di pivot ke mahasiswa
+            'id_kelas',        // local key di kelas
+            'nim'              // local key di mahasiswa
+        );
     }
 }
 

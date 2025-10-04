@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_ps');
             $table->string('nim');
             $table->string('nama_lengkap');
+            $table->string('jenis_kelamin')->nullable();
             $table->integer('angkatan');
 
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');

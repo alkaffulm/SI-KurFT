@@ -16,7 +16,7 @@ class KelasMahasiswaModel extends Model
 
     protected $fillable = [
         'id_kelas',
-        'nama',
+        // 'nama',
         'nim',
     ];
 
@@ -32,6 +32,16 @@ class KelasMahasiswaModel extends Model
     //     return $this->belongsTo(UserModel::class, 'id_user', 'id_user');
     // }
     public function kelasModel()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
+    }
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(MahasiswaModel::class, 'nim', 'nim');
+    }
+
+    public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
     }
