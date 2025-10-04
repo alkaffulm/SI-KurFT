@@ -13,6 +13,7 @@ class MahasiswaModel extends Model
         'id_ps',
         'nim',
         'nama_lengkap',
+        'jenis_kelamin',
         'angkatan',
     ];
 

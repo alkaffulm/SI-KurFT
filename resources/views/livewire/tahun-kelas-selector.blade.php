@@ -49,7 +49,7 @@
                             <th class="px-4 py-2 border">Nama Matkul (EN)</th>
                             <th class="px-4 py-2 border">Dosen Pengampu</th>
                             <th class="px-4 py-2 border">Paralel</th>
-                            <th class="px-4 py-2 border">Daftar Mahasiswa</th>
+                            <th class="px-4 py-2 border">Lihat Daftar Mahasiswa</th>
                             {{-- <th class="px-4 py-2 border">Hari</th>
                             <th class="px-4 py-2 border">Jam</th>
                             <th class="px-4 py-2 border">Ruangan</th> --}}
@@ -67,19 +67,8 @@
                                 <td class="px-4 py-2 border">{{ $k->mataKuliahModel->nama_matkul_en ?? '-' }}</td>
                                 <td class="px-4 py-2 border">{{ $k->userModel->username ?? '-' }}</td>
                                 <td class="px-4 py-2 border text-center">{{ $k->paralel_ke }}</td>
-                                {{-- <td class="px-4 py-2 border text-center">{{ $k->hari }}</td>
-                                <td class="px-4 py-2 border text-center">{{ $k->jam }}</td>
-                                <td class="px-4 py-2 border text-center">{{ $k->ruangan }}</td>--}}
-                                <td class="px-4 py-2 border text-center">
-                                    @if($k->excel_daftar_mahasiswa)
-                                        <a href="{{ asset($k->excel_daftar_mahasiswa) }}" 
-                                        class="underline text-biru-custom hover:text-blue-700" 
-                                        download>
-                                        Download Daftar Mahasiswa Kelas Ini
-                                        </a>
-                                    @else
-                                        <span class="text-gray-400">Belum ada file</span>
-                                    @endif
+                                <td class="px-4 py-2 border text-center text-gray-400"></span>
+                                    <a href="{{ route('kelas.lihat', $k->id_kelas) }}">Lihat Daftar Mahasiswa</a>
                                 </td>
                                 <td class="px-4 py-2 border text-center">{{ $k->jumlah_mhs }}</td> 
                                 <td class="px-4 py-2 border text-center">{{ $k->mataKuliahModel->muncul ?? '-'}}</td>
@@ -95,7 +84,7 @@
                                         Hapus
                                     </a> 
                                 </td>
-                                                            </tr>
+                            </tr>
                         @endforeach
                     </tbody>
 

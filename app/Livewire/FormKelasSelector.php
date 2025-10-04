@@ -190,6 +190,7 @@ class FormKelasSelector extends Component
 
         $this->validate($rules);
 
+
         try {
             DB::transaction(function () {
                 foreach ($this->paralels as $index => $p) {
@@ -203,7 +204,8 @@ class FormKelasSelector extends Component
                             $excelPath = $filePath;
                         }
                     }
-
+                    $kurikulum = KurikulumModel::find($this->id_kurikulum);
+                    $id_ps = $kurikulum->id_ps;
                     // Buat kelas baru
                     $kelas = Kelas::create([
                         'id_kurikulum' => $this->id_kurikulum,
@@ -215,10 +217,11 @@ class FormKelasSelector extends Component
                         'excel_daftar_mahasiswa' => $excelPath,
                     ]);
 
+
                     // Import mahasiswa kalau ada file
                     if ($excelPath) {
                         $fullPath = storage_path("app/public/" . $excelPath);
-                        Excel::import(new KelasMahasiswaImport($kelas->id_kelas), $fullPath);
+                        Excel::import(new KelasMahasiswaImport($kelas->id_kelas,  $id_ps), $fullPath);
                     }
                 }
             });

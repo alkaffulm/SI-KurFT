@@ -67,6 +67,11 @@ class MahasiswaSeeder extends Seeder
             ['id_mhs' => 43, 'id_ps' => 9, 'nama_lengkap'=>'mahasiswa-3' ,'nim' => '20220081', 'angkatan' => '2022'],
             ['id_mhs' => 44, 'id_ps' => 9, 'nama_lengkap'=>'mahasiswa-4' ,'nim' => '20220082', 'angkatan' => '2022'],
             ['id_mhs' => 45, 'id_ps' => 9, 'nama_lengkap'=>'mahasiswa-5' ,'nim' => '20230081', 'angkatan' => '2023'],
+
+            ['id_mhs' => 46, 'id_ps' => 7, 'nama_lengkap'=>'Ghani Mudzakir' ,'nim' => '2310817110011', 'angkatan' => '2023'],
+            ['id_mhs' => 47, 'id_ps' => 7, 'nama_lengkap'=>'Adrian Bintang Saputra' ,'nim' => '2310817310001', 'angkatan' => '2023'],
+            ['id_mhs' => 48, 'id_ps' => 7, 'nama_lengkap'=>'Jovan Gilbert Natamasindah' ,'nim' => '2310817110001', 'angkatan' => '2023'],
+            ['id_mhs' => 49, 'id_ps' => 7, 'nama_lengkap'=>'Noviana Nur Aisyah' ,'nim' => '2310817120001', 'angkatan' => '2023'],
         ]);
 
     }

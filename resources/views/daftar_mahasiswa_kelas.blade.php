@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tambah Kelas</title>
+    <title>Daftar Mahasiswa per Kelas</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 
@@ -39,16 +39,16 @@
     @include('layouts.sidebar')
 
     <div class="p-4 sm:p-8 sm:ml-64">
-        <main class="mt-20 max-w-4xl mx-auto">
+        <main class="mt-20 max-w-8xl mx-auto">
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
                     <div class="mb-5">
-                        <h1 class="text-4xl font-bold text-gray-800">Tambah Kelas untuk Setiap Tahun Akademik</h1>
-                        <p class="text-gray-500 mt-2 text-base">Tambah Kelas Sesuai dengan Tahun Akademik Sesuai dan Kurikulum</p>
+                        <h1 class="text-4xl font-bold text-gray-800">Daftar Mahasiswa Kelas</h1>
+                        <p class="text-gray-500 mt-2 text-base">List Daftar Mahasiswa untuk Ini</p>
                     </div>
 
                 {{-- ini buat formnya --}}
                 {{-- <livewire:form-kelas-selector/> --}}
-                <livewire:form-kelas-selector />
+                {{-- <livewire:form-kelas-selector /> --}}
 
 
 
@@ -58,18 +58,40 @@
                     Kembali
                 </a>
 
+                {{-- table per mahasiswa per kelas --}}
+                <div class="mt-10">
+                    <table class="min-w-full border border-gray-300 rounded-lg">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2 border">NIM</th>
+                                <th class="px-4 py-2 border">Nama Lengkap</th>
+                                <th class="px-4 py-2 border">Angkatan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($kelas->mahasiswa as $mhs)
+                                <tr>
+                                    <td class="px-4 py-2 border">{{ $mhs->nim }}</td>
+                                    <td class="px-4 py-2 border">{{ $mhs->nama_lengkap }}</td>
+                                    <td class="px-4 py-2 border">{{ $mhs->angkatan }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
         </main>
     </div>
 
     {{-- Script to initialize Select2 --}}
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('.select2').select2({
                 placeholder: "Pilih CPL untuk Mata Kuliah ini",
                 allowClear: true
             });
         });
-    </script>
+    </script> --}}
 </body>
 
 </html>

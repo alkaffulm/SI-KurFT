@@ -196,13 +196,15 @@ Route::middleware('auth')->group(function () {
 
             // Edit kelas
             Route::get('/mapping/kelas/{id}/edit', [KelasAdminController::class, 'editKelas'])->name('kelas.edit');
+
             // update kelas
             Route::put('/mapping/kelas/{id}', [KelasAdminController::class, 'updateKelas'])->name('kelas.update');
 
             // hapus kelas
             Route::get('/mapping/kelas/{id}/hapus', [KelasAdminController::class, 'hapusKelas'])->name('kelas.hapus');
-            // hapus kelas
-            Route::get('/mapping/kelas/{id}/hapus', [KelasAdminController::class, 'hapusKelas'])->name('kelas.hapus');
+
+            // lihat daftar mahasiswa untuk kelas
+            Route::get('/mapping/kelas/lihat/{id}', [KelasAdminController::class, 'lihatKelas'])->name('kelas.lihat');
         
         // TEKNIK PENILAIAN
             Route::get('/teknik-penilaian', [TeknikPenilaianAdminController::class, 'index'])->name('teknik-penilaian.index');

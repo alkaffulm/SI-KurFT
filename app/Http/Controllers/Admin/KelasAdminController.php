@@ -64,6 +64,15 @@ class KelasAdminController extends Controller
         ]);
     }
 
+    public function lihatKelas($id)
+    {
+        $kelas = \App\Models\Kelas::with('mahasiswa')->findOrFail($id);
+
+        return view('daftar_mahasiswa_kelas', [
+            'kelas' => $kelas
+        ]);
+    }
+
     public function editKelas($id)
     {
         $kelas = \App\Models\Kelas::findOrFail($id);
