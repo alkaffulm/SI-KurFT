@@ -22,6 +22,13 @@ class MKCPMKCPLMapSeeder extends Seeder
             ['id_mk' => 2, 'id_cpl' => 1, 'id_cpmk'=>5],
             ['id_mk' => 2, 'id_cpl' => 1, 'id_cpmk'=>2],
 
+            ['id_mk' => 31, 'id_cpl' => 24, 'id_cpmk'=>32],
+            ['id_mk' => 32, 'id_cpl' => 24, 'id_cpmk'=>32],
+            ['id_mk' => 33, 'id_cpl' => 24, 'id_cpmk'=>32],
+            ['id_mk' => 35, 'id_cpl' => 24, 'id_cpmk'=>32],
+            ['id_mk' => 36, 'id_cpl' => 24, 'id_cpmk'=>32],
+
+
             // untuk MK IMK kurikulum 2020
             ['id_mk' => 34, 'id_cpl' => 24, 'id_cpmk'=>32],
             ['id_mk' => 34, 'id_cpl' => 26, 'id_cpmk'=>33],

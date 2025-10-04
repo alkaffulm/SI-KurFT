@@ -13,31 +13,46 @@
     @include('layouts.navbar', ['userRole' => $userRole])
 
     @include('layouts.sidebar', ['userRole' => $userRole])
+
+    @php
+        $isDosen = session('userRole') == 'dosen';
+        $isKaprodi = session('userRole') == 'kaprodi';
+
+        $isPengembangRps = Auth::id() == $rps->mataKuliah->id_pengembang_rps;
+        $isKoordinatorMk = Auth::id()  == $rps->mataKuliah->id_koordinator_mk;
+        
+        $canDelete = $isDosen && $isPengembangRps;
+        $canEdit = ($isDosen && $isPengembangRps) || $isKaprodi || $isKoordinatorMk;    
+    @endphp
     
     <div class="py-8 px-16 sm:ml-64 mt-16">
 
-        <div class="flex justify-between items-center">
-            @if (session('userRole') == 'dosen')
-                <a href="/dosen/matkul">Kembali</a>
-            @elseif(session('userRole') == 'kaprodi')
-                <a href="/kaprodi/mata-kuliah">Kembali</a>
-            @endif
+        <div class="flex justify-between ">
             
-            <div class="flex justify-end items-center gap-4">
-                <div class="flex justify-end mb-4">
-                    <a href="{{route('rps.edit', $rps)}}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                        Edit RPS
-                    </a>
-                </div>
+                @if ($isDosen)
+                    <a href="/dosen/matkul">Kembali</a>
+                @elseif($isKaprodi)
+                    <a href="/kaprodi/mata-kuliah">Kembali</a>
+                @endif
 
-                <div class="flex justify-end mb-4">
-                    <form action="{{route('rps.destroy', $rps)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button>Hapus RPS</button>
-                    </form>
-                </div>            
-            </div>  
+                <div class="flex gap-x-4 mb-4">
+                    @if ($canEdit)
+                        <div>
+                            <a href="{{route('rps.edit', $rps)}}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                                Edit RPS
+                            </a>
+                        </div>
+                    @endif
+                    @if ($canDelete)
+                        <div class="flex justify-end mb-4">
+                            <form action="{{route('rps.destroy', $rps)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Hapus RPS</button>
+                            </form>
+                        </div>            
+                    @endif
+                </div>
         </div>
 
         {{-- SECTION 1: KOP SURAT & INFO MATA KULIAH  --}}
@@ -432,7 +447,7 @@
                                 {{ $topic->weeks->pluck('week')->sort()->implode(', ') }} {{-- Mengambil semua minggu dari relasi, mengurutkan, dan menggabungkannya dengan koma --}}
                             </td>
                             @if ($topic->tipe == 'topik')
-                                {{-- (2) ID CPMK --}}
+                                {{-- (2)  CPMK --}}
                                 <td class="p-2 align-top text-center">
                                     {{$topic->subCpmk->cpmk->nama_kode_cpmk}}
                                 </td>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rencana_asesmen_cpmk_bobot', function (Blueprint $table) {
             $table->id('id_asesmen_cpmk_bobot');
             $table->foreignId('id_rencana_asesmen')->constrained('rencana_asesmen', 'id_rencana_asesmen')->onDelete('cascade');
-            $table->foreignId('id_cpmk')->constrained('mk_cpmk_cpl_map', 'id_cpmk')->onDelete('cascade');
+            $table->foreignId('id_cpmk')->constrained('cpmk', 'id_cpmk')->onDelete('cascade');
             $table->decimal('bobot')->default(0);
         });
     }

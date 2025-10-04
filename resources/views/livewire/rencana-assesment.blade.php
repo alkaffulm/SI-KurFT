@@ -52,8 +52,11 @@
                             <tr class="bg-white border-t border-gray-400">
                                 <td class="px-6 py-4 text-center font-medium text-gray-900 border-r border-gray-400">{{$loop->iteration}}</td>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">{{$asesmen->komponenEvaluasiFormatted}}</th>
-                                @foreach ($asesmen->bobotCpmk as $bobot )
-                                    <td  class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">{{$bobot->pivot->bobot}}%</td>                                    
+                                @foreach ($assocCpmks as $cpmk )
+                                    @php
+                                        $bobotforCpmkNow = $asesmen->bobotCpmk->firstWhere('id_cpmk', $cpmk->id_cpmk);
+                                    @endphp
+                                    <td  class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">{{$bobotforCpmkNow ? $bobotforCpmkNow->pivot->bobot . '%' : '-' }}</td>                                    
                                 @endforeach
                                 <td  class="px-6 py-4 text-center font-semibold text-gray-900">{{$asesmen->totalBobotKomponenEvaluasi}}</td>
                             </tr> 

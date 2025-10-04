@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Kaprodi;
 
-use App\Http\Controllers\Controller;
-use App\Models\CPMKModel;
-use App\Models\MataKuliahModel;
 use App\Models\CPLModel;
-use App\Models\MK_CPMK_CPL_MapModel;
+use App\Models\CPMKModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\MataKuliahModel;
+use App\Http\Controllers\Controller;
+use App\Models\MK_CPMK_CPL_MapModel;
+
 class MKCPMKCPLController extends Controller
 {
     public function __construct()
@@ -101,7 +101,7 @@ class MKCPMKCPLController extends Controller
     public function updateMKCPL(Request $request)
     {
         $cplMaps = $request->input('cpl_map', []);
-
+        
         foreach ($cplMaps as $id_mk => $cpl_ids) {
             // Ambil data lama untuk MK ini
             $existing_entries = MK_CPMK_CPL_MapModel::where('id_mk', $id_mk)->get();
@@ -127,12 +127,12 @@ class MKCPMKCPLController extends Controller
                     'id_cpmk' => null, // default kosong, baru diisi di step pemetaan CPL–CPMK
                 ]);
             }
+
         }
 
         return to_route('cpl-cpmk-mapping.edit')
             ->with('success', 'Pemetaan CPL–MK berhasil diperbarui!');
     }
-
 
     /**
      * Remove the specified resource from storage.

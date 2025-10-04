@@ -26,11 +26,18 @@ class RencanaAssesment extends Component
     public function updatedSelectedMataKuliah($id_mk) {
         if(!empty($id_mk)) {
             $this->allMataKuliah = MataKuliahModel::find($id_mk);
-            $this->assocCpmks = $this->allMataKuliah->cpmks;
-            $this->rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $id_mk)->get();
+            $this->assocCpmks = $this->allMataKuliah->cpmks->unique('id_cpmk');
+            $assocCpmksIds = $this->assocCpmks->pluck('id_cpmk');
+
+            // $this->rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $id_mk)->get();
+            $this->rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $id_mk)
+                ->with(['bobotCpmk' => function ($query) use ($assocCpmksIds) {
+                    $query->whereIn('cpmk.id_cpmk', $assocCpmksIds);
+                }])->get();
         }
         else {
             $this->assocCpmks = [];
+            $this->rencanaAsesmen = [];
         }
     }
  
