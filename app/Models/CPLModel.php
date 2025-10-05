@@ -5,6 +5,9 @@ namespace App\Models;
 use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Casts\Attribute; 
+
 
 class CPLModel extends Model
 {
@@ -83,5 +86,12 @@ class CPLModel extends Model
     public function kurikulum()
     {
         return $this->belongsTo(KurikulumModel::class, 'id_kurikulum', 'id_kurikulum');
+    }
+
+    // hitung total bobot CPMK ke CPL terhadap suatu MK di halaman CPMK tabel pembobotan
+    public function totalBobot(int $id_mk, Collection  $correlationMap): float {
+        $relevantCpmkIds = $correlationMap->get($this->id_cpl, []); // Defaultnya array kosong jika tidak ada korelasi
+        return CPLCPMKBobotModel::where('id_mk', $id_mk)->where('id_cpl', $this->id_cpl)->whereIn('id_cpmk', $relevantCpmkIds)->sum('bobot');
+
     }
 }

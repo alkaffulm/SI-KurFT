@@ -1,5 +1,4 @@
 <div>
-    <a href="{{ route('rencana-asesmen.index') }}" class="text-teks-biru-custom hover:underline">Kembali</a>
         <form wire:submit.prevent="saveRencanaAsesmen">
             <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
             <input type="hidden" name="id_kurikulum" value="{{ session('id_kurikulum_aktif') }}">
@@ -48,7 +47,7 @@
                                                 <div>
                                                     <label class="text-xs text-gray-500 font-normal">Nomor Komponen</label>                       
                                                     <br>                           
-                                                    <input placeholder="isi nomor komponen" wire:model="rencanaAsesmens.{{$index}}.nomor_komponen" type="number"  class="p-2 border rounded-lg border-gray-300 bg-gray-100 mt-2">
+                                                    <input placeholder="isi nomor komponen" wire:model="rencanaAsesmens.{{$index}}.nomor_komponen" type="number"  class="p-2 border rounded-lg border-gray-300 bg-gray-100 mt-2 " >
                                                     <br>
                                                     @error('rencanaAsesmens.'.$index.'.nomor_komponen') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
@@ -57,7 +56,7 @@
                                         </th>
                                         @foreach ($assocCpmks as $cpmks)
                                             <td scope="col"  class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">
-                                                <input wire:model="rencanaAsesmens.{{$index}}.bobot.{{ $cpmks->id_cpmk}}" type="number" step="0.01" class="p-2 border rounded-lg border-gray-300 bg-gray-100 mt-2">
+                                                <input wire:model="rencanaAsesmens.{{$index}}.bobot.{{ $cpmks->id_cpmk}}" type="number" step="0.01" class="p-2 border rounded-lg border-gray-300 bg-gray-100 mt-2" min="0" max="100">
                                                 @error('rencanaAsesmens.'.$index.'.bobot.'.$cpmks->id_cpmk) <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                             </td>
                                         @endforeach
@@ -86,11 +85,14 @@
                         </table>
                     </div>
                     @error('rencanaAsesmens') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                    </div>
                     <div class="mt-4 flex justify-between">
                         <button type="button" wire:click="addRow" class="bg-blue-500 text-white px-4 py-2 rounded">Tambah Baris</button>
-                        <button type="submit" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">Simpan Rencana Asesmen</button>
+                        <div class="flex gap-6">
+                            <a href="{{ route('rencana-asesmen.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Batal</a>
+                            <button type="submit" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">Simpan Rencana Asesmen</button>
+                        </div>
                     </div> 
+                </div>
                 @else
                     <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
                         <p class="font-bold">Peringatan</p>

@@ -24,17 +24,18 @@ use App\Http\Controllers\Kaprodi\BKCPLMapController;
 use App\Http\Controllers\Kaprodi\CPLPLMapController;
 use App\Http\Controllers\Kaprodi\KurikulumController;
 use App\Http\Controllers\Kaprodi\MKCPMKCPLController;
+use App\Http\Controllers\PembobotanCPMKCPLController;
 use App\Http\Controllers\Kaprodi\CPMKMPLMapController;
 use App\Http\Controllers\Kaprodi\BahanKajianController;
 use App\Http\Controllers\Dosen\RencanaAsesmenController;
 use App\Http\Controllers\Kaprodi\PLPEOMappingController;
-use App\Http\Controllers\Kaprodi\VisiKeilmuanController;
 
 // Controller Admin
+use App\Http\Controllers\Kaprodi\VisiKeilmuanController;
 use App\Http\Controllers\Kaprodi\ProfilLulusanController;
 use App\Http\Controllers\Kaprodi\TahunakademikController;
-use App\Http\Controllers\Admin\ModelPembelajaranController;
 
+use App\Http\Controllers\Admin\ModelPembelajaranController;
 use App\Http\Controllers\Dosen\EvaluasiMahasiswaController;
 use App\Http\Controllers\Admin\MetodePembelajaranController;
 use App\Http\Controllers\Admin\TahunakademikAdminController;
@@ -103,6 +104,11 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/mapping/edit-mk-cpmk', [MKCPMKController::class, 'editMKCPMK'])->name('mk-cpmk-mapping.edit');
         Route::put('/mapping/mk-cpmk', [MKCPMKController::class, 'updateMKCPMK'])->name('mk-cpmk-mapping.update');
+
+        // Pembobotan CPL-CPMK di CPMK
+        Route::get('/pembobotan/mata-kuliah/{mataKuliah}/edit', [PembobotanCPMKCPLController::class, 'edit'])->name('pembobotan.edit');
+        // Route untuk memproses (menyimpan) form
+        Route::put('/pembobotan/mata-kuliah/{mataKuliah}', [PembobotanCPMKCPLController::class, 'update'])->name('pembobotan.update');
 
         // routes untuk mk-cpmk-cpl yang baru
         Route::get('/mapping/edit-mk-cpl', [MKCPMKCPLController::class, 'editMKCPL'])->name('mk-cpl-mapping.edit');

@@ -474,6 +474,10 @@
                     </table>
                 </div> --}}
 
+                {{-- bagian pembobotan CPMK ke CPL --}}
+                <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Tabel Bobot CPMK - CPL (Capaian Pembelajaran Lulusan)</h2>
+                <livewire:pembobotan-cpmk-cpl>
+
                 {{-- Bagian 5: Livewire Component --}}
                 <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Detail Sub-CPMK per Mata Kuliah</h2>
                 <livewire:show-sub-cpmk />

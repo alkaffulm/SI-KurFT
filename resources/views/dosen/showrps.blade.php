@@ -27,28 +27,29 @@
     
     <div class="py-8 px-16 sm:ml-64 mt-16">
 
-        <div class="flex justify-between ">
-            
-                @if ($isDosen)
-                    <a href="/dosen/matkul">Kembali</a>
-                @elseif($isKaprodi)
-                    <a href="/kaprodi/mata-kuliah">Kembali</a>
-                @endif
+        <div class="flex justify-between items-center">
 
-                <div class="flex gap-x-4 mb-4">
+                <div class="mb-4">
+                    @if ($isDosen)
+                        <a href="{{ route('matkul.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
+                    @elseif($isKaprodi)
+                        {{-- <a href="/kaprodi/mata-kuliah">Kembali</a> --}}
+                        <a href="{{ route('mata-kuliah.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
+                    @endif
+                </div>
+
+                <div class="flex items-center gap-x-4 mb-4">
                     @if ($canEdit)
                         <div>
-                            <a href="{{route('rps.edit', $rps)}}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                                Edit RPS
-                            </a>
+                            <a href="{{route('rps.edit', $rps)}}" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">Edit RPS</a>
                         </div>
                     @endif
                     @if ($canDelete)
-                        <div class="flex justify-end mb-4">
+                        <div >
                             <form action="{{route('rps.destroy', $rps)}}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Hapus RPS</button>
+                                <button class="text-white bg-[#DA6C6C] hover:opacity-90 font-medium rounded-lg text-base px-6 py-[0.5rem] text-center">Hapus RPS</button>
                             </form>
                         </div>            
                     @endif

@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\kaprodi;
 
+use App\Models\CPLModel;
+use App\Models\CPMKModel;
+use App\Models\BKMKMapModel;
+use App\Models\SubCPMKModel;
+use Illuminate\Http\Request;
+use App\Models\CPMKCPLMapModel;
+use App\Models\MataKuliahModel;
+use App\Models\MK_CPMK_CPL_Map;
+use App\Models\BahanKajianModel;
+use App\Models\CPLCPMKBobotModel;
+use App\Models\MK_CPMK_CPL_MapModel;
 use App\Http\Controllers\Controller; 
+use App\Models\MKCPMKSubCPMKMapModel;
+use App\Models\MataKuliahCPMKMapModel;
 use App\Http\Requests\StoreCPMKRequest;
 use App\Http\Requests\UpdateAll\UpdateAllCPMKRequest;
-use App\Models\CPMKModel;
-use App\Models\CPLModel;
-use App\Models\MataKuliahCPMKMapModel;
-use App\Models\MataKuliahModel;
-use App\Models\MKCPMKSubCPMKMapModel;
-use App\Models\SubCPMKModel;
-use App\Models\CPMKCPLMapModel;
-use App\Models\BahanKajianModel;
-use App\Models\BKMKMapModel;
-use App\Models\MK_CPMK_CPL_Map;
-use App\Models\MK_CPMK_CPL_MapModel;
-use Illuminate\Http\Request;
 
 class CpmkController extends Controller
 {
@@ -35,7 +36,7 @@ class CpmkController extends Controller
         $cpmk = CPMKModel::orderBy('nama_kode_cpmk')->paginate(5, ['*'], 'cpmk');
         $cpmkAll = CPMKModel::all();
         $mata_kuliah = MataKuliahModel::with('cpmks')->orderBy('kode_mk')->get();
-
+        $bobotCpmkCpl = CPLCPMKBobotModel::all();
         $subCpmk = SubCPMKModel::with('cpmk')->orderBy('nama_kode_sub_cpmk')->paginate(5, ['*'], 'sub-cpmk');
 
         $mk_cpmk_sub_cpmk_raw = MKCPMKSubCPMKMapModel::all();
@@ -157,7 +158,7 @@ class CpmkController extends Controller
             'bk_mk_map'=>$bk_mk_map,
             'mk_cpmk_only_map' => $mk_cpmk_only_map,
             'mk_cpmk_cpl_map'=>$mk_cpmk_cpl_map,
-            'cpmkAll'=>$cpmkAll
+            'cpmkAll'=>$cpmkAll,
         ]);
     }
 
