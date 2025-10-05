@@ -17,4 +17,13 @@ class CPLCPMKBobotModel extends Model
         'id_cpmk', 
         'bobot'
     ];
+
+    public function cpl()
+    {
+        return $this->belongsTo(CPLModel::class, 'id_cpl', 'id_cpl');
+    }
+    public function cpmk()
+    {
+        return $this->belongsTo(CPMKModel::class, 'id_cpmk', 'id_cpmk');
+    }
 }

@@ -161,14 +161,14 @@
                     {{-- Loop untuk CPMK --}}
                     @foreach($assocCpmk as $cpmk)
                         <div class="grid grid-cols-12  border-black">
-                            <div class="col-span-1 px-2 border-b border-r border-black text-center ">{{ $cpmk->nama_kode_cpmk }}</div>
+                            <div class="col-span-1 px-2 border-b border-r border-black text-center ">{{ $cpmk->nama_kode_cpmk ?? 'CPMK Belum dihubungkan' }}</div>
                             <div class="col-span-9 px-2 border-b  border-black text-sm/6">
-                                <p>{{ $cpmk->desc_cpmk_id }} </p>
-                                <p class="italic text-sm text-[#7397b6]">{{ $cpmk->desc_cpmk_en }}</p>
+                                <p>{{ $cpmk->desc_cpmk_id ?? 'CPMK Belum dihubungkan' }} </p>
+                                <p class="italic text-sm text-[#7397b6]">{{ $cpmk->desc_cpmk_en ?? 'CPMK Belum dihubungkan' }}</p>
                             </div>
                             <div class="col-span-2 px-2 border-l border-b border-black text-sm/6">
                                 @foreach ($assocCpls as $cpl )
-                                    @if (isset($correlationCpmkCplMap[$cpmk->id_cpmk]) && in_array($cpl->id_cpl, $correlationCpmkCplMap[$cpmk->id_cpmk]))
+                                    @if (isset($correlationCpmkCplMap[$cpmk->id_cpmk ?? 0]) && in_array($cpl->id_cpl, $correlationCpmkCplMap[$cpmk->id_cpmk ?? 0]))
                                         <p class="text-center">{{$cpl->nama_kode_cpl}}</p>    
                                     @endif
                                 @endforeach
@@ -182,14 +182,14 @@
                     </div>
                     {{-- Loop untuk Sub-CPMK --}}
                     @foreach($assocCpmk as $cpmk)
-                        @foreach ($cpmk->subCpmk as $sc )
+                        @foreach ($cpmk->subCpmk ?? [] as $sc )
                             <div class="grid grid-cols-12  border-black">
                                 <div class="col-span-1 px-2 border-r border-b border-black text-center ">{{ $sc->nama_kode_sub_cpmk }}</div>
                                 <div class="col-span-9 px-2  border-b border-black text-sm/6">
                                      <p>{{ $sc->desc_sub_cpmk_id }}</p>
                                 </div>
                                 <div class="col-span-2 px-2 border-l border-b  border-black text-center ">{{$sc->cpmk->nama_kode_cpmk}}</div>
-                            </div>   
+                            </div>  
                         @endforeach
                     @endforeach
                 </div>
@@ -288,54 +288,54 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border border-black">
-                                <td class="border border-black p-1">CPL1</td>
-                                <td class="border border-black p-1">CPMK1</td>
-                                <td class="border border-black p-1">50</td>
-                                <td class="border border-black p-1">50</td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
-                                <td class="border border-black p-1"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
-                                <td class="border border-black p-1"></td>
-                                <td class="border border-black p-1"></td>
-                                <td class="border border-black p-1">50</td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]">50</td>
-                                <td class="border border-black p-1"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
-                            </tr>
-                            <tr class="border border-black">
-                                <td class="border border-black p-1">CPL2</td>
-                                <td class="border border-black p-1">CPMK2</td>
-                                <td class="border border-black p-1">30</td>
-                                <td class="border border-black p-1"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
-                                <td class="border border-black p-1">50</td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
-                                <td class="border border-black p-1"></td>
-                                <td class="border border-black p-1"></td>
-                                <td class="border border-black p-1">50</td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]">50</td>
-                                <td class="border border-black p-1"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
-                            </tr>
-                            <tr class="border border-black">
-                                <td class="border border-black p-1">CPL2</td>
-                                <td class="border border-black p-1">CPMK3</td>
-                                <td class="border border-black p-1">20</td>
-                                <td class="border border-black p-1"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
-                                <td class="border border-black p-1"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
-                                <td class="border border-black p-1">50</td>
-                                <td class="border border-black p-1 ">100</td>
-                                <td class="border border-black p-1 "></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
-                                <td class="border border-black p-1">50</td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d]">100</td>
-                            </tr>
+                            {{-- Loop utama berdasarkan CPL yang sudah dikelompokkan dari controller --}}
+                            @forelse($bobotCplCpmk as $bobot)
+                                <tr>
+                                    <td class="border border-black p-1 align-middle" >{{ $bobot->cpl->nama_kode_cpl }}</td>
+                                    <td class="border border-black p-1">{{ $bobot->cpmk->nama_kode_cpmk ?? 'N/A' }}</td>
+                                    <td class="border border-black p-1">{{ number_format($bobot->bobot, 0) }}</td>
+
+                                    <td class="border border-black p-1"></td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+                                    <td class="border border-black p-1"></td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+    
+                                    {{-- Mengambil data penilaian (Tugas, UTS, UAS) untuk CPMK saat ini --}}
+                                    @php
+                                        $penilaian = $bobotPenilaian[$bobot->id_cpmk] ?? null;
+                                    @endphp
+                                            
+                                    {{-- Kolom Tugas --}}
+                                    <td class="border border-black p-1">
+                                        {{ $penilaian ? number_format($penilaian['tugas'], 0) : '' }}
+                                    </td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maka Tugas --}}</td>
+                                            
+                                    {{-- Kolom UTS --}}
+                                    <td class="border border-black p-1">
+                                        {{ $penilaian ? number_format($penilaian['uts'], 0) : '' }}
+                                    </td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maka UTS --}}</td>
+                                            
+                                    {{-- Kolom UAS --}}
+                                    <td class="border border-black p-1">
+                                        {{ $penilaian ? number_format($penilaian['uas'], 0) : '' }}
+                                    </td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maka UAS --}}</td>
+                                            
+                                    {{-- Kolom Total % per baris --}}
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">
+                                        {{ number_format($penilaian['tugas'] + $penilaian['uts'] + $penilaian['uas'], 0) }}
+                                    </td>
+                                </tr>
+                            @empty
+                                {{-- Pesan jika tidak ada data sama sekali --}}
+                                <tr class="border border-black">
+                                    <td colspan="14" class="p-4">
+                                        Data pembobotan CPL-CPMK  belum lengkap untuk ditampilkan.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                         <tfoot>
                             <tr class="border border-black font-bold">
@@ -354,6 +354,7 @@
                             </tr>
                         </tfoot>
                     </table>
+
                     <p class="text-xs mt-2 italic">*Keterangan: Kegiatan partisipatif dan atau hasil proyek wajib masuk dalam komponen penilaian dengan porsi nilai akhir minimal 50%</p>
                 </div>
             </div>

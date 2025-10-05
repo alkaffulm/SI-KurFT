@@ -76,12 +76,14 @@
                                     </tr>                                    
                                 @endforelse
                             </tbody>
-                            <tfoot>
-                                <tr class="font-semibold text-gray-900 bg-white border-t border-gray-400">
-                                    <th colspan="{{count($assocCpmks) + 2}}"  class="px-6 py-3 text-base text-left border-r border-gray-400">TOTAL CPMK</th>
-                                    <td class="px-6 py-3 text-center text-base">{{$totalBobotKeseluruhan}}</td>
-                                </tr>
-                            </tfoot>                
+                            @if (!empty($rencanaAsesmens))
+                                <tfoot>
+                                    <tr class="font-semibold text-gray-900 bg-white border-t border-gray-400">
+                                        <th colspan="{{count($assocCpmks) + 2}}"  class="px-6 py-3 text-base text-left border-r border-gray-400">TOTAL CPMK</th>
+                                        <td class="px-6 py-3 text-center text-base">{{$totalBobotKeseluruhan}}</td>
+                                    </tr>
+                                </tfoot>                                              
+                            @endif
                         </table>
                     </div>
                     @error('rencanaAsesmens') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror

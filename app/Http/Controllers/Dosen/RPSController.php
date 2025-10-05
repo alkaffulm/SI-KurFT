@@ -6,12 +6,17 @@ use App\Models\RPSModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use App\Models\MataKuliahModel;
+use App\Models\CPLCPMKBobotModel;
+use Illuminate\Support\Facades\DB;
+use App\Livewire\PembobotanCpmkCpl;
+use App\Models\RencanaAsesmenModel;
 use App\Http\Controllers\Controller;
+use App\Models\MK_CPMK_CPL_MapModel;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreRPSRequest;
 use App\Models\MediaPembelajaranModel;
-use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\ModelPembelajaranModel;
-use Illuminate\Support\Facades\Auth;
+use App\Models\RencanaAsesmenCPMKBobotModel;
 
 class RPSController extends Controller
 {
@@ -129,6 +134,7 @@ class RPSController extends Controller
             'topics.subCpmk',
         ]);
 
+        
         $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rp->id_mk)->with('cpl', 'cpmk')->get();
         $relevantCpl = $mappings->pluck('cpl')->unique('id_cpl');
         $relevantCpmk = $mappings->pluck('cpmk')->unique('id_cpmk');
@@ -139,6 +145,49 @@ class RPSController extends Controller
             $correlationCpmkCplMap[$mapping->id_cpmk][] = $mapping->id_cpl;
         }
 
+        $bobotCplCpmk = CPLCPMKBobotModel::where('id_mk', $rp->id_mk)
+                        ->with(['cpl', 'cpmk'])
+                        ->whereExists(function ($query) {
+                            // ...terdapat baris di tabel 'mk_cpmk_cpl_map' yang cocok
+                            $query->select(DB::raw(1))
+                                ->from('mk_cpmk_cpl_map')
+                                // Cocokkan berdasarkan id_mk, id_cpl, dan id_cpmk
+                                ->whereColumn('mk_cpmk_cpl_map.id_mk', 'cpl_cpmk_bobot.id_mk')
+                                ->whereColumn('mk_cpmk_cpl_map.id_cpl', 'cpl_cpmk_bobot.id_cpl')
+                                ->whereColumn('mk_cpmk_cpl_map.id_cpmk', 'cpl_cpmk_bobot.id_cpmk');
+                        })                
+                        ->get();
+        
+
+        $validCpmks = $bobotCplCpmk->pluck('cpmk')->unique('id_cpmk');
+
+        $allBobotPenilaianEntries = RencanaAsesmenCPMKBobotModel::whereIn('id_cpmk', $validCpmks->pluck('id_cpmk'))
+            ->whereHas('rencanaAsesmen', function ($q) use ($rp) {
+                $q->where('id_mk', $rp->id_mk);
+            })
+            ->with('rencanaAsesmen') // Eager load relasi ke parent-nya
+            ->get();
+
+        foreach ($validCpmks as $cpmk) {
+            // Dari data yang sudah diambil, filter untuk CPMK saat ini
+            $entriesForThisCpmk = $allBobotPenilaianEntries->where('id_cpmk', $cpmk->id_cpmk);
+            
+            // Akumulasi bobot TUGAS dari kolom 'bobot' di tabel pivot
+            $totalTugas = $entriesForThisCpmk->filter(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'tugas')->sum('bobot');
+            
+            // Ambil bobot UTS dari kolom 'bobot' di tabel pivot
+            $bobotUts = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'uts')?->bobot ?? 0;
+            
+            // Ambil bobot UAS dari kolom 'bobot' di tabel pivot
+            $bobotUas = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'uas')?->bobot ?? 0;
+
+            $bobotPenilaian[$cpmk->id_cpmk] = [
+                'tugas' => $totalTugas,
+                'uts'   => $bobotUts,
+                'uas'   => $bobotUas,
+            ];
+        }
+
         $assocCpls = collect();
 
         if($rp->mataKuliah) {
@@ -146,18 +195,15 @@ class RPSController extends Controller
                 return $bahanKajian->cpls;
             })->unique('id_cpl');
         }
-
-        // $assocCpls = $rp->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {
-        //     return $bahanKajian->cpls;
-        // })->unique('id_cpl');
-
-
-
-        // $cplsForCorrelationTable = $rp->mataKuliah->cpmks->flatMap(function ($cpmk) {
-        //     return $cpmk->cpls;
-        // })->unique('id_cpl');
         
-        return view('dosen.showrps', ['rps' => $rp, 'assocCpls' => $relevantCpl, 'assocCpmk' => $relevantCpmk, 'correlationCpmkCplMap' => $correlationCpmkCplMap]);
+        return view('dosen.showrps', [
+            'rps' => $rp, 
+            'assocCpls' => $relevantCpl, 
+            'assocCpmk' => $relevantCpmk, 
+            'correlationCpmkCplMap' => $correlationCpmkCplMap,
+            'bobotCplCpmk' => $bobotCplCpmk,
+            'bobotPenilaian' => $bobotPenilaian ?? 0,
+        ]);
     }
 
     /**
@@ -168,33 +214,6 @@ class RPSController extends Controller
         return view('dosen.form.rps.rpsFormEdit', [ 'rps' => $rp]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(Request $request, RPSModel $rp)
-    // {
-    //     $validated = $request->validate([
-    //         'id_bk' => 'required|exists:bahan_kajian,id_bk',
-    //         'id_mk_syarat' => 'nullable|exists:mata_kuliah,id_mk',
-    //         'cpl_ids' => 'required|array',
-    //         'cpl_ids.*' => 'exists:cpl,id_cpl', // Pastikan setiap ID CPL valid
-    //         'materi_pembelajaran' => 'nullable|string',
-    //         'pustaka_utama' => 'nullable|string',
-    //         'pustaka_pendukung' => 'nullable|string',
-    //     ]);
-
-    //     $rp->update([
-    //         'id_bk' => $validated['id_bk'],
-    //         'materi_pembelajaran' => $validated['materi_pembelajaran'] ?? null,
-    //         'pustaka_utama' => $validated['pustaka_utama'] ?? null,
-    //         'pustaka_pendukung' => $validated['pustaka_pendukung'] ?? null,
-    //     ]);
-
-    //     $rp->cpls()->sync($validated['cpl_ids']);
-    //     $rp->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
-
-    //     return to_route('rps.show', $rp)->with('success', 'Berhasil memperbarui RPS!');
-    // }
 
     /**
      * Remove the specified resource from storage.
