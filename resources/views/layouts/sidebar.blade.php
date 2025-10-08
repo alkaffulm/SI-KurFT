@@ -238,6 +238,18 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('master-mahasiswa.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                        {{-- Profil Lulusan Icon --}}
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        <span class="ms-3">Mahasiswa</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('ta.admin.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                         {{-- Mata Kuliah Icon --}}

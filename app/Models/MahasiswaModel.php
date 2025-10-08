@@ -8,7 +8,7 @@ class MahasiswaModel extends Model
 {
     protected $table = 'mahasiswa';
     protected $primaryKey = 'id_mhs';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'id_ps',
         'nim',
