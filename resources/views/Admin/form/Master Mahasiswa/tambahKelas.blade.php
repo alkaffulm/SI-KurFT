@@ -33,6 +33,12 @@
                     </div>
                 @endif
 
+                <a href="{{ asset('template_kelas_sikurft.xlsx') }}"  
+                    download  
+                    class="mb-2 text-sm text-biru-custom underline text-right">
+                    Template Daftar Mahasiswa
+                </a>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {{-- file excel --}}
                     <div class="mb-4">
