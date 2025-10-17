@@ -8,6 +8,7 @@ use App\Models\RPSModel;
 use App\Models\RPSTopicModel;
 use App\Models\MataKuliahModel;
 use App\Models\BentukPembelajaranModel;
+use App\Models\BentukPenugasanModel;
 use App\Models\KriteriaPenilaianModel;
 use App\Models\MediaPembelajaranModel;
 use App\Models\MetodePembelajaranModel;
@@ -57,6 +58,9 @@ class RpsEditPage extends Component
     public $allMediaPerangkatLunak = [];
     public $allMediaPerangkatKeras = [];
     public $allModelPembelajaran = [];
+    public $allBentukPenugasan = [];
+    public $allJumlahPertemuan= [];
+    public $allJumlahSks= [];
     
     public function mount(RPSModel $rps) {
         // untuk halaman edit RPS Induk
@@ -88,6 +92,17 @@ class RpsEditPage extends Component
         $this->allMediaPerangkatKeras = MediaPembelajaranModel::where('tipe', 'perangkat_keras')->get();
         $this->allMediaPerangkatLunak = MediaPembelajaranModel::where('tipe', 'perangkat_lunak')->get();
         $this->allModelPembelajaran = ModelPembelajaranModel::all();
+        $this->allBentukPenugasan = BentukPenugasanModel::all();
+        $this->allJumlahPertemuan = [
+            '1' => '1x',
+            '2' => '2x',
+            '3' => '3x',
+        ];
+        $this->allJumlahSks = [
+            '1x50' => '1x50',
+            '2x50' => '2x50',
+            '3x50' => '3x50',
+        ];
 
         $this->bentukKuliahId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Kuliah')?->id_bentuk_pembelajaran;
         $this->bentukBelajarMandiriId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Belajar Mandiri')?->id_bentuk_pembelajaran;
@@ -125,6 +140,7 @@ class RpsEditPage extends Component
                 'id_bentuk_pembelajaran' => $this->bentukPenugasanTerstrukturId,
                 'penugasan_mahasiswa' => '',
                 'selected_metode_pembelajaran' => [],
+                'selected_bentuk_penugasan' => [],
                 'jumlah_pertemuan' => '',
                 'jumlah_sks' => '',
             ],
@@ -135,7 +151,10 @@ class RpsEditPage extends Component
                     'id_aktivitas_pembelajaran' => $aktivitas->id_aktivitas_pembelajaran,
                     'id_bentuk_pembelajaran' => $aktivitas->id_bentuk_pembelajaran,
                     'penugasan_mahasiswa' => $aktivitas->penugasan_mahasiswa,
-                    'selected_metode_pembelajaran' => $aktivitas->metodePembelajaran->pluck('id_metode_pembelajaran')->toArray()
+                    'selected_metode_pembelajaran' => $aktivitas->metodePembelajaran->pluck('id_metode_pembelajaran')->toArray(),
+                    'selected_bentuk_penugasan' => $aktivitas->bentukPenugasan->pluck('id_bentuk_penugasan')->toArray(),
+                    'jumlah_pertemuan' => $aktivitas->jumlah_pertemuan,
+                    'jumlah_sks' => $aktivitas->jumlah_sks,
             ];
         })->toArray();
 
@@ -200,6 +219,7 @@ class RpsEditPage extends Component
                 'PT' => [
                     'id_bentuk_pembelajaran' => $this->bentukPenugasanTerstrukturId,
                     'selected_metode_pembelajaran' => [],
+                    'selected_bentuk_penugasan' => [],
                     'penugasan_mahasiswa' => '',
                     'jumlah_pertemuan' => '',
                     'jumlah_sks' => '',
@@ -268,6 +288,7 @@ class RpsEditPage extends Component
                             ]
                         );
                         $aktivitas->metodePembelajaran()->sync($aktivitasData['selected_metode_pembelajaran'] ?? []);
+                        $aktivitas->bentukPenugasan()->sync($aktivitasData['selected_bentuk_penugasan'] ?? []);
                     }
                 }
 

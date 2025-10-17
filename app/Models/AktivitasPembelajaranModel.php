@@ -23,6 +23,10 @@ class AktivitasPembelajaranModel extends Model
         return $this->belongsToMany(MetodePembelajaranModel::class, 'aktivitas_metode_pembelajaran', 'id_aktivitas_pembelajaran', 'id_metode_pembelajaran');
     }
 
+    public function bentukPenugasan() {
+        return $this->belongsToMany(BentukPenugasanModel::class, 'aktivitas_bentuk_penugasan', 'id_aktivitas_pembelajaran', 'id_bentuk_penugasan');
+    }
+
     public function topic() {
         return $this->belongsTo(RPSTopicModel::class, 'id_topic', 'id_topic');
     }

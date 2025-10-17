@@ -83,11 +83,11 @@
                         @forelse ($assocCpmk as $cpmk)
                             <tr class="border border-gray-300 ">
                                 <td class="w-[90px] flex align-top ">
-                                    <p class="font-semibold px-2">{{ $cpmk->nama_kode_cpmk }} </p>
+                                    <p class="font-semibold px-2">{{ $cpmk->nama_kode_cpmk ?? 'CPL Tidak Memliki CPMK'}} </p>
                                 </td>
                                 <td class="border border-gray-300 px-2">
-                                    <p class="text-justify">{{ $cpmk->desc_cpmk_id }}</p>
-                                    <p class="italic text-justify text-sm text-[#7397b6]">{{ $cpmk->desc_cpmk_en }}</p>
+                                    <p class="text-justify">{{ $cpmk->desc_cpmk_id ?? 'CPL Tidak Memliki CPMK'}}</p>
+                                    <p class="italic text-justify text-sm text-[#7397b6]">{{ $cpmk->desc_cpmk_en ?? 'CPL Tidak Memliki CPMK'}}</p>
                                 </td>
                             </tr>
                         @empty
@@ -171,7 +171,7 @@
                 <br>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm border border-black table-fixed">
-                        <thead>
+                        <thead class="   bg-gray-300">
                             <tr>
                                 <th class="p-2 border border-black w-[150px]" rowspan="2">Minggu Ke-</th>
                                 <th class="p-2 border border-black w-[180px]" rowspan="2">Jenis</th>
@@ -182,7 +182,7 @@
                                 <th class="p-2 border border-black w-[120px]" rowspan="2">Refrensi</th>
                                 <th class="p-2 border border-black w-[90px]" rowspan="2">Aksi</th>                        
                             </tr>
-                            <tr>
+                            <tr class="bg-[#f7cbac]">
                                 <th class="p-2 border border-black w-[300px]">Indikator</th>
                                 <th class="p-2 border border-black w-[300px]">Kritera & Teknik</th>
                                 <th class="p-2 border border-black w-[300px]">Synchronous</th>
@@ -220,7 +220,7 @@
                                             <select wire:model="topics.{{ $index }}.id_sub_cpmk"  class="w-full border bg-gray-100 py-2 rounded-md" required>
                                                 <option value="">--pilih Sub-CPMK--</option>
                                                 @foreach ($assocSubCpmk as $scp )
-                                                    <option value="{{ $scp->id_sub_cpmk }}" >{{ $scp->nama_kode_sub_cpmk }}</option>
+                                                    <option value="{{ $scp->id_sub_cpmk ?? 0 }}" >{{ $scp->nama_kode_sub_cpmk ?? 0}}</option>
                                                 @endforeach
                                             </select>
                                             @error('topics.'.$index.'.id_sub_cpmk') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
@@ -282,7 +282,7 @@
                                                     <p class="font-bold">TM</p>
                                                     <div wire:ignore>
                                                         <label >Metode Pembelajaran</label>
-                                                        <select class="select2-metode-pembelajaran w-full" data-index="{{$index}}" data-tipe="TM" multiple="multiple" >
+                                                        <select class="select2-bentuk-penugasan w-full" data-index="{{$index}}" data-tipe="TM" multiple="multiple" >
                                                             @foreach ($allMetodePembelajaran as $metode)
                                                                 <option value="{{$metode->id_metode_pembelajaran}}" {{in_array($metode->id_metode_pembelajaran, $topic['aktivitas_pembelajaran']['TM']['selected_metode_pembelajaran']) ? 'selected' : ''}}>{{$metode->nama_metode_pembelajaran}}</option>
                                                             @endforeach
@@ -295,17 +295,17 @@
                                                     <p class="font-bold">Jumlah Pertemuan dan SKS</p>
                                                     <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.TM.jumlah_pertemuan" class="border bg-gray-100 py-2 rounded-md">
                                                         <option value="">Pilih Jumlah Pertemuan</option>
-                                                        <option value="1">1x</option>
-                                                        <option value="2">2x</option>
-                                                        <option value="3">3x</option>
+                                                        @foreach($allJumlahPertemuan as $value => $label)
+                                                            <option value="{{ $value }}" >{{ $label }}</option>
+                                                        @endforeach
                                                     </select>      
                                                     <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.TM.jumlah_sks" class="border bg-gray-100 py-2 rounded-md">
-                                                        <option value="">Pilih Jumlah SKS</option>
-                                                        <option value="1x50">1x50</option>
-                                                        <option value="2x50">2x50</option>
-                                                        <option value="3x50">3x50</option>
+                                                        <option value="">Pilih Jumlah SKS</option>                                                        
+                                                        @foreach($allJumlahSks as $value => $label)
+                                                            <option value="{{ $value }}" >{{ $label }}</option>
+                                                        @endforeach
                                                     </select>                                                             
-                                                </div>
+                                                </div>    
                                                 {{-- <br>
                                                 <div>
                                                     <label>Penugasan Mahasiswa</label>
@@ -355,25 +355,45 @@
                                                     </div>
                                                     @error('topics.'.$index.'.aktivitas_pembelajaran.BM.selected_metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
-                                                <br>
-                                                <div>
-                                                    <label for="penugasan_mahasiswa">Penugasan Mahasiswa</label>
-                                                    <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.BM.penugasan_mahasiswa" id="penugasan_mahasiswa" class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea>
-                                                    @error('topics.'.$index.'.aktivitas_pembelajaran.BM.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                                </div>
                                                 <div>
                                                     <p class="font-bold">Jumlah Pertemuan dan SKS</p>
                                                     <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.BM.jumlah_pertemuan" class="border bg-gray-100 py-2 rounded-md">
                                                         <option value="">Pilih Jumlah Pertemuan</option>
-                                                        <option value="1">1x</option>
-                                                        <option value="2">2x</option>
-                                                        <option value="3">3x</option>
+                                                        @foreach($allJumlahPertemuan as $value => $label)
+                                                            <option value="{{ $value }}" >{{ $label }}</option>
+                                                        @endforeach
                                                     </select>      
                                                     <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.BM.jumlah_sks" class="border bg-gray-100 py-2 rounded-md">
                                                         <option value="">Pilih Jumlah SKS</option>                                                        
-                                                        <option value="1x50">1x50</option>
-                                                        <option value="2x50">2x50</option>
-                                                        <option value="3x50">3x50</option>
+                                                        @foreach($allJumlahSks as $value => $label)
+                                                            <option value="{{ $value }}" >{{ $label }}</option>
+                                                        @endforeach
+                                                    </select>                                                             
+                                                </div>       
+                                                <br>
+                                                <div>
+                                                    <label for="penugasan_mahasiswa">Penugasan Mahasiswa</label>
+                                                    {{-- <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.PT.penugasan_mahasiswa" id="penugasan_mahasiswa" class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea> --}}
+                                                        <select class="select2-bentuk-penugasan w-full" data-index="{{$index}}" data-tipe="PT" multiple="multiple" >
+                                                            @foreach ($allBentukPenugasan as $bp)
+                                                                <option value="{{$bp->id_bentuk_penugasan}}" {{in_array($bp->id_bentuk_penugasan, $topic['aktivitas_pembelajaran']['PT']['selected_bentuk_penugasan']) ? 'selected' : ''}}>{{$bp->nama_bentuk_penugasan}}</option>
+                                                            @endforeach
+                                                        </select>                                                    
+                                                    @error('topics.'.$index.'.aktivitas_pembelajaran.PT.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                </div>
+                                                <div>
+                                                    <p class="font-bold">Jumlah Pertemuan dan SKS</p>
+                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.PT.jumlah_pertemuan" class="border bg-gray-100 py-2 rounded-md">
+                                                        <option value="">Pilih Jumlah Pertemuan</option>
+                                                        @foreach($allJumlahPertemuan as $value => $label)
+                                                            <option value="{{ $value }}" >{{ $label }}</option>
+                                                        @endforeach
+                                                    </select>      
+                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.PT.jumlah_sks" class="border bg-gray-100 py-2 rounded-md">
+                                                        <option value="">Pilih Jumlah SKS</option>                                                        
+                                                        @foreach($allJumlahSks as $value => $label)
+                                                            <option value="{{ $value }}" >{{ $label }}</option>
+                                                        @endforeach
                                                     </select>                                                             
                                                 </div>                                            
                                             </div>
@@ -451,6 +471,15 @@
                 const index = $(this).data('index');
                 const tipe = $(this).data('tipe');
                 @this.set('topics.' + index + '.aktivitas_pembelajaran.' + tipe + '.selected_metode_pembelajaran', $(this).val());
+            });
+
+            $('.select2-bentuk-penugasan:not(.select2-hidden-accessible)').select2({
+                placeholder: "Pilih Bentuk Penugasan",
+                allowClear: true
+            }).on('change', function () {
+                const index = $(this).data('index');
+                const tipe = $(this).data('tipe');
+                @this.set('topics.' + index + '.aktivitas_pembelajaran.' + tipe + '.selected_bentuk_penugasan', $(this).val());
             });
         };
 

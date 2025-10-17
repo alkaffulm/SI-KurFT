@@ -181,10 +181,17 @@ class RPSController extends Controller
             // Ambil bobot UAS dari kolom 'bobot' di tabel pivot
             $bobotUas = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'uas')?->bobot ?? 0;
 
+            $bobotHasilProyek = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'Hasil Proyek')?->bobot ?? 0;
+
+            $bobotKegiatanPartisipatif = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'Kegiatan Partisipatif')?->bobot ?? 0;
+
+
             $bobotPenilaian[$cpmk->id_cpmk] = [
                 'tugas' => $totalTugas,
                 'uts'   => $bobotUts,
                 'uas'   => $bobotUas,
+                'hasil_proyek' => $bobotHasilProyek,
+                'kegiatan_partisipatif' => $bobotKegiatanPartisipatif,
             ];
         }
 

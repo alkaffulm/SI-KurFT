@@ -161,10 +161,10 @@
                     {{-- Loop untuk CPMK --}}
                     @foreach($assocCpmk as $cpmk)
                         <div class="grid grid-cols-12  border-black">
-                            <div class="col-span-1 px-2 border-b border-r border-black text-center ">{{ $cpmk->nama_kode_cpmk ?? 'CPMK Belum dihubungkan' }}</div>
+                            <div class="col-span-1 px-2 border-b border-r border-black text-center ">{{ $cpmk->nama_kode_cpmk ?? 'CPL Tidak Memliki CPMK' }}</div>
                             <div class="col-span-9 px-2 border-b  border-black text-sm/6">
-                                <p>{{ $cpmk->desc_cpmk_id ?? 'CPMK Belum dihubungkan' }} </p>
-                                <p class="italic text-sm text-[#7397b6]">{{ $cpmk->desc_cpmk_en ?? 'CPMK Belum dihubungkan' }}</p>
+                                <p>{{ $cpmk->desc_cpmk_id ?? 'CPL Tidak Memliki CPMK' }} </p>
+                                <p class="italic text-sm text-[#7397b6]">{{ $cpmk->desc_cpmk_en ?? 'CPL Tidak Memliki CPMK' }}</p>
                             </div>
                             <div class="col-span-2 px-2 border-l border-b border-black text-sm/6">
                                 @foreach ($assocCpls as $cpl )
@@ -184,7 +184,7 @@
                     @foreach($assocCpmk as $cpmk)
                         @foreach ($cpmk->subCpmk ?? [] as $sc )
                             <div class="grid grid-cols-12  border-black">
-                                <div class="col-span-1 px-2 border-r border-b border-black text-center ">{{ $sc->nama_kode_sub_cpmk }}</div>
+                                <div class="col-span-1 px-2 border-r border-b border-black text-center ">{{ $sc->nama_kode_sub_cpmk}}</div>
                                 <div class="col-span-9 px-2  border-b border-black text-sm/6">
                                      <p>{{ $sc->desc_sub_cpmk_id }}</p>
                                 </div>
@@ -257,7 +257,6 @@
             <div class="grid grid-cols-12 border-t border-black">
                 <div class="col-span-1 p-2 border-r border-black font-bold">Penilaian</div>
                 <div class="col-span-11 p-2">
-                    HARDCODED
                     <table class="w-full text-center text-xs border-collapse border border-black">
                         <thead class="bg-gray-200">
                             <tr class="border border-black">
@@ -295,16 +294,22 @@
                                     <td class="border border-black p-1">{{ $bobot->cpmk->nama_kode_cpmk ?? 'N/A' }}</td>
                                     <td class="border border-black p-1">{{ number_format($bobot->bobot, 0) }}</td>
 
-                                    <td class="border border-black p-1"></td>
-                                    <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
-                                    <td class="border border-black p-1"></td>
-                                    <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
-    
+                                    
                                     {{-- Mengambil data penilaian (Tugas, UTS, UAS) untuk CPMK saat ini --}}
                                     @php
                                         $penilaian = $bobotPenilaian[$bobot->id_cpmk] ?? null;
                                     @endphp
                                             
+                                    <td class="border border-black p-1">
+                                       {{ $penilaian ? number_format($penilaian['hasil_proyek'], 0) : '' }} 
+                                    </td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+
+                                    <td class="border border-black p-1">
+                                        {{ $penilaian ? number_format($penilaian['kegiatan_partisipatif'], 0) : '' }} 
+                                    </td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+
                                     {{-- Kolom Tugas --}}
                                     <td class="border border-black p-1">
                                         {{ $penilaian ? number_format($penilaian['tugas'], 0) : '' }}
@@ -496,7 +501,7 @@
                                         </div> --}}
 
                                         <div>
-                                            <p class="underline underline-offset-2">Metode Pembelajaran</p>
+                                            {{-- <p class="underline underline-offset-2">Metode Pembelajaran</p> --}}
                                             <ul class="list-disc list-inside">
                                                 @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->metodePembelajaran ?? [] as $metode)
                                                     <li>{{$metode->nama_metode_pembelajaran}}</li>
@@ -554,7 +559,7 @@
                                         </div> --}}
                                         
                                         <div>
-                                            <p class="underline underline-offset-2">Metode Pembelajaran</p>
+                                            {{-- <p class="underline underline-offset-2">Metode Pembelajaran</p> --}}
                                             <ul class="list-disc list-inside">
                                                 @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->metodePembelajaran ?? [] as $item)
                                                     <li>{{$item->nama_metode_pembelajaran}}</li>
@@ -565,16 +570,29 @@
                                         </div>
 
                                         <div>
-                                            <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
-                                            @if ($topic->aktivitasPembelajaran->firstWhere('tipe','BM'))
-                                                <p class="break-words">{{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->penugasan_mahasiswa}}</p>
+                                            <p>[BM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_pertemuan}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_sks}})]</p>  
+                                        </div>
+
+                                        <br>
+                                        
+                                        <div>
+                                            {{-- <p class="underline underline-offset-2">Penugasan Mahasiswa</p> --}}
+                                            {{-- @if ($topic->aktivitasPembelajaran->firstWhere('tipe','PT'))
+                                                <p class="break-words">{{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->penugasan_mahasiswa}}</p>
                                             @else
                                                 <p>-</p>
-                                            @endif
+                                            @endif --}}
+                                            <ul class="list-disc list-inside">
+                                                @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->bentukPenugasan ?? [] as $item)
+                                                    <li>{{$item->nama_bentuk_penugasan}}</li>
+                                                @empty
+                                                    <p>-</p>
+                                                @endforelse                                            
+                                            </ul>
                                         </div>
 
                                         <div>
-                                            <p>[BM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_pertemuan}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_sks}})]</p>  
+                                            <p>[BT: {{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')->jumlah_pertemuan}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')->jumlah_sks}})]</p>  
                                         </div>
                                     </div>
                                 </td>

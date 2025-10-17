@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('id_ps')->constrained('program_studi', 'id_ps')->onDelete('cascade');
             $table->foreignId('id_kurikulum')->constrained('kurikulum', 'id_kurikulum')->onDelete('cascade');
             $table->foreignId('id_mk')->constrained('mata_kuliah', 'id_mk')->onDelete('cascade');
-            $table->enum('tipe_komponen', ['tugas', 'kuis', 'uts', 'uas']);
+            $table->enum('tipe_komponen', ['tugas', 'kuis', 'uts', 'uas', 'Hasil Proyek', 'Kegiatan Partisipatif']);
             $table->Integer('nomor_komponen')->nullable();
             // $table->string('deskripsi_tambahan')->nullable();
         });

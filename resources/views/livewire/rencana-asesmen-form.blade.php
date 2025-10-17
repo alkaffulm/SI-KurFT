@@ -39,11 +39,13 @@
                                                     <option value="kuis">Kuis</option>
                                                     <option value="uts">UTS</option>
                                                     <option value="uas">UAS</option>
+                                                    <option value="Kegiatan Partisipatif">Kegiatan Partisipatif</option>
+                                                    <option value="Hasil Proyek">Hasil Proyek</option>
                                                 </select>
                                                 <br>
                                                 @error('rencanaAsesmens.'.$index.'.tipe_komponen') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                             </div>
-                                            @if (!in_array($rencanaAsesmen['tipe_komponen'], ['uts','uas']))
+                                            @if (!in_array($rencanaAsesmen['tipe_komponen'], ['uts','uas','Kegiatan Partisipatif','Hasil Proyek']))
                                                 <div>
                                                     <label class="text-xs text-gray-500 font-normal">Nomor Komponen</label>                       
                                                     <br>                           

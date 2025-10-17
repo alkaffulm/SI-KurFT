@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             KriteriaPenilaianSeeder::class,
             ModelPembelajaranSeeder::class,
             MetodePembelajaranSeeder::class,
-
+            BentukPenugasanSeeder::class,
+            
             //  B. Level 1 Dependency
             UserSeeder::class,                    // 7
             MataKuliahSeeder::class,              // 8
