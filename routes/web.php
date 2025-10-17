@@ -41,6 +41,7 @@ use App\Http\Controllers\Admin\MetodePembelajaranController;
 use App\Http\Controllers\Admin\TahunakademikAdminController;
 use App\Http\Controllers\Admin\TeknikPenilaianAdminController;
 use App\Http\Controllers\Admin\KriteriaPenilaianAdminController;
+use App\Http\Controllers\Admin\MasterMahasiswaController;
 use App\Http\Controllers\Dosen\KelasDosenController;
 
 // Set the root to the login page
@@ -271,6 +272,14 @@ Route::middleware('auth')->group(function () {
 
             // tambah teknik penilaian
             Route::post('/metode-pembelajaran/store', [MetodePembelajaranController::class, 'store'])->name('metode-pembelajaran.store');
+        
+        //MASTER MAHASISWA
+            Route::get('/master-mahasiswa', [MasterMahasiswaController::class, 'index'])->name('master-mahasiswa.index');
+            Route::get('/master-mahasiswa/create', [MasterMahasiswaController::class, 'create'])->name('master-mahasiswa.create');  
+            Route::get('/master-mahasiswa/edit/{id}', [MasterMahasiswaController::class, 'edit'])->name('master-mahasiswa.edit');
+            Route::put('/master-mahasiswa/update/{id}', [MasterMahasiswaController::class, 'update'])->name('master-mahasiswa.update');
+            Route::post('/master-mahasiswa/import', [MasterMahasiswaController::class, 'importExcel'])->name('master-mahasiswa.import');
+
 
 
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama_lengkap');
             $table->string('jenis_kelamin')->nullable();
             $table->integer('angkatan');
+            $table->timestamps();
 
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
         });
