@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('cpl_cpmk_bobot', function (Blueprint $table) {
-        $table->id('id_cpl_cpmk_bobot');
-        $table->foreignId('id_mk')->constrained('mata_kuliah', 'id_mk')->onDelete('cascade');
-        $table->foreignId('id_ps')->constrained('program_studi', 'id_ps')->onDelete('cascade');
-        $table->foreignId('id_kurikulum')->constrained('kurikulum', 'id_kurikulum')->onDelete('cascade');
-        $table->foreignId('id_cpl')->constrained('cpl', 'id_cpl')->onDelete('cascade');
-        $table->foreignId('id_cpmk')->constrained('cpmk', 'id_cpmk')->onDelete('cascade');
-        $table->decimal('bobot')->default(0); 
-    });
+        Schema::create('cpl_cpmk_bobot', function (Blueprint $table) {
+            $table->id('id_cpl_cpmk_bobot');
+            $table->foreignId('id_mk')->constrained('mata_kuliah', 'id_mk')->onDelete('cascade');
+            $table->foreignId('id_ps')->constrained('program_studi', 'id_ps')->onDelete('cascade');
+            $table->foreignId('id_kurikulum')->constrained('kurikulum', 'id_kurikulum')->onDelete('cascade');
+            $table->foreignId('id_cpl')->constrained('cpl', 'id_cpl')->onDelete('cascade');
+            $table->foreignId('id_cpmk')->constrained('cpmk', 'id_cpmk')->onDelete('cascade');
+            $table->decimal('bobot')->default(0); 
+        });
     }
 
     /**

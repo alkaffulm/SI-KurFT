@@ -39,52 +39,62 @@
     @include('layouts.sidebar')
 
     <div class="p-4 sm:p-8 sm:ml-64">
-        <main class="mt-20 max-w-8xl mx-auto">
+
+        @if ($kelas->mahasiswa->isEmpty())
+
+            <div class="mt-20 max-w-8xl mx-auto">
+                <div class="bg-white p-4 rounded-xl shadow-lg">
+                    <a href="{{ route('dosen_kelas.index') }}"
+                        class="mt-2 inline-block px-4 py-2 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
+                        Kembali
+                    </a>
+                    <div class="mt-5">
+                        <h1 class="text-3xl font-bold text-gray-700">Daftar Mahasiswa Tidak Ditemukan</h1>
+                        <p class="text-gray-500 text-base">Belum ada mahasiswa yang terdaftar di kelas ini, silahkan hubungi admin program studi anda</p>
+                    </div>
+                </div>
+            </div>
+        @else
+            <main class="mt-20 max-w-8xl mx-auto">
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
                     {{-- button --}}
                     <a href="{{ route('dosen_kelas.index') }}"
                         class="mb-12 mt-12 px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
                         Kembali
                     </a>
-                    <div class="mb-5 mt-12 ">
-                        {{-- <h1 class="text-4xl font-bold text-gray-800">Daftar Mahasiswa Kelas</h1>
-                        <p class="text-gray-500 mt-2 text-base">List Daftar Mahasiswa untuk Ini</p> --}}
-                        <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Daftar Mahasiswa Kelas</h1>
 
+                    <div class="mb-5 mt-12">
+                        <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Daftar Mahasiswa Kelas</h1>
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-xl font-bold text-biru-custom">List Daftar Mahasiswa untuk Ini</h2>
                         </div>
                     </div>
-                {{-- ini buat formnya --}}
-                {{-- <livewire:form-kelas-selector/> --}}
-                {{-- <livewire:form-kelas-selector /> --}}
 
-
-
-
-                {{-- table per mahasiswa per kelas --}}
-                <div class="overflow-x-auto rounded-lg border border-gray-400 mt-12">
-                    <table class="w-full text-sm text-left text-gray-500"">
-                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
-                            <tr>
-                                <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">NIM</th>
-                                <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Nama Lengkap</th>
-                                <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Angkatan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($kelas->mahasiswa as $mhs)
-                                <tr class="text-black">
-                                    <td class="text-center px-6 py-4">{{ $mhs->nim }}</td>
-                                    <td class="text-center px-6 py-4">{{ $mhs->nama_lengkap }}</td>
-                                    <td class="text-center px-6 py-4">{{ $mhs->angkatan }}</td>
+                    {{-- table per mahasiswa per kelas --}}
+                    <div class="overflow-x-auto rounded-lg border border-gray-400 mt-12">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                                <tr>
+                                    <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">NIM</th>
+                                    <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Nama Lengkap</th>
+                                    <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Angkatan</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($kelas->mahasiswa as $mhs)
+                                    <tr class="text-black">
+                                        <td class="text-center px-6 py-4">{{ $mhs->nim }}</td>
+                                        <td class="text-center px-6 py-4">{{ $mhs->nama_lengkap }}</td>
+                                        <td class="text-center px-6 py-4">{{ $mhs->angkatan }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            </main>
+        @endif
 
-        </main>
     </div>
 
     {{-- Script to initialize Select2 --}}

@@ -9,6 +9,11 @@ use App\Models\KurikulumModel;
 use App\Models\TahunAkademik;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
+use App\Models\PenilaianMahasiswaCPMKModel;
+use App\Models\PenilaianMahasiswaModel;
+use App\Models\RencanaAsesmenCPMKBobotModel;
+use App\Models\PenilaianMahasiswa;
+use App\Models\PenilaianMahasiswaCPMK;
 
 class KelasDosenController extends Controller
 {
@@ -48,6 +53,7 @@ class KelasDosenController extends Controller
     public function nilaiKelas($id)
     {
         $kelas = Kelas::with('mahasiswa')->findOrFail($id);
+        $penilaianMahasiswa = PenilaianMahasiswa::all();
         $idMk = $kelas->id_mk;
         $cpmks = \App\Models\CPMKModel::whereIn('id_cpmk', function($q) use ($idMk) {
             $q->select('id_cpmk')
@@ -63,7 +69,61 @@ class KelasDosenController extends Controller
             'cpmk' => $cpmks,
             'rencanaAsesmen' => $asesmen,
             'bobot' => $bobot,
+            'penilaianMahasiswa' => $penilaianMahasiswa,            
         ]);
+    }
+
+    public function simpanNilai(Request $request, $idKelas)
+    {
+        foreach ($request->nilai as $idMhs => $asesmenCpmkData) {
+            foreach ($asesmenCpmkData as $idRencana => $cpmkData) {
+                foreach ($cpmkData as $idCpmk => $nilai) {
+                    PenilaianMahasiswa::updateOrCreate(
+                        [
+                            'id_kelas' => $idKelas,
+                            'id_mhs' => $idMhs,
+                            'id_rencana_asesmen' => $idRencana,
+                            'id_cpmk' => $idCpmk,
+                        ],
+                        ['nilai' => $nilai]
+                    );
+                }
+            }
+        }
+
+        // Opsional: Hitung nilai rata-rata CPMK per mahasiswa
+        $bobotList = RencanaAsesmenCPMKBobotModel::all();
+
+        foreach ($request->nilai as $idMhs => $asesmenCpmkData) {
+            foreach ($bobotList->groupBy('id_cpmk') as $idCpmk => $list) {
+                $totalBobot = $list->sum('bobot');
+                $totalNilai = 0;
+
+                foreach ($list as $b) {
+                    $nilai = PenilaianMahasiswa::where([
+                        'id_kelas' => $idKelas,
+                        'id_mhs' => $idMhs,
+                        'id_rencana_asesmen' => $b->id_rencana_asesmen,
+                        'id_cpmk' => $idCpmk,
+                    ])->value('nilai') ?? 0;
+
+                    $totalNilai += $nilai * $b->bobot;
+                }
+
+                $rata = $totalBobot ? $totalNilai / $totalBobot : null;
+
+                PenilaianMahasiswaCPMK::updateOrCreate(
+                    [
+                        'id_kelas' => $idKelas,
+                        'id_mhs' => $idMhs,
+                        'id_cpmk' => $idCpmk,
+                    ],
+                    ['nilai_rata' => $rata]
+                );
+            }
+        }
+
+        return back()->with('success', 'Nilai berhasil disimpan dan dihitung!');
     }
 
 

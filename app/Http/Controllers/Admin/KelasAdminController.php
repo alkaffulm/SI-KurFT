@@ -10,6 +10,11 @@ use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\KelasMahasiswaImport;
+use App\Models\KelasMahasiswa;
+
 class KelasAdminController extends Controller
 {
     public function __construct()
@@ -102,21 +107,44 @@ class KelasAdminController extends Controller
         $request->validate([
             'id_user' => 'required|exists:user,id_user',
             'jumlah_mhs' => 'required|integer|min:1',
-            'excel_daftar_mahasiswa' => 'nullable|file|mimes:xlsx,xls',
+            'excel_daftar_mahasiswa' => 'nullable|file|mimes:xlsx,xls|max:2048',
         ]);
 
+        // Update data dasar kelas
         $kelas->id_user = $request->id_user;
         $kelas->jumlah_mhs = $request->jumlah_mhs;
 
+        // Cek apakah ada file excel yang diupload
         if ($request->hasFile('excel_daftar_mahasiswa')) {
-            $path = $request->file('excel_daftar_mahasiswa')->store('uploads/excel', 'public');
+
+            // Hapus file lama jika ada
+            if ($kelas->excel_daftar_mahasiswa && Storage::disk('public')->exists($kelas->excel_daftar_mahasiswa)) {
+                Storage::disk('public')->delete($kelas->excel_daftar_mahasiswa);
+            }
+
+            // Simpan file baru ke storage
+            $file = $request->file('excel_daftar_mahasiswa');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads/excel', $filename, 'public');
+
+            // Simpan path ke database
             $kelas->excel_daftar_mahasiswa = $path;
+
+            // ✅ Setelah file tersimpan, langsung import ke tabel kelas_mahasiswa
+            Excel::import(
+                new KelasMahasiswaImport($kelas->id_kelas),
+                storage_path('app/public/' . $path)
+            );
         }
 
+        // Simpan perubahan kelas
         $kelas->save();
 
-        return redirect()->route('kelas.index')->with('success', 'Kelas berhasil diperbarui.');
+        return redirect()
+            ->route('kelas.index')
+            ->with('success', 'Kelas dan daftar mahasiswa berhasil diperbarui.');
     }
+
 
 
     public function hapusKelas($id)

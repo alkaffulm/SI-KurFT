@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_k__c_p_m_k__c_p_l__maps');
+        Schema::dropIfExists('mk_cpmk_cpl_map');
     }
 };

@@ -45,7 +45,7 @@
                         <h1 class="text-4xl font-bold text-gray-800">Edit Kelas</h1>
                         <p class="text-gray-500 mt-2 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore nihil perspiciatis quibusdam!</p>
                     </div>
-                    <form action="{{ route('kelas.update', $kelas->id_kelas) }}" method="POST" enctype="multipart/form-data" class="mb-12 flex flex-col">
+                    <form action="{{ route('kelas.updaterill', $kelas->id_kelas) }}" method="POST" enctype="multipart/form-data" class="mb-12 flex flex-col">
                         @csrf
                         @method('PUT')
                         <div class="flex mb-12 gap-12">

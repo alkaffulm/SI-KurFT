@@ -164,10 +164,18 @@ Route::middleware('auth')->group(function () {
         // Penilaian Mahasiswa Per Kelas
             // lihat daftar mahasiswa untuk kelas
             Route::get('/dosen/kelas/penilaian/kelas/{id}', [KelasDosenController::class, 'nilaiKelas'])->name('dosen.kelas.penilaian');
+    
+        Route::post('/dosen/kelas/{id}/nilai/simpan', [KelasDosenController::class, 'simpanNilai'])->name('dosen_kelas.simpanNilai');
+
+        // Lihat Pemetaan MK-CPMK-CPL Per Mahasiswa
+            Route::get('/dosen/pemetaan/', [KelasDosenController::class, 'index'])->name('pemetaan_mhs.index');
+
 
 
 
     });
+
+
     Route::get('/mapping/tahun-akademik-kurikulum/tambah', [TahunakademikController::class, 'tambahTA'])->name('ta-kurikulum-mapping.add');
     Route::get('/mapping/tahun-akademik-kurikulum/index', [TahunakademikController::class, 'index'])->name('ta.index');
     Route::post('/mapping/tahun-akademik-kurikulum/update', [TahunakademikController::class, 'updateTA'])->name('ta.update');
@@ -196,16 +204,16 @@ Route::middleware('auth')->group(function () {
             Route::post('/mapping/tahun-akademik-kurikulum/update', [TahunakademikController::class, 'updateTA'])->name('ta.update');
             Route::get('/mapping/tahun-akademik-kurikulum', [TahunakademikController::class, 'index'])->name('ta.index');
             // buat kelas
-            Route::get('/mapping/kelas/index', [KelasController::class, 'index'])->name('kelas.index');
-            Route::get('/mapping/kelas/tambah', [KelasController::class, 'tambahKelas'])->name('kelas.add');
+            // Route::get('/mapping/kelas/index', [KelasController::class, 'index'])->name('kelas.index');
+            // Route::get('/mapping/kelas/tambah', [KelasController::class, 'tambahKelas'])->name('kelas.add');
             // Edit kelas
-            Route::get('/mapping/kelas/{id}/edit', [KelasController::class, 'editKelas'])->name('kelas.edit');
+            // Route::get('/mapping/kelas/{id}/edit', [KelasController::class, 'editKelas'])->name('kelas.edit');
             // update kelas
-            Route::put('/mapping/kelas/{id}', [KelasController::class, 'updateKelas'])->name('kelas.update');
+            // Route::put('/mapping/kelas/{id}', [KelasController::class, 'updateKelas'])->name('kelas.update');
             // hapus kelas
-            Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
+            // Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
             // hapus kelas
-            Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
+            // Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
 
         // TAHUN AKADEMIK DAN KELAS
             Route::get('/mapping/tahun-akademik-kurikulum/tambah', [TahunakademikAdminController::class, 'tambahTA'])->name('ta-kurikulum-mapping.add');
@@ -221,7 +229,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/mapping/kelas/{id}/edit', [KelasAdminController::class, 'editKelas'])->name('kelas.edit');
 
             // update kelas
-            Route::put('/mapping/kelas/{id}', [KelasAdminController::class, 'updateKelas'])->name('kelas.update');
+            Route::put('/mapping/kelas/{id}', [KelasAdminController::class, 'updateKelas'])->name('kelas.updaterill');
 
             // hapus kelas
             Route::get('/mapping/kelas/{id}/hapus', [KelasAdminController::class, 'hapusKelas'])->name('kelas.hapus');
