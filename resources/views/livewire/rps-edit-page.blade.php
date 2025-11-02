@@ -282,7 +282,7 @@
                                                     <p class="font-bold">TM</p>
                                                     <div wire:ignore>
                                                         <label >Metode Pembelajaran</label>
-                                                        <select class="select2-bentuk-penugasan w-full" data-index="{{$index}}" data-tipe="TM" multiple="multiple" >
+                                                        <select class="select2-metode-pembelajaran w-full" data-index="{{$index}}" data-tipe="TM" multiple="multiple" >
                                                             @foreach ($allMetodePembelajaran as $metode)
                                                                 <option value="{{$metode->id_metode_pembelajaran}}" {{in_array($metode->id_metode_pembelajaran, $topic['aktivitas_pembelajaran']['TM']['selected_metode_pembelajaran']) ? 'selected' : ''}}>{{$metode->nama_metode_pembelajaran}}</option>
                                                             @endforeach
