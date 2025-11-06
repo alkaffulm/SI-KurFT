@@ -17,6 +17,7 @@ use App\Http\Requests\StoreRPSRequest;
 use App\Models\MediaPembelajaranModel;
 use App\Models\ModelPembelajaranModel;
 use App\Models\RencanaAsesmenCPMKBobotModel;
+use Spatie\Browsershot\Browsershot;
 
 class RPSController extends Controller
 {
@@ -211,6 +212,100 @@ class RPSController extends Controller
             'bobotCplCpmk' => $bobotCplCpmk,
             'bobotPenilaian' => $bobotPenilaian ?? 0,
         ]);
+    }
+    
+    public function generatePDF(RPSModel $rps)
+    {
+        $rps->load([
+            'mataKuliah', 
+            'mediaPembelajaran',
+            'mataKuliah.bahanKajian.cpls', 
+            'mataKuliah.cpmks.subCpmk',
+            'mataKuliah.cpmks.cpls',
+            'dosenPenyusun', 
+            'dosenPenyusun.programStudiModel',
+            'kurikulum',
+            'programStudi',
+            'bahanKajian.cpls',
+            'topics.weeks',
+            'topics.subCpmk',
+        ]);
+
+        
+        $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rps->id_mk)->with('cpl', 'cpmk')->get();
+        $relevantCpl = $mappings->pluck('cpl')->unique('id_cpl');
+        $relevantCpmk = $mappings->pluck('cpmk')->unique('id_cpmk');
+
+        $correlationCpmkCplMap = [];
+        foreach($mappings as $mapping) {
+            $correlationCpmkCplMap[$mapping->id_cpmk][] = $mapping->id_cpl;
+        }
+
+        $bobotCplCpmk = CPLCPMKBobotModel::where('id_mk', $rps->id_mk)
+                        ->with(['cpl', 'cpmk'])
+                        ->whereExists(function ($query) {
+                            $query->select(DB::raw(1))
+                                ->from('mk_cpmk_cpl_map')
+                                ->whereColumn('mk_cpmk_cpl_map.id_mk', 'cpl_cpmk_bobot.id_mk')
+                                ->whereColumn('mk_cpmk_cpl_map.id_cpl', 'cpl_cpmk_bobot.id_cpl')
+                                ->whereColumn('mk_cpmk_cpl_map.id_cpmk', 'cpl_cpmk_bobot.id_cpmk');
+                        })                
+                        ->get();
+        
+
+        $validCpmks = $bobotCplCpmk->pluck('cpmk')->unique('id_cpmk');
+
+        $allBobotPenilaianEntries = RencanaAsesmenCPMKBobotModel::whereIn('id_cpmk', $validCpmks->pluck('id_cpmk'))
+            ->whereHas('rencanaAsesmen', function ($q) use ($rps) {
+                $q->where('id_mk', $rps->id_mk);
+            })
+            ->with('rencanaAsesmen') 
+            ->get();
+
+        foreach ($validCpmks as $cpmk) {
+            // Dari data yang sudah diambil, filter untuk CPMK saat ini
+            $entriesForThisCpmk = $allBobotPenilaianEntries->where('id_cpmk', $cpmk->id_cpmk);
+            
+            // Akumulasi bobot TUGAS dari kolom 'bobot' di tabel pivot
+            $totalTugas = $entriesForThisCpmk->filter(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'tugas')->sum('bobot');
+            
+            // Ambil bobot UTS dari kolom 'bobot' di tabel pivot
+            $bobotUts = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'uts')?->bobot ?? 0;
+            
+            // Ambil bobot UAS dari kolom 'bobot' di tabel pivot
+            $bobotUas = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'uas')?->bobot ?? 0;
+
+            $bobotHasilProyek = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'Hasil Proyek')?->bobot ?? 0;
+
+            $bobotKegiatanPartisipatif = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'Kegiatan Partisipatif')?->bobot ?? 0;
+
+
+            $bobotPenilaian[$cpmk->id_cpmk] = [
+                'tugas' => $totalTugas,
+                'uts'   => $bobotUts,
+                'uas'   => $bobotUas,
+                'hasil_proyek' => $bobotHasilProyek,
+                'kegiatan_partisipatif' => $bobotKegiatanPartisipatif,
+            ];
+        }
+
+        $pdfTemplate = view('dosen.showrpsPDF', [
+            'rps' => $rps, 
+            'assocCpls' => $relevantCpl, 
+            'assocCpmk' => $relevantCpmk, 
+            'correlationCpmkCplMap' => $correlationCpmkCplMap,
+            'bobotCplCpmk' => $bobotCplCpmk,
+            'bobotPenilaian' => $bobotPenilaian ?? 0,
+        ])->render();
+
+        Browsershot::html($pdfTemplate)
+            ->landscape()
+            ->showBackground()
+            ->margins(10, 10, 10, 10)
+            ->emulateMedia('screen')
+            ->format('A4');
+            
+        return response()->download('RPS_'.$rps->mataKuliah->nama_matkul_id.'.pdf')->deleteFileAfterSend(true);
     }
 
     /**
