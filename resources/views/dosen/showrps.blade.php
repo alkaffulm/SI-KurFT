@@ -7,6 +7,7 @@
     <title>Document</title>
         @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://kit.fontawesome.com/a3c61f64a4.js" crossorigin="anonymous"></script>
 </head>
 <body class="font-serif">
 
@@ -19,24 +20,26 @@
         $isKaprodi = session('userRole') == 'kaprodi';
 
         $isPengembangRps = Auth::id() == $rps->mataKuliah->id_pengembang_rps;
-        $isKoordinatorMk = Auth::id()  == $rps->mataKuliah->id_koordinator_mk;
+        $isKoordinatorMk = Auth::id() == $rps->mataKuliah->id_koordinator_mk;
         
         $canDelete = $isDosen && $isPengembangRps;
         $canEdit = ($isDosen && $isPengembangRps) || $isKaprodi || $isKoordinatorMk;    
     @endphp
     
-    <div class="py-8 px-16 sm:ml-64 mt-16">
+    <div class="py-8 px-16 sm:ml-64 mt-16 ">
 
         <div class="flex justify-between items-center">
 
-                <div class="mb-4">
+                <div class=" mb-4">
                     @if ($isDosen)
-                        <a href="{{ route('matkul.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
+                        <a href="{{ route('matkul.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 mr-4">Kembali</a>
                     @elseif($isKaprodi)
                         {{-- <a href="/kaprodi/mata-kuliah">Kembali</a> --}}
                         <a href="{{ route('mata-kuliah.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
                     @endif
+                    <a href="{{route('rps.generatePDF', $rps)}}" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-5 py-3 text-center"><i class="fa-solid fa-download"></i> PDF</a>
                 </div>
+
 
                 <div class="flex items-center gap-x-4 mb-4">
                     @if ($canEdit)
@@ -57,7 +60,7 @@
         </div>
 
         {{-- SECTION 1: KOP SURAT & INFO MATA KULIAH  --}}
-        <div class="border border-black bg-[#9cc2e4]">
+        <div class="border border-black bg-[#9cc2e4] ">
             <div class="flex  border-black">
                 <div class="w-1/4  flex items-center justify-center border-r border-b border-black">
                     <img src="{{asset('images/LOGO ULM.png')}}" alt="Logo Universitas" class="h-20">
@@ -131,7 +134,7 @@
                 <div class="col-span-1 px-2 border-r border-black "></div>
                 <div class="col-span-4 px-2 border-r  border-t border-black grid items-end">{{$rps->mataKuliah->pengembangRps?->username ?? 'Pengembang RPS tidak ditemukan'}}</div>
                 <div class="col-span-3 px-2 border-r border-t border-black grid items-end">{{ $rps->mataKuliah->koordinatorMk?->username ?? 'Koordinator MK tidak ditemukan'}}</div>
-                <div class="col-span-4 px-2  border-black grid items-end">{{$rps->kaprodi?->username ?? 'Kaprodi tidak ditemukan'}}</div>
+                <div class="col-span-4 px-2 border-t border-black grid items-end">{{$rps->kaprodi?->username ?? 'Kaprodi tidak ditemukan'}}</div>
             </div>
         </div>
 
@@ -275,15 +278,15 @@
                             </tr>
                             <tr class="border border-black bg-[#f7cbac]">
                                 <th class="border border-black p-1">(%)</th>
-                                <th class="border border-black p-1">N-maka</th>
+                                <th class="border border-black p-1">N-maks</th>
                                 <th class="border border-black p-1">(%)</th>
-                                <th class="border border-black p-1">N-maka</th>
+                                <th class="border border-black p-1">N-maks</th>
                                 <th class="border border-black p-1">(%)</th>
-                                <th class="border border-black p-1">N-maka</th>
+                                <th class="border border-black p-1">N-maks</th>
                                 <th class="border border-black p-1">(%)</th>
-                                <th class="border border-black p-1">N-maka</th>
+                                <th class="border border-black p-1">N-maks</th>
                                 <th class="border border-black p-1">(%)</th>
-                                <th class="border border-black p-1">N-maka</th>
+                                <th class="border border-black p-1">N-maks</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -405,7 +408,7 @@
                         <div class="col-span-6 px-2 border-r border-black font-bold bg-gray-300">Perangkat Lunak:</div>
                         <div class="col-span-6 px-2  border-black font-bold bg-gray-300">Perangkat Keras:</div>
                     </div>
-                    <div class="grid grid-cols-12">
+                    <div class="grid grid-cols-12 h-10">
                         <div class="col-span-6 px-2  border-black border-r ">{{$rps->mediaPerangkatLunak}}</div>
                         <div class="col-span-6 px-2  border-black ">{{$rps->mediaPerangkatKeras}}</div>
                     </div>

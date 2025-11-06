@@ -56,6 +56,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('rps', RPSController::class);
+    Route::get('/rps/{rps}/generate-pdf', [RPSController::class, 'generatePDF'])->name('rps.generatePDF');
 
     Route::middleware('role:kaprodi')->prefix('kaprodi')->group(function () {
         // Route::resource('bahan-kajian', BahanKajianController::class);
