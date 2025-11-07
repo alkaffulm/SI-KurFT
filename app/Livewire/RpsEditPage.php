@@ -113,7 +113,13 @@ class RpsEditPage extends Component
     }
     
     public function loadRpsTopic(RPSModel $rps) {
-        $this->topics = $rps->topics()->with(['weeks', 'kriteriaPenilaian', 'teknikPenilaian', 'aktivitasPembelajaran.metodePembelajaran', 'aktivitasPembelajaran.bentukPembelajaran'])->get()->map(function ($topic, $index) {
+        $this->topics = $rps->topics()->with([
+            'weeks', 
+            'kriteriaPenilaian', 
+            'teknikPenilaian', 
+            'aktivitasPembelajaran.metodePembelajaran', 
+            'aktivitasPembelajaran.bentukPembelajaran'
+        ])->get()->map(function ($topic, $index) {
         if($topic->teknik_penilaian_kategori) {
             $this->teknikTersedia[$index] = TeknikPenilaianModel::where('kategori', $topic->teknik_penilaian_kategori)->get();
         }

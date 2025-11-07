@@ -28,20 +28,13 @@
     <title>RPS {{ $rps->mataKuliah?->nama_matkul_id ?? 'Error' }}</title>
     
     <style>
+        /* 1. Muat semua CSS Tailwind Anda dari Vite */
         {!! $cssFile !!}
 
-        /* ===== PERBAIKAN  KUSTOM UNTUK PDF ===== */
-        .pdf-table {
-            -collapse: separate !important; /* Memaksa mode  terpisah */
-            -spacing: 0 !important; /* Menghilangkan celah antar sel */
-        }
-        
-        /* Memaksa SETIAP sel untuk memiliki  1px solid hitam di semua sisi */
-        .pdf-table th,
-        .pdf-table td {
-            : 1px solid #000 !important; 
-        }
-        /* ===== AKHIR PERBAIKAN  ===== */
+        /* * =================================================================
+         * SOLUSI KUSTOM (REVISI #4 - Strategi: separate + 0.5pt)
+         * =================================================================
+         */
     </style>
 </head>
 <body class="font-serif">
@@ -166,16 +159,14 @@
                         <div class="col-span-2  px-2   border-b border-black  bg-gray-300 font-bold">CPMK yang didukung</div>
                     </div>
                     {{-- Loop untuk Sub-CPMK --}}
-                    @foreach($assocCpmk ?? [] as $cpmk)
-                        @foreach ($cpmk->subCpmk ?? [] as $sc )
-                            <div class="grid grid-cols-12 border-b border-black ">
-                                <div class="col-span-1 px-2 border-r border-black text-center ">{{ $sc->nama_kode_sub_cpmk}}</div>
-                                <div class="col-span-9 px-2  border-r border-black text-sm/6">
-                                     <p>{{ $sc->desc_sub_cpmk_id }}</p>
+                    @foreach ($assocSubCpmk as $sc)
+                        <div class="grid grid-cols-12  border-black">
+                            <div class="col-span-1 px-2 border-r border-b border-black text-center ">{{ $sc->nama_kode_sub_cpmk}}</div>
+                                <div class="col-span-9 px-2  border-b border-black text-sm/6">
+                                    <p>{{ $sc->desc_sub_cpmk_id }}</p>
                                 </div>
-                                <div class="col-span-2 px-2     text-center ">{{$sc->cpmk->nama_kode_cpmk}}</div>
-                            </div>  
-                        @endforeach
+                            <div class="col-span-2 px-2 border-l border-b  border-black text-center ">{{$sc->cpmk->nama_kode_cpmk}}</div>
+                        </div>                        
                     @endforeach
                 </div>
             </div>
@@ -425,7 +416,7 @@
     
                             {{-- (7) Model Pembelajaran --}}
                             <td class="border-r border-black p-2 align-top">
-                                {{$topic->rps?->modelPembelajaran?->nama_model_pembelajaran ?? "..."}}
+                                    {{$rps->modelPembelajaran->nama_model_pembelajaran ?? "Model Pembelajaran Belum di Tentukan"}}
                             </td>
     
                             {{--  (8) Synchronous --}}

@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Dosen;
 
 use App\Models\RPSModel;
 use App\Models\UserModel;
+use App\Models\SubCPMKModel;
 use Illuminate\Http\Request;
 use App\Models\MataKuliahModel;
 use App\Models\CPLCPMKBobotModel;
 use Illuminate\Support\Facades\DB;
 use App\Livewire\PembobotanCpmkCpl;
 use App\Models\RencanaAsesmenModel;
+use Spatie\Browsershot\Browsershot;
 use App\Http\Controllers\Controller;
 use App\Models\MK_CPMK_CPL_MapModel;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +19,6 @@ use App\Http\Requests\StoreRPSRequest;
 use App\Models\MediaPembelajaranModel;
 use App\Models\ModelPembelajaranModel;
 use App\Models\RencanaAsesmenCPMKBobotModel;
-use Spatie\Browsershot\Browsershot;
 
 class RPSController extends Controller
 {
@@ -123,23 +124,26 @@ class RPSController extends Controller
         $rp->load([
             'mataKuliah', 
             'mediaPembelajaran',
-            'mataKuliah.bahanKajian.cpls', 
-            'mataKuliah.cpmks.subCpmk',
-            'mataKuliah.cpmks.cpls',
-            'dosenPenyusun', 
-            'dosenPenyusun.programStudiModel',
+            'modelPembelajaran',
+            'mataKuliah.pengembangRps',
+            'mataKuliah.koordinatorMk',
             'kurikulum',
             'programStudi',
-            'bahanKajian.cpls',
             'topics.weeks',
             'topics.subCpmk',
+            'topics.subCpmk.cpmk',
+            'topics.kriteriaPenilaian',
+            'topics.teknikPenilaian',
+            'topics.aktivitasPembelajaran',
+            'topics.aktivitasPembelajaran.metodePembelajaran',
+            'topics.aktivitasPembelajaran.bentukPenugasan'
         ]);
 
         
         $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rp->id_mk)->with('cpl', 'cpmk')->get();
         $relevantCpl = $mappings->pluck('cpl')->unique('id_cpl');
         $relevantCpmk = $mappings->pluck('cpmk')->unique('id_cpmk');
-        // $relevantsubCpmk = $mappings->cpmk->subCpmk->pluck('nama_kode_sub_cpmk')->unique('id_sub_cpmk');
+        $relevantsubCpmk = SubCPMKModel::whereIn('id_cpmk', $relevantCpmk->pluck('id_cpmk'))->with('cpmk')->get();
 
         $correlationCpmkCplMap = [];
         foreach($mappings as $mapping) {
@@ -196,18 +200,19 @@ class RPSController extends Controller
             ];
         }
 
-        $assocCpls = collect();
+        // $assocCpls = collect();
 
-        if($rp->mataKuliah) {
-            $assocCpls = $rp->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {
-                return $bahanKajian->cpls;
-            })->unique('id_cpl');
-        }
+        // if($rp->mataKuliah) {
+        //     $assocCpls = $rp->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {
+        //         return $bahanKajian->cpls;
+        //     })->unique('id_cpl');
+        // }
         
         return view('dosen.showrps', [
             'rps' => $rp, 
             'assocCpls' => $relevantCpl, 
             'assocCpmk' => $relevantCpmk, 
+            'assocSubCpmk' => $relevantsubCpmk,
             'correlationCpmkCplMap' => $correlationCpmkCplMap,
             'bobotCplCpmk' => $bobotCplCpmk,
             'bobotPenilaian' => $bobotPenilaian ?? 0,
@@ -219,22 +224,26 @@ class RPSController extends Controller
         $rps->load([
             'mataKuliah', 
             'mediaPembelajaran',
-            'mataKuliah.bahanKajian.cpls', 
-            'mataKuliah.cpmks.subCpmk',
-            'mataKuliah.cpmks.cpls',
-            'dosenPenyusun', 
-            'dosenPenyusun.programStudiModel',
+            'modelPembelajaran',
+            'mataKuliah.pengembangRps',
+            'mataKuliah.koordinatorMk',
             'kurikulum',
             'programStudi',
-            'bahanKajian.cpls',
             'topics.weeks',
             'topics.subCpmk',
+            'topics.subCpmk.cpmk',
+            'topics.kriteriaPenilaian',
+            'topics.teknikPenilaian',
+            'topics.aktivitasPembelajaran',
+            'topics.aktivitasPembelajaran.metodePembelajaran',
+            'topics.aktivitasPembelajaran.bentukPenugasan'
         ]);
 
         
         $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rps->id_mk)->with('cpl', 'cpmk')->get();
         $relevantCpl = $mappings->pluck('cpl')->unique('id_cpl');
         $relevantCpmk = $mappings->pluck('cpmk')->unique('id_cpmk');
+        $relevantsubCpmk = SubCPMKModel::whereIn('id_cpmk', $relevantCpmk->pluck('id_cpmk'))->with('cpmk')->get();
 
         $correlationCpmkCplMap = [];
         foreach($mappings as $mapping) {
@@ -244,8 +253,10 @@ class RPSController extends Controller
         $bobotCplCpmk = CPLCPMKBobotModel::where('id_mk', $rps->id_mk)
                         ->with(['cpl', 'cpmk'])
                         ->whereExists(function ($query) {
+                            // ...terdapat baris di tabel 'mk_cpmk_cpl_map' yang cocok
                             $query->select(DB::raw(1))
                                 ->from('mk_cpmk_cpl_map')
+                                // Cocokkan berdasarkan id_mk, id_cpl, dan id_cpmk
                                 ->whereColumn('mk_cpmk_cpl_map.id_mk', 'cpl_cpmk_bobot.id_mk')
                                 ->whereColumn('mk_cpmk_cpl_map.id_cpl', 'cpl_cpmk_bobot.id_cpl')
                                 ->whereColumn('mk_cpmk_cpl_map.id_cpmk', 'cpl_cpmk_bobot.id_cpmk');
@@ -259,7 +270,7 @@ class RPSController extends Controller
             ->whereHas('rencanaAsesmen', function ($q) use ($rps) {
                 $q->where('id_mk', $rps->id_mk);
             })
-            ->with('rencanaAsesmen') 
+            ->with('rencanaAsesmen') // Eager load relasi ke parent-nya
             ->get();
 
         foreach ($validCpmks as $cpmk) {
@@ -293,6 +304,7 @@ class RPSController extends Controller
             'rps' => $rps, 
             'assocCpls' => $relevantCpl, 
             'assocCpmk' => $relevantCpmk, 
+            'assocSubCpmk' => $relevantsubCpmk,
             'correlationCpmkCplMap' => $correlationCpmkCplMap,
             'bobotCplCpmk' => $bobotCplCpmk,
             'bobotPenilaian' => $bobotPenilaian ?? 0,
@@ -304,6 +316,7 @@ class RPSController extends Controller
             ->margins(10, 10, 10, 10)
             ->emulateMedia('screen')
             ->format('A4')
+            ->setDelay(500)
             ->save('RPS_'.$rps->mataKuliah->nama_matkul_id.'.pdf');
             
         return response()->download('RPS_'.$rps->mataKuliah->nama_matkul_id.'.pdf')->deleteFileAfterSend(true);
