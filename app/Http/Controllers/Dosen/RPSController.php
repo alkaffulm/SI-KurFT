@@ -303,7 +303,8 @@ class RPSController extends Controller
             ->showBackground()
             ->margins(10, 10, 10, 10)
             ->emulateMedia('screen')
-            ->format('A4');
+            ->format('A4')
+            ->save('RPS_'.$rps->mataKuliah->nama_matkul_id.'.pdf');
             
         return response()->download('RPS_'.$rps->mataKuliah->nama_matkul_id.'.pdf')->deleteFileAfterSend(true);
     }
