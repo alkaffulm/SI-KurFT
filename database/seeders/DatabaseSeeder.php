@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CPLCPMKBobotModel;
 use App\Models\ProgramStudi;
 use App\Models\TahunAkademik;
 use App\Models\User;
@@ -80,6 +81,8 @@ class DatabaseSeeder extends Seeder
             RpsTopicTeknikPenilaianSeeder::class,
 
             VisiKeilmuanSeeder::class,
+            KelasMahasiswaSeeder::class,
+            CPLCPMKBobotSeeder::class,
         ]);
     }
 }

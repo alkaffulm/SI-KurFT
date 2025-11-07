@@ -33,6 +33,16 @@ class KurikulumSeeder extends Seeder
             ['id_kurikulum' => 16, 'id_ps' => 7, 'tahun' => 2025],
             ['id_kurikulum' => 17, 'id_ps' => 8, 'tahun' => 2025],
             ['id_kurikulum' => 18, 'id_ps' => 9, 'tahun' => 2025],
+
+            ['id_kurikulum' => 19, 'id_ps' => 1, 'tahun' => 2019],
+            ['id_kurikulum' => 20, 'id_ps' => 2, 'tahun' => 2019],
+            ['id_kurikulum' => 21, 'id_ps' => 3, 'tahun' => 2019],
+            ['id_kurikulum' => 22, 'id_ps' => 4, 'tahun' => 2019],
+            ['id_kurikulum' => 23, 'id_ps' => 5, 'tahun' => 2019],
+            ['id_kurikulum' => 24, 'id_ps' => 6, 'tahun' => 2019],
+            ['id_kurikulum' => 25, 'id_ps' => 7, 'tahun' => 2019],
+            ['id_kurikulum' => 26, 'id_ps' => 8, 'tahun' => 2019],
+            ['id_kurikulum' => 27, 'id_ps' => 9, 'tahun' => 2019],
         ]);
     }
 }
