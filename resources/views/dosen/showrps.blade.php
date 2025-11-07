@@ -300,14 +300,16 @@
                                     @php
                                         $penilaian = $bobotPenilaian[$bobot->id_cpmk] ?? null;
                                     @endphp
-                                            
+
+                                    {{-- Kolom Kegiatan Partisipatif --}}
                                     <td class="border border-black p-1">
-                                       {{ $penilaian ? number_format($penilaian['hasil_proyek'], 0) : '' }} 
+                                        {{ $penilaian ? number_format($penilaian['kegiatan_partisipatif'], 0) : '' }} 
                                     </td>
                                     <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
 
+                                    {{-- Kolom Hasil Proyek --}}
                                     <td class="border border-black p-1">
-                                        {{ $penilaian ? number_format($penilaian['kegiatan_partisipatif'], 0) : '' }} 
+                                       {{ $penilaian ? number_format($penilaian['hasil_proyek'], 0) : '' }} 
                                     </td>
                                     <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
 
