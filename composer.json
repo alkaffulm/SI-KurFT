@@ -15,12 +15,14 @@
         "spatie/browsershot": "^5.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.16",
         "fakerphp/faker": "^1.23",
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
+        "php-debugbar/php-debugbar": "^2.2",
         "phpunit/phpunit": "^11.0.1"
     },
     "autoload": {

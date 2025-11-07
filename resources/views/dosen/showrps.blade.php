@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     <script src="https://kit.fontawesome.com/a3c61f64a4.js" crossorigin="anonymous"></script>
 </head>
-<body class="font-serif">
+<body>
 
     @include('layouts.navbar', ['userRole' => $userRole])
 
@@ -26,9 +26,9 @@
         $canEdit = ($isDosen && $isPengembangRps) || $isKaprodi || $isKoordinatorMk;    
     @endphp
     
-    <div class="py-8 px-16 sm:ml-64 mt-16 ">
+    <div class="py-8 px-16 sm:ml-64 mt-16 font-serif">
 
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center font-sans">
 
                 <div class=" mb-4">
                     @if ($isDosen)
@@ -184,16 +184,14 @@
                         <div class="col-span-2  px-2  border-b border-l border-black bg-gray-300 font-bold">CPMK yang didukung</div>
                     </div>
                     {{-- Loop untuk Sub-CPMK --}}
-                    @foreach($assocCpmk as $cpmk)
-                        @foreach ($cpmk->subCpmk ?? [] as $sc )
-                            <div class="grid grid-cols-12  border-black">
-                                <div class="col-span-1 px-2 border-r border-b border-black text-center ">{{ $sc->nama_kode_sub_cpmk}}</div>
+                    @foreach ($assocSubCpmk as $sc)
+                        <div class="grid grid-cols-12  border-black">
+                            <div class="col-span-1 px-2 border-r border-b border-black text-center ">{{ $sc->nama_kode_sub_cpmk}}</div>
                                 <div class="col-span-9 px-2  border-b border-black text-sm/6">
-                                     <p>{{ $sc->desc_sub_cpmk_id }}</p>
+                                    <p>{{ $sc->desc_sub_cpmk_id }}</p>
                                 </div>
-                                <div class="col-span-2 px-2 border-l border-b  border-black text-center ">{{$sc->cpmk->nama_kode_cpmk}}</div>
-                            </div>  
-                        @endforeach
+                            <div class="col-span-2 px-2 border-l border-b  border-black text-center ">{{$sc->cpmk->nama_kode_cpmk}}</div>
+                        </div>                        
                     @endforeach
                 </div>
             </div>
@@ -449,7 +447,7 @@
                         <th class="p-1 border border-black">(8)</th>
                         <th class="p-1 border border-black">(9)</th>
                         <th class="p-1 border border-black">(10)</th>
-                    </tr>
+                    </tr>   
                 </thead>
                 <tbody>
                     @forelse ($rps->topics as $topic)
@@ -493,7 +491,7 @@
 
                                 {{-- (7) Model Pembelajaran --}}
                                 <td class="p-2 border border-black align-top">
-                                    {{$topic->rps->modelPembelajaran->nama_model_pembelajaran ?? "Model Pembelajaran Belum di Tentukan"}}
+                                    {{$rps->modelPembelajaran->nama_model_pembelajaran ?? "Model Pembelajaran Belum di Tentukan"}}
                                 </td>
 
                                 {{--  (8) Synchronous --}}
@@ -507,7 +505,7 @@
 
                                         <div>
                                             {{-- <p class="underline underline-offset-2">Metode Pembelajaran</p> --}}
-                                            <ul class="list-disc list-inside">
+                                            <ul class="list-disc list-outside pl-4">
                                                 @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->metodePembelajaran ?? [] as $metode)
                                                     <li>{{$metode->nama_metode_pembelajaran}}</li>
                                                 @empty
@@ -565,7 +563,7 @@
                                         
                                         <div>
                                             {{-- <p class="underline underline-offset-2">Metode Pembelajaran</p> --}}
-                                            <ul class="list-disc list-inside">
+                                            <ul class="list-disc list-outside pl-4">
                                                 @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->metodePembelajaran ?? [] as $item)
                                                     <li>{{$item->nama_metode_pembelajaran}}</li>
                                                 @empty

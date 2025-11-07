@@ -30,62 +30,39 @@ class MatkulController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->paginate(5, ['*'], 'mata-kuliah');
-        $tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())->with('rps')->paginate(5, ['*'], 'mata-kuliah');
+        $relationsToLoad = ['bahanKajian.cpls', 'rps', 'koordinatorMk', 'pengembangRps'];
+
+        $mata_kuliah = MataKuliahModel::with($relationsToLoad)
+                                    ->orderBy('kode_mk')
+                                    ->paginate(5, ['*'], 'mata-kuliah');
+
+        $tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())
+                                           ->with($relationsToLoad) 
+                                           ->paginate(5, ['*'], 'mata-kuliah');
+
         $bahan_kajian = BahanKajianModel::all();
         $cpl = CPLModel::all();
         $jumlah_bk = BahanKajianModel::count();
-        $bk_cpl_raw = BKCPLMapModel::all();
-        $bk_cpl_map = [];
-
-        foreach ($bk_cpl_raw as $relasi) {
-            $id_cpl = $relasi->id_cpl;
-            $id_bk = $relasi->id_bk;
-
-            if (!isset($bk_cpl_map[$id_cpl]) || !in_array($id_bk, $bk_cpl_map[$id_cpl])) {
-                $bk_cpl_map[$id_cpl][] = $id_bk;
-            }
-        }
-        $mata_kuliah2 = MataKuliahModel::all();
-        $bk_mk_raw = BKMKMapModel::all();
-        $bk_mk_map = [];
-
-        foreach ($bk_mk_raw as $relasi) {
-            $id_bk = $relasi->id_bk;
-            $id_mk = $relasi->id_mk;
-
-            if (!isset($bk_mk_map[$id_bk]) || !in_array($id_mk, $bk_mk_map[$id_bk])) {
-                $bk_mk_map[$id_bk][] = $id_mk;
-            }
-
-        }
 
         $mk_cpl_map = [];
-
         foreach ($mata_kuliah as $mk) {
-            $id_mk = $mk->id_mk;
+            $cplIds = $mk->bahanKajian->flatMap(function ($bahanKajian) {
+                return $bahanKajian->cpls;
+            })->unique('id_cpl')->pluck('id_cpl')->toArray();
+            
+            $mk_cpl_map[$mk->id_mk] = $cplIds;
+        }
 
-            foreach ($bk_mk_map as $id_bk => $list_mk) {
-                if (in_array($id_mk, $list_mk)) {
-                    foreach ($bk_cpl_map as $id_cpl => $list_bk) {
-                        if (in_array($id_bk, $list_bk)) {
-                            $mk_cpl_map[$id_mk][] = $id_cpl;
-                        }
-                    }
-                }
-            }
-    }    
-    
         if (session('userRole') == 'kaprodi') {
             return view('matkul', [
                 'mata_kuliah' => $mata_kuliah,
+                'tanggungJawabDosen' => $tanggungJawabDosen,
                 'bahan_kajian'=>$bahan_kajian,
                 'cpl'=>$cpl,
                 'jumlah_bk'=>$jumlah_bk,
-                'bk_cpl_map'=>$bk_cpl_map,
-                'bk_mk_map'=> $bk_mk_map,
                 'mk_cpl_map' => $mk_cpl_map,
             ]);
         }
@@ -99,8 +76,6 @@ class MatkulController extends Controller
      */
     public function create()
     {
-        // $mata_kuliah = MataKuliahModel::all();
-        // $program_studi = ProgramStudiModel:: all();
         $dosenProdi = UserModel::forProdi(session('userRoleId'))->isDosen()->get();
         $modelPembelajaran = ModelPembelajaranModel::all();
 
@@ -141,7 +116,6 @@ class MatkulController extends Controller
      */
     public function updateAll(UpdateAllMatkulRequest $request)
     { 
-        // $mata_kuliah->update($request->validated());
         if ($request->has('delete_ids')) {
             MataKuliahModel::destroy($request->delete_ids);
         }
