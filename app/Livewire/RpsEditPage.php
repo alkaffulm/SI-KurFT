@@ -51,8 +51,6 @@ class RpsEditPage extends Component
     public $allKriteria = [];
     public $allTeknik = [];
     public $allWeek = [];
-    /** @var Collection|BentukPembelajaranModel[] */
-    public $allBentukPembelajaran = [];
     /** @var Collection|MetodePembelajaranModel[] */
     public $allMetodePembelajaran = [];
     public $allMediaPerangkatLunak = [];
@@ -72,10 +70,10 @@ class RpsEditPage extends Component
         $this->pustaka_pendukung = $rps->pustaka_pendukung;
         $this->id_model_pembelajaran = $rps->id_model_pembelajaran;
 
-        $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rps->id_mk)->with('cpl', 'cpmk')->get();
+        $mappings = MK_CPMK_CPL_MapModel::where('id_mk', $rps->id_mk)->with('cpl', 'cpmk.subCpmk')->get();
         $this->assocCpls = $mappings->pluck('cpl')->unique('id_cpl');
         $this->assocCpmk = $mappings->pluck('cpmk')->unique('id_cpmk');
-        $this->assocSubCpmk = $this->assocCpmk->pluck('subCpmk')->flatten();
+        $this->assocSubCpmk = $this->assocCpmk->pluck('subCpmk')->flatten()->unique('id_sub_cpmk');
 
         $this->correlationCpmkCplMap = [];
         foreach($mappings as $mapping) {
@@ -87,7 +85,6 @@ class RpsEditPage extends Component
         $this->allTeknik = TeknikPenilaianModel::all();
         $this->allMataKuliah = MataKuliahModel::where('id_mk', '!=', $rps->id_mk)->get();
         $this->allWeek = WeekModel::all();
-        $this->allBentukPembelajaran = BentukPembelajaranModel::all();
         $this->allMetodePembelajaran = MetodePembelajaranModel::all();
         $this->allMediaPerangkatKeras = MediaPembelajaranModel::where('tipe', 'perangkat_keras')->get();
         $this->allMediaPerangkatLunak = MediaPembelajaranModel::where('tipe', 'perangkat_lunak')->get();
@@ -104,65 +101,157 @@ class RpsEditPage extends Component
             '3x50' => '3x50',
         ];
 
-        $this->bentukKuliahId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Kuliah')?->id_bentuk_pembelajaran;
-        $this->bentukBelajarMandiriId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Belajar Mandiri')?->id_bentuk_pembelajaran;
-        $this->bentukPenugasanTerstrukturId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Penugasan Terstruktur')?->id_bentuk_pembelajaran;
+        // $this->bentukKuliahId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Kuliah')?->id_bentuk_pembelajaran;
+        // $this->bentukBelajarMandiriId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Belajar Mandiri')?->id_bentuk_pembelajaran;
+        // $this->bentukPenugasanTerstrukturId = $this->allBentukPembelajaran->firstWhere('nama_bentuk_pembelajaran', 'Penugasan Terstruktur')?->id_bentuk_pembelajaran;
 
         // untuk halaman edit Rps topic
         $this->loadRpsTopic($rps);
     }
     
-    public function loadRpsTopic(RPSModel $rps) {
-        $this->topics = $rps->topics()->with([
+    // public function loadRpsTopic(RPSModel $rps) {
+    //     $this->topics = $rps->topics()->with([
+    //         'weeks', 
+    //         'kriteriaPenilaian', 
+    //         'teknikPenilaian', 
+    //         'aktivitasPembelajaran.metodePembelajaran', 
+    //         'aktivitasPembelajaran.bentukPembelajaran',
+    //         'aktivitasPembelajaran.bentukPenugasan'
+    //     ])->get()->map(function ($topic, $index) {
+    //     if($topic->teknik_penilaian_kategori) {
+    //         $this->teknikTersedia[$index] = TeknikPenilaianModel::where('kategori', $topic->teknik_penilaian_kategori)->get();
+    //     }
+    //     // memberikan nilai default, jika pada kasus aktivitas_pembelajaran tidak ada isinya atau null
+    //     $defaultAktivitas = [
+    //         'TM' => [
+    //             'id_aktivitas_pembelajaran' => null,
+    //             'id_bentuk_pembelajaran' => $this->bentukKuliahId,
+    //             'penugasan_mahasiswa' => '',
+    //             'selected_metode_pembelajaran' => [],
+    //             'jumlah_pertemuan' => '',
+    //             'jumlah_sks' => '',
+    //         ],
+    //         'BM' => [
+    //             'id_aktivitas_pembelajaran' => null,
+    //             'id_bentuk_pembelajaran' => $this->bentukBelajarMandiriId,
+    //             'penugasan_mahasiswa' => '',
+    //             'selected_metode_pembelajaran' => [],
+    //             'jumlah_pertemuan' => '',
+    //             'jumlah_sks' => '',
+    //         ],
+    //         'PT' => [
+    //             'id_aktivitas_pembelajaran' => null,
+    //             'id_bentuk_pembelajaran' => $this->bentukPenugasanTerstrukturId,
+    //             'penugasan_mahasiswa' => '',
+    //             'selected_metode_pembelajaran' => [],
+    //             'selected_bentuk_penugasan' => [],
+    //             'jumlah_pertemuan' => '',
+    //             'jumlah_sks' => '',
+    //         ],
+    //     ];
+
+    //     $aktivitasPembelajaran = $topic->aktivitasPembelajaran->keyBy('tipe')->map(function ($aktivitas) {
+    //         return [
+    //                 'id_aktivitas_pembelajaran' => $aktivitas->id_aktivitas_pembelajaran,
+    //                 'id_bentuk_pembelajaran' => $aktivitas->id_bentuk_pembelajaran,
+    //                 'penugasan_mahasiswa' => $aktivitas->penugasan_mahasiswa,
+    //                 'selected_metode_pembelajaran' => $aktivitas->metodePembelajaran->pluck('id_metode_pembelajaran')->toArray(),
+    //                 'selected_bentuk_penugasan' => $aktivitas->bentukPenugasan->pluck('id_bentuk_penugasan')->toArray(),
+    //                 'jumlah_pertemuan' => $aktivitas->jumlah_pertemuan,
+    //                 'jumlah_sks' => $aktivitas->jumlah_sks,
+    //         ];
+    //     })->toArray();
+
+    //         return [
+    //             'id_topic' => $topic->id_topic,
+    //             'id_sub_cpmk' => $topic->id_sub_cpmk,
+    //             'indikator' => $topic->indikator,
+    //             'tipe' => $topic->tipe,
+    //             // 'metode_pembelajaran' => $topic->metode_pembelajaran,
+    //             'materi_pembelajaran' => $topic->materi_pembelajaran,
+    //             'refrensi' => $topic->refrensi,
+    //             'teknik_penilaian_kategori' => $topic->teknik_penilaian_kategori,
+    //             'aktivitas_pembelajaran' => array_replace_recursive($defaultAktivitas,$aktivitasPembelajaran),
+    //             'selected_kriteria' => $topic->kriteriaPenilaian->pluck('id_kriteria_penilaian')->toArray(),
+    //             'selected_teknik' => $topic->teknikPenilaian->pluck('id_teknik_penilaian')->toArray(),
+    //             'minggu_ke' => $topic->weeks->pluck('id_week')->toArray(),                
+    //         ];
+    //     })->toArray();
+    // }
+
+    public function loadRpsTopic() {
+        // Ambil semua topik dengan relasinya (Ini sudah bagus!)
+        $topics = $this->rps->topics()->with([
             'weeks', 
             'kriteriaPenilaian', 
             'teknikPenilaian', 
             'aktivitasPembelajaran.metodePembelajaran', 
-            'aktivitasPembelajaran.bentukPembelajaran'
-        ])->get()->map(function ($topic, $index) {
-        if($topic->teknik_penilaian_kategori) {
-            $this->teknikTersedia[$index] = TeknikPenilaianModel::where('kategori', $topic->teknik_penilaian_kategori)->get();
-        }
-        // memberikan nilai default, jika pada kasus aktivitas_pembelajaran tidak ada isinya atau null
-        $defaultAktivitas = [
-            'TM' => [
-                'id_aktivitas_pembelajaran' => null,
-                'id_bentuk_pembelajaran' => $this->bentukKuliahId,
-                'penugasan_mahasiswa' => '',
-                'selected_metode_pembelajaran' => [],
-                'jumlah_pertemuan' => '',
-                'jumlah_sks' => '',
-            ],
-            'BM' => [
-                'id_aktivitas_pembelajaran' => null,
-                'id_bentuk_pembelajaran' => $this->bentukBelajarMandiriId,
-                'penugasan_mahasiswa' => '',
-                'selected_metode_pembelajaran' => [],
-                'jumlah_pertemuan' => '',
-                'jumlah_sks' => '',
-            ],
-            'PT' => [
-                'id_aktivitas_pembelajaran' => null,
-                'id_bentuk_pembelajaran' => $this->bentukPenugasanTerstrukturId,
-                'penugasan_mahasiswa' => '',
-                'selected_metode_pembelajaran' => [],
-                'selected_bentuk_penugasan' => [],
-                'jumlah_pertemuan' => '',
-                'jumlah_sks' => '',
-            ],
-        ];
+            'aktivitasPembelajaran.bentukPembelajaran',
+            'aktivitasPembelajaran.bentukPenugasan' // Tambahkan relasi ini
+        ])->get();
 
-        $aktivitasPembelajaran = $topic->aktivitasPembelajaran->keyBy('tipe')->map(function ($aktivitas) {
-            return [
-                    'id_aktivitas_pembelajaran' => $aktivitas->id_aktivitas_pembelajaran,
-                    'id_bentuk_pembelajaran' => $aktivitas->id_bentuk_pembelajaran,
-                    'penugasan_mahasiswa' => $aktivitas->penugasan_mahasiswa,
-                    'selected_metode_pembelajaran' => $aktivitas->metodePembelajaran->pluck('id_metode_pembelajaran')->toArray(),
-                    'selected_bentuk_penugasan' => $aktivitas->bentukPenugasan->pluck('id_bentuk_penugasan')->toArray(),
-                    'jumlah_pertemuan' => $aktivitas->jumlah_pertemuan,
-                    'jumlah_sks' => $aktivitas->jumlah_sks,
+        // --- PERBAIKAN N+1 (READ) #2 ---
+        // 1. Kumpulkan semua 'teknik_penilaian_kategori' yang unik dari topik
+        $allKategoris = $topics->pluck('teknik_penilaian_kategori')->filter()->unique();
+        
+        // 2. Lakukan SATU query untuk mengambil SEMUA teknik yang relevan
+        $allAvailableTekniks = TeknikPenilaianModel::whereIn('kategori', $allKategoris)
+                                ->get()
+                                ->groupBy('kategori'); // Kelompokkan berdasarkan kategori
+        // --- AKHIR PERBAIKAN ---
+
+        $this->topics = $topics->map(function ($topic, $index) use ($allAvailableTekniks) {
+            
+            // PERBAIKAN: Ambil data dari koleksi $allAvailableTekniks (gratis), 
+            // bukan menjalankan query baru.
+            if($topic->teknik_penilaian_kategori) {
+                $this->teknikTersedia[$index] = $allAvailableTekniks->get($topic->teknik_penilaian_kategori, collect());
+            } else {
+                $this->teknikTersedia[$index] = collect();
+            }
+
+            // memberikan nilai default, jika pada kasus aktivitas_pembelajaran tidak ada isinya atau null
+            $defaultAktivitas = [
+                'TM' => [
+                    'id_aktivitas_pembelajaran' => null,
+                    // 'id_bentuk_pembelajaran' => $this->bentukKuliahId,
+                    // 'penugasan_mahasiswa' => '',
+                    'selected_metode_pembelajaran' => [],
+                    'selected_bentuk_penugasan' => [], // Tambah default
+                    'jumlah_pertemuan' => '',
+                    'jumlah_sks' => '',
+                ],
+                'BM' => [
+                    'id_aktivitas_pembelajaran' => null,
+                    // 'id_bentuk_pembelajaran' => $this->bentukBelajarMandiriId,
+                    // 'penugasan_mahasiswa' => '',
+                    'selected_metode_pembelajaran' => [],
+                    'selected_bentuk_penugasan' => [], // Tambah default
+                    'jumlah_pertemuan' => '',
+                    'jumlah_sks' => '',
+                ],
+                'BT' => [
+                    'id_aktivitas_pembelajaran' => null,
+                    // 'id_bentuk_pembelajaran' => $this->bentukPenugasanTerstrukturId,
+                    // 'penugasan_mahasiswa' => '',
+                    // 'selected_metode_pembelajaran' => [],
+                    'selected_bentuk_penugasan' => [],
+                    'jumlah_pertemuan' => '',
+                    'jumlah_sks' => '',
+                ],
             ];
-        })->toArray();
+
+            $aktivitasPembelajaran = $topic->aktivitasPembelajaran->keyBy('tipe')->map(function ($aktivitas) {
+                return [
+                        'id_aktivitas_pembelajaran' => $aktivitas->id_aktivitas_pembelajaran,
+                        // 'id_bentuk_pembelajaran' => $aktivitas->id_bentuk_pembelajaran,
+                        // 'penugasan_mahasiswa' => $aktivitas->penugasan_mahasiswa,
+                        'selected_metode_pembelajaran' => $aktivitas->metodePembelajaran->pluck('id_metode_pembelajaran')->toArray(),
+                        'selected_bentuk_penugasan' => $aktivitas->bentukPenugasan->pluck('id_bentuk_penugasan')->toArray(),
+                        'jumlah_pertemuan' => $aktivitas->jumlah_pertemuan,
+                        'jumlah_sks' => $aktivitas->jumlah_sks,
+                ];
+            })->toArray();
 
             return [
                 'id_topic' => $topic->id_topic,
@@ -176,7 +265,7 @@ class RpsEditPage extends Component
                 'aktivitas_pembelajaran' => array_replace_recursive($defaultAktivitas,$aktivitasPembelajaran),
                 'selected_kriteria' => $topic->kriteriaPenilaian->pluck('id_kriteria_penilaian')->toArray(),
                 'selected_teknik' => $topic->teknikPenilaian->pluck('id_teknik_penilaian')->toArray(),
-                'minggu_ke' => $topic->weeks->pluck('id_week')->toArray(),                
+                'minggu_ke' => $topic->weeks->pluck('id_week')->toArray(), 						
             ];
         })->toArray();
     }
@@ -209,24 +298,24 @@ class RpsEditPage extends Component
             // 'metode_pembelajaran' => '',
             'aktivitas_pembelajaran' => [
                 'TM' => [
-                    'id_bentuk_pembelajaran' => $this->bentukKuliahId,
+                    // 'id_bentuk_pembelajaran' => $this->bentukKuliahId,
                     'selected_metode_pembelajaran' => [],
-                    'penugasan_mahasiswa' => '',
+                    // 'penugasan_mahasiswa' => '',
                     'jumlah_pertemuan' => '',
                     'jumlah_sks' => '',
                 ],
                 'BM' => [
-                    'id_bentuk_pembelajaran' => $this->bentukBelajarMandiriId,
+                    // 'id_bentuk_pembelajaran' => $this->bentukBelajarMandiriId,
                     'selected_metode_pembelajaran' => [],
-                    'penugasan_mahasiswa' => '',
+                    // 'penugasan_mahasiswa' => '',
                     'jumlah_pertemuan' => '',
                     'jumlah_sks' => '',            
                 ],
-                'PT' => [
-                    'id_bentuk_pembelajaran' => $this->bentukPenugasanTerstrukturId,
-                    'selected_metode_pembelajaran' => [],
+                'BT' => [
+                    // 'id_bentuk_pembelajaran' => $this->bentukPenugasanTerstrukturId,
+                    // 'selected_metode_pembelajaran' => [],
                     'selected_bentuk_penugasan' => [],
-                    'penugasan_mahasiswa' => '',
+                    // 'penugasan_mahasiswa' => '',
                     'jumlah_pertemuan' => '',
                     'jumlah_sks' => '',
                 ],
@@ -246,6 +335,167 @@ class RpsEditPage extends Component
 
     }  
 
+    // public function saveRps( ) {
+    //     $request = new StoreRPSTopicRequest();
+    //     $validated = $this->validate($request->rules(), $request->messages());
+
+    //     DB::transaction(function () use ($validated) {
+        
+    //         $isRevisi = $this->rps->isRevisi;
+
+    //         // Rps Induk
+    //         $this->rps->update([
+    //             // 'id_bk' => $this->id_bk,
+    //             'materi_pembelajaran' => $validated['materi_pembelajaran'],
+    //             'pustaka_utama' => $validated['pustaka_utama'],
+    //             'pustaka_pendukung' => $validated['pustaka_pendukung'],
+    //             'id_model_pembelajaran' => $validated['id_model_pembelajaran'],
+    //         ]);
+
+    //         $this->rps->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
+    //         $this->rps->mediaPembelajaran()->sync($validated['media_pembelajaran'] ?? []);
+            
+    //         // RPs Topic 
+    //         foreach ($validated['topics'] as $topicData) {
+    //             $topic = RPSTopicModel::updateOrCreate(
+    //                 ['id_topic' => $topicData['id_topic'] ?? null],
+    //                 [
+    //                     'id_rps' => $this->rps->id_rps,
+    //                     'id_sub_cpmk' => empty($topicData['id_sub_cpmk'] ) ? null : $topicData['id_sub_cpmk'],
+    //                     'indikator' => $topicData['indikator'] ?? null,
+    //                     'tipe' => $topicData['tipe'],
+    //                     'teknik_penilaian_kategori' => $topicData['teknik_penilaian_kategori'] ?? null,
+    //                     // 'metode_pembelajaran' => $topicData['metode_pembelajaran'] ?? null,
+    //                     'materi_pembelajaran' => $topicData['materi_pembelajaran'] ?? null,
+    //                     'refrensi' => $topicData['refrensi'] ?? null,                    
+    //                 ]
+    //             );
+
+    //             if(isset($topicData['aktivitas_pembelajaran'])) {
+    //                 foreach($topicData['aktivitas_pembelajaran'] as $tipe => $aktivitasData) {
+    //                     $aktivitas = $topic->aktivitasPembelajaran()->updateOrCreate(
+    //                         ['tipe' => $tipe],
+    //                         [
+    //                             'id_bentuk_pembelajaran' => $aktivitasData['id_bentuk_pembelajaran'],
+    //                             'penugasan_mahasiswa' => $aktivitasData['penugasan_mahasiswa'],
+    //                             'jumlah_pertemuan' => $aktivitasData['jumlah_pertemuan'],
+    //                             'jumlah_sks' => $aktivitasData['jumlah_sks'],
+    //                         ]
+    //                     );
+    //                     $aktivitas->metodePembelajaran()->sync($aktivitasData['selected_metode_pembelajaran'] ?? []);
+    //                     $aktivitas->bentukPenugasan()->sync($aktivitasData['selected_bentuk_penugasan'] ?? []);
+    //                 }
+    //             }
+
+    //             $topic->weeks()->sync($topicData['minggu_ke'] ?? []);
+    //             $topic->kriteriaPenilaian()->sync($topicData['selected_kriteria'] ?? []);
+    //             $topic->teknikPenilaian()->sync($topicData['selected_teknik'] ?? []);
+    //         }
+
+    //         // untuk jumlah revisi dan tanggal revisi
+    //         if($isRevisi) {
+    //             $this->rps->increment('jumlah_revisi');
+    //             $this->rps->forceFill(['tanggal_revisi' => now()])->saveQuietly();
+    //         }
+    //         else {
+    //             $this->rps->forceFill(['isRevisi' => true])->saveQuietly();
+    //         }
+    //     });
+    //     return redirect(route('rps.show', $this->rps))->with('Success', 'Berhasil Memperbarui Rencana pembelajaran mingguan');
+    // }  
+
+    // public function saveRps( ) {
+    //     $request = new StoreRPSTopicRequest();
+    //     $validated = $this->validate($request->rules(), $request->messages());
+
+    //     DB::transaction(function () use ($validated) {
+        
+    //         $isRevisi = $this->rps->isRevisi;
+
+    //         // Rps Induk
+    //         $this->rps->update([
+    //             // 'id_bk' => $this->id_bk,
+    //             'materi_pembelajaran' => $validated['materi_pembelajaran'],
+    //             'pustaka_utama' => $validated['pustaka_utama'],
+    //             'pustaka_pendukung' => $validated['pustaka_pendukung'],
+    //             'id_model_pembelajaran' => $validated['id_model_pembelajaran'],
+    //         ]);
+
+    //         $this->rps->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
+    //         $this->rps->mediaPembelajaran()->sync($validated['media_pembelajaran'] ?? []);
+            
+    //         // =====================================================================
+    //         // PERINGATAN: N+1 QUERY (WRITE) MASIH ADA DI BAWAH INI
+    //         // =====================================================================
+    //         //
+    //         // Kode di bawah ini (baris 213-247) adalah penyebab ~70-100+ query TULIS (write).
+    //         // Setiap `updateOrCreate` dan `sync` di dalam `foreach` adalah satu
+    //         // atau lebih perjalanan bolak-balik ke database.
+    //         //
+    //         // Misalnya: 14 topik x 3 aktivitas x 3 sync = ~250+ query
+    //         //
+    //         // Untuk memperbaikinya, Anda perlu memfaktorkan ulang ini untuk menggunakan
+    //         // 'upsert()' atau 'insert()' secara massal (bulk) di luar loop.
+    //         // Namun, perbaikan itu jauh lebih kompleks dan di luar perbaikan N+1 Read.
+    //         //
+    //         // =====================================================================
+
+    //         // RPs Topic 
+    //         foreach ($validated['topics'] as $topicData) {
+    //             // N+1 Query #1 (Write)
+    //             $topic = RPSTopicModel::updateOrCreate(
+    //                 ['id_topic' => $topicData['id_topic'] ?? null],
+    //                 [
+    //                     'id_rps' => $this->rps->id_rps,
+    //                     'id_sub_cpmk' => empty($topicData['id_sub_cpmk'] ) ? null : $topicData['id_sub_cpmk'],
+    //                     'indikator' => $topicData['indikator'] ?? null,
+    //                     'tipe' => $topicData['tipe'],
+    //                     'teknik_penilaian_kategori' => $topicData['teknik_penilaian_kategori'] ?? null,
+    //                     // 'metode_pembelajaran' => $topicData['metode_pembelajaran'] ?? null,
+    //                     'materi_pembelajaran' => $topicData['materi_pembelajaran'] ?? null,
+    //                     'refrensi' => $topicData['refrensi'] ?? null, 					
+    //                 ]
+    //             );
+
+    //             if(isset($topicData['aktivitas_pembelajaran'])) {
+    //                 foreach($topicData['aktivitas_pembelajaran'] as $tipe => $aktivitasData) {
+    //                     // N+1 Query #2 (Write) - Berjalan 3x per topik
+    //                     $aktivitas = $topic->aktivitasPembelajaran()->updateOrCreate(
+    //                         ['tipe' => $tipe],
+    //                         [
+    //                             'id_bentuk_pembelajaran' => $aktivitasData['id_bentuk_pembelajaran'],
+    //                             'penugasan_mahasiswa' => $aktivitasData['penugasan_mahasiswa'],
+    //                             'jumlah_pertemuan' => $aktivitasData['jumlah_pertemuan'],
+    //                             'jumlah_sks' => $aktivitasData['jumlah_sks'],
+    //                         ]
+    //                     );
+    //                     // N+1 Query #3 (Write) - Berjalan 3x per topik
+    //                     $aktivitas->metodePembelajaran()->sync($aktivitasData['selected_metode_pembelajaran'] ?? []);
+    //                     // N+1 Query #4 (Write) - Berjalan 3x per topik
+    //                     $aktivitas->bentukPenugasan()->sync($aktivitasData['selected_bentuk_penugasan'] ?? []);
+    //                 }
+    //             }
+
+    //             // N+1 Query #5 (Write)
+    //             $topic->weeks()->sync($topicData['minggu_ke'] ?? []);
+    //             // N+1 Query #6 (Write)
+    //             $topic->kriteriaPenilaian()->sync($topicData['selected_kriteria'] ?? []);
+    //             // N+1 Query #7 (Write)
+    //             $topic->teknikPenilaian()->sync($topicData['selected_teknik'] ?? []);
+    //         }
+
+    //         // untuk jumlah revisi dan tanggal revisi
+    //         if($isRevisi) {
+    //             $this->rps->increment('jumlah_revisi');
+    //             $this->rps->forceFill(['tanggal_revisi' => now()])->saveQuietly();
+    //         }
+    //         else {
+    //             $this->rps->forceFill(['isRevisi' => true])->saveQuietly();
+    //         }
+    //     });
+    //     return redirect(route('rps.show', $this->rps))->with('Success', 'Berhasil Memperbarui Rencana pembelajaran mingguan');
+    // } 	
+
     public function saveRps( ) {
         $request = new StoreRPSTopicRequest();
         $validated = $this->validate($request->rules(), $request->messages());
@@ -254,7 +504,7 @@ class RpsEditPage extends Component
         
             $isRevisi = $this->rps->isRevisi;
 
-            // Rps Induk
+            // Rps Induk (Ini sudah efisien)
             $this->rps->update([
                 // 'id_bk' => $this->id_bk,
                 'materi_pembelajaran' => $validated['materi_pembelajaran'],
@@ -266,8 +516,26 @@ class RpsEditPage extends Component
             $this->rps->mataKuliahSyarat()->sync($validated['id_mk_syarat'] ?? []);
             $this->rps->mediaPembelajaran()->sync($validated['media_pembelajaran'] ?? []);
             
-            // RPs Topic 
+            // --- PERBAIKAN N+1 WRITE (BULK SYNC) DIMULAI DI SINI ---
+
+            // 1. Siapkan array kosong untuk menampung data pivot
+            $allTopicIds = [];
+            $allAktivitasIds = [];
+            
+            $pivotWeeks = [];
+            $pivotKriteria = [];
+            $pivotTeknik = [];
+            $pivotMetode = [];
+            $pivotBentuk = [];
+            
+            $timestamp = now(); // Untuk `created_at` / `updated_at`
+
+            // 2. Loop pertama: Jalankan updateOrCreate (diperlukan untuk dapat ID)
+            //    dan SIAPKAN array pivot (JANGAN sync)
             foreach ($validated['topics'] as $topicData) {
+                
+                // Query N+1 (1/7): updateOrCreate Topic
+                // (Ini masih N+1, tapi diperlukan untuk mendapatkan $topic->id_topic)
                 $topic = RPSTopicModel::updateOrCreate(
                     ['id_topic' => $topicData['id_topic'] ?? null],
                     [
@@ -276,32 +544,97 @@ class RpsEditPage extends Component
                         'indikator' => $topicData['indikator'] ?? null,
                         'tipe' => $topicData['tipe'],
                         'teknik_penilaian_kategori' => $topicData['teknik_penilaian_kategori'] ?? null,
-                        // 'metode_pembelajaran' => $topicData['metode_pembelajaran'] ?? null,
                         'materi_pembelajaran' => $topicData['materi_pembelajaran'] ?? null,
-                        'refrensi' => $topicData['refrensi'] ?? null,                    
+                        'refrensi' => $topicData['refrensi'] ?? null, 					
                     ]
                 );
+                
+                // Kumpulkan ID topik untuk bulk delete nanti
+                $allTopicIds[] = $topic->id_topic;
 
+                // Siapkan data pivot untuk Topic (bukan sync)
+                foreach ($topicData['minggu_ke'] ?? [] as $weekId) {
+                    $pivotWeeks[] = ['id_topic' => $topic->id_topic, 'id_week' => $weekId];
+                }
+                foreach ($topicData['selected_kriteria'] ?? [] as $kriteriaId) {
+                    $pivotKriteria[] = ['id_topic' => $topic->id_topic, 'id_kriteria_penilaian' => $kriteriaId];
+                }
+                foreach ($topicData['selected_teknik'] ?? [] as $teknikId) {
+                    $pivotTeknik[] = ['id_topic' => $topic->id_topic, 'id_teknik_penilaian' => $teknikId];
+                }
+
+                // Handle nested Aktivitas
                 if(isset($topicData['aktivitas_pembelajaran'])) {
                     foreach($topicData['aktivitas_pembelajaran'] as $tipe => $aktivitasData) {
+                        
+                        // Query N+1 (2/7): updateOrCreate Aktivitas (3x per topik)
                         $aktivitas = $topic->aktivitasPembelajaran()->updateOrCreate(
                             ['tipe' => $tipe],
                             [
-                                'id_bentuk_pembelajaran' => $aktivitasData['id_bentuk_pembelajaran'],
-                                'penugasan_mahasiswa' => $aktivitasData['penugasan_mahasiswa'],
+                                // 'id_bentuk_pembelajaran' => $aktivitasData['id_bentuk_pembelajaran'],
+                                // 'penugasan_mahasiswa' => $aktivitasData['penugasan_mahasiswa'],
                                 'jumlah_pertemuan' => $aktivitasData['jumlah_pertemuan'],
                                 'jumlah_sks' => $aktivitasData['jumlah_sks'],
                             ]
                         );
-                        $aktivitas->metodePembelajaran()->sync($aktivitasData['selected_metode_pembelajaran'] ?? []);
-                        $aktivitas->bentukPenugasan()->sync($aktivitasData['selected_bentuk_penugasan'] ?? []);
+
+                        // Kumpulkan ID aktivitas untuk bulk delete nanti
+                        $allAktivitasIds[] = $aktivitas->id_aktivitas_pembelajaran;
+
+                        // Siapkan data pivot untuk Aktivitas (bukan sync)
+                        foreach ($aktivitasData['selected_metode_pembelajaran'] ?? [] as $metodeId) {
+                            $pivotMetode[] = [
+                                'id_aktivitas_pembelajaran' => $aktivitas->id_aktivitas_pembelajaran, 
+                                'id_metode_pembelajaran' => $metodeId
+                            ];
+                        }
+                        foreach ($aktivitasData['selected_bentuk_penugasan'] ?? [] as $bentukId) {
+                            $pivotBentuk[] = [
+                                'id_aktivitas_pembelajaran' => $aktivitas->id_aktivitas_pembelajaran, 
+                                'id_bentuk_penugasan' => $bentukId
+                            ];
+                        }
+
+                        // HAPUS PANGGILAN sync() DARI SINI
+                        // $aktivitas->metodePembelajaran()->sync(...); // <-- DIHAPUS
+                        // $aktivitas->bentukPenugasan()->sync(...); // <-- DIHAPUS
                     }
                 }
 
-                $topic->weeks()->sync($topicData['minggu_ke'] ?? []);
-                $topic->kriteriaPenilaian()->sync($topicData['selected_kriteria'] ?? []);
-                $topic->teknikPenilaian()->sync($topicData['selected_teknik'] ?? []);
+                // HAPUS PANGGILAN sync() DARI SINI
+                // $topic->weeks()->sync(...); // <-- DIHAPUS
+                // $topic->kriteriaPenilaian()->sync(...); // <-- DIHAPUS
+                // $topic->teknikPenilaian()->sync(...); // <-- DIHAPUS
             }
+            
+            // --- AKHIR DARI LOOP PERTAMA ---
+
+            // 3. Lakukan BULK SYNC di LUAR LOOP
+            // (Catatan: Asumsi nama tabel pivot & FK standar. Sesuaikan jika perlu)
+
+            // Pastikan ID unik untuk menghindari error `whereIn`
+            $allTopicIds = array_unique($allTopicIds);
+            $allAktivitasIds = array_unique($allAktivitasIds);
+
+            // Bersihkan relasi lama dalam 5 query (BUKAN 200 query)
+            if (!empty($allTopicIds)) {
+                DB::table('rps_topic_week')->whereIn('id_topic', $allTopicIds)->delete();
+                DB::table('rps_topic_kriteria_penilaian')->whereIn('id_topic', $allTopicIds)->delete();
+                DB::table('rps_topic_teknik_penilaian')->whereIn('id_topic', $allTopicIds)->delete();
+            }
+            if (!empty($allAktivitasIds)) {
+                DB::table('aktivitas_metode_pembelajaran')->whereIn('id_aktivitas_pembelajaran', $allAktivitasIds)->delete();
+                DB::table('aktivitas_bentuk_penugasan')->whereIn('id_aktivitas_pembelajaran', $allAktivitasIds)->delete();
+            }
+
+            // Masukkan data pivot baru secara massal dalam 5 query
+            if (!empty($pivotWeeks)) DB::table('rps_topic_week')->insert($pivotWeeks);
+            if (!empty($pivotKriteria)) DB::table('rps_topic_kriteria_penilaian')->insert($pivotKriteria);
+            if (!empty($pivotTeknik)) DB::table('rps_topic_teknik_penilaian')->insert($pivotTeknik);
+            if (!empty($pivotMetode)) DB::table('aktivitas_metode_pembelajaran')->insert($pivotMetode);
+            if (!empty($pivotBentuk)) DB::table('aktivitas_bentuk_penugasan')->insert($pivotBentuk);
+
+            // --- PERBAIKAN N+1 WRITE SELESAI ---
 
             // untuk jumlah revisi dan tanggal revisi
             if($isRevisi) {
@@ -313,7 +646,7 @@ class RpsEditPage extends Component
             }
         });
         return redirect(route('rps.show', $this->rps))->with('Success', 'Berhasil Memperbarui Rencana pembelajaran mingguan');
-    }  
+    } 
 
     public function render()
     {

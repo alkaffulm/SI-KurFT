@@ -8,8 +8,6 @@
         <br>
 
         <form wire:submit.prevent="saveRps" >
-                <h1 class="font-bold">RPS INDUK</h1>
-                <br>
                 <table>
                     <thead>
                         {{-- informasi mata kuliah --}}
@@ -98,28 +96,56 @@
                     </table>
                 </div>
                 <br>
-                <div>
-                    {{-- Mata Kuliah Syarat --}}
-                    <label for="id_mk_syarat" class="font-semibold">Mata Kuliah Prasyarat:</label><br>
-                    <select class="p-2 border rounded-lg border-gray-300 bg-gray-100 mt-2" wire:model="id_mk_syarat" >
-                        <option value="">Tidak ada Matkul Prasyarat</option>
-                        @foreach ($allMataKuliah as $mk)
-                            <option value="{{ $mk->id_mk }}" >{{ $mk->nama_matkul_id }}</option>
-                        @endforeach
-                    </select>  
-                    @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror                           
+                <div class="flex gap-x-12 items-center">
+                    <div>
+                        {{-- Mata Kuliah Syarat --}}
+                        <label for="id_mk_syarat" class="font-semibold">Mata Kuliah Prasyarat:</label><br>
+                        <select class="p-2 border rounded-lg border-gray-300 bg-gray-100 mt-2" wire:model="id_mk_syarat" >
+                            <option value="">Tidak ada Matkul Prasyarat</option>
+                            @foreach ($allMataKuliah as $mk)
+                                <option value="{{ $mk->id_mk }}" >{{ $mk->nama_matkul_id }}</option>
+                            @endforeach
+                        </select>  
+                        @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror                           
+                    </div>
+                    <div>
+                        {{-- Model Pembelajaran --}}
+                        <label for="id_model_pembelajaran" class="font-semibold ">Model Pembelajaran:</label><br>
+                        <select class="border p-2 rounded-lg border-gray-300 bg-gray-100 mt-2" wire:model="id_model_pembelajaran" >
+                            <option value="">Pilih Model Pembelajaran</option>
+                            @foreach ($allModelPembelajaran as $mp)
+                                <option value="{{ $mp->id_model_pembelajaran }}">{{ $mp->nama_model_pembelajaran }}</option>
+                            @endforeach
+                        </select>   
+                        @error('id_model_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
+                    </div>
                 </div>
                 <br>
-                <div>
-                    {{-- Model Pembelajaran --}}
-                    <label for="id_model_pembelajaran" class="font-semibold mb-2">Model Pembelajaran:</label><br>
-                    <select class="border p-2 rounded-lg border-gray-300 bg-gray-100" wire:model="id_model_pembelajaran" >
-                        <option value="">Pilih Model Pembelajaran</option>
-                        @foreach ($allModelPembelajaran as $mp)
-                            <option value="{{ $mp->id_model_pembelajaran }}">{{ $mp->nama_model_pembelajaran }}</option>
-                        @endforeach
-                    </select>   
-                    @error('id_model_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
+                <div class="flex gap-x-6 items-center">
+                    <div>
+                        <div wire:ignore>
+                            {{-- Media Perangkat Lunak --}}
+                            <label for="media_perangkat_lunak" class="font-semibold ">Media Pembelajaran (Perangkat Lunak):</label><br>
+                            <select id="media_perangkat_lunak" class="select2-perangkat-lunak border p-2 rounded-lg border-gray-300 bg-gray-100 w-full" multiple="multiple">
+                                @foreach ($allMediaPerangkatLunak as $mpl )
+                                    <option value="{{$mpl->id_media_pembelajaran}}" {{in_array($mpl->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : ''}}>{{$mpl->nama_media_pembelajaran}}</option>
+                                @endforeach
+                            </select>
+                        </div>    
+                        @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                    </div>
+                    <div>
+                        <div wire:ignore>
+                            {{-- Media Perangkat Keras --}}
+                            <label for="media_perangkat_keras" class="font-semibold  ">Media Pembelajaran (Perangkat Keras):</label><br>
+                            <select id="media_perangkat_keras" class="select2-perangkat-keras border p-2 rounded-lg border-gray-300 bg-gray-10 w-full" multiple="multiple">
+                                @foreach ($allMediaPerangkatKeras as $mpk )
+                                    <option value="{{$mpk->id_media_pembelajaran}}" {{in_array($mpk->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : ''}}>{{$mpk->nama_media_pembelajaran}}</option>
+                                @endforeach
+                            </select>
+                        </div>    
+                        @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                    </div>
                 </div>
                 <br>
                 <div>
@@ -143,32 +169,9 @@
                     @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror                         
                 </div>
                 <br>
-                <div wire:ignore>
-                    {{-- Media Perangkat Lunak --}}
-                    <label for="media_perangkat_lunak" class="font-semibold ">Media Pembelajaran (Perangkat Lunak):</label><br>
-                    <select id="media_perangkat_lunak" class="select2-perangkat-lunak border p-2 rounded-lg border-gray-300 bg-gray-100 w-48" multiple="multiple">
-                        @foreach ($allMediaPerangkatLunak as $mpl )
-                            <option value="{{$mpl->id_media_pembelajaran}}" {{in_array($mpl->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : ''}}>{{$mpl->nama_media_pembelajaran}}</option>
-                        @endforeach
-                    </select>
-                </div>    
-                @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-                <br>
-                <div wire:ignore>
-                    {{-- Media Perangkat Keras --}}
-                    <label for="media_perangkat_keras" class="font-semibold ">Media Pembelajaran (Perangkat Keras):</label><br>
-                    <select id="media_perangkat_keras" class="select2-perangkat-keras border p-2 rounded-lg border-gray-300 bg-gray-100 w-48" multiple="multiple">
-                        @foreach ($allMediaPerangkatKeras as $mpk )
-                            <option value="{{$mpk->id_media_pembelajaran}}" {{in_array($mpk->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : ''}}>{{$mpk->nama_media_pembelajaran}}</option>
-                        @endforeach
-                    </select>
-                </div>    
-                @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-                <br>
-
-                <h1 class="font-bold">RPS DETAIL</h1>
 
                 <br>
+
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm border border-black table-fixed">
                         <thead class="   bg-gray-300">
@@ -275,8 +278,6 @@
                                         
                                         {{-- metode: luring  --}}
                                         <td class="p-2 border border-black align-top">
-                                            {{-- <textarea wire:model="topics.{{$index}}.metode_pembelajaran" id="metode_pembelajaran" class="border w-full  h-48" required></textarea>
-                                            @error('topics.'.$index.'.metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror --}}
                                             <div >
                                                 <div>
                                                     <p class="font-bold">TM</p>
@@ -293,55 +294,28 @@
 
                                                 <div>
                                                     <p class="font-bold">Jumlah Pertemuan dan SKS</p>
-                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.TM.jumlah_pertemuan" class="border bg-gray-100 py-2 rounded-md">
-                                                        <option value="">Pilih Jumlah Pertemuan</option>
-                                                        @foreach($allJumlahPertemuan as $value => $label)
-                                                            <option value="{{ $value }}" >{{ $label }}</option>
-                                                        @endforeach
-                                                    </select>      
-                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.TM.jumlah_sks" class="border bg-gray-100 py-2 rounded-md">
-                                                        <option value="">Pilih Jumlah SKS</option>                                                        
-                                                        @foreach($allJumlahSks as $value => $label)
-                                                            <option value="{{ $value }}" >{{ $label }}</option>
-                                                        @endforeach
-                                                    </select>                                                             
+                                                    <div class="flex gap-x-2 items-center">
+                                                        <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.TM.jumlah_pertemuan" class=" flex-1 border bg-gray-100 py-2 rounded-md">
+                                                            <option value="">-</option>
+                                                            @foreach($allJumlahPertemuan as $value => $label)
+                                                                <option value="{{ $value }}" >{{ $label }}</option>
+                                                            @endforeach
+                                                        </select>    
+                                                        <span>x</span>  
+                                                        <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.TM.jumlah_sks" class="flex-1 border bg-gray-100 py-2 rounded-md">
+                                                            <option value="">-</option>                                                        
+                                                            @foreach($allJumlahSks as $value => $label)
+                                                                <option value="{{ $value }}" >{{ $label }}</option>
+                                                            @endforeach
+                                                        </select>                                                             
+                                                    </div>
                                                 </div>    
-                                                {{-- <br>
-                                                <div>
-                                                    <label>Penugasan Mahasiswa</label>
-                                                    <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.TM.penugasan_mahasiswa"  class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea>
-                                                    @error('topics.'.$index.'.aktivitas_pembelajaran.TM.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror                                            
-                                                </div> --}}
                                             </div>
                                         </td>
                                         
                                         {{-- metode: daring --}}
                                         <td class="p-2 border border-black align-top">
-                                            {{-- <div>
-                                                <p class="font-bold">PT</p>
-                                                <div>
-                                                    <p>Bentuk Pembelajaran</p>
-                                                    <p>Penugasan Terstruktur</p>
-                                                </div>
-                                                <br>
-                                                <div>
-                                                    <div wire:ignore>
-                                                        <label >Metode Pembelajaran</label>
-                                                        <select  class="select2-metode-pembelajaran w-full" data-index="{{$index}}" data-tipe="PT" multiple="multiple" >
-                                                            @foreach ($allMetodePembelajaran as $metode)
-                                                                <option value="{{$metode->id_metode_pembelajaran}}" {{in_array($metode->id_metode_pembelajaran, $topic['aktivitas_pembelajaran']['PT']['selected_metode_pembelajaran']) ? 'selected' : ''}} >{{$metode->nama_metode_pembelajaran}}</option>                                                            
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    @error('topics.'.$index.'.aktivitas_pembelajaran.PT.selected_metode_pembelajaran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                                </div>
-                                                <br>
-                                                <div>
-                                                    <label >Penugasan Mahasiswa</label>
-                                                    <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.PT.penugasan_mahasiswa" class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea>
-                                                    @error('topics.'.$index.'.aktivitas_pembelajaran.PT.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                                </div>
-                                            </div> --}}
+                                            {{-- BM --}}
                                             <div>
                                                 <div >
                                                     <p class="font-bold">BM</p>
@@ -357,46 +331,56 @@
                                                 </div>
                                                 <div>
                                                     <p class="font-bold">Jumlah Pertemuan dan SKS</p>
-                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.BM.jumlah_pertemuan" class="border bg-gray-100 py-2 rounded-md">
-                                                        <option value="">Pilih Jumlah Pertemuan</option>
-                                                        @foreach($allJumlahPertemuan as $value => $label)
-                                                            <option value="{{ $value }}" >{{ $label }}</option>
-                                                        @endforeach
-                                                    </select>      
-                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.BM.jumlah_sks" class="border bg-gray-100 py-2 rounded-md">
-                                                        <option value="">Pilih Jumlah SKS</option>                                                        
-                                                        @foreach($allJumlahSks as $value => $label)
-                                                            <option value="{{ $value }}" >{{ $label }}</option>
-                                                        @endforeach
-                                                    </select>                                                             
-                                                </div>       
-                                                <br>
+                                                    <div class="flex gap-x-2 items-center">
+                                                        <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.BM.jumlah_pertemuan" class=" flex-1 border bg-gray-100 py-2 rounded-md">
+                                                            <option value="">-</option>
+                                                            @foreach($allJumlahPertemuan as $value => $label)
+                                                                <option value="{{ $value }}" >{{ $label }}</option>
+                                                            @endforeach
+                                                        </select>    
+                                                        <span>x</span>  
+                                                        <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.BM.jumlah_sks" class="flex-1 border bg-gray-100 py-2 rounded-md">
+                                                            <option value="">-</option>                                                        
+                                                            @foreach($allJumlahSks as $value => $label)
+                                                                <option value="{{ $value }}" >{{ $label }}</option>
+                                                            @endforeach
+                                                        </select>                                                             
+                                                    </div>                                                          
+                                                </div>
+                                            </div>
+                                            <br>
+                                            {{-- BT --}}
+                                            <div>
                                                 <div>
-                                                    <label for="penugasan_mahasiswa">Penugasan Mahasiswa</label>
+                                                    <p class="font-bold">BT</p>
+                                                    <label for="penugasan_mahasiswa">Bentuk Penugasan</label>
                                                     {{-- <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.PT.penugasan_mahasiswa" id="penugasan_mahasiswa" class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea> --}}
-                                                        <select class="select2-bentuk-penugasan w-full" data-index="{{$index}}" data-tipe="PT" multiple="multiple" >
+                                                        <select class="select2-bentuk-penugasan w-full" data-index="{{$index}}" data-tipe="BT" multiple="multiple" >
                                                             @foreach ($allBentukPenugasan as $bp)
-                                                                <option value="{{$bp->id_bentuk_penugasan}}" {{in_array($bp->id_bentuk_penugasan, $topic['aktivitas_pembelajaran']['PT']['selected_bentuk_penugasan']) ? 'selected' : ''}}>{{$bp->nama_bentuk_penugasan}}</option>
+                                                                <option value="{{$bp->id_bentuk_penugasan}}" {{in_array($bp->id_bentuk_penugasan, $topic['aktivitas_pembelajaran']['BT']['selected_bentuk_penugasan']) ? 'selected' : ''}}>{{$bp->nama_bentuk_penugasan}}</option>
                                                             @endforeach
                                                         </select>                                                    
-                                                    @error('topics.'.$index.'.aktivitas_pembelajaran.PT.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                    @error('topics.'.$index.'.aktivitas_pembelajaran.BT.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
                                                 <div>
                                                     <p class="font-bold">Jumlah Pertemuan dan SKS</p>
-                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.PT.jumlah_pertemuan" class="border bg-gray-100 py-2 rounded-md">
-                                                        <option value="">Pilih Jumlah Pertemuan</option>
-                                                        @foreach($allJumlahPertemuan as $value => $label)
-                                                            <option value="{{ $value }}" >{{ $label }}</option>
-                                                        @endforeach
-                                                    </select>      
-                                                    <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.PT.jumlah_sks" class="border bg-gray-100 py-2 rounded-md">
-                                                        <option value="">Pilih Jumlah SKS</option>                                                        
-                                                        @foreach($allJumlahSks as $value => $label)
-                                                            <option value="{{ $value }}" >{{ $label }}</option>
-                                                        @endforeach
-                                                    </select>                                                             
+                                                    <div class="flex gap-x-2 items-center">
+                                                        <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.BT.jumlah_pertemuan" class=" flex-1 border bg-gray-100 py-2 rounded-md">
+                                                            <option value="">-</option>
+                                                            @foreach($allJumlahPertemuan as $value => $label)
+                                                                <option value="{{ $value }}" >{{ $label }}</option>
+                                                            @endforeach
+                                                        </select>    
+                                                        <span>x</span>  
+                                                        <select wire:model="topics.{{ $index }}.aktivitas_pembelajaran.BT.jumlah_sks" class="flex-1 border bg-gray-100 py-2 rounded-md">
+                                                            <option value="">-</option>                                                        
+                                                            @foreach($allJumlahSks as $value => $label)
+                                                                <option value="{{ $value }}" >{{ $label }}</option>
+                                                            @endforeach
+                                                        </select>                                                             
+                                                    </div>                                                             
                                                 </div>                                            
-                                            </div>
+                                            </div>       
                                         </td>
                                         
                                         {{-- refrensi --}}

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('aktivitas_pembelajaran', function (Blueprint $table) {
             $table->id('id_aktivitas_pembelajaran');
             $table->foreignId('id_topic')->constrained('rps_topics', 'id_topic')->onDelete('cascade');
-            $table->enum('tipe', ['TM', 'BM', 'PT']);
-            $table->foreignId('id_bentuk_pembelajaran')->constrained('bentuk_pembelajaran', 'id_bentuk_pembelajaran');
-            $table->text('penugasan_mahasiswa')->nullable();
+            $table->enum('tipe', ['TM', 'BM', 'BT']);
+            // $table->foreignId('id_bentuk_pembelajaran')->constrained('bentuk_pembelajaran', 'id_bentuk_pembelajaran');
+            // $table->text('penugasan_mahasiswa')->nullable();
             $table->string('jumlah_pertemuan')->nullable();
             $table->string('jumlah_sks')->nullable();
         });

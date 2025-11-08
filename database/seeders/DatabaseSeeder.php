@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\ProgramStudi;
 use App\Models\TahunAkademik;
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -69,11 +69,11 @@ class DatabaseSeeder extends Seeder
             RencanaAsesmenCPMKBobotSeeder::class,
             WeekSeeder::class,
             RpsTopicSeeder::class,
-            BentukPembelajaranSeeder::class,
 
             MediaPembelajaranSeeder::class,
             AktivitasPembelajaranSeeder::class,
             AktivitasMetodePembelajaranSeeder::class,
+            AktivitasBentukPenugasanSeeder::class,
             RpsMediaPembelajaranSeeder::class,
             RpsTopicWeekSeeder::class,
             RpsTopicKriteriaPenilaianSeeder::class,

@@ -419,54 +419,58 @@
                                     {{$rps->modelPembelajaran->nama_model_pembelajaran ?? "Model Pembelajaran Belum di Tentukan"}}
                             </td>
     
-                            {{--  (8) Synchronous --}}
-                            <td class="border-r border-black p-2 align-top">
-                                <div>
+                                {{--  (8) Synchronous --}}
+                                <td class="p-2 border border-black align-top">
                                     <div>
-                                        <ul class="list-disc list-inside">
-                                            @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->metodePembelajaran ?? [] as $metode)
-                                                <li>{{$metode->nama_metode_pembelajaran}}</li>
-                                            @empty
-                                                <p>-</p> 
-                                            @endforelse
-                                        </ul>
+                                        <div>
+                                            <ul class="list-disc list-outside pl-4">
+                                                @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->metodePembelajaran ?? [] as $metode)
+                                                    <li>{{$metode->nama_metode_pembelajaran}}</li>
+                                                @empty
+                                                    <p>-</p> 
+                                                @endforelse
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <p>[TM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')->jumlah_pertemuan ?? '-'}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')->jumlah_sks ?? '-'}})]</p>  
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p>[TM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->jumlah_pertemuan}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->jumlah_sks}})]</p>  
+                                </td>
+
+                                {{--  (9) Asynchronous --}}
+                                <td class="p-2 border border-black align-top">
+                                    <div>                                       
+                                        <div>
+                                            <ul class="list-disc list-outside pl-4">
+                                                @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->metodePembelajaran ?? [] as $item)
+                                                    <li>{{$item->nama_metode_pembelajaran}}</li>
+                                                @empty
+                                                    <p>-</p>
+                                                @endforelse
+                                            </ul>
+                                        </div>
+
+                                        <div>
+                                            <p>[BM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_pertemuan ?? '-'}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_sks ?? '-'}})]</p>  
+                                        </div>
+
+                                        <br>
+                                        
+                                        <div>
+                                            <ul class="list-disc list-inside">
+                                                @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','BT')?->bentukPenugasan ?? [] as $item)
+                                                    <li>{{$item->nama_bentuk_penugasan}}</li>
+                                                @empty
+                                                    <p>-</p>
+                                                @endforelse                                            
+                                            </ul>
+                                        </div>
+
+                                        <div>
+                                            <p>[BT: {{$topic->aktivitasPembelajaran->firstWhere('tipe','BT')->jumlah_pertemuan ?? '-'}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','BT')->jumlah_sks ?? '-'}})]</p>  
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-    
-                            {{--  (9) Asynchronous --}}
-                            <td class="border-r border-black p-2 align-top">
-                                <div>
-                                    <div>
-                                        <ul class="list-disc list-inside">
-                                            @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->metodePembelajaran ?? [] as $item)
-                                                <li>{{$item->nama_metode_pembelajaran}}</li>
-                                            @empty
-                                                <p>-</p>
-                                            @endforelse
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <p>[BM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->jumlah_pertemuan}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->jumlah_sks}})]</p>  
-                                    </div>
-                                    <br>
-                                    <div>
-                                        <ul class="list-disc list-inside">
-                                            @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->bentukPenugasan ?? [] as $item)
-                                                <li>{{$item->nama_bentuk_penugasan}}</li>
-                                            @empty
-                                                <p>-</p>
-                                            @endforelse                                        
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <p>[BT: {{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->jumlah_pertemuan}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->jumlah_sks}})]</p>  
-                                    </div>
-                                </div>
-                            </td>
+                                </td>
                             
                             {{-- (10) Refrensi --}}
                             <td class="p-2 text-center align-top">

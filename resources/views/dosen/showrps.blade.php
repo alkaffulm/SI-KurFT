@@ -195,55 +195,6 @@
                     @endforeach
                 </div>
             </div>
-
-            
-            
-            
-            {{-- <div class="grid grid-cols-12  border-black">
-                <div class="col-span-2  px-2 border-r border-black flex items-center"></div>
-                <div class="col-span-4  px-2 bg-[#9cc2e4] font-bold">Korelasi CPMK terhadap CPL</div>
-                <div class="col-span-6  px-2 border-b  border-black "></div>
-            </div>
-            <div class="grid grid-cols-12   border-black">
-                <div class="col-span-2 row-span-3 p-2 border-r border-black flex items-center"></div>
-                <div class="col-span-10 p-2">
-                    <table class="w-full text-sm border border-black">
-                        <thead>
-                            <tr>
-                                <th class="px-2 border-r border-black" rowspan="2">Kode CPMK</th>
-                                <th class="px-2  border-b border-black" colspan="{{count($assocCpls)}}"  >CPL yang didukung</th>
-                            </tr>
-                            <tr>                                
-                                @forelse ($assocCpls as $cpl )
-                                    <th class="px-2 border-r border-black">{{ $cpl->nama_kode_cpl }}</th>
-                                @empty
-                                    <th class="px-2 border-r border-black">-</th>
-                                @endforelse
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($assocCpmk as $cpmk)
-                                <tr class="border-t border-black">
-                                    <td class="px-2 border-r border-black ">{{$cpmk->nama_kode_cpmk}}</td>
-                                    @foreach ($assocCpls as $cpl )
-                                        <td class="px-2 border-r border-black text-center">
-                                            @if (isset($correlationCpmkCplMap[$cpmk->id_cpmk]) && in_array($cpl->id_cpl, $correlationCpmkCplMap[$cpmk->id_cpmk]))
-                                                 ✔    
-                                            @endif
-                                        </td>
-                                    @endforeach
-                                </tr> 
-                            @empty
-                                <tr class="border-t border-black">
-                                    <td class="px-2 border-r border-black" colspan="{{ count($assocCpls) }}">
-                                        Belum ada pemetaan CPMK.
-                                    </td>
-                                </tr>                                
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div> --}}
         </div>
 
         {{-- SECTION 4: DESKRIPSI, PUSTAKA, BAHAN KAJIAN, PENILAIAN, MATAKULIAH SYARAT --}}
@@ -497,14 +448,7 @@
                                 {{--  (8) Synchronous --}}
                                 <td class="p-2 border border-black align-top">
                                     <div>
-                                        {{-- <p class="font-bold">TM</p> --}}
-                                        {{-- <div>
-                                            <p class="underline underline-offset-2">Bentuk Pembelajaran</p>
-                                            <p>Kuliah</p>
-                                        </div> --}}
-
                                         <div>
-                                            {{-- <p class="underline underline-offset-2">Metode Pembelajaran</p> --}}
                                             <ul class="list-disc list-outside pl-4">
                                                 @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->metodePembelajaran ?? [] as $metode)
                                                     <li>{{$metode->nama_metode_pembelajaran}}</li>
@@ -514,55 +458,15 @@
                                             </ul>
                                         </div>
                                         <div>
-                                            <p>[TM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')->jumlah_pertemuan}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')->jumlah_sks}})]</p>  
+                                            <p>[TM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')->jumlah_pertemuan ?? '-'}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')->jumlah_sks ?? '-'}})]</p>  
                                         </div>
-                                        
-                                        {{-- <div>
-                                            <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
-                                            @if ($topic->aktivitasPembelajaran->firstWhere('tipe','TM'))
-                                                <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','TM')?->penugasan_mahasiswa}}</p>
-                                            @else
-                                                <p>-</p>
-                                            @endif
-                                        </div> --}}
                                     </div>
-
-
-
                                 </td>
 
                                 {{--  (9) Asynchronous --}}
                                 <td class="p-2 border border-black align-top">
-                                    {{-- <div>
-                                        <p class="font-bold">PT</p>
-                                        <p class="underline underline-offset-2">Bentuk Pembelajaran</p>
-                                        <p>Penugasan Terstruktur</p>
-
-                                        <p class="underline underline-offset-2">Metode Pembelajaran</p>
-                                            <ul class="list-disc list-inside">
-                                                @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->metodePembelajaran ?? [] as $item)
-                                                    <li>{{$item->nama_metode_pembelajaran}}</li>
-                                                @empty
-                                                    <p>-</p>
-                                                @endforelse
-                                            </ul>
-
-                                        <p class="underline underline-offset-2">Penugasan Mahasiswa</p>
-                                        @if ($topic->aktivitasPembelajaran->firstWhere('tipe','PT'))
-                                            <p>{{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->penugasan_mahasiswa}}</p>
-                                        @else
-                                            <p>-</p>
-                                        @endif
-                                    </div> --}}
-                                    <div>
-                                        {{-- <p class="font-bold">BM</p> --}}
-                                        {{-- <div>
-                                            <p class="underline underline-offset-2">Bentuk Pembelajaran</p>
-                                            <p>Belajar Mandiri</p>
-                                        </div> --}}
-                                        
+                                    <div>                                       
                                         <div>
-                                            {{-- <p class="underline underline-offset-2">Metode Pembelajaran</p> --}}
                                             <ul class="list-disc list-outside pl-4">
                                                 @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','BM')?->metodePembelajaran ?? [] as $item)
                                                     <li>{{$item->nama_metode_pembelajaran}}</li>
@@ -573,20 +477,14 @@
                                         </div>
 
                                         <div>
-                                            <p>[BM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_pertemuan}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_sks}})]</p>  
+                                            <p>[BM: {{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_pertemuan ?? '-'}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','BM')->jumlah_sks ?? '-'}})]</p>  
                                         </div>
 
                                         <br>
                                         
                                         <div>
-                                            {{-- <p class="underline underline-offset-2">Penugasan Mahasiswa</p> --}}
-                                            {{-- @if ($topic->aktivitasPembelajaran->firstWhere('tipe','PT'))
-                                                <p class="break-words">{{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->penugasan_mahasiswa}}</p>
-                                            @else
-                                                <p>-</p>
-                                            @endif --}}
                                             <ul class="list-disc list-inside">
-                                                @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','PT')?->bentukPenugasan ?? [] as $item)
+                                                @forelse ($topic->aktivitasPembelajaran->firstWhere('tipe','BT')?->bentukPenugasan ?? [] as $item)
                                                     <li>{{$item->nama_bentuk_penugasan}}</li>
                                                 @empty
                                                     <p>-</p>
@@ -595,7 +493,7 @@
                                         </div>
 
                                         <div>
-                                            <p>[BT: {{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')->jumlah_pertemuan}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','PT')->jumlah_sks}})]</p>  
+                                            <p>[BT: {{$topic->aktivitasPembelajaran->firstWhere('tipe','BT')->jumlah_pertemuan ?? '-'}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','BT')->jumlah_sks ?? '-'}})]</p>  
                                         </div>
                                     </div>
                                 </td>
