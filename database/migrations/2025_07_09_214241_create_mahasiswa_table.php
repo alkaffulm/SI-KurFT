@@ -14,13 +14,16 @@ return new class extends Migration
         Schema::create('mahasiswa', function (Blueprint $table) {
             $table->bigIncrements('id_mhs');
             $table->unsignedBigInteger('id_ps');
+            $table->unsignedBigInteger('id_kurikulum');
             $table->string('nim');
             $table->string('nama_lengkap');
             $table->string('jenis_kelamin')->nullable();
             $table->integer('angkatan');
+            $table->string('status')->nullable();
             $table->timestamps();
 
             $table->foreign('id_ps')->references('id_ps')->on('program_studi')->onDelete('cascade');
+            $table->foreign('id_kurikulum')->references('id_kurikulum')->on('kurikulum')->onDelete('cascade');
         });
     }
 
