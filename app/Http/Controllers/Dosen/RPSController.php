@@ -277,19 +277,12 @@ class RPSController extends Controller
             // Dari data yang sudah diambil, filter untuk CPMK saat ini
             $entriesForThisCpmk = $allBobotPenilaianEntries->where('id_cpmk', $cpmk->id_cpmk);
             
-            // Akumulasi bobot TUGAS dari kolom 'bobot' di tabel pivot
             $totalTugas = $entriesForThisCpmk->filter(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'tugas')->sum('bobot');
             
-            // Ambil bobot UTS dari kolom 'bobot' di tabel pivot
             $bobotUts = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'uts')?->bobot ?? 0;
-            
-            // Ambil bobot UAS dari kolom 'bobot' di tabel pivot
             $bobotUas = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'uas')?->bobot ?? 0;
-
             $bobotHasilProyek = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'Hasil Proyek')?->bobot ?? 0;
-
             $bobotKegiatanPartisipatif = $entriesForThisCpmk->first(fn($entry) => $entry->rencanaAsesmen?->tipe_komponen === 'Kegiatan Partisipatif')?->bobot ?? 0;
-
 
             $bobotPenilaian[$cpmk->id_cpmk] = [
                 'tugas' => $totalTugas,

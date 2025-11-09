@@ -76,7 +76,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($profil_lulusan as $pl)
+                            @forelse ($profil_lulusan as $pl)
                                 <tr class="bg-white border-t border-gray-400">
                                     {{-- REVISI: Menghapus hover dari kode PL --}}
                                     <th scope="row"
@@ -88,7 +88,13 @@
                                         <p class="italic text-sm text-[#7397b6]">{{ $pl->desc_pl_en }}</p>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr class="bg-white border-t border-gray-400">
+                                    <td colspan="2" class="px-6 py-4 text-center text-gray-500">
+                                        Data Profil Lulusan masih kosong.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -124,11 +130,17 @@
                                     Objective (PEO)</th>
                             </tr>
                             <tr>
-                                @foreach ($peo as $p)
+                                @forelse ($peo as $p)
                                     {{-- Hover tetap ada di sini untuk PEO --}}
                                     <th scope="col" class="px-6 py-3" title="{{ $p->desc_peo_id }}">
                                         {{ $p->kode_peo }}</th>
-                                @endforeach
+                                @empty
+                                    <tr class="bg-white border-t border-gray-400">
+                                        <td colspan="2" class="px-6 py-4 text-center text-gray-500">
+                                            Data Korelasi Profil Lulusan - PEO masih kosong.
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tr>
                         </thead>
                         <tbody>

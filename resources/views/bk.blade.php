@@ -203,7 +203,7 @@
                                         {{ $mk->nama_matkul_id }}
                                     </th>
                                     {{-- *** END CHANGE *** --}}
-                                    @foreach ($bahan_kajian as $bk)
+                                    @forelse ($bahan_kajian as $bk)
                                         @php
                                             $isChecked =
                                                 isset($bk_mk_map[$bk->id_bk]) &&
@@ -214,7 +214,13 @@
                                                 <span class="text-black-500 font-bold">✓</span>
                                             @endif
                                         </td>
-                                    @endforeach
+                                    @empty
+                                        <tr class="bg-white border-t border-gray-400">
+                                            <td colspan="2" class="px-6 py-4 text-center text-gray-500">
+                                                Data Korelasi BK - MK masih kosong.
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tr>
                             @endforeach
                         </tbody>

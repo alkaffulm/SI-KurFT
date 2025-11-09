@@ -111,7 +111,7 @@
                                 </tr>
                             @empty
                                 <tr class="bg-white border-t border-gray-400">
-                                    <td colspan="3" class="px-3 py-4 text-center text-gray-500">
+                                    <td colspan="6" class="px-3 py-4 text-center text-gray-500">
                                         Data Mata Kuliah masih kosong.
                                     </td>
                                 </tr>
@@ -145,7 +145,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($mata_kuliah as $mk)
+                            @forelse ($mata_kuliah as $mk)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
@@ -165,7 +165,13 @@
                                         </td>
                                     @endfor
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr class="bg-white border-t border-gray-400">
+                                    <td colspan="11" class="px-6 py-4 text-center text-gray-500">
+                                        Data Susunan Mata Kuliah masih kosong.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -222,7 +228,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($mata_kuliah as $mk)
+                            @forelse ($mata_kuliah as $mk)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
@@ -238,7 +244,13 @@
                                         {{ $mk->jumlah_sks }}
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr class="bg-white border-t border-gray-400">
+                                    <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                                        Data Bobot SKS masih kosong.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

@@ -14,10 +14,10 @@ class CPLCPMKBobotSeeder extends Seeder
     public function run(): void
     {
         DB::table('cpl_cpmk_bobot')->insert([
-            ['id_mk' => 1, 'id_cpl' => 1, 'id_cpmk'=>1],
-
-
-
+            ['id_mk' => 34, 'id_ps' => 7, 'id_kurikulum' => 7, 'id_cpl' => 24, 'id_cpmk' => 32, 'bobot' => 100.0],
+            ['id_mk' => 34, 'id_ps' => 7, 'id_kurikulum' => 7, 'id_cpl' => 26, 'id_cpmk' => 33, 'bobot' => 50.0],
+            ['id_mk' => 34, 'id_ps' => 7, 'id_kurikulum' => 7, 'id_cpl' => 26, 'id_cpmk' => 34, 'bobot' => 50.0],
+            ['id_mk' => 34, 'id_ps' => 7, 'id_kurikulum' => 7, 'id_cpl' => 29, 'id_cpmk' => 35, 'bobot' => 100.0],
         ]);
     }
 }
