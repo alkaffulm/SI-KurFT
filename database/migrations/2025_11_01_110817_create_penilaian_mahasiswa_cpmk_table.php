@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('penilaian_mahasiswa_cpmk', function (Blueprint $table) {
             $table->id('id_penilaian_cpmk');
             $table->unsignedBigInteger('id_kelas');
-            $table->unsignedBigInteger('id_mhs');
+            // $table->unsignedBigInteger('id_mhs');
+            $table->string('nim');
             $table->unsignedBigInteger('id_cpmk');
-            $table->float('nilai_rata')->nullable(); // hasil akhir setelah bobot
+            $table->float('nilai_rata')->nullable();
             $table->timestamps();
 
             $table->foreign('id_kelas')->references('id_kelas')->on('kelas')->onDelete('cascade');
-            $table->foreign('id_mhs')->references('id_mhs')->on('mahasiswa')->onDelete('cascade');
+            // $table->foreign('id_mhs')->references('id_mhs')->on('mahasiswa')->onDelete('cascade');
+            $table->foreign('nim')->references('nim')->on('mahasiswa')->onDelete('cascade');
             $table->foreign('id_cpmk')->references('id_cpmk')->on('cpmk')->onDelete('cascade');
         });
     }

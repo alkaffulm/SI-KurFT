@@ -71,16 +71,16 @@
                         </svg>
                         <span class="ms-3">Kelas per Mata Kuliah</span>
                     </a>
-                    <a href="{{ route('pemetaan_mhs.index') }}"
+                    {{-- <a href="{{ route('pemetaan_mhs.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                         {{-- Mata Kuliah Icon --}}
-                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        {{-- <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                         </svg>
                         <span class="ms-3">Mahasiswa ke CPL</span>
-                    </a>
+                    </a> --}}
                 </li>
             @endif
 

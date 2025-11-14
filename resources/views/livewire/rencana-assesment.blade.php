@@ -43,7 +43,7 @@
                                 </th>
                             @endforeach
                             <th scope="col" class="px-6 py-3 w-24 text-center">
-                                Total
+                                Total per Nilai Asesment
                             </th>
                         </tr>
                     </thead>
@@ -56,7 +56,7 @@
                                     @php
                                         $bobotforCpmkNow = $asesmen->bobotCpmk->firstWhere('id_cpmk', $cpmk->id_cpmk);
                                     @endphp
-                                    <td  class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">{{$bobotforCpmkNow ? $bobotforCpmkNow->pivot->bobot . '%' : '-' }}</td>                                    
+                                    <td  class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">{{$bobotforCpmkNow ? $bobotforCpmkNow->pivot->bobot : '-' }}</td>                                    
                                 @endforeach
                                 <td  class="px-6 py-4 text-center font-semibold text-gray-900">{{$asesmen->totalBobotKomponenEvaluasi}}</td>
                             </tr> 
@@ -69,8 +69,15 @@
                     @if ($rencanaAsesmen->isNotEmpty())
                         <tfoot>
                             <tr class="font-semibold text-gray-900 bg-white border-t border-gray-400">
-                                <th colspan="{{count($assocCpmks) + 2}}"  class="px-6 py-3 text-base text-left border-r border-gray-400">TOTAL CPMK</th>
-                                <td class="px-6 py-3 text-center text-base">{{$allMataKuliah->totalBobotKeseluruhan}}%</td>
+                                <th colspan="2" class="px-6 py-3 text-base text-left border-r border-gray-400">
+                                    TOTAL CPMK per Komponen Evaluasi
+                                </th>
+                                @foreach ($assocCpmks as $cpmk)
+                                    <td class="px-6 py-3 text-center text-base border-r border-gray-400">
+                                        {{ $totalPerCpmk[$cpmk->id_cpmk] ?? 0 }}
+                                    </td>
+                                @endforeach
+                                <td class="px-6 py-3 text-center text-base border-r border-gray-400">—</td>
                             </tr>
                         </tfoot>
                     @endif

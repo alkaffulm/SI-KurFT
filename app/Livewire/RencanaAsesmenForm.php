@@ -18,6 +18,8 @@ class RencanaAsesmenForm extends Component
     public $rencanaAsesmens = [];
     public $totalBobotKeseluruhan = 0;
 
+    public $totalPerCpmk = [];
+
     public function mount(MataKuliahModel $mataKuliah) {
         $this->mataKuliah = $mataKuliah->load('cpmks');
         $this->assocCpmks = $mataKuliah->cpmks;
@@ -74,12 +76,26 @@ class RencanaAsesmenForm extends Component
     //     }
     // }
 
-    public function calculateTotalBobotKeseluruh(){
-        // Gunakan collection untuk menjumlahkan semua total bobot per baris
-        $this->totalBobotKeseluruhan = collect($this->rencanaAsesmens)->sum(function ($item) {
-            // Pastikan 'bobot' adalah array sebelum dijumlahkan
-            return is_array($item['bobot']) ? array_sum($item['bobot']) : 0;
-        });
+    // public function calculateTotalBobotKeseluruh(){
+    //     // Gunakan collection untuk menjumlahkan semua total bobot per baris
+    //     $this->totalBobotKeseluruhan = collect($this->rencanaAsesmens)->sum(function ($item) {
+    //         // Pastikan 'bobot' adalah array sebelum dijumlahkan
+    //         return is_array($item['bobot']) ? array_sum($item['bobot']) : 0;
+    //     });
+    // }
+
+    public function calculateTotalBobotKeseluruh()
+    {
+        $totals = [];
+
+        foreach ($this->assocCpmks as $cpmk) {
+            $id = $cpmk->id_cpmk;
+            $totals[$id] = collect($this->rencanaAsesmens)->sum(function ($asesmen) use ($id) {
+                return $asesmen['bobot'][$id] ?? 0;
+            });
+        }
+
+        $this->totalPerCpmk = $totals;
     }
 
     public function saveRencanaAsesmen() {

@@ -19,7 +19,6 @@ class RencanaAsesmenController extends Controller
 
     public function create()
     {
-
         return view('dosen.form.rencana-assesment.RAForm');
     }
 }

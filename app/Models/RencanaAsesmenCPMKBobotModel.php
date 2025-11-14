@@ -20,7 +20,8 @@ class RencanaAsesmenCPMKBobotModel extends Model
     public function rencanaAsesmen() {
         return $this->belongsTo(RencanaAsesmenModel::class, 'id_rencana_asesmen', 'id_rencana_asesmen');
     }
-    public function cpmk() {
-        return $this->belongsTo(CPMKModel::class, 'id_cpmk', 'id_cpmk');
+    public function cpmk()
+    {
+        return $this->belongsTo(\App\Models\CPMKModel::class, 'id_cpmk', 'id_cpmk');
     }
 }

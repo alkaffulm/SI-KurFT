@@ -11,11 +11,11 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($hasilCpl as $row)
+                @forelse($cplReports as $row)
                     <tr class="border-t">
-                        <td class="px-3 py-2">{{ $row['kode'] }}</td>
+                        <td class="px-3 py-2">{{ $row['kode_cpl'] }}</td>
                         <td class="px-3 py-2">{{ $row['deskripsi'] }}</td>
-                        <td class="px-3 py-2 text-center">{{ $row['rata'] !== null ? $row['rata'].'%' : '-' }}</td>
+                        <td class="px-3 py-2 text-center">{{ $row['nilai_akhir_cpl'] !== null ? $row['nilai_akhir_cpl'].'%' : '-' }}</td>
                     </tr>
                 @empty
                     <tr><td colspan="3" class="p-4 text-center">Data tidak ditemukan.</td></tr>

@@ -91,44 +91,57 @@
                     {{-- 🔸 FORM PENILAIAN --}}
                     <form action="{{ route('dosen_kelas.simpanNilai', $kelas->id_kelas) }}" method="POST">
                         @csrf
-
                         <div class="overflow-x-auto rounded-lg border border-gray-400 mt-12">
                             <table class="w-full text-sm text-left text-gray-500">
                                 <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                                    {{-- 🔹 Baris 1: Kolom umum --}}
                                     <tr>
                                         <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">NIM</th>
                                         <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">Nama Lengkap</th>
 
-                                        {{-- Kolom CPMK --}}
-                                        @foreach($cpmk as $c)
+                                        {{-- 🔸 Loop per Komponen Asesmen --}}
+                                        @foreach($rencanaAsesmen as $ra)
                                             @php
-                                                $asesmenForCpmk = $bobot->where('id_cpmk', $c->id_cpmk)
-                                                                        ->pluck('id_rencana_asesmen')
-                                                                        ->unique();
+                                                $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
                                             @endphp
-                                            <th colspan="{{ $asesmenForCpmk->count() }}"
-                                                class="text-center px-6 py-3 border-r border-gray-400">
-                                                {{ $c->nama_kode_cpmk }}
+                                            <th colspan="{{ $cpmkForAsesmen->count() }}"
+                                                class="text-center px-6 py-3 border-r border-gray-400 text-lg">
+                                                {{ strtoupper($ra->tipe_komponen) }}
                                             </th>
                                         @endforeach
                                     </tr>
+
+                                    {{-- 🔹 Baris 2: Subheader CPMK di bawah tiap Asesmen --}}
                                     <tr>
-                                        {{-- Subheader per CPMK → Asesmen --}}
-                                        @foreach($cpmk as $c)
+                                        {{-- @foreach($rencanaAsesmen as $ra)
                                             @php
-                                                $asesmenForCpmk = $bobot->where('id_cpmk', $c->id_cpmk);
+                                                $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
                                             @endphp
-                                            @foreach($asesmenForCpmk as $ab)
+                                            @foreach($cpmkForAsesmen as $bc)
                                                 @php
-                                                    $ras = $rencanaAsesmen->firstWhere('id_rencana_asesmen', $ab->id_rencana_asesmen);
+                                                    $cpmkData = $cpmk->firstWhere('id_cpmk', $bc->id_cpmk);
                                                 @endphp
                                                 <th class="text-center px-6 py-3 border-r border-gray-400">
-                                                    {{ $ras?->tipe_komponen }}
+                                                    {{ $cpmkData->nama_kode_cpmk ?? '-' }}
                                                     <br>
-                                                    <span class="font-normal">(Bobot: {{ $ab->bobot }}%)</span>
+                                                    <span class="font-normal">Maks: {{ (int) $bc->bobot }}</span>
+                                                </th>
+                                            @endforeach
+                                        @endforeach --}}
+
+                                        @foreach($rencanaAsesmen as $ra)
+                                            @php
+                                                $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
+                                            @endphp
+                                            @foreach($cpmkForAsesmen as $bc)
+                                                <th class="text-center px-6 py-3 border-r border-gray-400">
+                                                    {{ $bc->cpmk?->nama_kode_cpmk ?? '-' }}
+                                                    <br>
+                                                    <span class="font-normal">Maks: {{ (int) $bc->bobot }}</span>
                                                 </th>
                                             @endforeach
                                         @endforeach
+
                                     </tr>
                                 </thead>
 
@@ -137,43 +150,46 @@
                                         <tr class="text-black bg-gray-50 hover:bg-gray-100">
                                             <td class="text-center px-6 py-4 font-medium">{{ $mhs->nim }}</td>
                                             <td class="text-center px-6 py-4">{{ $mhs->nama_lengkap }}</td>
-
-                                            {{-- Nilai per asesmen --}}
-                                            @foreach($cpmk as $c)
+                                            @foreach($rencanaAsesmen as $ra)
                                                 @php
-                                                    $asesmenForCpmk = $bobot->where('id_cpmk', $c->id_cpmk);
+                                                    $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
                                                 @endphp
-                                                @foreach($asesmenForCpmk as $ab)
+                                                @foreach($cpmkForAsesmen as $bc)
+                                                    @php
+                                                        $nilaiLama = $penilaianMahasiswa
+                                                            ->where('nim', $mhs->nim)
+                                                            ->where('id_rencana_asesmen', $ra->id_rencana_asesmen)
+                                                            ->where('id_cpmk', $bc->id_cpmk)
+                                                            ->first();
+
+                                                        $maxBobot = (int) ($bc->bobot ?? 0);
+                                                    @endphp
+
                                                     <td class="text-center px-6 py-4">
-                                                        @php
-                                                            // Cek apakah nilai sudah ada di tabel penilaian_mahasiswa
-                                                            $nilaiLama = $penilaianMahasiswa
-                                                                ->where('id_mhs', $mhs->id_mhs)
-                                                                ->where('id_rencana_asesmen', $ab->id_rencana_asesmen)
-                                                                ->where('id_cpmk', $c->id_cpmk)
-                                                                ->first();
-                                                        @endphp
-
                                                         <input type="number"
-                                                            name="nilai[{{ $mhs->id_mhs }}][{{ $ab->id_rencana_asesmen }}][{{ $c->id_cpmk }}]"
-                                                            class="w-20 border rounded px-2 py-1 text-center focus:ring-2 focus:ring-biru-custom outline-none"
-                                                            placeholder="0-100"
+                                                            name="nilai[{{ $mhs->nim }}][{{ $ra->id_rencana_asesmen }}][{{ $bc->id_cpmk }}]"
+                                                            class="nilai-input w-20 border rounded px-2 py-1 text-center focus:ring-2 focus:ring-biru-custom outline-none"
+                                                            placeholder="0-{{ $maxBobot }}"
+                                                            id="nilai-input"
                                                             min="0"
-                                                            max="100"
-                                                            value="{{ $nilaiLama->nilai ?? '' }}">
-
+                                                            max="{{ $maxBobot }}"
+                                                            step="1"
+                                                            value="{{ $nilaiLama->nilai ?? '' }}"
+                                                            data-max="{{ $maxBobot }}">
                                                     </td>
                                                 @endforeach
                                             @endforeach
                                         </tr>
                                     @endforeach
+
                                 </tbody>
                             </table>
                         </div>
 
+
                         {{-- Tombol Simpan --}}
                         <div class="mt-8 text-right">
-                            <button type="submit"
+                            <button id="submitButton" type="submit"
                                 class="px-6 py-3 text-base font-semibold text-white bg-biru-custom rounded-lg shadow hover:bg-blue-700 transition">
                                 Simpan Nilai
                             </button>
@@ -184,5 +200,55 @@
         @endif
 
     </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const inputs = document.querySelectorAll('.nilai-input');
+    const submitButton = document.querySelector('#submitButton'); 
+
+    function validateInputs() {
+        let valid = true;
+
+        inputs.forEach(input => {
+            const max = parseInt(input.dataset.max);
+            const value = parseFloat(input.value) || 0; 
+
+            if (value > max) {
+                valid = false;
+
+                input.classList.remove('border-gray-400'); 
+                input.classList.add('border', 'border-red-500', 'bg-red-50'); 
+                
+                input.title = `Nilai tidak boleh lebih dari ${max}`;
+            } else {
+                input.classList.remove('border-red-500', 'bg-red-50');
+                input.classList.add('border', 'border-gray-400'); 
+                
+                input.title = '';
+            }
+        });
+
+        if (submitButton) submitButton.disabled = !valid;
+
+        if (submitButton) {
+            if (valid) {
+                submitButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                submitButton.classList.add('bg-biru-custom', 'hover:bg-blue-700');
+            } else {
+                submitButton.classList.remove('bg-biru-custom', 'hover:bg-blue-700');
+                submitButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+            }
+        }
+    }
+
+    inputs.forEach(input => {
+        input.addEventListener('input', validateInputs);
+    });
+
+    validateInputs(); 
+});
+</script>
+
 </body>
 </html>

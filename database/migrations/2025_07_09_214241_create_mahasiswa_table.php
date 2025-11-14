@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_mhs');
             $table->unsignedBigInteger('id_ps');
             $table->unsignedBigInteger('id_kurikulum');
-            $table->string('nim');
+            $table->string('nim')->unique();
             $table->string('nama_lengkap');
             $table->string('jenis_kelamin')->nullable();
             $table->integer('angkatan');

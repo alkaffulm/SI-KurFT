@@ -55,7 +55,7 @@
                                 <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">ID Kelas</th>
                                 <th scope="col" class=" text-center px-6 py-3 border-r border-gray-400">Urutan Paralel</th>
                                 <th scope="col" class=" text-center px-6 py-3 border-r border-gray-400">Jumlah Mahasiswa</th>
-                                <th scope="col" colspan="2" class=" text-center px-6 py-3 border-r border-gray-400">Mahasiswa</th>
+                                <th scope="col" colspan="3" class=" text-center px-6 py-3 border-r border-gray-400">Mahasiswa</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,6 +75,9 @@
                                     </td>
                                     <td class="text-center px-6 py-4">
                                         <a class="text-black hover:underline" href="{{ route('dosen.kelas.penilaian', $k->id_kelas) }}">Penilaian Mahasiswa</a>
+                                    </td>
+                                    <td class="text-center px-6 py-4">
+                                        <a class="text-yellow-600 hover:underline" href="{{ route('capaian_ratarata.index', $k->id_kelas) }}">Capaian Rata-Rata</a>
                                     </td>
                                 </tr>
                             @empty

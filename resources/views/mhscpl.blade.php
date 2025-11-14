@@ -18,21 +18,18 @@
         <main class="mt-16">
             <nav class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2">
-                    <li><span class="text-sm text-gray-500">Laporan</span></li>
+                    <li><span class="text-sm text-gray-500">Laporan > </span></li>
                     <li><span class="text-sm font-medium text-gray-900">Laporan CPL Mahasiswa</span></li>
                 </ol>
             </nav>
 
             <div class="bg-white p-8 rounded-lg shadow-md mb-8">
-                <h1 class="text-3xl font-bold text-teks-biru-custom mb-6">CAPAIAN PEMBELAJARAN LULUSAN (CPL) MAHASISWA</h1>
+                <h1 class="text-3xl font-bold text-black mb-6">CAPAIAN PEMBELAJARAN LULUSAN (CPL) MAHASISWA</h1>
 
-                {{-- panggil komponen livewire utama --}}
                 @livewire('laporan-cpl-mahasiswa')
             </div>
-
-            {{-- grafik (akan diupdate oleh event dari Livewire) --}}
-            <div class="mt-8 flex gap-4">
-                <div class="flex-1 bg-white rounded-lg shadow p-4">
+            <div class="mt-8 gap-4">
+                <div class="flex-1 bg-white rounded-lg shadow p-4 mb-12 pr-6">
                     <h3 class="font-semibold mb-3">Grafik Bar: % Ketercapaian CPL</h3>
                     <div id="chartBar"></div>
                 </div>
@@ -53,7 +50,7 @@
         
         function renderCharts(labels = [], data = []) {
             const barOptions = {
-                chart: { type: 'bar', height: 350 },
+                chart: { type: 'bar', height: 550 },
                 series: [{ name: '% Ketercapaian', data: data }],
                 xaxis: { categories: labels },
                 plotOptions: { bar: { horizontal: true } },
@@ -84,19 +81,16 @@
             }
         }
         
-        // Livewire v3 menggunakan 'livewire:' prefix untuk custom events
         document.addEventListener('livewire:init', () => {
-            Livewire.on('laporanCplUpdated', (event) => {
-                // event adalah object pertama yang dikirim
-                const labels = event.labels || [];
-                const data = event.data || [];
-                renderCharts(labels, data);
+            Livewire.on('laporanCplUpdated', ({ labels, data }) => {
+                const chartLabels = labels || [];
+                const chartData = data || [];
+                renderCharts(chartLabels, chartData);
             });
         });
-        
-        // Initial empty charts
+
         renderCharts(
-            ['CPL-1','CPL-2','CPL-3','CPL-4','CPL-5','CPL-6','CPL-7','CPL-8'], 
+            ['CPL-1','CPL-2','CPL-3','CPL-4','CPL-5','CPL-6','CPL-7','CPL-8', 'CPL-9','CPL-10','CPL-11','CPL-12', 'CPL-13'], 
             [0,0,0,0,0,0,0,0]
         );
     </script>

@@ -12,6 +12,6 @@ class PenilaianMahasiswa extends Model
     protected $table = 'penilaian_mahasiswa';
     protected $primaryKey = 'id_penilaian_mhs';
     protected $fillable = [
-        'id_kelas', 'id_mhs', 'id_rencana_asesmen', 'id_cpmk', 'nilai'
+        'id_kelas', 'nim', 'id_rencana_asesmen', 'id_cpmk', 'nilai'
     ];
 }

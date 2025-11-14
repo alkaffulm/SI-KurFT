@@ -10,6 +10,6 @@ class PenilaianMahasiswaCPMK extends Model
     protected $table = 'penilaian_mahasiswa_cpmk';
     protected $primaryKey = 'id_penilaian_cpmk';
     protected $fillable = [
-        'id_kelas', 'id_mhs', 'id_cpmk', 'nilai_rata'
+        'id_kelas', 'nim', 'id_cpmk', 'nilai_rata'
     ];
 }

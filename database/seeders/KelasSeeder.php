@@ -14,8 +14,6 @@ class KelasSeeder extends Seeder
     {
         $data = [];
 
-        $id_users = range(120, 130);
-
         $id_mk_start = 92;
         $id_mk_end = 164;
 
@@ -27,9 +25,9 @@ class KelasSeeder extends Seeder
                     'id_kurikulum' => 7,
                     'id_tahun_akademik' => 1,
                     'id_mk' => $id_mk,
-                    'id_user' => $id_users[array_rand($id_users)],
+                    'id_user' => 121,
                     'paralel_ke' => $p,
-                    'jumlah_mhs' => rand(25, 45),
+                    'jumlah_mhs' => rand(25, 31),
                 ];
             }
         }

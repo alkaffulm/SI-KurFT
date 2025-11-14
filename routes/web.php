@@ -157,8 +157,6 @@ Route::middleware('auth')->group(function () {
         // Kelas
             // masuk ke halaman kelas
             Route::get('/dosen/kelas/index', [KelasDosenController::class, 'index'])->name('dosen_kelas.index');
-
-
             // lihat daftar mahasiswa untuk kelas
             Route::get('/dosen/kelas/lihat/{id}', [KelasDosenController::class, 'lihatKelas'])->name('dosen.kelas.lihat');
 
@@ -170,6 +168,9 @@ Route::middleware('auth')->group(function () {
 
         // Lihat Pemetaan MK-CPMK-CPL Per Mahasiswa
             Route::get('/dosen/pemetaan/', [KelasDosenController::class, 'index'])->name('pemetaan_mhs.index');
+
+        // melihat capaian rata-rata perkelas
+            Route::get('/dosen/capaian/{id}', [KelasDosenController::class, 'capaian_ratarata'])->name('capaian_ratarata.index');
 
 
 

@@ -18,9 +18,32 @@ class RencanaAssesment extends Component
     public $allMataKuliah;
     public $assocCpmks;
     public $rencanaAsesmenCpmkBobot;
+    public $totalPerCpmk = [];
 
     public function mount() {
         $this->mataKuliahDosenTerkait = MataKuliahModel::tanggungJawabDosen(Auth::id())->with('rps')->get();
+    }
+
+    public function hitungTotalPerCpmk()
+    {
+        $this->totalPerCpmk = [];
+
+        if (empty($this->rencanaAsesmen)) return;
+
+        foreach ($this->rencanaAsesmen as $rencana) {
+            if (!empty($rencana->bobotCpmk)) {
+                foreach ($rencana->bobotCpmk as $bobot) {
+                    $idCpmk = $bobot->id_cpmk;
+                    $nilai = $bobot->pivot->bobot ?? 0;
+
+                    if (!isset($this->totalPerCpmk[$idCpmk])) {
+                        $this->totalPerCpmk[$idCpmk] = 0;
+                    }
+
+                    $this->totalPerCpmk[$idCpmk] += $nilai;
+                }
+            }
+        }
     }
     
     public function updatedSelectedMataKuliah($id_mk) {
@@ -29,17 +52,24 @@ class RencanaAssesment extends Component
             $this->assocCpmks = $this->allMataKuliah->cpmks->unique('id_cpmk');
             $assocCpmksIds = $this->assocCpmks->pluck('id_cpmk');
 
-            // $this->rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $id_mk)->get();
             $this->rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $id_mk)
                 ->with(['bobotCpmk' => function ($query) use ($assocCpmksIds) {
                     $query->whereIn('cpmk.id_cpmk', $assocCpmksIds);
                 }])->get();
+
+            // 🔹 panggil perhitungan total
+            $this->hitungTotalPerCpmk();
         }
         else {
             $this->assocCpmks = [];
             $this->rencanaAsesmen = [];
+            $this->totalPerCpmk = [];
         }
     }
+
+
+
+
  
     public function render()
     {

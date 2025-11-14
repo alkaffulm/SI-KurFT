@@ -19,7 +19,7 @@
                                             </th>
                                         @endforeach
                                     </th>
-                                    <th scope="col" class="px-6 py-3 w-24 text-center">Total</th>
+                                    <th scope="col" class="px-6 py-3 w-24 text-center">Total per Nilai Asesment</th>
                                     <th class="px-6 py-3 w-24 text-center">aksi</th>
                                 </tr>
                             </thead>
@@ -79,12 +79,24 @@
                                 @endforelse
                             </tbody>
                             @if (!empty($rencanaAsesmens))
-                                <tfoot>
+                                {{-- <tfoot>
                                     <tr class="font-semibold text-gray-900 bg-white border-t border-gray-400">
                                         <th colspan="{{count($assocCpmks) + 2}}"  class="px-6 py-3 text-base text-left border-r border-gray-400">TOTAL CPMK</th>
                                         <td class="px-6 py-3 text-center text-base">{{$totalBobotKeseluruhan}}</td>
                                     </tr>
-                                </tfoot>                                              
+                                </tfoot>--}}
+                                <tfoot>
+                                    <tr class="font-semibold text-gray-900 bg-white border-t border-gray-400">
+                                        <th colspan="2" class="px-6 py-3 text-base text-left border-r border-gray-400">TOTAL CPMK per Komponen Evaluasi</th>
+                                        @foreach ($assocCpmks as $cpmk)
+                                            <td class="px-6 py-3 text-center text-base border-r border-gray-400">
+                                                {{ $totalPerCpmk[$cpmk->id_cpmk] ?? 0 }}
+                                            </td>
+                                        @endforeach
+                                        <td class="px-6 py-3 text-center text-base border-r border-gray-400">—</td>
+                                        <td class="px-6 py-3 text-center text-base">—</td>
+                                    </tr>
+                                </tfoot>
                             @endif
                         </table>
                     </div>

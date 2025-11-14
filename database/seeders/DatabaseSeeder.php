@@ -82,6 +82,11 @@ class DatabaseSeeder extends Seeder
             VisiKeilmuanSeeder::class,
             KelasMahasiswaSeeder::class,
             CPLCPMKBobotSeeder::class,
+
+            PenilaianMahasiswaSeeder::class,
+            PenilaianMahasiswaPerCPMKSeeder::class,
+
+            BobotMKUntukCPLSeeder::class,
         ]);
     }
 }

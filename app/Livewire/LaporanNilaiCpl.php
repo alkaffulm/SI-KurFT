@@ -1,91 +1,97 @@
 <?php
+
 namespace App\Livewire;
+
 use Livewire\Component;
-use Livewire\Attributes\On;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanNilaiCpl extends Component
 {
-    public $id_mhs;
-    public $hasilCpl = [];
-    
-    #[On('mahasiswaChanged')]
-    public function onMahasiswaChanged($idMhs)
+    public $nim;
+    public $cplReports = [];
+    public $id_prodi_user; 
+
+    public function mount($nim = null)
     {
-        $this->id_mhs = $idMhs;
-        $this->hitungNilaiCpl();
+        $this->nim = $nim;
+        $user = Auth::user();
+        $this->id_prodi_user = $user->id_ps ?? 7; 
+        $this->loadLaporanCPL();
     }
-    
-    public function mount($id_mhs = null)
+
+    protected function loadLaporanCPL()
     {
-        $this->id_mhs = $id_mhs;
-        $this->hitungNilaiCpl();
-    }
-    
-    public function hitungNilaiCpl()
-    {
-        $this->hasilCpl = [];
-        if (!$this->id_mhs) return;
-        
-        // Ambil id_ps dari mahasiswa
-        $mahasiswa = DB::table('mahasiswa')
-            ->where('id_mhs', $this->id_mhs)
-            ->first();
-        
-        if (!$mahasiswa || !isset($mahasiswa->id_ps)) {
-            return; // Jika mahasiswa tidak punya id_ps, hentikan
+        if (!$this->nim || !$this->id_prodi_user) {
+            $this->cplReports = collect([]);
+            $this->dispatch('laporanCplUpdated', labels: [], data: []);
+            return;
         }
-        
-        // Ambil CPL sesuai id_ps mahasiswa
-        $cplList = DB::table('cpl')
-            ->select('id_cpl', 'nama_kode_cpl', 'desc_cpl_id')
-            ->where('id_ps', $mahasiswa->id_ps)  // FILTER BERDASARKAN id_ps
-            ->orderBy('id_cpl')
+
+        $nilaiRataMkQuery = DB::table('penilaian_mahasiswa_cpmk as pmc')
+            ->join('mk_cpmk_cpl_map as map', 'pmc.id_cpmk', '=', 'map.id_cpmk')
+            ->where('pmc.nim', $this->nim)
+            ->groupBy('map.id_mk') 
+            ->select('map.id_mk', DB::raw('AVG(pmc.nilai_rata) as rata_mk'));
+
+        $cplReport = DB::table('bobot_mk_untuk_cpl as bmu')
+            ->joinSub($nilaiRataMkQuery, 'nilai_mk', function ($join) {
+                $join->on('bmu.id_mk', '=', 'nilai_mk.id_mk');
+            })
+            ->join('cpl', 'bmu.id_cpl', '=', 'cpl.id_cpl')
+            ->join('mata_kuliah as mk', 'bmu.id_mk', '=', 'mk.id_mk')
+            ->where('cpl.id_ps', $this->id_prodi_user) 
+            ->select([
+                'cpl.id_cpl',
+                'cpl.nama_kode_cpl as kode_cpl',
+                'cpl.desc_cpl_id as deskripsi',
+                'bmu.id_mk',
+                'mk.nama_matkul_id as nama_mk',
+                'bmu.bobot_persen',
+                'nilai_mk.rata_mk',
+                DB::raw('(nilai_mk.rata_mk * bmu.bobot_persen / 100) as kontribusi_nilai')
+            ])
             ->get();
-        
-        foreach ($cplList as $cpl) {
-            $q = DB::table('penilaian_mahasiswa_cpmk as pmc')
-                ->join('kelas', 'pmc.id_kelas', '=', 'kelas.id_kelas')
-                ->join('cpl_cpmk_bobot as ccb', function($join) use ($cpl, $mahasiswa) {
-                    $join->on('pmc.id_cpmk', '=', 'ccb.id_cpmk')
-                         ->on('kelas.id_mk', '=', 'ccb.id_mk')
-                         ->where('ccb.id_cpl', '=', $cpl->id_cpl)
-                         ->where('ccb.id_ps', '=', $mahasiswa->id_ps);  // TAMBAHAN: Filter bobot juga
-                })
-                ->where('pmc.id_mhs', $this->id_mhs)
-                ->whereNotNull('pmc.nilai_rata')
-                ->selectRaw('
-                    SUM(pmc.nilai_rata * ccb.bobot) as numerator, 
-                    SUM(ccb.bobot) as denom
-                ')
-                ->first();
+
+            $this->cplReports = $cplReport->groupBy('id_cpl')->map(function ($items) {
+                
+                $total_nilai = $items->sum('kontribusi_nilai');
+                
+                $details = $items->map(function ($item) {
+                    return [
+                        'id_mk' => $item->id_mk,
+                        'nama_mk' => $item->nama_mk,
+                        'rata_mk' => round($item->rata_mk, 2),
+                        'bobot_persen' => $item->bobot_persen,
+                        'kontribusi_nilai' => round($item->kontribusi_nilai, 2),
+                    ];
+                });
+
+                return [
+                    'kode_cpl' => $items->first()->kode_cpl,
+                    'deskripsi' => $items->first()->deskripsi,
+                    'nilai_akhir_cpl' => round($total_nilai, 2),
+                    'details' => $details,
+                ];
+            })->values();
             
-            $rata = null;
-            if ($q && $q->denom > 0) {
-                $rata = ($q->numerator / $q->denom);
+            if ($this->cplReports->isNotEmpty()) {
+                $labels = $this->cplReports->pluck('kode_cpl')->toArray();
+                $data = $this->cplReports->pluck('nilai_akhir_cpl')->toArray();
+
+                // Menggunakan $this->dispatch() untuk mengirim event ke frontend
+                $this->dispatch('laporanCplUpdated', labels: $labels, data: $data);
+            } else {
+                // Kirim data kosong jika tidak ada laporan
+                $this->dispatch('laporanCplUpdated', labels: [], data: []);
             }
-            
-            $this->hasilCpl[] = [
-                'id_cpl' => $cpl->id_cpl,
-                'kode' => $cpl->nama_kode_cpl,
-                'deskripsi' => $cpl->desc_cpl_id,
-                'rata' => $rata !== null ? round($rata, 2) : null,
-            ];
-        }
-        
-        $labels = array_map(fn($r) => $r['kode'], $this->hasilCpl);
-        $data = array_map(fn($r) => $r['rata'] ?? 0, $this->hasilCpl);
-        
-        $this->dispatch('laporanCplUpdated', 
-            labels: $labels, 
-            data: $data
-        );
     }
-    
+
     public function render()
     {
+        // Mengirimkan data CPL ke view Blade Livewire
         return view('livewire.laporan-nilai-cpl', [
-            'hasilCpl' => $this->hasilCpl,
+            'cplReports' => $this->cplReports,
         ]);
     }
 }

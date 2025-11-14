@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('penilaian_mahasiswa', function (Blueprint $table) {
             $table->id('id_penilaian_mhs');
             $table->unsignedBigInteger('id_kelas');
-            $table->unsignedBigInteger('id_mhs');
+            // $table->unsignedBigInteger('id_mhs');
+            $table->string('nim');
             $table->unsignedBigInteger('id_rencana_asesmen');
             $table->unsignedBigInteger('id_cpmk');
             $table->float('nilai')->nullable();
@@ -22,7 +23,8 @@ return new class extends Migration
 
             // relasi
             $table->foreign('id_kelas')->references('id_kelas')->on('kelas')->onDelete('cascade');
-            $table->foreign('id_mhs')->references('id_mhs')->on('mahasiswa')->onDelete('cascade');
+            // $table->foreign('id_mhs')->references('id_mhs')->on('mahasiswa')->onDelete('cascade');
+            $table->foreign('nim')->references('nim')->on('mahasiswa')->onDelete('cascade');
             $table->foreign('id_rencana_asesmen')->references('id_rencana_asesmen')->on('rencana_asesmen')->onDelete('cascade');
             $table->foreign('id_cpmk')->references('id_cpmk')->on('cpmk')->onDelete('cascade');
         });

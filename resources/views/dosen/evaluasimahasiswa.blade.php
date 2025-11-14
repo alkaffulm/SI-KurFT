@@ -34,8 +34,53 @@
 
             <div class="bg-white p-8 rounded-lg shadow-md mb-8">
                 <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Evaluasi Mahasiswa</h1>
-
                 <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Evaluasi Mahasiswa - Per Kelas yang Diampu</h2>
+                </div>
+                <div class="overflow-x-auto rounded-lg border border-gray-400">
+                    <table class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                            <tr>
+                                <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Kurikulum</th>
+                                <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Tahun Akademik</th>
+                                <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Mata Kuliah</th>
+                                <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">ID Mata Kuliah</th>
+                                <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">ID Kelas</th>
+                                <th scope="col" class=" text-center px-6 py-3 border-r border-gray-400">Urutan Paralel</th>
+                                <th scope="col" class=" text-center px-6 py-3 border-r border-gray-400">Jumlah Mahasiswa</th>
+                                <th scope="col" class=" text-center px-6 py-3 border-r border-gray-400">Evaluasi Per Kelas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($kelas as $k)
+                                <tr class="bg-white border-b hover:bg-gray-50 text-black">
+                                    <td class="text-center px-6 py-4">{{ $k->tahun_kurikulum }}</td>
+                                    <td class="text-center px-6 py-4">{{ $k->tahun_akademik }}</td>
+                                    <td class="text-center px-6 py-4">{{ $k->nama_matkul_id }}</td>
+                                    <td class="text-center px-6 py-4">{{ $k->kode_mk }}</td>
+                                    <td class="text-center px-6 py-4">{{ $k->id_kelas }}</td>
+                                    <td class="text-center px-6 py-4">{{ $k->paralel_ke}}</td>
+                                    <td class="text-center px-6 py-4">
+                                        {{ $k->jumlah_mhs}}
+                                    </td>
+                                    <td class="text-center px-6 py-4">
+                                        <a class="text-black hover:underline" href="{{ route('dosen.kelas.lihat', $k->id_kelas) }}">Evaluasi Mahasiswa Per Kelas</a>
+                                    </td>
+
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="9" class="text-center py-4 text-gray-500">Belum ada kelas yang diampu</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+                {{-- ====================================================================================================== --}}
+                {{-- <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Evaluasi Mahasiswa - Manajemen Proyek TI</h2>
                 </div>
 
@@ -94,13 +139,13 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
 
-                <div class="flex justify-between items-center mt-8 mb-4">
+                {{-- <div class="flex justify-between items-center mt-8 mb-4">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Evaluasi Mahasiswa - Struktur Data</h2>
-                </div>
+                </div> --}}
 
-                <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                {{-- <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
                     <table class="w-full text-sm text-center text-gray-600">
                         <thead class="text-xs text-white uppercase bg-slate-700">
                             <tr>
@@ -155,7 +200,7 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
             </div>
         </main>
     </div>

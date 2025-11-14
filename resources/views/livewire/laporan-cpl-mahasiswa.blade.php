@@ -11,19 +11,19 @@
         </div>
         <div class="w-80">
             <label class="block text-sm font-medium text-gray-700">Nama Mahasiswa</label>
-            <select wire:model.live="id_mhs" class="mt-1 block w-full rounded-md border-gray-300 p-2" {{ empty($daftarMahasiswa) ? 'disabled' : '' }}>
+            <select wire:model.live="nim" class="mt-1 block w-full rounded-md border-gray-300 p-2" {{ empty($daftarMahasiswa) ? 'disabled' : '' }}>
                 <option value="">-- Pilih Mahasiswa --</option>
                 @foreach($daftarMahasiswa as $m)
-                    <option value="{{ $m->id_mhs }}">{{ $m->nama_lengkap }} ({{ $m->nim }})</option>
+                    <option value="{{ $m->nim }}">{{ $m->nama_lengkap }} ({{ $m->nim }})</option>
                 @endforeach
             </select>
         </div>
     </div>
     
-    @if($id_mhs)
+    @if($nim)
         <div class="space-y-4">
-            @livewire('daftar-kelas-mahasiswa', ['id_mhs' => $id_mhs], key('kelas-'.$id_mhs))
-            @livewire('laporan-nilai-cpl', ['id_mhs' => $id_mhs], key('cpl-'.$id_mhs))
+            @livewire('daftar-kelas-mahasiswa', ['nim' => $nim], key('kelas-'.$nim))
+            @livewire('laporan-nilai-cpl', ['nim' => $nim], key('cpl-'.$nim))
         </div>
     @else
         <div class="text-sm text-gray-500">Pilih angkatan dan mahasiswa untuk melihat laporan.</div>
