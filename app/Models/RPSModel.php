@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Policies\RpsPolicy;
 use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class RPSModel extends Model
 {
@@ -18,10 +19,8 @@ class RPSModel extends Model
         'id_kurikulum',
         'id_ps',
         'id_mk',
-        // 'id_bk',
         'id_kaprodi',
         'id_model_pembelajaran',
-        // 'id_dosen_penyusun',
         'tanggal_disusun',
         'materi_pembelajaran',
         'pustaka_utama',
@@ -29,7 +28,6 @@ class RPSModel extends Model
         'tanggal_revisi',
         'jumlah_revisi',
         'isRevisi'
-        // 'deskripsi_singkat',
     ];
 
     protected $casts = ['tanggal_disusun' => 'date'];

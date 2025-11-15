@@ -61,6 +61,7 @@ class RpsEditPage extends Component
     public $allJumlahSks= [];
     
     public function mount(RPSModel $rps) {
+        $this->authorize('update', $rps);
         // untuk halaman edit RPS Induk
         $this->id_bk = $rps->id_bk;
         $this->id_mk_syarat = $rps->mataKuliahSyarat->first()?->id_mk;

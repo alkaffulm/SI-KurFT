@@ -200,14 +200,7 @@ class RPSController extends Controller
             ];
         }
 
-        // $assocCpls = collect();
-
-        // if($rp->mataKuliah) {
-        //     $assocCpls = $rp->mataKuliah->bahanKajian->flatMap(function ($bahanKajian) {
-        //         return $bahanKajian->cpls;
-        //     })->unique('id_cpl');
-        // }
-        
+        $this->authorize('view', $rp);
         return view('dosen.showrps', [
             'rps' => $rp, 
             'assocCpls' => $relevantCpl, 
