@@ -99,13 +99,13 @@
                     <div class="col-span-1 px-2 border-r border-black"></div>
                     <div class="col-span-3 px-2 border-r border-black">
                         <p>{{ $rps->mataKuliah->nama_matkul_id }}</p>
-                        <p class="italic text-sm text-[#7397b6]">{{ $rps->mataKuliah->nama_matkul_en }}</p>
+                        <p class="italic text-sm text-biru-custom">{{ $rps->mataKuliah->nama_matkul_en }}</p>
                     </div>
                     <div class="col-span-1 px-2 border-r border-black">{{ $rps->mataKuliah->kode_mk }}</div>
                     <div class="col-span-2 px-2 border-r border-black">
                         @foreach ($rps->mataKuliah->bahanKajian as $bk)
                             <p>{{$bk->nama_bk_id}}</p>
-                            <p class="italic text-sm text-[#7397b6]">{{$bk->nama_bk_en}}</p>
+                            <p class="italic text-sm text-biru-custom">{{$bk->nama_bk_en}}</p>
                         @endforeach
                     </div>
                     <div class="col-span-2 border-r border-black">
@@ -151,7 +151,7 @@
                                 <div class="col-span-1 px-2 border-b border-r border-black text-center ">{{ $cpl->nama_kode_cpl }}</div>
                                 <div class="col-span-11 px-2 border-b  border-black text-sm/6">
                                     <p>{{ $cpl->desc_cpl_id }}</p>
-                                    <p class="italic text-sm text-[#7397b6]">{{ $cpl->desc_cpl_en }}</p>
+                                    <p class="italic text-sm text-biru-custom">{{ $cpl->desc_cpl_en }}</p>
                                 </div>
                             </div>
                         @endforeach
@@ -167,7 +167,7 @@
                             <div class="col-span-1 px-2 border-b border-r border-black text-center ">{{ $cpmk->nama_kode_cpmk ?? 'CPL Tidak Memliki CPMK' }}</div>
                             <div class="col-span-9 px-2 border-b  border-black text-sm/6">
                                 <p>{{ $cpmk->desc_cpmk_id ?? 'CPL Tidak Memliki CPMK' }} </p>
-                                <p class="italic text-sm text-[#7397b6]">{{ $cpmk->desc_cpmk_en ?? 'CPL Tidak Memliki CPMK' }}</p>
+                                <p class="italic text-sm text-biru-custom">{{ $cpmk->desc_cpmk_en ?? 'CPL Tidak Memliki CPMK' }}</p>
                             </div>
                             <div class="col-span-2 px-2 border-l border-b border-black text-sm/6">
                                 @foreach ($assocCpls as $cpl )
@@ -203,7 +203,7 @@
                 <div class="col-span-1 p-2 border-r border-black font-bold">Deskripsi Mata Kuliah</div>
                 <div class="col-span-11 p-2">
                      <p>{{ $rps->mataKuliah->matkul_desc_id }}</p>
-                     <p class="italic text-sm text-[#7397b6]">{{ $rps->mataKuliah->matkul_desc_en }}</p>
+                     <p class="italic text-sm text-biru-custom">{{ $rps->mataKuliah->matkul_desc_en }}</p>
                 </div>
             </div>
             <div class="grid grid-cols-12 border-t border-black">

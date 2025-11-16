@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluasi Mahasiswa</title>
+    <title>Mata Kuliah</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 </head>
@@ -36,7 +36,7 @@
             </nav>
 
             <div class="bg-white p-8 rounded-lg shadow-md mb-8">
-                <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Evaluasi Mahasiswa</h1>
+                <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Mata Kuliah</h1>
                 <p class="text-gray-600 mb-6">
                     Mata Kuliah adalah unit pembelajaran yang mencakup serangkaian topik atau bahan kajian tertentu,
                     yang dirancang untuk mencapai Capaian Pembelajaran Lulusan (CPL).
@@ -69,14 +69,15 @@
 
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500 table-fixed">
-                        <thead class="text-white uppercase bg-teks-biru-custom">
+                        <thead class=" text-white uppercase bg-teks-biru-custom">
                             <tr>
                                 <th scope="col" class="px-3 py-4 w-24">Kode MK</th>
                                 <th scope="col" class="px-3 py-4 w-48">Nama Mata Kuliah</th>
                                 <th scope="col" class="px-3 py-4 w-24">RPS</th>
                                 <th scope="col" class="px-3 py-4  w-48">Pengembang RPS</th>
                                 <th scope="col" class="px-3 py-4 w-48">Koordinator MK</th>
-                                <th scope="col" class="px-3 py-4 w-[800px]">Deskripsi</th>
+                                <th scope="col" class="px-3 py-4 w-24">Semester</th>
+                                <th scope="col" class="px-3 py-4 w-24">SKS</th>   
                             </tr>
                         </thead>
                         <tbody>
@@ -104,9 +105,11 @@
                                     <td class="px-3 py-4 text-left border-r border-gray-400">
                                         <p>{{ $mk->koordinatorMk->username ?? 'Koordinator Mata Kuliah Belum Ditentukan'}}</p>
                                     </td>                                  
-                                    <td class="px-3 py-4 text-left ">
-                                        <p class="text-justify">{{ $mk->matkul_desc_id }}</p>
-                                        <p class="text-justify italic text-sm text-[#7397b6]">{{ $mk->matkul_desc_en }}</p>
+                                    <td class="px-3 py-4 border-r border-gray-400">
+                                        <p class="text-center">{{ $mk->semester }}</p>
+                                    </td>
+                                    <td class="px-3 py-4 border-r border-gray-400">
+                                        <p class="text-center">{{ $mk->jumlahSks }}</p>
                                     </td>
                                 </tr>
                             @empty

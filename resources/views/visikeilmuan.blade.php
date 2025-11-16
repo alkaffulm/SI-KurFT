@@ -16,9 +16,11 @@
                 <h2 class="text-xl font-semibold mb-2">Visi Keilmuan</h2>
                 <!-- <p class="text-gray-700">Menjadi program studi yang unggul dalam bidang teknologi informasi dan komunikasi, berkontribusi pada pengembangan ilmu pengetahuan, teknologi, dan seni yang berlandaskan nilai-nilai keislaman serta mendukung pembangunan nasional.</p> -->
                 @if($visi)
-                    @foreach($visi as $vk)
+                    @forelse($visi as $vk)
                         <p class="text-gray-700">{{ $vk->desc_vk_id }}</p>
-                    @endforeach
+                    @empty
+                        <p class="text-gray-700">Visi Keilmuan Belum Ditetapkan</p>
+                    @endforelse
                 @else
                     <p class="text-gray-500 italic">Visi keilmuan untuk program studi dan kurikulum ini belum diatur.</p>
                 @endif

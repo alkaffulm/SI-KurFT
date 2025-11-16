@@ -195,18 +195,22 @@
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500 table-fixed">
-                        <thead class="text-sm text-white uppercase bg-teks-biru-custom">
+                        <thead class="text-sm text-white  bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" class="px-3 py-6 w-64">Mata Kuliah</th>
-                                @foreach ($cpl as $cp)
+                                <th scope="col" class="uppercase px-3 py-6 w-64">Mata Kuliah</th>
+                                @forelse ($cpl as $cp)
                                     <th scope="col" class="px-3 py-6 w-32" title="{{ $cp->desc_cpl_id }}">
                                         {{ $cp->nama_kode_cpl }}
                                     </th>
-                                @endforeach
+                                @empty
+                                    <th scope="col" class="px-6 py-3 text-gray-200">
+                                        CPL Belum Ditetapkan
+                                    </th>
+                                @endforelse
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($mata_kuliah as $mk)
+                            @forelse ($mata_kuliah as $mk)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th class="px-6 py-4 border-r text-left whitespace-normal">
                                         {{ $mk->nama_matkul_id }}
@@ -235,7 +239,11 @@
                                         </td>
                                     @endforeach
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td class="px-6 py-4 text-center text-gray-500">Data MK Masih Kosong</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

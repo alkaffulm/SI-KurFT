@@ -1,9 +1,9 @@
 <div>
     
-    <div>Mata Kuliah Saat ini: {{ $selectedMataKuliah }}</div>
     <div class="bg-white p-8 rounded-lg shadow-md mb-8">
+        <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Rencana Asesmen </h1>
         <div>
-            <label for="matakuliah_select" class="block mb-2 text-sm font-medium text-gray-900">Pilih Mata Kuliah</label>
+            <label for="matakuliah_select" class="block mb-2 font-medium text-gray-900">Pilih Mata Kuliah</label>
             <select wire:model.live="selectedMataKuliah" id="matakuliah_select"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-biru-custom focus:border-biru-custom block w-full sm:w-1/3 p-2.5">
                 <option value="">-- Pilih Mata Kuliah --</option>
@@ -14,7 +14,6 @@
         </div>
 
         @if (!empty($assocCpmks))
-            <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Rencana Asesmen </h1>
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold text-biru-custom">Rencana Asesmen {{$allMataKuliah->nama_matkul_id}}</h2>
                 <div class="space-x-2">

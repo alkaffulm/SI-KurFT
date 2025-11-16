@@ -184,14 +184,19 @@
                                 <th scope="col" class="px-6 py-3">Kode MK</th>
                                 <th scope="col" class="px-6 py-3">Mata Kuliah</th>
                                 {{-- *** END CHANGE *** --}}
-                                @foreach ($bahan_kajian as $bk)
+                                @forelse ($bahan_kajian as $bk)
                                     <th scope="col" class="px-6 py-3">
-                                        {{ $bk->nama_kode_bk }}</th>
-                                @endforeach
+                                        {{ $bk->nama_kode_bk }}
+                                    </th>
+                                @empty
+                                    <th scope="col" class="px-6 py-3 text-gray-200">
+                                        BK Belum Ditetapkan
+                                    </th>
+                                @endforelse
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($mata_kuliah as $mk)
+                            @forelse ($mata_kuliah as $mk)
                                 <tr class="bg-white border-t border-gray-400">
                                     {{-- *** CHANGE IS HERE *** --}}
                                     <th scope="row"
@@ -222,7 +227,11 @@
                                         </tr>
                                     @endforelse
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td class="px-6 py-4 text-center text-gray-500">Data MK Masih Kosong</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

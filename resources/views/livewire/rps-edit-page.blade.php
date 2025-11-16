@@ -6,103 +6,102 @@
     <form wire:submit.prevent="saveRps" >
         
         <div class="bg-white p-8 rounded-lg">
-            <h1 class="text-xl font-bold mb-4">Informasi Mata Kuliah</h1>
-                        <div class="grid grid-cols-3  ">
-                            <div class="grid-span-1">
-                                <p class="font-semibold">Mata Kuliah</p>
-                                <div>
-                                    <p>{{ $rps->mataKuliah->nama_matkul_id }}</p> 
-                                    <p class="italic text-sm text-[#7397b6]">{{ $rps->mataKuliah->nama_matkul_en }}</p>
-                                </div>
-                            </div>
-                            <div class="grid-span-1">
-                                <p class="font-semibold">Bahan Kajian</p>
-                                <div>
-                                    @forelse ($rps->mataKuliah->bahanKajian as $bk)
-                                        <p>{{ $bk->nama_bk_id }} </p>
-                                        <p class="italic text-sm text-[#7397b6]">{{ $bk->nama_bk_en }}</p>
-                                    @empty
-                                        <p class="text-gray-500 mt-2">Belum ada BK yang terhubung dengan mata kuliah ini.</p>
-                                    @endforelse
-                                </div>
-                            </div>
-                            <div class="grid-span-1">
-                                <p class="font-semibold">Kode</p>
-                                <p>{{$rps->mataKuliah->kode_mk}}</p>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="grid grid-cols-3">
-                            <div>
-                                <p class="font-semibold">SKS Teori</p>
-                                <p>{{$rps->mataKuliah->sks_teori}}</p>
-                            </div>
-                            <div>
-                                <p class="font-semibold">SKS Praktikum</p>
-                                <p>{{$rps->mataKuliah->sks_praktikum}}</p>
-                            </div>
-                            <div>
-                                <p class="font-semibold">Semester</p>
-                                <p>{{$rps->mataKuliah->semester}}</p>
-                            </div>
-                        </div>
-                        <br>
-                        <div>
-                            <p class="font-semibold mb-2">Deskripsi</p>
-                            <div>
-                                <p class="text-justify">{{$rps->mataKuliah->matkul_desc_id}}</p>
-                                <p class="italic text-justify text-sm text-[#7397b6]">{{$rps->mataKuliah->matkul_desc_en}}</p>
-                            </div>
-                        </div>
-    
-                <br>
-                <div>
-                    {{-- CPL yang terkait --}}
-                    <h4 class="font-semibold mb-2">CPL Prodi yang dibebankan pada MK:</h4>
-                    <table>
-                        @forelse ($assocCpls as $cpl)
-                            <tr class="border border-gray-300 ">
-                                <td class="w-[90px] flex align-top px-2">
-                                    <p class="font-semibold px-2">{{ $cpl->nama_kode_cpl }}</p>
-                                </td>
-                                <td class=" border border-gray-300 px-2 w-full">
-                                    <p class="text-justify">{{ $cpl->desc_cpl_id }}</p>
-                                    <p class="italic text-justify text-sm text-[#7397b6]">{{ $cpl->desc_cpl_en }}</p>
-                                </td>
-                            </tr>
+            <h1 class="text-xl font-bold mb-4 text-biru-custom">Informasi Mata Kuliah</h1>
+            <div class="grid grid-cols-3  ">
+                <div class="grid-span-1">
+                    <p class="font-semibold">Mata Kuliah</p>
+                    <div>
+                        <p>{{ $rps->mataKuliah->nama_matkul_id }}</p> 
+                        <p class="italic text-sm text-biru-custom">{{ $rps->mataKuliah->nama_matkul_en }}</p>
+                    </div>
+                </div>
+                <div class="grid-span-1">
+                    <p class="font-semibold">Bahan Kajian</p>
+                    <div>
+                        @forelse ($rps->mataKuliah->bahanKajian as $bk)
+                            <p>{{ $bk->nama_bk_id }} </p>
+                            <p class="italic text-sm text-biru-custom">{{ $bk->nama_bk_en }}</p>
                         @empty
-                            <tr>
-                                <td><p class="text-gray-500 mt-2">Belum ada CPL yang terhubung dengan mata kuliah ini.</p></td>
-                            </tr>
+                            <p class="text-gray-500 mt-2">Belum ada BK yang terhubung dengan mata kuliah ini.</p>
                         @endforelse
-                    </table>
+                    </div>
                 </div>
-                <br>
+                <div class="grid-span-1">
+                    <p class="font-semibold">Kode</p>
+                    <p>{{$rps->mataKuliah->kode_mk}}</p>
+                </div>
+            </div>
+            <br>
+            <div class="grid grid-cols-3">
                 <div>
-                    {{-- CPMK yang terkait --}}
-                    <h4 class="font-semibold mb-2">CPMK untuk Mata Kuliah ini:</h4>
-                    <table>
-                        @forelse ($assocCpmk as $cpmk)
-                            <tr class="border border-gray-300 ">
-                                <td class="w-[90px] flex align-top ">
-                                    <p class="font-semibold px-2">{{ $cpmk->nama_kode_cpmk ?? 'CPL Tidak Memliki CPMK'}} </p>
-                                </td>
-                                <td class="border border-gray-300 px-2 w-full">
-                                    <p class="text-justify">{{ $cpmk->desc_cpmk_id ?? 'CPL Tidak Memliki CPMK'}}</p>
-                                    <p class="italic text-justify text-sm text-[#7397b6]">{{ $cpmk->desc_cpmk_en ?? 'CPL Tidak Memliki CPMK'}}</p>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td><p class="text-gray-500 mt-2">Belum ada CPMK yang terhubung dengan mata kuliah ini.</p></td>
-                            </tr>
-                            @endforelse
-                    </table>
+                    <p class="font-semibold">SKS Teori</p>
+                    <p>{{$rps->mataKuliah->sks_teori}}</p>
                 </div>
+                <div>
+                    <p class="font-semibold">SKS Praktikum</p>
+                    <p>{{$rps->mataKuliah->sks_praktikum}}</p>
+                </div>
+                <div>
+                    <p class="font-semibold">Semester</p>
+                    <p>{{$rps->mataKuliah->semester}}</p>
+                </div>
+            </div>
+            <br>
+            <div>
+                <p class="font-semibold mb-2">Deskripsi</p>
+                <div>
+                    <p class="text-justify">{{$rps->mataKuliah->matkul_desc_id}}</p>
+                    <p class="italic text-justify text-sm text-biru-custom">{{$rps->mataKuliah->matkul_desc_en}}</p>
+                </div>
+            </div>
+            <br>
+            <div>
+                {{-- CPL yang terkait --}}
+                <h4 class="font-semibold mb-2">CPL Prodi yang dibebankan pada MK:</h4>
+                <table>
+                    @forelse ($assocCpls as $cpl)
+                        <tr class="border border-gray-300 ">
+                            <td class="w-[90px] flex align-top px-2">
+                                <p class="font-semibold px-2">{{ $cpl->nama_kode_cpl }}</p>
+                            </td>
+                            <td class=" border border-gray-300 px-2 w-full">
+                                <p class="text-justify">{{ $cpl->desc_cpl_id }}</p>
+                                <p class="italic text-justify text-sm text-biru-custom">{{ $cpl->desc_cpl_en }}</p>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td><p class="text-gray-500 mt-2">Belum ada CPL yang terhubung dengan mata kuliah ini.</p></td>
+                        </tr>
+                    @endforelse
+                </table>
+            </div>
+            <br>
+            <div>
+                {{-- CPMK yang terkait --}}
+                <h4 class="font-semibold mb-2">CPMK untuk Mata Kuliah ini:</h4>
+                <table>
+                    @forelse ($assocCpmk as $cpmk)
+                        <tr class="border border-gray-300 ">
+                            <td class="w-[90px] flex align-top ">
+                                <p class="font-semibold px-2">{{ $cpmk->nama_kode_cpmk ?? 'CPL Tidak Memliki CPMK'}} </p>
+                            </td>
+                            <td class="border border-gray-300 px-2 w-full">
+                                <p class="text-justify">{{ $cpmk->desc_cpmk_id ?? 'CPL Tidak Memliki CPMK'}}</p>
+                                <p class="italic text-justify text-sm text-biru-custom">{{ $cpmk->desc_cpmk_en ?? 'CPL Tidak Memliki CPMK'}}</p>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td><p class="text-gray-500 mt-2">Belum ada CPMK yang terhubung dengan mata kuliah ini.</p></td>
+                        </tr>
+                    @endforelse
+                </table>
+            </div>
         </div>
         <br>
         <div class="bg-white p-8 rounded-lg">
-            <h1 class="text-xl font-bold mb-4">Informasi RPS</h1>
+            <h1 class="text-xl font-bold mb-4 text-biru-custom">Informasi RPS</h1>
             <div class="flex gap-x-12 items-start">
                 <div class="flex-1">
                     {{-- Mata Kuliah Syarat --}}
@@ -173,9 +172,7 @@
                 @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror                         
             </div>
             <br>
-
             <br>
-
             <div class="overflow-x-auto">
                 <table class="w-full text-sm border border-black table-fixed">
                     <thead class="   bg-gray-300">
@@ -198,8 +195,9 @@
                     </thead>
                     <tbody >
                         @forelse ($topics as $index => $topic )
-                        <tr wire:key="topic-{{ $index }}" class="border border-black">
+                            <tr wire:key="topic-{{ $index }}" class="border border-black">
                                 @error('topics.'.$index.'.id_topic') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror          
+                               
                                 {{-- minggu ke --}}
                                 <td class="p-2 border border-black align-top">
                                     <div wire:ignore>
@@ -221,7 +219,6 @@
                                     </select>
                                 </td>
                                 @if ($topics[$index]['tipe'] == 'topik')
-
                                     {{-- subCpmk --}}
                                     <td class="p-2 border border-black align-top" >
                                         <select wire:model="topics.{{ $index }}.id_sub_cpmk"  class="w-full border bg-gray-100 py-2 rounded-md" required>
@@ -393,15 +390,15 @@
                                         @error('topics.'.$index.'.refrensi') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </td>
 
-                                    @else
-                                        <td colspan="7" class="p-2 border border-black">
-                                            @if ($topics[$index]['tipe'] == 'uts')
-                                                <p class="text-center">UJIAN TENGAH SEMESTER</p>
-                                            @else
-                                                <p class="text-center">UJIAN AKHIR SEMESTER</p>
-                                            @endif
-                                        </td>                           
-                                    @endif
+                                @else
+                                    <td colspan="7" class="p-2 border border-black">
+                                        @if ($topics[$index]['tipe'] == 'uts')
+                                            <p class="text-center">UJIAN TENGAH SEMESTER</p>
+                                        @else
+                                            <p class="text-center">UJIAN AKHIR SEMESTER</p>
+                                        @endif
+                                    </td>                           
+                                @endif
 
                                 <td class="p-2 border border-black">
                                     <button type="button" wire:click="removeRow({{ $index }})" class="text-red-600 hover:text-red-800 font-bold">
@@ -425,7 +422,8 @@
             </div>         
         </div>
     </form>
-    <script>
+</div>
+<script>
     document.addEventListener('livewire:init', () => {
 
         // Fungsi untuk menginisialisasi semua Select2 yang ada di dalam tabel dinamis

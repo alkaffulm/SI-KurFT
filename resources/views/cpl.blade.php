@@ -121,25 +121,29 @@
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500">
-                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                        <thead class="text-xs text-white  bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" class="px-6 py-3">Kode CPL</th>
-                                @foreach ($profil_lulusan as $pl)
+                                <th scope="col" class="px-6 py-3 uppercase">Kode CPL</th>
+                                @forelse ($profil_lulusan as $pl)
                                     {{-- PERUBAHAN 1: Menambahkan title pada header PL --}}
                                     <th scope="col" class="px-6 py-3" title="{{ $pl->desc_pl_id }}">
                                         {{ $pl->kode_pl }}
                                     </th>
-                                @endforeach
+                                @empty
+                                    <th scope="col" class="px-6 py-3 text-gray-200">
+                                         PL Belum Ditetapkan
+                                    </th>                                
+                                @endforelse
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($cpl as $c)
+                            @forelse ($cpl as $c)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $c->nama_kode_cpl }}
                                     </th>
-                                    @forelse ($profil_lulusan as $pl)
+                                    @foreach ($profil_lulusan as $pl)
                                         @php
                                             $isChecked =
                                                 isset($cpl_pl_map[$c->id_cpl]) &&
@@ -150,15 +154,13 @@
                                                 <span class="text-black-500 font-bold">✓</span>
                                             @endif
                                         </td>
-                                    @empty
-                                        <tr class="bg-white border-t border-gray-400">
-                                            <td colspan="2" class="px-6 py-4 text-center text-gray-500">
-                                                Data Korelasi CPL - Profil Lulusan masih kosong.
-                                            </td>
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td class="px-6 py-4 text-center text-gray-500">Data CPL Masih Kosong</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -168,19 +170,23 @@
                     Educational Objective (PEO)</h1>
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500">
-                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                        <thead class="text-xs text-white  bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" class="px-6 py-3">Kode CPL</th>
-                                @foreach ($peo as $p)
+                                <th scope="col" class="uppercase px-6 py-3">Kode CPL</th>
+                                @forelse ($peo as $p)
                                     {{-- PERUBAHAN 2: Menambahkan title pada header PEO --}}
                                     <th scope="col" class="px-6 py-3" title="{{ $p->desc_peo_id }}">
                                         {{ $p->kode_peo }}
                                     </th>
-                                @endforeach
+                                @empty
+                                    <th scope="col" class="px-6 py-3 text-gray-200">
+                                         PEO Belum Ditetapkan
+                                    </th>
+                                @endforelse
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($cpl as $c)
+                            @forelse ($cpl as $c)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
@@ -197,15 +203,19 @@
                                                 <span class="text-black-500 font-bold">✓</span>
                                             @endif
                                         </td>
-                                @empty
-                                    <tr class="bg-white border-t border-gray-400">
-                                        <td colspan="2" class="px-6 py-4 text-center text-gray-500">
-                                            Data Korelasi CPL - PEO masih kosong.
-                                        </td>
-                                    </tr>
-                                @endforelse
+                                    @empty
+                                        <tr class="bg-white border-t border-gray-400">
+                                            <td colspan="2" class="px-6 py-4 text-center text-gray-500">
+                                                Data Korelasi CPL - PEO masih kosong.
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td class="px-6 py-4 text-center text-gray-500">Data CPL Masih Kosong</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

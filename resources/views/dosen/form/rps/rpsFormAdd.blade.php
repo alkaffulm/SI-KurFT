@@ -20,18 +20,18 @@
     
     <div class="py-8 px-16 sm:ml-64 mt-16 bg-gray-100">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-2xl font-bold">Membuat RPS</h2>
+            <h2 class="text-2xl font-bold">Buat RPS</h2>
             <a href="/dosen/matkul" class="px-6 py-3 text-base font-medium text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
         </div>  
     
         <div class="bg-white p-8 rounded-lg">
-            <h1 class="text-xl font-bold mb-4">Informasi Mata Kuliah</h1>
+            <h1 class="text-xl font-bold mb-4 text-biru-custom">Informasi Mata Kuliah</h1>
             <div class="grid grid-cols-3  ">
                 <div class="grid-span-1">
                     <p class="font-semibold">Mata Kuliah</p>
                     <div>
                         <p>{{ $mata_kuliah->nama_matkul_id }}</p> 
-                        <p class="italic text-sm text-[#7397b6]">{{ $mata_kuliah->nama_matkul_en }}</p>
+                        <p class="italic text-sm text-biru-custom">{{ $mata_kuliah->nama_matkul_en }}</p>
                     </div>
                 </div>
                 <div class="grid-span-1">
@@ -39,7 +39,7 @@
                     <div>
                         @forelse ($mata_kuliah->bahanKajian as $bk)
                             <p>{{ $bk->nama_bk_id }} </p>
-                            <p class="italic text-sm text-[#7397b6]">{{ $bk->nama_bk_en }}</p>
+                            <p class="italic text-sm text-biru-custom">{{ $bk->nama_bk_en }}</p>
                         @empty
                             <p class="text-gray-500 mt-2">Belum ada BK yang terhubung dengan mata kuliah ini.</p>
                         @endforelse
@@ -70,7 +70,7 @@
                 <p class="font-semibold mb-2">Deskripsi</p>
                 <div>
                     <p class="text-justify">{{$mata_kuliah->matkul_desc_id}}</p>
-                    <p class="italic text-justify text-sm text-[#7397b6]">{{$mata_kuliah->matkul_desc_en}}</p>
+                    <p class="italic text-justify text-sm text-biru-custom">{{$mata_kuliah->matkul_desc_en}}</p>
                 </div>
             </div>
             <br>
@@ -85,7 +85,7 @@
                             </td>
                             <td class=" border border-gray-300 px-2 w-full">
                                <p class="text-justify">{{ $cpl->desc_cpl_id }}</p>
-                                <p class="italic text-justify text-sm text-[#7397b6]">{{ $cpl->desc_cpl_en }}</p>
+                                <p class="italic text-justify text-sm text-biru-custom">{{ $cpl->desc_cpl_en }}</p>
                             </td>
                         </tr>
                     @empty
@@ -107,7 +107,7 @@
                             </td>
                             <td class="border border-gray-300 px-2 w-full">
                                 <p class="text-justify">{{ $cpmk->desc_cpmk_id ?? 'CPL Tidak Memliki CPMK'}}</p>
-                                <p class="italic text-justify text-sm text-[#7397b6]">{{ $cpmk->desc_cpmk_en ?? 'CPL Tidak Memliki CPMK'}}</p>
+                                <p class="italic text-justify text-sm text-biru-custom">{{ $cpmk->desc_cpmk_en ?? 'CPL Tidak Memliki CPMK'}}</p>
                             </td>
                         </tr>
                     @empty
@@ -120,13 +120,11 @@
         </div>
         <br>
         <div class="bg-white p-8 rounded-lg">         
-            <h1 class="text-xl font-bold mb-4">Informasi RPS</h1>
+            <h1 class="text-xl font-bold mb-4 text-biru-custom">Informasi RPS</h1>
           
             <form action="{{ route('rps.store') }}" method="post">
-                @csrf
-    
+                @csrf    
                 <input type="hidden" name="id_mk" value="{{ $mata_kuliah->id_mk }}">   
-                <br>
                 <div class="flex gap-x-12 items-start">
                     <div class="flex-1">
                         <label for="id_mk_syarat" class="font-semibold block mb-2">Mata Kuliah Prasyarat:</label><br>
@@ -140,7 +138,7 @@
                     </div>
                     <div class="flex-1">
                         <label for="id_model_pembelajaran" class="font-semibold block mb-2">Model Pembelajaran:</label><br>
-                        <select class="border p-2 rounded-lg border-gray-300 bg-gray-100" name="id_model_pembelajaran" >
+                        <select class="border p-2 rounded-lg border-gray-300 bg-gray-100" name="id_model_pembelajaran" required>
                             <option value="">Pilih Model Pembelajaran</option>
                             @foreach ($modelPembelajaran as $mp)
                                 <option value="{{ $mp->id_model_pembelajaran }}" {{old('id_model_pembelajaran') == $mp->id_model_pembelajaran ? 'selected' : ''}}>{{ $mp->nama_model_pembelajaran }}</option>
@@ -150,7 +148,7 @@
                     </div>
                     <div class="flex-1">
                         <label for="media_perangkat_lunak" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Lunak):</label>
-                        <select name="media_pembelajaran[]" id="media_perangkat_lunak" class="select2-perangkat-lunak border p-2 rounded-lg border-gray-300 bg-gray-100" multiple="multiple">
+                        <select name="media_pembelajaran[]" id="media_perangkat_lunak" class="select2-perangkat-lunak border p-2 rounded-lg border-gray-300 bg-gray-100" multiple="multiple" required>
                             @foreach ($mediaPerangkatLunak as $mpl )
                                 <option value="{{$mpl->id_media_pembelajaran}}">{{$mpl->nama_media_pembelajaran}}</option>
                             @endforeach
@@ -159,7 +157,7 @@
                     </div>                                                                                                                       
                     <div class="flex-1">
                         <label for="media_perangkat_keras" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Keras):</label>
-                        <select name="media_pembelajaran[]" id="media_perangkat_keras" class="select2-perangkat-keras border p-2 rounded-lg border-gray-300 bg-gray-100" multiple="multiple">
+                        <select name="media_pembelajaran[]" id="media_perangkat_keras" class="select2-perangkat-keras border p-2 rounded-lg border-gray-300 bg-gray-100" multiple="multiple" required>
                             @foreach ($mediaPerangkatKeras as $mpk )
                                 <option value="{{$mpk->id_media_pembelajaran}}">{{$mpk->nama_media_pembelajaran}}</option>
                             @endforeach
