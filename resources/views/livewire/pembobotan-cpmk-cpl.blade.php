@@ -45,29 +45,27 @@
                                         <th class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">
                                             @if (isset($correlationMap[$cpl->id_cpl]) && in_array($cpmk->id_cpmk, $correlationMap[$cpl->id_cpl]))
                                                 @php
-                                                    // Buat kuncinya
                                                     $key = $cpl->id_cpl . '-' . $cpmk->id_cpmk;
-                                                    // Ambil langsung berdasarkan kunci. Jauh lebih cepat!
                                                     $bobot = $bobotCpmkCpl->get($key);
                                                 @endphp
                                                 {{$bobot ? $bobot->bobot . '%' : '-' }}
                                             @else
                                                 <span >-</span>
                                             @endif
-                                        </th>                                    
+                                        </th>
                                     @endforeach
-                                </tr> 
+                                </tr>
                             @empty
                                 <tr >
                                     <td colspan="{{count($assocCpls) + 1}}" class="px-6 py-3 text-base text-center border-r border-gray-400">CPMK Belum Ditambahkan!</td>
-                                </tr> 
+                                </tr>
                             @endforelse
                         </tbody>
                         <tfoot>
                             <tr class="font-semibold text-gray-900 bg-white border-t border-gray-400">
                                 <th class="px-6 py-3 text-base text-left border-r border-gray-400">TOTAL </th>
-                                @foreach ($assocCpls as $cpl )                             
-                                    <td class="px-6 py-3 text-center text-base border-r border-gray-400">{{$cpl->totalBobot($selectedMataKuliah, $correlationMap)}}%</td>                                
+                                @foreach ($assocCpls as $cpl )
+                                    <td class="px-6 py-3 text-center text-base border-r border-gray-400">{{$cpl->totalBobot($selectedMataKuliah, $correlationMap)}}%</td>
                                 @endforeach
                             </tr>
                         </tfoot>

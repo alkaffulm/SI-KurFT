@@ -48,19 +48,19 @@
                                 <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">ID Kelas</th>
                                 <th scope="col" class=" text-center px-6 py-3 border-r border-gray-400">Urutan Paralel</th>
                                 <th scope="col" class=" text-center px-6 py-3 border-r border-gray-400">Jumlah Mahasiswa</th>
-                                <th scope="col" class=" text-center px-6 py-3 border-r border-gray-400">Evaluasi Per Kelas</th>
+                                <th scope="col" class=" text-center px-6 py-3">Evaluasi Per Kelas</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($kelas as $k)
-                                <tr class="bg-white border-b hover:bg-gray-50 text-black">
-                                    <td class="text-center px-6 py-4">{{ $k->tahun_kurikulum }}</td>
-                                    <td class="text-center px-6 py-4">{{ $k->tahun_akademik }}</td>
-                                    <td class="text-center px-6 py-4">{{ $k->nama_matkul_id }}</td>
-                                    <td class="text-center px-6 py-4">{{ $k->kode_mk }}</td>
-                                    <td class="text-center px-6 py-4">{{ $k->id_kelas }}</td>
-                                    <td class="text-center px-6 py-4">{{ $k->paralel_ke}}</td>
-                                    <td class="text-center px-6 py-4">
+                                <tr class="bg-white border-t border-gray-400 hover:bg-gray-50 text-black">
+                                    <td class="text-center px-6 py-4 border-r border-gray-400">{{ $k->tahun_kurikulum }}</td>
+                                    <td class="text-center px-6 py-4 border-r border-gray-400">{{ $k->tahun_akademik }}</td>
+                                    <td class="text-center px-6 py-4 border-r border-gray-400">{{ $k->nama_matkul_id }}</td>
+                                    <td class="text-center px-6 py-4 border-r border-gray-400">{{ $k->kode_mk }}</td>
+                                    <td class="text-center px-6 py-4 border-r border-gray-400">{{ $k->id_kelas }}</td>
+                                    <td class="text-center px-6 py-4 border-r border-gray-400">{{ $k->paralel_ke}}</td>
+                                    <td class="text-center px-6 py-4 border-r border-gray-400">
                                         {{ $k->jumlah_mhs}}
                                     </td>
                                     <td class="text-center px-6 py-4">

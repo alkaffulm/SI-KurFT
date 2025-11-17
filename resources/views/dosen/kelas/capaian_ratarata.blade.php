@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            {{-- <div class="bg-white p-4 rounded-xl shadow-lg mt-10">
+            {{-- <div class="bg-white p-4 rounded-xl shadow-lg mt-6">
                 <h2 class="text-xl font-semibold mb-4 text-gray-700">Grafik Capaian Rata-Rata Mahasiswa</h2>
                 <div class="w-full h-80">
                     {{-- Area untuk merender Chart.js --}}
@@ -56,14 +56,14 @@
                 </div>
             </div> --}}
             <div class="bg-white p-4 rounded-xl shadow-lg mt-10">
-                <h2 class="text-xl font-semibold mb-4">Tabel Penilaian Mahasiswa</h2>
+                <h2 class="text-xl font-bold text-biru-custom mt-2 mb-4">Tabel Mahasiswa</h2>
 
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto rounded-lg border border-gray-400 mt-4">
                     <table class="w-full text-sm text-center text-black border">
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom w-40">
                             <tr>
-                                <th rowspan="2" class="text-center px-6 py-1 border-r border-gray-400 w-40">NIM</th>
-                                <th rowspan="2" class="text-center px-6 py-1 border-r border-gray-400">Nama Lengkap</th>
+                                <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400 w-40">NIM</th>
+                                <th rowspan="2" class="text-center px-6 py-3">Nama Lengkap</th>
 
                                 @foreach($rencanaAsesmen as $ra)
                                     @php
@@ -90,9 +90,9 @@
                         </thead>
                         <tbody>
                             @foreach($kelas->mahasiswa as $mhs)
-                                <tr class="text-black bg-gray-50 hover:bg-gray-100">
-                                    <td class="text-center px-6 py-4 font-medium">{{ $mhs->nim }}</td>
-                                    <td class="text-center px-6 py-4">{{ $mhs->nama_lengkap }}</td>
+                                <tr class="text-black bg-white hover:bg-gray-100 border-t border-gray-400">
+                                    <td class="text-center px-6 py-3 font-medium border-r border-gray-400">{{ $mhs->nim }}</td>
+                                    <td class="text-center px-6 py-3">{{ $mhs->nama_lengkap }}</td>
 
                                     @foreach($rencanaAsesmen as $ra)
                                         @php
