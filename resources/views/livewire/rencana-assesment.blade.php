@@ -1,5 +1,5 @@
 <div>
-    
+
     <div class="bg-white p-8 rounded-lg shadow-md mb-8">
         <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Rencana Asesmen </h1>
         <div>
@@ -30,19 +30,19 @@
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                         <tr>
-                            <th scope="col" class="px-6 py-3 w-16 text-center">
+                            <th scope="col" class="px-6 py-3 w-16 text-center border-r border-gray-400">
                                 No
                             </th>
-                            <th scope="col" class="px-6 py-r">
+                            <th scope="col" class="px-6 py-r border-r border-gray-400">
                                 Komponen Evaluasi
                             </th>
                             @foreach ($assocCpmks as $cpmks)
-                                <th scope="col"  class="px-6 py-3 w-24 text-center">
+                                <th scope="col"  class="px-6 py-3 w-24 text-center border-r border-gray-400">
                                     {{ $cpmks->nama_kode_cpmk }}
                                 </th>
                             @endforeach
                             <th scope="col" class="px-6 py-3 w-24 text-center">
-                                Total per Nilai Asesment
+                                Total per Nilai Asesmen
                             </th>
                         </tr>
                     </thead>
@@ -55,34 +55,34 @@
                                     @php
                                         $bobotforCpmkNow = $asesmen->bobotCpmk->firstWhere('id_cpmk', $cpmk->id_cpmk);
                                     @endphp
-                                    <td  class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">{{$bobotforCpmkNow ? $bobotforCpmkNow->pivot->bobot : '-' }}</td>                                    
+                                    <td  class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">{{$bobotforCpmkNow ? $bobotforCpmkNow->pivot->bobot : '-' }}</td>
                                 @endforeach
                                 <td  class="px-6 py-4 text-center font-semibold text-gray-900">{{$asesmen->totalBobotKomponenEvaluasi}}</td>
-                            </tr> 
+                            </tr>
                         @empty
                             <tr >
-                                <td colspan="{{ count($assocCpmks) + 3}}"  class="px-6 py-3 text-base  border-r border-gray-400 text-center">Rencana Asesmen Belum Dibuat!</td>
-                             </tr>    
+                                <td colspan="{{ count($assocCpmks) + 3}}"  class="px-6 py-3  border-r border-gray-400 text-center">Rencana Asesmen Belum Dibuat!</td>
+                             </tr>
                         @endforelse
                     </tbody>
                     @if ($rencanaAsesmen->isNotEmpty())
                         <tfoot>
                             <tr class="font-semibold text-gray-900 bg-white border-t border-gray-400">
-                                <th colspan="2" class="px-6 py-3 text-base text-left border-r border-gray-400">
+                                <td colspan="2" class="px-6 py-3 text-left border-r border-gray-400">
                                     TOTAL CPMK per Komponen Evaluasi
-                                </th>
+                                </td>
                                 @foreach ($assocCpmks as $cpmk)
-                                    <td class="px-6 py-3 text-center text-base border-r border-gray-400">
+                                    <td class="px-6 py-3 text-center border-r border-gray-400">
                                         {{ $totalPerCpmk[$cpmk->id_cpmk] ?? 0 }}
                                     </td>
                                 @endforeach
-                                <td class="px-6 py-3 text-center text-base border-r border-gray-400">—</td>
+                                <td class="px-6 py-3 text-center">—</td>
                             </tr>
                         </tfoot>
                     @endif
                 </table>
             </div>
         </div>
-        
+
     @endif
 </div>

@@ -64,27 +64,27 @@
                     </a>
 
                     <div class="mb-5 mt-12">
-                        <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Daftar Mahasiswa Kelas</h1>
+                        <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Daftar Mahasiswa</h1>
                         <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-xl font-bold text-biru-custom">List Daftar Mahasiswa untuk Ini</h2>
+                            <h2 class="text-xl font-bold text-biru-custom">List Daftar Mahasiswa</h2>
                         </div>
                     </div>
 
                     {{-- table per mahasiswa per kelas --}}
-                    <div class="overflow-x-auto rounded-lg border border-gray-400 mt-12">
+                    <div class="overflow-x-auto rounded-lg border border-gray-400 mt-8">
                         <table class="w-full text-sm text-left text-gray-500">
                             <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                                 <tr>
                                     <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">NIM</th>
                                     <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Nama Lengkap</th>
-                                    <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Angkatan</th>
+                                    <th scope="col" class="text-center px-6 py-3">Angkatan</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($kelas->mahasiswa as $mhs)
-                                    <tr class="text-black">
-                                        <td class="text-center px-6 py-4">{{ $mhs->nim }}</td>
-                                        <td class="text-center px-6 py-4">{{ $mhs->nama_lengkap }}</td>
+                                    <tr class="text-black border-t border-gray-400">
+                                        <td class="text-center px-6 py-4 border-r border-gray-400">{{ $mhs->nim }}</td>
+                                        <td class="text-center px-6 py-4 border-r border-gray-400">{{ $mhs->nama_lengkap }}</td>
                                         <td class="text-center px-6 py-4">{{ $mhs->angkatan }}</td>
                                     </tr>
                                 @endforeach
