@@ -310,6 +310,8 @@
                                                         @endforeach
                                                     </select>                                                             
                                                 </div>
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.TM.jumlah_pertemuan') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror <br>
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.TM.jumlah_sks') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                             </div>    
                                         </div>
                                     </td>
@@ -346,7 +348,9 @@
                                                             <option value="{{ $value }}" >{{ $label }}</option>
                                                         @endforeach
                                                     </select>                                                             
-                                                </div>                                                          
+                                                </div> 
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.BM.jumlah_pertemuan') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror <br>
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.BM.jumlah_sks') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror                                                         
                                             </div>
                                         </div>
                                         <br>
@@ -354,15 +358,16 @@
                                         <div>
                                             <div>
                                                 <p class="font-bold">BT</p>
-                                                <label for="penugasan_mahasiswa">Bentuk Penugasan</label>
-                                                {{-- <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.PT.penugasan_mahasiswa" id="penugasan_mahasiswa" class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea> --}}
+                                                <div>
+                                                    <label for="penugasan_mahasiswa">Bentuk Penugasan</label>
+                                                    {{-- <textarea wire:model="topics.{{$index}}.aktivitas_pembelajaran.PT.penugasan_mahasiswa" id="penugasan_mahasiswa" class="w-full h-24 border border-gray-300 bg-gray-100 px-2 rounded-md" ></textarea> --}}
                                                     <select class="select2-bentuk-penugasan w-full" data-index="{{$index}}" data-tipe="BT" multiple="multiple" >
                                                         @foreach ($allBentukPenugasan as $bp)
                                                             <option value="{{$bp->id_bentuk_penugasan}}" {{in_array($bp->id_bentuk_penugasan, $topic['aktivitas_pembelajaran']['BT']['selected_bentuk_penugasan']) ? 'selected' : ''}}>{{$bp->nama_bentuk_penugasan}}</option>
                                                         @endforeach
                                                     </select>                                                    
-                                                @error('topics.'.$index.'.aktivitas_pembelajaran.BT.penugasan_mahasiswa') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                                            </div>
+                                                </div>
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.BT.selected_bentuk_penugasan') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                             <div>
                                                 <p class="font-bold">Jumlah Pertemuan dan SKS</p>
                                                 <div class="flex gap-x-2 items-center">
@@ -379,7 +384,9 @@
                                                             <option value="{{ $value }}" >{{ $label }}</option>
                                                         @endforeach
                                                     </select>                                                             
-                                                </div>                                                             
+                                                </div>   
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.BT.jumlah_pertemuan') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror <br>
+                                                @error('topics.'.$index.'.aktivitas_pembelajaran.BT.jumlah_sks') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror                                                          
                                             </div>                                            
                                         </div>       
                                     </td>
