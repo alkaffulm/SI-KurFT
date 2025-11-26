@@ -15,10 +15,10 @@ class KelasSeeder extends Seeder
         $data = [];
 
         $id_mk_start = 92;
-        $id_mk_end = 164;
+        $id_mk_end = 96;
 
         for ($id_mk = $id_mk_start; $id_mk <= $id_mk_end; $id_mk++) {
-            $jumlah_paralel = rand(1, 2);
+            $jumlah_paralel = rand(1, 1);
 
             for ($p = 1; $p <= $jumlah_paralel; $p++) {
                 $data[] = [
