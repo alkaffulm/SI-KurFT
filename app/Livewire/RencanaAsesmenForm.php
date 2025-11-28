@@ -2,148 +2,221 @@
 
 namespace App\Livewire;
 
-use App\Http\Requests\StoreRencanaAsesmenRequest;
 use Livewire\Component;
-use App\Models\RPSModel;
-use Illuminate\Support\Str;
 use App\Models\MataKuliahModel;
-use Illuminate\Support\Facades\DB;
-use App\Models\RencanaAsesmenModel;
 use App\Models\MK_CPMK_CPL_MapModel;
+use App\Models\RencanaAsesmenModel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RencanaAsesmenForm extends Component
 {
     public MataKuliahModel $mataKuliah;
-    public $assocCpmks;
-    public $rencanaAsesmens = [];
-    public $totalBobotKeseluruhan = 0;
 
+    public $assocCpmks;          
+    public $groupedCpl;        
+    public $rencanaAsesmens = []; 
+    public $bobotMaxPerCpmk = [];
+    public $bobotStandarPerCpmk = [];
+    public $mappingExists = false;
     public $totalPerCpmk = [];
 
-    public function mount(MataKuliahModel $mataKuliah) {
-        $this->mataKuliah = $mataKuliah->load('cpmks');
-        $this->assocCpmks = $mataKuliah->cpmks;
+    public function mount(MataKuliahModel $mataKuliah)
+    {
+        $this->mataKuliah = $mataKuliah;
 
-        $this->loadRencanaAssesmen();
-        $this->calculateTotalBobotKeseluruh();
-    }
-
-    public function loadRencanaAssesmen() {
-        $existingRencanaAsesmens = RencanaAsesmenModel::where('id_mk', $this->mataKuliah->id_mk)
-            ->with('bobotCpmk')
+        $this->assocCpmks = MK_CPMK_CPL_MapModel::where('id_mk', $mataKuliah->id_mk)
+            ->with(['cpmk', 'cpl', 'mkcpmkbobot'])
             ->get();
 
-        foreach ($existingRencanaAsesmens as $asesmen) {
-           $bobot = $asesmen->bobotCpmk->pluck('pivot.bobot', 'id_cpmk')->toArray();
-           
-           $this->rencanaAsesmens[] = [
-                'id_rencana_asesmen' => $asesmen->id_rencana_asesmen,
-                'tipe_komponen' => $asesmen->tipe_komponen,
-                'nomor_komponen' => $asesmen->nomor_komponen,
-                'bobot' => $bobot
-           ];
+        $this->mappingExists = $this->assocCpmks->isNotEmpty();
+
+        $this->groupedCpl = $this->assocCpmks
+            ->groupBy('id_cpl')
+            ->map(fn($items) => [
+                'cpl' => $items->first()->cpl,
+                'cpmks' => $items->pluck('cpmk'),
+            ]);
+
+        foreach ($this->assocCpmks as $map) {
+            $this->bobotStandarPerCpmk[$map->id_mk_cpmk_cpl] = $map->mkcpmkbobot->first()?->bobot ?? 0;
+        }
+
+        if ($this->mappingExists) {
+            $this->loadRencanaAsesmen();
         }
     }
 
-    public function addRow() {
-        $defaultbobot = $this->assocCpmks->mapWithKeys(function ($cpmk) {
-            return [$cpmk->id_cpmk => 0];
-        })->toArray();
+    public function loadRencanaAsesmen()
+    {
+        $existing = RencanaAsesmenModel::where('id_mk', $this->mataKuliah->id_mk)
+            ->with(['bobotCpmk']) // belongsToMany relation
+            ->get();
+
+        $this->rencanaAsesmens = [];
+
+        foreach ($existing as $asesmen) {
+            $bobot = [];
+            
+            foreach ($this->assocCpmks as $map) {
+                $pivot = $asesmen->bobotCpmk
+                    ->firstWhere('id_mk_cpmk_cpl', $map->id_mk_cpmk_cpl);
+
+                $bobot[$map->id_mk_cpmk_cpl] = $pivot 
+                    ? $pivot->pivot->bobot 
+                    : 0;
+            }
+
+            $this->rencanaAsesmens[] = [
+                'id_rencana_asesmen' => $asesmen->id_rencana_asesmen,
+                'tipe_komponen' => $asesmen->tipe_komponen,
+                'nomor_komponen' => $asesmen->nomor_komponen,
+                'bobot' => $bobot,
+            ];
+        }
+
+        $this->hitungTotalPerCpmk();
+    }
+
+    public function addRow()
+    {
+        $defaultBobot = [];
+        foreach ($this->assocCpmks as $map) {
+            $defaultBobot[$map->id_mk_cpmk_cpl] = 0;
+        }
 
         $this->rencanaAsesmens[] = [
             'id_rencana_asesmen' => null,
             'tipe_komponen' => '',
-            'komponen_evaluasi' => '',
             'nomor_komponen' => null,
-            'bobot' => $defaultbobot
+            'bobot' => $defaultBobot,
         ];
     }
 
-    public function removeRow($index) {
-        if(isset($this->rencanaAsesmens[$index]['id_rencana_asesmen'])) {
-            RencanaAsesmenModel::find($this->rencanaAsesmens[$index]['id_rencana_asesmen'])->delete();
+    public function removeRow($index)
+    {
+        if (!empty($this->rencanaAsesmens[$index]['id_rencana_asesmen'])) {
+            RencanaAsesmenModel::find($this->rencanaAsesmens[$index]['id_rencana_asesmen'])?->delete();
         }
+
         unset($this->rencanaAsesmens[$index]);
         $this->rencanaAsesmens = array_values($this->rencanaAsesmens);
+
+        $this->hitungTotalPerCpmk();
     }
 
-    // public function updated($key, $value)
-    // {
-    //     // Kita hanya ingin menghitung ulang jika yang berubah adalah salah satu input bobot.
-    //     // Str::startsWith() akan memeriksa apakah nama properti dimulai dengan 'rencanaAsesmens.'.
-    //     if (Str::startsWith($key, 'rencanaAsesmens.')) {
-    //         $this->calculateTotalBobotKeseluruh();
-    //     }
-    // }
-
-    // public function calculateTotalBobotKeseluruh(){
-    //     // Gunakan collection untuk menjumlahkan semua total bobot per baris
-    //     $this->totalBobotKeseluruhan = collect($this->rencanaAsesmens)->sum(function ($item) {
-    //         // Pastikan 'bobot' adalah array sebelum dijumlahkan
-    //         return is_array($item['bobot']) ? array_sum($item['bobot']) : 0;
-    //     });
-    // }
-
-    public function calculateTotalBobotKeseluruh()
+    public function saveRencanaAsesmen()
     {
-        $totals = [];
+        try {
+            $this->validate([
+                'rencanaAsesmens.*.tipe_komponen' => 'required|string',
+                'rencanaAsesmens.*.nomor_komponen' => 'nullable|integer|min:1',
+                'rencanaAsesmens.*.bobot.*' => 'nullable|numeric|min:0|max:100',
+            ]);
 
-        foreach ($this->assocCpmks as $cpmk) {
-            $id = $cpmk->id_cpmk;
-            $totals[$id] = collect($this->rencanaAsesmens)->sum(function ($asesmen) use ($id) {
-                return $asesmen['bobot'][$id] ?? 0;
-            });
-        }
-
-        $this->totalPerCpmk = $totals;
-    }
-
-    public function saveRencanaAsesmen() {
-        $request = new StoreRencanaAsesmenRequest();
-        $validated = $this->validate($request->rules(), $request->messages());
-
-        DB::transaction(function () use ($validated) {
-            foreach($validated['rencanaAsesmens'] as $asesmenData) {
-                // $nomorBerikutnya = 1;
-
-                // if(in_array($asesmenData['tipe_komponen'], ['tugas', 'kuis'])) {
-                //     $nomorTerakhir = RencanaAsesmenModel::where('id_mk', $this->mataKuliah->id_mk)
-                //         ->where('tipe_komponen', $asesmenData['tipe_komponen'])
-                //         ->max('nomor_komponen');
-                //     $nomorBerikutnya = ($nomorTerakhir ?? 0) + 1;
-                // }
-
-                $rencanaAsesmens = RencanaAsesmenModel::updateOrCreate(
-                    ['id_rencana_asesmen' => $asesmenData['id_rencana_asesmen'] ?? null ],
-                    [
+            DB::transaction(function () {
+                foreach ($this->rencanaAsesmens as $row) {
+                    Log::info('Saving rencana asesmen:', [
+                        'id_rencana_asesmen' => $row['id_rencana_asesmen'] ?? 'new',
                         'id_mk' => $this->mataKuliah->id_mk,
-                        'id_ps' => $this->mataKuliah->id_ps,
-                        'id_kurikulum'=> $this->mataKuliah->id_kurikulum,
-                        'tipe_komponen' => $asesmenData['tipe_komponen'],
-                        'nomor_komponen' => $asesmenData['nomor_komponen'] ?? null,
-                    ]
-                );
-            // 1. Ambil data bobot mentah (misal: [44 => '10', 45 => '20'])
-            $bobotData = $asesmenData['bobot'];
+                        'tipe_komponen' => $row['tipe_komponen'],
+                        'nomor_komponen' => $row['nomor_komponen'],
+                    ]);
 
-            // 2. Ubah formatnya menjadi [44 => ['bobot' => '10'], 45 => ['bobot' => '20']]
-            $bobotUntukSync = collect($bobotData)->mapWithKeys(function ($bobot, $cpmkId) {
-                return [$cpmkId => ['bobot' => $bobot]];
-            })->toArray();
+                    $asesmen = RencanaAsesmenModel::updateOrCreate(
+                        ['id_rencana_asesmen' => $row['id_rencana_asesmen'] ?? null],
+                        [
+                            'id_mk' => $this->mataKuliah->id_mk,
+                            'id_ps' => $this->mataKuliah->id_ps,
+                            'id_kurikulum' => $this->mataKuliah->id_kurikulum,
+                            'tipe_komponen' => $row['tipe_komponen'],
+                            'nomor_komponen' => $row['nomor_komponen'] ?? null,
+                        ]
+                    );
 
-            // 3. Gunakan array yang sudah diformat untuk sync
-            $rencanaAsesmens->bobotCpmk()->sync($bobotUntukSync);
-                // $rencanaAsesmens->bobotCpmk()->sync($asesmenData['bobot']);
-            }
-        });
+                    Log::info('Rencana asesmen created/updated:', [
+                        'id_rencana_asesmen' => $asesmen->id_rencana_asesmen,
+                    ]);
 
-        return to_route('rencana-asesmen.index')->with('success', 'Rencana Asesmen berhasil dipearui!');
+                    foreach ($row['bobot'] as $id_mk_cpmk_cpl => $b) {
+                        Log::info('Saving bobot:', [
+                            'id_rencana_asesmen' => $asesmen->id_rencana_asesmen,
+                            'id_mk_cpmk_cpl' => $id_mk_cpmk_cpl,
+                            'bobot' => $b,
+                        ]);
+
+                        \App\Models\RencanaAsesmenCPMKBobotModel::updateOrCreate(
+                            [
+                                'id_rencana_asesmen' => $asesmen->id_rencana_asesmen,
+                                'id_mk_cpmk_cpl' => $id_mk_cpmk_cpl,
+                            ],
+                            ['bobot' => $b ?? 0]
+                        );
+                    }
+                }
+            });
+
+            session()->flash('success', 'Rencana Asesmen berhasil disimpan!');
+            $this->loadRencanaAsesmen();
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', 'Validasi gagal: ' . implode(', ', $e->validator->errors()->all()));
+            Log::error('Validation error:', $e->errors());
+        } catch (\Exception $e) {
+            session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            Log::error('Error saving rencana asesmen: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+        }
     }
+
+
+    public function updatedRencanaAsesmens($value, $name)
+    {
+        if (preg_match('/rencanaAsesmens\.(\d+)\.bobot\.(\d+)/', $name, $matches)) {
+            $mapId = $matches[2];
+            
+            $map = $this->assocCpmks->firstWhere('id_mk_cpmk_cpl', $mapId);
+            if (!$map) return;
+            
+            $cpmkId = $map->cpmk->id_cpmk;
+
+            $total = collect($this->rencanaAsesmens)
+                ->sum(fn($row) => $row['bobot'][$mapId] ?? 0);
+
+            $this->totalPerCpmk[$cpmkId] = $total;
+
+            $standar = $this->bobotStandarPerCpmk[$mapId] ?? 0;
+            
+            if ($total > $standar) {
+                $this->dispatch('bobot-exceeded', [
+                    'cpmkId' => $cpmkId,
+                    'total' => $total,
+                    'max' => $standar,
+                ]);
+            }
+        }
+    }
+
+
+    public function hitungTotalPerCpmk()
+    {
+        $this->totalPerCpmk = [];
+
+        foreach ($this->rencanaAsesmens as $row) {
+            foreach ($row['bobot'] as $mapId => $nilai) {
+                $cpmkId = $this->assocCpmks->firstWhere('id_mk_cpmk_cpl', $mapId)->cpmk->id_cpmk;
+                if (!isset($this->totalPerCpmk[$cpmkId])) $this->totalPerCpmk[$cpmkId] = 0;
+                $this->totalPerCpmk[$cpmkId] += $nilai;
+            }
+        }
+    }
+
+
 
     public function render()
     {
-        return view('livewire.rencana-asesmen-form');
+        return view('livewire.rencana-asesmen-form', [
+            'bobotStandarPerCpmk' => $this->bobotStandarPerCpmk,
+        ]);
     }
 }
-
-

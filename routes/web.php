@@ -29,6 +29,7 @@ use App\Http\Controllers\Kaprodi\CPMKMPLMapController;
 use App\Http\Controllers\Kaprodi\BahanKajianController;
 use App\Http\Controllers\Dosen\RencanaAsesmenController;
 use App\Http\Controllers\Kaprodi\PLPEOMappingController;
+use App\Http\Controllers\Kaprodi\BobotController;
 
 // Controller Admin
 use App\Http\Controllers\Kaprodi\VisiKeilmuanController;
@@ -140,8 +141,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/mapping/edit-cpmk-cpl', [CPMKMPLMapController::class, 'edit_cpmk_cpl'])->name('cpmk-cpl-mapping.edit');
         Route::put('/mapping/cpmk-cpl', [CPMKMPLMapController::class, 'updateCPMKCPLMap'])->name('cpmk-cpl-mapping.update');
 
-        // coba admin
-        Route::get('/roleadmin', [AdminController::class, 'index'])->name('role_admin');
+        // // coba admin
+        // Route::get('/roleadmin', [AdminController::class, 'index'])->name('role_admin');
+
+        
+        Route::get('/bobot-cpmk/{id_mk}', [BobotController::class, 'bobotCPMKperMK'])->name('bobot.cpmk.edit');
+        Route::post('/bobot-cpmk/update/{id_mk}', [BobotController::class, 'updateBobotCPMK'])->name('bobot.cpmk.update');
 
         //Route::put('/mapping/cpmk-cpl', [CPMKMPLMapController::class, 'updateCPMKCPLMap'])->name('cpmk-cpl-mapping.update');
     });

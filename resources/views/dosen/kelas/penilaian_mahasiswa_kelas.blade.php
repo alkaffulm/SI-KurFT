@@ -33,8 +33,6 @@
     @include('layouts.sidebar')
 
     <div class="p-4 sm:p-8 sm:ml-64">
-
-        {{-- 🔹 JIKA TIDAK ADA MAHASISWA --}}
         @if ($kelas->mahasiswa->isEmpty())
             <div class="mt-20 max-w-8xl mx-auto">
                 <div class="bg-white p-4 rounded-xl shadow-lg">
@@ -80,13 +78,60 @@
                     </a>
 
                     <div class="mb-5 mt-12">
-                        <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Penilaian Mahasiswa per Kelas</h1>
+                        <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Penilaian Mahasiswa per Kelas Mata Kuliah {{ $kelas->mataKuliahModel->nama_matkul_id }}</h1>
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-xl font-bold text-biru-custom">
-                                List Daftar Mahasiswa untuk Penilaian Kelas
+                                List Daftar Mahasiswa untuk Penilaian Kelas untuk Mata Kuliah 
+                                <span class="text-black">
+                                    {{ $kelas->mataKuliahModel->nama_matkul_id }}
+                                </span> 
                             </h2>
+
                         </div>
+                        <p class="text-gray-600 mb-6 text-justify">
+                            Setiap Mata Kuliah memiliki CPMK yang telah diatur. Setiap CPMK di dalam Mata Kuliah memiliki bobotnya masing-masing. Total seluruh bobot untuk seluruh CPMK di dalam satu Mata Kuliah akan bernilai <strong>100</strong>
+                        </p>
+                        <p class="text-gray-600 mb-6 text-justify">
+                            Silahkan masukan nilai CPMK  untuk komponen evaluasi yang tersedia untuk masing-masing mahasiswa. Perubahan nilai per CPMK menjadi Pembobotan akan dilakukan otomatis oleh sistem. Silahkan masukan nilai CPMK dari 0-100. 
+                        </p>
+                        <p class="text-gray-600 mb-6 text-justify">
+                            Pastikan ketika semua CPMK pada suatu komponen evaluasi ditotalkan akan menjadi 100.
+                        </p>
                     </div>
+
+                    @if (session('success'))
+                        <div id="alert-success" class="flex p-4 mb-6 text-green-700 bg-green-100 rounded-lg" role="alert">
+                            <svg class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L9 14.414l-3.707-3.707a1 1 0 111.414-1.414L9 11.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div class="ml-3 text-sm font-medium">
+                                {{ session('success') }}
+                            </div>
+                            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg hover:bg-green-200 focus:ring-2 focus:ring-green-300 p-1.5 inline-flex h-8 w-8" data-dismiss-target="#alert-success" aria-label="Close">
+                                <span class="sr-only">Close</span>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div id="alert-error" class="flex p-4 mb-6 text-red-700 bg-red-100 rounded-lg" role="alert">
+                            <svg class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11V5a1 1 0 10-2 0v2a1 1 0 102 0zm0 6v-4a1 1 0 10-2 0v4a1 1 0 102 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div class="ml-3 text-sm font-medium">
+                                {{ session('error') }}
+                            </div>
+                            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-red-100 text-red-500 rounded-lg hover:bg-red-200 focus:ring-2 focus:ring-red-300 p-1.5 inline-flex h-8 w-8" data-dismiss-target="#alert-error" aria-label="Close">
+                                <span class="sr-only">Close</span>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    @endif
 
                     {{-- 🔸 FORM PENILAIAN --}}
                     <form action="{{ route('dosen_kelas.simpanNilai', $kelas->id_kelas) }}" method="POST">
@@ -99,7 +144,6 @@
                                         <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">NIM</th>
                                         <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">Nama Lengkap</th>
 
-                                        {{-- 🔸 Loop per Komponen Asesmen --}}
                                         @foreach($rencanaAsesmen as $ra)
                                             @php
                                                 $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
@@ -113,36 +157,33 @@
 
                                     {{-- 🔹 Baris 2: Subheader CPMK di bawah tiap Asesmen --}}
                                     <tr>
-                                        {{-- @foreach($rencanaAsesmen as $ra)
-                                            @php
-                                                $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
-                                            @endphp
-                                            @foreach($cpmkForAsesmen as $bc)
-                                                @php
-                                                    $cpmkData = $cpmk->firstWhere('id_cpmk', $bc->id_cpmk);
-                                                @endphp
-                                                <th class="text-center px-6 py-3 border-r border-gray-400">
-                                                    {{ $cpmkData->nama_kode_cpmk ?? '-' }}
-                                                    <br>
-                                                    <span class="font-normal">Maks: {{ (int) $bc->bobot }}</span>
-                                                </th>
-                                            @endforeach
-                                        @endforeach --}}
-
                                         @foreach($rencanaAsesmen as $ra)
                                             @php
                                                 $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
+                                                $totalBobotAsesmen = $cpmkForAsesmen->sum('bobot');
+
+                                                $cpmkGrouped = $cpmkForAsesmen->groupBy(fn($item) => $item->mkCpmkMap?->cpmk?->nama_kode_cpmk);
                                             @endphp
-                                            @foreach($cpmkForAsesmen as $bc)
-                                                <th class="text-center px-6 py-3 border-r border-gray-400">
-                                                    {{ $bc->cpmk?->nama_kode_cpmk ?? '-' }}
+
+                                            @foreach($cpmkGrouped as $namaKode => $group)
+                                                @php
+                                                    $bobotCpmk = $group->sum('bobot');
+                                                    if ($totalBobotAsesmen > 0) {
+                                                        $maksNilaiInput = round(($bobotCpmk / $totalBobotAsesmen) * 100, 1);
+                                                    } else {
+                                                        $maksNilaiInput = 0;
+                                                    }
+                                                @endphp
+                                                <th class="text-center px-6 py-3 border-r border-gray-400" colspan="{{ $group->count() }}">
+                                                    {{ $namaKode ?? '-' }}
                                                     <br>
-                                                    <span class="font-normal">Maks: {{ (int) $bc->bobot }}</span>
+                                                    <span class="font-normal">Maks: {{ $maksNilaiInput }}</span>
                                                 </th>
                                             @endforeach
                                         @endforeach
 
                                     </tr>
+
                                 </thead>
 
                                 <tbody>
@@ -150,39 +191,55 @@
                                         <tr class="text-black bg-gray-50 hover:bg-gray-100">
                                             <td class="text-center px-6 py-4 font-medium">{{ $mhs->nim }}</td>
                                             <td class="text-center px-6 py-4">{{ $mhs->nama_lengkap }}</td>
+
                                             @foreach($rencanaAsesmen as $ra)
                                                 @php
                                                     $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
+                                                    $totalBobotAsesmen = $cpmkForAsesmen->sum('bobot');
+
+                                                    $cpmkGrouped = $cpmkForAsesmen->groupBy(fn($item) => $item->mkCpmkMap?->cpmk?->nama_kode_cpmk);
                                                 @endphp
-                                                @foreach($cpmkForAsesmen as $bc)
+
+                                                @foreach($cpmkGrouped as $namaKode => $group)
                                                     @php
+                                                        $colspan = $group->count();
+
+                                                        $bobotCpmk = $group->sum('bobot');
+
+                                                        if ($totalBobotAsesmen > 0) {
+                                                            $maksNilaiInput = round(($bobotCpmk / $totalBobotAsesmen) * 100, 1);
+                                                        } else {
+                                                            $maksNilaiInput = 0;
+                                                        }
+
+                                                        $idCpmk = $group->first()->mkCpmkMap?->id_cpmk;
+
                                                         $nilaiLama = $penilaianMahasiswa
                                                             ->where('nim', $mhs->nim)
                                                             ->where('id_rencana_asesmen', $ra->id_rencana_asesmen)
-                                                            ->where('id_cpmk', $bc->id_cpmk)
+                                                            ->where('id_cpmk', $idCpmk)
                                                             ->first();
-
-                                                        $maxBobot = (int) ($bc->bobot ?? 0);
                                                     @endphp
 
-                                                    <td class="text-center px-6 py-4">
+                                                    <td class="text-center px-6 py-4" colspan="{{ $colspan }}">
                                                         <input type="number"
-                                                            name="nilai[{{ $mhs->nim }}][{{ $ra->id_rencana_asesmen }}][{{ $bc->id_cpmk }}]"
+                                                            name="nilai[{{ $mhs->nim }}][{{ $ra->id_rencana_asesmen }}][{{ $idCpmk }}]"
                                                             class="nilai-input w-20 border rounded px-2 py-1 text-center focus:ring-2 focus:ring-biru-custom outline-none"
-                                                            placeholder="0-{{ $maxBobot }}"
-                                                            id="nilai-input"
+                                                            placeholder="0-{{ $maksNilaiInput }}"
                                                             min="0"
-                                                            max="{{ $maxBobot }}"
-                                                            step="1"
+                                                            max="{{ $maksNilaiInput }}"
+                                                            step="0.1"
                                                             value="{{ $nilaiLama->nilai ?? '' }}"
-                                                            data-max="{{ $maxBobot }}">
+                                                            data-max="{{ $maksNilaiInput }}"
+                                                            data-cpmk="{{ $namaKode }}"
+                                                            data-bobot="{{ $bobotCpmk }}">
                                                     </td>
                                                 @endforeach
                                             @endforeach
                                         </tr>
                                     @endforeach
+                                    </tbody>
 
-                                </tbody>
                             </table>
                         </div>
 
@@ -200,55 +257,55 @@
         @endif
 
     </div>
-
+</body>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const inputs = document.querySelectorAll('.nilai-input');
-    const submitButton = document.querySelector('#submitButton'); 
+document.addEventListener('DOMContentLoaded', () => {
+    const nilaiInputs = document.querySelectorAll('.nilai-input');
 
-    function validateInputs() {
-        let valid = true;
+    nilaiInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            const max = parseFloat(input.dataset.max) || 100;
+            const value = parseFloat(input.value);
 
-        inputs.forEach(input => {
-            const max = parseInt(input.dataset.max);
-            const value = parseFloat(input.value) || 0; 
-
-            if (value > max) {
-                valid = false;
-
-                input.classList.remove('border-gray-400'); 
-                input.classList.add('border', 'border-red-500', 'bg-red-50'); 
-                
-                input.title = `Nilai tidak boleh lebih dari ${max}`;
-            } else {
-                input.classList.remove('border-red-500', 'bg-red-50');
-                input.classList.add('border', 'border-gray-400'); 
-                
-                input.title = '';
+            if (value < 0) {
+                input.value = 0;
+            } else if (value > max) {
+                input.value = max;
             }
         });
 
-        if (submitButton) submitButton.disabled = !valid;
+        input.addEventListener('blur', () => {
+            const max = parseFloat(input.dataset.max) || 100;
+            const value = parseFloat(input.value);
 
-        if (submitButton) {
-            if (valid) {
-                submitButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
-                submitButton.classList.add('bg-biru-custom', 'hover:bg-blue-700');
-            } else {
-                submitButton.classList.remove('bg-biru-custom', 'hover:bg-blue-700');
-                submitButton.classList.add('bg-gray-400', 'cursor-not-allowed');
-            }
-        }
-    }
-
-    inputs.forEach(input => {
-        input.addEventListener('input', validateInputs);
+            if (value < 0) input.value = 0;
+            if (value > max) input.value = max;
+        });
     });
 
-    validateInputs(); 
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+        let valid = true;
+
+        nilaiInputs.forEach(input => {
+            const max = parseFloat(input.dataset.max) || 100;
+            const value = parseFloat(input.value);
+
+            if (value < 0 || value > max || isNaN(value)) {
+                valid = false;
+                input.classList.add('border-red-500');
+            } else {
+                input.classList.remove('border-red-500');
+            }
+        });
+
+        if (!valid) {
+            e.preventDefault();
+            alert('Pastikan semua nilai valid: 0 - maksimal per CPMK');
+        }
+    });
 });
 </script>
 
-</body>
 </html>
