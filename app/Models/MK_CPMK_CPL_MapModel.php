@@ -25,4 +25,8 @@ class MK_CPMK_CPL_MapModel extends Model
     public function cpmk(){
         return $this->belongsTo(CPMKModel::class, 'id_cpmk', 'id_cpmk');
     }
+
+    public function mkcpmkbobot(){
+        return $this->hasMany(MKCPMKBobotModel::class, 'id_mk_cpmk_cpl', 'id_mk_cpmk_cpl');
+    }
 }

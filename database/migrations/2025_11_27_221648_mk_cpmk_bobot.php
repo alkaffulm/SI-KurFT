@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rencana_asesmen_cpmk_bobot', function (Blueprint $table) {
-            $table->id('id_asesmen_cpmk_bobot');
+        Schema::create('mk_cpmk_bobot', function (Blueprint $table) {
+            $table->id('id_mk_cpmk_bobot');
             $table->unsignedBigInteger('id_mk_cpmk_cpl');
+            $table->integer('bobot');
+
             $table->foreign('id_mk_cpmk_cpl')->references('id_mk_cpmk_cpl')->on('mk_cpmk_cpl_map')->onDelete('cascade');
-            $table->foreignId('id_rencana_asesmen')->constrained('rencana_asesmen', 'id_rencana_asesmen')->onDelete('cascade');
-            // $table->foreignId('id_cpmk')->constrained('cpmk', 'id_cpmk')->onDelete('cascade');
-            $table->decimal('bobot')->default(0);
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rencana_asesmen_cpmk_bobot');
+        Schema::dropIfExists('mk_cpmk_bobot');
     }
 };

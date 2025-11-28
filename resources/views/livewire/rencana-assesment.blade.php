@@ -30,53 +30,82 @@
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                         <tr>
-                            <th scope="col" class="px-6 py-3 w-16 text-center border-r border-gray-400">
-                                No
-                            </th>
-                            <th scope="col" class="px-6 py-r border-r border-gray-400">
-                                Komponen Evaluasi
-                            </th>
-                            @foreach ($assocCpmks as $cpmks)
-                                <th scope="col"  class="px-6 py-3 w-24 text-center border-r border-gray-400">
-                                    {{ $cpmks->nama_kode_cpmk }}
+                            <th rowspan="2" class="px-6 py-3 text-center border-r">No</th>
+                            <th rowspan="2" class="px-6 py-3 text-center border-r">Komponen Evaluasi</th>
+
+                            @foreach ($groupedCpl as $group)
+                                <th colspan="{{ count($group['cpmks']) }}" 
+                                    class="px-6 py-3 text-center border-r">
+                                    {{ $group['cpl']->nama_kode_cpl }}
                                 </th>
                             @endforeach
-                            <th scope="col" class="px-6 py-3 w-24 text-center">
-                                Total per Nilai Asesmen
-                            </th>
+                            <th rowspan="2" class="px-6 py-3 text-center border-r">Total Nilai</th>
+                        </tr>
+                        <tr>
+                            @foreach ($groupedCpl as $group)
+                                @foreach ($group['cpmks'] as $cpmk)
+                                    @php
+                                        $bobot = $bobotStandarPerCpmk[$cpmk->id_cpmk][$group['cpl']->id_cpl] ?? '-';
+                                    @endphp
+                                    <th class="px-6 py-3 text-center border-r">
+                                        {{ $cpmk->cpmk->nama_kode_cpmk ?? '-' }} ({{ $bobot }})
+                                    </th>
+                                @endforeach
+                            @endforeach
+
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($rencanaAsesmen as $asesmen)
                             <tr class="bg-white border-t border-gray-400">
-                                <td class="px-6 py-4 text-center font-medium text-gray-900 border-r border-gray-400">{{$loop->iteration}}</td>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">{{$asesmen->komponenEvaluasiFormatted}}</th>
-                                @foreach ($assocCpmks as $cpmk )
+                                <td class="px-6 py-4 text-center font-medium text-gray-900 border-r border-gray-400">
+                                    {{$loop->iteration}}
+                                </td>
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                    {{$asesmen->komponenEvaluasiFormatted}}
+                                </th>
+                                
+                                @foreach ($assocCpmks as $mkCpmkMap)
                                     @php
-                                        $bobotforCpmkNow = $asesmen->bobotCpmk->firstWhere('id_cpmk', $cpmk->id_cpmk);
+                                        $bobotPivot = $asesmen->bobotCpmk->firstWhere('id_mk_cpmk_cpl', $mkCpmkMap->id_mk_cpmk_cpl);
                                     @endphp
-                                    <td  class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">{{$bobotforCpmkNow ? $bobotforCpmkNow->pivot->bobot : '-' }}</td>
+                                    <td class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">
+                                        {{ $bobotPivot ? $bobotPivot->pivot->bobot : '-' }}
+                                    </td>
                                 @endforeach
-                                <td  class="px-6 py-4 text-center font-semibold text-gray-900">{{$asesmen->totalBobotKomponenEvaluasi}}</td>
+                                
+                                <td class="px-6 py-4 text-center font-semibold text-gray-900">
+                                    {{$asesmen->totalBobotKomponenEvaluasi}}
+                                </td>
                             </tr>
                         @empty
-                            <tr >
-                                <td colspan="{{ count($assocCpmks) + 3}}"  class="px-6 py-3  border-r border-gray-400 text-center">Rencana Asesmen Belum Dibuat!</td>
-                             </tr>
+                            <tr>
+                                <td colspan="{{ count($assocCpmks) + 3}}" class="px-6 py-3 border-r border-gray-400 text-center">
+                                    Rencana Asesmen Belum Dibuat!
+                                </td>
+                            </tr>
                         @endforelse
                     </tbody>
                     @if ($rencanaAsesmen->isNotEmpty())
                         <tfoot>
                             <tr class="font-semibold text-gray-900 bg-white border-t border-gray-400">
                                 <td colspan="2" class="px-6 py-3 text-left border-r border-gray-400">
-                                    TOTAL CPMK per Komponen Evaluasi
+                                    TOTAL per CPMK-CPL
                                 </td>
-                                @foreach ($assocCpmks as $cpmk)
-                                    <td class="px-6 py-3 text-center border-r border-gray-400">
-                                        {{ $totalPerCpmk[$cpmk->id_cpmk] ?? 0 }}
-                                    </td>
+
+                                @foreach ($groupedCpl as $group)
+                                    @foreach ($group['cpmks'] as $mkCpmkMap)
+                                        @php
+                                            $key = "{$mkCpmkMap->id_cpmk}-{$group['cpl']->id_cpl}";
+                                            $total = $totalPerCpmk[$key] ?? 0;
+                                        @endphp
+                                        <td class="px-6 py-3 text-center border-r border-gray-400">
+                                            {{ $total }}
+                                        </td>
+                                    @endforeach
                                 @endforeach
-                                <td class="px-6 py-3 text-center">—</td>
+
+                                <td class="px-6 py-3 text-center">100</td>
                             </tr>
                         </tfoot>
                     @endif

@@ -14,6 +14,7 @@ use App\Models\PenilaianMahasiswaModel;
 use App\Models\RencanaAsesmenCPMKBobotModel;
 use App\Models\PenilaianMahasiswa;
 use App\Models\PenilaianMahasiswaCPMK;
+use App\Models\RencanaAsesmenModel;
 
 class KelasDosenController extends Controller
 {
@@ -50,29 +51,6 @@ class KelasDosenController extends Controller
             'kelas' => $kelas
         ]);
     }
-    // public function nilaiKelas($id)
-    // {
-    //     $kelas = Kelas::with('mahasiswa')->findOrFail($id);
-    //     $penilaianMahasiswa = PenilaianMahasiswa::where('id_kelas', $id)->get();
-    //     $idMk = $kelas->id_mk;
-    //     $cpmks = \App\Models\CPMKModel::whereIn('id_cpmk', function($q) use ($idMk) {
-    //         $q->select('id_cpmk')
-    //         ->from('mk_cpmk_cpl_map')
-    //         ->where('id_mk', $idMk);
-    //     })->get();
-
-    //     $asesmen = \App\Models\RencanaAsesmenModel::where('id_mk', $idMk)->get();
-    //     $bobot = \App\Models\RencanaAsesmenCPMKBobotModel::whereIn('id_rencana_asesmen', $asesmen->pluck('id_rencana_asesmen'))
-    //         ->get();
-
-    //     return view('dosen.kelas.penilaian_mahasiswa_kelas', [
-    //         'kelas' => $kelas,
-    //         'cpmk' => $cpmks,
-    //         'rencanaAsesmen' => $asesmen,
-    //         'bobot' => $bobot,
-    //         'penilaianMahasiswa' => $penilaianMahasiswa,            
-    //     ]);
-    // }
 
     public function nilaiKelas($id)
     {
@@ -81,7 +59,7 @@ class KelasDosenController extends Controller
 
         $rencanaAsesmen = \App\Models\RencanaAsesmenModel::where('id_mk', $idMk)->get();
 
-        $bobot = \App\Models\RencanaAsesmenCPMKBobotModel::with('cpmk')
+        $bobot = \App\Models\RencanaAsesmenCPMKBobotModel::with('mkCpmkMap')
             ->whereIn('id_rencana_asesmen', $rencanaAsesmen->pluck('id_rencana_asesmen'))
             ->get();
 
@@ -98,58 +76,35 @@ class KelasDosenController extends Controller
 
     public function simpanNilai(Request $request, $idKelas)
     {
-        foreach ($request->nilai as $nim => $asesmenCpmkData) {
-            foreach ($asesmenCpmkData as $idRencana => $cpmkData) {
-                foreach ($cpmkData as $idCpmk => $nilai) {
-                    PenilaianMahasiswa::updateOrCreate(
-                        [
-                            'id_kelas' => $idKelas,
-                            'nim' => $nim,
-                            'id_rencana_asesmen' => $idRencana,
-                            'id_cpmk' => $idCpmk,
-                        ],
-                        ['nilai' => $nilai]
-                    );
+        $kelas = Kelas::findOrFail($idKelas);
+        $rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $kelas->id_mk)->get();
+
+        $mkCpmkMap = RencanaAsesmenCPMKBobotModel::with('mkCpmkMap')
+            ->whereIn('id_rencana_asesmen', $rencanaAsesmen->pluck('id_rencana_asesmen'))
+            ->get()
+            ->groupBy('id_rencana_asesmen');
+
+            foreach ($request->nilai as $nim => $asesmenData) {
+                foreach ($asesmenData as $idRencana => $nilaiArray) {
+                    foreach ($nilaiArray as $idCpmk => $nilai) {
+                        PenilaianMahasiswa::updateOrCreate(
+                            [
+                                'id_kelas' => $idKelas,
+                                'nim' => $nim,
+                                'id_rencana_asesmen' => $idRencana,
+                                'id_cpmk' => $idCpmk,
+                            ],
+                            ['nilai' => $nilai]
+                        );
+                    }
                 }
             }
-        }
-
-        // Opsional: Hitung nilai rata-rata CPMK per mahasiswa
-        $bobotList = RencanaAsesmenCPMKBobotModel::all();
-
-        foreach ($request->nilai as $nim => $asesmenCpmkData) {
-            foreach ($bobotList->groupBy('id_cpmk') as $idCpmk => $list) {
-                $totalBobot = $list->sum('bobot');
-                $totalNilai = 0;
-
-                foreach ($list as $b) {
-                    $nilai = PenilaianMahasiswa::where([
-                        'id_kelas' => $idKelas,
-                        'nim' => $nim,
-                        'id_rencana_asesmen' => $b->id_rencana_asesmen,
-                        'id_cpmk' => $idCpmk,
-                    ])->value('nilai') ?? 0;
-
-                    $totalNilai += $nilai * $b->bobot;
-                }
-
-                $rata = $totalBobot ? $totalNilai / $totalBobot : null;
-
-                PenilaianMahasiswaCPMK::updateOrCreate(
-                    [
-                        'id_kelas' => $idKelas,
-                        'nim' => $nim,
-                        'id_cpmk' => $idCpmk,
-                    ],
-                    ['nilai_rata' => $rata]
-                );
-            }
-        }
 
 
 
-        return back()->with('success', 'Nilai berhasil disimpan dan dihitung!');
+        return back()->with('success', 'Nilai berhasil disimpan!');
     }
+
 
     public function capaian_ratarata($id)
     {
@@ -167,7 +122,6 @@ class KelasDosenController extends Controller
         $penilaian_mahasiswa = \App\Models\PenilaianMahasiswa::where('id_kelas', $id)->get();
         $penilaian_mahasiswa_cpmk = \App\Models\PenilaianMahasiswaCPMK::where('id_kelas', $id)->get();
 
-        // hitung nilai rata-rata per mahasiswa
         foreach($kelas->mahasiswa as $mhs) {
             $chartLabels[] = $mhs->nim;
 
@@ -181,7 +135,6 @@ class KelasDosenController extends Controller
             $chartData[] = round($rataMahasiswa, 2);
         }
 
-        // hitung rata-rata kelas (sama untuk semua mahasiswa)
         $rataRataKelas = count($chartData) ? round(array_sum($chartData)/count($chartData), 2) : 0;
         $chartRataRataKelas = array_fill(0, count($chartData), $rataRataKelas);
 

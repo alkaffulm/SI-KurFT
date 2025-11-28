@@ -1,4 +1,4 @@
-<div class=" mt-20 ml-8 mr-8 mb-6 p-4 bg-white rounded-xl shadow-xl">
+<div class="ml-8 mr-8 mb-6 p-4 bg-white rounded-xl shadow-xl">
     <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-gray-800">Pilih Kurikulum</h3>
         @if(config('app.debug'))
@@ -33,12 +33,12 @@
     
     {{-- Current Status --}}
     <div class="text-sm text-gray-600">
-        <p><strong>Kurikulum Terpilih:</strong> {{ $kurikulum ?? 'Belum dipilih' }}</p>
-        <p><strong>ID Kurikulum Aktif:</strong> {{ session('id_kurikulum_aktif') ?? 'Tidak ada' }}</p>
+        <p><strong>Kurikulum yang dipilih:</strong> Kurikulum {{ $kurikulum ?? 'Belum dipilih' }}</p>
+        {{-- <p><strong>ID Kurikulum Aktif:</strong> {{ session('id_kurikulum_aktif') ?? 'Tidak ada' }}</p> --}}
     </div>
     
     {{-- Debug Info (hanya tampil jika APP_DEBUG=true) --}}
-    @if(config('app.debug'))
+    {{-- @if(config('app.debug'))
         <div id="debug-info" class="mt-4 p-3 bg-gray-100 rounded text-xs" style="display: none;">
             <h4 class="font-semibold mb-2">Debug Information:</h4>
             <pre>{{ json_encode($debug, JSON_PRETTY_PRINT) }}</pre>
@@ -60,5 +60,5 @@
                 debugDiv.style.display = debugDiv.style.display === 'none' ? 'block' : 'none';
             }
         </script>
-    @endif
+    @endif --}}
 </div>

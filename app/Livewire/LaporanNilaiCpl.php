@@ -89,7 +89,6 @@ class LaporanNilaiCpl extends Component
 
     public function render()
     {
-        // Mengirimkan data CPL ke view Blade Livewire
         return view('livewire.laporan-nilai-cpl', [
             'cplReports' => $this->cplReports,
         ]);

@@ -19,24 +19,25 @@ class RencanaAsesmenModel extends Model
         'nomor_komponen',
     ];
 
-    public function bobotCpmk() {
-        return $this->belongsToMany(CPMKModel::class, 'rencana_asesmen_cpmk_bobot', 'id_rencana_asesmen', 'id_cpmk')->withPivot('bobot');
+    public function bobotCpmk()
+    {
+        return $this->belongsToMany(
+            \App\Models\MK_CPMK_CPL_MapModel::class,
+            'rencana_asesmen_cpmk_bobot',      
+            'id_rencana_asesmen',               
+            'id_mk_cpmk_cpl'                    
+        )->withPivot('bobot');
     }
 
-    public function komponenEvaluasiFormatted():Attribute {
+    public function komponenEvaluasiFormatted(): Attribute {
         return Attribute::make(
             get: function () {
                 $tipeKomponen = $this->tipe_komponen;
                 $nomorKomponen = $this->nomor_komponen;
 
-                // if($tipeKomponen == 'tugas' || $tipeKomponen == 'kuis') {
-                //     return ucfirst($tipeKomponen) . " " . $nomorKomponen;
-                // }
-                // else {
-                //     return strtoupper($tipeKomponen);
-                // }
-
-                return ($tipeKomponen == 'tugas' || $tipeKomponen == 'kuis') ? ucfirst($tipeKomponen) . " " . $nomorKomponen : strtoupper($tipeKomponen);
+                return ($tipeKomponen == 'tugas' || $tipeKomponen == 'kuis') 
+                    ? ucfirst($tipeKomponen) . " " . $nomorKomponen 
+                    : strtoupper($tipeKomponen);
             }
         );
     }
