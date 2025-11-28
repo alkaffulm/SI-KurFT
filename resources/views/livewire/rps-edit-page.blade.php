@@ -3,7 +3,7 @@
         <h2 class="text-2xl font-bold">Edit RPS </h2>
         <a href="/dosen/matkul" class="px-6 py-3 text-base font-medium text-gray-700  border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
     </div>
-    <form wire:submit.prevent="saveRps" >
+    <form wire:submit.prevent="saveRps">
         
         <div class="bg-white p-8 rounded-lg">
             <h1 class="text-xl font-bold mb-4 text-biru-custom">Informasi Mata Kuliah</h1>
@@ -195,7 +195,7 @@
                     </thead>
                     <tbody >
                         @forelse ($topics as $index => $topic )
-                            <tr wire:key="topic-{{ $index }}" class="border border-black">
+                            <tr wire:key="topic-{{ $index }}"  class="border border-black">
                                 @error('topics.'.$index.'.id_topic') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror          
                                
                                 {{-- minggu ke --}}
@@ -284,7 +284,7 @@
                                                 <p class="font-bold">TM</p>
                                                 <div wire:ignore>
                                                     <label >Metode Pembelajaran</label>
-                                                    <select class="select2-metode-pembelajaran w-full" data-index="{{$index}}" data-tipe="TM" multiple="multiple" >
+                                                    <select class="select2-metode-pembelajaran w-full" data-index="{{$index}}" data-tipe="TM" multiple="multiple"  >
                                                         @foreach ($allMetodePembelajaran as $metode)
                                                             <option value="{{$metode->id_metode_pembelajaran}}" {{in_array($metode->id_metode_pembelajaran, $topic['aktivitas_pembelajaran']['TM']['selected_metode_pembelajaran']) ? 'selected' : ''}}>{{$metode->nama_metode_pembelajaran}}</option>
                                                         @endforeach
@@ -393,7 +393,7 @@
                                     
                                     {{-- refrensi --}}
                                     <td class="p-2 border border-black align-top">
-                                        <input type="text" wire:model="topics.{{$index}}.refrensi" id="refrensi" class="p-2 border rounded-lg border-gray-300 w-full  bg-gray-100 mt-2" required ></input>
+                                        <input type="text" oninput="this.value = this.value.replace(/[^0-9,]/g, '')" wire:model="topics.{{$index}}.refrensi" id="refrensi" class="p-2 border rounded-lg border-gray-300 w-full  bg-gray-100 mt-2" required ></input>
                                         @error('topics.'.$index.'.refrensi') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </td>
 

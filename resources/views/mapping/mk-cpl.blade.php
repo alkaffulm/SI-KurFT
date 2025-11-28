@@ -26,10 +26,6 @@
             /* Sets a minimum height */
         }
 
-        .select2-container {
-            width: 100% !important;
-            /* Forces the element to fill its container */
-        }
     </style>
 </head>
 
@@ -52,7 +48,7 @@
                             Kuliah (MK).</p>
                     </div>
 
-                    <div class="overflow-hidden rounded-lg border border-gray-400">
+                    <div class="overflow-auto rounded-lg border border-gray-400">
                         <table class="w-full text-sm text-center text-gray-500">
                             {{-- Table Header --}}
                             <thead class="text-sm text-white uppercase bg-teks-biru-custom">
@@ -74,8 +70,8 @@
                                         </th>
 
                                         {{-- daftar cpl per prodi --}}
-                                        <th scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r text-left border-gray-400">
+                                        <td
+                                            class="px-6 py-4 text-left ">
                                             <select class="select2 w-full" multiple="multiple"
                                                     name="cpl_map[{{ $mk->id_mk }}][]" required>
                                                 @foreach ($cpl as $cp)
@@ -84,11 +80,11 @@
                                                     @endphp
                                                     <option value="{{ $cp->id_cpl }}"
                                                         {{ array_key_exists($cp->id_cpl, $selectedCPLs) ? 'selected' : '' }}>
-                                                        {{ $cp->nama_kode_cpl }}
+                                                        {{ $cp->nama_kode_cpl }} - {{$cp->desc_cpl_id}}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                        </th>
+                                        </td>
                                     </tr>
 
                                 @endforeach

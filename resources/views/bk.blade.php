@@ -227,6 +227,7 @@
                                         </tr>
                                     @endforelse
                                 </tr>
+                                
                             @empty
                                 <tr>
                                     <td class="px-6 py-4 text-center text-gray-500">Data MK Masih Kosong</td>
@@ -234,6 +235,10 @@
                             @endforelse
                         </tbody>
                     </table>
+                </div>
+                {{-- menampilkan pagination --}}
+                <div>
+                    {{$bahan_kajian->links()}}
                 </div>
             </div>
         </main>

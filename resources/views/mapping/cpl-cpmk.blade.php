@@ -26,10 +26,7 @@
             /* Sets a minimum height */
         }
 
-        .select2-container {
-            width: 100% !important;
-            /* Forces the element to fill its container */
-        }
+
     </style>
 </head>
 
@@ -50,7 +47,7 @@
                         <p class="text-gray-500 mt-2 text-base">Pilih Capaian Mata Kuliah (CPMK) untuk setiap Capaian Profil Lulusan (CPL) per Mata Kuliah</p>
                     </div>
 
-                    <div class="overflow-hidden rounded-lg border border-gray-400">
+                    <div class="overflow-x-scroll rounded-lg border border-gray-400">
                         <table class="w-full text-sm text-center text-gray-500">
                             {{-- Table Header --}}
                             <thead class="text-sm text-white uppercase bg-teks-biru-custom">
@@ -79,19 +76,19 @@
                                                     @endphp
 
                                                     @if ($cplItem)
-                                                        <div class="mb-2">
-                                                            <label class="block text-sm font-semibold text-gray-700 mb-1">
+                                                        <div class="mb-2 text-left">
+                                                            <label class="block text-center text-sm font-semibold text-gray-700 mb-1">
                                                                 {{ $cplItem->nama_kode_cpl }}
                                                             </label>
                                                             <input type="hidden" name="cpmk_map[{{ $mk->id_mk }}][{{ $cplItem->id_cpl }}]" value="">
-                                                            <select class="select2 w-full"
+                                                            <select class="select2 w-full "
                                                                     name="cpmk_map[{{ $mk->id_mk }}][{{ $cplItem->id_cpl }}][]"
                                                                     multiple="multiple" required>
 
                                                                 @foreach ($cpmk as $cpmk_item)
                                                                     <option value="{{ $cpmk_item->id_cpmk }}"
                                                                         {{ in_array($cpmk_item->id_cpmk, $cpmk_ids) ? 'selected' : '' }}>
-                                                                        {{ $cpmk_item->nama_kode_cpmk }} - {{ $cpmk_item->deskripsi_id }}
+                                                                        {{ $cpmk_item->nama_kode_cpmk }} - {{ $cpmk_item->desc_cpmk_id }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>

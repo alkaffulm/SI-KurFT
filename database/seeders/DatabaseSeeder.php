@@ -68,10 +68,10 @@ class DatabaseSeeder extends Seeder
 
             // RencanaAsesmenSeeder::class,
             // RencanaAsesmenCPMKBobotSeeder::class,
-            // WeekSeeder::class,
+            WeekSeeder::class,
             // RpsTopicSeeder::class,
 
-            // MediaPembelajaranSeeder::class,
+            MediaPembelajaranSeeder::class,
             // AktivitasPembelajaranSeeder::class,
             // AktivitasMetodePembelajaranSeeder::class,
             // AktivitasBentukPenugasanSeeder::class,
@@ -80,7 +80,7 @@ class DatabaseSeeder extends Seeder
             // RpsTopicKriteriaPenilaianSeeder::class,
             // RpsTopicTeknikPenilaianSeeder::class,
 
-            // VisiKeilmuanSeeder::class,
+            VisiKeilmuanSeeder::class,
             // KelasMahasiswaSeeder::class,
             // CPLCPMKBobotSeeder::class,
 

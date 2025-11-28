@@ -78,7 +78,7 @@ class RpsEditPage extends Component
 
         $this->correlationCpmkCplMap = [];
         foreach($mappings as $mapping) {
-            $correlationCpmkCplMap[$mapping->id_cpmk][] = $mapping->id_cpl;
+            $this->correlationCpmkCplMap[$mapping->id_cpmk][] = $mapping->id_cpl;
         }
 
         // untuk dropdown
@@ -254,6 +254,8 @@ class RpsEditPage extends Component
     public function saveRps( ) {
         $request = new StoreRPSTopicRequest();
         $validated = $this->validate($request->rules(), $request->messages());
+
+        // dd('VALIDASI LOLOS', $validated);
 
         DB::transaction(function () use ($validated) {
         
