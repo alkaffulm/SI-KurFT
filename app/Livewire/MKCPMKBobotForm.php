@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class MKCPMKBobotForm extends Component
+class MkCpmkBobotForm extends Component
 {
     public function render()
     {

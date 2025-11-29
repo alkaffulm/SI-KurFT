@@ -7,7 +7,7 @@ use App\Models\MataKuliahModel;
 use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\MKCPMKBobotModel;
 
-class MKCPMKBobot extends Component
+class MkCpmkBobot extends Component
 {
     public $selectedMataKuliah = null;
     public $assocCpmks;
