@@ -20,17 +20,6 @@ class KelasMahasiswaModel extends Model
         'nim',
     ];
 
-    // Relasi ke Mata Kuliah
-    // public function mataKuliahModel()
-    // {
-    //     return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');
-    // }
-
-    // // Relasi ke User
-    // public function userModel()
-    // {
-    //     return $this->belongsTo(UserModel::class, 'id_user', 'id_user');
-    // }
     public function kelasModel()
     {
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');

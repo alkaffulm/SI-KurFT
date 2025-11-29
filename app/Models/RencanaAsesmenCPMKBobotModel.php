@@ -22,18 +22,11 @@ class RencanaAsesmenCPMKBobotModel extends Model
     public function rencanaAsesmen() {
         return $this->belongsTo(RencanaAsesmenModel::class, 'id_rencana_asesmen', 'id_rencana_asesmen');
     }
-    // public function cpmk()
-    // {
-    //     return $this->belongsTo(\App\Models\CPMKModel::class, 'id_cpmk', 'id_cpmk');
-    // }
+
     public function mkCpmkMap()
     {
         return $this->belongsTo(\App\Models\MK_CPMK_CPL_MapModel::class, 'id_mk_cpmk_cpl', 'id_mk_cpmk_cpl');
     }
-// di RencanaAsesmenModel
-    // public function bobotCpmk()
-    // {
-    //     return $this->hasMany(RencanaAsesmenCPMKBobotModel::class, 'id_rencana_asesmen', 'id_rencana_asesmen');
-    // }
+
 
 }
