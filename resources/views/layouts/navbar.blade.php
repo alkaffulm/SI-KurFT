@@ -13,7 +13,7 @@
                     </svg>
                 </button>
                 <a href="{{ url('/') }}" class="flex ms-2 md:me-24">
-                    <img src="{{ asset('images/logo ulm 1.png') }}" class="h-10 me-3" alt="Logo ULM" />
+                    <img src="{{ asset('images/LOGO_ULM.png') }}" class="h-10 me-3" alt="Logo ULM" />
                     <div>
                         <div class="text-sm font-bold text-gray-900">Fakultas Teknik</div>
                         <div class="text-xs text-gray-600 font-semibold">Universitas Lambung Mangkurat</div>

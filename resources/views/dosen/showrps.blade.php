@@ -63,7 +63,7 @@
         <div class="border border-black bg-[#9cc2e4] ">
             <div class="flex  border-black">
                 <div class="w-1/4  flex items-center justify-center border-r border-b border-black">
-                    <img src="{{asset('images/LOGO ULM.png')}}" alt="Logo Universitas" class="h-20">
+                    <img src="{{asset('images/LOGO_ULM.png')}}" alt="Logo Universitas" class="h-20">
                 </div>
                 <div class="w-1/2  text-center border-b border-black">
                     <h1 class="font-bold text-lg">UNIVERSITAS LAMBUNG MANGKURAT</h1>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Kurikulum Fakultas Teknik</title>
-    <link rel="icon" href="{{ asset('images/logo ulm 1.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -14,7 +14,7 @@
         <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
 
             <div class="flex flex-col items-center mb-6">
-                <img src="{{ asset('images/logo ulm 1.png') }}" alt="Logo Fakultas Teknik" class="h-16 mb-4">
+                <img src="{{ asset('images/LOGO_ULM.png') }}" alt="Logo Fakultas Teknik" class="h-16 mb-4">
                 <h1 class="text-2xl font-bold text-tekst-biru-custom">LOGIN</h1>
                 <p class="text-sm text-abu-custom font-bold">SIKUR FT ULM</p>
             </div>

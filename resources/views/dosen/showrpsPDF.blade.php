@@ -14,7 +14,7 @@
     }
 
     // --- (2) UNTUK MEMUAT GAMBAR LOGO SECARA BASE64 ---
-    $logoPath = public_path('images/LOGO ULM.png');
+    $logoPath = public_path('images/LOGO_ULM.png');
     $logoType = pathinfo($logoPath, PATHINFO_EXTENSION);
     $logoData = file_get_contents($logoPath);
     $logoBase64 = 'data:image/' . $logoType . ';base64,' . base64_encode($logoData);
