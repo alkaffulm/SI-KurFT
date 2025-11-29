@@ -81,7 +81,7 @@ class CplController extends Controller
     {
         $program_studi = ProgramStudiModel::all();
         $kurikulum = KurikulumModel::all();
-        return view('form.cpl.cplFormAdd', ['program_studi' => $program_studi, 'kurikulum' => $kurikulum]);
+        return view('form.CPL.cplFormAdd', ['program_studi' => $program_studi, 'kurikulum' => $kurikulum]);
     }
 
     /**
@@ -102,7 +102,7 @@ class CplController extends Controller
         $cpl_data = CPLModel::orderBy('nama_kode_cpl', 'asc')->get();
         $kurikulum = KurikulumModel::all(); // <-- ADD THIS LINE
 
-        return view('form.cpl.cplFormEdit', [
+        return view('form.CPL.cplFormEdit', [
             'cpl_data' => $cpl_data,
             'kurikulum' => $kurikulum // <-- ADD THIS LINE
         ]);

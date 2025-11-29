@@ -67,7 +67,7 @@ class BahanKajianController extends Controller
      */
     public function create()
     {
-        return view('form.bk.bkFormAdd');
+        return view('form.BK.bkFormAdd');
     }
 
     /**
@@ -90,7 +90,7 @@ class BahanKajianController extends Controller
     public function editAll()
     {
         $bk_data = BahanKajianModel::orderBy('nama_kode_bk', 'asc')->get();
-        return view('form.bk.bkFormEdit', ['bk_data' => $bk_data]);
+        return view('form.BK.bkFormEdit', ['bk_data' => $bk_data]);
     }
 
     /**
