@@ -23,7 +23,6 @@ class UpdateAllProfilLulusanRequest extends FormRequest
     {
         return [
             'pl.*.kode_pl' => 'required|string',
-            // 'pl.*.id_ps' => 'required|exists:program_Studi,id_ps', 
             'pl.*.nama_pl_id' => 'required|string',
             'pl.*.nama_pl_en' => 'required|string',
             'pl.*.desc_pl_id' => 'required|string',
