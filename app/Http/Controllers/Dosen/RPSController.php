@@ -302,9 +302,9 @@ class RPSController extends Controller
         ])->render();
 
         Browsershot::html($pdfTemplate)
-            ->setChromePath('/usr/bin/google-chrome')
-            ->setNodeBinary('/home/obeft/.nvm/versions/node/v24.11.1/bin/node')
-            ->noSandbox()   
+            // ->setChromePath('/usr/bin/google-chrome')
+            // ->setNodeBinary('/home/obeft/.nvm/versions/node/v24.11.1/bin/node')
+            // ->noSandbox()   
             ->landscape()
             ->showBackground()
             ->margins(10, 10, 10, 10)

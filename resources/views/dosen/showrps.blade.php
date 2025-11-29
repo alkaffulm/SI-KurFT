@@ -268,23 +268,23 @@
                                     <td class="border border-black p-1">
                                         {{ $penilaian ? number_format($penilaian['tugas'], 0) : '' }}
                                     </td>
-                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maka Tugas --}}</td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maks Tugas --}}</td>
                                             
                                     {{-- Kolom UTS --}}
                                     <td class="border border-black p-1">
                                         {{ $penilaian ? number_format($penilaian['uts'], 0) : '' }}
                                     </td>
-                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maka UTS --}}</td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maks UTS --}}</td>
                                             
                                     {{-- Kolom UAS --}}
                                     <td class="border border-black p-1">
                                         {{ $penilaian ? number_format($penilaian['uas'], 0) : '' }}
                                     </td>
-                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maka UAS --}}</td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maks UAS --}}</td>
                                             
                                     {{-- Kolom Total % per baris --}}
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
-                                        {{ number_format($penilaian['tugas'] + $penilaian['uts'] + $penilaian['uas'], 0) }}
+                                        {{ number_format($penilaian['tugas'] + $penilaian['uts'] + $penilaian['uas'] + $penilaian['hasil_proyek'] + $penilaian['kegiatan_partisipatif'], 0) }}
                                     </td>
                                 </tr>
                             @empty

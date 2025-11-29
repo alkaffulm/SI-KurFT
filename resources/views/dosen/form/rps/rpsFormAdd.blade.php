@@ -7,6 +7,16 @@
     <title>Bahan Kajian (BK)</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-selection--multiple,
+        .select2-selection--single {
+            width: 100% !important;
+        }
+    </style>
     {{-- Select2 CSS and JS for searchable dropdowns --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -125,46 +135,60 @@
             <form action="{{ route('rps.store') }}" method="post">
                 @csrf    
                 <input type="hidden" name="id_mk" value="{{ $mata_kuliah->id_mk }}">   
-                <div class="flex gap-x-12 items-start">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
                     <div class="flex-1">
-                        <label for="id_mk_syarat" class="font-semibold block mb-2">Mata Kuliah Prasyarat:</label><br>
-                        <select class="border p-2 rounded-lg border-gray-300 bg-gray-100" name="id_mk_syarat" >
+                        <label for="id_mk_syarat" class="font-semibold block mb-2">Mata Kuliah Prasyarat:</label>
+                        <select class="border p-2 rounded-lg border-gray-300 bg-gray-100 w-full" name="id_mk_syarat">
                             <option value="">Tidak ada Matkul Prasyarat</option>
                             @foreach ($allMatkul as $mk)
-                                <option value="{{ $mk->id_mk }}" {{old('id_mk_syarat') == $mk->id_mk ? 'selected' : ''}}>{{ $mk->nama_matkul_id }}</option>
+                                <option value="{{ $mk->id_mk }}" {{old('id_mk_syarat') == $mk->id_mk ? 'selected' : ''}}>
+                                    {{ $mk->nama_matkul_id }}
+                                </option>
                             @endforeach
-                        </select>   
-                        @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
+                        </select>
+                        @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
                     </div>
+
                     <div class="flex-1">
-                        <label for="id_model_pembelajaran" class="font-semibold block mb-2">Model Pembelajaran:</label><br>
-                        <select class="border p-2 rounded-lg border-gray-300 bg-gray-100" name="id_model_pembelajaran" required>
+                        <label for="id_model_pembelajaran" class="font-semibold block mb-2">Model Pembelajaran:</label>
+                        <select class="border p-2 rounded-lg border-gray-300 bg-gray-100 w-full" name="id_model_pembelajaran" required>
                             <option value="">Pilih Model Pembelajaran</option>
                             @foreach ($modelPembelajaran as $mp)
-                                <option value="{{ $mp->id_model_pembelajaran }}" {{old('id_model_pembelajaran') == $mp->id_model_pembelajaran ? 'selected' : ''}}>{{ $mp->nama_model_pembelajaran }}</option>
+                                <option value="{{ $mp->id_model_pembelajaran }}" {{old('id_model_pembelajaran') == $mp->id_model_pembelajaran ? 'selected' : ''}}>
+                                    {{ $mp->nama_model_pembelajaran }}
+                                </option>
                             @endforeach
-                        </select>   
-                        @error('id_model_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
+                        </select>
+                        @error('id_model_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
                     </div>
+
                     <div class="flex-1">
                         <label for="media_perangkat_lunak" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Lunak):</label>
-                        <select name="media_pembelajaran[]" id="media_perangkat_lunak" class="select2-perangkat-lunak border p-2 rounded-lg border-gray-300 bg-gray-100" multiple="multiple" required>
-                            @foreach ($mediaPerangkatLunak as $mpl )
-                                <option value="{{$mpl->id_media_pembelajaran}}">{{$mpl->nama_media_pembelajaran}}</option>
-                            @endforeach
-                        </select>
-                        @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-                    </div>                                                                                                                       
-                    <div class="flex-1">
-                        <label for="media_perangkat_keras" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Keras):</label>
-                        <select name="media_pembelajaran[]" id="media_perangkat_keras" class="select2-perangkat-keras border p-2 rounded-lg border-gray-300 bg-gray-100" multiple="multiple" required>
-                            @foreach ($mediaPerangkatKeras as $mpk )
-                                <option value="{{$mpk->id_media_pembelajaran}}">{{$mpk->nama_media_pembelajaran}}</option>
+                        <select name="media_pembelajaran[]" id="media_perangkat_lunak"
+                            class="select2-perangkat-lunak border p-2 rounded-lg border-gray-300 bg-gray-100 w-full"
+                            multiple="multiple" required>
+                            @foreach ($mediaPerangkatLunak as $mpl)
+                                <option value="{{ $mpl->id_media_pembelajaran }}">{{ $mpl->nama_media_pembelajaran }}</option>
                             @endforeach
                         </select>
                         @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
                     </div>
+
+                    <div class="flex-1">
+                        <label for="media_perangkat_keras" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Keras):</label>
+                        <select name="media_pembelajaran[]" id="media_perangkat_keras"
+                            class="select2-perangkat-keras border p-2 rounded-lg border-gray-300 bg-gray-100 w-full"
+                            multiple="multiple" required>
+                            @foreach ($mediaPerangkatKeras as $mpk)
+                                <option value="{{ $mpk->id_media_pembelajaran }}">{{ $mpk->nama_media_pembelajaran }}</option>
+                            @endforeach
+                        </select>
+                        @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                    </div>
+
                 </div>
+
                 <br>
                 <div>
                     <label for="materi_pembelajaran" class="font-semibold ">Materi Pembelajaran:</label><br>

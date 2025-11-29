@@ -102,54 +102,68 @@
         <br>
         <div class="bg-white p-8 rounded-lg">
             <h1 class="text-xl font-bold mb-4 text-biru-custom">Informasi RPS</h1>
-            <div class="flex gap-x-12 items-start">
-                <div class="flex-1">
-                    {{-- Mata Kuliah Syarat --}}
-                    <label for="id_mk_syarat" class="font-semibold block mb-2">Mata Kuliah Prasyarat:</label><br>
-                    <select class="p-2 border rounded-lg border-gray-300 bg-gray-100" wire:model="id_mk_syarat" >
-                        <option value="">Tidak ada Matkul Prasyarat</option>
-                        @foreach ($allMataKuliah as $mk)
-                            <option value="{{ $mk->id_mk }}" >{{ $mk->nama_matkul_id }}</option>
-                        @endforeach
-                    </select>  
-                    @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror                           
-                </div>
-                <div class="flex-1">
-                    {{-- Model Pembelajaran --}}
-                    <label for="id_model_pembelajaran" class="font-semibold block mb-2">Model Pembelajaran:</label><br>
-                    <select class="border p-2 rounded-lg border-gray-300 bg-gray-100 " wire:model="id_model_pembelajaran" >
-                        <option value="">Pilih Model Pembelajaran</option>
-                        @foreach ($allModelPembelajaran as $mp)
-                            <option value="{{ $mp->id_model_pembelajaran }}">{{ $mp->nama_model_pembelajaran }}</option>
-                        @endforeach
-                    </select>   
-                    @error('id_model_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
-                </div>
-                <div class="flex-1">
-                    <div wire:ignore>
-                        {{-- Media Perangkat Lunak --}}
-                        <label for="media_perangkat_lunak" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Lunak):</label>
-                        <select id="media_perangkat_lunak" class="select2-perangkat-lunak border p-2 rounded-lg border-gray-300 bg-gray-100 w-full" multiple="multiple">
-                            @foreach ($allMediaPerangkatLunak as $mpl )
-                                <option value="{{$mpl->id_media_pembelajaran}}" {{in_array($mpl->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : ''}}>{{$mpl->nama_media_pembelajaran}}</option>
-                            @endforeach
-                        </select>
-                    </div>    
-                    @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-                </div>
-                <div class="flex-1">
-                    <div wire:ignore>
-                        {{-- Media Perangkat Keras --}}
-                        <label for="media_perangkat_keras" class="font-semibold block mb-2  ">Media Pembelajaran (Perangkat Keras):</label>
-                        <select id="media_perangkat_keras" class="select2-perangkat-keras border p-2 rounded-lg border-gray-300 bg-gray-10 w-full" multiple="multiple">
-                            @foreach ($allMediaPerangkatKeras as $mpk )
-                                <option value="{{$mpk->id_media_pembelajaran}}" {{in_array($mpk->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : ''}}>{{$mpk->nama_media_pembelajaran}}</option>
-                            @endforeach
-                        </select>
-                    </div>    
-                    @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-                </div>
-            </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    {{-- Mata Kuliah Syarat --}}
+    <div class="flex-1">
+        <label for="id_mk_syarat" class="font-semibold block mb-2">Mata Kuliah Prasyarat:</label>
+        <select class="p-2 border rounded-lg border-gray-300 bg-gray-100 w-full"
+                wire:model="id_mk_syarat">
+            <option value="">Tidak ada Matkul Prasyarat</option>
+            @foreach ($allMataKuliah as $mk)
+                <option value="{{ $mk->id_mk }}">{{ $mk->nama_matkul_id }}</option>
+            @endforeach
+        </select>
+        @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+    </div>
+
+    {{-- Model Pembelajaran --}}
+    <div class="flex-1">
+        <label for="id_model_pembelajaran" class="font-semibold block mb-2">Model Pembelajaran:</label>
+        <select class="border p-2 rounded-lg border-gray-300 bg-gray-100 w-full"
+                wire:model="id_model_pembelajaran">
+            <option value="">Pilih Model Pembelajaran</option>
+            @foreach ($allModelPembelajaran as $mp)
+                <option value="{{ $mp->id_model_pembelajaran }}">{{ $mp->nama_model_pembelajaran }}</option>
+            @endforeach
+        </select>
+        @error('id_model_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+    </div>
+
+    {{-- Media Perangkat Lunak --}}
+    <div class="flex-1" wire:ignore>
+        <label for="media_perangkat_lunak" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Lunak):</label>
+        <select id="media_perangkat_lunak"
+                class="select2-perangkat-lunak p-2 border rounded-lg border-gray-300 bg-gray-100 w-full"
+                multiple="multiple">
+            @foreach ($allMediaPerangkatLunak as $mpl)
+                <option value="{{ $mpl->id_media_pembelajaran }}"
+                    {{ in_array($mpl->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : '' }}>
+                    {{ $mpl->nama_media_pembelajaran }}
+                </option>
+            @endforeach
+        </select>
+        @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+    </div>
+
+    {{-- Media Perangkat Keras --}}
+    <div class="flex-1" wire:ignore>
+        <label for="media_perangkat_keras" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Keras):</label>
+        <select id="media_perangkat_keras"
+                class="select2-perangkat-keras p-2 border rounded-lg border-gray-300 bg-gray-100 w-full"
+                multiple="multiple">
+            @foreach ($allMediaPerangkatKeras as $mpk)
+                <option value="{{ $mpk->id_media_pembelajaran }}"
+                    {{ in_array($mpk->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : '' }}>
+                    {{ $mpk->nama_media_pembelajaran }}
+                </option>
+            @endforeach
+        </select>
+        @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+    </div>
+
+</div>
+
             <br>
             <div>
                 {{-- Materi Pembelakaran --}}
@@ -490,12 +504,16 @@
 
             $('#media_perangkat_lunak').select2({
                 placeholder: "Pilih Perangkat Lunak",
-                allowClear: true
+                allowClear: true,
+                dropdownAutoWidth: true,
+                width: '100%',
             }).on('change', syncMediaValues);
 
             $('#media_perangkat_keras').select2({
                 placeholder: "Pilih Perangkat Keras",
-                allowClear: true
+                allowClear: true,
+                dropdownAutoWidth: true,
+                width: '100%',
             }).on('change', syncMediaValues);
 
             // Panggil sync sekali untuk mengirim nilai awal

@@ -231,12 +231,12 @@
                                         @endphp
                                                 
                                         <td class="border-r border-b border-black p-1">
-                                           {{ $penilaian ? number_format($penilaian['hasil_proyek'], 0) : '' }} 
+                                           {{ $penilaian ? number_format($penilaian['kegiatan_partisipatif'], 0) : '' }} 
                                         </td>
                                         <td class="border-r border-b border-black p-1 bg-[#f7cbac7d]"></td>
     
                                         <td class="border-r border-b border-black p-1">
-                                            {{ $penilaian ? number_format($penilaian['kegiatan_partisipatif'], 0) : '' }} 
+                                            {{ $penilaian ? number_format($penilaian['hasil_proyek'], 0) : '' }} 
                                         </td>
                                         <td class="border-r border-b border-black p-1 bg-[#f7cbac7d]"></td>
     
