@@ -297,6 +297,8 @@ class RPSController extends Controller
         ])->render();
 
         Browsershot::html($pdfTemplate)
+            ->setChromePath('/usr/bin/google-chrome')
+            ->setNodeBinary('/usr/bin/node')
             ->landscape()
             ->showBackground()
             ->margins(10, 10, 10, 10)
