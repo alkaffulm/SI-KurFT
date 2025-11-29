@@ -298,7 +298,7 @@ class RPSController extends Controller
 
         Browsershot::html($pdfTemplate)
             ->setChromePath('/usr/bin/google-chrome')
-            ->setNodeBinary('/usr/bin/node')
+            ->setNodeBinary('/home/obeft/.nvm/versions/node/v24.11.1/bin/node')
             ->landscape()
             ->showBackground()
             ->margins(10, 10, 10, 10)
