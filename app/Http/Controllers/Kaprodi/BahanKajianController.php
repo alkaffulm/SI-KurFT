@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\kaprodi;
+namespace App\Http\Controllers\Kaprodi;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBahanKajianRequest;

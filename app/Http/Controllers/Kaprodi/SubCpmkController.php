@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\kaprodi;
+namespace App\Http\Controllers\Kaprodi;
 
 use App\Models\CPMKModel;
 use App\Models\SubCPMKModel;
