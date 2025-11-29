@@ -24,13 +24,11 @@ class Kelas extends Model
         'excel_daftar_mahasiswa'
     ];
 
-    // Relasi ke Mata Kuliah
     public function mataKuliahModel()
     {
         return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');
     }
 
-    // Relasi ke User
     public function userModel()
     {
         return $this->belongsTo(UserModel::class, 'id_user', 'id_user');
@@ -44,11 +42,11 @@ class Kelas extends Model
     {
         return $this->belongsToMany(
             MahasiswaModel::class,
-            'kelas_mahasiswa', // nama tabel pivot
-            'id_kelas',        // foreign key di pivot ke kelas
-            'nim',             // foreign key di pivot ke mahasiswa
-            'id_kelas',        // local key di kelas
-            'nim'              // local key di mahasiswa
+            'kelas_mahasiswa', 
+            'id_kelas',       
+            'nim',            
+            'id_kelas',       
+            'nim'             
         );
     }
 }
