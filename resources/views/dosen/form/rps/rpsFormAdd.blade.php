@@ -7,16 +7,6 @@
     <title>Bahan Kajian (BK)</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
-    <style>
-        .select2-container {
-            width: 100% !important;
-        }
-
-        .select2-selection--multiple,
-        .select2-selection--single {
-            width: 100% !important;
-        }
-    </style>
     {{-- Select2 CSS and JS for searchable dropdowns --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -220,10 +210,14 @@
     <script>
         $(document).ready(function() {
             $('.select2-perangkat-lunak').select2({
-                placeholder: "Pilih Perangkat Lunak"
+                placeholder: "Pilih Perangkat Lunak",
+                dropdownAutoWidth: true,
+                width: '100%',
             });
             $('.select2-perangkat-keras').select2({
-                placeholder: "Pilih Perangkat keras"
+                placeholder: "Pilih Perangkat keras",
+                dropdownAutoWidth: true,
+                width: '100%',
             });
         });
     </script>
