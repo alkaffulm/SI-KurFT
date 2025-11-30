@@ -192,7 +192,7 @@
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $c->nama_kode_cpl }}
                                     </th>
-                                    @forelse ($peo as $p)
+                                    @foreach ($peo as $p)
                                         @php
                                             $hasRelation =
                                                 isset($cpl_peo_map[$c->id_cpl]) &&
@@ -203,13 +203,7 @@
                                                 <span class="text-black-500 font-bold">✓</span>
                                             @endif
                                         </td>
-                                    @empty
-                                        <tr class="bg-white border-t border-gray-400">
-                                            <td colspan="2" class="px-6 py-4 text-center text-gray-500">
-                                                Data Korelasi CPL - PEO masih kosong.
-                                            </td>
-                                        </tr>
-                                    @endforelse
+                                    @endforeach
                                 </tr>
                             @empty
                                 <tr>

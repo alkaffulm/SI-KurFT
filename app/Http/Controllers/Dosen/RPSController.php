@@ -111,6 +111,8 @@ class RPSController extends Controller
      */
     public function show(RPSModel $rp)
     {
+        $this->authorize('view', $rp);
+
         $rp->load([
             'mataKuliah', 
             'mediaPembelajaran',
@@ -194,7 +196,6 @@ class RPSController extends Controller
             ];
         }
 
-        $this->authorize('view', $rp);
         return view('dosen.showrps', [
             'rps' => $rp, 
             'assocCpls' => $relevantCpl, 
