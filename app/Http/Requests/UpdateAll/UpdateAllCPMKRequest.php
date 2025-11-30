@@ -22,8 +22,6 @@ class UpdateAllCPMKRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'cpmk.*.id_mk' => 'required|exists:mata_kuliah,id_mk', 
-            // 'cpmk.*.kode_cpmk' => 'required|integer',
             'cpmk.*.nama_kode_cpmk' => 'required|string',
             'cpmk.*.desc_cpmk_id' => 'required|string',
             'cpmk.*.desc_cpmk_en' => 'required|string',
@@ -33,8 +31,6 @@ class UpdateAllCPMKRequest extends FormRequest
     public function messages(): array
     {
         return [
-            // 'cpmk.*.kode_cpmk.required' => 'Kode CPMK tidak boleh kosong.',
-            // 'cpmk.*.kode_cpmk.string'   => 'Kode CPMK harus berupa string',
             'cpmk.*.nama_kode_cpmk.required' => 'Kode CPMK tidak boleh kosong.',
             'cpmk.*.nama_kode_cpmk.string'   => 'Kode CPMK harus berupa string',
             'cpmk.*.desc_cpmk_id.required' => 'Deskripsi CPMK (Indoneia) tidak boleh kosong.',

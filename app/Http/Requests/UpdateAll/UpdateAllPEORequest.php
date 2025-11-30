@@ -22,7 +22,6 @@ class UpdateAllPEORequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'peo.*.id_ps' => 'required|exists:program_Studi,id_ps', 
             'peo.*.kode_peo' => 'required|string',
             'peo.*.desc_peo_id' => 'required|string',
             'peo.*.desc_peo_en' => 'required|string',

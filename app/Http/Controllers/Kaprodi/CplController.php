@@ -100,11 +100,11 @@ class CplController extends Controller
     public function editAll()
     {
         $cpl_data = CPLModel::orderBy('nama_kode_cpl', 'asc')->get();
-        $kurikulum = KurikulumModel::all(); // <-- ADD THIS LINE
+        $kurikulum = KurikulumModel::all(); 
 
         return view('form.CPL.cplFormEdit', [
             'cpl_data' => $cpl_data,
-            'kurikulum' => $kurikulum // <-- ADD THIS LINE
+            'kurikulum' => $kurikulum 
         ]);
     }
 
@@ -121,29 +121,6 @@ class CplController extends Controller
         if (!$request->has('cpl')) {
             return redirect()->route('cpl.index')->with('success', 'Perubahan CPL berhasil disimpan!');
         }
-
-        // 2. Validate updates
-        // $rules = [
-        //     'cpl.*.nama_kode_cpl' => 'required|string|max:255',
-        //     'cpl.*.desc' => 'required|string',
-        //     'cpl.*.bobot_maksimum' => 'required|numeric', // <-- ADD THIS LINE
-        //     'cpl.*.id_kurikulum' => 'required|exists:kurikulum,id_kurikulum', // <-- ADD THIS LINE
-
-
-        // ];
-        // $messages = [
-        //     'cpl.*.nama_kode_cpl.required' => 'Setiap kolom Kode CPL wajib diisi.',
-        //     'cpl.*.desc.required' => 'Setiap kolom Deskripsi wajib diisi.',
-        //     'cpl.*.bobot_maksimum.required' => 'Setiap kolom Bobot Maksimum wajib diisi.', // <-- ADD THIS LINE
-        //     'cpl.*.id_kurikulum.required' => 'Setiap kolom Kurikulum wajib dipilih.', // <-- ADD THIS LINE
-
-        // ];
-
-        // $validator = Validator::make($request->all(), $rules, $messages);
-
-        // if ($validator->fails()) {
-        //     return redirect()->route('cpl.editAll')->withErrors($validator)->withInput();
-        // }
 
         $validatedData = $request->validated()['cpl'];
 
