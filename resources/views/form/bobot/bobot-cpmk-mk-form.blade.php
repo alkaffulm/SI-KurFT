@@ -20,7 +20,7 @@
         <main class="mt-20 max-w-screen mx-auto">
                 <a href="{{ route('cpmk.index') }}"
                     class="mb-12 px-6 py-2 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
-                    Batal
+                    Kembali
                 </a>
                 <div class="p-8 bg-white mt-12 rounded-md">
                     @if (session('success'))

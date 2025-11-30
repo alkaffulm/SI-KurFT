@@ -129,7 +129,7 @@
                 <div class="mt-4 flex justify-between">
                     <button type="button" wire:click="addRow" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg px-6 py-3">Tambah Baris</button>
                     <div class="flex gap-6">
-                        <a href="{{ route('rencana-asesmen.index') }}" class="px-6 py-3 font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Batal</a>
+                        <a href="{{ route('rencana-asesmen.index') }}" class="px-6 py-3 font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
                         <button type="submit" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg px-6 py-3">Simpan Rencana Asesmen</button>
                     </div>
                 </div>
