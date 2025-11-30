@@ -9,7 +9,7 @@
 </head>
 
 <body class="bg-gray-100 font-sans">
-    <div class="py-8 px-8">
+    <div class="pt-8 px-8">
         <div class="bg-white p-8 rounded-2xl shadow-lg mb-8">
             <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Visi Keilmuan Program Studi</h1>
             <div class="mb-6">

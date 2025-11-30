@@ -34,7 +34,7 @@
             </div>
         </div>
             {{-- End Welcome Card --}}
-        <div class="p-4 mt-8 rounded-lg bg-white">
+        <div class="p-4 mt-8 mb-8 rounded-lg bg-white">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Mata Kuliah yang Diampu</h2>
             <p>Selamat datang, Dosen. Halaman ini berisi daftar mata kuliah yang Anda ampu. Silakan pilih mata kuliah untuk
             mengelola RPS dan memasukkan nilai asesmen mahasiswa.</p>

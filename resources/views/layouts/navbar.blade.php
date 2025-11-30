@@ -53,7 +53,7 @@
                             <span class="block text-sm text-gray-900">{{ session('userName', 'User') }}</span>
                             <span class="block text-sm text-gray-500 truncate">
                                 @if (session('userRole') == 'kaprodi')
-                                    kaprodi.ti@ulm.ac.id
+                                    kaprodi@ulm.ac.id
                                 @elseif(session('userRole') == 'dosen')
                                     dosen@ulm.ac.id
                                 @else
