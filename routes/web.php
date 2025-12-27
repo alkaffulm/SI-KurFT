@@ -43,6 +43,7 @@ use App\Http\Controllers\Admin\TeknikPenilaianAdminController;
 use App\Http\Controllers\Admin\KriteriaPenilaianAdminController;
 use App\Http\Controllers\Admin\MasterMahasiswaController;
 use App\Http\Controllers\Dosen\KelasDosenController;
+use App\Http\Controllers\Admin\KelolaPenggunaController;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
@@ -293,6 +294,17 @@ Route::middleware('auth')->group(function () {
             Route::get('/master-mahasiswa/edit/{id}', [MasterMahasiswaController::class, 'edit'])->name('master-mahasiswa.edit');
             Route::put('/master-mahasiswa/update/{id}', [MasterMahasiswaController::class, 'update'])->name('master-mahasiswa.update');
             Route::post('/master-mahasiswa/import', [MasterMahasiswaController::class, 'importExcel'])->name('master-mahasiswa.import');
+
+        // CRUD ADMIN
+            Route::get('/kelola-pengguna', [KelolaPenggunaController::class, 'index'])->name('admin.kelola-pengguna.index');
+            Route::get('/kelola-pengguna/create', [KelolaPenggunaController::class, 'create'])->name('admin.kelola-pengguna.create');
+            Route::post('/kelola-pengguna', [KelolaPenggunaController::class, 'store'])->name('admin.kelola-pengguna.store');
+
+            Route::get('/kelola-pengguna/{id_user}/edit', [KelolaPenggunaController::class, 'edit'])->name('admin.kelola-pengguna.edit');
+            Route::put('/kelola-pengguna/{id_user}', [KelolaPenggunaController::class, 'update'])->name('admin.kelola-pengguna.update');
+
+            Route::delete('/kelola-pengguna/{id_user}', [KelolaPenggunaController::class, 'destroy'])->name('admin.kelola-pengguna.destroy');
+
 
 
 
