@@ -412,7 +412,7 @@ class RPSController extends Controller
                 'assocSubCpmk' => $relevantsubCpmk,
                 'correlationCpmkCplMap' => $correlationCpmkCplMap,
                 'bobotCplCpmk' => $bobotCplCpmk,
-                'bobotPenilaian' => $bobotPenilaian,
+                'bobotPenilaian' => $bobotPenilaian ?? [],
             ])
             ->setPaper('A4', 'portrait')
             ->setOption('isRemoteEnabled', true);
