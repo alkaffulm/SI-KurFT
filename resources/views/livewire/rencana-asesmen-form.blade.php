@@ -57,7 +57,7 @@
                                             <select wire:model.live="rencanaAsesmens.{{ $index }}.tipe_komponen" class="p-2 border rounded-lg border-gray-300 bg-gray-100 mt-2">
                                                 <option value="">Pilih Komponen Evaluasi</option>
                                                 <option value="tugas">Tugas</option>
-                                                <option value="kuis">Kuis</option>
+                                                {{-- <option value="kuis">Kuis</option> --}}
                                                 <option value="uts">UTS</option>
                                                 <option value="uas">UAS</option>
                                                 <option value="Kegiatan Partisipatif">Kegiatan Partisipatif</option>
