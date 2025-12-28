@@ -7,6 +7,7 @@ use App\Models\UserModel;
 use App\Models\SubCPMKModel;
 use Illuminate\Http\Request;
 use App\Models\MataKuliahModel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\MKCPMKBobotModel;
 use Illuminate\Support\Facades\DB;
 use App\Livewire\PembobotanCpmkCpl;
@@ -393,29 +394,32 @@ class RPSController extends Controller
             ];
         }
 
-        $pdfTemplate = view('dosen.showrpsPDF', [
-            'rps' => $rps, 
-            'assocCpls' => $relevantCpl, 
-            'assocCpmk' => $relevantCpmk, 
-            'assocSubCpmk' => $relevantsubCpmk,
-            'correlationCpmkCplMap' => $correlationCpmkCplMap,
-            'bobotCplCpmk' => $bobotCplCpmk,
-            'bobotPenilaian' => $bobotPenilaian ?? [],
-        ])->render();
+        // $pdfTemplate = view('dosen.showrpsPDF', [
+        //     'rps' => $rps, 
+        //     'assocCpls' => $relevantCpl, 
+        //     'assocCpmk' => $relevantCpmk, 
+        //     'assocSubCpmk' => $relevantsubCpmk,
+        //     'correlationCpmkCplMap' => $correlationCpmkCplMap,
+        //     'bobotCplCpmk' => $bobotCplCpmk,
+        //     'bobotPenilaian' => $bobotPenilaian ?? [],
+        // ])->render();
 
-        Browsershot::html($pdfTemplate)
-            // ->setChromePath('/usr/bin/google-chrome')
-            // ->setNodeBinary('/home/obeft/.nvm/versions/node/v24.11.1/bin/node')
-            // ->noSandbox()   
-            ->landscape()
-            ->showBackground()
-            ->margins(10, 10, 10, 10)
-            ->emulateMedia('screen')
-            ->format('A4')
-            ->setDelay(500)
-            ->save('RPS_'.$rps->mataKuliah->nama_matkul_id.'.pdf');
-            
-        return response()->download('RPS_'.$rps->mataKuliah->nama_matkul_id.'.pdf')->deleteFileAfterSend(true);
+        /** ================= GENERATE PDF ================= */
+        $pdf = Pdf::loadView('dosen.showrpsPDF', [
+                'rps' => $rps,
+                'assocCpls' => $relevantCpl,
+                'assocCpmk' => $relevantCpmk,
+                'assocSubCpmk' => $relevantsubCpmk,
+                'correlationCpmkCplMap' => $correlationCpmkCplMap,
+                'bobotCplCpmk' => $bobotCplCpmk,
+                'bobotPenilaian' => $bobotPenilaian,
+            ])
+            ->setPaper('A4', 'portrait')
+            ->setOption('isRemoteEnabled', true);
+
+        return $pdf->download(
+            'RPS_'.$rps->mataKuliah->nama_matkul_id.'.pdf'
+        );
     }
 
     /**

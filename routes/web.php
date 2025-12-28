@@ -48,6 +48,19 @@ use App\Http\Controllers\Admin\KelolaPenggunaController;
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
 
+
+use Barryvdh\DomPDF\Facade\Pdf;
+
+Route::get('/test-pdf', function () {
+    $pdf = Pdf::loadHTML('
+        <h1>DOMPDF LOCAL OK</h1>
+        <p>PDF berhasil dibuat</p>
+    ');
+    return $pdf->stream('test.pdf');
+});
+
+
+
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
