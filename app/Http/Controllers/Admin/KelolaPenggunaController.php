@@ -41,7 +41,7 @@ class KelolaPenggunaController extends Controller
             'id_ps' => ['required'],
             'NIP' => ['nullable', 'string', 'max:50'],
             'username' => ['required', 'string', 'max:100', 'unique:user,username'],
-            'email' => ['required', 'email', 'max:150', 'unique:user,email'],
+            'email' => ['required', 'email', 'max:150'],
             'password' => ['required', 'string', 'min:6'],
             'roles' => ['nullable', 'array'],
         ]);
@@ -78,18 +78,25 @@ class KelolaPenggunaController extends Controller
 
         $validated = $request->validate([
             'id_ps' => ['required'],
-            'NIP' => ['nullable', 'string', 'max:50'],
-            'username' => ['required', 'string', 'max:100', 'unique:user,username'],
-            'email' => ['required', 'email', 'max:150', 'unique:user,email'],
-            'password' => ['required', 'string', 'min:6'],
-            'roles' => ['nullable', 'array'],
+            'NIP' => ['nullable','string','max:50'],
+            'username' => [
+                'required','string','max:100',
+                'unique:user,username,' . $user->id_user . ',id_user'
+            ],
+            'email' => [
+                'required','email','max:150',
+                'unique:user,email,' . $user->id_user . ',id_user'
+            ],
+            'password' => ['nullable','string','min:6'],
+            'roles' => ['nullable','array'],
+            'roles.*' => ['integer','exists:role,id_role'],
         ]);
 
         $data = [
             'id_ps' => $validated['id_ps'],
             'NIP' => $validated['NIP'] ?? null,
-            'email' => $validated['email'] ?? null,
             'username' => $validated['username'],
+            'email' => $validated['email'],
         ];
 
         if (!empty($validated['password'])) {
@@ -98,12 +105,12 @@ class KelolaPenggunaController extends Controller
 
         $user->update($data);
 
-        $roleIds = $validated['roles'] ?? [];
-        $user->roles()->sync($roleIds);
+        $user->roles()->sync($validated['roles'] ?? []);
 
         return redirect()->route('admin.kelola-pengguna.index')
             ->with('success', 'User berhasil diupdate.');
     }
+
 
     public function destroy($id_user)
     {

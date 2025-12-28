@@ -54,7 +54,14 @@
                     <input type="password" name="password"
                            class="w-full rounded-lg border-gray-300" />
                 </div>
-
+                <div>
+                    <label class="block mb-1 text-sm font-medium">Email</label>
+                    <input type="email"
+                           name="email"
+                           value="{{ old('email', $user->email) }}"
+                           class="w-full rounded-lg border-gray-300"
+                           required />
+                </div>
                 <div>
                     <label class="block mb-2 text-sm font-medium">Roles</label>
                     <div class="grid grid-cols-2 gap-2">
