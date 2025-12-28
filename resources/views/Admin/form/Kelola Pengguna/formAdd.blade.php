@@ -33,30 +33,30 @@
                 <div>
                     <label class="block mb-1 text-sm font-medium">ID Program Studi (id_ps)</label>
                     <input name="id_ps" value="{{ old('id_ps', auth()->user()->id_ps) }}"
-                           class="w-full rounded-lg border-gray-300" />
+                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" />
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium">NIP</label>
                     <input name="NIP" value="{{ old('NIP') }}"
-                           class="w-full rounded-lg border-gray-300" />
+                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" />
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium">Username</label>
                     <input name="username" value="{{ old('username') }}"
-                           class="w-full rounded-lg border-gray-300" required />
+                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required />
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium">Password</label>
                     <input type="password" name="password"
-                           class="w-full rounded-lg border-gray-300" required />
+                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required />
                 </div>
                 <div>
                     <label class="block mb-1 text-sm font-medium">Email</label>
                     <input type="email" name="email" value="{{ old('email') }}"
-                            class="w-full rounded-lg border-gray-300" required />
+                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required />
                 </div>
 
 

@@ -16,6 +16,11 @@
                 </div>
             @else
                 <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Tambah Rencana Asesmen: {{ $mataKuliah->nama_matkul_id }} </h1>
+                    @if (session('success'))
+                        <div class="mb-4 p-3 rounded bg-green-100 text-green-800">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">

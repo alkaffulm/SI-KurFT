@@ -62,7 +62,7 @@ class TeknikPenilaianSeeder extends Seeder
             ['id_ps'=>'7', 'nama_teknik_penilaian' => 'Observasi', 'kategori' => 'non-test'],
             ['id_ps'=>'7', 'nama_teknik_penilaian' => 'Presentasi', 'kategori' => 'non-test'],
             ['id_ps'=>'7', 'nama_teknik_penilaian' => 'Tugas kelompok', 'kategori' => 'non-test'],
-            ['id_ps'=>'7', 'nama_teknik_penilaian' => 'Tugas kelompok kedua', 'kategori' => 'anjay non-test'],
+            // ['id_ps'=>'7', 'nama_teknik_penilaian' => 'Tugas kelompok kedua', 'kategori' => 'anjay non-test'],
 
             // id_ps = 8
             ['id_ps'=>'8', 'nama_teknik_penilaian' => 'Quiz', 'kategori' => 'test'],

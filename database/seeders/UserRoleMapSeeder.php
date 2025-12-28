@@ -146,6 +146,7 @@ class UserRoleMapSeeder extends Seeder
 
             // id_ps => 7 (Teknologi Informasi)
             ['id_user_role' => 117, 'id_role' => 3, 'id_user' => 117], // Kaprodi
+            ['id_user_role' => 117, 'id_role' => 2, 'id_user' => 117], // Dosen
             ['id_user_role' => 118, 'id_role' => 1, 'id_user' => 118], // Admin
             ['id_user_role' => 119, 'id_role' => 1, 'id_user' => 119], // Admin
             ['id_user_role' => 120, 'id_role' => 2, 'id_user' => 120], // Dosen

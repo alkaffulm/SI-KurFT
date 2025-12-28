@@ -249,7 +249,7 @@
                                     
                                     {{-- Mengambil data penilaian (Tugas, UTS, UAS) untuk CPMK saat ini --}}
                                     @php
-                                        $penilaian = $bobotPenilaian[$bobot->id_cpmk] ?? null;
+                                        $penilaian = $bobotPenilaian[$bobot->id_cpmk][$bobot->id_cpl] ?? null;
                                     @endphp
 
                                     {{-- Kolom Kegiatan Partisipatif --}}

@@ -20,8 +20,8 @@ class UserSeeder extends Seeder
 
             // id_ps => 1 (Teknik Sipil)
             ['id_user' => 4, 'id_ps' => 1, 'NIP' => '197208261998021001', 'username' => 'Dr. Muhammad Arsyad, S.T., M.T', 'email' => 'emarsyad@ulm.ac.id','password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 5, 'id_ps' => 1, 'NIP' => 'ADM1001', 'username' => 'admin11', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 6, 'id_ps' => 1, 'NIP' => 'ADM1002', 'username' => 'admin12', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 5, 'id_ps' => 1, 'NIP' => 'ADMPSTS1', 'username' => 'adminpsts1', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 6, 'id_ps' => 1, 'NIP' => 'ADMPSTS2', 'username' => 'adminpsts2', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
             ['id_user' => 7, 'id_ps' => 1, 'NIP' => '197511242005012005', 'username' => 'Dr. Novitasari, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'novitasari@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 8, 'id_ps' => 1, 'NIP' => '196911011993032001', 'username' => 'Ir. Ida Barkiah, M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'idabarkiah@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 9, 'id_ps' => 1, 'NIP' => '196605201991031005', 'username' => 'Ir. Fauzi Rahman, M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'fauzirahman@ulm.ac.id', 'last_active_kurikulum_id' => null],
@@ -53,8 +53,8 @@ class UserSeeder extends Seeder
 
             // id_ps => 2 (Teknik Pertambangan)
             ['id_user' => 35, 'id_ps' => 2, 'NIP' => '198008032006041001', 'username' => 'Agus Triantoro, S.T., M.T', 'email' => 'agus@ulm.ac.id','password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 36, 'id_ps' => 2, 'NIP' => 'ADM2001', 'username' => 'admin21', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 37, 'id_ps' => 2, 'NIP' => 'ADM2002', 'username' => 'admin22', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 36, 'id_ps' => 2, 'NIP' => 'ADMPSTP1', 'username' => 'adminpstp1', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 37, 'id_ps' => 2, 'NIP' => 'ADMPSTP2', 'username' => 'adminpstp2', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
             ['id_user' => 38, 'id_ps' => 2, 'NIP' => '198006162006041005', 'username' => 'Romla Noor Hakim, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'romla@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 39, 'id_ps' => 2, 'NIP' => '197306152000031002', 'username' => 'Nurhakim, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'nurhakim@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 40, 'id_ps' => 2, 'NIP' => '198807012008122001', 'username' => 'Annisa, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'annisa@ulm.ac.id', 'last_active_kurikulum_id' => null],
@@ -72,8 +72,8 @@ class UserSeeder extends Seeder
 
             // id_ps => 3 (Teknik Mesin)
             ['id_user' => 52, 'id_ps' => 3, 'NIP' => '199002212018031001', 'username' => 'Herry Irawansyah, S.T., M.Eng', 'email' => 'herryirawansyah@ulm.ac.id','password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 53, 'id_ps' => 3, 'NIP' => 'ADM3001', 'username' => 'admin31', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 54, 'id_ps' => 3, 'NIP' => 'ADM3002', 'username' => 'admin32', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 53, 'id_ps' => 3, 'NIP' => 'ADMPSTM1', 'username' => 'adminpstm1', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 54, 'id_ps' => 3, 'NIP' => 'ADMPSTM2', 'username' => 'adminpstm2', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
             ['id_user' => 55, 'id_ps' => 3, 'NIP' => '197105231999031004', 'username' => 'Akhmad Syarief, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'akhmad.syarief@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 56, 'id_ps' => 3, 'NIP' => '197601282008121002', 'username' => 'Ma\'ruf, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'maruf@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 57, 'id_ps' => 3, 'NIP' => '199203222019031010', 'username' => 'Muhammad Nizar Ramadhan, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'nizarramadhan@ulm.ac.id', 'last_active_kurikulum_id' => null],
@@ -87,8 +87,8 @@ class UserSeeder extends Seeder
 
             // id_ps => 4 (Teknik Lingkungan)
             ['id_user' => 65, 'id_ps' => 4, 'NIP' => '198708282012122001', 'username' => 'Dr. Rizqi Puteri Mahyudin, S.Si., M.S', 'email' => 'rizqiputeri@ulm.ac.id','password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 66, 'id_ps' => 4, 'NIP' => 'ADM4001', 'username' => 'admin41', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 67, 'id_ps' => 4, 'NIP' => 'ADM4002', 'username' => 'admin42', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 66, 'id_ps' => 4, 'NIP' => 'ADMPSTL1', 'username' => 'adminpstl1', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 67, 'id_ps' => 4, 'NIP' => 'ADMPSTL2', 'username' => 'adminpstl2', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
             ['id_user' => 68, 'id_ps' => 4, 'NIP' => '198007072008011029', 'username' => 'Dr. Andy Mizwar, S.T., M.Si.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'andymizwar@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 69, 'id_ps' => 4, 'NIP' => '196605291999031001', 'username' => 'Muhammad Husin, S.T., M.S.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'muhammad.husin@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 70, 'id_ps' => 4, 'NIP' => '197610171999031003', 'username' => 'Dr. Rony Riduan, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'ronyrdn@ulm.ac.id', 'last_active_kurikulum_id' => null],
@@ -108,8 +108,8 @@ class UserSeeder extends Seeder
 
             // id_ps => 5 (Arsitektur)
             ['id_user' => 84, 'id_ps' => 5, 'NIP' => '198102102005011012', 'username' => 'Dr. -Ing. Akbar Rahman, S.T., M.T', 'email' => 'arzhi_teks@ulm.ac.id','password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 85, 'id_ps' => 5, 'NIP' => 'ADM5001', 'username' => 'admin51', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 86, 'id_ps' => 5, 'NIP' => 'ADM5002', 'username' => 'admin52', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 85, 'id_ps' => 5, 'NIP' => 'ADMPSA1', 'username' => 'adminpsa1', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 86, 'id_ps' => 5, 'NIP' => 'ADMPSA2', 'username' => 'adminpsa2', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
             ['id_user' => 87, 'id_ps' => 5, 'NIP' => '196004081988031004', 'username' => 'Ir. Pakhri Anhar, M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'pakhrianhar@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 88, 'id_ps' => 5, 'NIP' => '196701281995021001', 'username' => 'Ir. Muhammad Deddy Huzairin, M.Sc.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'deddyhuz@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 89, 'id_ps' => 5, 'NIP' => '197312222005011002', 'username' => 'Nurfansyah, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'nfsarsitek@ulm.ac.id', 'last_active_kurikulum_id' => null],
@@ -128,8 +128,8 @@ class UserSeeder extends Seeder
 
             // id_ps => 6 (Teknik Kimia)
             ['id_user' => 102, 'id_ps' => 6, 'NIP' => '198101122003121001', 'username' => 'Dr. Doni Rahmat Wicaksono, S.T., M.Eng', 'email' => 'doni.rahmat.w@ulm.ac.id', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 103, 'id_ps' => 6, 'NIP' => 'ADM6001', 'username' => 'admin61', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 104, 'id_ps' => 6, 'NIP' => 'ADM6002', 'username' => 'admin62', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 103, 'id_ps' => 6, 'NIP' => 'ADMPSTK1', 'username' => 'adminpstk1', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 104, 'id_ps' => 6, 'NIP' => 'ADMPSTK2', 'username' => 'adminpstk2', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
             ['id_user' => 105, 'id_ps' => 6, 'NIP' => '197608192003121001', 'username' => 'Prof. Dr. Agus Mirwan, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'agusmirwan@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 106, 'id_ps' => 6, 'NIP' => '198401192012122002', 'username' => 'Dr. Lailan Ni\'mah, S.T., M.Eng.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'lailan.nimah@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 107, 'id_ps' => 6, 'NIP' => '198103242006042002', 'username' => 'Primata Mardina, S.T., M.Eng., Ph.D', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'pmardina@ulm.ac.id', 'last_active_kurikulum_id' => null],
@@ -145,8 +145,8 @@ class UserSeeder extends Seeder
 
             // id_ps => 7 (Teknologi Informasi)
             ['id_user' => 117, 'id_ps' => 7, 'NIP' => '199307032019031011', 'username' => 'Andreyan Rizky Baskara, S.Kom., M.Kom.', 'email' => 'andreyan.baskara@ulm.ac.id','password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 118, 'id_ps' => 7, 'NIP' => 'ADM7001', 'username' => 'admin71', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 119, 'id_ps' => 7, 'NIP' => 'ADM7002', 'username' => 'admin72', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 118, 'id_ps' => 7, 'NIP' => 'ADMPSTI1', 'username' => 'adminpsti1', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 119, 'id_ps' => 7, 'NIP' => 'ADMPSTI2', 'username' => 'adminpsti2', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
             ['id_user' => 120, 'id_ps' => 7, 'NIP' => '198205082008011010', 'username' => 'Eka Setya Wijaya, S.T., M.Kom.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'ekasw@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 121, 'id_ps' => 7, 'NIP' => '198411202015042002', 'username' => 'Dr. Yuslena Sari, S.Kom., M.Kom.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'yuzlena@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 122, 'id_ps' => 7, 'NIP' => '198606132015041001', 'username' => 'Muhammad Alkaff, S.Kom., M.Kom.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'm.alkaff@ulm.ac.id', 'last_active_kurikulum_id' => null],
@@ -161,8 +161,8 @@ class UserSeeder extends Seeder
 
             // id_ps => 8 (Rekayasa Elektro)
             ['id_user' => 131, 'id_ps' => 8, 'NIP' => '197509242002121005', 'username' => 'Gunawan Rudi Cahyono, S.T., M.T', 'email' => 'gunawan.cahyono@ulm.ac.id','password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 132, 'id_ps' => 8, 'NIP' => 'ADM8001', 'username' => 'admin81', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 133, 'id_ps' => 8, 'NIP' => 'ADM8002', 'username' => 'admin82', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 132, 'id_ps' => 8, 'NIP' => 'ADMRE1', 'username' => 'adminre1', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 133, 'id_ps' => 8, 'NIP' => 'ADMRE2', 'username' => 'adminre2', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
             ['id_user' => 134, 'id_ps' => 8, 'NIP' => '199007272019031011', 'username' => 'Andry Fajar Zulkarnain, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'andry.zulkarnain@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 135, 'id_ps' => 8, 'NIP' => '199412142022031013', 'username' => 'Akhmad Ghiffary Budianto, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'ghiffary.budianto@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 136, 'id_ps' => 8, 'NIP' => '199106172022031007', 'username' => 'Arief Trisno Eko Suryo, S.T., M.T.', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'arief.suryo@ulm.ac.id', 'last_active_kurikulum_id' => null],
@@ -174,8 +174,8 @@ class UserSeeder extends Seeder
 
             // id_ps => 9 (Rekayasa Geologi)
             ['id_user' => 142, 'id_ps' => 9, 'NIP' => '197310132003121001', 'username' => 'Uyu Saismana, S.T., M.T', 'email' => 'uyu@ulm.ac.id','password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 143, 'id_ps' => 9, 'NIP' => 'ADM9001', 'username' => 'admin91', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
-            ['id_user' => 144, 'id_ps' => 9, 'NIP' => 'ADM9002', 'username' => 'admin92', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 143, 'id_ps' => 9, 'NIP' => 'ADMRG1', 'username' => 'adminrg1', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
+            ['id_user' => 144, 'id_ps' => 9, 'NIP' => 'ADMRG2', 'username' => 'adminrg2', 'email' => '-', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'last_active_kurikulum_id' => null],
             ['id_user' => 145, 'id_ps' => 9, 'NIP' => '196209221986031001', 'username' => 'Adip Mustofa', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'adip@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 146, 'id_ps' => 9, 'NIP' => '199307262022031007', 'username' => 'Muhammad Zaini Arief', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'zaini.arief@ulm.ac.id', 'last_active_kurikulum_id' => null],
             ['id_user' => 147, 'id_ps' => 9, 'NIP' => '198103062005011001', 'username' => 'Rudy Hendrawan Noor', 'password' => '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO', 'email' => 'rudy.noor@ulm.ac.id', 'last_active_kurikulum_id' => null],

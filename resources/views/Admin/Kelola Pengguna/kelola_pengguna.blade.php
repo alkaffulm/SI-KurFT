@@ -36,7 +36,7 @@
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">Kelola Pengguna Program Studi</h1>
                 <p class="text-gray-600 mb-6 text-justify">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut sapiente maiores temporibus. Blanditiis.
+                    Menu ini menyediakan fasilitas pengelolaan pengguna Program Studi untuk mendukung pelaksanaan kegiatan akademik dan pengelolaan kurikulum secara terstruktur.
                 </p>
 
                 <div class="flex justify-between items-center mb-4">
