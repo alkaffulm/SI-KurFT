@@ -144,9 +144,9 @@
 {{-- ===================================================== --}}
 <table>
     <tr >
-        <td style="border-top: 1px solid white; border-bottom: 1px solid white;" ></td>
-        <td class="bg-gray bold"  colspan="2">Capaian Pembelajaran Mata Kuliah (CPMK): melalui mata kuliah ini mahasiswa diharapkan mampu</td>
-        <td class="bg-gray bold" >CPL yang didukung</td>
+        <td style="border-top: 1px solid white; border-bottom: 1px solid white;" width="10%"></td>
+        <td class="bg-gray bold"  colspan="2" width="76%">Capaian Pembelajaran Mata Kuliah (CPMK): melalui mata kuliah ini mahasiswa diharapkan mampu</td>
+        <td class="bg-gray bold" width="14%">CPL yang didukung</td>
     </tr>
 
     @foreach($assocCpmk as $cpmk)
@@ -475,7 +475,7 @@
                 @endforelse                                            
             </ul>       
             <p>[BT: {{$topic->aktivitasPembelajaran->firstWhere('tipe','BT')->jumlah_pertemuan ?? '-'}} x ({{$topic->aktivitasPembelajaran->firstWhere('tipe','BT')->jumlah_sks ?? '-'}})]</p>       
-        </td>
+        </td>   
         <td class="center">{{ $topic->refrensi }}</td>
     @else
         <td colspan="9" class="center bold bg-blue">
