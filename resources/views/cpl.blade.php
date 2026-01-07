@@ -130,7 +130,7 @@
                                         {{ $pl->kode_pl }}
                                     </th>
                                 @empty
-                                    <th scope="col" class="px-6 py-3 text-gray-200">
+                                    <th scope="col" class="px-6 py-3 text-gray-200 italic font-normal">
                                          PL Belum Ditetapkan
                                     </th>                                
                                 @endforelse
@@ -158,7 +158,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="px-6 py-4 text-center text-gray-500">Data CPL Masih Kosong</td>
+                                    <td colspan="2" class="px-6 py-4 text-center text-gray-500">Data Korelasi CPL-PL Masih Kosong</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -179,7 +179,7 @@
                                         {{ $p->kode_peo }}
                                     </th>
                                 @empty
-                                    <th scope="col" class="px-6 py-3 text-gray-200">
+                                    <th scope="col" class="px-6 py-3 text-gray-200 italic font-normal">
                                          PEO Belum Ditetapkan
                                     </th>
                                 @endforelse
@@ -207,7 +207,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="px-6 py-4 text-center text-gray-500">Data CPL Masih Kosong</td>
+                                    <td colspan="2" class="px-6 py-4 text-center text-gray-500">Data Korelasi CPL-PEO Masih Kosong</td>
                                 </tr>
                             @endforelse
                         </tbody>

@@ -178,18 +178,18 @@
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500">
-                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                        <thead class="text-xs text-white  bg-teks-biru-custom">
                             <tr>
                                 {{-- *** CHANGE IS HERE *** --}}
-                                <th scope="col" class="px-6 py-3">Kode MK</th>
-                                <th scope="col" class="px-6 py-3">Mata Kuliah</th>
+                                <th scope="col" class="px-6 py-3 uppercase">Kode MK</th>
+                                <th scope="col" class="px-6 py-3 uppercase">Mata Kuliah</th>
                                 {{-- *** END CHANGE *** --}}
                                 @forelse ($bahan_kajian as $bk)
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" class="px-6 py-3 uppercase">
                                         {{ $bk->nama_kode_bk }}
                                     </th>
                                 @empty
-                                    <th scope="col" class="px-6 py-3 text-gray-200">
+                                    <th scope="col" class="px-6 py-3 text-gray-200 italic font-normal">
                                         BK Belum Ditetapkan
                                     </th>
                                 @endforelse
@@ -230,7 +230,7 @@
                                 
                             @empty
                                 <tr>
-                                    <td class="px-6 py-4 text-center text-gray-500">Data MK Masih Kosong</td>
+                                    <td colspan="3" class="px-6 py-4 text-center text-gray-500">Data Korelasi BK-MK Masih Kosong</td>
                                 </tr>
                             @endforelse
                         </tbody>

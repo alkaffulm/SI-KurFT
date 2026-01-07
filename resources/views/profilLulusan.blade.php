@@ -123,10 +123,10 @@
 
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center">
-                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+                        <thead class="text-xs text-white  bg-teks-biru-custom">
                             <tr>
                                 <th scope="col" rowspan="2" class="px-6 py-3">Kode PL</th>
-                                <th scope="col" colspan="{{ count($peo) }}" class="px-6 py-3">Programme Educational
+                                <th scope="col" colspan="{{ count($peo) }}" class="px-6 py-3 uppercase">Programme Educational
                                     Objective (PEO)</th>
                             </tr>
                             <tr>
@@ -135,16 +135,12 @@
                                     <th scope="col" class="px-6 py-3" title="{{ $p->desc_peo_id }}">
                                         {{ $p->kode_peo }}</th>
                                 @empty
-                                    <tr class="bg-white border-t border-gray-400">
-                                        <td colspan="2" class="px-6 py-4 text-center text-gray-500">
-                                            Data Korelasi Profil Lulusan - PEO masih kosong.
-                                        </td>
-                                    </tr>
+                                    <th class="italic font-normal">PEO Belum Ditetapkan</th>
                                 @endforelse
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($profil_lulusan as $pl)
+                            @forelse ($profil_lulusan as $pl)
                                 <tr class="bg-white border-t border-gray-400">
                                     {{-- REVISI: Menghapus hover dari kode PL --}}
                                     <th scope="row"
@@ -164,7 +160,13 @@
                                         </td>
                                     @endforeach
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr class="bg-white border-t border-gray-400">
+                                    <td colspan="2" class="px-6 py-4 text-center text-gray-500">
+                                        Data Korelasi Profil Lulusan - PEO masih kosong.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
