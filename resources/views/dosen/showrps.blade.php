@@ -250,37 +250,58 @@
                                     {{-- Mengambil data penilaian (Tugas, UTS, UAS) untuk CPMK saat ini --}}
                                     @php
                                         $penilaian = $bobotPenilaian[$bobot->id_cpmk][$bobot->id_cpl] ?? null;
+                                        // $rowVal = $bobotPenilaian[$mapping->id_cpmk][$mapping->id_cpl] ?? [];
                                     @endphp
 
                                     {{-- Kolom Kegiatan Partisipatif --}}
                                     <td class="border border-black p-1">
                                         {{ $penilaian ? number_format($penilaian['kegiatan_partisipatif'], 0) : '' }} 
                                     </td>
-                                    <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">
+                                        @if (($penilaian['kegiatan_partisipatif'] ?? 0) > 0)
+                                            {{number_format(100/$countPenilaian['kegiatan_partisipatif'],0)}}
+                                        @endif
+                                    </td>
 
                                     {{-- Kolom Hasil Proyek --}}
                                     <td class="border border-black p-1">
                                        {{ $penilaian ? number_format($penilaian['hasil_proyek'], 0) : '' }} 
                                     </td>
-                                    <td class="border border-black p-1 bg-[#f7cbac7d]"></td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">
+                                        @if (($penilaian['hasil_proyek'] ?? 0) > 0)
+                                            {{number_format(100/$countPenilaian['hasil_proyek'],0)}}
+                                        @endif
+                                    </td>
 
                                     {{-- Kolom Tugas --}}
                                     <td class="border border-black p-1">
                                         {{ $penilaian ? number_format($penilaian['tugas'], 0) : '' }}
                                     </td>
-                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maks Tugas --}}</td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">
+                                        @if (($penilaian['tugas'] ?? 0) > 0)
+                                            {{number_format(100/$countPenilaian['tugas'],0)}}
+                                        @endif
+                                    </td>
                                             
                                     {{-- Kolom UTS --}}
                                     <td class="border border-black p-1">
                                         {{ $penilaian ? number_format($penilaian['uts'], 0) : '' }}
                                     </td>
-                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maks UTS --}}</td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">
+                                        @if (($penilaian['uts'] ?? 0) > 0)
+                                            {{number_format(100/$countPenilaian['uts'],0)}}
+                                        @endif
+                                    </td>
                                             
                                     {{-- Kolom UAS --}}
                                     <td class="border border-black p-1">
                                         {{ $penilaian ? number_format($penilaian['uas'], 0) : '' }}
                                     </td>
-                                    <td class="border border-black p-1 bg-[#f7cbac7d]">{{-- N-Maks UAS --}}</td>
+                                    <td class="border border-black p-1 bg-[#f7cbac7d]">
+                                        @if (($penilaian['uas'] ?? 0) > 0)
+                                            {{number_format(100/$countPenilaian['uas'],0)}}
+                                        @endif
+                                    </td>
                                             
                                     {{-- Kolom Total % per baris --}}
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
@@ -300,15 +321,15 @@
                             <tr class="border border-black font-bold">
                                 <td class="border border-black p-1" colspan="3"></td>
                                 <td class="border border-black p-1 bg-black"></td>
-                                <td class="border border-black p-1  bg-[#f7cbac7d]">100</td>
+                                <td class="border border-black p-1  bg-[#f7cbac7d]">{{ $countPenilaian['kegiatan_partisipatif'] > 0 ? 100 : 0 }}</td>
                                 <td class="border border-black p-1 bg-black"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d] ">100</td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d] ">{{ $countPenilaian['hasil_proyek'] > 0 ? 100 : 0 }}</td>
                                 <td class="border border-black p-1 bg-black"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d] ">100</td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d] ">{{ $countPenilaian['tugas'] > 0 ? 100 : 0 }}</td>
                                 <td class="border border-black p-1 bg-black"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d] ">100</td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d] ">{{ $countPenilaian['uts'] > 0 ? 100 : 0 }}</td>
                                 <td class="border border-black p-1 bg-black"></td>
-                                <td class="border border-black p-1 bg-[#f7cbac7d] ">100</td>
+                                <td class="border border-black p-1 bg-[#f7cbac7d] ">{{ $countPenilaian['uas'] > 0 ? 100 : 0 }}</td>
                                 <td class="border border-black p-1 bg-black "></td>
                             </tr>
                         </tfoot>
