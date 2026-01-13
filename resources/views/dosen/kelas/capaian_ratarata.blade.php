@@ -132,7 +132,7 @@
             </div>
 
             <div class="w-full px-2 sm:px-6 pb-6 pt-2">
-                <div class="w-full h-[260px] sm:h-[320px]">
+                <div class="w-full h-[24px] sm:h-[24px]">
                     <canvas id="cpmkChart" class="w-full h-full"></canvas>
                 </div>
             </div>
@@ -221,44 +221,58 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const el = document.getElementById('cpmkChart');
-const ctx = el.getContext('2d');
+const labels = @json($labels);
+const avgData = @json($avgData);
+const maxData = @json($maxData);
+
+const ctx = document.getElementById('cpmkChart').getContext('2d');
 
 new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: @json($labels),
-        datasets: [
-            {
-                label: 'Rata-rata Mahasiswa',
-                data: @json($avgData),
-                backgroundColor: 'rgba(54, 162, 235, 0.6)'
-            },
-            {
-                label: 'Nilai Maks CPMK',
-                data: @json($maxData),
-                backgroundColor: 'rgba(75, 192, 192, 0.6)'
-            }
-        ]
+  type: 'bar',
+  data: {
+    labels,
+    datasets: [
+      {
+        label: 'Rata-rata Mahasiswa',
+        data: avgData,
+        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+        categoryPercentage: 0.7,
+        barPercentage: 0.9,
+        maxBarThickness: 60
+      },
+      {
+        label: 'Nilai Maks CPMK',
+        data: maxData,
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        categoryPercentage: 0.7,
+        barPercentage: 0.9,
+        maxBarThickness: 60
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top' },
+      tooltip: { mode: 'index', intersect: false }
     },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: { position: 'top' },
-            tooltip: { mode: 'index', intersect: false }
-        },
-        scales: {
-            x: {
-                ticks: { maxRotation: 30, minRotation: 0 }
-            },
-            y: {
-                beginAtZero: true
-            }
-        }
+    scales: {
+      x: {
+        offset: true,
+        grid: { offset: true },
+        ticks: { maxRotation: 0, minRotation: 0 }
+      },
+      y: {
+        beginAtZero: true
+      }
     }
+  }
 });
 </script>
+
+
+
 
 </body>
 </html>
