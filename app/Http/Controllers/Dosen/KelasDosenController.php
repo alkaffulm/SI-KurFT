@@ -15,6 +15,7 @@ use App\Models\RencanaAsesmenCPMKBobotModel;
 use App\Models\PenilaianMahasiswa;
 use App\Models\PenilaianMahasiswaCPMK;
 use App\Models\RencanaAsesmenModel;
+use App\Models\UserModel;
 
 class KelasDosenController extends Controller
 {
@@ -108,7 +109,19 @@ class KelasDosenController extends Controller
 
     public function capaian_ratarata($id)
     {
-        $nilaiTarget = 100;
+        $biodata = Kelas::with([
+                'mataKuliahModel.programStudi',
+                'userModel',
+            ])
+            ->where('kelas.id_kelas', $id)
+            ->join('tahun_akademik', 'kelas.id_tahun_akademik', '=', 'tahun_akademik.id_tahun_akademik')
+            ->join('kurikulum', 'kelas.id_kurikulum', '=', 'kurikulum.id_kurikulum')
+            ->select(
+                'kelas.*',
+                'tahun_akademik.tahun_akademik as tahun_akademik',
+                'kurikulum.tahun as tahun_kurikulum'
+            )
+            ->firstOrFail();
 
         $kelas = Kelas::with('mahasiswa')->findOrFail($id);
         $idMk = $kelas->id_mk;
@@ -119,50 +132,94 @@ class KelasDosenController extends Controller
             ->whereIn('id_rencana_asesmen', $rencanaAsesmen->pluck('id_rencana_asesmen'))
             ->get();
 
+        $cpmkByAsesmen = $rencanaAsesmenCPMK->groupBy('id_rencana_asesmen');
+
+        $totalBobotPerAsesmen = [];
+        foreach ($cpmkByAsesmen as $idRA => $rows) {
+            $totalBobotPerAsesmen[$idRA] = (float) $rows->sum('bobot');
+        }
+
         $penilaianMahasiswa = PenilaianMahasiswa::where('id_kelas', $id)->get();
 
         $nilaiIndex = [];
+        $nilaiBobotIndex = [];
         foreach ($penilaianMahasiswa as $p) {
             $nilaiIndex[$p->nim][$p->id_rencana_asesmen][$p->id_cpmk] = $p->nilai;
+
+            $totalBobot = $totalBobotPerAsesmen[$p->id_rencana_asesmen] ?? 0;
+            $factor = $totalBobot > 0 ? ($totalBobot / 100) : 0;
+
+            $nilaiBobotIndex[$p->nim][$p->id_rencana_asesmen][$p->id_cpmk] =
+                ($p->nilai === null || $p->nilai === '') ? null : round(((float) $p->nilai) * $factor, 2);
         }
 
-        $cpmkByAsesmen = $rencanaAsesmenCPMK->groupBy('id_rencana_asesmen');
+        $daftarCpmk = \App\Models\MK_CPMK_CPL_MapModel::with('cpmk')
+            ->where('id_mk', $idMk)
+            ->get()
+            ->pluck('cpmk')
+            ->filter()
+            ->unique('id_cpmk')
+            ->sortBy('id_cpmk')
+            ->values();
 
-        $chartLabels = [];
-        $chartData = [];
-
-        $nilaiPerNim = $penilaianMahasiswa->groupBy('nim');
-
-        foreach ($kelas->mahasiswa as $mhs) {
-            $chartLabels[] = $mhs->nim;
-
-            $nilaiList = ($nilaiPerNim[$mhs->nim] ?? collect())
-                ->pluck('nilai')
-                ->filter(fn($v) => $v !== null && $v !== '')
-                ->map(fn($v) => (float) $v)
-                ->values()
-                ->all();
-
-            $rataMahasiswa = count($nilaiList) ? array_sum($nilaiList) / count($nilaiList) : 0;
-            $chartData[] = round($rataMahasiswa, 2);
+        $maxPerCpmk = [];
+        foreach ($rencanaAsesmenCPMK as $row) {
+            $idCpmk = $row->mkCpmkMap?->id_cpmk;
+            if (!$idCpmk) continue;
+            $maxPerCpmk[$idCpmk] = ($maxPerCpmk[$idCpmk] ?? 0) + (float) $row->bobot;
         }
 
-        $rataRataKelas = count($chartData) ? round(array_sum($chartData) / count($chartData), 2) : 0;
-        $chartRataRataKelas = array_fill(0, count($chartData), $rataRataKelas);
+        $nilaiBobotPerNimCpmk = [];
+        foreach ($penilaianMahasiswa as $p) {
+            $totalBobot = $totalBobotPerAsesmen[$p->id_rencana_asesmen] ?? 0;
+            if ($totalBobot <= 0) continue;
+            if ($p->nilai === null || $p->nilai === '') continue;
+
+            $factor = $totalBobot / 100;
+            $nilaiBobot = ((float) $p->nilai) * $factor;
+
+            $nilaiBobotPerNimCpmk[$p->nim][$p->id_cpmk] =
+                ($nilaiBobotPerNimCpmk[$p->nim][$p->id_cpmk] ?? 0) + $nilaiBobot;
+        }
+
+        $labels = [];
+        $avgData = [];
+        $maxData = [];
+
+        foreach ($daftarCpmk as $cpmk) {
+            $labels[] = $cpmk->nama_kode_cpmk ?? ('CPMK ' . $cpmk->id_cpmk);
+
+            $sum = 0;
+            $count = 0;
+
+            foreach ($kelas->mahasiswa as $mhs) {
+                $val = $nilaiBobotPerNimCpmk[$mhs->nim][$cpmk->id_cpmk] ?? null;
+                if ($val === null) continue;
+                $sum += (float) $val;
+                $count++;
+            }
+
+            $avgData[] = $count ? round($sum / $count, 2) : 0;
+            $maxData[] = $maxPerCpmk[$cpmk->id_cpmk] ?? 0;
+        }
 
         return view('dosen.kelas.capaian_ratarata', [
             'kelas' => $kelas,
+            'biodata' => $biodata,
             'rencanaAsesmen' => $rencanaAsesmen,
             'rencanaAsesmenCPMK' => $rencanaAsesmenCPMK,
             'cpmkByAsesmen' => $cpmkByAsesmen,
             'penilaianMahasiswa' => $penilaianMahasiswa,
             'nilaiIndex' => $nilaiIndex,
-            'chartLabels' => $chartLabels,
-            'chartData' => $chartData,
-            'chartRataRataKelas' => $chartRataRataKelas,
-            'nilaiTarget' => $nilaiTarget,
+            'nilaiBobotIndex' => $nilaiBobotIndex,
+            'labels' => $labels,
+            'avgData' => $avgData,
+            'maxData' => $maxData,
         ]);
+
     }
+
+
 
 
 
