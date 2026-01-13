@@ -108,48 +108,63 @@ class KelasDosenController extends Controller
 
     public function capaian_ratarata($id)
     {
-        $chartLabels = [];
-        $chartData = [];
         $nilaiTarget = 100;
+
         $kelas = Kelas::with('mahasiswa')->findOrFail($id);
         $idMk = $kelas->id_mk;
 
-        $rencanaAsesmen = \App\Models\RencanaAsesmenModel::where('id_mk', $idMk)->get();
-        $rencanaAsesmenCPMK = \App\Models\RencanaAsesmenCPMKBobotModel::whereIn(
-            'id_rencana_asesmen', $rencanaAsesmen->pluck('id_rencana_asesmen')
-        )->get();
+        $rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $idMk)->get();
 
-        $penilaian_mahasiswa = \App\Models\PenilaianMahasiswa::where('id_kelas', $id)->get();
-        $penilaian_mahasiswa_cpmk = \App\Models\PenilaianMahasiswaCPMK::where('id_kelas', $id)->get();
+        $rencanaAsesmenCPMK = RencanaAsesmenCPMKBobotModel::with('mkCpmkMap.cpmk')
+            ->whereIn('id_rencana_asesmen', $rencanaAsesmen->pluck('id_rencana_asesmen'))
+            ->get();
 
-        foreach($kelas->mahasiswa as $mhs) {
+        $penilaianMahasiswa = PenilaianMahasiswa::where('id_kelas', $id)->get();
+
+        $nilaiIndex = [];
+        foreach ($penilaianMahasiswa as $p) {
+            $nilaiIndex[$p->nim][$p->id_rencana_asesmen][$p->id_cpmk] = $p->nilai;
+        }
+
+        $cpmkByAsesmen = $rencanaAsesmenCPMK->groupBy('id_rencana_asesmen');
+
+        $chartLabels = [];
+        $chartData = [];
+
+        $nilaiPerNim = $penilaianMahasiswa->groupBy('nim');
+
+        foreach ($kelas->mahasiswa as $mhs) {
             $chartLabels[] = $mhs->nim;
 
-            $nilaiMahasiswa = $penilaian_mahasiswa_cpmk
-                ->where('nim', $mhs->nim)
-                ->pluck('nilai_rata')
-                ->filter()
+            $nilaiList = ($nilaiPerNim[$mhs->nim] ?? collect())
+                ->pluck('nilai')
+                ->filter(fn($v) => $v !== null && $v !== '')
+                ->map(fn($v) => (float) $v)
+                ->values()
                 ->all();
 
-            $rataMahasiswa = count($nilaiMahasiswa) ? array_sum($nilaiMahasiswa) / count($nilaiMahasiswa) : 0;
+            $rataMahasiswa = count($nilaiList) ? array_sum($nilaiList) / count($nilaiList) : 0;
             $chartData[] = round($rataMahasiswa, 2);
         }
 
-        $rataRataKelas = count($chartData) ? round(array_sum($chartData)/count($chartData), 2) : 0;
+        $rataRataKelas = count($chartData) ? round(array_sum($chartData) / count($chartData), 2) : 0;
         $chartRataRataKelas = array_fill(0, count($chartData), $rataRataKelas);
 
         return view('dosen.kelas.capaian_ratarata', [
             'kelas' => $kelas,
             'rencanaAsesmen' => $rencanaAsesmen,
             'rencanaAsesmenCPMK' => $rencanaAsesmenCPMK,
-            'penilaian_mahasiswa' => $penilaian_mahasiswa,
-            'penilaian_mahasiswa_cpmk' => $penilaian_mahasiswa_cpmk,
+            'cpmkByAsesmen' => $cpmkByAsesmen,
+            'penilaianMahasiswa' => $penilaianMahasiswa,
+            'nilaiIndex' => $nilaiIndex,
             'chartLabels' => $chartLabels,
             'chartData' => $chartData,
             'chartRataRataKelas' => $chartRataRataKelas,
-            'nilaiTarget' => $nilaiTarget
+            'nilaiTarget' => $nilaiTarget,
         ]);
     }
+
+
 
 
 
