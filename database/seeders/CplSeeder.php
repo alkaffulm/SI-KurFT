@@ -107,19 +107,19 @@ class CplSeeder extends Seeder
             ['id_cpl' => 56, 'id_kurikulum' => 16, 'nama_kode_cpl' => '(2025)CPL-1', 'id_ps' => 7, 'desc_cpl_id' => '(2025)Mampu membangun aplikasi perangkat lunak', 'desc_cpl_en' => '(2025)Able to build software applications'],
             ['id_cpl' => 57, 'id_kurikulum' => 16, 'nama_kode_cpl' => '(2025)CPL-2', 'id_ps' => 7, 'desc_cpl_id' => '(2025)Mampu mengelola data secara efisien', 'desc_cpl_en' => '(2025)Able to manage data efficiently'],
             ['id_cpl' => 58, 'id_kurikulum' => 16, 'nama_kode_cpl' => '(2025)CPL-3', 'id_ps' => 7, 'desc_cpl_id' => '(2025)Mampu menerapkan kecerdasan buatan', 'desc_cpl_en' => '(2025)Able to apply artificial intelligence'],
-            ['id_cpl' => 59, 'id_kurikulum' => 16, 'nama_kode_cpl' => '(2025)CPL-4', 'id_ps' => 7, 'desc_cpl_id' => '(2025)Mampu membangun aplikasi perangkat lunak', 'desc_cpl_en' => '(2025)Able to build software applications'],
-            ['id_cpl' => 60, 'id_kurikulum' => 16, 'nama_kode_cpl' => '(2025)CPL-5', 'id_ps' => 7, 'desc_cpl_id' => '(2025)Mampu mengelola data secara efisien', 'desc_cpl_en' => '(2025)Able to manage data efficiently'],
-            ['id_cpl' => 61, 'id_kurikulum' => 16, 'nama_kode_cpl' => '(2025)CPL-6', 'id_ps' => 7, 'desc_cpl_id' => '(2025)Mampu menerapkan kecerdasan buatan', 'desc_cpl_en' => '(2025)Able to apply artificial intelligence'],
+            // ['id_cpl' => 59, 'id_kurikulum' => 16, 'nama_kode_cpl' => '(2025)CPL-4', 'id_ps' => 7, 'desc_cpl_id' => '(2025)Mampu membangun aplikasi perangkat lunak', 'desc_cpl_en' => '(2025)Able to build software applications'],
+            // ['id_cpl' => 60, 'id_kurikulum' => 16, 'nama_kode_cpl' => '(2025)CPL-5', 'id_ps' => 7, 'desc_cpl_id' => '(2025)Mampu mengelola data secara efisien', 'desc_cpl_en' => '(2025)Able to manage data efficiently'],
+            // ['id_cpl' => 61, 'id_kurikulum' => 16, 'nama_kode_cpl' => '(2025)CPL-6', 'id_ps' => 7, 'desc_cpl_id' => '(2025)Mampu menerapkan kecerdasan buatan', 'desc_cpl_en' => '(2025)Able to apply artificial intelligence'],
 
-            // PS 8
-            ['id_cpl' => 62, 'id_kurikulum' => 17, 'nama_kode_cpl' => '(2025)CPL-1', 'id_ps' => 8, 'desc_cpl_id' => '(2025)Mampu merancang sistem kontrol elektronik', 'desc_cpl_en' => '(2025)Able to design electronic control systems'],
-            ['id_cpl' => 63, 'id_kurikulum' => 17, 'nama_kode_cpl' => '(2025)CPL-2', 'id_ps' => 8, 'desc_cpl_id' => '(2025)Mampu melakukan analisis sinyal digital', 'desc_cpl_en' => '(2025)Able to perform digital signal analysis'],
-            ['id_cpl' => 64, 'id_kurikulum' => 17, 'nama_kode_cpl' => '(2025)CPL-3', 'id_ps' => 8, 'desc_cpl_id' => '(2025)Mampu menggunakan mikrokontroler dalam sistem', 'desc_cpl_en' => '(2025)Able to use microcontrollers in systems'],
+            // // PS 8
+            // ['id_cpl' => 62, 'id_kurikulum' => 17, 'nama_kode_cpl' => '(2025)CPL-1', 'id_ps' => 8, 'desc_cpl_id' => '(2025)Mampu merancang sistem kontrol elektronik', 'desc_cpl_en' => '(2025)Able to design electronic control systems'],
+            // ['id_cpl' => 63, 'id_kurikulum' => 17, 'nama_kode_cpl' => '(2025)CPL-2', 'id_ps' => 8, 'desc_cpl_id' => '(2025)Mampu melakukan analisis sinyal digital', 'desc_cpl_en' => '(2025)Able to perform digital signal analysis'],
+            // ['id_cpl' => 64, 'id_kurikulum' => 17, 'nama_kode_cpl' => '(2025)CPL-3', 'id_ps' => 8, 'desc_cpl_id' => '(2025)Mampu menggunakan mikrokontroler dalam sistem', 'desc_cpl_en' => '(2025)Able to use microcontrollers in systems'],
 
-            // PS 9
-            ['id_cpl' => 65, 'id_kurikulum' => 18, 'nama_kode_cpl' => '(2025)CPL-1', 'id_ps' => 9, 'desc_cpl_id' => '(2025)Mampu melakukan pemetaan geologi', 'desc_cpl_en' => '(2025)Able to perform geological mapping'],
-            ['id_cpl' => 66, 'id_kurikulum' => 18, 'nama_kode_cpl' => '(2025)CPL-2', 'id_ps' => 9, 'desc_cpl_id' => '(2025)Mampu menganalisis struktur batuan', 'desc_cpl_en' => '(2025)Able to analyze rock structures'],
-            ['id_cpl' => 67, 'id_kurikulum' => 18, 'nama_kode_cpl' => '(2025)CPL-3', 'id_ps' => 9, 'desc_cpl_id' => '(2025)Mampu melakukan interpretasi data geofisika', 'desc_cpl_en' => '(2025)Able to interpret geophysical data'],
+            // // PS 9
+            // ['id_cpl' => 65, 'id_kurikulum' => 18, 'nama_kode_cpl' => '(2025)CPL-1', 'id_ps' => 9, 'desc_cpl_id' => '(2025)Mampu melakukan pemetaan geologi', 'desc_cpl_en' => '(2025)Able to perform geological mapping'],
+            // ['id_cpl' => 66, 'id_kurikulum' => 18, 'nama_kode_cpl' => '(2025)CPL-2', 'id_ps' => 9, 'desc_cpl_id' => '(2025)Mampu menganalisis struktur batuan', 'desc_cpl_en' => '(2025)Able to analyze rock structures'],
+            // ['id_cpl' => 67, 'id_kurikulum' => 18, 'nama_kode_cpl' => '(2025)CPL-3', 'id_ps' => 9, 'desc_cpl_id' => '(2025)Mampu melakukan interpretasi data geofisika', 'desc_cpl_en' => '(2025)Able to interpret geophysical data'],
        
        
        

@@ -64,7 +64,7 @@
                                         {{ $k->jumlah_mhs}}
                                     </td>
                                     <td class="text-center px-6 py-4">
-                                        <a class="text-black hover:underline" href="{{ route('dosen.kelas.lihat', $k->id_kelas) }}">Evaluasi Mahasiswa Per Kelas</a>
+                                        <a class=" text-black hover:underline" href="{{ route('dosen.lihat.evaluasi', $k->id_kelas) }}">Evaluasi Mahasiswa Per Kelas</a>
                                     </td>
 
                                 </tr>
