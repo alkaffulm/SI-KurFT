@@ -63,8 +63,8 @@
                                                 <option value="Kegiatan Partisipatif">Kegiatan Partisipatif</option>
                                                 <option value="Hasil Proyek">Hasil Proyek</option>
                                             </select>
-                                            @error('rencanaAsesmens.'.$index.'.tipe_komponen') 
-                                                <span class="text-red-500 text-xs">{{ $message }}</span> 
+                                            @error('rencanaAsesmens.'.$index.'.tipe_komponen')
+                                                <span class="text-red-500 text-xs">{{ $message }}</span>
                                             @enderror
                                         </div>
 
@@ -73,8 +73,8 @@
                                                 <label class="text-xs text-gray-500 font-normal">Nomor Komponen</label>
                                                 <br>
                                                 <input type="number" min="1" placeholder="isi nomor komponen" wire:model="rencanaAsesmens.{{$index}}.nomor_komponen" class="p-2 border rounded-lg border-gray-300 bg-gray-100 mt-2">
-                                                @error('rencanaAsesmens.'.$index.'.nomor_komponen') 
-                                                    <span class="text-red-500 text-xs">{{ $message }}</span> 
+                                                @error('rencanaAsesmens.'.$index.'.nomor_komponen')
+                                                    <span class="text-red-500 text-xs">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         @endif
@@ -95,10 +95,19 @@
                                                 wire:model.defer="rencanaAsesmens.{{ $index }}.bobot.{{ $map->id_mk_cpmk_cpl }}"
                                                 class="bobot-input p-2 border rounded-lg mt-2"
                                                 data-map-id="{{ $map->id_mk_cpmk_cpl }}"
-                                                value="{{ $rencana['bobot'][$map->id_mk_cpmk_cpl] }}">
+                                                value="{{ $rencana['bobot'][$map->id_mk_cpmk_cpl] }}"
+                                                oninput="
+                                                    let val = parseFloat(this.value);
+                                                    if(val < 0) {
+                                                        this.value = 0;
+                                                    } else if(val > 100) {
+                                                        this.value = 100;
+                                                    }
+                                                "
+                                                >
 
-                                            @error('rencanaAsesmens.'.$index.'.bobot.'.$map->id_mk_cpmk_cpl) 
-                                                <span class="text-red-500 text-xs">{{ $message }}</span> 
+                                            @error('rencanaAsesmens.'.$index.'.bobot.'.$map->id_mk_cpmk_cpl)
+                                                <span class="text-red-500 text-xs">{{ $message }}</span>
                                             @enderror
                                         </td>
                                     @endforeach
@@ -166,9 +175,9 @@
                 Object.keys(totals).forEach(mapId => {
                     const total = totals[mapId];
                     const footerEl = document.querySelector(`.bobot-footer[data-map-id="${mapId}"]`);
-                    
+
                     if (!footerEl) return;
-                    
+
                     const standar = parseFloat(footerEl.innerText);
                     const difference = total - standar;
                     const highlight = Math.abs(difference) > 0.01; // tolerance untuk floating point
@@ -189,8 +198,8 @@
                             el.parentNode.appendChild(msgEl);
                         }
                         if (highlight) {
-                            msgEl.innerText = difference > 0 
-                                ? `Kelebihan ${difference.toFixed(2)}` 
+                            msgEl.innerText = difference > 0
+                                ? `Kelebihan ${difference.toFixed(2)}`
                                 : `Kurang ${Math.abs(difference).toFixed(2)}`;
                         } else {
                             msgEl.innerText = '';

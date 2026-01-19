@@ -131,8 +131,8 @@
                                     </th>
                                 @empty
                                     <th scope="col" class="px-6 py-3 text-gray-200 italic font-normal">
-                                         PL Belum Ditetapkan
-                                    </th>                                
+                                        PL Belum Ditetapkan
+                                    </th>
                                 @endforelse
                             </tr>
                         </thead>
@@ -180,7 +180,7 @@
                                     </th>
                                 @empty
                                     <th scope="col" class="px-6 py-3 text-gray-200 italic font-normal">
-                                         PEO Belum Ditetapkan
+                                        PEO Belum Ditetapkan
                                     </th>
                                 @endforelse
                             </tr>
