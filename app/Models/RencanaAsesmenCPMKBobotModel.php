@@ -28,5 +28,11 @@ class RencanaAsesmenCPMKBobotModel extends Model
         return $this->belongsTo(\App\Models\MK_CPMK_CPL_MapModel::class, 'id_mk_cpmk_cpl', 'id_mk_cpmk_cpl');
     }
 
+    public function cpmk()
+    {
+        return $this->belongsTo(\App\Models\CpmkModel::class, 'id_cpmk', 'id_cpmk');
+    }
+
+
 
 }

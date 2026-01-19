@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\MataKuliahModel;
+use App\Models\TahunAkademik;
+use App\Models\KurikulumModel;
 
 class Kelas extends Model
 {
@@ -36,6 +38,15 @@ class Kelas extends Model
     public function kelasMahasiswaModel()
     {
         return $this->hasMany(KelasMahasiswaModel::class, 'id_kelas', 'id_kelas');
+    }
+    public function tahunAkademik()
+    {
+        return $this->belongsTo(TahunAkademik::class, 'id_tahun_akademik', 'id_tahun_akademik');
+    }
+
+    public function kurikulum()
+    {
+        return $this->belongsTo(KurikulumModel::class, 'id_kurikulum', 'id_kurikulum');
     }
 
     public function mahasiswa()

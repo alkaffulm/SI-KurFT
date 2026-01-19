@@ -171,6 +171,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('rencana-asesmen', RencanaAsesmenController::class);
         Route::get('rencana-asesmen/form/{mataKuliah}', RencanaAsesmenForm::class)->name('rencana-asesmen.create');
 
+        // Evaluasi Mahasiswa
+            Route::get('/evaluasi/lihat/kelas/{id}', [EvaluasiMahasiswaController::class, 'lihatEvaluasi'])->name('dosen.lihat.evaluasi');
+            // update nilai untuk evaluasi mahasiswa
+            Route::post('/evaluasi/kelas/{id}/update-nilai', [EvaluasiMahasiswaController::class, 'updateNilai'])->name('dosen.evaluasi.updateNilai');
+
 
         // Kelas
             // masuk ke halaman kelas
