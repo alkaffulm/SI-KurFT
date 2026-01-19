@@ -27,47 +27,44 @@ class VisiKeilmuanController extends Controller
 
     public function create()
     {
-        return view('form.VisiKeilmuan.vkFormAdd');
+        return view('form.VisiKeilmuan.visiKeilmuanFormAdd');
     }
 
-    public function store(Request $request) // <-- Nanti ganti dengan StoreVisiKeilmuanRequest
+    public function store(UpdateVisiKeilmuanRequest $request) // <-- Nanti ganti dengan StoreVisiKeilmuanRequest
     {
-        // Validasi sementara di sini
-        $validatedData = $request->validate([
-            'id_ps' => 'required|integer',
-            'id_kurikulum' => 'required|integer',
-            'desc_vk_id' => 'required|string|min:20',
-            'desc_vk_en' => 'nullable|string|min:20',
-        ]);
+        // // Validasi sementara di sini
+        // $validatedData = $request->validate([
+        //     'id_ps' => 'required|integer',
+        //     'id_kurikulum' => 'required|integer',
+        //     'desc_vk_id' => 'required|string',
+        //     'desc_vk_en' => 'nullable|string',
+        // ]);
 
         // Gunakan validatedData untuk keamanan
-        VisiKeilmuanModel::create($validatedData);
+        VisiKeilmuanModel::create($request->validated());
 
-        return redirect()->route('visikeilmuan.index')
-            ->with('success', 'Visi Keilmuan berhasil ditambahkan!');
+        return redirect()->route('dashboard')->with('success', 'Visi Keilmuan berhasil ditambahkan!');
     }
 
-    public function edit(VisiKeilmuanModel $visi) // <-- DIUBAH
+    public function edit(VisiKeilmuanModel $visi_keilmuan) // <-- DIUBAH
     {
         // Baris ::findOrFail($id) tidak diperlukan lagi
 
-        return view('form.VisiKeilmuan.visiKeilmuanFormEdit', [
-            'visi' => $visi
-        ]);
+        return view('form.VisiKeilmuan.visiKeilmuanFormEdit', ['visi' => $visi_keilmuan]);
     }
 
-    public function update(UpdateVisiKeilmuanRequest $request, VisiKeilmuanModel $visi)
+    public function update(UpdateVisiKeilmuanRequest $request, VisiKeilmuanModel $visi_keilmuan)
     {
-        $visi->update($request->validated());
+        $visi_keilmuan->update($request->validated());
 
-        return redirect()->route('visikeilmuan.index')
+        return redirect()->route('dashboard')
             ->with('success', 'Visi Keilmuan berhasil diperbarui!');
     }
 
-    public function destroy(VisiKeilmuanModel $visi) // <-- DIUBAH
+    public function destroy(VisiKeilmuanModel $visi_keilmuan) // <-- DIUBAH
     {
         // Baris ::findOrFail($id) tidak diperlukan lagi
-        $visi->delete();
+        $visi_keilmuan->delete();
 
         return redirect()->route('visikeilmuan.index')
             ->with('success', 'Visi Keilmuan berhasil dihapus!');

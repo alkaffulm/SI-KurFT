@@ -12,15 +12,15 @@
 
     <div class="p-4 sm:p-8 sm:ml-64">
         <main class="mt-20 mb-5 max-w-5xl mx-auto">
-            <form action="{{ route('visi-keilmuan.update', $visi->id_visi_keilmuan) }}" method="POST">
+            <form action="{{ route('visi-keilmuan.store') }}" method="POST">
                 @csrf
-                @method('PUT')
 
                 <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
+                <input type="hidden" name="id_kurikulum" value="{{ session('id_kurikulum_aktif') }}">
 
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
                     <div class="mb-10">
-                        <h1 class="text-4xl font-bold text-gray-800">Edit Visi Keilmuan</h1>
+                        <h1 class="text-4xl font-bold text-gray-800">Tambah Visi Keilmuan</h1>
                     </div>
 
                     {{-- Pesan error --}}
@@ -41,7 +41,7 @@
                             <label for="" class="block text-base font-medium text-gray-700 mb-2">Visi Keilmuan (Indonesia)</label>
                             <textarea id="desc_vk_id" name="desc_vk_id" rows="5"
                                 class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 text-base"
-                                required>{{ old('desc_vk_id', $visi->desc_vk_id ?? '') }}
+                                required>
                             </textarea>
                         </div>
 
@@ -49,7 +49,7 @@
                             <label for="" class="block text-base font-medium text-gray-700 mb-2">Visi Keilmuan (English)</label>
                             <textarea id="desc_vk_en" name="desc_vk_en" rows="5"
                                 class="w-full bg-gray-50 border border-gray-300 rounded-lg p-3 text-base"
-                                required>{{ old('desc_vk_en', $visi->desc_vk_en ?? '') }}
+                                required>
                             </textarea>
                         </div>
                     </div>

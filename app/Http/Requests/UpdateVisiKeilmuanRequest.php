@@ -12,7 +12,7 @@ class UpdateVisiKeilmuanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::user() && Auth::user()->role === 'kaprodi';
+        return true;
     }
 
     /**
@@ -23,8 +23,10 @@ class UpdateVisiKeilmuanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'desc_vk_id' => 'required|string|min:20',
-            'desc_vk_en' => 'nullable|string|min:20',
+            'id_ps' => 'required',
+            'id_kurikulum' => 'nullable',
+            'desc_vk_id' => 'required|string',
+            'desc_vk_en' => 'nullable|string',
         ];
     }
 
@@ -32,8 +34,6 @@ class UpdateVisiKeilmuanRequest extends FormRequest
     {
         return [
             'desc_vk_id.required' => 'Visi Keilmuan dalam Bahasa Indonesia wajib diisi.',
-            'desc_vk_id.min'      => 'Visi Keilmuan minimal harus 20 karakter.',
-            'desc_vk_en.min'      => 'Visi Keilmuan dalam Bahasa Inggris minimal harus 20 karakter.',
         ];
     }
 }
