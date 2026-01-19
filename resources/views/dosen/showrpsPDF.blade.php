@@ -284,9 +284,10 @@
                                 {{-- Mengambil data penilaian (Tugas, UTS, UAS) untuk CPMK saat ini --}}
                                 @php
                                     $penilaian = $bobotPenilaian[$bobot->id_cpmk][$bobot->id_cpl] ?? null;
+                                    $totalCpmk = $bobot->bobot ?? 0;
                                 @endphp
                                                 
-                                <td >{{ $penilaian ? number_format($penilaian['kegiatan_partisipatif'], 0) : '' }} </td>
+                                {{-- <td >{{ $penilaian ? number_format($penilaian['kegiatan_partisipatif'], 0) : '' }} </td>
                                 <td style="background-color: #f7cbac7d">
                                     @if (($penilaian['kegiatan_partisipatif'] ?? 0) > 0)
                                         {{number_format(100/$countPenilaian['kegiatan_partisipatif'],0)}}
@@ -301,7 +302,57 @@
                                 </td>
     
                                         {{-- Kolom Tugas --}}
-                                <td >{{ $penilaian ? number_format($penilaian['tugas'], 0) : '' }}</td>
+                                {{-- <td >{{ $penilaian ? number_format($penilaian['tugas'], 0) : '' }}</td>
+                                <td style="background-color: #f7cbac7d">
+                                    @if (($penilaian['tugas'] ?? 0) > 0)
+                                        {{number_format(100/$countPenilaian['tugas'],0)}}
+                                    @endif                                    
+                                </td> --}}
+                                                
+                                        {{-- Kolom UTS --}}
+                                {{-- <td >{{ $penilaian ? number_format($penilaian['uts'], 0) : '' }}</td>
+                                <td style="background-color: #f7cbac7d">
+                                    @if (($penilaian['uts'] ?? 0) > 0)
+                                        {{number_format(100/$countPenilaian['uts'],0)}}
+                                    @endif
+                                </td> --}}
+                                                
+                                        {{-- Kolom UAS --}}
+                                {{-- <td >{{ $penilaian ? number_format($penilaian['uas'], 0) : '' }}</td>
+                                <td style="background-color: #f7cbac7d">
+                                    @if (($penilaian['uas'] ?? 0) > 0)
+                                        {{number_format(100/$countPenilaian['uas'],0)}}
+                                    @endif
+                                </td> --}}
+
+                                <td >
+                                    @if (($penilaian['kegiatan_partisipatif'] ?? 0) > 0)
+                                        {{ number_format(($penilaian['kegiatan_partisipatif'] / $totalCpmk) * 100, 0) }}
+                                    @endif
+                                </td>
+                                <td style="background-color: #f7cbac7d">
+                                    @if (($penilaian['kegiatan_partisipatif'] ?? 0) > 0)
+                                        {{number_format(100/$countPenilaian['kegiatan_partisipatif'],0)}}
+                                    @endif
+                                </td>
+    
+                                <td >
+                                    @if (($penilaian['hasil_proyek'] ?? 0) > 0)
+                                        {{ number_format(($penilaian['hasil_proyek'] / $totalCpmk) * 100, 0) }}
+                                    @endif 
+                                </td>
+                                <td style="background-color: #f7cbac7d">
+                                    @if (($penilaian['hasil_proyek'] ?? 0) > 0)
+                                        {{number_format(100/$countPenilaian['hasil_proyek'],0)}}
+                                    @endif
+                                </td>
+    
+                                        {{-- Kolom Tugas --}}
+                                <td >
+                                    @if (($penilaian['tugas'] ?? 0) > 0)
+                                        {{ number_format(($penilaian['tugas'] / $totalCpmk) * 100, 0) }}
+                                    @endif        
+                                </td>
                                 <td style="background-color: #f7cbac7d">
                                     @if (($penilaian['tugas'] ?? 0) > 0)
                                         {{number_format(100/$countPenilaian['tugas'],0)}}
@@ -309,7 +360,11 @@
                                 </td>
                                                 
                                         {{-- Kolom UTS --}}
-                                <td >{{ $penilaian ? number_format($penilaian['uts'], 0) : '' }}</td>
+                                <td >
+                                    @if (($penilaian['uts'] ?? 0) > 0)
+                                        {{ number_format(($penilaian['uts'] / $totalCpmk) * 100, 0) }}
+                                    @endif
+                                </td>
                                 <td style="background-color: #f7cbac7d">
                                     @if (($penilaian['uts'] ?? 0) > 0)
                                         {{number_format(100/$countPenilaian['uts'],0)}}
@@ -317,7 +372,11 @@
                                 </td>
                                                 
                                         {{-- Kolom UAS --}}
-                                <td >{{ $penilaian ? number_format($penilaian['uas'], 0) : '' }}</td>
+                                <td >
+                                    @if (($penilaian['uas'] ?? 0) > 0)
+                                        {{ number_format(($penilaian['uas'] / $totalCpmk) * 100, 0) }}
+                                    @endif
+                                </td>
                                 <td style="background-color: #f7cbac7d">
                                     @if (($penilaian['uas'] ?? 0) > 0)
                                         {{number_format(100/$countPenilaian['uas'],0)}}
@@ -325,7 +384,7 @@
                                 </td>
                                                 
                                         {{-- Kolom Total % per baris --}}
-                                <td style="background-color: #f7cbac7d">{{ number_format($penilaian['tugas'] + $penilaian['uts'] + $penilaian['uas'], 0) }}</td>
+                                <td style="background-color: #f7cbac7d">{{ number_format(($penilaian['tugas'] + $penilaian['uts'] + $penilaian['uas']) / $totalCpmk * 100, 0) }}</td>
                             </tr>
                         @empty
                             {{-- Pesan jika tidak ada data sama sekali --}}

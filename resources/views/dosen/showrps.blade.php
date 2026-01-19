@@ -261,9 +261,7 @@
                                         {{ $penilaian ? number_format($penilaian['kegiatan_partisipatif'], 0) : '' }} 
                                     {{-- </td> --}}
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
-                                        @if (($penilaian['kegiatan_partisipatif'] ?? 0) > 0)
-                                            {{ number_format(($penilaian['kegiatan_partisipatif'] / $totalCpmk) * 100, 2) }}%
-                                        @endif
+
                                     </td>
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
                                         @if (($penilaian['kegiatan_partisipatif'] ?? 0) > 0)
@@ -280,7 +278,7 @@
                                     </td> --}}
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
                                         @if (($penilaian['hasil_proyek'] ?? 0) > 0)
-                                            {{ number_format(($penilaian['hasil_proyek'] / $totalCpmk) * 100, 2) }}%
+                                            {{ number_format(($penilaian['hasil_proyek'] / $totalCpmk) * 100, 0) }}
                                         @endif
                                     </td>
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
@@ -297,7 +295,7 @@
                                     </td> --}}
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
                                         @if (($penilaian['tugas'] ?? 0) > 0)
-                                            {{ number_format(($penilaian['tugas'] / $totalCpmk) * 100, 2) }}%
+                                            {{ number_format(($penilaian['tugas'] / $totalCpmk) * 100, 0) }}
                                         @endif
                                     </td>
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
@@ -314,7 +312,7 @@
                                     </td> --}}
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
                                         @if (($penilaian['uts'] ?? 0) > 0)
-                                            {{ number_format(($penilaian['uts'] / $totalCpmk) * 100, 2) }}%
+                                            {{ number_format(($penilaian['uts'] / $totalCpmk) * 100, 0) }}
                                         @endif
                                     </td>
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
@@ -331,7 +329,7 @@
                                     </td> --}}
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
                                         @if (($penilaian['uas'] ?? 0) > 0)
-                                            {{ number_format(($penilaian['uas'] / $totalCpmk) * 100, 2) }}%
+                                            {{ number_format(($penilaian['uas'] / $totalCpmk) * 100, 0) }}
                                         @endif
                                     </td>
                                     <td class="border border-black p-1 bg-[#f7cbac7d]">
