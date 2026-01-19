@@ -64,6 +64,21 @@
                                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
+                            <div class="col-span-12 sm:col-span-5">
+                                <label for="nama_metode_pembelajaran"
+                                    class="block text-base font-medium text-gray-700 mb-2">
+                                    Tipe Metode Pembelajaran <span class="text-red-500">*</span>
+                                </label>
+                                <select name="tipe_metode_pembelajaran" id="tipe_metode_pembelajaran" required class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                    value="{{ old('tipe_metode_pembelajaran') }}">
+                                    <option value="">Pilih Tipe</option>
+                                    <option value="tm">TM</option>
+                                    <option value="bm">BM</option>
+                                </select>
+                                @error('tipe_metode_pembelajaran')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="mt-12 pt-8 border-t border-gray-200 flex justify-end items-center gap-x-4">

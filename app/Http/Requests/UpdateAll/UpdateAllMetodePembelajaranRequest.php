@@ -26,7 +26,8 @@ class UpdateAllMetodePembelajaranRequest extends FormRequest
             'metode_pembelajaran' => 'sometimes|array',
             'metode_pembelajaran.*' => 'array', // setiap item harus berupa array
             'metode_pembelajaran.*.nama_metode_pembelajaran' => 'required|string|max:255',
-            
+            'metode_pembelajaran.*.tipe_metode_pembelajaran' => 'required|in:tm,bm',
+
             // Validasi untuk array delete (optional)
             'delete_metode_pembelajaran' => 'sometimes|array',
             'delete_metode_pembelajaran.*' => 'integer|exists:metode_pembelajaran,id_metode_pembelajaran',
@@ -44,7 +45,9 @@ class UpdateAllMetodePembelajaranRequest extends FormRequest
             'metode_pembelajaran.*.nama_metode_pembelajaran.required' => 'Nama Metode Pembelajaran tidak boleh kosong.',
             'metode_pembelajaran.*.nama_metode_pembelajaran.string' => 'Nama Metode Pembelajaran harus berupa teks.',
             'metode_pembelajaran.*.nama_metode_pembelajaran.max' => 'Nama Metode Pembelajaran maksimal 255 karakter.',
-            
+            'metode_pembelajaran.*.tipe_metode_pembelajaran.required' => 'Tipe Metode Pembelajaran tidak boleh kosong.',
+            'metode_pembelajaran.*.tipe_metode_pembelajaran.in' => 'Tipe Metode Pembelajaran harus dipilih antara bm atau tm.',
+
             'delete_metode_pembelajaran.*.integer' => 'ID yang akan dihapus harus berupa angka.',
             'delete_metode_pembelajaran.*.exists' => 'Data yang akan dihapus tidak ditemukan.',
         ];
@@ -59,6 +62,8 @@ class UpdateAllMetodePembelajaranRequest extends FormRequest
     {
         return [
             'metode_pembelajaran.*.nama_metode_pembelajaran' => 'Nama Metode Pembelajaran',
+            "metode_pembelajaran.*.tipe_metode_pembelajaran.required" => 'Tipe Metode Pembelajaran tidak boleh kosong',
+            "metode_pembelajaran.*.tipe_metode_pembelajaran.in" => 'Tipe Metode Pembelajaran harus dipilih antara bm atau tm',
         ];
     }
 }

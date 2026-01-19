@@ -79,6 +79,17 @@
                         </div>
 
                         <div>
+                            <label for="profesi" class="block text-base font-medium text-gray-700 mb-2">Profesi</label>
+                            <input type="text" id="profesi" name="profesi"
+                                class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                placeholder="Contoh: IT Auditor" value="{{ old('profesi') }}"
+                                required>
+                            @error('profesi')
+                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
                             <label for="desc_pl_id"
                                 class="block text-base font-medium text-gray-700 mb-2">Deskripsi Profil Lulusan (Indonesia)</label>
                             <textarea id="desc_pl_id" name="desc_pl_id" rows="4"

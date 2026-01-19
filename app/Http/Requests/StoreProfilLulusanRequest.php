@@ -29,6 +29,7 @@ class StoreProfilLulusanRequest extends FormRequest
             'nama_pl_en' => 'required|string',
             'desc_pl_id' => 'required|string',
             'desc_pl_en' => 'required|string',
+            'profesi' => 'required|string',
         ];
     }
 
@@ -45,6 +46,8 @@ class StoreProfilLulusanRequest extends FormRequest
             'desc_pl_id.string'   => 'Deskripsi Profil Lulusan (Indonesia) harus berupa string',
             'desc_pl_en.required' => 'Deskripsi Profil Lulusan (English) tidak boleh kosong.',
             'desc_pl_en.string'   => 'Deskripsi Profil Lulusan (English) harus berupa string',
+            'profesi.required' => 'Profesi tidak boleh kosong.',
+            'profesi.string'   => 'Profesi harus berupa string',
         ];
     }
 }

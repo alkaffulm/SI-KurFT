@@ -61,6 +61,17 @@
                                             value="{{ old('metode_pembelajaran.' . $tp->id_metode_pembelajaran . '.nama_metode_pembelajaran', $tp->nama_metode_pembelajaran) }}"
                                             required>
                                     </div>
+                                    <div class="col-span-12 sm:col-span-5">
+                                        <label for="tipe_metode_pembelajaran_{{ $tp->id_metode_pembelajaran }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Tipe Metode Pembelajaran</label>
+                                        <select name="metode_pembelajaran[{{ $tp->id_metode_pembelajaran }}][tipe_metode_pembelajaran]" :disabled="isDeleting" 
+                                            id="tipe_metode_pembelajaran_{{ $tp->id_metode_pembelajaran }}" 
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" 
+                                            required>
+                                            <option value="bm" {{ old('metode_pembelajaran.' . $tp->id_metode_pembelajaran . '.tipe_metode_pembelajaran', $tp->tipe_metode_pembelajaran) == 'bm' ? 'selected' : '' }}>BM</option>
+                                            <option value="tm" {{ old('metode_pembelajaran.' . $tp->id_metode_pembelajaran . '.tipe_metode_pembelajaran', $tp->tipe_metode_pembelajaran) == 'tm' ? 'selected' : '' }}>TM</option>
+                                        </select>
+                                    </div>
                                     <div class="col-span-1 flex items-center justify-center pt-8">
                                         <input type="checkbox" id="delete_{{ $tp->id_metode_pembelajaran }}" name="delete_metode_pembelajaran[]"
                                             value="{{ $tp->id_metode_pembelajaran }}" class="hidden" x-model="isDeleting">

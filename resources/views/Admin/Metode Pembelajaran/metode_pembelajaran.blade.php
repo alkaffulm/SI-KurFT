@@ -76,6 +76,9 @@
                                 <th scope="col" class="px-6 py-4">
                                     Nama Metode Pembelajaran
                                 </th>
+                                <th scope="col" class="px-6 py-4">
+                                    Tipe Metode Pembelajaran
+                                </th>
                                 {{-- <th scope="col" class="px-6 py-4">
                                     Kategori Teknik Penilaian
                                 </th> --}}
@@ -91,6 +94,10 @@
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">
                                             {{ $mp->nama_metode_pembelajaran }}
+                                        </th>
+                                        <th scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">
+                                            {{ $mp->tipe_metode_pembelajaran }}
                                         </th>
                                         {{-- <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">
                                             {{ $tp->kategori }}

@@ -87,6 +87,16 @@
                                             required>
                                     </div>
 
+                                    <div class="col-span-12 sm:col-span-10">
+                                        <label for="profil_lulusan_{{ $pl->id_pl }}"
+                                            class="block text-base font-medium text-gray-700 mb-2">Profesi</label>
+                                        <input type="text" id="profil_lulusan_{{ $pl->id_pl }}"
+                                            name="pl[{{ $pl->id_pl }}][profesi]" :disabled="isDeleting"
+                                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
+                                            value="{{ old('pl.' . $pl->id_pl . '.profesi', $pl->profesi) }}"
+                                            required>
+                                    </div>
+                                    
                                     {{-- Deskripsi Profil Lulusan ID dan EN --}}
                                     <div class="col-span-11 sm:col-span-5">
                                         <label for="desc_{{ $pl->id_pl }}"

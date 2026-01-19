@@ -45,6 +45,7 @@ class MetodePembelajaranController extends Controller
     {
         MetodePembelajaranModel::create([
             'nama_metode_pembelajaran' => $request->nama_metode_pembelajaran,
+            'tipe_metode_pembelajaran' => $request->tipe_metode_pembelajaran,
             'id_ps' => Auth::user()->id_ps,
         ]);
 

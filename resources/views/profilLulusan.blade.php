@@ -71,6 +71,7 @@
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-white uppercase bg-teks-biru-custom">
                             <tr>
+                                <th scope="col" class="px-6 py-4">Kode Profil Lulusan (PL)</th>
                                 <th scope="col" class="px-6 py-4">Profil Lulusan (PL)</th>
                                 <th scope="col" class="px-6 py-4">Deskripsi Profil Lulusan</th>
                             </tr>
@@ -82,6 +83,10 @@
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $pl->kode_pl }}
+                                    </th>
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        {{ $pl->nama_pl_id }}
                                     </th>
                                     <td class="px-6 py-4 text-left border-r border-gray-400">
                                         <p>{{ $pl->desc_pl_id }}</p>

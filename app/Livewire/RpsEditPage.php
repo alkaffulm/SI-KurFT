@@ -52,7 +52,8 @@ class RpsEditPage extends Component
     public $allTeknik = [];
     public $allWeek = [];
     /** @var Collection|MetodePembelajaranModel[] */
-    public $allMetodePembelajaran = [];
+    public $allMetodePembelajaranBM = [];
+    public $allMetodePembelajaranTM = [];
     public $allMediaPerangkatLunak = [];
     public $allMediaPerangkatKeras = [];
     public $allModelPembelajaran = [];
@@ -86,7 +87,8 @@ class RpsEditPage extends Component
         $this->allTeknik = TeknikPenilaianModel::all();
         $this->allMataKuliah = MataKuliahModel::where('id_mk', '!=', $rps->id_mk)->get();
         $this->allWeek = WeekModel::all();
-        $this->allMetodePembelajaran = MetodePembelajaranModel::all();
+        $this->allMetodePembelajaranBM = MetodePembelajaranModel::where('tipe_metode_pembelajaran', 'bm')->get();
+        $this->allMetodePembelajaranTM = MetodePembelajaranModel::where('tipe_metode_pembelajaran', 'tm')->get();
         $this->allMediaPerangkatKeras = MediaPembelajaranModel::where('tipe', 'perangkat_keras')->get();
         $this->allMediaPerangkatLunak = MediaPembelajaranModel::where('tipe', 'perangkat_lunak')->get();
         $this->allModelPembelajaran = ModelPembelajaranModel::all();

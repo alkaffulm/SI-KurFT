@@ -19,7 +19,8 @@ class ProfilLulusanModel extends Model
         'nama_pl_id',
         'nama_pl_en',
         'desc_pl_id',
-        'desc_pl_en'
+        'desc_pl_en',
+        'profesi'
     ];
 
     protected static function booted(): void

@@ -13,7 +13,8 @@ class MetodePembelajaranModel extends Model
 
     protected $fillable = [
         'nama_metode_pembelajaran',
-        'id_ps'
+        'id_ps',
+        'tipe_metode_pembelajaran'
     ];
     protected static function booted(): void
     {

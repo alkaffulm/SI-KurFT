@@ -30,17 +30,17 @@ class DatabaseSeeder extends Seeder
             
             //  B. Level 1 Dependency
             UserSeeder::class,                    // 7
-            // MataKuliahSeeder::class,              // 8
+            MataKuliahSeeder::class,              // 8
             MahasiswaSeeder::class,               // 9
-            // CplSeeder::class,                     // 10
-            // ProfilLulusanSeeder::class,           // 11
+            CplSeeder::class,                     // 10
+            ProfilLulusanSeeder::class,           // 11
             
             // C. Level 2 Dependency
             UserRoleMapSeeder::class,             // 12
             UserPersonalisasiSeeder::class,       // 13
 
             // ModelPembelajaranSeeder::class,
-            // CpmkSeeder::class,                    // 14
+            CpmkSeeder::class,                    // 14
             // RpsSeeder::class,                     // 15
 
             //  D. Level 3+ Dependency

@@ -27,6 +27,7 @@ class UpdateAllProfilLulusanRequest extends FormRequest
             'pl.*.nama_pl_en' => 'required|string',
             'pl.*.desc_pl_id' => 'required|string',
             'pl.*.desc_pl_en' => 'required|string',
+            'pl.*.profesi' => 'required|string',
         ];
     }
 
@@ -43,6 +44,8 @@ class UpdateAllProfilLulusanRequest extends FormRequest
             'pl.*.desc_pl_id.string'   => 'Deskripsi Profil Lulusan (Indonesia) harus berupa string',
             'pl.*.desc_pl_en.required' => 'Deskripsi Profil Lulusan (English) tidak boleh kosong.',
             'pl.*.desc_pl_en.string'   => 'Deskripsi Profil Lulusan (English) harus berupa string',
+            'pl.*.profesi.required' => 'Profesi tidak boleh kosong.',
+            'pl.*.profesi.string'   => 'Profesi harus berupa string',
         ];
     }
 }
