@@ -82,7 +82,6 @@ class MKCPMKCPLMapSeeder extends Seeder
 
             // STI3117
             ['id_mk'=>50,'id_cpl'=>25,'id_cpmk'=>54],
-            ['id_mk'=>50,'id_cpl'=>25,'id_cpmk'=>56],
 
             // STI3118
             ['id_mk'=>51,'id_cpl'=>26,'id_cpmk'=>58],
