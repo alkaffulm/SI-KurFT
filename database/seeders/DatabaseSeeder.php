@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
 
             // ModelPembelajaranSeeder::class,
             CpmkSeeder::class,                    // 14 dimatikan saat deploy
-            RpsSeeder::class,                     // 15 dimatilkan saat deploy
+            // RpsSeeder::class,                     // 15 dimatilkan saat deploy
 
             //  D. Level 3+ Dependency
             // SubCpmkSeeder::class,                 // 16 dimatikan saat deploy
