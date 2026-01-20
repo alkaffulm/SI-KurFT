@@ -257,6 +257,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div>
+                    {{$mata_kuliah->links()}}
+                </div>
             </div>
         </main>
     </div>

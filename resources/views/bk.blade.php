@@ -76,7 +76,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($bahan_kajian as $bk)
+                            @forelse ($bahan_kajianpg as $bk)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
@@ -102,7 +102,7 @@
                 </div>
                 {{-- menampilkan pagination --}}
                 <div>
-                    {{$bahan_kajian->links()}}
+                    {{$bahan_kajianpg->links()}}
                 </div>
 
                 {{-- Bagian Tabel Korelasi BK dan CPL --}}
@@ -232,7 +232,7 @@
                 </div>
                 {{-- menampilkan pagination --}}
                 <div>
-                    {{$bahan_kajian->links()}}
+                    {{$mata_kuliah->links()}}
                 </div>
             </div>
         </main>

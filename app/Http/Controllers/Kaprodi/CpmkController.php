@@ -35,7 +35,7 @@ class CpmkController extends Controller
     {
         $cpmk = CPMKModel::orderBy('nama_kode_cpmk')->paginate(5, ['*'], 'cpmk');
         $cpmkAll = CPMKModel::all();
-        $mata_kuliah = MataKuliahModel::with('cpmks')->orderBy('kode_mk')->get();
+        $mata_kuliah = MataKuliahModel::with('cpmks')->orderBy('kode_mk')->paginate(10, ['*'], 'mata-kuliah');
         $bobotCpmkCpl = CPLCPMKBobotModel::all();
         $subCpmk = SubCPMKModel::with('cpmk')->orderBy('nama_kode_sub_cpmk')->paginate(5, ['*'], 'sub-cpmk');
 

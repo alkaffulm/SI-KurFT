@@ -164,6 +164,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div>
+                    {{ $cpl->links() }}
+                </div>
 
                 {{-- Bagian Tabel Korelasi CPL dan PEO --}}
                 <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Korelasi CPL dengan Programme

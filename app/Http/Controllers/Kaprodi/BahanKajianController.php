@@ -25,7 +25,8 @@ class BahanKajianController extends Controller
      */
     public function index()
     {
-        $bahan_kajian = BahanKajianModel::paginate(5);
+        $bahan_kajianpg = BahanKajianModel::paginate(5, ['*'], 'bk');
+        $bahan_kajian = BahanKajianModel::all();
         $cpl = CPLModel::all();
         $jumlah_bk = BahanKajianModel::count();
         $bk_cpl_raw = BKCPLMapModel::all();
@@ -39,7 +40,7 @@ class BahanKajianController extends Controller
                 $bk_cpl_map[$id_cpl][] = $id_bk;
             }
         }
-        $mata_kuliah = MataKuliahModel::all();
+        $mata_kuliah = MataKuliahModel::paginate(10, ['*'], 'mata-kuliah');
         $bk_mk_raw = BKMKMapModel::all();
         $bk_mk_map = [];
 
@@ -54,6 +55,7 @@ class BahanKajianController extends Controller
 
         return view('bk', [
             'bahan_kajian' => $bahan_kajian,
+            'bahan_kajianpg' => $bahan_kajianpg,
             'cpl' => $cpl,
             'bk_cpl_map' => $bk_cpl_map,
             'jumlah_bk' => $jumlah_bk,

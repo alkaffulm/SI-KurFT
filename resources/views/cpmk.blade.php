@@ -247,6 +247,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div>
+                    {{$mata_kuliah->links()}}
+                </div>
 
                 {{-- bagian pembobotan untuk setiap cpmk di dalam mata kuliah --}}
                 <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Tabel Bobot CPMK untuk Setiap Mata Kuliah</h2>
