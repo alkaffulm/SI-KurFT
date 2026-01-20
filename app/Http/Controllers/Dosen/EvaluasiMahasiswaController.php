@@ -13,8 +13,22 @@ class EvaluasiMahasiswaController extends Controller
 {
     public function __construct()
     {
+        // Catatan: Middleware Auth harus sudah jalan agar Auth::id() terbaca di sini
         view()->share('userRole', session()->get('userRole'));
         view()->share('idUser', Auth::id());
+    }
+
+    public function index()
+    {
+        $idDosen = Auth::id();
+        $kelas = Kelas::with(['mataKuliahModel', 'userModel'])
+            ->where('id_user', $idDosen)
+            ->get();
+
+        // 3. Tampilkan view 'dosen/evaluasimahasiswa.blade.php'
+        return view('dosen.evaluasimahasiswa', [
+            'kelas' => $kelas
+        ]);
     }
 
     public function lihatEvaluasi($id, \App\Services\EvaluasiCplPerKelasService $svc)
@@ -39,7 +53,6 @@ class EvaluasiMahasiswaController extends Controller
         $tidakLulus = $result['tidak_lulus'] ?? [];
         $nimTidakLulus = collect($tidakLulus)->pluck('nim')->values();
 
-        // ===== Mapping detail: CPL - CPMK - Komponen - Bobot =====
         $mappingDetail = DB::table('rencana_asesmen_cpmk_bobot as racb')
             ->join('rencana_asesmen as ra', 'racb.id_rencana_asesmen', '=', 'ra.id_rencana_asesmen')
             ->join('mk_cpmk_cpl_map as mccm', 'racb.id_mk_cpmk_cpl', '=', 'mccm.id_mk_cpmk_cpl')
@@ -62,7 +75,6 @@ class EvaluasiMahasiswaController extends Controller
             ->orderBy('ra.nomor_komponen')
             ->get();
 
-        // ===== Total bobot per komponen (id_rencana_asesmen) =====
         $totalBobotKomponenMap = DB::table('rencana_asesmen_cpmk_bobot as racb')
             ->join('rencana_asesmen as ra', 'racb.id_rencana_asesmen', '=', 'ra.id_rencana_asesmen')
             ->where('ra.id_mk', $kelas->id_mk)
@@ -71,7 +83,6 @@ class EvaluasiMahasiswaController extends Controller
             ->pluck('total_bobot', 'id_rencana_asesmen')
             ->toArray();
 
-        // ===== Nilai existing untuk nim tidak lulus =====
         $nilaiExisting = collect();
         if ($nimTidakLulus->isNotEmpty()) {
             $nilaiExisting = DB::table('penilaian_mahasiswa as pm')
@@ -85,7 +96,6 @@ class EvaluasiMahasiswaController extends Controller
 
         $mhsMap = $kelas->mahasiswa->keyBy('nim');
 
-        // ===== Build rows untuk tabel update =====
         $updateRows = [];
         foreach ($nimTidakLulus as $nim) {
             $mhs = $mhsMap[$nim] ?? null;
