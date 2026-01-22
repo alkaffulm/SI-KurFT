@@ -23,7 +23,7 @@
             {{-- Konten dinamis berdasarkan peran pengguna --}}
             @if ($userRole == 'kaprodi')
                 @include('partials.dashboard-kaprodi')
-                @include('visikeilmuan', ['visi' => $visi])
+                @livewire('visi-keilmuan')
             @elseif($userRole == 'dosen')
                 @include('partials.dashboard-dosen', ['tanggungJawabDosen' => $tanggungJawabDosen])
             @elseif($userRole == 'pimpinan')

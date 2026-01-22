@@ -32,13 +32,6 @@ class VisiKeilmuanController extends Controller
 
     public function store(UpdateVisiKeilmuanRequest $request) // <-- Nanti ganti dengan StoreVisiKeilmuanRequest
     {
-        // // Validasi sementara di sini
-        // $validatedData = $request->validate([
-        //     'id_ps' => 'required|integer',
-        //     'id_kurikulum' => 'required|integer',
-        //     'desc_vk_id' => 'required|string',
-        //     'desc_vk_en' => 'nullable|string',
-        // ]);
 
         // Gunakan validatedData untuk keamanan
         VisiKeilmuanModel::create($request->validated());
