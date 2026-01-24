@@ -14,6 +14,7 @@ class ProgramStudiSeeder extends Seeder
     public function run(): void
     {
         DB::table('program_studi')->insert([
+            // Prodi S1
             ['id_ps' => 1, 'nama_prodi' => 'Teknik Sipil'],
             ['id_ps' => 2, 'nama_prodi' => 'Teknik Pertambangan'],
             ['id_ps' => 3, 'nama_prodi' => 'Teknik Mesin'],
@@ -23,6 +24,14 @@ class ProgramStudiSeeder extends Seeder
             ['id_ps' => 7, 'nama_prodi' => 'Teknologi Informasi'],
             ['id_ps' => 8, 'nama_prodi' => 'Rekayasa Elektro'],
             ['id_ps' => 9, 'nama_prodi' => 'Rekayasa Geologi'],
+            // Prodi S2
+            ['id_ps' => 10, 'nama_prodi' => 'Magister Teknik Sipil'],
+            ['id_ps' => 11, 'nama_prodi' => 'Magister Teknik Mesin'],
+            ['id_ps' => 12, 'nama_prodi' => 'Magister Arsitektur'],
+            ['id_ps' => 13, 'nama_prodi' => 'Magister Teknik Kimia'],
+            // Prodi S3
+            ['id_ps' => 14, 'nama_prodi' => 'Teknik Berkelanjutan' ],
+    
         ]);
     }
 }

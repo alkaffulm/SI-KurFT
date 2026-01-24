@@ -13,83 +13,133 @@ class UserRoleMapSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. MAPING ROLE SPESIAL BERDASARKAN NIP
-        $roleMap = [
-            // --- LEVEL PIMPINAN ---
-            '197309031997021001' => [2, 4], // Pak Iphan (Dosen & Dekan)
-            '197306152000031002' => [2, 4], // Nurhakim (Dosen & WD I Bidang Keuangan dan Kepegawaian)
-            '197401071998021001' => [2, 4], // Mahmud (Dosen & WD II Bidang Akademik)
-            '197007171998021001' => [2, 4], // Abdul Ghofur (Dosen & WD III Bidang Kemahasiswaan dan Alumni)
+        // 'NIP' => [ ['role' => ID_ROLE, 'ps' => ID_PS_JABATAN] ]
+        $jabatanMap = [
+            // --- TINGKAT FAKULTAS ---
+            '197309031997021001' => [['role' => 4, 'ps' => 1]], // Pak Iphan (Dekan)
+            '197306152000031002' => [['role' => 4, 'ps' => 2]], // Pak Nurhakim (WD I Bidang Umum dan Keuangan)
+            '197401071998021001' => [['role' => 4, 'ps' => 4]], // Pak Mahmud (WD II Bidang Akademik)
+            '197007171998021001' => [['role' => 4, 'ps' => 3]], // Pak Abdul Ghofur (WD III Bidang Kemahasiswaan dan Alumni)
 
-            // --- KOORDINATOR (Dosen & Kaprodi) ---
-            '197208261998021001' => [2, 3], // M. Arsyad (Koord PSTS)
-            '198008032006041001' => [2, 3], // Agus Triantoro (Koord PSTP)
-            '197310132003121001' => [2, 3], // Uyu Saismana (Koord PSRG)
-            '199412142022031013' => [2, 3], // Akhmad Ghiffary Budianto (Koord PSRE)
-            '199002212018031001' => [2, 3], // Herry Irawansyah (Koord PSTM)
-            '198708282012122001' => [2, 3], // Rizqi Puteri Mahyudin (Koord PSTL)
-            '198102102005011012' => [2, 3], // Akbar Rahman (Koord PSA)
-            '198101122003121001' => [2, 3], // Doni Rahmat Wicakso (Koord PSTK)
-            '199307032019031011' => [2, 3], // Andreyan Rizky Baskara (Koord PSTI)
+            // -- UPM FT --
+            '197511242005012005' => [['role' => 5, 'ps' => 1]], // Dr. Novitasari, S.T., M.T. (Kepala UPM FT)
+
+            // --- TINGKAT PRODI (KAPRODI) ---
+            '197208261998021001' => [['role' => 3, 'ps' => 1]], // M. Arsyad (Koord PSTS)
+            '198008032006041001' => [['role' => 3, 'ps' => 2]], // Agus Triantoro (Koord PSTP)
+            '197601282008121002' => [['role' => 3, 'ps' => 3]], // Ma'ruf (Koord PSTM)
+            '198708282012122001' => [['role' => 3, 'ps' => 4]], // Rizqi Puteri Mahyudin (Koord PSTL)
+            '198102102005011012' => [['role' => 3, 'ps' => 5]], // Akbar Rahman (Koord PSA)
+            '198005292005012003' => [['role' => 3, 'ps' => 6]], // Hesti Wijayanti (Koord PSTK)
+            '199307032019031011' => [['role' => 3, 'ps' => 7]], // Andreyan Rizky Baskara (Koord PSTI)
+            '199412142022031013' => [['role' => 3, 'ps' => 8]], // Akhmad Ghiffary Budianto (Koord PSRE)
+            '198103062005011001' => [['role' => 3, 'ps' => 9]], // Rudy Hendrawan Noor (Koord PSRG)
             
-            '196906081997022002' => [2, 3], // Isnasyaurqiah (Koord PS S3)
-            '197608192003121001' => [2, 3], // Agus Mirwan (Koord PSMTK)
-            '196911101993032001' => [2, 3], // Ida Barkiah (Koord PSPPI)
-            '197907232005012005' => [2, 3], // Nursiah C. (Koord PSMTS)
+            // CONTOH KASUS LINTAS PRODI 
+            '197907232005012005' => [['role' => 3, 'ps' => 10]], // Nursiah Chairunnisa (Koord PSMTS)
+            '197608052008121001' => [['role' => 3, 'ps' => 11]], // Rachmat Subagyo (Koord PSMTM)
+            '197204301997031003' => [['role' => 3, 'ps' => 12]], // Bani Noor Muchamad (Koord PSMA)
+            '197504042000031002' => [['role' => 3, 'ps' => 13]], // Prof. Chairul Irawan (Koord PSMTK)
+            '197507192000031001' => [['role' => 3, 'ps' => 14]], // Prof. Dr.-Ing. Yulian Firmana Arifin (Koord PSTB)
 
-            // --- ADMIN PRODI (Admin) ---
-            'ADMPSTS1' => [1],
-            'ADMPSTS2' => [1],
-            'ADMPSTP1' => [1],
-            'ADMPSTP2' => [1],
-            'ADMPSTM1' => [1],
-            'ADMPSTM2' => [1],
-            'ADMPSTL1' => [1],
-            'ADMPSTL2' => [1],
-            'ADMPSA1' => [1],
-            'ADMPSA2' => [1],
-            'ADMPSTK1' => [1],
-            'ADMPSTK2' => [1],
-            'ADMPSTI1' => [1],
-            'ADMPSTI2' => [1],
-            'ADMPSRE1' => [1],
-            'ADMPSRE2' => [1],
-            'ADMPSRG1' => [1],
-            'ADMPSRG2' => [1],
         ];
 
-        // LOGIKA 1: Masukkan Role Spesial
-        foreach ($roleMap as $nip => $roles) {
-            // Cari ID user berdasarkan NIP (Bukan hardcode angka!)
+        foreach ($jabatanMap as $nip => $roles) {
             $userId = DB::table('user')->where('NIP', $nip)->value('id_user');
 
             if ($userId) {
-                foreach ($roles as $roleId) {
+                foreach ($roles as $r) {
                     DB::table('user_role_map')->insert([
                         'id_user' => $userId,
-                        'id_role' => $roleId,
+                        'id_role' => $r['role'],
+                        'id_ps'   => $r['ps'],
                     ]);
                 }
             }
-        }
+        }        
 
-        // LOGIKA 2: Otomatisasi Sisa Dosen untuk semua prodi (Bulk Insert)
-        $usersTanpaRole = DB::table('user')
-            ->whereNotNull('id_ps')
-            ->whereNotExists(function ($query) {
-                $query->select(DB::raw(1))
-                    ->from('user_role_map')
-                    ->whereRaw('user_role_map.id_user = user.id_user');
-            })
-            ->get();
+        // // 1. MAPING ROLE SPESIAL BERDASARKAN NIP
+        // $roleMap = [
+        //     // --- LEVEL PIMPINAN ---
+        //     '197309031997021001' => [2, 4], // Pak Iphan (Dosen & Dekan)
+        //     '197306152000031002' => [2, 4], // Nurhakim (Dosen & WD I Bidang Keuangan dan Kepegawaian)
+        //     '197401071998021001' => [2, 4], // Mahmud (Dosen & WD II Bidang Akademik)
+        //     '197007171998021001' => [2, 4], // Abdul Ghofur (Dosen & WD III Bidang Kemahasiswaan dan Alumni)
 
-        // Loop dan beri mereka role DOSEN (2)
-        foreach ($usersTanpaRole as $user) {
-            DB::table('user_role_map')->insert([
-                'id_user' => $user->id_user,
-                'id_role' => 2 // Default Role Dosen
-            ]);
-        }
+        //     // -- UPM --
+        //     '197511242005012005' => [2, 5], // Dr. Novitasari, S.T., M.T. (Dosen & Kepala UPM FT)
+
+        //     // --- KOORDINATOR (Dosen & Kaprodi) ---
+        //     '197208261998021001' => [2, 3], // M. Arsyad (Koord PSTS)
+        //     '198008032006041001' => [2, 3], // Agus Triantoro (Koord PSTP)
+        //     '198103062005011001' => [2, 3], // Rudy Hendrawan Noor (Koord PSRG)
+        //     '199412142022031013' => [2, 3], // Akhmad Ghiffary Budianto (Koord PSRE)
+        //     '197601282008121002' => [2, 3], // Ma'ruf (Koord PSTM)
+        //     '198708282012122001' => [2, 3], // Rizqi Puteri Mahyudin (Koord PSTL)
+        //     '198102102005011012' => [2, 3], // Akbar Rahman (Koord PSA)
+        //     '198005292005012003' => [2, 3], // Hesti Wijayanti (Koord PSTK)
+        //     '199307032019031011' => [2, 3], // Andreyan Rizky Baskara (Koord PSTI)
+
+        //     '197608052008121001' => [2,3], // Rachmat Subagyo (Koord PSMTM)
+        //     '197204301997031003' => [2,3], // Bani Noor Muchamad (Koord PSMA) 
+        //     '197504042000031002' => [2,3], // Prof. Chairul Irawan (Koord PSMTK)
+        //     '197907232005012005' => [2,3], // Nursiah Chairunnisa (Koord PSMTS)
+
+        //     '197507192000031001' => [2,3], // Prof. Dr.-Ing. Yulian Firmana Arifin (Koord PSTB)
+
+        //     // --- ADMIN PRODI (Admin) ---
+        //     'ADMPSTS1' => [1],
+        //     'ADMPSTS2' => [1],
+        //     'ADMPSTP1' => [1],
+        //     'ADMPSTP2' => [1],
+        //     'ADMPSTM1' => [1],
+        //     'ADMPSTM2' => [1],
+        //     'ADMPSTL1' => [1],
+        //     'ADMPSTL2' => [1],
+        //     'ADMPSA1' => [1],
+        //     'ADMPSA2' => [1],
+        //     'ADMPSTK1' => [1],
+        //     'ADMPSTK2' => [1],
+        //     'ADMPSTI1' => [1],
+        //     'ADMPSTI2' => [1],
+        //     'ADMPSRE1' => [1],
+        //     'ADMPSRE2' => [1],
+        //     'ADMPSRG1' => [1],
+        //     'ADMPSRG2' => [1],
+        // ];
+
+        // // LOGIKA 1: Masukkan Role Spesial
+        // foreach ($roleMap as $nip => $roles) {
+        //     // Cari ID user berdasarkan NIP (Bukan hardcode angka!)
+        //     $userId = DB::table('user')->where('NIP', $nip)->value('id_user');
+
+        //     if ($userId) {
+        //         foreach ($roles as $roleId) {
+        //             DB::table('user_role_map')->insert([
+        //                 'id_user' => $userId,
+        //                 'id_role' => $roleId,
+        //             ]);
+        //         }
+        //     }
+        // }
+
+        // // LOGIKA 2: Otomatisasi Sisa Dosen untuk semua prodi (Bulk Insert)
+        // $usersTanpaRole = DB::table('user')
+        //     ->whereNotNull('id_ps')
+        //     ->whereNotExists(function ($query) {
+        //         $query->select(DB::raw(1))
+        //             ->from('user_role_map')
+        //             ->whereRaw('user_role_map.id_user = user.id_user');
+        //     })
+        //     ->get();
+
+        // // Loop dan beri mereka role DOSEN (2)
+        // foreach ($usersTanpaRole as $user) {
+        //     DB::table('user_role_map')->insert([
+        //         'id_user' => $user->id_user,
+        //         'id_role' => 2 // Default Role Dosen
+        //     ]);
+        // }
 
 
         // DB::table('user_role_map')->insert([

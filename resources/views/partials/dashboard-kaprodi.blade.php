@@ -35,5 +35,5 @@
         </div>
         {{-- End Welcome Card --}}
 
-    </mainlass=>
+    </main>
 </div>

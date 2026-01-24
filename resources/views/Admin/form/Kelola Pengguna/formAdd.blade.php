@@ -29,12 +29,13 @@
 
             <form action="{{ route('admin.kelola-pengguna.store') }}" method="POST" class="space-y-4">
                 @csrf
+                <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
 
-                <div>
+                {{-- <div>
                     <label class="block mb-1 text-sm font-medium">ID Program Studi (id_ps)</label>
                     <input name="id_ps" value="{{ old('id_ps', auth()->user()->id_ps) }}"
                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" />
-                </div>
+                </div> --}}
 
                 <div>
                     <label class="block mb-1 text-sm font-medium">NIP</label>

@@ -23,9 +23,9 @@ return new class extends Migration
             $table->text('matkul_desc_id');
             $table->text('matkul_desc_en');
             // $table->integer('jumlah_sks');
-            $table->integer('sks_teori');
-            $table->integer('sks_praktikum');
-            $table->integer('semester');
+            $table->integer('sks_teori')->nullable();
+            $table->integer('sks_praktikum')->nullable();
+            $table->integer('semester')->nullable();
             $table->string('muncul')->nullable();
 
             $table->foreign('id_pengembang_rps')->references('id_user')->on('user')->onDelete('set null');

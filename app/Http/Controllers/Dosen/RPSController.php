@@ -31,12 +31,12 @@ class RPSController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $mata_kuliah = MataKuliahModel::all();
+    // public function index()
+    // {
+    //     $mata_kuliah = MataKuliahModel::all();
 
-        return view('dosen.rps', ['mata_kuliah' => $mata_kuliah]);
-    }
+    //     return view('dosen.rps', ['mata_kuliah' => $mata_kuliah]);
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -80,21 +80,26 @@ class RPSController extends Controller
      */
     public function store(StoreRPSRequest $request)
     {
-        $programStudi = UserModel::find(Auth::id())->programStudiModel;
-        if($programStudi) {
-            $kaprodi = $programStudi->userModel()->whereHas('roles', function ($query) {
-                $query->where('role.id_role', 3);
-            })->first();
+        $id_ps = session('userRoleId');
+        // Kita cari: Siapa user di prodi ini ($id_ps_aktif) yang punya role Kaprodi (3)?
+        $kaprodiPivot = DB::table('user_role_map')
+                            ->where('id_ps', $id_ps)
+                            ->where('id_role', 3) // Asumsi: 3 adalah ID Role Kaprodi
+                            ->first();
+        
+        // Validasi jika Kaprodi belum di-set di database
+        if (!$kaprodiPivot) {
+            return back()->withErrors(['msg' => 'Data Kaprodi untuk Program Studi ini belum ditemukan. Hubungi Admin.']);
         }
 
         $validated = $request->validated();
 
         $rps = RPSModel::create([
             'id_mk' => $validated['id_mk'],
-            'id_kaprodi' => $kaprodi->id_user,
+            'id_kaprodi' => $kaprodiPivot->id_user,
             'id_model_pembelajaran' => $validated['id_model_pembelajaran'] ?? null,
             'id_kurikulum' => session('id_kurikulum_aktif'),
-            'id_ps' => session('userRoleId'),
+            'id_ps' => $id_ps,
             'tanggal_disusun' => now(),
             'materi_pembelajaran' => $validated['materi_pembelajaran'] ?? null,
             'pustaka_utama' => $validated['pustaka_utama'] ?? null,

@@ -88,7 +88,7 @@
                                             name="matkul[{{ $mk->id_mk }}][sks_teori]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
                                             value="{{ old('matkul.' . $mk->id_mk . '.sks_teori', $mk->sks_teori) }}"
-                                            required>
+                                            >
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
@@ -98,7 +98,7 @@
                                             name="matkul[{{ $mk->id_mk }}][sks_praktikum]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
                                             value="{{ old('matkul.' . $mk->id_mk . '.sks_praktikum', $mk->sks_praktikum) }}"
-                                            required>
+                                            >
                                     </div>
 
                                     <div class="col-span-5 sm:col-span-3">
@@ -108,7 +108,7 @@
                                             name="matkul[{{ $mk->id_mk }}][semester]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
                                             value="{{ old('matkul.' . $mk->id_mk . '.semester', $mk->semester) }}"
-                                            required>
+                                            >
                                     </div>
 
                                     <div class="col-span-1 flex items-end justify-center pb-2">
@@ -129,7 +129,7 @@
 
                                     <div class="col-span-6">
                                         <label for="id_pengembang_rps" class="block text-base font-medium text-gray-700 mb-2">Pengembang RPS</label>
-                                        <select id="id_pengembang_rps" :disabled="isDeleting" name="matkul[{{ $mk->id_mk }}][id_pengembang_rps]" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>
+                                        <select id="id_pengembang_rps" :disabled="isDeleting" name="matkul[{{ $mk->id_mk }}][id_pengembang_rps]" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" >
                                             <option value="" >Pilih Pengembang RPS</option>
                                             @foreach ($dosenProdi as $user )
                                                 <option value="{{$user->id_user}}" {{ old('matkul.' . $mk->id_mk . '.id_pengembang_rps', $mk->id_pengembang_rps) == $user->id_user ? 'selected' : '' }}>{{$user->username}}</option>
@@ -141,7 +141,7 @@
                                     </div>
                                     <div class="col-span-6">
                                         <label for="id_koordinator_mk" class="block text-base font-medium text-gray-700 mb-2">Koordinator Mata Kuliah</label>
-                                        <select id="id_koordinator_mk" :disabled="isDeleting" name="matkul[{{ $mk->id_mk }}][id_koordinator_mk]" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>
+                                        <select id="id_koordinator_mk" :disabled="isDeleting" name="matkul[{{ $mk->id_mk }}][id_koordinator_mk]" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" >
                                             <option value="" >Pilih Koordinator MK</option>
                                             @foreach ($dosenProdi as $user )
                                                 <option value="{{$user->id_user}}" {{ old('matkul.' . $mk->id_mk . '.id_koordinator_mk', $mk->id_koordinator_mk) == $user->id_user ? 'selected' : '' }}>{{$user->username}}</option>

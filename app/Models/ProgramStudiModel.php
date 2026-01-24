@@ -11,15 +11,18 @@ class ProgramStudiModel extends Model
     public $timestamps = false;
     protected $fillable = ['nama_prodi'];
 
-
     // public function Kaprodi() {
     //     return $this->belongsTo(userModel::class, '')
     // }
 
-    // has many relation
-    public function userModel(){
-        return $this->hasMany(UserModel::class, 'id_ps', 'id_ps');
+    public function users(){
+        return $this->belongsToMany(UserModel::class, 'user_role_map', 'id_ps', 'id_user')
+                    ->withPivot('id_role'); // Biar tau dia jabatannya apa
     }
+    // has many relation
+    // public function userModel(){
+    //     return $this->hasMany(UserModel::class, 'id_ps', 'id_ps');
+    // }
     public function mataKuliah(){
         return $this->hasMany(MataKuliahModel::class, 'id_ps', 'id_ps');
     }

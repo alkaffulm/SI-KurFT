@@ -40,10 +40,22 @@ class LoginController extends Controller
             $roleName = $roleMap[$credentials['login_as']] ?? null;
             $role = DB::table('role')->where('role', $roleName)->first();
 
-            if (!$role || !DB::table('user_role_map')->where('id_user', $user->id_user)->where('id_role', $role->id_role)->exists()) {
-                Auth::logout(); // Logout-kan kembali karena role tidak sesuai
-                return back()->withErrors(['nip' => 'Anda tidak memiliki izin untuk peran yang dipilih.',])->withInput($request->only('nip', 'login_as'));
+            // Cari record di tabel pivot yang cocok dengan User ID dan Role ID
+            $pivotData = DB::table('user_role_map')
+                            ->where('id_user', $user->id_user)
+                            ->where('id_role', $role->id_role)
+                            ->first();
+
+            if (!$role || !$pivotData) {
+                Auth::logout();
+                return back()->withErrors(['nip' => 'Anda tidak memiliki izin untuk peran yang dipilih.'])
+                             ->withInput($request->only('nip', 'login_as'));
             }
+            // if (!$role || !DB::table('user_role_map')->where('id_user', $user->id_user)->where('id_role', $role->id_role)->exists()) {
+            //     Auth::logout(); // Logout-kan kembali karena role tidak sesuai
+            //     return back()->withErrors(['nip' => 'Anda tidak memiliki izin untuk peran yang dipilih.',])->withInput($request->only('nip', 'login_as'));
+            // }
+            $request->merge(['context_id_ps' => $pivotData->id_ps]);
 
             // 3. Jika Role Sesuai, panggil authenticated() (dijelaskan di bawah)
             return $this->authenticated($request, $user);
@@ -61,15 +73,20 @@ class LoginController extends Controller
         $roleMap = [ 'Koordinator Program Studi' => 'Kaprodi', 'Pimpinan FT' => 'PimpinanFT', 'Dosen' => 'Dosen', 'UPM' => 'UPM', 'Admin' => 'Admin'];
         $roleName = $roleMap[$request->input('login_as')] ?? null;
         
-        $viewRoleMap = [ 'Kaprodi' => 'kaprodi', 'Dosen' => 'dosen', 'PimpinanFT' => 'pimpinan', 'Admin' => 'admin'];
+        $viewRoleMap = [ 'Kaprodi' => 'kaprodi', 'Dosen' => 'dosen', 'PimpinanFT' => 'pimpinan', 'Admin' => 'admin', 'UPM' => 'upm'];
         $sessionRole = $viewRoleMap[$roleName] ?? 'dosen';
         
-        $prodi = $user->id_ps ? DB::table('program_studi')->where('id_ps', $user->id_ps)->first() : null;
+        // --- [PERBAIKAN UTAMA] AMBIL ID_PS DARI CONTEXT ---
+        // Ambil id_ps yang tadi kita titip di method login(), bukan dari $user->id_ps lagi
+        $contextIdPs = $request->input('context_id_ps');
+
+        // Cari Nama Prodi
+        $prodi = $contextIdPs ? DB::table('program_studi')->where('id_ps', $contextIdPs)->first() : null;
 
         $request->session()->put('userRole', $sessionRole);
         $request->session()->put('userName', $user->username);
         $request->session()->put('userProdi', $prodi ? $prodi->nama_prodi : 'Fakultas Teknik');
-        $request->session()->put('userRoleId', $user->id_ps);
+        $request->session()->put('userRoleId', $contextIdPs);
 
         // $activeKurikulum = KurikulumModel::where('id_ps', $user->id_ps)->orderBy('tahun', 'asc')->first();
         // if($activeKurikulum) {
@@ -84,8 +101,8 @@ class LoginController extends Controller
         }
 
         // bekerja jika user baru pertama kali login ke website atau migrate:fresh
-        if(!$activeKurikulum) {
-          $activeKurikulum = KurikulumModel::where('id_ps', $user->id_ps)->orderBy('tahun', 'asc')->first();
+        if(!$activeKurikulum && $contextIdPs) {
+            $activeKurikulum = KurikulumModel::where('id_ps', $contextIdPs)->orderBy('tahun', 'asc')->first();
         }
 
         if($activeKurikulum) {

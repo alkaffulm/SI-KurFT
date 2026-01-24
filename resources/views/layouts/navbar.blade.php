@@ -27,7 +27,7 @@
                     <p class="text-sm font-semibold text-gray-800">{{ session('userName', 'User') }}</p>
                     <p class="text-xs text-gray-500">
                         {{ ucfirst(session('userRole', 'Dosen')) }}
-                        @if (session('userRole') != 'pimpinan')
+                        @if (session('userRole') != 'pimpinan' && session('userRole') != 'upm')
                             {{ session('userProdi') }}
                         @endif
                     </p>

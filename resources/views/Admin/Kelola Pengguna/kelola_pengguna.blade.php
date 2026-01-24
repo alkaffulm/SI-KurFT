@@ -99,19 +99,20 @@
                                         </td>
                                         <td class="px-6 py-4 flex gap-2">
                                             <a href="{{ route('admin.kelola-pengguna.edit', $u->id_user) }}"
-                                            class="px-3 py-2 rounded bg-yellow-400 text-white hover:opacity-90">
+                                            class="px-3 py-2 rounded bg-yellow-400 text-white  font-bold hover:opacity-90">
                                                 Edit
                                             </a>
-
-                                            <form action="{{ route('admin.kelola-pengguna.destroy', $u->id_user) }}" method="POST"
-                                                onsubmit="return confirm('Yakin hapus user ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                        class="px-3 py-2 rounded bg-red-600 text-white hover:opacity-90">
-                                                    Hapus
-                                                </button>
-                                            </form>
+                                            @if (!$u->roles->contains('role', 'Admin'))
+                                                <form action="{{ route('admin.kelola-pengguna.destroy', $u->id_user) }}" method="POST"
+                                                    onsubmit="return confirm('Yakin hapus user ini?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                            class="px-3 py-2 rounded font-bold bg-red-600 text-white hover:opacity-90">
+                                                        Hapus
+                                                    </button>
+                                                </form>                                               
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty

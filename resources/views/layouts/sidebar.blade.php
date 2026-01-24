@@ -85,7 +85,7 @@
             @endif
 
             {{-- Menu khusus Kaprodi & Pimpinan --}}
-            @if ($userRole == 'kaprodi' || $userRole == 'pimpinan')
+            @if ($userRole == 'kaprodi' || $userRole == 'pimpinan'  || $userRole == 'upm')
                 {{-- KURIKULUM --}}
                 <li class="pt-4">
                     <span class="ms-2 text-xs font-semibold text-gray-500 uppercase">Kurikulum</span>

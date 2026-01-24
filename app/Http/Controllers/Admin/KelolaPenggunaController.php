@@ -19,10 +19,16 @@ class KelolaPenggunaController extends Controller
 
     public function index()
     {
-        $id_ps = Auth::user()->id_ps;
+        $id_ps = session('userRoleId');
 
-        $users = UserModel::with('roles')
-            ->where('id_ps', $id_ps)
+        $users = UserModel::with(['roles' => function($query) use ($id_ps) {
+                // FILTER ROLE:
+                // Hanya ambil role yang melekat pada Prodi ini 
+                // ATAU role yang bersifat Global/Fakultas (id_ps = null)
+                $query->wherePivot('id_ps', $id_ps)
+                      ->orWherePivotNull('id_ps');
+            }])
+            ->forProdi($id_ps)
             ->orderBy('id_user', 'desc')
             ->get();
 
@@ -32,7 +38,8 @@ class KelolaPenggunaController extends Controller
     public function create()
     {
         $roles = RoleModel::orderBy('id_role')->get();
-        return view('Admin.form.Kelola Pengguna.formAdd', compact('roles'));
+        $id_ps = session('userRoleId');
+        return view('Admin.form.Kelola Pengguna.formAdd', compact('roles', 'id_ps'));
     }
 
     public function store(Request $request)
@@ -47,7 +54,6 @@ class KelolaPenggunaController extends Controller
         ]);
 
         $user = UserModel::create([
-            'id_ps' => $validated['id_ps'],
             'NIP' => $validated['NIP'] ?? null,
             'username' => $validated['username'],
             'email' => $validated['email'],
@@ -55,8 +61,14 @@ class KelolaPenggunaController extends Controller
         ]);
 
 
-        $roleIds = $validated['roles'] ?? [];
-        $user->roles()->sync($roleIds);
+        // Format sync harus: [ id_role => ['id_ps' => nilai], ... ]
+        $rolesData = [];
+        if (!empty($validated['roles'])) {
+            foreach ($validated['roles'] as $roleId) {
+                $rolesData[$roleId] = ['id_ps' => $validated['id_ps']];
+            }
+        }
+        $user->roles()->sync($rolesData);
 
         return redirect()->route('admin.kelola-pengguna.index')
             ->with('success', 'User berhasil ditambahkan.');
@@ -64,10 +76,18 @@ class KelolaPenggunaController extends Controller
 
     public function edit($id_user)
     {
-        $user = UserModel::with('roles')->findOrFail($id_user);
+        $id_ps = session('userRoleId');
+        $user = UserModel::with('roles')
+                    ->forProdi($id_ps)
+                    ->findOrFail($id_user);
         $roles = RoleModel::orderBy('id_role')->get();
 
-        $userRoleIds = $user->roles->pluck('id_role')->toArray();
+        // Ambil Role ID yang dimiliki user, tapi difilter hanya yang di prodi ini
+        // (Jaga-jaga kalau user punya jabatan di prodi lain, admin ini gak boleh ngotak-ngatik jabatan prodi lain)
+        $userRoleIds = $user->roles()
+                            ->wherePivot('id_ps', $id_ps)
+                            ->pluck('role.id_role') // Ambil ID Role-nya
+                            ->toArray();
 
         return view('Admin.form.Kelola Pengguna.formEdit', compact('user', 'roles', 'userRoleIds'));
     }
@@ -93,7 +113,6 @@ class KelolaPenggunaController extends Controller
         ]);
 
         $data = [
-            'id_ps' => $validated['id_ps'],
             'NIP' => $validated['NIP'] ?? null,
             'username' => $validated['username'],
             'email' => $validated['email'],
@@ -105,7 +124,22 @@ class KelolaPenggunaController extends Controller
 
         $user->update($data);
 
-        $user->roles()->sync($validated['roles'] ?? []);
+        // Kita tidak boleh pakai sync() biasa karena itu akan menghapus jabatan user di Prodi Lain (kalau ada)
+        // Kita harus pakai syncWithPivotValues atau strategi manual khusus scope prodi ini.
+        
+        // Strategi Aman:
+        // 1. Detach semua role user INI khusus di prodi INI ($validated['id_ps'])
+        // 2. Attach role baru
+        
+        // Hapus role lama di prodi ini
+        $user->roles()->wherePivot('id_ps', $validated['id_ps'])->detach();
+
+        // Pasang role baru (jika ada yang dipilih)
+        if (!empty($validated['roles'])) {
+            foreach ($validated['roles'] as $roleId) {
+                $user->roles()->attach($roleId, ['id_ps' => $validated['id_ps']]);
+            }
+        }
 
         return redirect()->route('admin.kelola-pengguna.index')
             ->with('success', 'User berhasil diupdate.');
@@ -114,11 +148,22 @@ class KelolaPenggunaController extends Controller
 
     public function destroy($id_user)
     {
+        $id_ps = session('userRoleId');
         $user = UserModel::findOrFail($id_user);
-        $user->roles()->detach();
-        $user->delete();
+        
+        // Admin Prodi ini tidak boleh menghapus User yang juga Dosen di prodi lain (Usernya jangan dihapus, jabatannya di prodi ini saja yang dicabut)
+        $user->roles()->wherePivot('id_ps', $id_ps)->detach();
+        
+        // Cek apakah user masih punya role di tempat lain?
+        if ($user->roles()->count() == 0) {
+            // Kalau sudah tidak punya role dimanapun, baru hapus akunnya permanen
+            $user->delete();
+            $msg = 'User berhasil dihapus permanen.';
+        } else {
+            $msg = 'Akses User pada Prodi ini berhasil dicabut (User masih aktif di Prodi lain).';
+        }
 
         return redirect()->route('admin.kelola-pengguna.index')
-            ->with('success', 'User berhasil dihapus.');
+            ->with('success', $msg);
     }
 }

@@ -27,11 +27,11 @@ class UpdateAllMatkulRequest extends FormRequest
             'matkul.*.nama_matkul_en' => 'required|string',
             'matkul.*.matkul_desc_id' => 'required|string',
             'matkul.*.matkul_desc_en' => 'required|string',
-            'matkul.*.id_pengembang_rps' => 'required',
-            'matkul.*.id_koordinator_mk' => 'required',
-            'matkul.*.sks_teori' => 'integer',
-            'matkul.*.sks_praktikum' => 'integer',
-            'matkul.*.semester' => 'required|integer|min:1|max:8'
+            'matkul.*.id_pengembang_rps' => 'nullable',
+            'matkul.*.id_koordinator_mk' => 'nullable',
+            'matkul.*.sks_teori' => 'integer|nullable',
+            'matkul.*.sks_praktikum' => 'integer|nullable',
+            'matkul.*.semester' => 'nullable|integer|min:0|max:8'
         ];
     }
 
@@ -48,9 +48,9 @@ class UpdateAllMatkulRequest extends FormRequest
             'matkul.*.id_koordinator_mk' => 'Koordinator Mata Kuliah Wajib Diisi!',
             'matkul.*.sks_teori.integer'   => 'Jumlah SKS Teori harus berupa integer',
             'matkul.*.sks_praktikum.integer'   => 'Jumlah SKS Praktikum harus berupa integer',
-            'matkul.*.semester.required' => 'Semester tidak boleh kosong.',
+            // 'matkul.*.semester.required' => 'Semester tidak boleh kosong.',
             'matkul.*.semester.integer'   => 'Semester harus berupa integer',
-            'matkul.*.semester.min' => 'Semester tidak bisa dibawah 1.',
+            'matkul.*.semester.min' => 'Semester tidak bisa dibawah 0.',
             'matkul.*.semester.max'   => 'Semester tidak bisa diatas 8',
             'matkul.*.matkul_desc_id.required' => 'Deskripsi Mata Kuliah (Indoneia) tidak boleh kosong.',
             'matkul.*.matkul_desc_id.string'   => 'Deskripsi Mata Kuliah (Indoneia) harus berupa string',

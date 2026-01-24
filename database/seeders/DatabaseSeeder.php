@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
 
             // RencanaAsesmenSeeder::class, // dimatikan saat deploy
             // RencanaAsesmenCPMKBobotSeeder::class, // dimatikan saat deploy
-            // WeekSeeder::class, // dimatikan saat deploy
+            WeekSeeder::class, // dimatikan saat deploy
             // RpsTopicSeeder::class, // dimatikan saat deploy
 
             // MKCPMKBobotSeeder::class,             //  dimatikan saat deploy

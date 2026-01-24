@@ -1,6 +1,6 @@
 <div class="mx-8">
     <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h1 class="text-2xl font-bold text-gray-900">Dashboard Pimpinan</h1>
+        <h1 class="text-2xl font-bold text-gray-900">Dashboard Unit Penjaminan Mutu</h1>
         <p class="text-gray-500">Fakultas Teknik ULM</p>
     </div>
     <div class="p-4 rounded-lg bg-white mb-8">
