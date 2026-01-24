@@ -27,14 +27,14 @@ class DatabaseSeeder extends Seeder
             ModelPembelajaranSeeder::class,
             MetodePembelajaranSeeder::class,
             BentukPenugasanSeeder::class,
-            
+
             //  B. Level 1 Dependency
             UserSeeder::class,                    // 7
             MataKuliahSeeder::class,              // 8 dimatikan saat deploy
             MahasiswaSeeder::class,               // 9
             CplSeeder::class,                     // 10 dimatikan saat deploy
             ProfilLulusanSeeder::class,           // 11 dimatikan saat deploy
-            
+
             // C. Level 2 Dependency
             UserRoleMapSeeder::class,             // 12
             // UserPersonalisasiSeeder::class,       // 13 sementara dimatikan
