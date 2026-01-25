@@ -27,7 +27,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.kelola-pengguna.store') }}" method="POST" class="space-y-4">
+            <form action="{{ route('admin.kelola-pengguna.store') }}" method="POST" class="space-y-4" onsubmit="return disableButton(this)">
                 @csrf
                 <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
 
@@ -89,5 +89,18 @@
     </main>
 </div>
 
+    <script>
+        function disableButton(form) {
+            // Ambil tombol submit
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Ubah teks dan matikan tombol
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            return true; // Lanjutkan submit form
+        }
+    </script>
 </body>
 </html>

@@ -25,7 +25,7 @@ class MasterMahasiswaController extends Controller
      */
     public function index()
     {
-        $id_ps = Auth::user()->id_ps;
+        $id_ps = session('userRoleId');
         $mahasiswa = MahasiswaModel::where('id_ps', $id_ps)->get();
 
         return view('Admin.Master Mahasiswa.master_mahasiswa', [
@@ -76,7 +76,7 @@ class MasterMahasiswaController extends Controller
         $rows = $sheet->toArray();
 
         // Ambil id_ps dari user login
-        $id_ps = Auth::user()->id_ps;
+        $id_ps = session('userRoleId');
 
         // Loop mulai dari baris kedua (baris pertama biasanya header)
         foreach ($rows as $index => $row) {
@@ -100,7 +100,7 @@ class MasterMahasiswaController extends Controller
         }
 
         return redirect()->route('master-mahasiswa.index')
-                         ->with('message', 'Data mahasiswa berhasil diupload!');
+                         ->with('success', 'Data mahasiswa berhasil diupload!');
     }
 
     public function edit(string $id){
@@ -132,7 +132,6 @@ class MasterMahasiswaController extends Controller
         $mahasiswa = MahasiswaModel::findOrFail($id);
         $mahasiswa->delete();
 
-        return redirect()->route('master-mahasiswa.index')
-            ->with('success', 'Data mahasiswa berhasil dihapus.');
+        return redirect()->route('master-mahasiswa.index')->with('success', 'Data mahasiswa berhasil dihapus.');
     }
 }

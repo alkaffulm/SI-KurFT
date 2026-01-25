@@ -253,7 +253,7 @@ class UserSeeder extends Seeder
                 ['NIP' => 'ADMPSMTK1', 'username' => 'adminpsmtk1', 'email' => '-', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => 'ADMPSMTK2', 'username' => 'adminpsmtk2', 'email' => '-', 'password' => $password, 'last_active_kurikulum_id' => null],
             ],
-            // 14. TEKNIK BERKELANJUTAN (id_ps =
+            // 14. TEKNIK BERKELANJUTAN (id_ps = 14)
             14 => [
                 ['NIP' => 'ADMPSTB1', 'username' => 'adminpstb1', 'email' => '-', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => 'ADMPSTB2', 'username' => 'adminpstb2', 'email' => '-', 'password' => $password, 'last_active_kurikulum_id' => null],

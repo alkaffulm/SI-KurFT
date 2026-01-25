@@ -39,9 +39,9 @@
         <div class="bg-white p-8 rounded-xl shadow-lg flex justify-between items-center mt-12">
             <div>
                 {{-- <h1 class="text-4xl font-bold text-biru-custom">Selamat Datang,</h1> --}}
-                <h2 class="text-3xl font-bold text-gray-800 mt-2">Admin:
+                <h2 class="text-2xl font-bold text-gray-800 mt-2">Admin:
                 </h2>
-                <p class="mt-4 text-xl text-justify">
+                <p class="mt-4 text-lg text-justify">
                     Dalam sistem kurikulum berbasis OBE, halaman admin berfungsi sebagai
                     <span class="font-bold">
                         pusat pengelolaan data penting yang mendukung proses perencanaan dan evaluasi pembelajaran. 

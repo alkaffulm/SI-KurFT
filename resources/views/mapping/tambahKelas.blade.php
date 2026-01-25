@@ -14,6 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+
     {{-- Custom styles to make Select2 fit the Tailwind design --}}
     <style>
         .select2-container--default .select2-selection--multiple {
@@ -31,6 +32,8 @@
             /* Forces the element to fill its container */
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -69,6 +72,31 @@
                 allowClear: true
             });
         });
+    </script>
+
+    {{-- Script untuk menangkap session flash data --}}
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
     </script>
 </body>
 

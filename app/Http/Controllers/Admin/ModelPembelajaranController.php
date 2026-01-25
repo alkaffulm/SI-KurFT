@@ -42,9 +42,10 @@ class ModelPembelajaranController extends Controller
      */
      public function store(StoreModelPembelajaranRequest $request)
     {
+        $id_ps = session('userRoleId');
         ModelPembelajaranModel::create([
             'nama_model_pembelajaran' => $request->nama_model_pembelajaran,
-            'id_ps' => Auth::user()->id_ps,
+            'id_ps' => $id_ps,
         ]);
 
         return to_route('model-pembelajaran.index')->with('success', "Teknik Penilaian berhasil ditambahkan!");

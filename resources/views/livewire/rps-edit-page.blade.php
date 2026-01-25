@@ -437,9 +437,22 @@
                 @error('topics') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
             </div>
 
-            <div class="mt-4 flex justify-between">
-                <button type="button" wire:click="addRow" class="bg-blue-500 text-white px-4 py-2 rounded">Tambah Baris</button>
-                <button type="submit" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">Simpan Rencana Mingguan</button>
+            <div class="mt-4 flex justify-between" >
+                <button type="button" 
+                    wire:click="addRow" 
+                    wire:loading.attr="disabled" 
+                    wire:target="addRow" 
+                    class="bg-blue-500 text-white px-4 py-2 rounded">
+                    <span wire:loading.remove wire:target="addRow">Tambah Baris</span>
+                    <span wire:loading wire:target="addRow" class="flex items-center gap-2 opacity-50 cursor-not-allowed">Menambah...</span>
+                </button>
+                <button type="submit" 
+                    wire:loading.attr="disabled"
+                    wire:target="saveRps"
+                    class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">
+                    <span wire:loading.remove wire:target="saveRps">Simpan Rencana Mingguan</span>
+                    <span wire:loading wire:target="saveRps" class="flex items-center gap-2 opacity-50 cursor-not-allowed">Menyimpan...</span>
+                </button>
             </div>         
         </div>
     </form>

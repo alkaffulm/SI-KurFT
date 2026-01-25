@@ -31,6 +31,9 @@
             /* Forces the element to fill its container */
         }
     </style>
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -47,7 +50,7 @@
                     </div>
 
                     {{-- form nambah tahun_akademik ke tabel kurikulum_tahun_akademik_map --}}
-                    <form action="{{ route('ta.update') }}" method="POST">
+                    <form action="{{ route('ta.update') }}" method="POST" onsubmit="return disableButton(this)">
                         @csrf
                         {{-- @method('PUT') --}}
 
@@ -115,6 +118,19 @@
                 allowClear: true
             });
         });
+    </script>
+    <script>
+        function disableButton(form) {
+            // Ambil tombol submit
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Ubah teks dan matikan tombol
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            return true; // Lanjutkan submit form
+        }
     </script>
 </body>
 

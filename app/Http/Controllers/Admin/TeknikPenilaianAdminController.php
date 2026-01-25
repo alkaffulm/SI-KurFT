@@ -41,10 +41,11 @@ class TeknikPenilaianAdminController extends Controller
      */
     public function store(StoreTeknikPenilaianRequest $request)
     {
+        $id_ps = session('userRoleId');
         TeknikPenilaianModel::create([
             'nama_teknik_penilaian' => $request->nama_teknik_penilaian,
             'kategori' => $request->kategori,
-            'id_ps' => Auth::user()->id_ps,
+            'id_ps' => $id_ps,
         ]);
 
         return to_route('teknik-penilaian.index')->with('success', "Teknik Penilaian berhasil ditambahkan!");

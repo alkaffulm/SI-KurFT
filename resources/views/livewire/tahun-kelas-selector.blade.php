@@ -80,7 +80,7 @@
                                 <td class="px-4 py-2 border text-center"> 
                                     <a href="{{ route('kelas.hapus', $k->id_kelas) }}" 
                                     class="underline hover:text-biru-custom"
-                                    onclick="return confirm('Yakin ingin menghapus kelas ini?')">
+                                    onclick="confirmDelete(event, this.href)">
                                         Hapus
                                     </a> 
                                 </td>

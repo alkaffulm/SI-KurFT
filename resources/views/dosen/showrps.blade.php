@@ -8,6 +8,7 @@
         @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     <script src="https://kit.fontawesome.com/a3c61f64a4.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -49,7 +50,7 @@
                     @endif
                     @if ($canDelete)
                         <div >
-                            <form action="{{route('rps.destroy', $rps)}}" method="post">
+                            <form class="form-hapus" action="{{route('rps.destroy', $rps)}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="text-white bg-[#DA6C6C] hover:opacity-90 font-medium rounded-lg text-base px-6 py-[0.5rem] text-center">Hapus RPS</button>
@@ -589,5 +590,59 @@
             </table>
         </div>
     </div> 
+
+    {{-- Script untuk menangkap session flash data --}}
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
+    </script>
+
+<script>
+    // Pilih semua form dengan class 'form-hapus'
+    const deleteForms = document.querySelectorAll('.form-hapus');
+
+    deleteForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            // 1. Cegah form terkirim langsung
+            e.preventDefault();
+
+            // 2. Tampilkan SweetAlert Konfirmasi
+            Swal.fire({
+                title: 'Yakin hapus RPS ini?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                // 3. Jika user klik "Ya", kirim form secara manual
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

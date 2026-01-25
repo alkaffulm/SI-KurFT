@@ -16,6 +16,7 @@
             opacity: 0.4;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -25,7 +26,7 @@
 
     <div class="p-4 sm:p-8 sm:ml-64">
         <main class="mt-20 mb-5 max-w-5xl mx-auto">
-            <form action="{{ route('mata-kuliah.updateAll') }}" method="POST">
+            <form id="form-update" action="{{ route('mata-kuliah.updateAll') }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -202,6 +203,50 @@
             </form>
         </main>
     </div>
+
+    <script>
+        document.getElementById('form-update').addEventListener('submit', function(e) {
+            // 1. Cegah form submit langsung
+            e.preventDefault();
+
+            // 2. Hitung berapa checkbox hapus yang dicentang
+            const deleteCheckboxes = document.querySelectorAll('input[name="delete_ids[]"]:checked');
+            const deleteCount = deleteCheckboxes.length;
+            
+            // 3. Tentukan Pesan & Warna berdasarkan apakah ada yang dihapus
+            let title = 'Simpan Perubahan?';
+            let text = 'Pastikan data yang Anda masukkan sudah benar.';
+            let icon = 'question';
+            let confirmButtonColor = '#3085d6'; // Biru
+            let confirmButtonText = 'Ya, Simpan!';
+
+            // Jika ada item yang dipilih untuk DIHAPUS
+            if (deleteCount > 0) {
+                title = 'PERINGATAN!';
+                text = `Anda menandai ${deleteCount} data untuk DIHAPUS permanen. Data yang lain akan diperbarui.`;
+                icon = 'warning';
+                confirmButtonColor = '#d33'; // Merah
+                confirmButtonText = 'Ya, Hapus & Simpan';
+            }
+
+            // 4. Tampilkan SweetAlert
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: icon,
+                showCancelButton: true,
+                confirmButtonColor: confirmButtonColor,
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: confirmButtonText,
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                // 5. Jika user klik "Ya", submit form secara manual
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
+        });
+    </script>       
 </body>
 
 </html>

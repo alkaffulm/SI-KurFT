@@ -28,7 +28,9 @@ class KelasAdminController extends Controller
      */
     public function index()
     {
-        return view('admin.kelas.admin');
+        // return view('admin.kelas.admin');
+        return view('admin');
+
     }
 
     /**
@@ -80,19 +82,22 @@ class KelasAdminController extends Controller
 
     public function editKelas($id)
     {
-        $kelas = \App\Models\Kelas::findOrFail($id);
+        // $kelas = \App\Models\Kelas::findOrFail($id);
+        $kelas = \App\Models\Kelas::with([
+    'mataKuliahModel' => fn ($q) => $q->withoutGlobalScopes()
+])->findOrFail($id);
 
         $kurikulum = \App\Models\KurikulumModel::find($kelas->id_kurikulum);
 
-        $dosens = UserModel::whereHas('userRoleMap', function($q) {
-                $q->where('id_role', 2);
+        $dosens = UserModel::whereHas('userRoleMap', function($q) use ($kurikulum) {
+                $q->where('id_role', 2)
+                  ->where('id_ps', $kurikulum->id_ps);
             })
-            ->where('id_ps', $kurikulum->id_ps)
             ->get();
 
         $kurikulums = \App\Models\KurikulumModel::all();
         $tahunAkademiks = \App\Models\TahunAkademik::all();
-
+        
         return view('form.Kelas.FormEditKelas', [
             'kurikulums'     => $kurikulums,
             'tahunAkademiks' => $tahunAkademiks,
@@ -153,7 +158,7 @@ class KelasAdminController extends Controller
             $kelas = \App\Models\Kelas::findOrFail($id);
             $kelas->delete(); 
 
-            return redirect()->route('kelas.index')->with('message', 'Kelas berhasil dihapus.');
+            return redirect()->route('kelas.index')->with('success', 'Kelas berhasil dihapus.');
         } catch (\Exception $e) {
             return redirect()->route('kelas.index')->with('error', 'Gagal menghapus kelas: ' . $e->getMessage());
         }

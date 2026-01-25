@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Data Mahasiswa</title>
     @vite('resources/css/app.css')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -13,7 +15,7 @@
     @include('layouts.sidebar', ['userRole' => $userRole])
 
     <main class="p-6 sm:ml-64">
-        <form action="{{ route('master-mahasiswa.import') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('master-mahasiswa.import') }}" method="POST" enctype="multipart/form-data" onsubmit="return disableButton(this)">
             @csrf
 
             <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg mt-24">
@@ -67,5 +69,19 @@
             </div>
         </form>
     </main>
+
+    <script>
+        function disableButton(form) {
+            // Ambil tombol submit
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Ubah teks dan matikan tombol
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            return true; // Lanjutkan submit form
+        }
+    </script>
 </body>
 </html>

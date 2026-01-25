@@ -1,16 +1,5 @@
 <div class="space-y-6 mb-20">
-    {{-- Tampilkan pesan error jika ada --}}
-    @if (session()->has('error'))
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-            {{ session('error') }}
-        </div>
-    @endif
 
-    @if (session()->has('message'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-            {{ session('message') }}
-        </div>
-    @endif
 
     {{-- Tampilkan error validasi --}}
     @if ($errors->any())
@@ -186,12 +175,26 @@
         <div class="mt-10">
             <button type="submit" 
                     class="px-6 py-2 bg-biru-custom text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
-                    @disabled(!$id_kurikulum || !$id_tahun_akademik || !$id_mk || count($paralels) == 0)>
+                    @disabled(!$id_kurikulum || !$id_tahun_akademik || !$id_mk || count($paralels) == 0)
+                    >
                 <span wire:loading.remove wire:target="save">Simpan</span>
                 <span wire:loading wire:target="save">Menyimpan...</span>
             </button>
         </div>
     </form>
+
+    {{-- Tampilkan pesan error jika ada --}}
+    @if (session()->has('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if (session()->has('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
 </div>
 
 

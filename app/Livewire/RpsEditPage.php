@@ -404,7 +404,7 @@ class RpsEditPage extends Component
                 $this->rps->forceFill(['isRevisi' => true])->saveQuietly();
             }
         });
-        return redirect(route('rps.show', $this->rps))->with('Success', 'Berhasil Memperbarui Rencana pembelajaran mingguan');
+        return redirect(route('rps.show', $this->rps))->with('success', 'Berhasil Menyimpan RPS!');
     } 
 
     public function render()
