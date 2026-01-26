@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bahan Kajian (BK)</title>
+    <title>Buat Rencana Pembelajaran Semester</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     {{-- Select2 CSS and JS for searchable dropdowns --}}

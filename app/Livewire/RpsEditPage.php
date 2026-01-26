@@ -353,17 +353,8 @@ class RpsEditPage extends Component
                                 'id_bentuk_penugasan' => $bentukId
                             ];
                         }
-
-                        // HAPUS PANGGILAN sync() DARI SINI
-                        // $aktivitas->metodePembelajaran()->sync(...); // <-- DIHAPUS
-                        // $aktivitas->bentukPenugasan()->sync(...); // <-- DIHAPUS
                     }
                 }
-
-                // HAPUS PANGGILAN sync() DARI SINI
-                // $topic->weeks()->sync(...); // <-- DIHAPUS
-                // $topic->kriteriaPenilaian()->sync(...); // <-- DIHAPUS
-                // $topic->teknikPenilaian()->sync(...); // <-- DIHAPUS
             }
             
             // --- AKHIR DARI LOOP PERTAMA ---
@@ -404,7 +395,8 @@ class RpsEditPage extends Component
                 $this->rps->forceFill(['isRevisi' => true])->saveQuietly();
             }
         });
-        return redirect(route('rps.show', $this->rps))->with('success', 'Berhasil Menyimpan RPS!');
+        // return redirect(route('rps.show', $this->rps))->with('success', 'Berhasil Menyimpan RPS!');
+        session()->flash('success', 'Berhasil Menyimpan RPS!');
     } 
 
     public function render()

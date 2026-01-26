@@ -1,7 +1,6 @@
 <div class="py-8 px-16 sm:ml-64 mt-16 ">
     <div class="flex justify-between items-center  mb-4">
         <h2 class="text-2xl font-bold">Edit RPS </h2>
-        <a href="/dosen/matkul" class="px-6 py-3 text-base font-medium text-gray-700  border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
     </div>
     <form wire:submit.prevent="saveRps">
         
@@ -102,87 +101,87 @@
         <br>
         <div class="bg-white p-8 rounded-lg">
             <h1 class="text-xl font-bold mb-4 text-biru-custom">Informasi RPS</h1>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-    {{-- Mata Kuliah Syarat --}}
-    <div class="flex-1">
-        <label for="id_mk_syarat" class="font-semibold block mb-2">Mata Kuliah Prasyarat:</label>
-        <select class="p-2 border rounded-lg border-gray-300 bg-gray-100 w-full"
-                wire:model="id_mk_syarat">
-            <option value="">Tidak ada Matkul Prasyarat</option>
-            @foreach ($allMataKuliah as $mk)
-                <option value="{{ $mk->id_mk }}">{{ $mk->nama_matkul_id }}</option>
-            @endforeach
-        </select>
-        @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-    </div>
+                {{-- Mata Kuliah Syarat --}}
+                <div class="flex-1">
+                    <label for="id_mk_syarat" class="font-semibold block mb-2">Mata Kuliah Prasyarat:</label>
+                    <select class="p-2 border rounded-lg border-gray-300 bg-gray-100 w-full"
+                            wire:model="id_mk_syarat">
+                        <option value="">Tidak ada Matkul Prasyarat</option>
+                        @foreach ($allMataKuliah as $mk)
+                            <option value="{{ $mk->id_mk }}">{{ $mk->nama_matkul_id }}</option>
+                        @endforeach
+                    </select>
+                    @error('id_mk_syarat') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                </div>
 
-    {{-- Model Pembelajaran --}}
-    <div class="flex-1">
-        <label for="id_model_pembelajaran" class="font-semibold block mb-2">Model Pembelajaran:</label>
-        <select class="border p-2 rounded-lg border-gray-300 bg-gray-100 w-full"
-                wire:model="id_model_pembelajaran">
-            <option value="">Pilih Model Pembelajaran</option>
-            @foreach ($allModelPembelajaran as $mp)
-                <option value="{{ $mp->id_model_pembelajaran }}">{{ $mp->nama_model_pembelajaran }}</option>
-            @endforeach
-        </select>
-        @error('id_model_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-    </div>
+                {{-- Model Pembelajaran --}}
+                <div class="flex-1">
+                    <label for="id_model_pembelajaran" class="font-semibold block mb-2">Model Pembelajaran:</label>
+                    <select class="border p-2 rounded-lg border-gray-300 bg-gray-100 w-full" 
+                            wire:model="id_model_pembelajaran" required>
+                        <option value="">Pilih Model Pembelajaran</option>
+                        @foreach ($allModelPembelajaran as $mp)
+                            <option value="{{ $mp->id_model_pembelajaran }}">{{ $mp->nama_model_pembelajaran }}</option>
+                        @endforeach
+                    </select>
+                    @error('id_model_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                </div>
 
-    {{-- Media Perangkat Lunak --}}
-    <div class="flex-1" wire:ignore>
-        <label for="media_perangkat_lunak" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Lunak):</label>
-        <select id="media_perangkat_lunak"
-                class="select2-perangkat-lunak p-2 border rounded-lg border-gray-300 bg-gray-100 w-full"
-                multiple="multiple">
-            @foreach ($allMediaPerangkatLunak as $mpl)
-                <option value="{{ $mpl->id_media_pembelajaran }}"
-                    {{ in_array($mpl->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : '' }}>
-                    {{ $mpl->nama_media_pembelajaran }}
-                </option>
-            @endforeach
-        </select>
-        @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-    </div>
+                {{-- Media Perangkat Lunak --}}
+                <div class="flex-1" wire:ignore>
+                    <label for="media_perangkat_lunak" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Lunak):</label>
+                    <select id="media_perangkat_lunak"
+                            class="select2-perangkat-lunak p-2 border rounded-lg border-gray-300 bg-gray-100 w-full"
+                            multiple="multiple" required>
+                        @foreach ($allMediaPerangkatLunak as $mpl)
+                            <option value="{{ $mpl->id_media_pembelajaran }}"
+                                {{ in_array($mpl->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : '' }}>
+                                {{ $mpl->nama_media_pembelajaran }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                </div>
 
-    {{-- Media Perangkat Keras --}}
-    <div class="flex-1" wire:ignore>
-        <label for="media_perangkat_keras" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Keras):</label>
-        <select id="media_perangkat_keras"
-                class="select2-perangkat-keras p-2 border rounded-lg border-gray-300 bg-gray-100 w-full"
-                multiple="multiple">
-            @foreach ($allMediaPerangkatKeras as $mpk)
-                <option value="{{ $mpk->id_media_pembelajaran }}"
-                    {{ in_array($mpk->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : '' }}>
-                    {{ $mpk->nama_media_pembelajaran }}
-                </option>
-            @endforeach
-        </select>
-        @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
-    </div>
-
-</div>
+                {{-- Media Perangkat Keras --}}
+                <div class="flex-1" wire:ignore>
+                    <label for="media_perangkat_keras" class="font-semibold block mb-2">Media Pembelajaran (Perangkat Keras):</label>
+                    <select id="media_perangkat_keras"
+                            class="select2-perangkat-keras p-2 border rounded-lg border-gray-300 bg-gray-100 w-full"
+                            multiple="multiple" required>
+                        @foreach ($allMediaPerangkatKeras as $mpk)
+                            <option value="{{ $mpk->id_media_pembelajaran }}"
+                                {{ in_array($mpk->id_media_pembelajaran, $media_pembelajaran) ? 'selected' : '' }}>
+                                {{ $mpk->nama_media_pembelajaran }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('media_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror
+                </div>
+            </div>
 
             <br>
+            
             <div>
                 {{-- Materi Pembelakaran --}}
                 <label for="materi_pembelajaran" class="font-semibold">Materi Pembelajaran:</label><br>
-                <textarea wire:model="materi_pembelajaran"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2"></textarea>
+                <textarea wire:model="materi_pembelajaran"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2" required></textarea>
                 @error('materi_pembelajaran') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
             </div>
             <br>
             <div>
                 {{-- Pustaka Utama --}}
                 <label for="pustaka_utama" class="font-semibold">Pustaka Utama:</label><br>
-                <textarea wire:model="pustaka_utama"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2"></textarea>
+                <textarea wire:model="pustaka_utama"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2" required></textarea>
                 @error('pustaka_utama') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
             </div>    
             <br>    
             <div>
                 {{-- Pustaka Pendukung --}}
                 <label for="pustaka_pendukung" class="font-semibold">Pustaka pendukung:</label><br>
-                <textarea wire:model="pustaka_pendukung"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2"></textarea>
+                <textarea wire:model="pustaka_pendukung"  class="p-2 border rounded-lg border-gray-300 w-full h-48 bg-gray-100 mt-2" required></textarea>
                 @error('pustaka_pendukung') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror                         
             </div>
             <br>
@@ -437,6 +436,12 @@
                 @error('topics') <div class="text-red-500 mt-1 text-xs">{{ $message }}</div> @enderror             
             </div>
 
+            @if (session('success'))
+                <div class="mt-4 p-3 rounded bg-green-100 text-green-800">
+                    {{ session('success') }}
+                </div>                
+            @endif
+
             <div class="mt-4 flex justify-between" >
                 <button type="button" 
                     wire:click="addRow" 
@@ -446,13 +451,16 @@
                     <span wire:loading.remove wire:target="addRow">Tambah Baris</span>
                     <span wire:loading wire:target="addRow" class="flex items-center gap-2 opacity-50 cursor-not-allowed">Menambah...</span>
                 </button>
-                <button type="submit" 
-                    wire:loading.attr="disabled"
-                    wire:target="saveRps"
-                    class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">
-                    <span wire:loading.remove wire:target="saveRps">Simpan Rencana Mingguan</span>
-                    <span wire:loading wire:target="saveRps" class="flex items-center gap-2 opacity-50 cursor-not-allowed">Menyimpan...</span>
-                </button>
+                <div>
+                    <a href="{{route('rps.show', $rps->id_rps)}}" class="px-6 py-3 text-base font-medium text-gray-700  border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
+                    <button type="submit" 
+                        wire:loading.attr="disabled"
+                        wire:target="saveRps"
+                        class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-6 py-3 text-center">
+                        <span wire:loading.remove wire:target="saveRps">Simpan RPS</span>
+                        <span wire:loading wire:target="saveRps" class="flex items-center gap-2 opacity-50 cursor-not-allowed">Menyimpan...</span>
+                    </button>
+                </div>
             </div>         
         </div>
     </form>

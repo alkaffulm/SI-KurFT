@@ -118,6 +118,7 @@ class RPSController extends Controller
 
     public function show(RPSModel $rp)
     {
+ 
         $this->authorize('view', $rp);
 
         $rp->load([
