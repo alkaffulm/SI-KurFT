@@ -80,7 +80,6 @@ class UserSeeder extends Seeder
                 ['NIP' => '198710182018032001', 'username' => 'Sari Melati, S.T., M.T.', 'email' => 'sari@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '198803072019032012', 'username' => 'Karina Shella Putri, S.T., M.T.', 'email' => 'karinashella@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '199111222022031006', 'username' => 'Ahmad Ali Syafi\'i, S.T., M.T.', 'email' => 'ali.syafii@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
-                ['NIP' => '199307262022031007', 'username' => 'Muhammad Zaini Arief, S.T., M.T.', 'email' => 'zaini.arief@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '199101012024062004', 'username' => 'Pillayati, S.T., M.T.', 'email' => 'pillayati@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '199203092024061001', 'username' => 'Satrio Ramadhan, S.T., M.T.', 'email' => 'satrio.ramadhan@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '199402232025062008', 'username' => 'Riri Lidya Fathira, S.T., M.T.', 'email' => 'ririlidyaf@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
@@ -95,7 +94,6 @@ class UserSeeder extends Seeder
                 ['NIP' => '197007171998021001', 'username' => 'Prof. Dr. Abdul Ghofur, S.T., M.T.', 'email' => 'ghofur70@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null], // WD Bidang Kemahasiswaan dan Alumni
                 ['NIP' => '197608052008121001', 'username' => 'Prof. Dr. Rachmat Subagyo, S.T., M.T.', 'email' => 'rachmatsubagyo@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '199002212018031001', 'username' => 'Herry Irawansyah, S.T., M.Eng.', 'email' => 'herryirawansyah@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
-                ['NIP' => '197509242002121005', 'username' => 'Gunawan Rudi Cahyono, S.T., M.T.', 'email' => 'gunawan.cahyono@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '197003121995121002', 'username' => 'Prof. Dr. Mastiadi Tamjidillah, S.T., M.T.', 'email' => 'mastiadit@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '197106111995121001', 'username' => 'Dr. Aqli Mursadin, S.T., M.T.', 'email' => 'a.mursadin@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '197105231999031004', 'username' => 'Akhmad Syarief, S.T., M.T.', 'email' => 'akhmad.syarief@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
@@ -219,6 +217,7 @@ class UserSeeder extends Seeder
                 ['NIP' => '200003092025061006', 'username' => 'Muhammad Daffa Abiyyu Rahman, S.T., M.T.', 'email' => 'daffaabiyyu@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '199701302025061007', 'username' => 'Ahmad Zaki Ramadhani, S.T., M.T.', 'email' => 'ahmadzakiramadhani@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '199703152025061003', 'username' => 'Ditza Pasca Irwangsa, S.T., M.T.', 'email' => 'ditzapsc@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
+                ['NIP' => '197509242002121005', 'username' => 'Gunawan Rudi Cahyono, S.T., M.T.', 'email' => 'gunawan.cahyono@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
             ],
 
             // 9. REKAYASA GEOLOGI (id_ps = 9)
@@ -231,6 +230,7 @@ class UserSeeder extends Seeder
                 ['NIP' => '197505302008011012', 'username' => 'Marselinus Untung Dwiatmoko, S.T., M.Eng.', 'email' => 'untung@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '196209221986031001', 'username' => 'Adip Mustofa, S.T., M.T.', 'email' => 'adip@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => '197310132003121001', 'username' => 'Uyu Saismana, S.T., M.T.', 'email' => 'uyu@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
+                ['NIP' => '199307262022031007', 'username' => 'Muhammad Zaini Arief, S.T., M.T.', 'email' => 'zaini.arief@ulm.ac.id', 'password' => $password, 'last_active_kurikulum_id' => null],
             ],
 
             // 10. MAGISTER TEKNIK SIPIL (id_ps = 10)
