@@ -109,7 +109,7 @@
                 </div>
 
                 {{-- Bagian Tabel Korelasi PL dan PEO --}}
-                <h1 class="pt-10 text-3xl font-bold text-teks-biru-custom mb-4">Tabel Korelasi Profil Lulusan dan
+                {{-- <h1 class="pt-10 text-3xl font-bold text-teks-biru-custom mb-4">Tabel Korelasi Profil Lulusan dan
                     Programme
                     Educational Objective (PEO)</h1>
 
@@ -125,9 +125,9 @@
                         </svg>
                         Edit Korelasi
                     </a>
-                </div>
+                </div> --}}
 
-                <div class="overflow-x-auto rounded-lg border border-gray-400">
+                {{-- <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center">
                         <thead class="text-xs text-white  bg-teks-biru-custom">
                             <tr>
@@ -136,9 +136,9 @@
                                     Objective (PEO)</th>
                             </tr>
                             <tr>
-                                @forelse ($peo as $p)
+                                @forelse ($peo as $p) --}}
                                     {{-- Hover tetap ada di sini untuk PEO --}}
-                                    <th scope="col" class="px-6 py-3" title="{{ $p->desc_peo_id }}">
+                                    {{-- <th scope="col" class="px-6 py-3" title="{{ $p->desc_peo_id }}">
                                         {{ $p->kode_peo }}</th>
                                 @empty
                                     <th class="italic font-normal">PEO Belum Ditetapkan</th>
@@ -147,9 +147,9 @@
                         </thead>
                         <tbody>
                             @forelse ($profil_lulusan as $pl)
-                                <tr class="bg-white border-t border-gray-400">
+                                <tr class="bg-white border-t border-gray-400"> --}}
                                     {{-- REVISI: Menghapus hover dari kode PL --}}
-                                    <th scope="row"
+                                    {{-- <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $pl->kode_pl }}
                                     </th>
@@ -175,7 +175,7 @@
                             @endforelse
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
             </div>
         </main>
     </div>
