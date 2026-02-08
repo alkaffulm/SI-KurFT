@@ -58,7 +58,17 @@ class KelasDosenController extends Controller
         $kelas = Kelas::with('mahasiswa')->findOrFail($id);
         $idMk = $kelas->id_mk;
 
-        $rencanaAsesmen = \App\Models\RencanaAsesmenModel::where('id_mk', $idMk)->get();
+        $rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $idMk)
+            ->orderByRaw("
+                CASE 
+                    WHEN tipe_komponen = 'tugas' THEN 1
+                    WHEN tipe_komponen = 'uts'   THEN 2
+                    WHEN tipe_komponen = 'uas'   THEN 3
+                    ELSE 4
+                END
+            ")
+            ->orderBy('nomor_komponen')
+            ->get();
 
         $bobot = \App\Models\RencanaAsesmenCPMKBobotModel::with('mkCpmkMap')
             ->whereIn('id_rencana_asesmen', $rencanaAsesmen->pluck('id_rencana_asesmen'))

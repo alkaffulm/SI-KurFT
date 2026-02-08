@@ -57,7 +57,7 @@
                         {{-- pilih kurikulum --}}
                         <div>
                             <label for="id_kurikulum" class="block text-base font-medium text-gray-700 mb-2">
-                                Kurikulum
+                                Pilih Kurikulum
                             </label>
 
                             <select id="id_kurikulum" name="id_kurikulum"
@@ -80,7 +80,7 @@
 
                         {{-- masukan tahun akademik --}}
                         <div>
-                            <label for="tahun_akademik" class="mt-8 block text-base font-medium text-gray-700 mb-2">Tahun Kurikulum</label>
+                            <label for="tahun_akademik" class="mt-8 block text-base font-medium text-gray-700 mb-2">Tambah Tahun Akademik</label>
                             <input type="text" id="tahun_akademik" name="tahun_akademik"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                 placeholder="Contoh: 2022/2023" value="{{ old('tahun_akademik') }}" required>

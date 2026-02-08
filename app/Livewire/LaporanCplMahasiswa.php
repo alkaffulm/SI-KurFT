@@ -9,7 +9,7 @@ use App\Models\TahunAkademik;
 
 class LaporanCplMahasiswa extends Component
 {
-    public $mode = 'mahasiswa'; // 'mahasiswa' | 'angkatan'
+    public $mode = 'mahasiswa';
 
     public $angkatan;
     public $nim;
@@ -20,12 +20,10 @@ class LaporanCplMahasiswa extends Component
     public $id_prodi_user;
     public $id_kurikulum;
 
-    public $kelas = [];
-    public $cplReports = [];
+    public $laporanPerTahun = [];
 
     public $tahunAkademikId;
     public $tahunAkademikList = [];
-
     public $cplReportsAngkatan = [];
 
     public function mount()
@@ -46,40 +44,23 @@ class LaporanCplMahasiswa extends Component
             ->pluck('angkatan')
             ->toArray();
 
-        $this->tahunAkademikList = TahunAkademik::orderBy('id_tahun_akademik', 'desc')->get();
+        $this->tahunAkademikList = TahunAkademik::orderBy('id_tahun_akademik')->get();
     }
 
-    public function updatedMode($value)
+    public function updatedMode()
     {
-        // reset semua state biar gak nyangkut
-        $this->angkatan = '';
-        $this->nim = '';
-        $this->daftarMahasiswa = [];
-        $this->kelas = [];
-        $this->cplReports = [];
-        $this->cplReportsAngkatan = [];
-        $this->tahunAkademikId = null;
-
-        // kosongkan chart
-        $this->dispatch('laporanCplUpdated', labels: [], data: []);
-    }
-
-    public function updatedTahunAkademikId($value)
-    {
-        if ($this->mode === 'angkatan') {
-            $this->loadCplAngkatan();
-        }
+        $this->reset([
+            'angkatan',
+            'nim',
+            'daftarMahasiswa',
+            'laporanPerTahun',
+            'tahunAkademikId',
+            'cplReportsAngkatan',
+        ]);
     }
 
     public function updatedAngkatan($value)
     {
-        if (empty($this->id_prodi_user)) {
-            $this->daftarMahasiswa = [];
-            $this->nim = '';
-            return;
-        }
-
-        // MODE: MAHASISWA
         if ($this->mode === 'mahasiswa') {
             $this->daftarMahasiswa = DB::table('mahasiswa')
                 ->where('angkatan', $value)
@@ -88,62 +69,74 @@ class LaporanCplMahasiswa extends Component
                 ->orderBy('nama_lengkap')
                 ->get();
 
-            $this->nim = '';
-            $this->kelas = [];
-            $this->cplReports = [];
-            $this->cplReportsAngkatan = [];
-
-            $this->dispatch('laporanCplUpdated', labels: [], data: []);
+            $this->nim = null;
+            $this->laporanPerTahun = [];
             return;
         }
-
-        // MODE: ANGKATAN
-        $this->nim = '';
-        $this->daftarMahasiswa = [];
-        $this->kelas = [];
-        $this->cplReports = [];
-        $this->cplReportsAngkatan = [];
 
         $this->loadCplAngkatan();
     }
 
     public function updatedNim($nim)
     {
-        if ($this->mode !== 'mahasiswa') {
+        if ($this->mode !== 'mahasiswa' || !$nim || !$this->angkatan) {
+            $this->laporanPerTahun = [];
             return;
         }
 
-        if (!$nim) {
-            $this->kelas = [];
-            $this->cplReports = [];
-            $this->dispatch('laporanCplUpdated', labels: [], data: []);
-            return;
+        $this->laporanPerTahun = [];
+
+        $tahunMasuk = (int) $this->angkatan;
+
+        $tahunAkademikList = TahunAkademik::whereIn(
+            'tahun_akademik',
+            collect(range(0, 3))
+                ->map(fn ($i) => ($tahunMasuk + $i) . '/' . ($tahunMasuk + $i + 1))
+                ->toArray()
+        )->orderBy('id_tahun_akademik')->get();
+
+        foreach ($tahunAkademikList as $ta) {
+            $kelas = DB::table('kelas_mahasiswa as km')
+                ->join('kelas as kls', 'km.id_kelas', '=', 'kls.id_kelas')
+                ->join('mata_kuliah as mk', 'kls.id_mk', '=', 'mk.id_mk')
+                ->where('km.nim', $nim)
+                ->where('kls.id_tahun_akademik', $ta->id_tahun_akademik)
+                ->select(
+                    'kls.id_kelas',
+                    'mk.id_mk',
+                    'mk.kode_mk',
+                    'mk.nama_matkul_id as nama_mk',
+                    DB::raw("CONCAT('Kelas ', kls.paralel_ke) as nama_kelas")
+                )
+                ->get()
+                ->map(function ($k) use ($nim) {
+                    $k->rata_rata_bobot = $this->hitungRataRataBobotMK(
+                        $k->id_mk,
+                        $k->id_kelas,
+                        $nim
+                    );
+                    return $k;
+                });
+
+            $cpl = $this->hitungKetercapaianCPL(
+                $nim,
+                $ta->id_tahun_akademik
+            );
+
+            $this->laporanPerTahun[] = [
+                'id_tahun_akademik' => $ta->id_tahun_akademik,
+                'tahun_akademik' => $ta->tahun_akademik,
+                'kelas' => $kelas,
+                'cpl' => $cpl,
+                'chart' => [
+                    'labels' => array_column($cpl, 'kode_cpl'),
+                    'data' => array_map(
+                        fn ($r) => $r['nilai_akhir_cpl'] ?? 0,
+                        $cpl
+                    ),
+                ],
+            ];
         }
-
-        $this->kelas = DB::table('kelas_mahasiswa')
-            ->join('kelas', 'kelas_mahasiswa.id_kelas', '=', 'kelas.id_kelas')
-            ->join('mata_kuliah', 'kelas.id_mk', '=', 'mata_kuliah.id_mk')
-            ->where('kelas_mahasiswa.nim', $nim)
-            ->select(
-                'kelas.id_kelas',
-                'mata_kuliah.id_mk',
-                'mata_kuliah.kode_mk',
-                'mata_kuliah.nama_matkul_id as nama_mk',
-                DB::raw("CONCAT('Kelas ', kelas.paralel_ke) as nama_kelas")
-            )
-            ->get()
-            ->map(function ($k) use ($nim) {
-                $k->rata_rata_bobot = $this->hitungRataRataBobotMK($k->id_mk, $k->id_kelas, $nim);
-                return $k;
-            });
-
-        // tanpa filter tahun akademik (karena per mahasiswa sebelumnya memang all-time)
-        $this->cplReports = $this->hitungKetercapaianCPL($nim, null);
-
-        $labels = array_column($this->cplReports, 'kode_cpl');
-        $data = array_map(fn ($r) => $r['nilai_akhir_cpl'] ?? 0, $this->cplReports);
-
-        $this->dispatch('laporanCplUpdated', labels: $labels, data: $data);
     }
 
     private function loadCplAngkatan()
@@ -151,22 +144,9 @@ class LaporanCplMahasiswa extends Component
         $this->cplReportsAngkatan = [];
 
         if (!$this->tahunAkademikId || !$this->angkatan || !$this->id_prodi_user) {
-            $this->dispatch('laporanCplUpdated', labels: [], data: []);
             return;
         }
 
-        $nimList = DB::table('mahasiswa')
-            ->where('id_ps', $this->id_prodi_user)
-            ->where('angkatan', $this->angkatan)
-            ->pluck('nim');
-
-        if ($nimList->isEmpty()) {
-            $this->dispatch('laporanCplUpdated', labels: [], data: []);
-            return;
-        }
-
-        // (opsional tapi membantu) hanya ambil nim yang punya kelas pada TA itu,
-        // supaya loop tidak kebanyakan
         $nimList = DB::table('kelas_mahasiswa as km')
             ->join('kelas as kls', 'km.id_kelas', '=', 'kls.id_kelas')
             ->join('mahasiswa as m', 'km.nim', '=', 'm.nim')
@@ -177,11 +157,10 @@ class LaporanCplMahasiswa extends Component
             ->pluck('km.nim');
 
         if ($nimList->isEmpty()) {
-            $this->dispatch('laporanCplUpdated', labels: [], data: []);
             return;
         }
 
-        $aggregate = []; // kode_cpl => [deskripsi,sum,count]
+        $aggregate = [];
 
         foreach ($nimList as $nim) {
             $rows = $this->hitungKetercapaianCPL($nim, $this->tahunAkademikId);
@@ -209,14 +188,11 @@ class LaporanCplMahasiswa extends Component
             return [
                 'kode_cpl' => $x['kode_cpl'],
                 'deskripsi' => $x['deskripsi'],
-                'nilai_akhir_cpl' => $x['count'] > 0 ? round($x['sum'] / $x['count'], 2) : null,
+                'nilai_akhir_cpl' => $x['count'] > 0
+                    ? round($x['sum'] / $x['count'], 2)
+                    : null,
             ];
         })->values()->toArray();
-
-        $labels = array_column($this->cplReportsAngkatan, 'kode_cpl');
-        $data = array_map(fn ($r) => $r['nilai_akhir_cpl'] ?? 0, $this->cplReportsAngkatan);
-
-        $this->dispatch('laporanCplUpdated', labels: $labels, data: $data);
     }
 
     private function hitungRataRataBobotMK($idMk, $idKelas, $nim)
@@ -269,10 +245,8 @@ class LaporanCplMahasiswa extends Component
                         ->where('id_rencana_asesmen', $komponen->id_rencana_asesmen)
                         ->sum('bobot');
 
-                    $nilaiMahasiswa = $penilaian->nilai ?? 0;
-                    $bobotTercapai = ($nilaiMahasiswa * $totalBobotKomponen) / 100;
-
-                    $bobotTercapaiPerCpmk[$idCpmk] += $bobotTercapai;
+                    $bobotTercapaiPerCpmk[$idCpmk] +=
+                        ($penilaian->nilai * $totalBobotKomponen) / 100;
                 }
             }
         }
@@ -284,13 +258,9 @@ class LaporanCplMahasiswa extends Component
             return null;
         }
 
-        return round(($totalBobotTercapai / $totalBobotMaksimal) * 100, 2, PHP_ROUND_HALF_EVEN);
+        return round(($totalBobotTercapai / $totalBobotMaksimal) * 100, 2);
     }
 
-    /**
-     * Hitung ketercapaian CPL untuk 1 mahasiswa.
-     * Jika $tahunAkademikId diisi, maka nilai hanya diambil dari kelas pada tahun akademik tersebut.
-     */
     private function hitungKetercapaianCPL($nim, $tahunAkademikId = null)
     {
         $cplList = DB::table('cpl')
@@ -310,92 +280,53 @@ class LaporanCplMahasiswa extends Component
                     'mccm.id_mk_cpmk_cpl',
                     'mccm.id_mk',
                     'mccm.id_cpmk',
-                    'mk.kode_mk',
                     DB::raw('COALESCE(mcb.bobot, 0) as bobot_cpmk_cpl')
                 )
                 ->get();
-
-            if ($mappingList->isEmpty()) {
-                return [
-                    'kode_cpl' => $cpl->kode_cpl,
-                    'deskripsi' => $cpl->deskripsi,
-                    'nilai_akhir_cpl' => null,
-                ];
-            }
 
             $totalBobotTercapai = 0;
             $totalBobotMaksimal = 0;
 
             foreach ($mappingList as $mapping) {
-                $bobotMaksimalMapping = (float) $mapping->bobot_cpmk_cpl;
+                if ($mapping->bobot_cpmk_cpl == 0) continue;
 
-                if ($bobotMaksimalMapping == 0) {
-                    continue;
-                }
-
-                $totalBobotMaksimal += $bobotMaksimalMapping;
+                $totalBobotMaksimal += $mapping->bobot_cpmk_cpl;
                 $bobotTercapaiMapping = 0;
 
-                $komponenEvaluasiList = DB::table('rencana_asesmen as ra')
+                $komponenList = DB::table('rencana_asesmen as ra')
                     ->join('rencana_asesmen_cpmk_bobot as racb', 'ra.id_rencana_asesmen', '=', 'racb.id_rencana_asesmen')
                     ->where('ra.id_mk', $mapping->id_mk)
                     ->where('racb.id_mk_cpmk_cpl', $mapping->id_mk_cpmk_cpl)
-                    ->select('ra.id_rencana_asesmen', 'racb.bobot as bobot_cpmk_di_komponen')
+                    ->select('ra.id_rencana_asesmen', 'racb.bobot')
                     ->get();
 
-                foreach ($komponenEvaluasiList as $komponen) {
-                    // Query penilaian + filter tahun akademik via kelas
-                    $penilaianQuery = DB::table('penilaian_mahasiswa as pm')
+                foreach ($komponenList as $komponen) {
+                    $penilaian = DB::table('penilaian_mahasiswa as pm')
                         ->join('kelas as kls', 'pm.id_kelas', '=', 'kls.id_kelas')
-                        ->join('kelas_mahasiswa as km', function ($join) use ($nim) {
-                            $join->on('pm.id_kelas', '=', 'km.id_kelas')
-                                ->where('km.nim', '=', $nim);
-                        })
                         ->where('pm.nim', $nim)
                         ->where('pm.id_rencana_asesmen', $komponen->id_rencana_asesmen)
-                        ->where('pm.id_cpmk', $mapping->id_cpmk);
-
-                    if ($tahunAkademikId) {
-                        $penilaianQuery->where('kls.id_tahun_akademik', $tahunAkademikId);
-                    }
-
-                    $penilaian = $penilaianQuery->select('pm.nilai')->first();
+                        ->where('pm.id_cpmk', $mapping->id_cpmk)
+                        ->when($tahunAkademikId, fn ($q) =>
+                            $q->where('kls.id_tahun_akademik', $tahunAkademikId)
+                        )
+                        ->select('pm.nilai')
+                        ->first();
 
                     if ($penilaian) {
-                        $totalBobotCpmkDiKomponen = DB::table('rencana_asesmen_cpmk_bobot as racb')
-                            ->join('mk_cpmk_cpl_map as mccm', 'racb.id_mk_cpmk_cpl', '=', 'mccm.id_mk_cpmk_cpl')
-                            ->where('racb.id_rencana_asesmen', $komponen->id_rencana_asesmen)
-                            ->where('mccm.id_cpmk', $mapping->id_cpmk)
-                            ->where('mccm.id_mk', $mapping->id_mk)
-                            ->sum('racb.bobot');
-
-                        $totalBobotKomponen = DB::table('rencana_asesmen_cpmk_bobot')
-                            ->where('id_rencana_asesmen', $komponen->id_rencana_asesmen)
-                            ->sum('bobot');
-
-                        $proporsi = $totalBobotCpmkDiKomponen > 0
-                            ? ((float) $komponen->bobot_cpmk_di_komponen / (float) $totalBobotCpmkDiKomponen)
-                            : 1;
-
-                        $nilaiMahasiswa = (float) ($penilaian->nilai ?? 0);
-                        $bobotTercapai = $nilaiMahasiswa * $proporsi * $totalBobotKomponen / 100;
-
-                        $bobotTercapaiMapping += $bobotTercapai;
+                        $bobotTercapaiMapping +=
+                            ($penilaian->nilai * $komponen->bobot) / 100;
                     }
                 }
 
                 $totalBobotTercapai += $bobotTercapaiMapping;
             }
 
-            $nilaiAkhirCpl = null;
-            if ($totalBobotMaksimal > 0) {
-                $nilaiAkhirCpl = round(($totalBobotTercapai / $totalBobotMaksimal) * 100, 2);
-            }
-
             return [
                 'kode_cpl' => $cpl->kode_cpl,
                 'deskripsi' => $cpl->deskripsi,
-                'nilai_akhir_cpl' => $nilaiAkhirCpl,
+                'nilai_akhir_cpl' => $totalBobotMaksimal > 0
+                    ? round(($totalBobotTercapai / $totalBobotMaksimal) * 100, 2)
+                    : null,
             ];
         })->toArray();
     }
@@ -406,10 +337,7 @@ class LaporanCplMahasiswa extends Component
             'mode' => $this->mode,
             'angkatanList' => $this->angkatanList,
             'daftarMahasiswa' => $this->daftarMahasiswa,
-            'nim' => $this->nim,
-            'kelas' => $this->kelas,
-            'cplReports' => $this->cplReports,
-
+            'laporanPerTahun' => $this->laporanPerTahun,
             'tahunAkademikId' => $this->tahunAkademikId,
             'tahunAkademikList' => $this->tahunAkademikList,
             'cplReportsAngkatan' => $this->cplReportsAngkatan,
