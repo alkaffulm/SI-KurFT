@@ -43,9 +43,9 @@
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
                     <div class="mb-5">
                         <h1 class="text-4xl font-bold text-gray-800">Edit Kelas</h1>
-                        <p class="text-gray-500 mt-2 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore nihil perspiciatis quibusdam!</p>
+                        {{-- <p class="text-gray-500 mt-2 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore nihil perspiciatis quibusdam!</p> --}}
                     </div>
-                    <form action="{{ route('kelas.updaterill', $kelas->id_kelas) }}" method="POST" enctype="multipart/form-data" class="mb-12 flex flex-col">
+                    <form action="{{ route('kelas.updaterill', $kelas->id_kelas) }}" method="POST" enctype="multipart/form-data" class=" flex flex-col">
                         @csrf
                         @method('PUT')
                         <div class="flex mb-12 gap-12">
@@ -139,17 +139,19 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- Button Submit --}}
-                        <button type="submit" class="w-28 mt-12 px-7 py-3 text-base font-medium text-white bg-biru-custom border rounded-lg hover:bg-blue-500">
-                            Submit
-                        </button>
+                        <div>
+                            {{-- button --}}
+                            <a href="{{ route('kelas.index') }}" {{-- Ganti route kembali ke cpl.index --}}
+                                class="px-7 py-3 mr-4 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
+                                Kembali
+                            </a>
+                            {{-- Button Submit --}}
+                            <button type="submit" class="w-28  px-7 py-3 text-base font-medium text-white bg-biru-custom border rounded-lg hover:bg-blue-500">
+                                Submit
+                            </button>
+                        </div>
                     </form>
 
-                    {{-- button --}}
-                    <a href="{{ route('kelas.index') }}" {{-- Ganti route kembali ke cpl.index --}}
-                        class="mt-12 px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
-                        Kembali
-                    </a>
                 </div>
         </main>
     </div>

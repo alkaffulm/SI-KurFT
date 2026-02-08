@@ -39,9 +39,9 @@
         <div class="bg-white p-8 rounded-xl shadow-lg flex justify-between items-center mt-12">
             <div>
                 {{-- <h1 class="text-4xl font-bold text-biru-custom">Selamat Datang,</h1> --}}
-                <h2 class="text-2xl font-bold text-gray-800 mt-2">Admin:
+                <h2 class="text-xl font-bold text-gray-800 mt-2">Admin:
                 </h2>
-                <p class="mt-4 text-lg text-justify">
+                <p class="mt-4  text-justify">
                     Dalam sistem kurikulum berbasis OBE, halaman admin berfungsi sebagai
                     <span class="font-bold">
                         pusat pengelolaan data penting yang mendukung proses perencanaan dan evaluasi pembelajaran. 
@@ -54,7 +54,6 @@
                     <span class="font-bold">
                         Teknik penilaian, Kriteria penilaian, Model pembelajaran, dan Metode pembelajaran. 
                     </span>
-                    Fitur ini memastikan bahwa setiap data yang digunakan dalam penyusunan RPS maupun evaluasi capaian pembelajaran dapat dikelola secara terstruktur, konsisten, dan selalu diperbarui sesuai kebutuhan. Dengan demikian, keberadaan admin tidak hanya menjaga kelengkapan data, tetapi juga menjamin integritas informasi dalam mendukung penerapan kurikulum berbasis capaian secara efektif.
                 </p>
             </div>
             {{-- <div>

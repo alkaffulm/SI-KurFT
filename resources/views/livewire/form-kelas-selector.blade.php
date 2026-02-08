@@ -1,4 +1,4 @@
-<div class="space-y-6 mb-20">
+<div class="space-y-6">
 
 
     {{-- Tampilkan error validasi --}}
@@ -13,71 +13,80 @@
     @endif
 
     <form wire:submit.prevent="save" enctype="multipart/form-data">
-        {{-- kurikulum --}} 
-        <div> 
-            <label for="kurikulum_select" class="block mb-2 text-sm font-medium text-gray-900"> 
-                Pilih Kurikulum 
-            </label> 
-            <select wire:model.live="id_kurikulum" id="kurikulum_select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-biru-custom focus:border-biru-custom block w-full sm:w-1/3 p-2.5"> 
-                <option value="">-- Pilih Kurikulum --</option> 
-                @foreach ($kurikulums as $kurikulum) 
-                    <option value="{{ $kurikulum->id_kurikulum }}"> 
-                        {{ $kurikulum->nama_kurikulum ?? 'Kurikulum ' . $kurikulum->tahun }} 
-                    </option> 
-                @endforeach 
-            </select> 
-        </div> 
-        
-        {{-- tahun_akademik --}} 
-        <div class="mt-10"> 
-            <label for="tahun_select" class="block mb-2 text-sm font-medium text-gray-900"> 
-                Pilih Tahun Akademik sesuai Kurikulum 
-            </label> 
-            <select wire:model.live="id_tahun_akademik" id="tahun_select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-biru-custom focus:border-biru-custom block w-full sm:w-1/3 p-2.5" @disabled(!$id_kurikulum)> 
-                <option value="">-- Pilih Tahun Akademik --</option> 
-                @foreach ($tahunAkademiks as $ta) 
-                    <option value="{{ $ta->id_tahun_akademik }}"> {{ $ta->tahun_akademik }} </option> 
-                @endforeach 
-            </select> 
-        </div>
+        <div class="grid grid-cols-2 gap-4">
+            {{-- kurikulum --}} 
+            <div> 
+                <label for="kurikulum_select" class="block mb-2 text-sm font-medium text-gray-900"> 
+                    Pilih Kurikulum 
+                </label> 
+                <select wire:model.live="id_kurikulum" id="kurikulum_select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-biru-custom focus:border-biru-custom block w-full sm:w-1/2 p-2.5"> 
+                    <option value="">-- Pilih Kurikulum --</option> 
+                    @foreach ($kurikulums as $kurikulum) 
+                        <option value="{{ $kurikulum->id_kurikulum }}"> 
+                            {{ $kurikulum->nama_kurikulum ?? 'Kurikulum ' . $kurikulum->tahun }} 
+                        </option> 
+                    @endforeach 
+                </select> 
+            </div> 
 
-        {{-- Pilih Semester --}}
-        <div class="mt-10">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Pilih Semester untuk Mata Kuliah</label>
-            <select wire:model.live="muncul" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full sm:w-1/3 p-2.5" @disabled(!$id_kurikulum)>
-                <option value="">-- Pilih Semester --</option>
-                <option value="ganjil">Semester Ganjil</option>
-                <option value="genap">Semester Genap</option>
-                <option value="semua">Semester Semua</option>
-            </select>
-        </div>
 
-        {{-- Mata Kuliah --}}
-        <div class="mt-10">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Mata Kuliah</label>
-            <select wire:model.live="id_mk" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-biru-custom focus:border-biru-custom block w-full sm:w-1/3 p-2.5" @disabled(!$id_kurikulum || !$muncul)>
-                <option value="">-- Pilih Mata Kuliah --</option>
-                @foreach ($mataKuliahs as $mk)
-                    <option value="{{ $mk->id_mk }}">{{ $mk->kode_mk }} - {{ $mk->nama_matkul_id }}</option>
-                @endforeach
-            </select>
-        </div>
+            {{-- Mata Kuliah --}}
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Mata Kuliah</label>
+                <select wire:model.live="id_mk" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-biru-custom focus:border-biru-custom block w-full sm:w-1/2 p-2.5" @disabled(!$id_kurikulum || !$muncul)>
+                    <option value="">-- Pilih Mata Kuliah --</option>
+                    @foreach ($mataKuliahs as $mk)
+                        <option value="{{ $mk->id_mk }}">{{ $mk->kode_mk }} - {{ $mk->nama_matkul_id }}</option>
+                    @endforeach
+                </select>
+            </div>            
 
-        {{-- Jumlah Paralel --}}
-        <div class="mt-10">
-            <label class="block mb-2 text-sm font-medium text-gray-900">Jumlah Kelas/Paralel</label>
-            <select wire:model.live="jumlah_paralel" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-biru-custom focus:border-biru-custom block w-full sm:w-1/3 p-2.5" @disabled(!$id_mk)>
-                <option value="1">1 Kelas/Paralel</option>
-                <option value="2">2 Kelas/Paralel</option>
-                <option value="3">3 Kelas/Paralel</option>
-                <option value="4">4 Kelas/Paralel</option>
-                <option value="5">5 Kelas/Paralel</option>
-                <option value="6">6 Kelas/Paralel</option>
-                <option value="7">7 Kelas/Paralel</option>
-                <option value="8">8 Kelas/Paralel</option>
-                <option value="9">9 Kelas/Paralel</option>
-                <option value="10">10 Kelas/Paralel</option>
-            </select>
+            
+             {{-- tahun_akademik --}} 
+            <div> 
+                <label for="tahun_select" class="block mb-2 text-sm font-medium text-gray-900"> 
+                    Pilih Tahun Akademik sesuai Kurikulum 
+                </label> 
+                <select wire:model.live="id_tahun_akademik" id="tahun_select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-biru-custom focus:border-biru-custom block w-full sm:w-1/2 p-2.5" @disabled(!$id_kurikulum)> 
+                    <option value="">-- Pilih Tahun Akademik --</option> 
+                    @foreach ($tahunAkademiks as $ta) 
+                        <option value="{{ $ta->id_tahun_akademik }}"> {{ $ta->tahun_akademik }} </option> 
+                    @endforeach 
+                </select> 
+            </div>  
+
+            {{-- Jumlah Paralel --}}
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Jumlah Kelas/Paralel</label>
+                <select wire:model.live="jumlah_paralel" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-biru-custom focus:border-biru-custom block w-full sm:w-1/2 p-2.5" @disabled(!$id_mk)>
+                    <option value="1">1 Kelas/Paralel</option>
+                    <option value="2">2 Kelas/Paralel</option>
+                    <option value="3">3 Kelas/Paralel</option>
+                    <option value="4">4 Kelas/Paralel</option>
+                    <option value="5">5 Kelas/Paralel</option>
+                    <option value="6">6 Kelas/Paralel</option>
+                    <option value="7">7 Kelas/Paralel</option>
+                    <option value="8">8 Kelas/Paralel</option>
+                    <option value="9">9 Kelas/Paralel</option>
+                    <option value="10">10 Kelas/Paralel</option>
+                </select>
+            </div>
+
+            {{-- Pilih Semester --}}
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Pilih Semester untuk Mata Kuliah</label>
+                <select wire:model.live="muncul" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full sm:w-1/2 p-2.5" @disabled(!$id_kurikulum)>
+                    <option value="">-- Pilih Semester --</option>
+                    <option value="ganjil">Semester Ganjil</option>
+                    <option value="genap">Semester Genap</option>
+                    <option value="semua">Semester Semua</option>
+                </select>
+            </div>
+
+
+    
+
+            
         </div>
 
         {{-- Form Paralel Dinamis --}}
@@ -172,7 +181,11 @@
             @endforeach
         @endif
 
-        <div class="mt-10">
+        <div class="mt-10 ">
+            <a href="{{ route('kelas.index') }}" 
+                class="mr-4 px-6 py-2 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
+                Kembali
+            </a>
             <button type="submit" 
                     class="px-6 py-2 bg-biru-custom text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
                     @disabled(!$id_kurikulum || !$id_tahun_akademik || !$id_mk || count($paralels) == 0)

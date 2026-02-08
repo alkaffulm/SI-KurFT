@@ -39,7 +39,7 @@
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">Tabel Mahasiswa</h1>
                 <p class="text-gray-600 mb-6">
-                        Halaman Master Mahasiswa per Angkatan digunakan oleh admin prodi untuk mengelola data mahasiswa setiap angkatan secara efisien. Melalui halaman ini, admin dapat melihat daftar mahasiswa berdasarkan tahun masuk, menambah data baru dengan mudah melalui unggahan file Excel, serta melakukan pembaruan atau penghapusan data per mahasiswa sesuai kebutuhan. Halaman ini membantu memastikan data mahasiswa selalu akurat, lengkap, dan terorganisir dengan baik di tingkat program studi.
+                        Mengelola data mahasiswa setiap angkatan secara efisien. Melalui halaman ini, admin dapat melihat daftar mahasiswa berdasarkan tahun masuk, menambah data baru dengan mudah melalui unggahan file Excel, serta melakukan pembaruan atau penghapusan data per mahasiswa sesuai kebutuhan.
                 </p>
 
                 <div class="flex justify-between items-center mb-4">

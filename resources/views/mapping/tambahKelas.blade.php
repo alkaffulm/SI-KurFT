@@ -55,11 +55,7 @@
 
 
 
-                {{-- button --}}
-                <a href="{{ route('kelas.index') }}" {{-- Ganti route kembali ke cpl.index --}}
-                    class="mt-12 px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
-                    Kembali
-                </a>
+
 
         </main>
     </div>

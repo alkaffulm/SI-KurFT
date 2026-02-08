@@ -39,9 +39,7 @@
                 <p class="text-gray-600 mb-6">
                     Metode yang digunakan dosen untuk mengukur ketercapaian capaian pembelajaran mahasiswa, baik pada level CPL, CPMK, maupun SubCPMK. 
                     Penilaian tidak hanya berfokus pada tes tertulis seperti ujian dan kuis, tetapi juga mencakup asesmen autentik yang relevan dengan kompetensi nyata, 
-                    misalnya proyek, presentasi, laporan, portofolio, hingga observasi partisipasi kelas. Dengan teknik penilaian yang bervariasi ini, 
-                    dosen dapat memperoleh gambaran yang lebih komprehensif mengenai penguasaan pengetahuan, keterampilan, dan sikap mahasiswa, 
-                    serta memastikan bahwa proses pembelajaran benar-benar berorientasi pada pencapaian hasil belajar yang diharapkan.
+                    misalnya proyek, presentasi, laporan, portofolio, hingga observasi partisipasi kelas. 
                 </p>
 
                 <div class="flex justify-between items-center mb-4">

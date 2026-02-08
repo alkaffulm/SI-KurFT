@@ -37,7 +37,7 @@
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">Kriteria Penilaian</h1>
                 <p class="text-gray-600 mb-6 text-justify">
-                        Merupakan seperangkat tolok ukur yang digunakan untuk menilai tingkat ketercapaian capaian pembelajaran mahasiswa, baik pada ranah pengetahuan, keterampilan, maupun sikap. Kriteria ini berfungsi sebagai standar kualitas yang memastikan bahwa setiap bentuk penilaian dilakukan secara objektif, terukur, dan konsisten sesuai dengan target pembelajaran yang telah ditetapkan. Umumnya, kriteria penilaian dituangkan dalam bentuk rubrik yang memuat indikator-indikator spesifik, sehingga dosen dapat menilai secara lebih komprehensif sejauh mana mahasiswa telah memenuhi aspek-aspek yang diharapkan. Dengan adanya kriteria penilaian yang jelas, proses evaluasi tidak hanya mengukur benar-salah jawaban, tetapi juga menilai kualitas pemahaman, ketepatan penerapan keterampilan, serta sikap profesional mahasiswa dalam konteks pembelajaran.
+                        Merupakan seperangkat tolok ukur yang digunakan untuk menilai tingkat ketercapaian capaian pembelajaran mahasiswa, baik pada ranah pengetahuan, keterampilan, maupun sikap. Kriteria ini berfungsi sebagai standar kualitas yang memastikan bahwa setiap bentuk penilaian dilakukan secara objektif, terukur, dan konsisten sesuai dengan target pembelajaran yang telah ditetapkan. 
                 </p>
 
                 <div class="flex justify-between items-center mb-4">
