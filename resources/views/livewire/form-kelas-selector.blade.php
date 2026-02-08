@@ -13,7 +13,7 @@
     @endif
 
     <form wire:submit.prevent="save" enctype="multipart/form-data">
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-12">
             {{-- kurikulum --}} 
             <div> 
                 <label for="kurikulum_select" class="block mb-2 text-sm font-medium text-gray-900"> 
