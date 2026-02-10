@@ -4,12 +4,12 @@ namespace App\Livewire\PimpinanUpm;
 
 use Livewire\Component;
 use App\Models\KurikulumModel;
-use App\Models\PEOModel;
+use App\Models\MataKuliahModel;
 use App\Models\ProgramStudiModel;
 use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
 
-class PeoAll extends Component
+class MataKuliahAll extends Component
 {
     // Properti untuk Filter
     public $selectedKurikulum = '';
@@ -20,11 +20,11 @@ class PeoAll extends Component
         // Reset pilihan kurikulum agar tidak nyangkut data dari prodi sebelumnya
         $this->selectedKurikulum = ''; 
     }
-    
+
     public function render()
     {
         // 1. Mulai Query & Matikan Global Scope
-        $query = PEOModel::query()
+        $query = MataKuliahModel::query()
             ->withoutGlobalScopes([ProdiScope::class, KurikulumScope::class]);
 
         // 2. Terapkan Filter jika ada input
@@ -37,7 +37,7 @@ class PeoAll extends Component
         }
 
         // 3. Ambil Data
-        $peo = $query->get();
+        $mata_kuliah = $query->get();
 
         // Data pendukung untuk dropdown filter
         $programStudi = ProgramStudiModel::all();
@@ -47,8 +47,9 @@ class PeoAll extends Component
         if (!empty($this->selectedProdi)) {
             $kurikulum = KurikulumModel::withoutGlobalScopes([ProdiScope::class])->where('id_ps', $this->selectedProdi)->get();
         }
-        return view('livewire.pimpinan-upm.peo-all', [
-            'peo' => $peo,
+
+        return view('livewire.pimpinan-upm.mata-kuliah-all',[
+            'mata_kuliah' => $mata_kuliah,
             'list_kurikulum' => $kurikulum,
             'list_prodi' => $programStudi,
         ]);

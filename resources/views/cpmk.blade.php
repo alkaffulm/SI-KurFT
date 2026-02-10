@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CPMK dan Sub-CPMK</title>
     @vite('resources/css/app.css')
+    <link rel="icon" href="{{ asset('images/logo ulm 1.png') }}" type="image/x-icon">
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
     @livewireStyles
@@ -81,7 +82,7 @@
                             @forelse ($cpmk as $cp)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        class="px-9 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $cp->nama_kode_cpmk }}
                                     </th>
                                     <td class="px-6 py-4 text-left">

@@ -27,10 +27,18 @@ class MasterMahasiswaController extends Controller
     {
         $id_ps = session('userRoleId');
         $mahasiswa = MahasiswaModel::where('id_ps', $id_ps)->get();
+        $userRole = session()->get('userRole');
 
-        return view('Admin.Master Mahasiswa.master_mahasiswa', [
-            'mahasiswa' => $mahasiswa
-        ]);
+        if($userRole == 'pimpinan' || $userRole == 'upm'){
+            return view('pimpinanUpm.mahasiswaAll', [
+                'userRole' => $userRole,
+            ]);
+        }
+        else {
+            return view('Admin.Master Mahasiswa.master_mahasiswa', [
+                'mahasiswa' => $mahasiswa
+            ]);
+        }
     }
 
     /**

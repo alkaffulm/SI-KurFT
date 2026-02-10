@@ -86,7 +86,7 @@
                                     <td class="px-6 py-4 text-left border-r border-gray-400">
                                         {{ $bk->nama_bk_id }}
                                     </td>
-                                    <td class="px-6 py-4 text-left">
+                                    <td class="px-6 py-4 text-justify">
                                         <p>{{ $bk->desc_bk_id }}</p>
                                         <p class="italic text-sm text-[#7397b6]">{{ $bk->desc_bk_en }}</p>
                                     </td>

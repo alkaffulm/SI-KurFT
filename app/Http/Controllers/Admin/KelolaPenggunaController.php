@@ -20,6 +20,7 @@ class KelolaPenggunaController extends Controller
     public function index()
     {
         $id_ps = session('userRoleId');
+        $userRole = session()->get('userRole');
 
         $users = UserModel::with(['roles' => function($query) use ($id_ps) {
                 // FILTER ROLE:
@@ -32,7 +33,12 @@ class KelolaPenggunaController extends Controller
             ->orderBy('id_user', 'desc')
             ->get();
 
-        return view('Admin.Kelola Pengguna.kelola_pengguna', compact('users'));
+        if($userRole == 'pimpinan' || $userRole == 'upm'){
+            return view('pimpinanUpm.penggunaAll', ['userRole' => $userRole,]);
+        }
+        else {  
+            return view('Admin.Kelola Pengguna.kelola_pengguna', compact('users'));
+        }
     }
 
     public function create()

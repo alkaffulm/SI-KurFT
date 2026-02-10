@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\KriteriaPenilaianAdminController;
 use App\Http\Controllers\Admin\MasterMahasiswaController;
 use App\Http\Controllers\Dosen\KelasDosenController;
 use App\Http\Controllers\Admin\KelolaPenggunaController;
+use App\Http\Controllers\Kaprodi\AdminController;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
@@ -333,5 +334,11 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:pimpinan')->prefix('pimpinan')->group(function () {
         Route::get('/profil-lulusan-all', [ProfilLulusanController::class, 'index'])->name('profil-lulusan-all.index');
         Route::get('/peo-all', [PeoController::class, 'index'])->name('peo-all.index');
+        Route::get('/cpl-all', [CplController::class, 'index'])->name('cpl-all.index');
+        Route::get('/bahan-kajian-all', [BahanKajianController::class, 'index'])->name('bahan-kajian-all.index');    
+        Route::get('/mata-kuliah-all', [MatkulController::class, 'index'])->name('mata-kuliah-all.index');   
+        Route::get('/cpmk-all', [CpmkController::class, 'index'])->name('cpmk-all.index');             
+        Route::get('/pengguna-all', [KelolaPenggunaController::class, 'index'])->name('pengguna-all.index');             
+        Route::get('/mahasiswa-all', [MasterMahasiswaController::class, 'index'])->name('mahasiswa-all.index');             
     });    
 });

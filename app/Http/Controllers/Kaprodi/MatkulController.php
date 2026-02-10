@@ -46,6 +46,7 @@ class MatkulController extends Controller
         $bahan_kajian = BahanKajianModel::all();
         $cpl = CPLModel::all();
         $jumlah_bk = BahanKajianModel::count();
+        $userRole = session()->get('userRole');
 
         $mk_cpl_map = [];
         foreach ($mata_kuliah as $mk) {
@@ -56,7 +57,7 @@ class MatkulController extends Controller
             $mk_cpl_map[$mk->id_mk] = $cplIds;
         }
 
-        if (session('userRole') == 'kaprodi') {
+        if ($userRole == 'kaprodi') {
             return view('matkul', [
                 'mata_kuliah' => $mata_kuliah,
                 'tanggungJawabDosen' => $tanggungJawabDosen,
@@ -65,6 +66,9 @@ class MatkulController extends Controller
                 'jumlah_bk'=>$jumlah_bk,
                 'mk_cpl_map' => $mk_cpl_map,
             ]);
+        }
+        elseif($userRole == 'pimpinan' || $userRole == 'upm'){
+            return view('pimpinanUpm.mataKuliahAll', ['userRole' => $userRole]);
         }
         else {
             return view('dosen.matkul', ['mata_kuliah' => $mata_kuliah, 'tanggungJawabDosen' => $tanggungJawabDosen]);

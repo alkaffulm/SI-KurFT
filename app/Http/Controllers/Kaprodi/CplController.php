@@ -34,6 +34,7 @@ class CplController extends Controller
         $peo = PEOModel::orderBy('kode_peo', 'asc')->get();
         $cpl_pl_raw = CPLPLMapModel::all();
         $cpl_pl_map = [];
+        $userRole = session()->get('userRole');
 
         foreach ($cpl_pl_raw as $relasi) {
             $cpl_pl_map[$relasi->id_cpl][] = $relasi->id_pl;
@@ -59,19 +60,25 @@ class CplController extends Controller
             }
         }
 
-        return view(
-            'cpl',
-            [
-                'cpl' => $cpl,
-                'kurikulum' => $kurikulum,
-                'programStudi' => $programStudi,
-                'peo' => $peo,
-                'profil_lulusan' => $profil_lulusan,
-                'cpl_pl_map' => $cpl_pl_map,
-                'pl_peo_map' => $pl_peo_map,
-                'cpl_peo_map' => $cpl_peo_map
-            ]
-        );
+        if($userRole == 'pimpinan' || $userRole == 'upm') {
+            return view('pimpinanUpm.cplAll', ['userRole' => $userRole,]);
+        }
+        else {
+            return view(
+                'cpl',
+                [
+                    'cpl' => $cpl,
+                    'kurikulum' => $kurikulum,
+                    'programStudi' => $programStudi,
+                    'peo' => $peo,
+                    'profil_lulusan' => $profil_lulusan,
+                    'cpl_pl_map' => $cpl_pl_map,
+                    'pl_peo_map' => $pl_peo_map,
+                    'cpl_peo_map' => $cpl_peo_map
+                ]
+            );
+        }
+
     }
 
     /**

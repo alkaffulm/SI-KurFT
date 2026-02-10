@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programme Educational Objective (PEO)</title>
+    <title>Mata Kuliah</title>
     @vite('resources/css/app.css')
-    <link rel="icon" href="{{ asset('images/logo ulm 1.png') }}" type="image/x-icon">
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
 
-    @include('layouts.navbar', ['userRole' => $userRole])
-    @include('layouts.sidebar', ['userRole' => $userRole])
+    @include('layouts.navbar')
+    @include('layouts.sidebar')
 
     <div class="py-8 px-16 sm:ml-64">
         <main class="mt-16">
+            {{-- Bagian 1: Tabel Mata Kuliah --}}
             <nav class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li class="inline-flex items-center">
@@ -30,28 +30,28 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ms-1 text-sm font-medium text-gray-900 md:ms-2">PEO</span>
+                            <span class="ms-1 text-sm font-medium text-gray-900 md:ms-2">Mata Kuliah</span>
                         </div>
                     </li>
                 </ol>
             </nav>
-            <div class="bg-white p-8 rounded-lg shadow-md">
-                <h1 class="text-3xl font-bold text-gray-900 mb-4">PROGRAMME EDUCATIONAL OBJECTIVE (PEO)</h1>
+
+            <div class="bg-white p-8 rounded-lg shadow-md mb-8">
+                <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Mata Kuliah</h1>
                 <p class="text-gray-600 mb-6">
-                    Nilai-nilai utama secara resmi dinyatakan sebagai Tujuan Pendidikan Program (Program Educational
-                    Objectives/PEO). Nilai-nilai utama ini dirumuskan sesuai dengan visi dan misi universitas, fakultas
-                    teknik, dan program studi teknik elektro. Perumusan nilai-nilai utama ini umumnya mempertimbangkan
-                    saran dari pengguna, dewan penasihat, alumni, dan asosiasi profesi.
+                    Mata Kuliah adalah unit pembelajaran yang mencakup serangkaian topik atau bahan kajian tertentu,
+                    yang dirancang untuk mencapai Capaian Pembelajaran Lulusan (CPL).
                 </p>
 
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-biru-custom">Tabel PEO</h2>
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Pembentukan Mata Kuliah</h2>
                 </div>
 
-                @livewire('pimpinan-upm.peo-all')
+                @livewire('pimpinan-upm.mata-kuliah-all')
             </div>
         </main>
     </div>
+
     {{-- Script untuk menangkap session flash data --}}
     <script>
         // Cek Session Sukses

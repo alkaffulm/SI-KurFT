@@ -94,7 +94,7 @@
             {{-- Menu khusus Kaprodi --}}
             @if ($userRole == 'kaprodi')
                 {{-- KURIKULUM --}}
-                <li class="pt-4">
+                <li class="pt-2">
                     <span class="ms-2 text-xs font-semibold text-gray-500 uppercase">Kurikulum</span>
                 </li>
                 <li>
@@ -221,7 +221,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('cpl.index') }}"
+                    <a href="{{ route('cpl-all.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                         {{-- CPL Icon --}}
                         <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -234,7 +234,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('bahan-kajian.index') }}"
+                    <a href="{{ route('bahan-kajian-all.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                         {{-- Bahan Kajian Icon --}}
                         <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -247,7 +247,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('mata-kuliah.index') }}"
+                    <a href="{{ route('mata-kuliah-all.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                         {{-- Mata Kuliah Icon --}}
                         <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -259,7 +259,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('cpmk.index') }}"
+                    <a href="{{ route('cpmk-all.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
                         {{-- CPMK Icon --}}
                         <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -268,6 +268,37 @@
                                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         <span class="ms-3">CPMK</span>
+                    </a>
+                </li>
+
+                <li class="pt-2">
+                    <span class="ms-2 text-xs font-semibold text-gray-500 uppercase">PENGGUNA</span>
+                </li>
+
+                <li>
+                    <a href="{{ route('pengguna-all.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                        {{-- Kelola Pengguna Icon: Users (Pengaturan Pengguna) --}}
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                            </path>
+                        </svg>
+                        <span class="ms-3">Pengguna</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="{{ route('mahasiswa-all.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                        {{-- Profil Lulusan Icon --}}
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        <span class="ms-3">Mahasiswa</span>
                     </a>
                 </li>
 

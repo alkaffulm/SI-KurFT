@@ -38,6 +38,7 @@ class CpmkController extends Controller
         $mata_kuliah = MataKuliahModel::with('cpmks')->orderBy('kode_mk')->paginate(10, ['*'], 'mata-kuliah');
         $bobotCpmkCpl = CPLCPMKBobotModel::all();
         $subCpmk = SubCPMKModel::with('cpmk')->orderBy('nama_kode_sub_cpmk')->paginate(5, ['*'], 'sub-cpmk');
+        $userRole = session()->get('userRole');
 
         $mk_cpmk_sub_cpmk_raw = MKCPMKSubCPMKMapModel::all();
         $mk_cpmk_sub_cpmk_map = [];
@@ -146,20 +147,24 @@ class CpmkController extends Controller
         //     'mata_kuliah_ids' => $mata_kuliah->pluck('id_mk')->toArray(), // lihat ID mata kuliah
         //     'cpl_ids' => $cpl->pluck('id_cpl')->toArray() // lihat ID CPL
         // ]);
-
-        return view('cpmk', [
-            'mata_kuliah' => $mata_kuliah,
-            'cpmk' => $cpmk, 
-            'bahan_kajian'=>$bahan_kajian,
-            'sub_cpmk' => $subCpmk,
-            'mk_cpmk_sub_cpmk_map'=>$mk_cpmk_sub_cpmk_map,
-            'cpmk_cpl_map' => $cpmk_cpl_map,
-            'cpl'=>$cpl,
-            'bk_mk_map'=>$bk_mk_map,
-            'mk_cpmk_only_map' => $mk_cpmk_only_map,
-            'mk_cpmk_cpl_map'=>$mk_cpmk_cpl_map,
-            'cpmkAll'=>$cpmkAll,
-        ]);
+        if($userRole == 'pimpinan' || $userRole == 'upm'){
+            return view('pimpinanUpm.cpmkAll', ['userRole' => $userRole,]);
+        }
+        else {
+            return view('cpmk', [
+                'mata_kuliah' => $mata_kuliah,
+                'cpmk' => $cpmk, 
+                'bahan_kajian'=>$bahan_kajian,
+                'sub_cpmk' => $subCpmk,
+                'mk_cpmk_sub_cpmk_map'=>$mk_cpmk_sub_cpmk_map,
+                'cpmk_cpl_map' => $cpmk_cpl_map,
+                'cpl'=>$cpl,
+                'bk_mk_map'=>$bk_mk_map,
+                'mk_cpmk_only_map' => $mk_cpmk_only_map,
+                'mk_cpmk_cpl_map'=>$mk_cpmk_cpl_map,
+                'cpmkAll'=>$cpmkAll,
+            ]);
+        }
     }
 
     /**

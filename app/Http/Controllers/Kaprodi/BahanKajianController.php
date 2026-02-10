@@ -31,6 +31,7 @@ class BahanKajianController extends Controller
         $jumlah_bk = BahanKajianModel::count();
         $bk_cpl_raw = BKCPLMapModel::all();
         $bk_cpl_map = [];
+        $userRole = session()->get('userRole');
 
         foreach ($bk_cpl_raw as $relasi) {
             $id_cpl = $relasi->id_cpl;
@@ -53,15 +54,21 @@ class BahanKajianController extends Controller
             }
         }
 
-        return view('bk', [
-            'bahan_kajian' => $bahan_kajian,
-            'bahan_kajianpg' => $bahan_kajianpg,
-            'cpl' => $cpl,
-            'bk_cpl_map' => $bk_cpl_map,
-            'jumlah_bk' => $jumlah_bk,
-            'bk_mk_map' => $bk_mk_map,
-            'mata_kuliah' => $mata_kuliah
-        ]);
+        if($userRole == 'pimpinan' || $userRole == 'upm'){
+            return view('pimpinanUpm.bahanKajianAll', ['userRole' => $userRole]);
+        }
+        else {
+            return view('bk', [
+                'bahan_kajian' => $bahan_kajian,
+                'bahan_kajianpg' => $bahan_kajianpg,
+                'cpl' => $cpl,
+                'bk_cpl_map' => $bk_cpl_map,
+                'jumlah_bk' => $jumlah_bk,
+                'bk_mk_map' => $bk_mk_map,
+                'mata_kuliah' => $mata_kuliah
+            ]);
+        }
+
     }
 
     /**

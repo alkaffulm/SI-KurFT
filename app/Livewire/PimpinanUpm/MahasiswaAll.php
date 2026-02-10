@@ -4,32 +4,37 @@ namespace App\Livewire\PimpinanUpm;
 
 use Livewire\Component;
 use App\Models\KurikulumModel;
-use App\Models\PEOModel;
+use App\Models\MahasiswaModel;
 use App\Models\ProgramStudiModel;
 use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
 
-class PeoAll extends Component
+class MahasiswaAll extends Component
 {
     // Properti untuk Filter
-    public $selectedKurikulum = '';
+    public $selectedAngkatan = '';
     public $selectedProdi = '';
+    public $daftarAngkatan = [];
 
-    public function updatedSelectedProdi()
-    {
-        // Reset pilihan kurikulum agar tidak nyangkut data dari prodi sebelumnya
-        $this->selectedKurikulum = ''; 
+
+    public function mount() {
+        // ambil daftar angkatan unik dari mahasiswa prodi ini
+        $this->daftarAngkatan = MahasiswaModel::select('angkatan')
+            ->distinct()
+            ->orderBy('angkatan', 'desc')
+            ->pluck('angkatan')
+            ->toArray();
     }
     
     public function render()
     {
         // 1. Mulai Query & Matikan Global Scope
-        $query = PEOModel::query()
+        $query = MahasiswaModel::query()
             ->withoutGlobalScopes([ProdiScope::class, KurikulumScope::class]);
 
         // 2. Terapkan Filter jika ada input
-        if ($this->selectedKurikulum) {
-            $query->where('id_kurikulum', $this->selectedKurikulum);
+        if ($this->selectedAngkatan) {
+            $query->where('angkatan', $this->selectedAngkatan);
         }
 
         if ($this->selectedProdi) {
@@ -37,20 +42,15 @@ class PeoAll extends Component
         }
 
         // 3. Ambil Data
-        $peo = $query->get();
+        $mahasiswa = $query->get();
 
         // Data pendukung untuk dropdown filter
         $programStudi = ProgramStudiModel::all();
 
-        $kurikulum = [];
-        
-        if (!empty($this->selectedProdi)) {
-            $kurikulum = KurikulumModel::withoutGlobalScopes([ProdiScope::class])->where('id_ps', $this->selectedProdi)->get();
-        }
-        return view('livewire.pimpinan-upm.peo-all', [
-            'peo' => $peo,
-            'list_kurikulum' => $kurikulum,
+        return view('livewire.pimpinan-upm.mahasiswa-all', [
+            'mahasiswa' => $mahasiswa,
             'list_prodi' => $programStudi,
+            'list_angkatan' => $this->daftarAngkatan,
         ]);
     }
 }
