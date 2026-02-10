@@ -38,14 +38,20 @@ class ProfilLulusanController extends Controller
             $pl_peo_map[$relasi->id_pl][] = $relasi->id_peo;
         }
 
-        return view('profilLulusan', [
-            'kurikulum' => $kurikulum,
-            'programStudi' => $programStudi,
-            'userRole' => $userRole,
-            'peo' => $peo,
-            'pl_peo_map' => $pl_peo_map,
-            'profil_lulusan' => $profil_lulusan
-        ]);
+        if($userRole == 'kaprodi'){
+            return view('profilLulusan', [
+                'kurikulum' => $kurikulum,
+                'programStudi' => $programStudi,
+                'userRole' => $userRole,
+                'peo' => $peo,
+                'pl_peo_map' => $pl_peo_map,
+                'profil_lulusan' => $profil_lulusan
+            ]);
+        }
+        elseif($userRole == 'pimpinan' || $userRole == 'upm'){
+            return view('PimpinanUpm.profilLulusanAll', ['userRole' => $userRole,]);
+        }
+
     }
 
     /**

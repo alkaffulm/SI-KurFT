@@ -25,7 +25,7 @@
         <div class="bg-white p-8 rounded-2xl shadow-lg flex justify-between items-center">
             <div>
                 <h1 class="text-4xl font-bold text-biru-custom">Selamat Datang,</h1>
-                <h2 class="text-3xl font-bold text-gray-800 mt-2">{{ session('userName', 'Andreyan Rizky Baskara') }}
+                <h2 class="text-3xl font-bold text-gray-800 mt-2">{{ session('userName', '-') }}
                 </h2>
             </div>
             <div>

@@ -170,16 +170,16 @@
                 </div>
 
                 {{-- Bagian Tabel Korelasi CPL dan PEO --}}
-                {{-- <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Korelasi CPL dengan Programme
+                <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Korelasi CPL dengan Programme
                     Educational Objective (PEO)</h1>
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-xs text-white  bg-teks-biru-custom">
                             <tr>
                                 <th scope="col" class="uppercase px-6 py-3">Kode CPL</th>
-                                @forelse ($peo as $p) --}}
+                                @forelse ($peo as $p)
                                     {{-- PERUBAHAN 2: Menambahkan title pada header PEO --}}
-                                    {{-- <th scope="col" class="px-6 py-3" title="{{ $p->desc_peo_id }}">
+                                    <th scope="col" class="px-6 py-3" title="{{ $p->desc_peo_id }}">
                                         {{ $p->kode_peo }}
                                     </th>
                                 @empty
@@ -216,7 +216,7 @@
                             @endforelse
                         </tbody>
                     </table>
-                </div> --}}
+                </div>
             </div>
         </main>
     </div>

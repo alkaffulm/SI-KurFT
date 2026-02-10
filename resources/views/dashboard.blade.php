@@ -28,16 +28,16 @@
                 @livewire('visi-keilmuan')
             @elseif($userRole == 'dosen')
                 @include('partials.dashboard-dosen', ['tanggungJawabDosen' => $tanggungJawabDosen])
-            @elseif($userRole == 'pimpinan')
-                @include('partials.dashboard-pimpinan')
             @elseif($userRole == 'admin')
                 @include('partials.dashboard-admin')
             @elseif($userRole == 'upm')
                 @include('partials.dashboard-upm')
+            @elseif($userRole == 'pimpinan')
+                @include('partials.dashboard-pimpinan')
             @endif
 
 
-            @if ($userRole != 'admin')
+            @if (!in_array($userRole, ['admin', 'pimpinan', 'upm']))
                 @livewire('kurikulum-selector')
             @endif
         </main>

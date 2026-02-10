@@ -115,7 +115,7 @@
                                 </tr>
                             @empty
                                 <tr class="bg-white border-t border-gray-400">
-                                    <td colspan="6" class="px-3 py-4 text-center text-gray-500">
+                                    <td colspan="7" class="px-3 py-4 text-center text-gray-500">
                                         Data Mata Kuliah masih kosong.
                                     </td>
                                 </tr>

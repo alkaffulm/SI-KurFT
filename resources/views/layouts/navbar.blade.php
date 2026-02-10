@@ -25,7 +25,7 @@
                 {{-- Bagian Nama dan Role --}}
                 <div class="text-right me-4">
                     <p class="text-sm font-semibold text-gray-800">{{ session('userName', 'User') }}</p>
-                    <p class="text-xs text-gray-500">
+                    <p class="text-xs text-black font-semibold">
                         {{ ucfirst(session('userRole', 'Dosen')) }}
                         @if (session('userRole') != 'pimpinan' && session('userRole') != 'upm')
                             {{ session('userProdi') }}

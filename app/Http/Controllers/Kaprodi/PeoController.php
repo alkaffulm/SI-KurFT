@@ -23,7 +23,14 @@ class PeoController extends Controller
   public function index()
   {
     $peo = PEOModel::orderBy('kode_peo', 'asc')->paginate(5);
-    return view('peo', ['peo' => $peo]);
+    $userRole = session()->get('userRole');
+
+    if($userRole == 'pimpinan' || $userRole == 'upm'){
+        return view('pimpinanUpm.peoAll', ['userRole' => $userRole,]);
+    }
+    else {
+      return view('peo', ['peo' => $peo]);
+    }
   }
 
   /**
