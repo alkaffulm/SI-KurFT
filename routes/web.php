@@ -331,7 +331,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // ROle Pimpinan
-    Route::middleware('role:pimpinan')->prefix('pimpinan')->group(function () {
+    Route::middleware('role:pimpinan,upm')->prefix('pimpinan')->group(function () {
         Route::get('/profil-lulusan-all', [ProfilLulusanController::class, 'index'])->name('profil-lulusan-all.index');
         Route::get('/peo-all', [PeoController::class, 'index'])->name('peo-all.index');
         Route::get('/cpl-all', [CplController::class, 'index'])->name('cpl-all.index');
