@@ -23,30 +23,31 @@ class PeoAll extends Component
     
     public function render()
     {
-        // 1. Mulai Query & Matikan Global Scope
-        $query = PEOModel::query()
-            ->withoutGlobalScopes([ProdiScope::class, KurikulumScope::class]);
+    // Default: Data kosong jika filter belum lengkap
+        $peo = null; 
 
-        // 2. Terapkan Filter jika ada input
-        if ($this->selectedKurikulum) {
-            $query->where('id_kurikulum', $this->selectedKurikulum);
+        // LOGIKA BARU: Hanya query jika Prodi DAN Kurikulum sudah dipilih
+        if ($this->selectedProdi && $this->selectedKurikulum) {
+            
+            $query = PEOModel::query()
+                ->withoutGlobalScopes([ProdiScope::class, KurikulumScope::class])
+                ->where('id_kurikulum', $this->selectedKurikulum)
+                ->where('id_ps', $this->selectedProdi);
+
+            // Ambil data dengan pagination
+            $peo = $query->paginate(5);
         }
 
-        if ($this->selectedProdi) {
-            $query->where('id_ps', $this->selectedProdi);
-        }
-
-        // 3. Ambil Data
-        $peo = $query->get();
-
-        // Data pendukung untuk dropdown filter
+        // Data pendukung filter
         $programStudi = ProgramStudiModel::all();
-
         $kurikulum = [];
         
         if (!empty($this->selectedProdi)) {
-            $kurikulum = KurikulumModel::withoutGlobalScopes([ProdiScope::class])->where('id_ps', $this->selectedProdi)->get();
+            $kurikulum = KurikulumModel::withoutGlobalScopes([ProdiScope::class])
+                ->where('id_ps', $this->selectedProdi)
+                ->get();
         }
+
         return view('livewire.pimpinan-upm.peo-all', [
             'peo' => $peo,
             'list_kurikulum' => $kurikulum,

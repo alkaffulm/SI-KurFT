@@ -3,6 +3,7 @@
 namespace App\Livewire\PimpinanUpm;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\KurikulumModel;
 use App\Models\BahanKajianModel;
 use App\Models\ProgramStudiModel;
@@ -11,6 +12,7 @@ use App\Models\Scopes\KurikulumScope;
 
 class BahanKajianAll extends Component
 {
+    use WithPagination;
     // Properti untuk Filter
     public $selectedKurikulum = '';
     public $selectedProdi = '';
@@ -19,33 +21,38 @@ class BahanKajianAll extends Component
     {
         // Reset pilihan kurikulum agar tidak nyangkut data dari prodi sebelumnya
         $this->selectedKurikulum = ''; 
+        $this->resetPage(); 
+    }
+
+    public function updatedSelectedKurikulum()
+    {
+        $this->resetPage(); 
     }
 
     public function render()
     {
-        // 1. Mulai Query & Matikan Global Scope
-        $query = BahanKajianModel::query()
-            ->withoutGlobalScopes([ProdiScope::class, KurikulumScope::class]);
+        $bahan_kajian = null;
 
-        // 2. Terapkan Filter jika ada input
-        if ($this->selectedKurikulum) {
-            $query->where('id_kurikulum', $this->selectedKurikulum);
+        // LOGIKA BARU: Hanya query jika Prodi DAN Kurikulum sudah dipilih
+        if ($this->selectedProdi && $this->selectedKurikulum) {
+            
+            $query = BahanKajianModel::query()
+                ->withoutGlobalScopes([ProdiScope::class, KurikulumScope::class])
+                ->where('id_kurikulum', $this->selectedKurikulum)
+                ->where('id_ps', $this->selectedProdi);
+
+            // Ambil data dengan pagination
+            $bahan_kajian = $query->paginate(5);
         }
 
-        if ($this->selectedProdi) {
-            $query->where('id_ps', $this->selectedProdi);
-        }
-
-        // 3. Ambil Data
-        $bahan_kajian = $query->get();
-
-        // Data pendukung untuk dropdown filter
+        // Data pendukung filter
         $programStudi = ProgramStudiModel::all();
-
         $kurikulum = [];
         
         if (!empty($this->selectedProdi)) {
-            $kurikulum = KurikulumModel::withoutGlobalScopes([ProdiScope::class])->where('id_ps', $this->selectedProdi)->get();
+            $kurikulum = KurikulumModel::withoutGlobalScopes([ProdiScope::class])
+                ->where('id_ps', $this->selectedProdi)
+                ->get();
         }
 
         return view('livewire.pimpinan-upm.bahan-kajian-all', [

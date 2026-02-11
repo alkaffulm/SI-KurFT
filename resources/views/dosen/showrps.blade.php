@@ -19,9 +19,10 @@
     @php
         $isDosen = session('userRole') == 'dosen';
         $isKaprodi = session('userRole') == 'kaprodi';
+        $isPimpinanUpm = session('userRole') == 'pimpinan' || session('userRole') == 'upm';
 
-        $isPengembangRps = Auth::id() == $rps->mataKuliah->id_pengembang_rps;
-        $isKoordinatorMk = Auth::id() == $rps->mataKuliah->id_koordinator_mk;
+        $isPengembangRps = Auth::id() == $rps->mataKuliah?->id_pengembang_rps ?? 0;
+        $isKoordinatorMk = Auth::id() == $rps->mataKuliah?->id_koordinator_mk ?? 0;
         
         $canDelete = $isDosen && $isPengembangRps;
         $canEdit = ($isDosen && $isPengembangRps) || $isKaprodi || $isKoordinatorMk;    
@@ -35,8 +36,9 @@
                     @if ($isDosen)
                         <a href="{{ route('matkul.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 mr-4">Kembali</a>
                     @elseif($isKaprodi)
-                        {{-- <a href="/kaprodi/mata-kuliah">Kembali</a> --}}
                         <a href="{{ route('mata-kuliah.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
+                    @elseif ($isPimpinanUpm)
+                        <a href="{{ route('mata-kuliah-all.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 mr-4">Kembali</a>
                     @endif
                     <a href="{{route('rps.generatePDF', $rps)}}" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-5 py-3 text-center"><i class="fa-solid fa-download"></i> PDF</a>
                 </div>

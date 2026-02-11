@@ -8,7 +8,7 @@
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900">Filter Program Studi</label>
                 <select wire:model.live="selectedProdi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    <option value="">-- Semua Prodi --</option>
+                    <option value="">-- Pilih Prodi --</option>
                     @foreach($list_prodi as $prodi)
                         <option value="{{ $prodi->id_ps }}">{{ $prodi->nama_prodi }}</option>
                     @endforeach
@@ -23,7 +23,7 @@
                         @if(empty($selectedProdi))
                             -- Pilih Prodi Terlebih Dahulu --
                         @else
-                            -- Semua Kurikulum --
+                            -- Pilih Kurikulum --
                         @endif
                     </option>
                     @foreach($list_kurikulum as $kur)
@@ -49,30 +49,43 @@
                             <span class="text-sm font-medium text-gray-500">Sedang memuat data...</span>
                         </td>
                     </tr>
-                    @forelse ($sub_cpmk as $sc)
-                        <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
-                            {{-- REVISI: Menghapus hover dari kode PL --}}
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                {{ $sc->nama_kode_sub_cpmk }}
-                            </th>
-                            <td class="px-6 py-4 text-left border-r border-gray-400">
-                                <p>{{ $sc->desc_sub_cpmk_id }}</p>
-                                <p class="italic text-sm text-[#7397b6]">{{ $sc->desc_sub_cpmk_en }}</p>
+                    @if($sub_cpmk)
+                        @forelse ($sub_cpmk as $sc)
+                            <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
+                                {{-- REVISI: Menghapus hover dari kode PL --}}
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                    {{ $sc->nama_kode_sub_cpmk }}
+                                </th>
+                                <td class="px-6 py-4 text-left border-r border-gray-400">
+                                    <p>{{ $sc->desc_sub_cpmk_id }}</p>
+                                    <p class="italic text-sm text-[#7397b6]">{{ $sc->desc_sub_cpmk_en }}</p>
+                                </td>
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                    {{ $sc->cpmk?->nama_kode_cpmk ?? 'Belum Terhubung' }}
+                                </td>
+                            </tr>
+                        @empty
+                        {{-- Indikator Loading kecil (Opsional) --}}
+                            <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
+                                <td colspan="3" class="px-6 py-4 text-center text-gray-500">
+                                    Data Sub-CPMK masih kosong.
+                                </td>
+                            </tr>
+                        @endforelse
+                    @else
+                        <tr wire:loading.remove>
+                            <td colspan="100%" class="px-6 py-4 text-center text-gray-500">
+                                Silakan pilih <b>Prodi</b> dan <b>Kurikulum</b> terlebih dahulu.
                             </td>
-                            <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                {{ $sc->cpmk?->nama_kode_cpmk ?? 'Belum Terhubung' }}
-                            </td>
-                        </tr>
-                    @empty
-                    {{-- Indikator Loading kecil (Opsional) --}}
-                        <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
-                            <td colspan="3" class="px-6 py-4 text-center text-gray-500">
-                                Data Sub-CPMK masih kosong.
-                            </td>
-                        </tr>
-                    @endforelse
+                        </tr>   
+                    @endif                 
                 </tbody>
             </table>
         </div>
+        @if ($sub_cpmk)
+            <div>
+                {{$sub_cpmk->links()}}
+            </div>
+        @endif
     </div>
 </div>

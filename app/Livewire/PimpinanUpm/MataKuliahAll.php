@@ -23,29 +23,37 @@ class MataKuliahAll extends Component
 
     public function render()
     {
-        // 1. Mulai Query & Matikan Global Scope
-        $query = MataKuliahModel::query()
-            ->withoutGlobalScopes([ProdiScope::class, KurikulumScope::class]);
+        $mata_kuliah = null;
 
-        // 2. Terapkan Filter jika ada input
-        if ($this->selectedKurikulum) {
-            $query->where('id_kurikulum', $this->selectedKurikulum);
+        // LOGIKA BARU: Hanya query jika Prodi DAN Kurikulum sudah dipilih
+        if ($this->selectedProdi && $this->selectedKurikulum) {
+            
+            $query = MataKuliahModel::query()
+                ->withoutGlobalScopes([ProdiScope::class, KurikulumScope::class])
+                ->where('id_kurikulum', $this->selectedKurikulum)
+                ->where('id_ps', $this->selectedProdi);
+
+            $query->with([
+                'rps' => function($q) {
+                    // Filter RPS agar hanya mengambil yang sesuai Kurikulum terpilih
+                    $q->where('id_kurikulum', $this->selectedKurikulum);
+                },
+                'koordinatorMk', // Load data dosen koordinator biar tidak N+1 Query
+                'pengembangRps'  // Load data dosen pengembang biar tidak N+1 Query
+            ]);
+            
+            // Ambil data dengan pagination
+            $mata_kuliah = $query->get();
         }
 
-        if ($this->selectedProdi) {
-            $query->where('id_ps', $this->selectedProdi);
-        }
-
-        // 3. Ambil Data
-        $mata_kuliah = $query->get();
-
-        // Data pendukung untuk dropdown filter
+        // Data pendukung filter
         $programStudi = ProgramStudiModel::all();
-
         $kurikulum = [];
         
         if (!empty($this->selectedProdi)) {
-            $kurikulum = KurikulumModel::withoutGlobalScopes([ProdiScope::class])->where('id_ps', $this->selectedProdi)->get();
+            $kurikulum = KurikulumModel::withoutGlobalScopes([ProdiScope::class])
+                ->where('id_ps', $this->selectedProdi)
+                ->get();
         }
 
         return view('livewire.pimpinan-upm.mata-kuliah-all',[

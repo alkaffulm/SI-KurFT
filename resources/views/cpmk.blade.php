@@ -201,7 +201,7 @@
                             <tr>
                                 <th scope="col" class="uppercase px-3 py-6 w-64">Mata Kuliah</th>
                                 @forelse ($cpl as $cp)
-                                    <th scope="col" class="px-3 py-6 w-32" title="{{ $cp->desc_cpl_id }}">
+                                    <th scope="col" class="px-3 py-6 w-36" title="{{ $cp->desc_cpl_id }}">
                                         {{ $cp->nama_kode_cpl }}
                                     </th>
                                 @empty

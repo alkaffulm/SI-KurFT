@@ -48,6 +48,13 @@
                 </div>
 
                 @livewire('pimpinan-upm.bahan-kajian-all')
+
+                <h1 class="mt-10 text-3xl font-bold text-teks-biru-custom mb-4">Tabel Pemetaan Bahan Kajian terhadap Mata Kuliah</h1>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi BK - MK</h2>
+                </div>
+
+                @livewire('pimpinan-upm.mapping-bk-mk-all')
             </div>
         </main>
     </div>

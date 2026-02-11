@@ -49,6 +49,15 @@
                 </div>
 
                 @livewire('pimpinan-upm.profil-lulusan-all')
+
+                <h1 class="mt-10 text-3xl font-bold text-teks-biru-custom mb-4">Tabel Korelasi Profil Lulusan dan Programme Educational Objective (PEO)</h1>
+
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi PL - PEO</h2>
+                </div>
+
+                @livewire('pimpinan-upm.mapping-pl-peo-all')
+
             </div>
         </main>
     </div>

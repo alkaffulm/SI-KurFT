@@ -59,6 +59,12 @@
 
                 @livewire('pimpinan-upm.sub-cpmk-all')
 
+                {{-- Bagian 3: Tabel Mapping MK-CPMK-CPL --}}
+                <div class="flex justify-between items-center mb-4 mt-8">
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi Mata Kuliah dan CPL dengan CPMK</h2>
+                </div>
+
+                @livewire('pimpinan-upm.mapping-mk-cpmk-cpl-all')
             </div>
         </main>
     </div>

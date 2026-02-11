@@ -68,7 +68,7 @@ class MatkulController extends Controller
             ]);
         }
         elseif($userRole == 'pimpinan' || $userRole == 'upm'){
-            return view('pimpinanUpm.mataKuliahAll', ['userRole' => $userRole]);
+            return view('pimpinanUpm.mataKuliahAll', ['userRole' => $userRole, 'mata_kuliah' => $mata_kuliah]);
         }
         else {
             return view('dosen.matkul', ['mata_kuliah' => $mata_kuliah, 'tanggungJawabDosen' => $tanggungJawabDosen]);

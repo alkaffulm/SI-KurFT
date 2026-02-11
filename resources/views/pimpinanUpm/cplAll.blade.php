@@ -48,6 +48,17 @@
                 </div>
 
                 @livewire('pimpinan-upm.cpl-all')
+
+                <h1 class=" mt-10 text-3xl font-bold text-teks-biru-custom mb-4">Tabel Korelasi CPL dengan Profil Lulusan (PL)</h1>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi CPL - PL</h2>
+                </div>
+
+                @livewire('pimpinan-upm.mapping-cpl-pl-all')
+
+                <h1 class=" mt-10 text-3xl font-bold text-teks-biru-custom mb-4">Tabel Korelasi CPL dengan Programme Educational Objective (PEO)</h1>
+
+                @livewire('pimpinan-upm.mapping-cpl-peo-all')
             </div>
         </main>
     </div>

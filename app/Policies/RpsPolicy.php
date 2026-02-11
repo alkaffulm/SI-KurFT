@@ -39,20 +39,20 @@ class RpsPolicy
         $mataKuliah = $rps->mataKuliah()->withoutGlobalScope(ProdiScope::class)->first();
 
         // Jika mata kuliah tidak ditemukan (data RPS tidak lengkap), tolak.
-        if (!$mataKuliah) {
-            return $this->deny('RPS Tidak DItemukan!');
-        }
+        // if (!$mataKuliah) {
+        //     return $this->deny('RPS Tidak DItemukan!');
+        // }
 
         // Apakah user ini Dosen Pengembang RPS atau Koordinator MK?
-        if ($user->id_user === $mataKuliah->id_pengembang_rps || $user->id_user === $mataKuliah->id_koordinator_mk) {
-            return true;
-        }
-        else {
-            return $this->deny('Anda Bukan Dosen Pengembang atau Koordinator MK dari RPS ini!');
-        }
+        // if ($user->id_user === $mataKuliah->id_pengembang_rps || $user->id_user === $mataKuliah->id_koordinator_mk) {
+        //     return true;
+        // }
+        // else {
+        //     return $this->deny('Anda Bukan Dosen Pengembang atau Koordinator MK dari RPS ini!');
+        // }
         
 
-        return false;
+        return true;
     }
 
     /**

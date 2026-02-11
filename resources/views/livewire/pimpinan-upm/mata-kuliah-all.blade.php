@@ -8,7 +8,7 @@
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900">Filter Program Studi</label>
                 <select wire:model.live="selectedProdi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    <option value="">-- Semua Prodi --</option>
+                    <option value="">-- Pilih Prodi --</option>
                     @foreach($list_prodi as $prodi)
                         <option value="{{ $prodi->id_ps }}">{{ $prodi->nama_prodi }}</option>
                     @endforeach
@@ -23,7 +23,7 @@
                         @if(empty($selectedProdi))
                             -- Pilih Prodi Terlebih Dahulu --
                         @else
-                            -- Semua Kurikulum --
+                            -- Pilih Kurikulum --
                         @endif
                     </option>
                     @foreach($list_kurikulum as $kur)
@@ -53,44 +53,55 @@
                             <span class="text-sm font-medium text-gray-500">Sedang memuat data...</span>
                         </td>
                     </tr>
-                    @forelse ($mata_kuliah as $mk)
-                        <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
-                            <th scope="row" class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                {{ $mk->kode_mk }}
-                            </th>
-                            <td class="px-3 py-4 text-left border-r border-gray-400">
-                                <p>{{ $mk->nama_matkul_id }}</p>
-                                <p class="italic text-sm text-[#7397b6]">{{ $mk->nama_matkul_en }}</p>
-                            </td>
-                            <td class="px-3 py-4  border-r border-gray-400">
-                                @if ($mk->rps->where('id_kurikulum', session('id_kurikulum_aktif'))->first() )
-                                    <a href="{{ route('rps.show', $mk->rps->where('id_kurikulum', session('id_kurikulum_aktif'))->first()) }}" class="font-medium text-blue-600 hover:underline">Lihat RPS</a>
-                                @else
-                                    {{-- <a href="{{ route('rps.create', ['id_mk' => $mk->id_mk]) }}" class="font-medium text-green-600 hover:underline">Buat RPS</a> --}}
-                                    <i>Belum Ada RPS</i>
-                                @endif
-                            </td>
-                            <td class="px-3 py-4 text-left border-r border-gray-400">
-                                <p>{{ $mk->pengembangRps->username ?? 'Pengembang RPS Belum Ditentukan'}} </p>
-                            </td>
-                            <td class="px-3 py-4 text-left border-r border-gray-400">
-                                <p>{{ $mk->koordinatorMk->username ?? 'Koordinator Mata Kuliah Belum Ditentukan'}}</p>
-                            </td>                                  
-                            <td class="px-3 py-4 border-r border-gray-400">
-                                <p class="text-center">{{ $mk->semester }}</p>
-                            </td>
-                            <td class="px-3 py-4 border-r border-gray-400">
-                                <p class="text-center">{{ $mk->jumlahSks }}</p>
+                    @if($mata_kuliah)
+                        @forelse ($mata_kuliah as $mk)
+                            <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
+                                <th scope="row" class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                    {{ $mk->kode_mk }}
+                                </th>
+                                <td class="px-3 py-4 text-left border-r border-gray-400">
+                                    <p>{{ $mk->nama_matkul_id }}</p>
+                                    <p class="italic text-sm text-[#7397b6]">{{ $mk->nama_matkul_en }}</p>
+                                </td>
+                                <td class="px-3 py-4  border-r border-gray-400">
+                                    @php
+                                        $rpsAktif = $mk->rps->first();
+                                    @endphp
+                                    @if ($rpsAktif)
+                                        <a href="{{ route('rps.show', $rpsAktif) }}" class="font-medium text-blue-600 hover:underline">Lihat RPS</a>
+                                    @else
+                                        {{-- <a href="{{ route('rps.create', ['id_mk' => $mk->id_mk]) }}" class="font-medium text-green-600 hover:underline">Buat RPS</a> --}}
+                                        <i>Belum Ada RPS</i>
+                                    @endif
+                                </td>
+                                <td class="px-3 py-4 text-left border-r border-gray-400">
+                                    <p>{{ $mk->pengembangRps->username ?? 'Pengembang RPS Belum Ditentukan'}} </p>
+                                </td>
+                                <td class="px-3 py-4 text-left border-r border-gray-400">
+                                    <p>{{ $mk->koordinatorMk->username ?? 'Koordinator Mata Kuliah Belum Ditentukan'}}</p>
+                                </td>                                  
+                                <td class="px-3 py-4 border-r border-gray-400">
+                                    <p class="text-center">{{ $mk->semester }}</p>
+                                </td>
+                                <td class="px-3 py-4 border-r border-gray-400">
+                                    <p class="text-center">{{ $mk->jumlahSks }}</p>
+                                </td>
+                            </tr>
+                        @empty
+                        {{-- Indikator Loading kecil (Opsional) --}}
+                            <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
+                                <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                                    Data Mata Kuliah masih kosong.
+                                </td>
+                            </tr>
+                        @endforelse
+                    @else 
+                        <tr wire:loading.remove>
+                            <td colspan="100%" class="px-6 py-4 text-center text-gray-500">
+                                Silakan pilih <b>Prodi</b> dan <b>Kurikulum</b> terlebih dahulu.
                             </td>
                         </tr>
-                    @empty
-                    {{-- Indikator Loading kecil (Opsional) --}}
-                        <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
-                            <td colspan="7" class="px-6 py-4 text-center text-gray-500">
-                                Data Mata Kuliah masih kosong.
-                            </td>
-                        </tr>
-                    @endforelse
+                    @endif                     
                 </tbody>
             </table>
         </div>
