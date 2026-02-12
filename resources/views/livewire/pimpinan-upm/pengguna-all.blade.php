@@ -49,6 +49,7 @@
             <table class="w-full text-sm text-center text-gray-500">
                 <thead class="text-white uppercase bg-teks-biru-custom">
                     <tr>
+                        <th scope="col" class="px-6 py-4">No</th>
                         <th scope="col" class="px-6 py-4">NIP</th>
                         <th scope="col" class="px-6 py-4">Username</th> 
                         <th scope="col" class="px-6 py-4">Roles</th>                        
@@ -65,6 +66,9 @@
                     @forelse ($pengguna as $pg)
                         <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
                             {{-- REVISI: Menghapus hover dari kode PL --}}
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                {{ $loop->iteration }}
+                            </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                 {{ $pg->NIP }}
                             </th>

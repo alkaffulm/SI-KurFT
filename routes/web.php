@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\KriteriaPenilaianAdminController;
 use App\Http\Controllers\Admin\MasterMahasiswaController;
 use App\Http\Controllers\Dosen\KelasDosenController;
 use App\Http\Controllers\Admin\KelolaPenggunaController;
+use App\Http\Controllers\EvaluasiUpmController;
 use App\Http\Controllers\Kaprodi\AdminController;
 
 // Set the root to the login page
@@ -80,6 +81,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('kurikulum', KurikulumController::class);
         Route::resource('mhs-cpl', MhsCplController::class);
         Route::resource('visi-keilmuan', VisiKeilmuanController::class);
+        Route::get('/evaluasi-upm', [EvaluasiUpmController::class, 'index'])->name('evaluasi-upm.index'); 
         
         // PEO Routes
         Route::get('/peo/edit-all', [PeoController::class, 'editAll'])->name('peo.editAll'); // Rute baru untuk form edit massal
@@ -339,6 +341,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/mata-kuliah-all', [MatkulController::class, 'index'])->name('mata-kuliah-all.index');   
         Route::get('/cpmk-all', [CpmkController::class, 'index'])->name('cpmk-all.index');             
         Route::get('/pengguna-all', [KelolaPenggunaController::class, 'index'])->name('pengguna-all.index');             
-        Route::get('/mahasiswa-all', [MasterMahasiswaController::class, 'index'])->name('mahasiswa-all.index');             
-    });    
+        Route::get('/mahasiswa-all', [MasterMahasiswaController::class, 'index'])->name('mahasiswa-all.index'); 
+    }); 
+
+    // Role UPM 
+    Route::middleware('role:upm')->prefix('upm')->group(function () {
+        Route::get('/evaluasi-upm-all', [EvaluasiUpmController::class, 'index'])->name('evaluasi-upm-all.index'); 
+    });  
 });

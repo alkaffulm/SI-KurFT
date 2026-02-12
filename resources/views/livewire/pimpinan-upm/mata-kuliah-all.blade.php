@@ -38,6 +38,7 @@
             <table class="w-full text-sm text-center text-gray-500">
                 <thead class="text-white uppercase bg-teks-biru-custom">
                     <tr>  
+                        <th scope="col" class="px-3 py-4 w-24">NO</th>
                         <th scope="col" class="px-3 py-4 w-24">Kode MK</th>
                         <th scope="col" class="px-3 py-4 w-48">Nama Mata Kuliah</th>
                         <th scope="col" class="px-3 py-4 w-24">RPS</th>
@@ -56,6 +57,9 @@
                     @if($mata_kuliah)
                         @forelse ($mata_kuliah as $mk)
                             <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
+                                <th scope="row" class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                    {{ $loop->iteration }}
+                                </th>
                                 <th scope="row" class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                     {{ $mk->kode_mk }}
                                 </th>

@@ -172,6 +172,23 @@
                     </a>
                 </li>
 
+                {{-- EVALUASI --}}
+                <li class="pt-1">
+                    <span class="ms-2 text-xs font-semibold text-gray-500 uppercase">Evaluasi</span>
+                </li>
+                <li>
+                    <a href="{{ route('evaluasi-upm.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z">
+                            </path>
+                        </svg>
+                        <span class="ms-3">Evaluasi UPM</span>
+                    </a>
+                </li>
+
                 {{-- LAPORAN --}}
                 <li class="pt-4">
                     <span class="ms-2 text-xs font-semibold text-gray-500 uppercase">Laporan</span>
@@ -193,7 +210,7 @@
 
             {{-- Menu khusus pimpinan dan UPM --}}
             @if ($userRole == 'pimpinan' || $userRole == 'upm')
-                <li class="pt-4">
+                <li class="pt-2">
                     <span class="ms-2 text-xs font-semibold text-gray-500 uppercase">Kurikulum</span>
                 </li>
                 <li>
@@ -302,14 +319,33 @@
                     </a>
                 </li>
 
+                @if($userRole == 'upm')
+                    {{-- EVALUASI --}}
+                    <li class="pt-1">
+                        <span class="ms-2 text-xs font-semibold text-gray-500 uppercase">Evaluasi</span>
+                    </li>
+                    <li>
+                        <a href="{{ route('evaluasi-upm-all.index') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z">
+                                </path>
+                            </svg>
+                            <span class="ms-3">Evaluasi UPM</span>
+                        </a>
+                    </li>
+                @endif
+
+
                 {{-- LAPORAN --}}
-                <li class="pt-4">
+                {{-- <li class="pt-4">
                     <span class="ms-2 text-xs font-semibold text-gray-500 uppercase">Laporan</span>
                 </li>
                 <li>
                     <a href="{{ route('mhs-cpl.index') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
-                        {{-- Laporan CPL Mahasiswa Icon --}}
                         <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -318,8 +354,9 @@
                         </svg>
                         <span class="ms-3">Laporan CPL Mahasiswa</span>
                     </a>
-                </li>                
+                </li>                 --}}
             @endif
+
             {{-- Menu khusus admin --}}
             @if ($userRole == 'admin')
                 <li>
