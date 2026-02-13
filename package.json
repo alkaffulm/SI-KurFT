@@ -34,6 +34,8 @@
     },
     "homepage": "https://github.com/alkaffulm/SI-KurFT#readme",
     "dependencies": {
+        "chart.js": "^4.5.1",
+        "chartjs-plugin-annotation": "^3.1.0",
         "flowbite": "^3.1.2",
         "puppeteer": "^24.29.1"
     }
