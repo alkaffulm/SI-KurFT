@@ -73,7 +73,7 @@
                                                     {{-- PERUBAHAN 2: Menambahkan title pada opsi PL untuk hover --}}
                                                     <option value="{{ $item->id_pl }}" title="{{ $item->desc_pl_id }}"
                                                         @if (isset($cpl_pl_map[$c->id_cpl]) && in_array($item->id_pl, $cpl_pl_map[$c->id_cpl])) selected @endif>
-                                                        {{ $item->kode_pl }}
+                                                        {{ $item->kode_pl }} - {{ $item->nama_pl_id }}
                                                     </option>
                                                 @endforeach
                                             </select>

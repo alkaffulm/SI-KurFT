@@ -89,7 +89,7 @@
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $pl->nama_pl_id }}
                                     </th>
-                                    <td class="px-6 py-4 text-left border-r border-gray-400">
+                                    <td class="px-6 py-4 text-justify border-r border-gray-400">
                                         <p>{{ $pl->desc_pl_id }}</p>
                                         <p class="italic text-sm text-[#7397b6]">{{ $pl->desc_pl_en }}</p>
                                     </td>

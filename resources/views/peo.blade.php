@@ -88,7 +88,7 @@
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">
                                         {{ $p->kode_peo }}
                                     </th>
-                                    <td class="px-6 py-4 text-left">
+                                    <td class="px-6 py-4 text-justify">
                                         <p>{{ $p->desc_peo_id }}</p>
                                         <p class="italic text-sm text-[#7397b6]">{{ $p->desc_peo_en}}</p>
                                     </td>

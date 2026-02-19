@@ -28,7 +28,7 @@ class CplController extends Controller
     public function index()
     {
         $cpl = CPLModel::paginate(5, ['*'], 'cpl');
-        $profil_lulusan = ProfilLulusanModel::orderBy('kode_pl', 'asc')->get();
+        $profil_lulusan = ProfilLulusanModel::all();
         $kurikulum = KurikulumModel::all();
         $programStudi = ProgramStudiModel::all();
         $peo = PEOModel::orderBy('kode_peo', 'asc')->get();
@@ -106,7 +106,7 @@ class CplController extends Controller
      */
     public function editAll()
     {
-        $cpl_data = CPLModel::orderBy('nama_kode_cpl', 'asc')->get();
+        $cpl_data = CPLModel::all();
         $kurikulum = KurikulumModel::all(); 
 
         return view('form.CPL.cplFormEdit', [

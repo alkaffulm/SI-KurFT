@@ -10,7 +10,6 @@ use App\Models\ProgramStudiModel;
 use App\Models\KurikulumModel;
 use App\Models\PEOModel;
 use App\Models\PLPEOMapModel;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ProfilLulusanController extends Controller
@@ -76,7 +75,7 @@ class ProfilLulusanController extends Controller
 
     public function editAll()
     {
-        $pl_data = ProfilLulusanModel::orderBy('kode_pl', 'asc')->get();
+        $pl_data = ProfilLulusanModel::all();
         return view('form.PL.profilLulusanFormEdit', ['pl_data' => $pl_data]);
     }
 

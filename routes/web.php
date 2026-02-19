@@ -342,6 +342,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/cpmk-all', [CpmkController::class, 'index'])->name('cpmk-all.index');             
         Route::get('/pengguna-all', [KelolaPenggunaController::class, 'index'])->name('pengguna-all.index');             
         Route::get('/mahasiswa-all', [MasterMahasiswaController::class, 'index'])->name('mahasiswa-all.index'); 
+        Route::get('/mahasiswa-all', [MasterMahasiswaController::class, 'index'])->name('mahasiswa-all.index'); 
+        Route::get('/cpl-mahasiswa-all', [MhsCplController::class, 'index'])->name('cpl-mahasiswa-all.index'); 
+
     }); 
 
     // Role UPM 

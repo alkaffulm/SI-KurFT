@@ -20,10 +20,10 @@
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                 <tr>
-                    <th scope="col" class="px-6 py-3">No</th>
-                    <th scope="col" class="px-6 py-3">Program Studi</th>
-                    <th scope="col" class="px-6 py-3">Tahun Akademik</th>
-                    <th scope="col" class="px-6 py-3">Catatan</th>
+                    <th scope="col" class="px-6 py-3 text-center">No</th>
+                    <th scope="col" class="px-6 py-3 text-center">Program Studi</th>
+                    <th scope="col" class="px-6 py-3 text-center">Tahun Akademik</th>
+                    <th scope="col" class="px-6 py-3 text-center">Catatan</th>
                     <th scope="col" class="px-6 py-3 text-center">Aksi</th>
                 </tr>
             </thead>

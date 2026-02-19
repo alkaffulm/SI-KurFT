@@ -186,7 +186,7 @@
                                 <th scope="col" class="px-6 py-3 uppercase">Mata Kuliah</th>
                                 {{-- *** END CHANGE *** --}}
                                 @forelse ($bahan_kajian as $bk)
-                                    <th scope="col" class="px-6 py-3 uppercase">
+                                    <th scope="col" class="px-6 py-3 uppercase min-w-[90px]">
                                         {{ $bk->nama_kode_bk }}
                                     </th>
                                 @empty

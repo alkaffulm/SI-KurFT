@@ -22,7 +22,7 @@ class PeoController extends Controller
    */
   public function index()
   {
-    $peo = PEOModel::orderBy('kode_peo', 'asc')->paginate(5);
+    $peo = PEOModel::paginate(5);
     $userRole = session()->get('userRole');
 
     if($userRole == 'pimpinan' || $userRole == 'upm'){
@@ -68,7 +68,7 @@ class PeoController extends Controller
    */
   public function editAll()
   {
-    $peo_data = PEOModel::orderBy('kode_peo', 'asc')->get();
+    $peo_data = PEOModel::all();
     return view('form.PEO.peoFormEdit', ['peo_data' => $peo_data]);
   }
 

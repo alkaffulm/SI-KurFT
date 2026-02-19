@@ -85,7 +85,7 @@
                                         class="px-9 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $cp->nama_kode_cpmk }}
                                     </th>
-                                    <td class="px-6 py-4 text-left">
+                                    <td class="px-6 py-4 text-justify">
                                         <p>{{ $cp->desc_cpmk_id }}</p>
                                         <p class="italic text-sm text-[#7397b6]">{{ $cp->desc_cpmk_en }}</p>
                                     </td>
@@ -146,7 +146,7 @@
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $scp->nama_kode_sub_cpmk }}
                                     </th>
-                                    <td class="px-6 py-4 text-left border-r border-gray-400">
+                                    <td class="px-6 py-4 text-justify border-r border-gray-400">
                                         <p>{{ $scp->desc_sub_cpmk_id }}</p>
                                         <p class="italic text-sm text-[#7397b6]">{{ $scp->desc_sub_cpmk_en }}</p>
                                     </td>

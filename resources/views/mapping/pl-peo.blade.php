@@ -59,7 +59,7 @@
                                         {{-- PERBAIKAN: Menambahkan kembali 'title' untuk hover --}}
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400"
-                                            title="{{ $pl->desc_pl_id }}">
+                                            title="{{ $pl->nama_pl_id }}">
                                             {{ $pl->kode_pl }}
                                         </th>
                                         <td class="px-6 py-4">
@@ -71,7 +71,7 @@
                                                     <option value="{{ $item->id_peo }}"
                                                         title="{{ $item->desc_peo_id ?? $item->deskripsi_peo }}"
                                                         @if (isset($pl_peo_map[$pl->id_pl]) && in_array($item->id_peo, $pl_peo_map[$pl->id_pl])) selected @endif>
-                                                        {{ $item->kode_peo }}
+                                                        {{ $item->kode_peo }} - {{ $item->desc_peo_id }}
                                                     </option>
                                                 @endforeach
                                             </select>

@@ -98,7 +98,7 @@ class BahanKajianController extends Controller
      */
     public function editAll()
     {
-        $bk_data = BahanKajianModel::orderBy('nama_kode_bk', 'asc')->get();
+        $bk_data = BahanKajianModel::all();
         return view('form.BK.bkFormEdit', ['bk_data' => $bk_data]);
     }
 

@@ -84,7 +84,7 @@
                                         title="{{ $c->desc_cpl_id }}">
                                         {{ $c->nama_kode_cpl }}
                                     </th>
-                                    <td class="px-6 py-4 text-left">
+                                    <td class="px-6 py-4 text-justify">
                                         <p>{{ $c->desc_cpl_id }}</p>
                                         <p class="italic text-sm text-[#7397b6]">{{ $c->desc_cpl_en }}</p>
                                     </td>
