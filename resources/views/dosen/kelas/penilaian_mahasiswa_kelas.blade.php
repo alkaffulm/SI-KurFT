@@ -134,124 +134,198 @@
                     @endif
 
                     {{-- 🔸 FORM PENILAIAN --}}
-                    <form action="{{ route('dosen_kelas.simpanNilai', $kelas->id_kelas) }}" method="POST">
-                        @csrf
-                        <div class="overflow-x-auto rounded-lg border border-gray-400 mt-12">
-                            <table class="w-full text-sm text-left text-gray-500">
-                                <thead class="text-xs text-white uppercase bg-teks-biru-custom">
-                                    {{-- 🔹 Baris 1: Kolom umum --}}
-                                    <tr>
-                                        <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">NIM</th>
-                                        <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">Nama Lengkap</th>
+                        <form action="{{ route('dosen_kelas.simpanNilai', $kelas->id_kelas) }}" method="POST">
+                            @csrf
 
-                                        @foreach($rencanaAsesmen as $ra)
-                                            @php
-                                                $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
-                                            @endphp
-                                            <th colspan="{{ $cpmkForAsesmen->count() }}"
-                                                class="text-center px-6 py-3 border-r border-gray-400 text-lg">
-                                                {{ strtoupper($ra->tipe_komponen) }}
+                            @php
+                                // Cari asesmen terakhir tiap tipe (tugas, uts, uas)
+                                $lastIdPerTipe = $rencanaAsesmen
+                                    ->groupBy('tipe_komponen')
+                                    ->map(fn($g) => $g->last()->id_rencana_asesmen);
+                            @endphp
+
+                            <div class="overflow-x-auto rounded-lg border border-gray-400 mt-8">
+
+                                <table class="w-full text-sm text-left text-gray-500">
+
+                                    {{-- ============================= --}}
+                                    {{-- 🔹 THEAD --}}
+                                    {{-- ============================= --}}
+                                    <thead class="text-xs text-white uppercase bg-teks-biru-custom">
+
+                                        {{-- ============================= --}}
+                                        {{-- 🔹 HEADER ROW 1 --}}
+                                        {{-- ============================= --}}
+                                        <tr>
+                                            <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">
+                                                NIM
                                             </th>
-                                        @endforeach
-                                    </tr>
-
-                                    {{-- 🔹 Baris 2: Subheader CPMK di bawah tiap Asesmen --}}
-                                    <tr>
-                                        @foreach($rencanaAsesmen as $ra)
-                                            @php
-                                                $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
-                                                $totalBobotAsesmen = $cpmkForAsesmen->sum('bobot');
-
-                                                $cpmkGrouped = $cpmkForAsesmen->groupBy(fn($item) => $item->mkCpmkMap?->cpmk?->nama_kode_cpmk);
-                                            @endphp
-
-                                            @foreach($cpmkGrouped as $namaKode => $group)
-                                                @php
-                                                    $bobotCpmk = $group->sum('bobot');
-                                                    if ($totalBobotAsesmen > 0) {
-                                                        $maksNilaiInput = round(($bobotCpmk / $totalBobotAsesmen) * 100, 1);
-                                                    } else {
-                                                        $maksNilaiInput = 0;
-                                                    }
-                                                @endphp
-                                                <th class="text-center px-6 py-3 border-r border-gray-400" colspan="{{ $group->count() }}">
-                                                    {{ $namaKode ?? '-' }}
-                                                    <br>
-                                                    <span class="font-normal">Maks: {{ $maksNilaiInput }}</span>
-                                                </th>
-                                            @endforeach
-                                        @endforeach
-
-                                    </tr>
-
-                                </thead>
-
-                                <tbody>
-                                    @foreach($kelas->mahasiswa as $mhs)
-                                        <tr class="text-black bg-gray-50 hover:bg-gray-100">
-                                            <td class="text-center px-6 py-4 font-medium">{{ $mhs->nim }}</td>
-                                            <td class="text-center px-6 py-4">{{ $mhs->nama_lengkap }}</td>
+                                            <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">
+                                                Nama Lengkap
+                                            </th>
 
                                             @foreach($rencanaAsesmen as $ra)
+
+                                                @php
+                                                    $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
+
+                                                    // jumlah kolom CPMK
+                                                    $jumlahKolom = $cpmkForAsesmen
+                                                        ->groupBy(fn($item) => $item->mkCpmkMap?->cpmk?->nama_kode_cpmk)
+                                                        ->count();
+                                                @endphp
+
+                                                {{-- Header Komponen --}}
+                                                <th colspan="{{ $jumlahKolom }}"
+                                                    class="text-center px-6 py-3 border-r border-gray-400 text-lg">
+                                                    @if($ra->tipe_komponen == 'tugas')
+                                                        {{ strtoupper($ra->tipe_komponen) }}-{{ $ra->nomor_komponen }}
+                                                    @else
+                                                        {{ strtoupper($ra->tipe_komponen) }}
+                                                    @endif
+                                                </th>
+
+                                                {{-- Helper hanya setelah komponen terakhir per tipe --}}
+                                                @if($lastIdPerTipe[$ra->tipe_komponen] == $ra->id_rencana_asesmen)
+                                                    <th rowspan="2"
+                                                        class="text-center px-4 py-3 border-r border-gray-400  text-white">
+                                                        HELPER {{ strtoupper($ra->tipe_komponen) }}
+                                                    </th>
+                                                @endif
+
+                                            @endforeach
+                                        </tr>
+
+                                        {{-- ============================= --}}
+                                        {{-- 🔹 HEADER ROW 2 (CPMK) --}}
+                                        {{-- ============================= --}}
+                                        <tr>
+                                            @foreach($rencanaAsesmen as $ra)
+
                                                 @php
                                                     $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
                                                     $totalBobotAsesmen = $cpmkForAsesmen->sum('bobot');
 
-                                                    $cpmkGrouped = $cpmkForAsesmen->groupBy(fn($item) => $item->mkCpmkMap?->cpmk?->nama_kode_cpmk);
+                                                    $cpmkGrouped = $cpmkForAsesmen
+                                                        ->groupBy(fn($item) => $item->mkCpmkMap?->cpmk?->nama_kode_cpmk);
                                                 @endphp
 
                                                 @foreach($cpmkGrouped as $namaKode => $group)
+
                                                     @php
-                                                        $colspan = $group->count();
-
                                                         $bobotCpmk = $group->sum('bobot');
-
-                                                        if ($totalBobotAsesmen > 0) {
-                                                            $maksNilaiInput = round(($bobotCpmk / $totalBobotAsesmen) * 100, 1);
-                                                        } else {
-                                                            $maksNilaiInput = 0;
-                                                        }
-
-                                                        $idCpmk = $group->first()->mkCpmkMap?->id_cpmk;
-
-                                                        $nilaiLama = $penilaianMahasiswa
-                                                            ->where('nim', $mhs->nim)
-                                                            ->where('id_rencana_asesmen', $ra->id_rencana_asesmen)
-                                                            ->where('id_cpmk', $idCpmk)
-                                                            ->first();
+                                                        $maksNilaiInput = $totalBobotAsesmen > 0
+                                                            ? round(($bobotCpmk / $totalBobotAsesmen) * 100, 1)
+                                                            : 0;
                                                     @endphp
 
-                                                    <td class="text-center px-6 py-4" colspan="{{ $colspan }}">
-                                                        <input type="number"
-                                                            name="nilai[{{ $mhs->nim }}][{{ $ra->id_rencana_asesmen }}][{{ $idCpmk }}]"
-                                                            class="nilai-input w-20 border rounded px-2 py-1 text-center focus:ring-2 focus:ring-biru-custom outline-none"
-                                                            placeholder="0-{{ $maksNilaiInput }}"
-                                                            min="0"
-                                                            max="{{ $maksNilaiInput }}"
-                                                            step="0.1"
-                                                            value="{{ $nilaiLama->nilai ?? '' }}"
-                                                            data-max="{{ $maksNilaiInput }}"
-                                                            data-cpmk="{{ $namaKode }}"
-                                                            data-bobot="{{ $bobotCpmk }}">
-                                                    </td>
+                                                    <th class="text-center px-6 py-3 border-r border-gray-400">
+                                                        {{ $namaKode }}
+                                                        <br>
+                                                        <span class="font-normal">Maks: {{ $maksNilaiInput }}</span>
+                                                    </th>
+
                                                 @endforeach
+
+                                                {{-- Slot kosong untuk helper sudah otomatis karena rowspan --}}
                                             @endforeach
                                         </tr>
-                                    @endforeach
+                                    </thead>
+
+                                    {{-- ============================= --}}
+                                    {{-- 🔹 TBODY --}}
+                                    {{-- ============================= --}}
+                                    <tbody>
+
+                                        @foreach($kelas->mahasiswa as $mhs)
+
+                                            <tr class="text-black bg-gray-50 hover:bg-gray-100">
+
+                                                <td class="text-center px-6 py-4 font-medium">
+                                                    {{ $mhs->nim }}
+                                                </td>
+
+                                                <td class="text-center px-6 py-4">
+                                                    {{ $mhs->nama_lengkap }}
+                                                </td>
+
+                                                @foreach($rencanaAsesmen as $ra)
+
+                                                    @php
+                                                        $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
+                                                        $totalBobotAsesmen = $cpmkForAsesmen->sum('bobot');
+
+                                                        $cpmkGrouped = $cpmkForAsesmen
+                                                            ->groupBy(fn($item) => $item->mkCpmkMap?->cpmk?->nama_kode_cpmk);
+                                                    @endphp
+
+                                                    @foreach($cpmkGrouped as $namaKode => $group)
+
+                                                        @php
+                                                            $bobotCpmk = $group->sum('bobot');
+                                                            $maksNilaiInput = $totalBobotAsesmen > 0
+                                                                ? round(($bobotCpmk / $totalBobotAsesmen) * 100, 1)
+                                                                : 0;
+
+                                                            $idCpmk = $group->first()->mkCpmkMap?->id_cpmk;
+
+                                                            $nilaiLama = $penilaianMahasiswa
+                                                                ->where('nim', $mhs->nim)
+                                                                ->where('id_rencana_asesmen', $ra->id_rencana_asesmen)
+                                                                ->where('id_cpmk', $idCpmk)
+                                                                ->first();
+                                                        @endphp
+
+                                                        <td class="text-center px-6 py-4">
+
+                                                            <input type="number"
+                                                                name="nilai[{{ $mhs->nim }}][{{ $ra->id_rencana_asesmen }}][{{ $idCpmk }}]"
+                                                                class="nilai-input w-20 border rounded px-2 py-1 text-center"
+                                                                placeholder="0-{{ $maksNilaiInput }}"
+                                                                min="0"
+                                                                max="{{ $maksNilaiInput }}"
+                                                                step="0.1"
+                                                                value="{{ $nilaiLama->nilai ?? '' }}"
+
+                                                                data-nim="{{ $mhs->nim }}"
+                                                                data-tipe="{{ $ra->tipe_komponen }}"
+                                                                data-max="{{ $maksNilaiInput }}"
+                                                            >
+                                                        </td>
+
+                                                    @endforeach
+
+                                                    {{-- Helper muncul hanya setelah komponen terakhir --}}
+                                                    @if($lastIdPerTipe[$ra->tipe_komponen] == $ra->id_rencana_asesmen)
+                                                        <td class="text-center px-4 py-4 bg-yellow-50 font-bold">
+                                                            <span class="helper-prop"
+                                                                data-nim="{{ $mhs->nim }}"
+                                                                data-tipe="{{ $ra->tipe_komponen }}">
+                                                                0%
+                                                            </span>
+                                                        </td>
+                                                    @endif
+
+                                                @endforeach
+
+                                            </tr>
+
+                                        @endforeach
+
                                     </tbody>
 
-                            </table>
-                        </div>
+                                </table>
+                            </div>
 
+                            {{-- SUBMIT --}}
+                            <div class="mt-8 text-right">
+                                <button type="submit"
+                                    class="px-6 py-3 font-semibold text-white bg-biru-custom rounded-lg shadow hover:bg-blue-700 transition">
+                                    Simpan Nilai
+                                </button>
+                            </div>
 
-                        {{-- Tombol Simpan --}}
-                        <div class="mt-8 text-right">
-                            <button id="submitButton" type="submit"
-                                class="px-6 py-3 text-base font-semibold text-white bg-biru-custom rounded-lg shadow hover:bg-blue-700 transition">
-                                Simpan Nilai
-                            </button>
-                        </div>
-                    </form>
+                        </form>
                 </div>
             </main>
         @endif
@@ -305,6 +379,50 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Pastikan semua nilai valid: 0 - maksimal per CPMK');
         }
     });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const inputs = document.querySelectorAll('.nilai-input');
+
+  function updateHelperFor(nim, tipe) {
+    const related = document.querySelectorAll(`.nilai-input[data-nim="${nim}"][data-tipe="${tipe}"]`);
+
+    let sumVal = 0;
+    let sumMax = 0;
+
+    related.forEach(inp => {
+      const v = parseFloat(inp.value);
+      const mx = parseFloat(inp.dataset.max);
+
+      sumVal += isNaN(v) ? 0 : v;
+      sumMax += isNaN(mx) ? 0 : mx;
+    });
+
+    const percent = sumMax > 0 ? (sumVal / sumMax) * 100 : 0;
+    const out = Math.round(percent * 10) / 10; // 1 desimal
+
+    const helper = document.querySelector(`.helper-prop[data-nim="${nim}"][data-tipe="${tipe}"]`);
+    if (helper) {
+      helper.textContent = out;
+
+      // optional: warna indikator
+      helper.classList.toggle('text-green-700', out === 100);
+      helper.classList.toggle('text-red-700', out !== 100);
+    }
+  }
+
+  // init pertama kali
+  document.querySelectorAll('.helper-prop').forEach(h => {
+    updateHelperFor(h.dataset.nim, h.dataset.tipe);
+  });
+
+  // realtime update saat input berubah
+  inputs.forEach(input => {
+    input.addEventListener('input', () => {
+      updateHelperFor(input.dataset.nim, input.dataset.tipe);
+    });
+  });
 });
 </script>
 

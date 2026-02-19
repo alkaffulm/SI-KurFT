@@ -59,8 +59,13 @@ class FormKelasSelector extends Component
 
     private function loadDosens()
     {
-        $this->dosens = UserModel::whereHas('userRoleMap', function($q){
+        $id_ps = session('userRoleId');
+        $this->dosens = UserModel::whereHas('userRoleMap', function($q) use ($id_ps) {
             $q->where('id_role', 2);
+        // Tambahkan filter ini agar hanya dosen prodi terkait yang muncul di awal
+            if ($id_ps) {
+                $q->where('id_ps', $id_ps);
+            }
         })->get();
     }
 
@@ -96,9 +101,10 @@ class FormKelasSelector extends Component
             
             $kurikulum = KurikulumModel::find($value);
             if ($kurikulum) {
-                $this->dosens = UserModel::whereHas('userRoleMap', function($q){
-                    $q->where('id_role', 2);
-                })->where('id_ps', $kurikulum->id_ps)->get();
+                $this->dosens = UserModel::whereHas('userRoleMap', function($q) use ($kurikulum) {
+                    $q->where('id_role', 2)
+                      ->where('id_ps', $kurikulum->id_ps);
+                })->get();
             }
         } else {
             $this->tahunAkademiks = collect();
@@ -226,7 +232,7 @@ class FormKelasSelector extends Component
                 }
             });
 
-            session()->flash('message', 'Kelas berhasil ditambahkan!');
+            session()->flash('success', 'Kelas berhasil ditambahkan!');
             $this->reset([
                 'id_kurikulum',
                 'id_tahun_akademik',

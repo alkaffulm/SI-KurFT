@@ -34,7 +34,7 @@
 
     <div class="p-4 sm:p-8 sm:ml-64">
         <main class="mt-20 max-w-4xl mx-auto">
-            <form action="{{ route('pl-peo-mapping.update') }}" method="POST">
+            <form action="{{ route('pl-peo-mapping.update') }}" method="POST" onsubmit="return disableButton(this)">
                 @csrf
                 @method('PUT')
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
@@ -59,7 +59,7 @@
                                         {{-- PERBAIKAN: Menambahkan kembali 'title' untuk hover --}}
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400"
-                                            title="{{ $pl->desc_pl_id }}">
+                                            title="{{ $pl->nama_pl_id }}">
                                             {{ $pl->kode_pl }}
                                         </th>
                                         <td class="px-6 py-4">
@@ -71,7 +71,7 @@
                                                     <option value="{{ $item->id_peo }}"
                                                         title="{{ $item->desc_peo_id ?? $item->deskripsi_peo }}"
                                                         @if (isset($pl_peo_map[$pl->id_pl]) && in_array($item->id_peo, $pl_peo_map[$pl->id_pl])) selected @endif>
-                                                        {{ $item->kode_peo }}
+                                                        {{ $item->kode_peo }} - {{ $item->desc_peo_id }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -144,6 +144,20 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        function disableButton(form) {
+            // Ambil tombol submit
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Ubah teks dan matikan tombol
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            return true; // Lanjutkan submit form
+        }
     </script>
 </body>
 

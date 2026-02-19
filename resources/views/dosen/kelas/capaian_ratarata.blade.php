@@ -131,11 +131,12 @@
                 </p>
             </div>
 
-            <div class="w-full px-2 sm:px-6 pb-6 pt-2">
-                <div class="w-full h-[24px] sm:h-[24px]">
-                    <canvas id="cpmkChart" class="w-full h-full"></canvas>
+            <div class="overflow-x-auto">
+                <div class="min-w-[900px] h-[400px]">
+                    <canvas id="cpmkChart"></canvas>
                 </div>
             </div>
+
         </div>
 
         {{-- <div class="bg-white rounded-xl shadow-lg w-full"> --}}
@@ -236,39 +237,41 @@ new Chart(ctx, {
         label: 'Rata-rata Mahasiswa',
         data: avgData,
         backgroundColor: 'rgba(54, 162, 235, 0.6)',
-        categoryPercentage: 0.7,
-        barPercentage: 0.9,
-        maxBarThickness: 60
       },
       {
         label: 'Nilai Maks CPMK',
         data: maxData,
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        categoryPercentage: 0.7,
-        barPercentage: 0.9,
-        maxBarThickness: 60
       }
     ]
   },
   options: {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'top' },
-      tooltip: { mode: 'index', intersect: false }
+
+    layout: {
+      padding: 20
     },
-    scales: {
-      x: {
-        offset: true,
-        grid: { offset: true },
-        ticks: { maxRotation: 0, minRotation: 0 }
+
+    plugins: {
+      legend: {
+        position: 'top'
       },
+      tooltip: {
+        mode: 'index',
+        intersect: false
+      }
+    },
+
+    scales: {
       y: {
-        beginAtZero: true
+        beginAtZero: true,
+        max: 100
       }
     }
   }
 });
+
 </script>
 
 

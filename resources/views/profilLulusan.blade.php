@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Lulusan (PL)</title>
     @vite('resources/css/app.css')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 </head>
 
@@ -88,14 +89,14 @@
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $pl->nama_pl_id }}
                                     </th>
-                                    <td class="px-6 py-4 text-left border-r border-gray-400">
+                                    <td class="px-6 py-4 text-justify border-r border-gray-400">
                                         <p>{{ $pl->desc_pl_id }}</p>
                                         <p class="italic text-sm text-[#7397b6]">{{ $pl->desc_pl_en }}</p>
                                     </td>
                                 </tr>
                             @empty
                                 <tr class="bg-white border-t border-gray-400">
-                                    <td colspan="2" class="px-6 py-4 text-center text-gray-500">
+                                    <td colspan="3" class="px-6 py-4 text-center text-gray-500">
                                         Data Profil Lulusan masih kosong.
                                     </td>
                                 </tr>
@@ -179,6 +180,30 @@
         </main>
     </div>
 
+        {{-- Script untuk menangkap session flash data --}}
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
+    </script>
 </body>
 
 </html>

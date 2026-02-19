@@ -41,9 +41,10 @@ class KriteriaPenilaianAdminController extends Controller
      */
     public function store(StoreKriteriaPenilaianRequest $request)
     {
+        $id_ps = session('userRoleId');
         KriteriaPenilaianModel::create([
             'nama_kriteria_penilaian' => $request->nama_kriteria_penilaian,
-            'id_ps' => Auth::user()->id_ps,
+            'id_ps' => $id_ps,
         ]);
 
         return to_route('kriteria-penilaian.index')->with('success', "kriteria Penilaian berhasil ditambahkan!");

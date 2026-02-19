@@ -10,6 +10,8 @@
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     @livewireStyles
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -26,22 +28,46 @@
                 @livewire('visi-keilmuan')
             @elseif($userRole == 'dosen')
                 @include('partials.dashboard-dosen', ['tanggungJawabDosen' => $tanggungJawabDosen])
-            @elseif($userRole == 'pimpinan')
-                @include('partials.dashboard-pimpinan')
             @elseif($userRole == 'admin')
                 @include('partials.dashboard-admin')
             @elseif($userRole == 'upm')
                 @include('partials.dashboard-upm')
+            @elseif($userRole == 'pimpinan')
+                @include('partials.dashboard-pimpinan')
             @endif
 
 
-            @if ($userRole != 'admin')
+            @if (!in_array($userRole, ['admin', 'pimpinan', 'upm']))
                 @livewire('kurikulum-selector')
             @endif
         </main>
     </div>
 
     @livewireScripts
+
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
+    </script>
 </body>
 
 </html>

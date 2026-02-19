@@ -7,6 +7,7 @@
     <title>Kelola Pengguna Program Studi - Admin</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -67,11 +68,11 @@
 
                 {{-- Tabel Kriteria Penilaian --}}
                 <div>
-                    @if (session('success'))
+                    {{-- @if (session('success'))
                         <div class="mb-4 p-3 rounded bg-green-100 text-green-800">
                             {{ session('success') }}
                         </div>
-                    @endif
+                    @endif --}}
 
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left text-gray-500">
@@ -103,8 +104,7 @@
                                                 Edit
                                             </a>
                                             @if (!$u->roles->contains('role', 'Admin'))
-                                                <form action="{{ route('admin.kelola-pengguna.destroy', $u->id_user) }}" method="POST"
-                                                    onsubmit="return confirm('Yakin hapus user ini?')">
+                                                <form class="form-hapus" action="{{ route('admin.kelola-pengguna.destroy', $u->id_user) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
@@ -128,6 +128,59 @@
         </main>
     </div>
 
+    {{-- Script untuk menangkap session flash data --}}
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
+    </script>
+
+<script>
+    // Pilih semua form dengan class 'form-hapus'
+    const deleteForms = document.querySelectorAll('.form-hapus');
+
+    deleteForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            // 1. Cegah form terkirim langsung
+            e.preventDefault();
+
+            // 2. Tampilkan SweetAlert Konfirmasi
+            Swal.fire({
+                title: 'Yakin hapus user ini?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                // 3. Jika user klik "Ya", kirim form secara manual
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
 </body>
 
 </html>

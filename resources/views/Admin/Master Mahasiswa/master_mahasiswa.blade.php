@@ -7,6 +7,7 @@
     <title>Tabel Mahasiswa </title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @livewireStyles
 </head>
@@ -38,7 +39,7 @@
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">Tabel Mahasiswa</h1>
                 <p class="text-gray-600 mb-6">
-                        Halaman Master Mahasiswa per Angkatan digunakan oleh admin prodi untuk mengelola data mahasiswa setiap angkatan secara efisien. Melalui halaman ini, admin dapat melihat daftar mahasiswa berdasarkan tahun masuk, menambah data baru dengan mudah melalui unggahan file Excel, serta melakukan pembaruan atau penghapusan data per mahasiswa sesuai kebutuhan. Halaman ini membantu memastikan data mahasiswa selalu akurat, lengkap, dan terorganisir dengan baik di tingkat program studi.
+                        Mengelola data mahasiswa setiap angkatan secara efisien. Melalui halaman ini, admin dapat melihat daftar mahasiswa berdasarkan tahun masuk, menambah data baru dengan mudah melalui unggahan file Excel, serta melakukan pembaruan atau penghapusan data per mahasiswa sesuai kebutuhan.
                 </p>
 
                 <div class="flex justify-between items-center mb-4">
@@ -65,6 +66,32 @@
             </div>
         </main>
     </div>
+
+    {{-- Script untuk menangkap session flash data --}}
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
+    </script>
+
 
 </body>
 </html>

@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CPMK dan Sub-CPMK</title>
     @vite('resources/css/app.css')
+    <link rel="icon" href="{{ asset('images/logo ulm 1.png') }}" type="image/x-icon">
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
     @livewireStyles
 </head>
 
@@ -80,10 +82,10 @@
                             @forelse ($cpmk as $cp)
                                 <tr class="bg-white border-t border-gray-400">
                                     <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        class="px-9 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $cp->nama_kode_cpmk }}
                                     </th>
-                                    <td class="px-6 py-4 text-left">
+                                    <td class="px-6 py-4 text-justify">
                                         <p>{{ $cp->desc_cpmk_id }}</p>
                                         <p class="italic text-sm text-[#7397b6]">{{ $cp->desc_cpmk_en }}</p>
                                     </td>
@@ -144,7 +146,7 @@
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                         {{ $scp->nama_kode_sub_cpmk }}
                                     </th>
-                                    <td class="px-6 py-4 text-left border-r border-gray-400">
+                                    <td class="px-6 py-4 text-justify border-r border-gray-400">
                                         <p>{{ $scp->desc_sub_cpmk_id }}</p>
                                         <p class="italic text-sm text-[#7397b6]">{{ $scp->desc_sub_cpmk_en }}</p>
                                     </td>
@@ -199,7 +201,7 @@
                             <tr>
                                 <th scope="col" class="uppercase px-3 py-6 w-64">Mata Kuliah</th>
                                 @forelse ($cpl as $cp)
-                                    <th scope="col" class="px-3 py-6 w-32" title="{{ $cp->desc_cpl_id }}">
+                                    <th scope="col" class="px-3 py-6 w-36" title="{{ $cp->desc_cpl_id }}">
                                         {{ $cp->nama_kode_cpl }}
                                     </th>
                                 @empty
@@ -241,7 +243,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="px-6 py-4 text-center text-gray-500">Data MK Masih Kosong</td>
+                                    <td colspan="2" class="px-6 py-4 text-center text-gray-500">Data MK Masih Kosong</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -272,6 +274,31 @@
     </div>
 
     @livewireScripts
+
+    {{-- Script untuk menangkap session flash data --}}
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
+    </script>
 </body>
 
 </html>

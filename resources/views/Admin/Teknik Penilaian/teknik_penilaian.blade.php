@@ -7,6 +7,7 @@
     <title>Teknik Penilaian</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -38,9 +39,7 @@
                 <p class="text-gray-600 mb-6">
                     Metode yang digunakan dosen untuk mengukur ketercapaian capaian pembelajaran mahasiswa, baik pada level CPL, CPMK, maupun SubCPMK. 
                     Penilaian tidak hanya berfokus pada tes tertulis seperti ujian dan kuis, tetapi juga mencakup asesmen autentik yang relevan dengan kompetensi nyata, 
-                    misalnya proyek, presentasi, laporan, portofolio, hingga observasi partisipasi kelas. Dengan teknik penilaian yang bervariasi ini, 
-                    dosen dapat memperoleh gambaran yang lebih komprehensif mengenai penguasaan pengetahuan, keterampilan, dan sikap mahasiswa, 
-                    serta memastikan bahwa proses pembelajaran benar-benar berorientasi pada pencapaian hasil belajar yang diharapkan.
+                    misalnya proyek, presentasi, laporan, portofolio, hingga observasi partisipasi kelas. 
                 </p>
 
                 <div class="flex justify-between items-center mb-4">
@@ -118,6 +117,30 @@
         </main>
     </div>
 
+    {{-- Script untuk menangkap session flash data --}}
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
+    </script>
 </body>
 
 </html>

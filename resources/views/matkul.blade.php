@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mata Kuliah</title>
     @vite('resources/css/app.css')
+    <link rel="icon" href="{{ asset('images/logo ulm 1.png') }}" type="image/x-icon">
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -114,7 +116,7 @@
                                 </tr>
                             @empty
                                 <tr class="bg-white border-t border-gray-400">
-                                    <td colspan="6" class="px-3 py-4 text-center text-gray-500">
+                                    <td colspan="7" class="px-3 py-4 text-center text-gray-500">
                                         Data Mata Kuliah masih kosong.
                                     </td>
                                 </tr>
@@ -263,6 +265,31 @@
             </div>
         </main>
     </div>
+
+    {{-- Script untuk menangkap session flash data --}}
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
+    </script>
 </body>
 
 </html>

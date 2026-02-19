@@ -8,6 +8,7 @@
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     @livewireStyles
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -37,7 +38,6 @@
             </nav>
             <div class="bg-white p-8 rounded-lg shadow-md mb-8">
 
-                <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Role Admin</h1>
                 {{-- <p class="text-gray-600 mb-6">
                     Pindahkan ke halaman admin kena jop lah
                 </p> --}}
@@ -87,11 +87,57 @@
                 </div>
                 <livewire:tahun-kelas-selector />
 
-
-
     </div>
 
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
+    </script>
+
+    <script>
+        function confirmDelete(event, url) {
+            // 1. Matikan fungsi link bawaan (agar tidak langsung pindah halaman)
+            event.preventDefault(); 
+
+            // 2. Tampilkan SweetAlert
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Data kelas ini akan dihapus permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                // 3. Jika user klik Ya, arahkan ke URL Controller (hapusKelas)
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
+    </script>
     @livewireScripts
+
 </body>
 
 </html>

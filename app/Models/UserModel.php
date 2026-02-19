@@ -47,6 +47,11 @@ class UserModel extends Authenticatable
             ->using(UserRoleMapModel::class); // PENTING: Agar bisa pakai fitur Pivot Model custom
     }
 
+    public function prodi() {
+        return $this->belongsToMany(ProgramStudiModel::class, 'user_role_map', 'id_user', 'id_ps')
+            ->using(UserRoleMapModel::class); // PENTING: Agar bisa pakai fitur Pivot Model custom
+    }
+
     // public function scopeForProdi($query, $id_ps) {
     //     return $query->where('id_ps', $id_ps);
     // }
@@ -62,6 +67,12 @@ class UserModel extends Authenticatable
     public function scopeIsDosen($query) {
         return $query->whereHas('userRoleMap', function ($subQuery) {
             $subQuery->where('id_role',2);
+        });
+    }
+
+    public function scopeHasRole($query, $id_role) {
+        return $query->whereHas('userRoleMap', function($q) use ($id_role) {
+            $q->where('id_role', $id_role);
         });
     }
 

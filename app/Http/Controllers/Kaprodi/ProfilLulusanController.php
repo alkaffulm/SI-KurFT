@@ -10,7 +10,6 @@ use App\Models\ProgramStudiModel;
 use App\Models\KurikulumModel;
 use App\Models\PEOModel;
 use App\Models\PLPEOMapModel;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ProfilLulusanController extends Controller
@@ -38,14 +37,20 @@ class ProfilLulusanController extends Controller
             $pl_peo_map[$relasi->id_pl][] = $relasi->id_peo;
         }
 
-        return view('profilLulusan', [
-            'kurikulum' => $kurikulum,
-            'programStudi' => $programStudi,
-            'userRole' => $userRole,
-            'peo' => $peo,
-            'pl_peo_map' => $pl_peo_map,
-            'profil_lulusan' => $profil_lulusan
-        ]);
+        if($userRole == 'pimpinan' || $userRole == 'upm'){
+            return view('pimpinanUpm.profilLulusanAll', ['userRole' => $userRole,]);
+        }
+        else {
+            return view('profilLulusan', [
+                'kurikulum' => $kurikulum,
+                'programStudi' => $programStudi,
+                'userRole' => $userRole,
+                'peo' => $peo,
+                'pl_peo_map' => $pl_peo_map,
+                'profil_lulusan' => $profil_lulusan
+            ]);
+        }
+
     }
 
     /**
@@ -70,7 +75,7 @@ class ProfilLulusanController extends Controller
 
     public function editAll()
     {
-        $pl_data = ProfilLulusanModel::orderBy('kode_pl', 'asc')->get();
+        $pl_data = ProfilLulusanModel::all();
         return view('form.PL.profilLulusanFormEdit', ['pl_data' => $pl_data]);
     }
 

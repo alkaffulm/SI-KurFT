@@ -27,7 +27,7 @@
     <div class="p-4 sm:p-8 sm:ml-64">
         <main class="mt-20 mb-5 max-w-5xl mx-auto">
 
-            <form action="{{ route('model-pembelajaran.store') }}" method="POST">
+            <form action="{{ route('model-pembelajaran.store') }}" method="POST" onsubmit="return disableButton(this)">
                 @csrf
 
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
@@ -86,6 +86,20 @@
             </form>
         </main>
     </div>
+
+    <script>
+        function disableButton(form) {
+            // Ambil tombol submit
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Ubah teks dan matikan tombol
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            return true; // Lanjutkan submit form
+        }
+    </script>
 </body>
 
 </html>

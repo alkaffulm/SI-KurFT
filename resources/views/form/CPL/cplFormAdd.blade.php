@@ -7,6 +7,7 @@
     <title>Tambah Capaian Pembelajaran Lulusan (CPL)</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -17,7 +18,7 @@
     <div class="p-4 sm:p-8 sm:ml-64">
         <main class="mt-14 max-w-xl mx-auto">
 
-            <form action="{{ route('cpl.store') }}" method="POST">
+            <form action="{{ route('cpl.store') }}" method="POST" onsubmit="return disableButton(this)">
                 @csrf
 
                 <input type="hidden" name="id_ps" value="{{ session()->get('userRoleId') }}">
@@ -122,6 +123,19 @@
         </main>
     </div>
 
+    <script>
+        function disableButton(form) {
+            // Ambil tombol submit
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Ubah teks dan matikan tombol
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            return true; // Lanjutkan submit form
+        }
+    </script>
 </body>
 
 </html>

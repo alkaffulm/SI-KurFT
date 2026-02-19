@@ -17,7 +17,14 @@ class MhsCplController extends Controller
      */
     public function index()
     {
-        return view('mhscpl');
+        $userRole = session()->get('userRole');
+
+        if($userRole == 'pimpinan' || $userRole == 'upm') {
+            return view('pimpinanUpm.mahasiswaCplAll', ['userRole' => $userRole,]);
+        }
+        else {
+            return view('mhscpl');
+        }
     }
 
     /**

@@ -7,6 +7,7 @@
     <title>Kriteria Penilaian</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -36,7 +37,7 @@
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">Kriteria Penilaian</h1>
                 <p class="text-gray-600 mb-6 text-justify">
-                        Merupakan seperangkat tolok ukur yang digunakan untuk menilai tingkat ketercapaian capaian pembelajaran mahasiswa, baik pada ranah pengetahuan, keterampilan, maupun sikap. Kriteria ini berfungsi sebagai standar kualitas yang memastikan bahwa setiap bentuk penilaian dilakukan secara objektif, terukur, dan konsisten sesuai dengan target pembelajaran yang telah ditetapkan. Umumnya, kriteria penilaian dituangkan dalam bentuk rubrik yang memuat indikator-indikator spesifik, sehingga dosen dapat menilai secara lebih komprehensif sejauh mana mahasiswa telah memenuhi aspek-aspek yang diharapkan. Dengan adanya kriteria penilaian yang jelas, proses evaluasi tidak hanya mengukur benar-salah jawaban, tetapi juga menilai kualitas pemahaman, ketepatan penerapan keterampilan, serta sikap profesional mahasiswa dalam konteks pembelajaran.
+                        Merupakan seperangkat tolok ukur yang digunakan untuk menilai tingkat ketercapaian capaian pembelajaran mahasiswa, baik pada ranah pengetahuan, keterampilan, maupun sikap. Kriteria ini berfungsi sebagai standar kualitas yang memastikan bahwa setiap bentuk penilaian dilakukan secara objektif, terukur, dan konsisten sesuai dengan target pembelajaran yang telah ditetapkan. 
                 </p>
 
                 <div class="flex justify-between items-center mb-4">
@@ -114,6 +115,30 @@
         </main>
     </div>
 
+    {{-- Script untuk menangkap session flash data --}}
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
+    </script>
 </body>
 
 </html>

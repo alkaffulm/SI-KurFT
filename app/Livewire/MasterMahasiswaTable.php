@@ -13,7 +13,7 @@ class MasterMahasiswaTable extends Component
 
     public function mount()
     {
-        $id_ps = Auth::user()->id_ps;
+        $id_ps = session('userRoleId');
 
         // ambil daftar angkatan unik dari mahasiswa prodi ini
         $this->daftarAngkatan = MahasiswaModel::where('id_ps', $id_ps)
@@ -29,7 +29,7 @@ class MasterMahasiswaTable extends Component
 
     public function render()
     {
-        $id_ps = Auth::user()->id_ps;
+        $id_ps = session('userRoleId');
 
         // Ambil mahasiswa terbaru per NIM
         $mahasiswa = MahasiswaModel::where('id_ps', $id_ps)
@@ -57,6 +57,6 @@ class MasterMahasiswaTable extends Component
     public function hapus($id)
     {
         MahasiswaModel::findOrFail($id)->delete();
-        session()->flash('success', 'Data mahasiswa berhasil dihapus!');
+        return redirect()->route('master-mahasiswa.index')->with('success', 'Data mahasiswa berhasil dihapus!');
     }
 }

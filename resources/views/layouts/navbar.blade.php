@@ -25,7 +25,7 @@
                 {{-- Bagian Nama dan Role --}}
                 <div class="text-right me-4">
                     <p class="text-sm font-semibold text-gray-800">{{ session('userName', 'User') }}</p>
-                    <p class="text-xs text-gray-500">
+                    <p class="text-xs text-black font-semibold">
                         {{ ucfirst(session('userRole', 'Dosen')) }}
                         @if (session('userRole') != 'pimpinan' && session('userRole') != 'upm')
                             {{ session('userProdi') }}
@@ -38,11 +38,11 @@
                     {{-- Tombol Trigger Dropdown --}}
                     <div>
                         <button type="button"
-                            class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
+                            class="flex text-sm rounded-full focus:ring-4 focus:ring-gray-300"
                             aria-expanded="false" data-dropdown-toggle="dropdown-user">
                             <span class="sr-only">Open user menu</span>
-                            <img class="w-10 h-10 rounded-full"
-                                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                            {{-- Menggunakan asset() untuk mengambil gambar dari public/images/user.png --}}
+                            <img class="w-8 h-8 rounded-full" src="{{ asset('images/user.png') }}" alt="user photo">
                         </button>
                     </div>
 
@@ -62,11 +62,6 @@
                             </span>
                         </div>
                         <ul class="py-2">
-                            <a href="#">
-                                <li class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                    Profile
-                                </li>
-                            </a>
                             <li>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

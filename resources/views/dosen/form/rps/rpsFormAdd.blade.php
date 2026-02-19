@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bahan Kajian (BK)</title>
+    <title>Buat Rencana Pembelajaran Semester</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     {{-- Select2 CSS and JS for searchable dropdowns --}}
@@ -122,7 +122,7 @@
         <div class="bg-white p-8 rounded-lg">         
             <h1 class="text-xl font-bold mb-4 text-biru-custom">Informasi RPS</h1>
           
-            <form action="{{ route('rps.store') }}" method="post">
+            <form action="{{ route('rps.store') }}" method="post" onsubmit="return disableButton(this)">
                 @csrf    
                 <input type="hidden" name="id_mk" value="{{ $mata_kuliah->id_mk }}">   
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -220,6 +220,20 @@
                 width: '100%',
             });
         });
+    </script>
+
+    <script>
+        function disableButton(form) {
+            // Ambil tombol submit
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Ubah teks dan matikan tombol
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            return true; // Lanjutkan submit form
+        }
     </script>
 </body>
 

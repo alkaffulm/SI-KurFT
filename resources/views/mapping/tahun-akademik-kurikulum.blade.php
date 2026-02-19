@@ -31,6 +31,9 @@
             /* Forces the element to fill its container */
         }
     </style>
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -47,14 +50,14 @@
                     </div>
 
                     {{-- form nambah tahun_akademik ke tabel kurikulum_tahun_akademik_map --}}
-                    <form action="{{ route('ta.update') }}" method="POST">
+                    <form action="{{ route('ta.update') }}" method="POST" onsubmit="return disableButton(this)">
                         @csrf
                         {{-- @method('PUT') --}}
 
                         {{-- pilih kurikulum --}}
                         <div>
                             <label for="id_kurikulum" class="block text-base font-medium text-gray-700 mb-2">
-                                Kurikulum
+                                Pilih Kurikulum
                             </label>
 
                             <select id="id_kurikulum" name="id_kurikulum"
@@ -77,7 +80,7 @@
 
                         {{-- masukan tahun akademik --}}
                         <div>
-                            <label for="tahun_akademik" class="mt-8 block text-base font-medium text-gray-700 mb-2">Tahun Kurikulum</label>
+                            <label for="tahun_akademik" class="mt-8 block text-base font-medium text-gray-700 mb-2">Tambah Tahun Akademik</label>
                             <input type="text" id="tahun_akademik" name="tahun_akademik"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                 placeholder="Contoh: 2022/2023" value="{{ old('tahun_akademik') }}" required>
@@ -115,6 +118,19 @@
                 allowClear: true
             });
         });
+    </script>
+    <script>
+        function disableButton(form) {
+            // Ambil tombol submit
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Ubah teks dan matikan tombol
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            return true; // Lanjutkan submit form
+        }
     </script>
 </body>
 

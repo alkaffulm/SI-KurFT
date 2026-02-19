@@ -37,7 +37,7 @@
 
     <div class="p-4 sm:p-8 sm:ml-64">
         <main class="mt-20 max-w-4xl mx-auto">
-            <form action="{{ route('cpl-cpmk-mapping.update') }}" method="POST">
+            <form action="{{ route('cpl-cpmk-mapping.update') }}" method="POST" onsubmit="return disableButton(this)">
                 @csrf
                 @method('PUT')
 
@@ -133,6 +133,20 @@
                 allowClear: true
             });
         });
+    </script>
+
+    <script>
+        function disableButton(form) {
+            // Ambil tombol submit
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Ubah teks dan matikan tombol
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            return true; // Lanjutkan submit form
+        }
     </script>
 </body>
 

@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-        @vite('resources/css/app.css')
+    <title>Rencana Pembelajaran Semester</title>
+    @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     <script src="https://kit.fontawesome.com/a3c61f64a4.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -18,9 +19,10 @@
     @php
         $isDosen = session('userRole') == 'dosen';
         $isKaprodi = session('userRole') == 'kaprodi';
+        $isPimpinanUpm = session('userRole') == 'pimpinan' || session('userRole') == 'upm';
 
-        $isPengembangRps = Auth::id() == $rps->mataKuliah->id_pengembang_rps;
-        $isKoordinatorMk = Auth::id() == $rps->mataKuliah->id_koordinator_mk;
+        $isPengembangRps = Auth::id() == $rps->mataKuliah?->id_pengembang_rps ?? 0;
+        $isKoordinatorMk = Auth::id() == $rps->mataKuliah?->id_koordinator_mk ?? 0;
         
         $canDelete = $isDosen && $isPengembangRps;
         $canEdit = ($isDosen && $isPengembangRps) || $isKaprodi || $isKoordinatorMk;    
@@ -34,8 +36,9 @@
                     @if ($isDosen)
                         <a href="{{ route('matkul.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 mr-4">Kembali</a>
                     @elseif($isKaprodi)
-                        {{-- <a href="/kaprodi/mata-kuliah">Kembali</a> --}}
                         <a href="{{ route('mata-kuliah.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
+                    @elseif ($isPimpinanUpm)
+                        <a href="{{ route('mata-kuliah-all.index') }}" class="px-6 py-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 mr-4">Kembali</a>
                     @endif
                     <a href="{{route('rps.generatePDF', $rps)}}" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg text-base px-5 py-3 text-center"><i class="fa-solid fa-download"></i> PDF</a>
                 </div>
@@ -49,7 +52,7 @@
                     @endif
                     @if ($canDelete)
                         <div >
-                            <form action="{{route('rps.destroy', $rps)}}" method="post">
+                            <form class="form-hapus" action="{{route('rps.destroy', $rps)}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="text-white bg-[#DA6C6C] hover:opacity-90 font-medium rounded-lg text-base px-6 py-[0.5rem] text-center">Hapus RPS</button>
@@ -589,5 +592,59 @@
             </table>
         </div>
     </div> 
+
+    {{-- Script untuk menangkap session flash data --}}
+    <script>
+        // Cek Session Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: "Berhasil!",
+                text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                icon: "success",
+                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                confirmButtonText: "Oke"
+            });
+        @endif
+
+        // Cek Session Error (Opsional, buat jaga-jaga)
+        @if (session('error'))
+            Swal.fire({
+                title: "Gagal!",
+                text: "{{ session('error') }}",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tutup"
+            });
+        @endif
+    </script>
+
+<script>
+    // Pilih semua form dengan class 'form-hapus'
+    const deleteForms = document.querySelectorAll('.form-hapus');
+
+    deleteForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            // 1. Cegah form terkirim langsung
+            e.preventDefault();
+
+            // 2. Tampilkan SweetAlert Konfirmasi
+            Swal.fire({
+                title: 'Yakin hapus RPS ini?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                // 3. Jika user klik "Ya", kirim form secara manual
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

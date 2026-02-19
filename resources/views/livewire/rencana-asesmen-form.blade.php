@@ -16,11 +16,7 @@
                 </div>
             @else
                 <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Tambah Rencana Asesmen: {{ $mataKuliah->nama_matkul_id }} </h1>
-                    @if (session('success'))
-                        <div class="mb-4 p-3 rounded bg-green-100 text-green-800">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">
@@ -140,11 +136,30 @@
                     </table>
                 </div>
 
+                    @if (session('success'))
+                        <div class="my-4 p-3 rounded bg-green-100 text-green-800">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                 <div class="mt-4 flex justify-between">
-                    <button type="button" wire:click="addRow" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg px-6 py-3">Tambah Baris</button>
+                    <button type="button" 
+                        wire:click="addRow" 
+                        wire:loading.attr="disabled" 
+                        wire:target="addRow"
+                        class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg px-6 py-3">
+                        <span wire:loading.remove wire:target="addRow">Tambah Baris</span>
+                        <span wire:loading wire:target="addRow" class="flex items-center gap-2 opacity-50 cursor-not-allowed">Menambah...</span>
+                    </button>
                     <div class="flex gap-6">
                         <a href="{{ route('rencana-asesmen.index') }}" class="px-6 py-3 font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
-                        <button type="submit" class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg px-6 py-3">Simpan Rencana Asesmen</button>
+                        <button type="submit" 
+                        wire:loading.attr="disabled" 
+                        wire:target="saveRencanaAsesmen"
+                        class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg px-6 py-3">
+                        <span wire:loading.remove wire:target="saveRencanaAsesmen">Simpan Rencana Asesmen</span>
+                        <span wire:loading wire:target="saveRencanaAsesmen" class="flex items-center gap-2 opacity-50 cursor-not-allowed">Menyimpan...</span>
+                    </button>
                     </div>
                 </div>
             @endif
@@ -214,3 +229,5 @@
 
     </form>
 </div>
+
+

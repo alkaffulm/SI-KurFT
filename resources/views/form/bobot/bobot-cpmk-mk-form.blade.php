@@ -35,12 +35,12 @@
                         </div>
                     @endif
                     <h1 class="text-2xl font-bold mb-4 text-biru-custom">
-                        Bobot CPMK untuk Mata Kuliah: {{ $mk->nama_mk }}
+                        Bobot CPMK untuk Mata Kuliah: {{ $mk->nama_matkul_id }}
                     </h1>
                     <p class="text-gray-600 mb-6 text-justify">
                         Setiap Mata Kuliah memiliki CPMK yang telah diatur. Setiap CPMK di dalam Mata Kuliah memiliki bobotnya masing-masing. Total seluruh bobot untuk seluruh CPMK di dalam satu Mata Kuliah harus bernilai <strong>100</strong> 
                     </p>
-                    <form id="bobotForm" action="{{ route('bobot.cpmk.update', $mk->id_mk) }}" method="POST">
+                    <form id="bobotForm" action="{{ route('bobot.cpmk.update', $mk->id_mk) }}" method="POST" onsubmit="return disableButton(this)">
                         @csrf
 
                         <div class="overflow-x-auto border rounded-lg">
@@ -82,7 +82,7 @@
 
                         <p id="totalWarning" class="mt-3 text-sm font-semibold"></p>
 
-                        <button 
+                        <button type="submit"
                             id="submitBtn"
                             class="mt-4 px-4 py-2 bg-teks-biru-custom text-white rounded-lg"
                         >
@@ -128,6 +128,20 @@
 
                 </div>
         </main>
-    </div>    
+    </div>   
+
+    <script>
+        function disableButton(form) {
+            // Ambil tombol submit
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Ubah teks dan matikan tombol
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            return true; // Lanjutkan submit form
+        }
+    </script>
 </body>
 </html>

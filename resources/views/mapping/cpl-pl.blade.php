@@ -35,7 +35,7 @@
 
     <div class="p-4 sm:p-8 sm:ml-64">
         <main class="mt-20 max-w-4xl mx-auto">
-            <form action="{{ route('cpl-pl-mapping.update') }}" method="POST">
+            <form action="{{ route('cpl-pl-mapping.update') }}" method="POST" onsubmit="return disableButton(this)">
                 @csrf
                 @method('PUT')
 
@@ -73,7 +73,7 @@
                                                     {{-- PERUBAHAN 2: Menambahkan title pada opsi PL untuk hover --}}
                                                     <option value="{{ $item->id_pl }}" title="{{ $item->desc_pl_id }}"
                                                         @if (isset($cpl_pl_map[$c->id_cpl]) && in_array($item->id_pl, $cpl_pl_map[$c->id_cpl])) selected @endif>
-                                                        {{ $item->kode_pl }}
+                                                        {{ $item->kode_pl }} - {{ $item->nama_pl_id }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -146,6 +146,20 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        function disableButton(form) {
+            // Ambil tombol submit
+            const btn = form.querySelector('button[type="submit"]');
+            
+            // Ubah teks dan matikan tombol
+            btn.innerText = 'Menyimpan...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            return true; // Lanjutkan submit form
+        }
     </script>
 </body>
 
