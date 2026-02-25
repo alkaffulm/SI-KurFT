@@ -1,11 +1,6 @@
 <?php
 
 namespace App\Models;
-
-use App\Policies\RpsPolicy;
-use App\Models\Scopes\ProdiScope;
-use App\Models\Scopes\KurikulumScope;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
@@ -32,42 +27,46 @@ class RPSModel extends Model
 
     protected $casts = ['tanggal_disusun' => 'date'];
 
-    // has many relation
-    public function topics()
-    {
+    public function topics(){
         return $this->hasMany(RPSTopicModel::class, 'id_rps', 'id_rps');
     }
 
-    // belongs to relation
     public function mataKuliah(){
         return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');
     }
+
     public function dosenPenyusun(){
         return $this->belongsTo(UserModel::class, 'id_dosen_penyusun', 'id_user');
     }
+
     public function kaprodi() {
         return $this->belongsTo(UserModel::class, 'id_kaprodi', 'id_user');
     }
+
     public function kurikulum() {
         return $this->belongsTo(KurikulumModel::class, 'id_kurikulum', 'id_kurikulum');
     }
+
     public function programStudi() {
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }
+
     public function bahanKajian() {
         return $this->belongsTo(BahanKajianModel::class, 'id_bk', 'id_bk');
     }
+
     public function modelPembelajaran() {
         return $this->belongsTo(ModelPembelajaranModel::class, 'id_model_pembelajaran','id_model_pembelajaran');
     }
 
-     // belongs to Many relation
     public function cpls() {
         return $this->belongsToMany(CPLModel::class, 'rps_cpl_map', 'id_rps', 'id_cpl');
     }
+
     public function mataKuliahSyarat() {
         return $this->belongsToMany(MataKuliahModel::class, 'rps_matakuliah_syarat_map', 'id_rps', 'id_mk_syarat');
     }
+    
     public function mediaPembelajaran() {
         return $this->belongsToMany(MediaPembelajaranModel::class, 'rps_media_pembelajaran', 'id_rps', 'id_media_pembelajaran');
     }

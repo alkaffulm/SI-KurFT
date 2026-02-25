@@ -23,38 +23,24 @@ class ProfilLulusanModel extends Model
         'profesi'
     ];
 
-    protected static function booted(): void
-    {
+    protected static function booted(): void{
         static::addGlobalScope(new ProdiScope);
         static::addGlobalScope(new KurikulumScope);
     }
 
-    /**
-     * Relasi many-to-many ke CPLModel melalui tabel pl_cpl_map.
-     */
-    public function cpl()
-    {
-        // Parameter:
-        // 1. Model tujuan (CPLModel::class)
-        // 2. Nama tabel pivot ('pl_cpl_map')
-        // 3. Foreign key di tabel pivot untuk model ini ('id_pl')
-        // 4. Foreign key di tabel pivot untuk model tujuan ('id_cpl')
+    public function cpl(){
         return $this->belongsToMany(CPLModel::class, 'pl_cpl_map', 'id_pl', 'id_cpl');
     }
 
-    // belong to relation
-    public function programStudi()
-    {
+    public function programStudi(){
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }
 
-    public function plpeomap()
-    {
+    public function plpeomap(){
         return $this->hasMany(PLPEOMapModel::class, 'id_pl', 'id_pl');
     }
 
-    public function cplpeomap()
-    {
+    public function cplpeomap(){
         return $this->hasMany(CPLPLMapModel::class, 'id_pl', 'id_pl');
     }
 }
