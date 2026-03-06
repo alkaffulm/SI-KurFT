@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +23,7 @@ class ProgramStudiSeeder extends Seeder
             ['id_ps' => 7, 'nama_prodi' => 'Teknologi Informasi'],
             ['id_ps' => 8, 'nama_prodi' => 'Rekayasa Elektro'],
             ['id_ps' => 9, 'nama_prodi' => 'Rekayasa Geologi'],
-            ['id_ps' => 15, 'nama_prodi' => 'Teknik Rekayasa Teknik Komputer'],
+            ['id_ps' => 15, 'nama_prodi' => 'Rekayasa Sistem Komputer'],
 
             // Prodi S2
             ['id_ps' => 10, 'nama_prodi' => 'Magister Teknik Sipil'],
