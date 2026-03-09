@@ -27,7 +27,7 @@ class CplController extends Controller
      */
     public function index()
     {
-        $cpl = CPLModel::paginate(5, ['*'], 'cpl');
+        $cpl = CPLModel::all();
         $profil_lulusan = ProfilLulusanModel::all();
         $kurikulum = KurikulumModel::all();
         $programStudi = ProgramStudiModel::all();
