@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $password = '$2y$12$eYii3Q2XWiuMgm7sQ90dxekLECkNbGd9uQL6PWIPvPtUEbxgfTJEO';
+        $password = Hash::make('pass123'); 
 
         $data_per_prodi = [
             // 1. TEKNIK SIPIL (id_ps = 1)

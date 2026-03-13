@@ -16,7 +16,6 @@ class UserModel extends Authenticatable
         'password',
     ];
 
-    // has many relation
     public function UserPersonalisasiModel(){
         return $this->hasMany(UserPersonalisasiModel::class, 'id_user', 'id_user');
     }
@@ -30,34 +29,21 @@ class UserModel extends Authenticatable
         return $this->hasMany(UserMataKuliahMapModel::class, 'id_user', 'id_user');
     }
 
-    public function kelas()
-    {
+    public function kelas(){
         return $this->hasMany(Kelas::class, 'id_mk', 'id_mk');
     }
 
-    // // belongs to many
-    // public function roles() {
-    //     return $this->belongsToMany(RoleModel::class, 'user_role_map', 'id_user', 'id_role');
-    // }
-
-    // Ini adalah relasi inti untuk mengambil Role
     public function roles() {
         return $this->belongsToMany(RoleModel::class, 'user_role_map', 'id_user', 'id_role')
-            ->withPivot('id_ps') // PENTING: Agar kolom id_ps di pivot ikut terbaca
-            ->using(UserRoleMapModel::class); // PENTING: Agar bisa pakai fitur Pivot Model custom
+            ->withPivot('id_ps') 
+            ->using(UserRoleMapModel::class); 
     }
 
     public function prodi() {
         return $this->belongsToMany(ProgramStudiModel::class, 'user_role_map', 'id_user', 'id_ps')
-            ->using(UserRoleMapModel::class); // PENTING: Agar bisa pakai fitur Pivot Model custom
+            ->using(UserRoleMapModel::class); 
     }
 
-    // public function scopeForProdi($query, $id_ps) {
-    //     return $query->where('id_ps', $id_ps);
-    // }
-
-    // [UPDATED] Scope ini berubah total karena id_ps pindah tabel
-    // Cara pakai: UserModel::forProdi(1)->get(); -> Mengambil semua user yang punya jabatan di Sipil
     public function scopeForProdi($query, $id_ps) {
         return $query->whereHas('userRoleMap', function($q) use ($id_ps) {
             $q->where('id_ps', $id_ps);
@@ -75,6 +61,4 @@ class UserModel extends Authenticatable
             $q->where('id_role', $id_role);
         });
     }
-
-    
 }

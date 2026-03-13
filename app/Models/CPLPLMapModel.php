@@ -18,6 +18,7 @@ class CPLPLMapModel extends Model
     public function pl(){
         return $this->belongsTo(ProfilLulusanModel::class, 'id_pl', 'id_pl');
     }
+    
     public function peo(){
         return $this->belongsTo(CPLModel::class, 'id_cpl', 'id_cpl');
     }

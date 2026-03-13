@@ -20,19 +20,16 @@ class PEOModel extends Model
         'desc_peo_en'
     ];
 
-    protected static function booted(): void
-    {
+    protected static function booted(): void{
         static::addGlobalScope(new ProdiScope);
         static::addGlobalScope(new KurikulumScope);
     }
 
-    public function programStudi()
-    {
+    public function programStudi(){
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }
 
-    public function plpeomap()
-    {
+    public function plpeomap(){
         return $this->hasMany(PLPEOMapModel::class, 'id_peo', 'id_peo');
     }
 }

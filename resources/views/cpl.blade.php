@@ -99,10 +99,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- menampilkan pagination --}}
-                <div>
-                    {{ $cpl->links() }}
-                </div>
+
 
                 {{-- Bagian Tabel Korelasi CPL dan PL --}}
                 <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Korelasi CPL dengan Profil Lulusan
@@ -165,9 +162,6 @@
                             @endforelse
                         </tbody>
                     </table>
-                </div>
-                <div>
-                    {{ $cpl->links() }}
                 </div>
 
                 {{-- Bagian Tabel Korelasi CPL dan PEO --}}

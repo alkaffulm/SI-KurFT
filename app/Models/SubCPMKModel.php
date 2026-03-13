@@ -22,27 +22,20 @@ class SubCPMKModel extends Model
         'desc_sub_cpmk_en',
     ];
 
-    protected static function booted(): void
-    {
+    protected static function booted(): void{
         static::addGlobalScope(new ProdiScope);
         static::addGlobalScope(new KurikulumScope);
     }
-    // has many relation
-    // public function rps_detail(){
-    //     return $this->hasMany(RPSDetailModel::class, 'id_sub_cpmk', 'id_sub_cpmk');
-    // }
-    public function mk_cpmk_sub_cpmk()
-    {
+
+    public function mk_cpmk_sub_cpmk(){
         return $this->hasMany(MKCPMKSubCPMKMapModel::class, 'id_sub_cpmk', 'id_sub_cpmk');
     }
 
-    // belongs to relation
     public function mataKuliah(){
         return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');
     }
 
-    public function programstudi()
-    {
+    public function programstudi(){
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }
 

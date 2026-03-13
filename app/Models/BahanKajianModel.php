@@ -28,30 +28,28 @@ class BahanKajianModel extends Model
         'desc_bk_en'
     ];
 
-    protected static function booted(): void
-    {
+    protected static function booted(): void{
         static::addGlobalScope(new ProdiScope);
         static::addGlobalScope(new KurikulumScope);
     }
 
-    public function programstudi()
-    {
+    public function programstudi(){
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }
-    // has many relation
+    
     public function bk_mk(){
         return $this->hasMany(BKMKMapModel::class, 'id_bk', 'id_bk');
     }
+    
     public function bk_cpl(){
         return $this->hasMany(BKCPLMapModel::class, 'id_bk', 'id_bk');
     }
-    public function cpls()
-    {
+
+    public function cpls(){
         return $this->belongsToMany(CPLModel::class, 'bk_cpl_map', 'id_bk', 'id_cpl');
     }
 
-    public function mataKuliah()
-    {
+    public function mataKuliah(){
         return $this->belongsToMany(MataKuliahModel::class, 'bk_mk_map', 'id_bk', 'id_mk');
     }
 

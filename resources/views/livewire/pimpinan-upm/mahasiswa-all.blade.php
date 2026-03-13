@@ -17,7 +17,7 @@
 
             {{-- Filter Angkatan --}}
             <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900">Filter Program Studi</label>
+                <label class="block mb-2 text-sm font-medium text-gray-900">Filter Angkatan</label>
                 <select wire:model.live="selectedAngkatan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     <option value="">-- Semua Angkatan --</option>
                     @foreach($list_angkatan as $angkatan)

@@ -18,6 +18,7 @@ class MK_CPMK_CPL_MapModel extends Model
     public function cpl(){
         return $this->belongsTo(CPLModel::class, 'id_cpl', 'id_cpl');
     }
+    
     public function matakuliah(){
         return $this->belongsTo(MataKuliahModel::class, 'id_mk', 'id_mk');
     }
