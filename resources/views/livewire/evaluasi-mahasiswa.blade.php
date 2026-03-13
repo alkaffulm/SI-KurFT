@@ -3,7 +3,7 @@
         <div class="bg-white p-8 rounded-lg shadow-md mb-8">
             <h1 class="text-3xl font-bold text-teks-biru-custom mb-2">Evaluasi Mahasiswa</h1>
             <p class="text-gray-600 mb-6 text-sm">
-                Halaman ini menampilkan ketercapaian CPL berdasarkan Rencana Asesmen yang telah dibuat. Mahasiswa dinyatakan <span class="font-bold text-green-600">Lulus</span> jika seluruh CPL terkait memiliki nilai minimal {{ $threshold }}%.
+                Halaman ini menampilkan ketercapaian CPMK dan CPL berdasarkan Rencana Asesmen yang telah dibuat. Mahasiswa dinyatakan <span class="font-bold text-green-600">Lulus</span> jika seluruh CPL terkait memiliki nilai minimal {{ $threshold }}%.
             </p>
 
             <div class="mb-8">
@@ -25,7 +25,7 @@
                     <div class="flex justify-between items-end mb-2 mt-8 border-b pb-2">
                         <div>
                             <h2 class="text-lg font-bold text-gray-800">Hasil Evaluasi Mahasiswa</h2>
-                            <p class="text-xs text-gray-500">Menampilkan status kelulusan berdasarkan ketercapaian CPL.</p>
+                            <p class="text-xs text-gray-500">Menampilkan persentase ketercapaian per CPMK dan status kelulusan CPL.</p>
                         </div>
                         <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded border border-gray-500">
                             Total Mahasiswa: {{ count($allMahasiswaEvaluasi) }}
@@ -36,46 +36,79 @@
                         <table class="w-full text-sm text-left text-gray-500">
                             <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                                 <tr>
-                                    <th class="px-6 py-3 border-r border-gray-400">NIM</th>
-                                    <th class="px-6 py-3 border-r border-gray-400">Nama</th>
+                                    <th rowspan="2" class="px-6 py-3 border-r border-b border-gray-400 text-center">NIM</th>
+                                    <th rowspan="2" class="px-6 py-3 border-r border-b border-gray-400 text-center">Nama</th>
 
-                                    @foreach($targetCpls as $cpl)
-                                        <th class="text-center px-6 py-3 border-r border-gray-400">
-                                            {{ $cpl->nama_kode_cpl }}
+                                    {{-- Grouping Header CPMK --}}
+                                    @if(count($targetCpmks) > 0)
+                                        <th colspan="{{ count($targetCpmks) }}" class="text-center px-6 py-2 border-r border-b border-gray-400">
+                                            Ketercapaian CPMK (%)
+                                        </th>
+                                    @endif
+
+                                    {{-- Grouping Header CPL --}}
+                                    @if(count($targetCpls) > 0)
+                                        <th colspan="{{ count($targetCpls) }}" class="text-center px-6 py-2 border-r border-b border-gray-400">
+                                            Ketercapaian CPL (%)
+                                        </th>
+                                    @endif
+
+                                    <th rowspan="2" class="text-center px-6 py-3 border-r border-b border-gray-400">Status</th>
+                                    <th rowspan="2" class="text-center px-6 py-3 w-48 border-b border-gray-400">Aksi</th>
+                                </tr>
+                                <tr>
+                                    {{-- Sub Header Kolom CPMK --}}
+                                    @foreach($targetCpmks as $cpmk)
+                                        <th class="text-center px-4 py-2 border-r border-gray-400">
+                                            <span title="{{ $cpmk->deskripsi_cpmk ?? '' }}">{{ $cpmk->nama_kode_cpmk }}</span>
                                         </th>
                                     @endforeach
 
-                                    {{-- Kolom Status --}}
-                                    <th class="text-center px-6 py-3 border-r border-gray-400">Status</th>
-
-                                    {{-- Kolom Aksi --}}
-                                    <th class="text-center px-6 py-3 w-48">Aksi</th>
+                                    {{-- Sub Header Kolom CPL --}}
+                                    @foreach($targetCpls as $cpl)
+                                        <th class="text-center px-4 py-2 border-r border-gray-400">
+                                            <span title="{{ $cpl->deskripsi_cpl ?? '' }}">{{ $cpl->nama_kode_cpl }}</span>
+                                        </th>
+                                    @endforeach
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($allMahasiswaEvaluasi as $mhs)
                                     <tr class="bg-white border-b border-gray-200 hover:bg-gray-50 text-black">
-                                        <td class="px-6 py-4 border-r border-gray-300 font-medium">{{ $mhs['nim'] }}</td>
-                                        <td class="px-6 py-4 border-r border-gray-300">{{ $mhs['nama'] }}</td>
+                                        <td class="px-6 py-4 border-r border-gray-300 font-medium whitespace-nowrap">{{ $mhs['nim'] }}</td>
+                                        <td class="px-6 py-4 border-r border-gray-300 whitespace-nowrap">{{ $mhs['nama'] }}</td>
+
+                                        {{-- Loop Nilai CPMK --}}
+                                        @foreach($targetCpmks as $cpmk)
+                                            @php $valCpmk = $mhs['nilai_per_cpmk'][$cpmk->id_cpmk] ?? 0; @endphp
+                                            <td class="text-center px-4 py-4 border-r border-gray-300">
+                                                @if($valCpmk < $threshold)
+                                                    <span class="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded border border-orange-300" title="Butuh Remedial">
+                                                        {{ $valCpmk }}
+                                                    </span>
+                                                @else
+                                                    {{ $valCpmk }}
+                                                @endif
+                                            </td>
+                                        @endforeach
 
                                         {{-- Loop Nilai CPL --}}
                                         @foreach($targetCpls as $cpl)
-                                            @php $val = $mhs['nilai_per_cpl'][$cpl->id_cpl] ?? 0; @endphp
-                                            <td class="text-center px-6 py-4 border-r border-gray-300">
-                                                {{-- Highlight merah jika nilai spesifik CPL ini di bawah threshold --}}
-                                                @if($val < $threshold)
-                                                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full border border-red-200">
-                                                        {{ $val }}%
+                                            @php $valCpl = $mhs['nilai_per_cpl'][$cpl->id_cpl] ?? 0; @endphp
+                                            <td class="text-center px-4 py-4 border-r border-gray-300 bg-gray-50/50">
+                                                @if($valCpl < $threshold)
+                                                    <span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded border border-red-300">
+                                                        {{ $valCpl }}
                                                     </span>
                                                 @else
-                                                    {{ $val }}%
+                                                    {{ $valCpl }}
                                                 @endif
                                             </td>
                                         @endforeach
 
                                         {{-- Kolom Status (Badge Lulus/Tidak) --}}
                                         <td class="text-center px-6 py-4 border-r border-gray-300">
-                                            <span class="text-xs font-medium px-3 py-1 rounded-full border {{ $mhs['status_class'] }}">
+                                            <span class="inline-block whitespace-nowrap text-xs font-medium px-3 py-1 rounded-full border {{ $mhs['status_class'] }}">
                                                 {{ $mhs['status_label'] }}
                                             </span>
                                         </td>
@@ -100,8 +133,8 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="{{ 4 + count($targetCpls) }}" class="text-center py-4 italic">
-                                            Tidak ada data mahasiswa.
+                                        <td colspan="{{ 4 + count($targetCpls) + count($targetCpmks) }}" class="text-center py-6 italic text-gray-500 bg-gray-50">
+                                            Tidak ada data mahasiswa atau Rencana Asesmen belum dibuat.
                                         </td>
                                     </tr>
                                 @endforelse
@@ -241,7 +274,6 @@
                                                 @foreach($dataBaru as $key => $nilaiBaru)
                                                     @php
                                                         $nilaiLama = $dataLama[$key] ?? 0;
-                                                        // Mengambil nama dari array $namesMap yang dikirim dari Livewire
                                                         $namaKomponen = $namesMap[$key] ?? 'Komponen Tidak Dikenal';
                                                     @endphp
 

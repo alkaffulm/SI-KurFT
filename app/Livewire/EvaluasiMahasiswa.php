@@ -17,6 +17,7 @@ class EvaluasiMahasiswa extends Component
 
     public $daftarKelas = [];
     public $targetCpls = [];
+    public $targetCpmks = []; // <-- Tambahan State baru untuk CPMK
     public $allMahasiswaEvaluasi = [];
 
     // Konfigurasi
@@ -45,10 +46,11 @@ class EvaluasiMahasiswa extends Component
 
     public function updatedSelectedKelasId($value)
     {
-        $this->reset(['kelas', 'targetCpls', 'allMahasiswaEvaluasi', 'isEditModalOpen', 'isHistoryModalOpen']);
+        // Tambahkan 'targetCpmks' untuk di-reset
+        $this->reset(['kelas', 'targetCpls', 'targetCpmks', 'allMahasiswaEvaluasi', 'isEditModalOpen', 'isHistoryModalOpen']);
 
         if ($value) {
-            $this->kelas = Kelas::with(['mataKuliahModel.mkcpmkcpl.cpl', 'mahasiswa'])
+            $this->kelas = Kelas::with(['mataKuliahModel.mkcpmkcpl.cpl', 'mataKuliahModel.mkcpmkcpl.cpmk', 'mahasiswa'])
                 ->find($value);
 
             if ($this->kelas) {
@@ -206,20 +208,33 @@ class EvaluasiMahasiswa extends Component
         $idMk = $this->kelas->id_mk;
         $idKelas = $this->kelas->id_kelas;
 
+        // 1. Ambil list unik CPL (Ini tetap pakai cara lama yang sudah jalan)
         $this->targetCpls = $this->kelas->mataKuliahModel->mkcpmkcpl
             ->pluck('cpl')
             ->unique('id_cpl')
             ->sortBy('nama_kode_cpl')
             ->values();
 
+        // 2. PERBAIKAN: Ambil data Bobot sekalian JOIN ke tabel cpmk untuk mendapatkan nama CPMK-nya
         $bobotMapping = DB::table('rencana_asesmen_cpmk_bobot as racb')
             ->join('mk_cpmk_cpl_map as mccm', 'racb.id_mk_cpmk_cpl', '=', 'mccm.id_mk_cpmk_cpl')
             ->join('rencana_asesmen as ra', 'racb.id_rencana_asesmen', '=', 'ra.id_rencana_asesmen')
+            ->join('cpmk', 'mccm.id_cpmk', '=', 'cpmk.id_cpmk') // <-- Join tabel cpmk
             ->where('ra.id_mk', $idMk)
             ->select(
-                'ra.id_rencana_asesmen', 'mccm.id_cpmk', 'mccm.id_cpl', 'racb.bobot'
+                'ra.id_rencana_asesmen', 'mccm.id_cpmk', 'mccm.id_cpl', 'racb.bobot',
+                'cpmk.nama_kode_cpmk' // <-- Ambil nama CPMK
             )
             ->get();
+
+        // 3. PERBAIKAN: Buat targetCpmks dari data bobotMapping di atas (Pasti Aman & Muncul)
+        $this->targetCpmks = $bobotMapping->unique('id_cpmk')->map(function($item) {
+            return (object) [
+                'id_cpmk' => $item->id_cpmk,
+                'nama_kode_cpmk' => $item->nama_kode_cpmk,
+            ];
+        })->sortBy('nama_kode_cpmk')->values();
+
 
         $nilaiMahasiswa = PenilaianMahasiswa::where('id_kelas', $idKelas)->get();
 
@@ -227,8 +242,49 @@ class EvaluasiMahasiswa extends Component
 
         foreach ($this->kelas->mahasiswa as $mhs) {
             $nilaiPerCpl = [];
+            $nilaiPerCpmk = [];
             $statusLulus = true;
 
+            // --- HITUNG NILAI PER CPMK ---
+            foreach ($this->targetCpmks as $cpmk) {
+                $idCpmk = $cpmk->id_cpmk;
+
+                // Cari semua komponen asesmen yang menilai CPMK ini
+                $komponenTerkaitCpmk = $bobotMapping->where('id_cpmk', $idCpmk);
+
+                $totalSkorCpmk = 0;
+                $totalBobotCpmkTertilai = 0;
+
+                foreach ($komponenTerkaitCpmk as $komp) {
+                    $nilai = $nilaiMahasiswa->where('nim', $mhs->nim)
+                        ->where('id_rencana_asesmen', $komp->id_rencana_asesmen)
+                        ->where('id_cpmk', $komp->id_cpmk)
+                        ->first();
+
+                    if ($nilai) {
+                        $maxBobotKomponenIni = $bobotMapping
+                            ->where('id_rencana_asesmen', $komp->id_rencana_asesmen)
+                            ->where('id_cpmk', $komp->id_cpmk)
+                            ->sum('bobot');
+
+                        $ratio = ($maxBobotKomponenIni > 0) ? ($nilai->nilai / $maxBobotKomponenIni) : 0;
+                        $totalSkorCpmk += ($ratio * $komp->bobot);
+                        $totalBobotCpmkTertilai += $komp->bobot;
+                    }
+                }
+
+                // Hitung persen ketercapaian CPMK ini
+                if ($totalBobotCpmkTertilai > 0) {
+                    $persenCpmk = ($totalSkorCpmk / $totalBobotCpmkTertilai) * 100;
+                } else {
+                    $persenCpmk = 0;
+                }
+
+                if($persenCpmk > 100) $persenCpmk = 100;
+                $nilaiPerCpmk[$idCpmk] = round($persenCpmk, 2);
+            }
+
+            // --- HITUNG NILAI PER CPL ---
             foreach ($this->targetCpls as $cpl) {
                 $idCpl = $cpl->id_cpl;
                 $komponenTerkait = $bobotMapping->where('id_cpl', $idCpl);
@@ -275,6 +331,7 @@ class EvaluasiMahasiswa extends Component
             $semuaData[] = [
                 'nim' => $mhs->nim,
                 'nama' => $mhs->nama_lengkap ?? $mhs->nama,
+                'nilai_per_cpmk' => $nilaiPerCpmk, // Data array nilai CPMK
                 'nilai_per_cpl' => $nilaiPerCpl,
                 'status' => $statusLulus,
                 'status_label' => $statusLulus ? 'Lulus' : 'Belum Lulus',
