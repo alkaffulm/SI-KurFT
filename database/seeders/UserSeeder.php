@@ -258,6 +258,11 @@ class UserSeeder extends Seeder
                 ['NIP' => 'ADMPSTB1', 'username' => 'adminpstb1', 'email' => '-', 'password' => $password, 'last_active_kurikulum_id' => null],
                 ['NIP' => 'ADMPSTB2', 'username' => 'adminpstb2', 'email' => '-', 'password' => $password, 'last_active_kurikulum_id' => null],
             ],
+            // testing buat multi prodi
+            16 =>[
+                    ['NIP' => 'multi1','username' => 'Dosen Multi Prodi 1', 'email' => 'testmulti1@ulm.ac.id', 'password' => $password,'last_active_kurikulum_id' => null],
+                    ['NIP' => 'multi2','username' => 'Dosen Multi Prodi 2','email' => 'testmulti2@ulm.ac.id','password' => $password,'last_active_kurikulum_id' => null],
+                ],
         ];
 
         // --- EKSEKUSI ---

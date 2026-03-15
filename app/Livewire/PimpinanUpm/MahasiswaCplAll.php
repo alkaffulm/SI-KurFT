@@ -14,11 +14,10 @@ class MahasiswaCplAll extends Component
 
 // Filter Utama
     public $selectedProdi;
-    public $selectedKurikulum; // BARU: Filter Kurikulum
+    public $selectedKurikulum; 
 
-    // Data Pendukung Dropdown
     public $prodiList = [];
-    public $kurikulumList = []; // BARU: List Kurikulum berdasarkan Prodi
+    public $kurikulumList = []; 
     public $angkatanList = [];
     public $tahunAkademikList = [];
 

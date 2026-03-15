@@ -32,6 +32,8 @@ class ProgramStudiSeeder extends Seeder
             ['id_ps' => 13, 'nama_prodi' => 'Magister Teknik Kimia'],
             // Prodi S3
             ['id_ps' => 14, 'nama_prodi' => 'Teknik Berkelanjutan' ],
+            // Prodi Multi-Prodi
+            ['id_ps' => 16, 'nama_prodi' => 'Multi Program Studi' ],
     
         ]);
     }

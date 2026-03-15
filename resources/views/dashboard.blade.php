@@ -36,8 +36,7 @@
                 @include('partials.dashboard-pimpinan')
             @endif
 
-
-            @if (!in_array($userRole, ['admin', 'pimpinan', 'upm']))
+            @if (!in_array($userRole, ['admin', 'pimpinan', 'upm']) && session('userRoleId') != 16)
                 @livewire('kurikulum-selector')
             @endif
         </main>

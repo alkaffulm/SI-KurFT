@@ -49,6 +49,7 @@
                         <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                             <tr>
                                 <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Kurikulum</th>
+                                <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Program Studi</th>
                                 <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Tahun Akademik</th>
                                 <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">Mata Kuliah</th>
                                 <th scope="col" class="text-center px-6 py-3 border-r border-gray-400">ID Mata Kuliah</th>
@@ -62,6 +63,7 @@
                             @forelse($kelas as $k)
                                 <tr class="bg-white border-t border-gray-400 hover:bg-gray-50 text-black">
                                     <td class="text-center px-6 py-4 border-r border-gray-400">{{ $k->tahun_kurikulum }}</td>
+                                    <td class="text-center px-6 py-4 border-r border-gray-400">{{ $k->nama_prodi }}</td>
                                     <td class="text-center px-6 py-4 border-r border-gray-400">{{ $k->tahun_akademik }}</td>
                                     <td class="text-center px-6 py-4 border-r border-gray-400">{{ $k->nama_matkul_id }}</td>
                                     <td class="text-center px-6 py-4 border-r border-gray-400">{{ $k->kode_mk }}</td>

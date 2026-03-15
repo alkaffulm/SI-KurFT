@@ -16,6 +16,7 @@ use App\Models\PenilaianMahasiswa;
 use App\Models\PenilaianMahasiswaCPMK;
 use App\Models\RencanaAsesmenModel;
 use App\Models\UserModel;
+use App\Models\Scopes\ProdiScope;
 
 class KelasDosenController extends Controller
 {
@@ -33,17 +34,20 @@ class KelasDosenController extends Controller
             ->join('tahun_akademik', 'kelas.id_tahun_akademik', '=', 'tahun_akademik.id_tahun_akademik')
             ->join('kurikulum', 'kelas.id_kurikulum', '=', 'kurikulum.id_kurikulum')
             ->join('mata_kuliah', 'kelas.id_mk', '=', 'mata_kuliah.id_mk')
+            ->join('program_studi', 'kurikulum.id_ps', '=', 'program_studi.id_ps')
             ->select(
                 'kelas.*',
                 'tahun_akademik.tahun_akademik',
                 'kurikulum.tahun as tahun_kurikulum',
                 'mata_kuliah.kode_mk',
-                'mata_kuliah.nama_matkul_id'
+                'mata_kuliah.nama_matkul_id',
+                'program_studi.nama_prodi'
             )
             ->get();
 
         return view('dosen.kelas.kelas_matakuliah', compact('kelas'));
     }
+
     public function lihatKelas($id)
     {
         $kelas = Kelas::with('mahasiswa')->findOrFail($id);
@@ -53,9 +57,50 @@ class KelasDosenController extends Controller
         ]);
     }
 
+    // public function nilaiKelas($id)
+    // {
+    //     $kelas = Kelas::with('mahasiswa')->findOrFail($id);
+    //     $idMk = $kelas->id_mk;
+
+    //     $rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $idMk)
+    //         ->orderByRaw("
+    //             CASE 
+    //                 WHEN tipe_komponen = 'tugas' THEN 1
+    //                 WHEN tipe_komponen = 'uts'   THEN 2
+    //                 WHEN tipe_komponen = 'uas'   THEN 3
+    //                 ELSE 4
+    //             END
+    //         ")
+    //         ->orderBy('nomor_komponen')
+    //         ->get();
+
+    //     $bobot = \App\Models\RencanaAsesmenCPMKBobotModel::with('mkCpmkMap')
+    //         ->whereIn('id_rencana_asesmen', $rencanaAsesmen->pluck('id_rencana_asesmen'))
+    //         ->get();
+
+    //     $penilaianMahasiswa = PenilaianMahasiswa::where('id_kelas', $id)->get();
+
+    //     return view('dosen.kelas.penilaian_mahasiswa_kelas', [
+    //         'kelas' => $kelas,
+    //         'rencanaAsesmen' => $rencanaAsesmen,
+    //         'bobot' => $bobot,
+    //         'penilaianMahasiswa' => $penilaianMahasiswa,
+    //     ]);
+    // }
     public function nilaiKelas($id)
     {
-        $kelas = Kelas::with('mahasiswa')->findOrFail($id);
+        session([
+            'bypass_prodi_scope' => true,
+            'bypass_kurikulum_scope' => true
+        ]);
+
+        $kelas = Kelas::with('mahasiswa','mataKuliahModel')->findOrFail($id);
+
+        session()->forget([
+            'bypass_prodi_scope',
+            'bypass_kurikulum_scope'
+        ]);
+
         $idMk = $kelas->id_mk;
 
         $rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $idMk)

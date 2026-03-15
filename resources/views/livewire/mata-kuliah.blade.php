@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($tanggungJawabDosen as $tjd )
+                @forelse ($tanggungJawabDosen ?? [] as $tjd )
                     <tr class="bg-white border-t border-gray-400">
                         <td class="px-6 py-4 border-r border-gray-400 font-medium text-gray-900">
                             {{ $tjd->kode_mk }}

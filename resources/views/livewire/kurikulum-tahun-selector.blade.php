@@ -37,9 +37,14 @@
                 </tbody>
             </table>
         </div>
-    @elseif ($id_kurikulum && empty($tahunAkademiks))
+    @elseif ($id_kurikulum && count($tahunAkademiks) == 0)
         <div class="text-center py-10">
-            <p class="text-gray-500">Tidak ada Tahun Akademik yang terhubung dengan kurikulum ini.</p>
+            <p class="text-gray-600 font-medium">
+                Tahun akademik untuk kurikulum ini belum tersedia.
+            </p>
+            <p class="text-gray-500 text-sm mt-1">
+                Silakan menambahkan Tahun Akademik terlebih dahulu melalui menu pengelolaan Tahun Akademik.
+            </p>
         </div>
     @else
         <div class="text-center py-10">

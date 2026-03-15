@@ -79,12 +79,38 @@ class FormKelasSelector extends Component
                 'id_user' => null,
                 'jumlah_mhs' => null,
                 'paralel_ke' => $i + 1,
+                'mode_dosen' => 'homebase', // buat dosen multi prodi + ngajar di 2 prodi
             ];
 
             $this->paralel_files[$i] = null;
         }
     }
 
+    public function getDosens($index)
+    {
+        $mode = $this->paralels[$index]['mode_dosen'] ?? 'homebase';
+
+        $kurikulum = KurikulumModel::find($this->id_kurikulum);
+
+        if (!$kurikulum) {
+            return collect();
+        }
+
+        if ($mode === 'semua') {
+            return UserModel::whereHas('userRoleMap', function ($q) {
+                $q->where('id_role', 2);
+            })->get();
+        }
+
+        // HOMEBASE + MULTI PRODI
+        return UserModel::whereHas('userRoleMap', function ($q) use ($kurikulum) {
+            $q->where('id_role', 2)
+            ->where(function ($sub) use ($kurikulum) {
+                $sub->where('id_ps', $kurikulum->id_ps)
+                    ->orWhere('id_ps', 16);
+            });
+        })->get();
+    }
 
     public function updatedIdKurikulum($value)
     {

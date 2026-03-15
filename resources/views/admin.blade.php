@@ -45,7 +45,14 @@
                 {{-- @livewire('kurikulum-tahun-selector') --}}
                 {{-- kurikulum dan tahun akademik --}}
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-bold text-biru-custom">Tabel Tahun Akademik dan Kurikulum</h2>
+                    <div class="flex flex-col gap-4 mb-4"> 
+                        <h2 class="text-2xl font-bold text-biru-custom">Tabel Tahun Akademik dan Kurikulum</h2>
+                        <p class="text-black font-medium">
+                            Tahun akademik bersifat fakultas (berlaku untuk seluruh program studi di Fakultas Teknik). <br>
+                            <span class="text-gray-600 text-opacity-75">Silakan memilih tahun akademik yang tersedia atau membuat tahun akademik baru apabila belum tersedia.</span>
+                        </p>
+                    </div>
+
                     <div class="space-x-2">
                         {{-- <a href="{{ route('cpmk.editAll') }}"
                             class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">

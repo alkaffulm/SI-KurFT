@@ -95,13 +95,31 @@
             @foreach($paralels as $i => $p)
                 <div class="mt-6 p-6 border rounded-xl bg-gray-50 shadow-sm">
                     <h3 class="font-semibold text-lg mb-4">Paralel Ke-{{ $i+1 }}</h3>
+
+                    <div class="mb-3">
+                        <label class="block mb-1 font-medium text-gray-700">
+                            Mode Pemilihan Dosen
+                        </label>
+
+                        <select wire:model.live="paralels.{{ $i }}.mode_dosen"
+                            class="w-full sm:w-1/3 p-3 border rounded-lg">
+
+                            <option value="homebase">
+                            Homebase + Multi Prodi
+                            </option>
+
+                            <option value="semua">
+                            Semua Dosen
+                            </option>
+                        </select>
+                    </div>
                     
                     {{-- Dosen --}}
                     <div class="mb-4">
                         <label class="block mb-1 font-medium text-gray-700">Dosen</label>
                         <select wire:model.live="paralels.{{ $i }}.id_user" class="w-full sm:w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
                             <option value="">-- Pilih Dosen --</option>
-                            @foreach($dosens as $d)
+                            @foreach($this->getDosens($i) as $d)
                                 <option value="{{ $d->id_user }}">{{ $d->username }}</option>
                             @endforeach
                         </select>
@@ -128,7 +146,7 @@
                         </a>
 
                         <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input_{{ $i }}">
-                            Upload file Excel Mahasiswa (Paralel {{ $i+1 }}) - Opsional
+                            Upload file Excel Mahasiswa (Paralel {{ $i+1 }})
                         </label>
                         
                         {{-- TAMBAHKAN KEY YANG UNIK --}}
@@ -147,7 +165,7 @@
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
-                                Mengupload file untuk paralel {{ $i}}...
+                                Mengupload file daftar mahasiswa untuk paralel {{ $i+1}}...
                             </span>
                         </div>
                         

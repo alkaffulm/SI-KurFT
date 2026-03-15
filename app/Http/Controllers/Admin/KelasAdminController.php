@@ -84,8 +84,8 @@ class KelasAdminController extends Controller
     {
         // $kelas = \App\Models\Kelas::findOrFail($id);
         $kelas = \App\Models\Kelas::with([
-    'mataKuliahModel' => fn ($q) => $q->withoutGlobalScopes()
-])->findOrFail($id);
+            'mataKuliahModel' => fn ($q) => $q->withoutGlobalScopes()
+        ])->findOrFail($id);
 
         $kurikulum = \App\Models\KurikulumModel::find($kelas->id_kurikulum);
 

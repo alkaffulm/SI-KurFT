@@ -78,12 +78,12 @@
                     </a>
 
                     <div class="mb-5 mt-12">
-                        <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Penilaian Mahasiswa per Kelas Mata Kuliah {{ $kelas->mataKuliahModel->nama_matkul_id }}</h1>
+                        <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Penilaian Mahasiswa per Kelas Mata Kuliah {{ optional($kelas->mataKuliahModel)->nama_matkul_id }}</h1>
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-xl font-bold text-biru-custom">
                                 List Daftar Mahasiswa untuk Penilaian Kelas untuk Mata Kuliah 
                                 <span class="text-black">
-                                    {{ $kelas->mataKuliahModel->nama_matkul_id }}
+                                    {{ optional($kelas->mataKuliahModel)->nama_matkul_id }}
                                 </span> 
                             </h2>
 

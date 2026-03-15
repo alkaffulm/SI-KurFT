@@ -33,32 +33,7 @@
     
     {{-- Current Status --}}
     <div class="text-sm text-gray-600">
-        <p><strong>Kurikulum yang dipilih:</strong> Kurikulum {{ $kurikulum ?? 'Belum dipilih' }}</p>
-        {{-- <p><strong>ID Kurikulum Aktif:</strong> {{ session('id_kurikulum_aktif') ?? 'Tidak ada' }}</p> --}}
+        <p><strong>Kurikulum:</strong> Kurikulum {{ $kurikulum ?? 'Belum dipilih' }}</p>
     </div>
-    
-    {{-- Debug Info (hanya tampil jika APP_DEBUG=true) --}}
-    {{-- @if(config('app.debug'))
-        <div id="debug-info" class="mt-4 p-3 bg-gray-100 rounded text-xs" style="display: none;">
-            <h4 class="font-semibold mb-2">Debug Information:</h4>
-            <pre>{{ json_encode($debug, JSON_PRETTY_PRINT) }}</pre>
-            
-            <h4 class="font-semibold mt-3 mb-2">Session Data:</h4>
-            <pre>{{ json_encode([
-                'tahun' => session('tahun'),
-                'id_kurikulum_aktif' => session('id_kurikulum_aktif'),
-                'userRoleId' => session('userRoleId')
-            ], JSON_PRETTY_PRINT) }}</pre>
-            
-            <h4 class="font-semibold mt-3 mb-2">Available Kurikulum:</h4>
-            <pre>{{ json_encode($kurikulumList->toArray(), JSON_PRETTY_PRINT) }}</pre>
-        </div>
-        
-        <script>
-            function toggleDebug() {
-                const debugDiv = document.getElementById('debug-info');
-                debugDiv.style.display = debugDiv.style.display === 'none' ? 'block' : 'none';
-            }
-        </script>
-    @endif --}}
+  
 </div>

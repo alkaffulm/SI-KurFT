@@ -8,21 +8,34 @@ use Illuminate\Support\Facades\DB;
 
 class KurikulumScope implements Scope
 {
+    const MULTI_PRODI = 16;
     public function apply(Builder $builder, Model $model): void
     {
-        $idKurikulum = session('id_kurikulum_aktif');
+        $userRoleId = session('userRoleId');
+
         
+        if (session('bypass_kurikulum_scope')) {
+            return;
+        }
+
+
+        // case dosen multi prodi
+        if ($userRoleId == self::MULTI_PRODI) {
+            return;
+        }
+
+        $idKurikulum = session('id_kurikulum_aktif');
+
         if ($idKurikulum) {
             $builder->where($model->getTable() . '.id_kurikulum', $idKurikulum);
         } else {
-            $userRoleId = session('userRoleId');
-            
+
             if ($userRoleId) {
                 $latestKurikulum = DB::table('kurikulum')
                     ->where('id_ps', $userRoleId)
                     ->orderBy('tahun', 'desc')
                     ->value('id_kurikulum');
-                    
+
                 if ($latestKurikulum) {
                     session(['id_kurikulum_aktif' => $latestKurikulum]);
                     $builder->where($model->getTable() . '.id_kurikulum', $latestKurikulum);

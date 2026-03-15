@@ -101,8 +101,13 @@ class LoginController extends Controller
         }
 
         // bekerja jika user baru pertama kali login ke website atau migrate:fresh
-        if(!$activeKurikulum && $contextIdPs) {
-            $activeKurikulum = KurikulumModel::where('id_ps', $contextIdPs)->orderBy('tahun', 'asc')->first();
+        // if(!$activeKurikulum && $contextIdPs) {
+        //     $activeKurikulum = KurikulumModel::where('id_ps', $contextIdPs)->orderBy('tahun', 'asc')->first();
+        // }
+        if(!$activeKurikulum && $contextIdPs && $contextIdPs != 16) {
+            $activeKurikulum = KurikulumModel::where('id_ps', $contextIdPs)
+                ->orderBy('tahun', 'asc')
+                ->first();
         }
 
         if($activeKurikulum) {
