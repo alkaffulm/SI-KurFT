@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -46,12 +45,10 @@ class PEOSeeder extends Seeder
             // ['id_ps' => 6, 'id_kurikulum' => 6, 'kode_peo' => 'PEO-3', 'desc_peo_id' => 'Lulusan mampu menyelesaikan masalah dalam industri proses dengan pendekatan analitis.', 'desc_peo_en' => 'Graduates are able to solve problems in the process industry with an analytical approach.'],
 
             // Teknologi Informasi (id_ps = 7)
-            ['id_ps' => 7, 'id_kurikulum' => 7, 'kode_peo' => 'PEO-1', 'desc_peo_id' => 'Lulusan mampu merancang dan mengembangkan solusi perangkat lunak yang andal dan aman.', 'desc_peo_en' => 'Graduates are able to design and develop reliable and secure software solutions.'],
-            ['id_ps' => 7, 'id_kurikulum' => 7, 'kode_peo' => 'PEO-2', 'desc_peo_id' => 'Lulusan mampu mengelola infrastruktur teknologi informasi dan layanan data.', 'desc_peo_en' => 'Graduates are able to manage information technology infrastructure and data services.'],
-            ['id_ps' => 7, 'id_kurikulum' => 7, 'kode_peo' => 'PEO-3', 'desc_peo_id' => 'Lulusan mampu berinovasi dan berwirausaha berbasis teknologi digital.', 'desc_peo_en' => 'Graduates are able to innovate and start businesses based on digital technology.'],
-            ['id_ps' => 7, 'id_kurikulum' => 7, 'kode_peo' => 'PEO-4', 'desc_peo_id' => 'Lulusan mampu merancang dan mengembangkan solusi perangkat lunak yang andal dan aman.', 'desc_peo_en' => 'Graduates are able to design and develop reliable and secure software solutions.'],
-            ['id_ps' => 7, 'id_kurikulum' => 7, 'kode_peo' => 'PEO-5', 'desc_peo_id' => 'Lulusan mampu mengelola infrastruktur teknologi informasi dan layanan data.', 'desc_peo_en' => 'Graduates are able to manage information technology infrastructure and data services.'],
-            ['id_ps' => 7, 'id_kurikulum' => 7, 'kode_peo' => 'PEO-6', 'desc_peo_id' => 'Lulusan mampu berinovasi dan berwirausaha berbasis teknologi digital.', 'desc_peo_en' => 'Graduates are able to innovate and start businesses based on digital technology.'],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'kode_peo' => 'PEO-1', 'desc_peo_id' => 'Lulusan yang akan menjadi profesional di bidang Teknologi Informasi yang mampu merancang, mengembangkan, serta mengelola sistem, data, dan infrastruktur teknologi informasi untuk mendukung kebutuhan organisasi dan masyarakat.', 'desc_peo_en' => 'Graduates who will become professionals in the field of Information Technology, capable of designing, developing, and managing information systems, data, and IT infrastructure to support the needs of organizations and society.'],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'kode_peo' => 'PEO-2', 'desc_peo_id' => 'Lulusan yang akan mampu bekerja secara mandiri maupun dalam tim multidisiplin dengan menunjukkan kemampuan komunikasi, kolaborasi, kepemimpinan, serta menjunjung tinggi etika dan tanggung jawab profesional.', 'desc_peo_en' => 'Graduates who are able to work independently as well as collaboratively in multidisciplinary teams, demonstrating effective communication, collaboration, leadership skills, and upholding professional ethics and responsibilities.'],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'kode_peo' => 'PEO-3', 'desc_peo_id' => 'Lulusan yang akan menjadi pembelajar sepanjang hayat yang terus mengembangkan kompetensi melalui pendidikan lanjut, sertifikasi profesional, pelatihan, maupun kegiatan inovasi dan kewirausahaan di bidang Teknologi Informasi.', 'desc_peo_en' => 'Graduates who will become lifelong learners who continuously develop their competencies through advanced education, professional certifications, training, as well as innovation and entrepreneurial activities in the field of Information Technology.'],
+
 
             // // Teknik Elektro (id_ps = 8)
             // ['id_ps' => 8, 'id_kurikulum' => 8, 'kode_peo' => 'PEO-1', 'desc_peo_id' => 'Lulusan mampu merancang dan menganalisis sistem tenaga listrik dan elektronika.', 'desc_peo_en' => 'Graduates are able to design and analyze electrical power and electronics systems.'],

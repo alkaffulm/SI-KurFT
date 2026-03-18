@@ -2,10 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\CPLCPMKBobotModel;
-use App\Models\ProgramStudi;
-use App\Models\TahunAkademik;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,7 +18,7 @@ class DatabaseSeeder extends Seeder
             BahanKajianSeeder::class,             // 4 dimatikan saat deploy
             RubrikAnalitikSeeder::class,          // 5
             TeknikPenilaianSeeder::class,         // 6
-            // PEOSeeder::class,                     // 28 dimatikan saat deploy
+            PEOSeeder::class,                     // 28 dimatikan saat deploy
             KriteriaPenilaianSeeder::class,
             ModelPembelajaranSeeder::class,
             MetodePembelajaranSeeder::class,
