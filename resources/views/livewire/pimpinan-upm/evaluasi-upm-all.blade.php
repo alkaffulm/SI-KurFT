@@ -1,9 +1,9 @@
 <div>
     
     {{-- Flash Message --}}
-    @if (session()->has('message'))
-        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
-            {{ session('message') }}
+    @if (session()->has('success'))
+        <div class="p-4 mb-4 text-sm font-semibold text-green-800 rounded-lg bg-green-50" role="alert">
+            {{ session('success') }}
         </div>
     @endif
 
@@ -77,11 +77,11 @@
 
     {{-- MODAL FORM (Satu modal untuk Create & Edit) --}}
     <div id="modalEvaluasi" wire:ignore.self class="fixed inset-0 z-50 hidden overflow-y-auto bg-gray-900 bg-opacity-50 flex items-center justify-center">
-        <div class="relative w-full max-w-lg p-4 bg-white rounded-lg shadow-lg">
+        <div class="relative w-full max-w-lg p-6 bg-white rounded-lg shadow-lg">
             
             {{-- Modal Header --}}
             <div class="flex justify-between items-center pb-4 mb-4 border-b">
-                <h3 class="text-lg font-semibold text-gray-900">
+                <h3 class="text-xl font-bold text-biru-custom">
                     {{ $isEditMode ? 'Edit Catatan Evaluasi' : 'Tambah Catatan Evaluasi' }}
                 </h3>
             </div>

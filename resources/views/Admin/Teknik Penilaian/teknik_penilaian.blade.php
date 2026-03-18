@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teknik Penilaian</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -20,7 +19,7 @@
             <nav class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li class="inline-flex items-center">
-                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Kurikulum</span>
+                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Menu Utama</span>
                     </li>
                     <li aria-current="page">
                         <div class="flex items-center">
@@ -119,27 +118,29 @@
 
     {{-- Script untuk menangkap session flash data --}}
     <script>
-        // Cek Session Sukses
-        @if (session('success'))
-            Swal.fire({
-                title: "Berhasil!",
-                text: "{{ session('success') }}", // Mengambil pesan dari Controller
-                icon: "success",
-                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
-                confirmButtonText: "Oke"
-            });
-        @endif
-
-        // Cek Session Error (Opsional, buat jaga-jaga)
-        @if (session('error'))
-            Swal.fire({
-                title: "Gagal!",
-                text: "{{ session('error') }}",
-                icon: "error",
-                confirmButtonColor: "#d33",
-                confirmButtonText: "Tutup"
-            });
-        @endif
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cek Session Sukses
+            @if (session('success'))
+                Swal.fire({
+                    title: "Berhasil!",
+                    text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                    icon: "success",
+                    confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                    confirmButtonText: "Oke"
+                });
+            @endif
+    
+            // Cek Session Error (Opsional, buat jaga-jaga)
+            @if (session('error'))
+                Swal.fire({
+                    title: "Gagal!",
+                    text: "{{ session('error') }}",
+                    icon: "error",
+                    confirmButtonColor: "#d33",
+                    confirmButtonText: "Tutup"
+                });
+            @endif
+        })
     </script>
 </body>
 

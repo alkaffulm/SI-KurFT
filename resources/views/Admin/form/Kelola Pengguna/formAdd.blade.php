@@ -52,7 +52,7 @@
                 <div>
                     <label class="block mb-1 text-sm font-medium">Password</label>
                     <input type="password" name="password"
-                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required />
+                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" minlength="6" required />
                 </div>
                 <div>
                     <label class="block mb-1 text-sm font-medium">Email</label>

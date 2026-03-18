@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Pengguna Program Studi - Admin</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -20,7 +20,7 @@
             <nav class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li class="inline-flex items-center">
-                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Kurikulum</span>
+                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Menu Utama</span>
                     </li>
                     <li aria-current="page">
                         <div class="flex items-center">
@@ -130,57 +130,59 @@
 
     {{-- Script untuk menangkap session flash data --}}
     <script>
-        // Cek Session Sukses
-        @if (session('success'))
-            Swal.fire({
-                title: "Berhasil!",
-                text: "{{ session('success') }}", // Mengambil pesan dari Controller
-                icon: "success",
-                confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
-                confirmButtonText: "Oke"
-            });
-        @endif
-
-        // Cek Session Error (Opsional, buat jaga-jaga)
-        @if (session('error'))
-            Swal.fire({
-                title: "Gagal!",
-                text: "{{ session('error') }}",
-                icon: "error",
-                confirmButtonColor: "#d33",
-                confirmButtonText: "Tutup"
-            });
-        @endif
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cek Session Sukses
+            @if (session('success'))
+                Swal.fire({
+                    title: "Berhasil!",
+                    text: "{{ session('success') }}", // Mengambil pesan dari Controller
+                    icon: "success",
+                    confirmButtonColor: "#3085d6", // Sesuaikan warna dengan tema projectmu
+                    confirmButtonText: "Oke"
+                });
+            @endif
+    
+            // Cek Session Error (Opsional, buat jaga-jaga)
+            @if (session('error'))
+                Swal.fire({
+                    title: "Gagal!",
+                    text: "{{ session('error') }}",
+                    icon: "error",
+                    confirmButtonColor: "#d33",
+                    confirmButtonText: "Tutup"
+                });
+            @endif
+        })
     </script>
 
-<script>
-    // Pilih semua form dengan class 'form-hapus'
-    const deleteForms = document.querySelectorAll('.form-hapus');
+    <script>
+        // Pilih semua form dengan class 'form-hapus'
+        const deleteForms = document.querySelectorAll('.form-hapus');
 
-    deleteForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            // 1. Cegah form terkirim langsung
-            e.preventDefault();
+        deleteForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                // 1. Cegah form terkirim langsung
+                e.preventDefault();
 
-            // 2. Tampilkan SweetAlert Konfirmasi
-            Swal.fire({
-                title: 'Yakin hapus user ini?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                // 3. Jika user klik "Ya", kirim form secara manual
-                if (result.isConfirmed) {
-                    form.submit();
-                }
+                // 2. Tampilkan SweetAlert Konfirmasi
+                Swal.fire({
+                    title: 'Yakin hapus user ini?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    // 3. Jika user klik "Ya", kirim form secara manual
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 </body>
 
 </html>

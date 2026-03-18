@@ -80,7 +80,7 @@ class EvaluasiUpmAll extends Component
             if ($evaluasi->isDirty()) {
                 $evaluasi->save();
                 // Flash Message Sukses (Hijau)
-                session()->flash('message', 'Catatan berhasil diperbarui.');
+                session()->flash('success', 'Catatan berhasil diperbarui.');
             } 
             else {
                 // Flash Message Info (Biru/Kuning) - Tidak ada perubahan
@@ -95,7 +95,7 @@ class EvaluasiUpmAll extends Component
                 'id_tahun_akademik' => $this->id_tahun_akademik,
                 'catatan' => $this->catatan
             ]);
-            session()->flash('message', 'Catatan berhasil ditambahkan.');
+            session()->flash('success', 'Catatan berhasil ditambahkan.');
         }
         
         $this->dispatch('close-modal');
