@@ -37,10 +37,7 @@
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">PROGRAMME EDUCATIONAL OBJECTIVE (PEO)</h1>
                 <p class="text-gray-600 mb-6">
-                    Nilai-nilai utama secara resmi dinyatakan sebagai Tujuan Pendidikan Program (Program Educational
-                    Objectives/PEO). Nilai-nilai utama ini dirumuskan sesuai dengan visi dan misi universitas, fakultas
-                    teknik, dan program studi teknik elektro. Perumusan nilai-nilai utama ini umumnya mempertimbangkan
-                    saran dari pengguna, dewan penasihat, alumni, dan asosiasi profesi.
+                    Gambaran kualifikasi profesional yang diharapkan dicapai oleh lulusan program studi dalam beberapa tahun setelah lulus. PEO dirumuskan selaras dengan visi, misi, dan nilai-nilai universitas, fakultas, serta program studi. Perumusannya mempertimbangkan masukan dari pemangku kepentingan, seperti pengguna lulusan, alumni, serta asosiasi profesi, sehingga mencerminkan kebutuhan dunia kerja dan perkembangan teknologi.
                 </p>
 
                 <div class="flex justify-between items-center mb-4">

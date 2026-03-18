@@ -12,19 +12,9 @@ use App\Models\ProfilLulusanModel;
 use App\Models\PEOModel;
 use App\Models\CPLPLMapModel;
 use App\Models\PLPEOMapModel;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class CplController extends Controller
 {
-    public function __construct()
-    {
-        view()->share('userRole', session()->get('userRole'));
-    }
-
-    /**
-     * Display a listing of the resource. (UNCHANGED)
-     */
     public function index()
     {
         $cpl = CPLModel::all();
@@ -38,13 +28,6 @@ class CplController extends Controller
 
         foreach ($cpl_pl_raw as $relasi) {
             $cpl_pl_map[$relasi->id_cpl][] = $relasi->id_pl;
-        }
-
-        $pl_peo_raw = PLPEOMapModel::all();
-        $pl_peo_map = [];
-
-        foreach ($pl_peo_raw as $relasi) {
-            $pl_peo_map[$relasi->id_pl][] = $relasi->id_peo;
         }
 
         $cpl_peo_map = [];
@@ -61,29 +44,21 @@ class CplController extends Controller
         }
 
         if($userRole == 'pimpinan' || $userRole == 'upm') {
-            return view('pimpinanUpm.cplAll', ['userRole' => $userRole,]);
+            return view('pimpinanUpm.cplAll');
         }
         else {
-            return view(
-                'cpl',
-                [
-                    'cpl' => $cpl,
-                    'kurikulum' => $kurikulum,
-                    'programStudi' => $programStudi,
-                    'peo' => $peo,
-                    'profil_lulusan' => $profil_lulusan,
-                    'cpl_pl_map' => $cpl_pl_map,
-                    'pl_peo_map' => $pl_peo_map,
-                    'cpl_peo_map' => $cpl_peo_map
-                ]
-            );
+            return view('cpl',[
+                'cpl' => $cpl,
+                'kurikulum' => $kurikulum,
+                'programStudi' => $programStudi,
+                'peo' => $peo,
+                'profil_lulusan' => $profil_lulusan,
+                'cpl_pl_map' => $cpl_pl_map,
+                'cpl_peo_map' => $cpl_peo_map
+            ]);
         }
-
     }
 
-    /**
-     * Show the form for creating a new resource. (UNCHANGED)
-     */
     public function create()
     {
         $program_studi = ProgramStudiModel::all();
@@ -91,19 +66,12 @@ class CplController extends Controller
         return view('form.CPL.cplFormAdd', ['program_studi' => $program_studi, 'kurikulum' => $kurikulum]);
     }
 
-    /**
-     * Store a newly created resource in storage. (UNCHANGED)
-     */
     public function store(StoreCPLRequest $request)
     {
         CPLModel::create($request->validated());
-
         return to_route('cpl.index')->with('success', "CPL berhasil ditambahkan!");
     }
 
-    /**
-     * NEW: Show the form for editing all CPLs.
-     */
     public function editAll()
     {
         $cpl_data = CPLModel::all();
@@ -115,9 +83,6 @@ class CplController extends Controller
         ]);
     }
 
-    /**
-     * NEW: Process the mass update and delete request.
-     */
     public function updateAll(UpdateAllCPLRequest $request)
     {
         // 1. Process deletions
@@ -138,7 +103,6 @@ class CplController extends Controller
                 $cpl->update($data);
             }
         }
-
         return redirect()->route('cpl.index')->with('success', 'Perubahan CPL berhasil disimpan!');
     }
 }

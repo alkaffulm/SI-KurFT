@@ -4,39 +4,22 @@ namespace App\Http\Controllers\Kaprodi;
 
 use App\Models\CPLModel;
 use App\Models\CPMKModel;
-use App\Models\BKMKMapModel;
 use App\Models\SubCPMKModel;
-use Illuminate\Http\Request;
 use App\Models\CPMKCPLMapModel;
 use App\Models\MataKuliahModel;
-use App\Models\MK_CPMK_CPL_Map;
-use App\Models\BahanKajianModel;
-use App\Models\CPLCPMKBobotModel;
 use App\Models\MK_CPMK_CPL_MapModel;
 use App\Http\Controllers\Controller; 
 use App\Models\MKCPMKSubCPMKMapModel;
-use App\Models\MataKuliahCPMKMapModel;
 use App\Http\Requests\StoreCPMKRequest;
 use App\Http\Requests\UpdateAll\UpdateAllCPMKRequest;
 
 class CpmkController extends Controller
 {
-    public function __construct()
-    {
-        $userRole = session()->get('userRole');
-
-        return view()->share('userRole', $userRole);
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $cpmk = CPMKModel::orderBy('nama_kode_cpmk')->paginate(5, ['*'], 'cpmk');
         $cpmkAll = CPMKModel::all();
         $mata_kuliah = MataKuliahModel::with('cpmks')->orderBy('kode_mk')->paginate(10, ['*'], 'mata-kuliah');
-        $bobotCpmkCpl = CPLCPMKBobotModel::all();
         $subCpmk = SubCPMKModel::with('cpmk')->orderBy('nama_kode_sub_cpmk')->paginate(5, ['*'], 'sub-cpmk');
         $userRole = session()->get('userRole');
 
@@ -58,7 +41,6 @@ class CpmkController extends Controller
             $mk_cpmk_sub_cpmk_map[$id_mk][$id_cpmk][] = $id_sub_cpmk;
         }
 
-        $bahan_kajian = BahanKajianModel::all();
         $cpl = CPLModel::all();
         $cpmk_cpl_raw = CPMKCPLMapModel::all();
         $cpmk_cpl_map = [];
@@ -69,20 +51,6 @@ class CpmkController extends Controller
 
             if (!isset($cpmk_cpl_map[$id_cpl]) || !in_array($id_cpmk, $cpmk_cpl_map[$id_cpl])) {
                 $cpmk_cpl_map[$id_cpl][] = $id_cpmk;
-            }
-        }
-
-        $bk_mk_raw = BKMKMapModel::all();
-        $bk_mk_map = [];
-        foreach ($bk_mk_raw as $relasi) {
-            $id_mk = (int) $relasi->id_mk;
-            $id_bk = (int) $relasi->id_bk;
-
-            if (!isset($bk_mk_map[$id_mk])) {
-                $bk_mk_map[$id_mk] = [];
-            }
-            if (!in_array($id_bk, $bk_mk_map[$id_mk])) { // Mencegah duplikasi id_bk
-                $bk_mk_map[$id_mk][] = $id_bk;
             }
         }
 
@@ -138,28 +106,17 @@ class CpmkController extends Controller
             }
         }
 
-
-        // Ganti debug sebelumnya dengan ini:
-        // dd([
-        //     'mk_cpmk_cpl_raw_sample' => $mk_cpmk_cpl_raw->toArray(), // lihat semua data mentah
-        //     'mk_cpmk_cpl_map_detail' => $mk_cpmk_cpl_map, // lihat struktur mapping
-        //     'cpmkAll_detail' => $cpmkAll->toArray(), // lihat semua CPMK
-        //     'mata_kuliah_ids' => $mata_kuliah->pluck('id_mk')->toArray(), // lihat ID mata kuliah
-        //     'cpl_ids' => $cpl->pluck('id_cpl')->toArray() // lihat ID CPL
-        // ]);
         if($userRole == 'pimpinan' || $userRole == 'upm'){
-            return view('pimpinanUpm.cpmkAll', ['userRole' => $userRole,]);
+            return view('pimpinanUpm.cpmkAll');
         }
         else {
             return view('cpmk', [
                 'mata_kuliah' => $mata_kuliah,
                 'cpmk' => $cpmk, 
-                'bahan_kajian'=>$bahan_kajian,
                 'sub_cpmk' => $subCpmk,
                 'mk_cpmk_sub_cpmk_map'=>$mk_cpmk_sub_cpmk_map,
                 'cpmk_cpl_map' => $cpmk_cpl_map,
                 'cpl'=>$cpl,
-                'bk_mk_map'=>$bk_mk_map,
                 'mk_cpmk_only_map' => $mk_cpmk_only_map,
                 'mk_cpmk_cpl_map'=>$mk_cpmk_cpl_map,
                 'cpmkAll'=>$cpmkAll,
@@ -167,39 +124,24 @@ class CpmkController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $mata_kuliah = MataKuliahModel::all();
         return view('form.CPMK.cpmkFormAdd', ['mata_kuliah' => $mata_kuliah]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreCPMKRequest $request)
     {
-        // dd($request->validated());
         CPMKModel::create($request->validated());
-
         return to_route('cpmk.index')->with('success', 'Berhasil menambahkan CPMK!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id_mk)
     {
         $mata_kuliah = MataKuliahModel::with('cpmk.subCpmk')->findOrFail($id_mk);
-
         return view('cpmk', ['mata_kuliah' => $mata_kuliah]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function editAll()
     {
         $mata_kuliah = MataKuliahModel::all();
@@ -208,9 +150,6 @@ class CpmkController extends Controller
         return view('form.CPMK.cpmkFormEdit', ['cpmk' => $cpmk, 'mata_kuliah' => $mata_kuliah]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function updateAll(UpdateAllCPMKRequest $request)
     {
         if ($request->has('delete_ids')) {
@@ -231,15 +170,5 @@ class CpmkController extends Controller
         }
 
         return to_route('cpmk.index')->with('success', 'CPMK berhasil diperbarui!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(CPMKModel $cpmk) 
-    {
-        $cpmk->delete();
-
-        return to_route('cpmk.index')->with('success', 'Berhasil menghapus CPMK!');
     }
 }

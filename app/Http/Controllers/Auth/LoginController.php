@@ -7,14 +7,13 @@ use App\Models\KurikulumModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\UserModel;
 
 class LoginController extends Controller
 {
-  public function showLoginForm()
-  {
-    return view('login');
-  }
+    public function showLoginForm()
+    {
+      return view('login');
+    }
     public function login(Request $request){
         // 1. Validasi input form
         $credentials = $request->validate([
@@ -118,10 +117,10 @@ class LoginController extends Controller
         return redirect()->intended('dashboard');
     }
 
-  public function logout(Request $request){
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    return redirect('/login');
-  }
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
+    }
 }

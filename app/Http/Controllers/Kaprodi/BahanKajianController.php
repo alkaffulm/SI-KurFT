@@ -7,40 +7,19 @@ use App\Http\Requests\StoreBahanKajianRequest;
 use App\Http\Requests\UpdateAll\UpdateAllBahanKajianRequest;
 use App\Models\BahanKajianModel;
 use App\Models\CPLModel;
-use App\Models\BKCPLMapModel;
 use App\Models\BKMKMapModel;
 use App\Models\MataKuliahModel;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator; // Import the Validator facade
 
 class BahanKajianController extends Controller
 {
-    public function __construct()
-    {
-        view()->share('userRole', session()->get('userRole'));
-    }
-
-    /**
-     * Display a listing of the resource. (UNCHANGED)
-     */
     public function index()
     {
         $bahan_kajianpg = BahanKajianModel::paginate(5, ['*'], 'bk');
         $bahan_kajian = BahanKajianModel::all();
         $cpl = CPLModel::all();
         $jumlah_bk = BahanKajianModel::count();
-        $bk_cpl_raw = BKCPLMapModel::all();
-        $bk_cpl_map = [];
         $userRole = session()->get('userRole');
 
-        foreach ($bk_cpl_raw as $relasi) {
-            $id_cpl = $relasi->id_cpl;
-            $id_bk = $relasi->id_bk;
-
-            if (!isset($bk_cpl_map[$id_cpl]) || !in_array($id_bk, $bk_cpl_map[$id_cpl])) {
-                $bk_cpl_map[$id_cpl][] = $id_bk;
-            }
-        }
         $mata_kuliah = MataKuliahModel::paginate(10, ['*'], 'mata-kuliah');
         $bk_mk_raw = BKMKMapModel::all();
         $bk_mk_map = [];
@@ -55,14 +34,13 @@ class BahanKajianController extends Controller
         }
 
         if($userRole == 'pimpinan' || $userRole == 'upm'){
-            return view('pimpinanUpm.bahanKajianAll', ['userRole' => $userRole]);
+            return view('pimpinanUpm.bahanKajianAll');
         }
         else {
             return view('bk', [
                 'bahan_kajian' => $bahan_kajian,
                 'bahan_kajianpg' => $bahan_kajianpg,
                 'cpl' => $cpl,
-                'bk_cpl_map' => $bk_cpl_map,
                 'jumlah_bk' => $jumlah_bk,
                 'bk_mk_map' => $bk_mk_map,
                 'mata_kuliah' => $mata_kuliah
@@ -71,40 +49,23 @@ class BahanKajianController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource. (UNCHANGED)
-     */
     public function create()
     {
         return view('form.BK.bkFormAdd');
     }
 
-    /**
-     * Store a newly created resource in storage. (UNCHANGED)
-     */
     public function store(StoreBahanKajianRequest $request)
     {
         BahanKajianModel::create($request->validated());
         return to_route('bahan-kajian.index')->with('success', 'Bahan Kajian baru berhasil ditambahkan!');
     }
 
-
-    // ====================================================================
-    // == NEW METHODS FOR MASS EDIT, UPDATE, AND DELETE FUNCTIONALITY ==
-    // ====================================================================
-
-    /**
-     * NEW: Show the form for editing all Bahan Kajian.
-     */
     public function editAll()
     {
         $bk_data = BahanKajianModel::all();
         return view('form.BK.bkFormEdit', ['bk_data' => $bk_data]);
     }
 
-    /**
-     * NEW: Process the mass update and delete request.
-     */
     public function updateAll(UpdateAllBahanKajianRequest $request)
     {
         // 1. Process deletions
@@ -116,30 +77,6 @@ class BahanKajianController extends Controller
             return redirect()->route('bahan-kajian.index')->with('success', 'Perubahan Bahan Kajian berhasil disimpan!');
         }
 
-        // 2. Validate updates
-        // $rules = [
-        //     'bk.*.nama_kode_bk' => 'required|string|max:255',
-        //     'bk.*.nama_bk' => 'required|string|max:255',
-        //     'bk.*.kategori' => 'required|string|max:255', // <-- TAMBAHKAN INI
-        //     'bk.*.desc_bk_id' => 'required|string',
-        //     'bk.*.desc_bk_en' => 'required|string', // <-- ADD THIS LINE
-
-        // ];
-        // $messages = [
-        //     'bk.*.nama_kode_bk.required' => 'Setiap kolom Kode BK wajib diisi.',
-        //     'bk.*.nama_bk.required' => 'Setiap kolom Nama BK wajib diisi.',
-        //     'bk.*.kategori.required' => 'Setiap kolom Kategori wajib diisi.', // <-- TAMBAHKAN INI
-        //     'bk.*.desc_bk_id.required' => 'Setiap kolom Deskripsi (ID) wajib diisi.',
-        //     'bk.*.desc_bk_en.required' => 'Setiap kolom Deskripsi (EN) wajib diisi.', // <-- ADD THIS LINE
-
-        // ];
-
-        // $validator = Validator::make($request->all(), $rules, $messages);
-
-        // if ($validator->fails()) {
-        //     return redirect()->route('bahan-kajian.editAll')->withErrors($validator)->withInput();
-        // }
-
         $validatedData = $request->validated()['bk'];
 
         // 3. Loop and update data
@@ -149,7 +86,6 @@ class BahanKajianController extends Controller
                 $bk->update($data);
             }
         }
-
         return redirect()->route('bahan-kajian.index')->with('success', 'Perubahan Bahan Kajian berhasil disimpan!');
     }
 }

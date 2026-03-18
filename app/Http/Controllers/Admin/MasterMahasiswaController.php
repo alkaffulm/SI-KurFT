@@ -3,26 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreTeknikPenilaianRequest;
-use App\Http\Requests\UpdateAll\UpdateAllTeknikPenilaianRequest;
-use App\Models\TeknikPenilaianModel;
 use App\Models\MahasiswaModel;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 class MasterMahasiswaController extends Controller
 {
-    public function __construct()
-    {
-        $userRole = session()->get('userRole');
-
-        return view()->share('userRole', $userRole);
-    }
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $id_ps = session('userRoleId');
@@ -47,29 +32,6 @@ class MasterMahasiswaController extends Controller
     public function create()
     {
         return view('Admin.form.Master Mahasiswa.tambahKelas');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreTeknikPenilaianRequest $request)
-    {
-        // TeknikPenilaianModel::create([
-        //     'nama_teknik_penilaian' => $request->nama_teknik_penilaian,
-        //     'kategori' => $request->kategori,
-        //     'id_ps' => Auth::user()->id_ps,
-        // ]);
-
-        // return to_route('teknik-penilaian.index')->with('success', "Teknik Penilaian berhasil ditambahkan!");
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     public function importExcel(Request $request)

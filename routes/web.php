@@ -1,9 +1,6 @@
 <?php
 
-use App\Models\BKCPLMapModel;
-use App\Models\CPLPLMapModel;
 use App\Livewire\RencanaAsesmenForm;
-use App\Models\TeknikPenilaianModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MhsCplController;
 use App\Http\Controllers\DashboardController;
@@ -45,23 +42,9 @@ use App\Http\Controllers\Admin\MasterMahasiswaController;
 use App\Http\Controllers\Dosen\KelasDosenController;
 use App\Http\Controllers\Admin\KelolaPenggunaController;
 use App\Http\Controllers\EvaluasiUpmController;
-use App\Http\Controllers\Kaprodi\AdminController;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
-
-
-use Barryvdh\DomPDF\Facade\Pdf;
-
-Route::get('/test-pdf', function () {
-    $pdf = Pdf::loadHTML('
-        <h1>DOMPDF LOCAL OK</h1>
-        <p>PDF berhasil dibuat</p>
-    ');
-    return $pdf->stream('test.pdf');
-});
-
-
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -197,10 +180,6 @@ Route::middleware('auth')->group(function () {
 
         // melihat capaian rata-rata perkelas
             Route::get('/dosen/capaian/{id}', [KelasDosenController::class, 'capaian_ratarata'])->name('capaian_ratarata.index');
-
-
-
-
     });
 
 
@@ -325,14 +304,9 @@ Route::middleware('auth')->group(function () {
             Route::put('/kelola-pengguna/{id_user}', [KelolaPenggunaController::class, 'update'])->name('admin.kelola-pengguna.update');
 
             Route::delete('/kelola-pengguna/{id_user}', [KelolaPenggunaController::class, 'destroy'])->name('admin.kelola-pengguna.destroy');
-
-
-
-
-
     });
 
-    // ROle Pimpinan
+    // Role Pimpinan
     Route::middleware('role:pimpinan,upm')->prefix('pimpinan')->group(function () {
         Route::get('/profil-lulusan-all', [ProfilLulusanController::class, 'index'])->name('profil-lulusan-all.index');
         Route::get('/peo-all', [PeoController::class, 'index'])->name('peo-all.index');
@@ -344,7 +318,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/mahasiswa-all', [MasterMahasiswaController::class, 'index'])->name('mahasiswa-all.index'); 
         Route::get('/mahasiswa-all', [MasterMahasiswaController::class, 'index'])->name('mahasiswa-all.index'); 
         Route::get('/cpl-mahasiswa-all', [MhsCplController::class, 'index'])->name('cpl-mahasiswa-all.index'); 
-
     }); 
 
     // Role UPM 

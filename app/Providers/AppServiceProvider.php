@@ -23,5 +23,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::policy(RPSModel::class, RpsPolicy::class);
+        
+        view()->composer('*', function ($view) {
+            $view->with('userRole', session()->get('userRole'));
+        });
     }
 }
