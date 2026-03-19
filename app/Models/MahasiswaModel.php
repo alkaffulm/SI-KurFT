@@ -11,6 +11,7 @@ class MahasiswaModel extends Model
     public $timestamps = true;
     protected $fillable = [
         'id_ps',
+        'id_kurikulum',
         'nim',
         'nama_lengkap',
         'jenis_kelamin',

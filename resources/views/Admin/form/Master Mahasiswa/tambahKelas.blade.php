@@ -33,7 +33,7 @@
                     </div>
                 @endif
 
-                <a href="{{ asset('template_kelas_sikurft.xlsx') }}"  
+                <a href="{{ asset('template_mahasiswa_sikurft.xlsx') }}"  
                     download  
                     class="mb-2 text-sm text-biru-custom underline text-right">
                     Template Daftar Mahasiswa

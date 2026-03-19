@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MahasiswaModel;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\DB;
 class MasterMahasiswaController extends Controller
 {
     public function index()
@@ -45,33 +46,95 @@ class MasterMahasiswaController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
         $rows = $sheet->toArray();
 
-        // Ambil id_ps dari user login
         $id_ps = session('userRoleId');
 
-        // Loop mulai dari baris kedua (baris pertama biasanya header)
-        foreach ($rows as $index => $row) {
-            if ($index == 0) continue; // skip header
+        DB::beginTransaction();
 
-            $nim = $row[1] ?? null;
-            $nama = $row[0] ?? null;
-            $jenis_kelamin = $row[5] ?? null; // kolom jenis_kelamin
-            $angkatan = $row[4] ?? null;      // kolom angkatan
+        try {
+            foreach ($rows as $index => $row) {
+                if ($index == 0) continue;
 
-            if ($nim && $nama) {
+                $nama = trim($row[0] ?? '');
+                $nim = trim($row[1] ?? '');
+                $angkatan = $row[4] ?? null;
+                $jenis_kelamin = $row[5] ?? null;
+                $status = $row[6] ?? null;
+                $tahun_kurikulum = trim($row[7] ?? '');
+
+                if (!$nim || !$nama) continue;
+
+                $kurikulum = DB::table('kurikulum')
+                    ->where('id_ps', $id_ps)
+                    ->where('tahun', $tahun_kurikulum)
+                    ->first();
+
+                if (!$kurikulum) {
+                    throw new \Exception(
+                        "Baris ".($index+1)." (NIM: $nim) → Kurikulum tahun $tahun_kurikulum tidak ditemukan"
+                    );
+                }
+
                 MahasiswaModel::updateOrCreate(
-                    ['nim' => $nim, 'id_ps' => $id_ps],
+                    [
+                        'nim' => $nim,
+                        'id_ps' => $id_ps
+                    ],
                     [
                         'nama_lengkap' => $nama,
                         'jenis_kelamin' => $jenis_kelamin,
                         'angkatan' => $angkatan,
+                        'status' => $status,
+                        'id_kurikulum' => $kurikulum->id_kurikulum,
                     ]
                 );
             }
-        }
 
-        return redirect()->route('master-mahasiswa.index')
-                         ->with('success', 'Data mahasiswa berhasil diupload!');
+            DB::commit();
+
+            return redirect()->route('master-mahasiswa.index')
+                ->with('success', 'Data mahasiswa berhasil diupload!');
+                
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
+
+    // public function importExcel(Request $request)
+    // {
+    //     $request->validate([
+    //         'file_excel' => 'required|file|mimes:xlsx,xls|max:2048',
+    //     ]);
+
+    //     $file = $request->file('file_excel');
+    //     $spreadsheet = IOFactory::load($file->getPathname());
+    //     $sheet = $spreadsheet->getActiveSheet();
+    //     $rows = $sheet->toArray();
+    //     $id_ps = session('userRoleId');
+    //     foreach ($rows as $index => $row) {
+    //         if ($index == 0) continue;
+
+    //         $nim = $row[1] ?? null;
+    //         $nama = $row[0] ?? null;
+    //         $jenis_kelamin = $row[5] ?? null;
+    //         $angkatan = $row[4] ?? null; 
+
+    //         if ($nim && $nama) {
+    //             MahasiswaModel::updateOrCreate(
+    //                 ['nim' => $nim, 'id_ps' => $id_ps],
+    //                 [
+    //                     'nama_lengkap' => $nama,
+    //                     'jenis_kelamin' => $jenis_kelamin,
+    //                     'angkatan' => $angkatan,
+    //                 ]
+    //             );
+    //         }
+    //     }
+
+    //     return redirect()->route('master-mahasiswa.index')
+    //                      ->with('success', 'Data mahasiswa berhasil diupload!');
+    // }
 
     public function edit(string $id){
         $mahasiswa = MahasiswaModel::findOrFail($id);
