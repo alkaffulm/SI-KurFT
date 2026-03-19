@@ -33,6 +33,7 @@ class MataKuliahDashboard extends Component
         // Ambil SATU data saja (first), karena logikanya 1 Kurikulum = 1 Visi Keilmuan
         $this->tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())
                                     ->with(['bahanKajian.cpls', 'rps', 'koordinatorMk', 'pengembangRps'])
+                                    ->orderBy('semester')
                                     ->get();
     }
     public function render()

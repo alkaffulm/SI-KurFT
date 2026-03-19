@@ -36,7 +36,7 @@
             </nav>
             <div class="bg-white p-8 rounded-lg shadow-md mb-8">
                 <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">BAHAN KAJIAN (BK)</h1>
-                <p class="text-gray-600 mb-6">
+                <p class="text-gray-600 mb-6 text-justify">
                     Bahan Kajian (BK) merupakan komponen-komponen ilmu atau materi yang membentuk suatu program studi
                     dan menjadi dasar penyusunan mata kuliah.
                 </p>

@@ -6,15 +6,6 @@ use Illuminate\Http\Request;
 
 class MhsCplController extends Controller
 {
-    public function __construct()
-    {
-        $userRole = session()->get('userRole');
-
-        return view()->share('userRole', $userRole);
-    }
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $userRole = session()->get('userRole');

@@ -3,15 +3,15 @@
         Memuat data Mata Kuliah...
     </div>
     <div wire:loading.remove class="overflow-x-auto rounded-lg border border-gray-400">
-        <table class="w-full text-sm text-left text-gray-500">
+        <table class="w-full text-sm  text-gray-500">
             <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                 <tr>
-                    <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode MK</th>
-                    <th scope="col" class="px-6 py-3 border-r border-gray-400">Pengembang RPS</th>
-                    <th scope="col" class="px-6 py-3 border-r border-gray-400">Koordinator MK</th>
-                    <th scope="col" class="px-6 py-3 border-r border-gray-400">Nama Mata Kuliah</th>
-                    <th scope="col" class="px-6 py-3 border-r border-gray-400">SKS</th>
-                    <th scope="col" class="px-6 py-3">Semester</th>
+                    <th scope="col" class="px-6 py-3 border-r border-gray-400 text-center">Kode MK</th>
+                    <th scope="col" class="px-6 py-3 border-r border-gray-400 text-center min-w-64">Pengembang RPS</th>
+                    <th scope="col" class="px-6 py-3 border-r border-gray-400 text-center min-w-64">Koordinator MK</th>
+                    <th scope="col" class="px-6 py-3 border-r border-gray-400 text-center min-w-48">Nama Mata Kuliah</th>
+                    <th scope="col" class="px-6 py-3 border-r border-gray-400 text-center min-w-[110px]">SKS</th>
+                    <th scope="col" class="px-6 py-3 min-w-[110px]">Semester</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,10 +30,10 @@
                             <p>{{ $tjd->nama_matkul_id }}</p> 
                             <p class="italic text-sm text-[#7397b6]">{{ $tjd->nama_matkul_en }}</p>
                         </td>
-                        <td class="px-6 py-4 border-r border-gray-400">
+                        <td class="px-6 py-4 text-center border-r border-gray-400">
                             {{ $tjd->jumlahSks }}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 text-center">
                             {{ $tjd->semester }}
                         </td>
                     </tr>

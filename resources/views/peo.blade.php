@@ -36,7 +36,7 @@
             </nav>
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">PROGRAMME EDUCATIONAL OBJECTIVE (PEO)</h1>
-                <p class="text-gray-600 mb-6">
+                <p class="text-gray-600 mb-6 text-justify">
                     Gambaran kualifikasi profesional yang diharapkan dicapai oleh lulusan program studi dalam beberapa tahun setelah lulus. PEO dirumuskan selaras dengan visi, misi, dan nilai-nilai universitas, fakultas, serta program studi. Perumusannya mempertimbangkan masukan dari pemangku kepentingan, seperti pengguna lulusan, alumni, serta asosiasi profesi, sehingga mencerminkan kebutuhan dunia kerja dan perkembangan teknologi.
                 </p>
 
@@ -65,17 +65,12 @@
                     </div>
                 </div>
 
-                <div class="overflow-hidden rounded-lg border border-gray-400">
+                <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500">
                         <thead class="text-white uppercase bg-teks-biru-custom">
                             <tr>
-                                <th scope="col" class="px-6 py-4 whitespace-nowrap">
-                                    Kode PEO
-                                </th>
-
-                                <th scope="col" class="px-6 py-4">
-                                    Deskripsi PEO
-                                </th>
+                                <th scope="col" class="px-6 py-4 ">Kode PEO</th>
+                                <th scope="col" class="px-6 py-4 ">Deskripsi PEO</th>
                             </tr>
                         </thead>
                         <tbody>

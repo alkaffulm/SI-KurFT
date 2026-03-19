@@ -15,13 +15,16 @@ class DashboardController extends Controller
         $visi = VisiKeilmuanModel::all();
         $userRoleId = session('userRoleId');
         $Kelas = Kelas::withoutGlobalScopes()
+            ->join('mata_kuliah', 'kelas.id_mk', '=', 'mata_kuliah.id_mk')
             ->with(['mataKuliahModel' => function ($query) {
-                $query->withoutGlobalScopes();
+                $query->withoutGlobalScopes()->orderBy('semester', 'asc');
             }])
-            ->where(['id_user' => Auth::id()])
+            ->where('kelas.id_user', Auth::id())
+            ->select('kelas.*') 
             ->whereHas('mataKuliahModel', function ($query) use ($userRoleId) {
                 $query->withoutGlobalScopes()->where('id_ps', '!=', $userRoleId);
-            })            
+            })
+            ->orderBy('mata_kuliah.semester', 'asc')            
             ->get();
 
         return view('dashboard', [

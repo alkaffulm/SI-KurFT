@@ -46,6 +46,7 @@
             </div>
         @endif
 
+        {{-- matkul dosen Umum, ditarik dari KelasModel --}}
             <div class="p-8 mt-8 mb-8 rounded-lg bg-white">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Mata Kuliah Lintas Prodi yang Diampu</h2>
                 {{-- Contoh list mata kuliah --}}
@@ -55,10 +56,10 @@
                             <thead class="text-xs text-white uppercase bg-teks-biru-custom text-center">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode MK</th>
-                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">Program Studi</th>
-                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">Nama Mata Kuliah</th>
-                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">SKS</th>
-                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">Semester</th>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-48">Program Studi</th>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-48">Nama Mata Kuliah</th>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[110px]">SKS</th>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[110px]">Semester</th>
                                     <th scope="col" class="px-6 py-3">Kurikulum</th>
                                 </tr>
                             </thead>

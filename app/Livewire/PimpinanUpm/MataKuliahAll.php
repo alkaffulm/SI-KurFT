@@ -31,7 +31,8 @@ class MataKuliahAll extends Component
             $query = MataKuliahModel::query()
                 ->withoutGlobalScopes([ProdiScope::class, KurikulumScope::class])
                 ->where('id_kurikulum', $this->selectedKurikulum)
-                ->where('id_ps', $this->selectedProdi);
+                ->where('id_ps', $this->selectedProdi)
+                ->orderBy('semester');
 
             $query->with([
                 'rps' => function($q) {

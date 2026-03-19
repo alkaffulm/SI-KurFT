@@ -39,7 +39,7 @@
             <div class="bg-white p-8 rounded-lg shadow-md mb-8">
 
                 <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">CAPAIAN PEMBELAJARAN MATA KULIAH (CPMK)</h1>
-                <p class="text-gray-600 mb-6">
+                <p class="text-gray-600 mb-6 text-justify">
                     CPMK adalah kemampuan spesifik yang dijabarkan dari CPL yang dibebankan pada mata kuliah, yang dapat
                     diukur dan dinilai.
                 </p>

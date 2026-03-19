@@ -36,7 +36,7 @@
             </nav>
             <div class="bg-white p-8 rounded-lg shadow-md mb-8">
                 <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">PROFIL LULUSAN (PL)</h1>
-                <p class="text-gray-600 mb-6">
+                <p class="text-gray-600 mb-6 text-justify">
                     Profil Lulusan (PL) adalah deskripsi tentang sikap, pengetahuan, dan keterampilan yang diharapkan
                     dimiliki oleh lulusan setelah menyelesaikan studi mereka. Ini menjadi acuan dalam pengembangan
                     kurikulum untuk memastikan relevansi lulusan dengan dunia kerja.
@@ -81,11 +81,11 @@
                                 <tr class="bg-white border-t border-gray-400">
                                     {{-- REVISI: Menghapus hover dari kode PL --}}
                                     <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        class="px-6 py-4 font-medium text-gray-900  border-r border-gray-400">
                                         {{ $pl->kode_pl }}
                                     </th>
                                     <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        class="px-6 py-4 font-medium text-gray-900  border-r border-gray-400">
                                         {{ $pl->nama_pl_id }}
                                     </th>
                                     <td class="px-6 py-4 text-justify border-r border-gray-400">

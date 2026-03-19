@@ -38,7 +38,7 @@
 
             <div class="bg-white p-8 rounded-lg shadow-md mb-8">
                 <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Mata Kuliah</h1>
-                <p class="text-gray-600 mb-6">
+                <p class="text-gray-600 mb-6 text-justify">
                     Mata Kuliah adalah unit pembelajaran yang mencakup serangkaian topik atau bahan kajian tertentu,
                     yang dirancang untuk mencapai Capaian Pembelajaran Lulusan (CPL).
                 </p>

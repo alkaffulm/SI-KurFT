@@ -45,7 +45,7 @@
 
             <div wire:loading.remove>
                 @if($visi)
-                    <p class="text-gray-700 leading-relaxed">
+                    <p class="text-gray-700 text-justify">
                         {{ $visi->desc_vk_id }}
                     </p>
                 @else

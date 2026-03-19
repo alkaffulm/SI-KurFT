@@ -183,7 +183,7 @@
                                     @foreach($laporan['cpl'] as $row)
                                         <tr class="border-t">
                                             <td class="px-3 py-2">{{ $row['kode_cpl'] }}</td>
-                                            <td class="px-3 py-2">{{ $row['deskripsi'] }}</td>
+                                            <td class="px-3 py-2 text-justify">{{ $row['deskripsi'] }}</td>
                                             <td class="px-3 py-2 text-center">
                                                 {{ $row['nilai_akhir_cpl'] !== null
                                                     ? number_format($row['nilai_akhir_cpl'], 2).'%'

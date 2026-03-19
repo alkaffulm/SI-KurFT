@@ -37,7 +37,7 @@
             </nav>
             <div class="bg-white p-8 rounded-lg shadow-md mb-8">
                 <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">CAPAIAN PEMBELAJARAN LULUSAN (CPL)</h1>
-                <p class="text-gray-600 mb-6">
+                <p class="text-gray-600 mb-6 text-justify">
                     CPL merupakan kompetensi yang diharapkan dimiliki mahasiswa setelah menyelesaikan program studi,
                     mencakup aspek sikap, pengetahuan, dan keterampilan.
                 </p>

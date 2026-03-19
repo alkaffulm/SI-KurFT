@@ -17,11 +17,12 @@ class MatkulController extends Controller
     {
         $relationsToLoad = ['bahanKajian.cpls', 'rps', 'koordinatorMk', 'pengembangRps'];
         $mata_kuliah = MataKuliahModel::with($relationsToLoad)
-                                    ->orderBy('kode_mk')
+                                    ->orderBy('semester')
                                     ->paginate(10, ['*'], 'mata-kuliah');
 
         $tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())
                                            ->with($relationsToLoad) 
+                                            ->orderBy('semester')
                                            ->paginate(10, ['*'], 'mata-kuliah');
         $userRole = session()->get('userRole');
 
@@ -70,7 +71,7 @@ class MatkulController extends Controller
 
     public function editAll()
     {             
-        $mata_kuliah = MataKuliahModel::orderBy('kode_mk')->get();  
+        $mata_kuliah = MataKuliahModel::orderBy('semester')->get();  
         $dosenProdi = UserModel::forProdi(session('userRoleId'))->isDosen()->get();
  
         return view('form.Matkul.matkulFormEdit', ['mata_kuliah' => $mata_kuliah, 'dosenProdi' => $dosenProdi]);
