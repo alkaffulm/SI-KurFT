@@ -120,6 +120,10 @@ class MataKuliahModel extends Model
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }
 
+    public function kurikulum(){
+        return $this->belongsTo(KurikulumModel::class, 'id_kurikulum', 'id_kurikulum');
+    }
+
     protected function uniqueCpls(): Attribute {
         return Attribute::make(
             get: fn () => $this->mkcpmkcpl

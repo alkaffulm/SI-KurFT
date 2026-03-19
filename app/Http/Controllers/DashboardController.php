@@ -2,20 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Kelas;
 use App\Models\MataKuliahModel;
 use App\Models\VisiKeilmuanModel;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $userRole = $request->session()->get('userRole', 'dosen');
         $tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())->get();
         $visi = VisiKeilmuanModel::all();
-        
-        return view('dashboard', ['userRole' => $userRole, 'visi' => $visi, 'tanggungJawabDosen' => $tanggungJawabDosen]);
+        $userRoleId = session('userRoleId');
+        $Kelas = Kelas::withoutGlobalScopes()
+            ->with(['mataKuliahModel' => function ($query) {
+                $query->withoutGlobalScopes();
+            }])
+            ->where(['id_user' => Auth::id()])
+            ->whereHas('mataKuliahModel', function ($query) use ($userRoleId) {
+                $query->withoutGlobalScopes()->where('id_ps', '!=', $userRoleId);
+            })            
+            ->get();
+
+        return view('dashboard', [
+            'visi' => $visi, 
+            'tanggungJawabDosen' => $tanggungJawabDosen,
+            'kelas' => $Kelas   
+        ]);
     }
 }

@@ -84,6 +84,7 @@ class LoginController extends Controller
 
         $request->session()->put('userRole', $sessionRole);
         $request->session()->put('userName', $user->username);
+        $request->session()->put('userNip', $user->NIP);
         $request->session()->put('userProdi', $prodi ? $prodi->nama_prodi : 'Fakultas Teknik');
         $request->session()->put('userRoleId', $contextIdPs);
 

@@ -91,7 +91,7 @@ class RPSController extends Controller
         $userRole = session()->get('userRole');
 
         // DAFTAR ROLE YANG BOLEH AKSES GLOBAL (Tanpa Batas Prodi)
-        $globalAccessRoles = ['pimpinan', 'upm'];
+        $globalAccessRoles = ['pimpinan', 'upm', 'dosen'];
         $isGlobalAccess = in_array($userRole, $globalAccessRoles);
         
         $relations = [
@@ -289,7 +289,7 @@ class RPSController extends Controller
         $userRole = session()->get('userRole');
 
         // DAFTAR ROLE YANG BOLEH AKSES GLOBAL (Tanpa Batas Prodi)
-        $globalAccessRoles = ['pimpinan', 'upm'];
+        $globalAccessRoles = ['pimpinan', 'upm', 'dosen'];
         $isGlobalAccess = in_array($userRole, $globalAccessRoles);
         
         $relations = [

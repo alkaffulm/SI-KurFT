@@ -7,7 +7,7 @@ use Livewire\Attributes\On;
 use App\Models\MataKuliahModel;
 use Illuminate\Support\Facades\Auth;
 
-class MataKuliah extends Component
+class MataKuliahDashboard extends Component
 {
 
     public $tanggungJawabDosen; // Ini akan berisi Model Object (bukan collection) atau null
@@ -37,6 +37,6 @@ class MataKuliah extends Component
     }
     public function render()
     {
-        return view('livewire.mata-kuliah');
+        return view('livewire.mata-kuliah-dashboard');
     }
 }

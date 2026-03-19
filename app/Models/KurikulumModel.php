@@ -17,10 +17,10 @@ class KurikulumModel extends Model
         'tahun',
     ];
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new ProdiScope);
-    }
+    // protected static function booted(): void
+    // {
+    //     static::addGlobalScope(new ProdiScope);
+    // }
 
     // has many relation
     public function cpl(){

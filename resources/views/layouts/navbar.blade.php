@@ -28,7 +28,7 @@
                     <p class="text-xs text-black font-semibold">
                         {{ ucfirst(session('userRole', 'Dosen')) }}
                         @if (session('userRole') != 'pimpinan' && session('userRole') != 'upm')
-                            {{ session('userProdi') }}
+                            {{ session('userProdi') }} 
                         @endif
                     </p>
                 </div>
@@ -47,19 +47,11 @@
                     </div>
 
                     {{-- Menu Dropdown --}}
-                    <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
+                    <div class="z-50 hidden my-4 min-w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
                         id="dropdown-user">
-                        <div class="px-4 py-3">
-                            <span class="block text-sm text-gray-900">{{ session('userName', 'User') }}</span>
-                            <span class="block text-sm text-gray-500 truncate">
-                                @if (session('userRole') == 'kaprodi')
-                                    kaprodi@ulm.ac.id
-                                @elseif(session('userRole') == 'dosen')
-                                    dosen@ulm.ac.id
-                                @else
-                                    pimpinan@ulm.ac.id
-                                @endif
-                            </span>
+                        <div class="px-4 py-3 ">
+                            <span class="block text-sm text-gray-900 mb-2">{{ session('userName', 'User') }}</span>
+                            <span class="block text-sm text-gray-500 truncate">{{session('userNip')}}</span>
                         </div>
                         <ul class="py-2">
                             <li>

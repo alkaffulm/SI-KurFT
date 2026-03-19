@@ -38,20 +38,22 @@
                         <span class="ms-3">Mata Kuliah Saya</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="{{ route('rencana-asesmen.index') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
-                        {{-- Rencana Asesmen Icon: Clipboard List --}}
-                        <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                            </path>
-                        </svg>
-                        <span class="ms-3">Rencana Asesmen</span>
-                    </a>
-                </li>
+                
+                @if (session('userRoleId') != 16)
+                    <li>
+                        <a href="{{ route('rencana-asesmen.index') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
+                            {{-- Rencana Asesmen Icon: Clipboard List --}}
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                                </path>
+                            </svg>
+                            <span class="ms-3">Rencana Asesmen</span>
+                        </a>
+                    </li>
+                @endif
 
                 <li>
                     <a href="{{ route('evaluasi-mahasiswa.index') }}"

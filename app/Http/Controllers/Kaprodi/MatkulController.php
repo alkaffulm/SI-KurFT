@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Kaprodi;
 
-use App\Models\UserModel;
-use App\Models\MataKuliahModel;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreMatkulRequest;
 use App\Http\Requests\UpdateAll\UpdateAllMatkulRequest;
+use App\Models\Kelas;
+use App\Models\MataKuliahModel;
 use App\Models\ModelPembelajaranModel;
+use App\Models\UserModel;
+use Illuminate\Support\Facades\Auth;
 
 class MatkulController extends Controller
 {
@@ -17,12 +18,23 @@ class MatkulController extends Controller
         $relationsToLoad = ['bahanKajian.cpls', 'rps', 'koordinatorMk', 'pengembangRps'];
         $mata_kuliah = MataKuliahModel::with($relationsToLoad)
                                     ->orderBy('kode_mk')
-                                    ->paginate(5, ['*'], 'mata-kuliah');
+                                    ->paginate(10, ['*'], 'mata-kuliah');
 
         $tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())
                                            ->with($relationsToLoad) 
-                                           ->paginate(5, ['*'], 'mata-kuliah');
+                                           ->paginate(10, ['*'], 'mata-kuliah');
         $userRole = session()->get('userRole');
+
+        $userRoleId = session('userRoleId');
+        $Kelas = Kelas::withoutGlobalScopes()
+            ->with(['mataKuliahModel' => function ($query) {
+                $query->withoutGlobalScopes();
+            }])
+            ->where(['id_user' => Auth::id()])
+            ->whereHas('mataKuliahModel', function ($query) use ($userRoleId) {
+                $query->withoutGlobalScopes()->where('id_ps', '!=', $userRoleId);
+            })            
+            ->get();
 
         if ($userRole == 'kaprodi') {
             return view('matkul', [
@@ -34,7 +46,11 @@ class MatkulController extends Controller
             return view('pimpinanUpm.mataKuliahAll', ['mata_kuliah' => $mata_kuliah]);
         }
         else {
-            return view('dosen.matkul', ['mata_kuliah' => $mata_kuliah, 'tanggungJawabDosen' => $tanggungJawabDosen]);
+            return view('dosen.matkul', [
+                'mata_kuliah' => $mata_kuliah, 
+                'tanggungJawabDosen' => $tanggungJawabDosen,
+                'kelas' => $Kelas
+            ]);
         }
     }
 

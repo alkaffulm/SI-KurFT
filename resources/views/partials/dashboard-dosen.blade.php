@@ -34,12 +34,67 @@
             </div>
         </div>
             {{-- End Welcome Card --}}
-        <div class="p-4 mt-8 mb-8 rounded-lg bg-white">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Mata Kuliah yang Diampu</h2>
-            {{-- Contoh list mata kuliah --}}
-            <div class=" my-4">
-                @livewire('mata-kuliah')
+
+        {{-- matkul dosen homebase, ditarik dari MataKuliahModel --}}
+        @if (session('userRoleId') != 16)
+            <div class="p-8 mt-8 mb-8 rounded-lg bg-white">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Mata Kuliah yang Diampu</h2>
+                {{-- Contoh list mata kuliah --}}
+                <div class=" my-4">
+                    @livewire('mata-kuliah-dashboard')
+                </div>
             </div>
-        </div>
+        @endif
+
+            <div class="p-8 mt-8 mb-8 rounded-lg bg-white">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Mata Kuliah Lintas Prodi yang Diampu</h2>
+                {{-- Contoh list mata kuliah --}}
+                <div class=" my-4">
+                    <div class="overflow-x-auto rounded-lg border border-gray-400">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-white uppercase bg-teks-biru-custom text-center">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode MK</th>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">Program Studi</th>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">Nama Mata Kuliah</th>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">SKS</th>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400">Semester</th>
+                                    <th scope="col" class="px-6 py-3">Kurikulum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ( $kelas as $itemKelas )
+                                    <tr class="bg-white border-t border-gray-400">
+                                        <td class="px-6 py-4 border-r border-gray-400 font-medium text-gray-900">
+                                            {{ $itemKelas->mataKuliahModel->kode_mk }}
+                                        </td>
+                                        <td class="px-6 py-4 border-r border-gray-400 font-medium text-gray-900">
+                                            {{ $itemKelas->mataKuliahModel->programStudi->nama_prodi }}
+                                        </td>
+                                        <td class="px-6 py-4 border-r border-gray-400">
+                                            <p>{{ $itemKelas->mataKuliahModel->nama_matkul_id }}</p> 
+                                            <p class="italic text-sm text-[#7397b6]">{{ $itemKelas->mataKuliahModel->nama_matkul_en }}</p>
+                                        </td>
+                                        <td class="px-6 py-4 border-r border-gray-400 text-center">
+                                            {{ $itemKelas->mataKuliahModel->jumlahSks }}
+                                        </td>
+                                        <td class="px-6 py-4 border-r border-gray-400 text-center">
+                                            {{ $itemKelas->mataKuliahModel->semester }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ $itemKelas->mataKuliahModel->kurikulum->tahun }}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr >
+                                        <td colspan="6" class="p-4 text-center ">Belum Ada Mata Kuliah Yang Diampu</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
     </mainlass=>
 </div>

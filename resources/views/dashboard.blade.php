@@ -26,7 +26,7 @@
                 @include('partials.dashboard-kaprodi')
                 @livewire('visi-keilmuan')
             @elseif($userRole == 'dosen')
-                @include('partials.dashboard-dosen', ['tanggungJawabDosen' => $tanggungJawabDosen])
+                @include('partials.dashboard-dosen', ['kelas' => $kelas])
             @elseif($userRole == 'admin')
                 @include('partials.dashboard-admin')
             @elseif($userRole == 'upm')
@@ -34,7 +34,7 @@
             @elseif($userRole == 'pimpinan')
                 @include('partials.dashboard-pimpinan')
             @endif
-
+            
             @if (!in_array($userRole, ['admin', 'pimpinan', 'upm']) && session('userRoleId') != 16)
                 @livewire('kurikulum-selector')
             @endif
