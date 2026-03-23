@@ -17,7 +17,11 @@ class DashboardController extends Controller
         $Kelas = Kelas::withoutGlobalScopes()
             ->join('mata_kuliah', 'kelas.id_mk', '=', 'mata_kuliah.id_mk')
             ->with(['mataKuliahModel' => function ($query) {
-                $query->withoutGlobalScopes()->orderBy('semester', 'asc');
+                $query->withoutGlobalScopes()
+                      ->orderBy('semester', 'asc')
+                      ->with(['kurikulum' => function ($query) {
+                          $query->withoutGlobalScopes();
+                      }]);
             }])
             ->where('kelas.id_user', Auth::id())
             ->select('kelas.*') 
