@@ -146,8 +146,8 @@
                                 Kembali
                             </a>
                             {{-- Button Submit --}}
-                            <button type="submit" class="w-28  px-7 py-3 text-base font-medium text-white bg-biru-custom border rounded-lg hover:bg-blue-500">
-                                Submit
+                            <button type="submit" class="  px-7 py-3 text-base font-medium text-white bg-biru-custom border rounded-lg hover:bg-blue-500">
+                                Simpan Perubahan
                             </button>
                         </div>
                     </form>

@@ -54,7 +54,7 @@
                                 <label for="id_cpmk" class="block text-base font-medium text-gray-700 mb-2">CPMK
                                     Induk</label>
                                 <select name="id_cpmk" id="id_cpmk"
-                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition">
+                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>
                                     <option value="" disabled selected>Pilih CPMK</option>
                                     @foreach ($cpmk as $c)
                                         <option value="{{ $c->id_cpmk }}"

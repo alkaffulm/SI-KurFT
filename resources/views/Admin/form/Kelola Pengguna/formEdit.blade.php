@@ -82,7 +82,7 @@
                        class="px-4 py-2 rounded-lg border">Batal</a>
                     <button type="submit"
                             class="px-4 py-2 rounded-lg bg-biru-custom text-white hover:opacity-90">
-                        Update
+                        Simpan Perubahan
                     </button>
                 </div>
             </form>

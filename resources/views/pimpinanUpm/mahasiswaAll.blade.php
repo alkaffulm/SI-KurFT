@@ -41,7 +41,7 @@
                 </p>
 
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-biru-custom">Tabel PEO</h2>
+                    <h2 class="text-xl font-bold text-biru-custom">Tabel Mahasiswa</h2>
                 </div>
 
                 @livewire('pimpinan-upm.mahasiswa-all')

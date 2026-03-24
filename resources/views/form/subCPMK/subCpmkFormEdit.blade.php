@@ -71,7 +71,7 @@
                                         <select name="subCpmk[{{ $scp->id_sub_cpmk }}][id_cpmk]"
                                             id="id_cpmk_{{ $scp->id_sub_cpmk }}"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
-                                            :disabled="isDeleting">
+                                            :disabled="isDeleting" required>
                                             @foreach ($cpmk as $c)
                                                 <option value="{{ $c->id_cpmk }}"
                                                     {{ old('subCpmk.' . $scp->id_sub_cpmk . '.id_cpmk', $scp->id_cpmk) == $c->id_cpmk ? 'selected' : '' }}>

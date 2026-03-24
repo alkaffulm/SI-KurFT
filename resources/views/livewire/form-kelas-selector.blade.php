@@ -208,7 +208,7 @@
                     class="px-6 py-2 bg-biru-custom text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
                     @disabled(!$id_kurikulum || !$id_tahun_akademik || !$id_mk || count($paralels) == 0)
                     >
-                <span wire:loading.remove wire:target="save">Simpan</span>
+                <span wire:loading.remove wire:target="save">Simpan Perubahan</span>
                 <span wire:loading wire:target="save">Menyimpan...</span>
             </button>
         </div>
