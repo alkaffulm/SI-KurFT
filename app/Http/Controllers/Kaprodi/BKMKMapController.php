@@ -86,15 +86,19 @@ class BKMKMapController extends Controller
     public function updateBKMKMap(Request $request)
     {
         $request->validate([
-            'mk_mappings' => 'array',
-            'mk_mappings.*' => 'array',
-            'mk_mappings.*.*' => 'integer|exists:bahan_kajian,id_bk',
+            'mk_mappings' => 'nullable|array',
+            'mk_mappings.*' => 'nullable|array',
+            'mk_mappings.*.*' => 'nullable|integer|exists:bahan_kajian,id_bk',
         ]);
 
         $mk_mappings = $request->input('mk_mappings', []);
-        foreach ($mk_mappings as $id_mk_from_form => $selected_bk_ids_from_form) {
-            BKMKMapModel::where('id_mk', $id_mk_from_form)->delete();
+        $all_bk_ids = BahanKajianModel::pluck('id_bk')->toArray();
 
+        foreach ($all_bk_ids as $id_bk) {
+            BKMKMapModel::where('id_bk', $id_bk)->delete();
+        }
+
+        foreach ($mk_mappings as $id_mk_from_form => $selected_bk_ids_from_form) {
             if (!empty($selected_bk_ids_from_form)) {
                 foreach ($selected_bk_ids_from_form as $single_selected_bk_id) {
                     BKMKMapModel::create([

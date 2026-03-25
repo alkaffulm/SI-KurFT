@@ -7,6 +7,7 @@
     <title>Edit Korelasi PL dan PEO</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <link rel="icon" href="{{ asset('images/logo ulm 1.png') }}" type="image/x-icon">
 
     {{-- Select2 CSS and JS --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -44,11 +45,11 @@
                         </p>
                     </div>
 
-                    <div class="overflow-hidden rounded-lg border border-gray-400">
-                        <table class="w-full text-sm text-center text-gray-500">
+                    <div class="overflow-auto rounded-lg border border-gray-400">
+                        <table class="w-full table-fixed text-sm text-center text-gray-500">
                             <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                                 <tr>
-                                    <th scope="col" class="px-6 py-4 whitespace-nowrap">Kode Profil Lulusan</th>
+                                    <th scope="col" class="px-6 py-4 whitespace-nowrap w-48">Kode Profil Lulusan</th>
                                     <th scope="col" class="px-6 py-4 whitespace-nowrap">Programme Educational
                                         Objective (PEO)</th>
                                 </tr>

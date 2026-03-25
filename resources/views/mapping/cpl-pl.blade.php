@@ -47,11 +47,11 @@
                     </div>
 
                     <div class="overflow-hidden rounded-lg border border-gray-400">
-                        <table class="w-full text-sm text-center text-gray-500">
+                        <table class="w-full table-fixed text-sm text-center text-gray-500">
                             {{-- Table Header --}}
                             <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                                 <tr>
-                                    <th scope="col" class="px-6 py-4 whitespace-nowrap">Kode CPL</th>
+                                    <th scope="col" class="px-6 py-4 whitespace-nowrap w-48">Kode CPL</th>
                                     <th scope="col" class="px-6 py-4 whitespace-nowrap">Profil Lulusan (PL)</th>
                                 </tr>
                             </thead>
@@ -66,6 +66,8 @@
                                             {{ $c->nama_kode_cpl }}
                                         </th>
                                         <td class="px-6 py-4">
+                                            <input type="hidden" name="pl_mappings[{{ $c->id_cpl }}]"
+                                                value="" />
                                             {{-- Select2 dropdown for PL selection --}}
                                             <select class="select2 w-full" multiple="multiple"
                                                 name="pl_mappings[{{ $c->id_cpl }}][]">

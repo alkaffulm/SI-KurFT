@@ -44,7 +44,8 @@
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
                     <div class="mb-5">
                         <h1 class="text-4xl font-bold text-gray-800">Edit CPMK untuk setiap CPL per Mata Kuliah</h1>
-                        <p class="text-gray-500 mt-2 text-base">Pilih Capaian Mata Kuliah (CPMK) untuk setiap Capaian Profil Lulusan (CPL) per Mata Kuliah</p>
+                        <p class="text-gray-500 mt-2 mb-2 text-base">Pilih Capaian Mata Kuliah (CPMK) untuk setiap Capaian Profil Lulusan (CPL) per Mata Kuliah</p>
+                        <p class="text-red-600 italic font-medium text-sm">*Pastikan korelasi CPL per CPMK telah sesuai dan tidak mengalami perubahan sebelum menentukan Bobot CPMK-MK dan Rencana Asesmen</p>
                     </div>
 
                     <div class="overflow-x-scroll rounded-lg border border-gray-400">

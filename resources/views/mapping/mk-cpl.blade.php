@@ -43,9 +43,10 @@
                 <div class="bg-white p-8 sm:p-10 rounded-xl shadow-lg">
                     <div class="mb-5">
                         <h1 class="text-4xl font-bold text-gray-800">Edit Korelasi CPL per Mata Kuliah</h1>
-                        <p class="text-gray-500 mt-2 text-base">Pilih Capaian Profil Lulusan (CPL) yang relevan untuk
+                        <p class="text-gray-500 mt-2 mb-2 text-base">Pilih Capaian Profil Lulusan (CPL) yang relevan untuk
                             setiap Mata
                             Kuliah (MK).</p>
+                        <p class="text-red-600 italic font-medium text-sm">*Pastikan korelasi CPL per Mata Kuliah telah sesuai dan tidak mengalami perubahan sebelum menentukan Bobot CPMK-MK dan Rencana Asesmen</p>
                     </div>
 
                     <div class="overflow-auto rounded-lg border border-gray-400">

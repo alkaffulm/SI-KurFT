@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="overflow-hidden rounded-lg border border-gray-400">
-                        <table class="w-full text-sm text-center text-gray-500">
+                        <table class="w-full table-fixed text-sm text-center text-gray-500">
                             {{-- Table Header --}}
                             <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                                 <tr>
@@ -68,6 +68,7 @@
                                             {{ $mk->kode_mk }} - {{ $mk->nama_matkul_id }}
                                         </th>
                                         <td class="px-6 py-4">
+                                            <input type="hidden" name="mk_mappings[{{ $mk->id_mk }}]" value="">
                                             {{-- Select2 dropdown for BK selection --}}
                                             <select class="select2 w-full" multiple="multiple"
                                                 name="mk_mappings[{{ $mk->id_mk }}][]">

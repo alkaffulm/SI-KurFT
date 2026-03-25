@@ -68,16 +68,19 @@ class CPLPLMapController extends Controller
     {
 
         $request->validate([
-            'pl_mappings' => 'array',
-            'pl_mappings.*' => 'array', 
-            'pl_mappings.*.*' => 'integer|exists:profil_lulusan,id_pl', 
+            'pl_mappings' => 'nullable|array',
+            'pl_mappings.*' => 'nullable|array', 
+            'pl_mappings.*.*' => 'nullable|integer|exists:profil_lulusan,id_pl', 
         ]);
 
         $pl_mappings = $request->input('pl_mappings', []); 
+        $all_cpl_ids = CPLModel::pluck('id_cpl')->toArray();
+
+        foreach ($all_cpl_ids as $id_cpl) {
+            CPLPLMapModel::where('id_cpl', $id_cpl)->delete();
+        }
 
         foreach ($pl_mappings as $id_cpl => $selected_pl_ids) {
-            CPLPLMapModel::where('id_cpl', $id_cpl)->delete();
-
             if (!empty($selected_pl_ids)) {
                 foreach ($selected_pl_ids as $id_pl) {
                     CPLPLMapModel::create([
