@@ -7,6 +7,7 @@
     <title>Edit Profil Lulusan (PL)</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
     <style>
         .transition-opacity {
             transition: opacity 0.3s ease-in-out;

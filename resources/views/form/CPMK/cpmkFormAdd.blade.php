@@ -7,6 +7,7 @@
     <title>Tambah Capaian Pembelajaran Mata Kuliah (CPMK)</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -53,7 +54,7 @@
                         </div>
 
                         <div>
-                            <label for="desc_cpmk_id" class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                            <label for="desc_cpmk_id" class="block text-base font-medium text-gray-700 mb-2">Deskripsi CPMK
                                 (Indonesia)</label>
                             <textarea id="desc_cpmk_id" name="desc_cpmk_id" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
@@ -64,7 +65,7 @@
                         </div>
 
                         <div>
-                            <label for="desc_cpmk_en" class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                            <label for="desc_cpmk_en" class="block text-base font-medium text-gray-700 mb-2">Deskripsi CPMK
                                 (English)</label>
                             <textarea id="desc_cpmk_en" name="desc_cpmk_en" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"

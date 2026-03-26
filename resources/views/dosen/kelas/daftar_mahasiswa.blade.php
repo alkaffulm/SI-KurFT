@@ -8,7 +8,7 @@
     <title>Daftar Mahasiswa per Kelas</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
-
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
     {{-- Select2 CSS and JS for searchable dropdowns --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />

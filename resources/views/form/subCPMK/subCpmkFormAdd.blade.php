@@ -7,6 +7,7 @@
     <title>Tambah Sub CPMK Baru</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -71,7 +72,7 @@
 
                         <div>
                             <label for="desc_sub_cpmk_id"
-                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi (Indonesia)</label>
+                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi Sub CPMK (Indonesia)</label>
                             <textarea id="desc_sub_cpmk_id" name="desc_sub_cpmk_id" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                 placeholder="Jelaskan deskripsi Sub CPMK di sini..." required>{{ old('desc_sub_cpmk_id') }}</textarea>
@@ -82,7 +83,7 @@
 
                         <div>
                             <label for="desc_sub_cpmk_en"
-                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi (English)</label>
+                                class="block text-base font-medium text-gray-700 mb-2">Deskripsi Sub CPMK (English)</label>
                             <textarea id="desc_sub_cpmk_en" name="desc_sub_cpmk_en" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                 placeholder="Describe the Sub CPMK here..." required>{{ old('desc_sub_cpmk_en') }}</textarea>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluasi Mahasiswa</title>
     @vite('resources/css/app.css')
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     @livewireStyles
 </head>

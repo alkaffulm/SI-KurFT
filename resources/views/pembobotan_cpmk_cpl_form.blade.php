@@ -7,6 +7,7 @@
     <title>Form Pembobotan CPMK CPL</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
 </head>
 
 <body class="bg-gray-100 font-sans">

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Mata Kuliah</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         .transition-opacity {
@@ -64,7 +64,7 @@
 
                                     <div class="col-span-12 sm:col-span-6">
                                         <label for="nama_matkul_id_{{ $mk->id_mk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Nama MK (ID)</label>
+                                            class="block text-base font-medium text-gray-700 mb-2">Nama Mata Kuliah (Indonesia)</label>
                                         <input type="text" id="nama_matkul_id_{{ $mk->id_mk }}"
                                             name="matkul[{{ $mk->id_mk }}][nama_matkul_id]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
@@ -74,7 +74,7 @@
 
                                     <div class="col-span-12 sm:col-span-6">
                                         <label for="nama_matkul_en_{{ $mk->id_mk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Nama MK (EN)</label>
+                                            class="block text-base font-medium text-gray-700 mb-2">Nama Mata Kuliah (English)</label>
                                         <input type="text" id="nama_matkul_en_{{ $mk->id_mk }}"
                                             name="matkul[{{ $mk->id_mk }}][nama_matkul_en]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
@@ -156,8 +156,8 @@
 
                                     <div class="col-span-12 sm:col-span-6">
                                         <label for="matkul_desc_id_{{ $mk->id_mk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
-                                            (ID)
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi Mata Kuliah
+                                            (Indonesia)
                                         </label>
                                         <textarea id="matkul_desc_id_{{ $mk->id_mk }}" name="matkul[{{ $mk->id_mk }}][matkul_desc_id]" rows="3"
                                             :disabled="isDeleting" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
@@ -165,8 +165,8 @@
                                     </div>
                                     <div class="col-span-12 sm:col-span-6">
                                         <label for="matkul_desc_en_{{ $mk->id_mk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
-                                            (EN)</label>
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi Mata Kuliah
+                                            (English)</label>
                                         <textarea id="matkul_desc_en_{{ $mk->id_mk }}" name="matkul[{{ $mk->id_mk }}][matkul_desc_en]" rows="3"
                                             :disabled="isDeleting" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
                                             required>{{ old('matkul.' . $mk->id_mk . '.matkul_desc_en', $mk->matkul_desc_en) }}</textarea>

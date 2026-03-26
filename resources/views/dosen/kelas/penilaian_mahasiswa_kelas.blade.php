@@ -7,6 +7,7 @@
     <title>Penilaian Mahasiswa per Kelas</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
 
     {{-- Select2 --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

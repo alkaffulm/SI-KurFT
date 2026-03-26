@@ -7,6 +7,8 @@
     <title>Tambah Bahan Kajian (BK)</title>
     @vite('resources/css/app.css')
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
+
 </head>
 
 <body class="bg-gray-100 font-sans">
@@ -86,7 +88,7 @@
                         </div>
 
                         <div>
-                            <label for="desc_bk_id" class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                            <label for="desc_bk_id" class="block text-base font-medium text-gray-700 mb-2">Deskripsi Bahan Kajian
                                 (Indonesia)</label>
                             <textarea id="desc_bk_id" name="desc_bk_id" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
@@ -97,7 +99,7 @@
                         </div>
 
                         <div>
-                            <label for="desc_bk_en" class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                            <label for="desc_bk_en" class="block text-base font-medium text-gray-700 mb-2">Deskripsi Bahan Kajian
                                 (English)</label>
                             <textarea id="desc_bk_en" name="desc_bk_en" rows="4"
                                 class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"

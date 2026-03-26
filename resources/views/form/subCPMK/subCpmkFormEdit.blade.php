@@ -7,6 +7,7 @@
     <title>Edit Sub CPMK</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
     <style>
         .transition-opacity {
             transition: opacity 0.3s ease-in-out;
@@ -99,16 +100,16 @@
                                     {{-- Baris 2: Deskripsi --}}
                                     <div class="col-span-12 sm:col-span-6">
                                         <label for="desc_sub_cpmk_id_{{ $scp->id_sub_cpmk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
-                                            (ID)</label>
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi Sub CPMK
+                                            (Indonesia)</label>
                                         <textarea id="desc_sub_cpmk_id_{{ $scp->id_sub_cpmk }}" name="subCpmk[{{ $scp->id_sub_cpmk }}][desc_sub_cpmk_id]"
                                             rows="4" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
                                             :disabled="isDeleting" required>{{ old('subCpmk.' . $scp->id_sub_cpmk . '.desc_sub_cpmk_id', $scp->desc_sub_cpmk_id) }}</textarea>
                                     </div>
                                     <div class="col-span-12 sm:col-span-6">
                                         <label for="desc_sub_cpmk_en_{{ $scp->id_sub_cpmk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
-                                            (EN)</label>
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi Sub CPMK
+                                            (English)</label>
                                         <textarea id="desc_sub_cpmk_en_{{ $scp->id_sub_cpmk }}" name="subCpmk[{{ $scp->id_sub_cpmk }}][desc_sub_cpmk_en]"
                                             rows="4" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
                                             :disabled="isDeleting" required>{{ old('subCpmk.' . $scp->id_sub_cpmk . '.desc_sub_cpmk_en', $scp->desc_sub_cpmk_en) }}</textarea>

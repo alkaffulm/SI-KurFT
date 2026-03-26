@@ -7,6 +7,7 @@
     <title>Edit Capaian Pembelajaran Mata Kuliah (CPMK)</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
     <style>
         .transition-opacity {
             transition: opacity 0.3s ease-in-out;
@@ -66,8 +67,8 @@
 
                                     <div class="col-span-11">
                                         <label for="desc_cpmk_id_{{ $cp->id_cpmk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
-                                            (ID)
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi CPMK
+                                            (Indonesia)
                                         </label>
                                         <textarea id="desc_cpmk_id_{{ $cp->id_cpmk }}" name="cpmk[{{ $cp->id_cpmk }}][desc_cpmk_id]" rows="4"
                                             :disabled="isDeleting" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
@@ -92,8 +93,8 @@
 
                                     <div class="col-span-11">
                                         <label for="desc_cpmk_en_{{ $cp->id_cpmk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
-                                            (EN)</label>
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi CPMK
+                                            (English)</label>
                                         <textarea id="desc_cpmk_en_{{ $cp->id_cpmk }}" name="cpmk[{{ $cp->id_cpmk }}][desc_cpmk_en]" rows="4"
                                             :disabled="isDeleting" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3"
                                             required>{{ old('cpmk.' . $cp->id_cpmk . '.desc_cpmk_en', $cp->desc_cpmk_en) }}</textarea>

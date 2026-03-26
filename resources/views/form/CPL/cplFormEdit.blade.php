@@ -7,6 +7,7 @@
     <title>Edit Capaian Pembelajaran Lulusan (CPL)</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
     <style>
         /* Transisi halus untuk efek visual */
         .transition-opacity {

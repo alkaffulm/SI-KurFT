@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rencana Pembelajaran Semester</title>
     @vite('resources/css/app.css')
-    <link rel="icon" href="{{ asset('images/logo ulm 1.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     <script src="https://kit.fontawesome.com/a3c61f64a4.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -7,6 +7,7 @@
     <title>Edit Bahan Kajian (BK)</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
     <style>
         .transition-opacity {
             transition: opacity 0.3s ease-in-out;
@@ -110,7 +111,7 @@
 
                                     <div class="col-span-12 sm:col-span-6">
                                         <label for="desc_bk_id_{{ $bk->id_bk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi Bahan Kajian
                                             (Indonesia)
                                         </label>
                                         <textarea id="desc_bk_id_{{ $bk->id_bk }}" name="bk[{{ $bk->id_bk }}][desc_bk_id]" rows="4"
@@ -120,7 +121,7 @@
 
                                     <div class="col-span-12 sm:col-span-6">
                                         <label for="desc_bk_en_{{ $bk->id_bk }}"
-                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi
+                                            class="block text-base font-medium text-gray-700 mb-2">Deskripsi Bahan Kajian
                                             (English)</label>
                                         <textarea id="desc_bk_en_{{ $bk->id_bk }}" name="bk[{{ $bk->id_bk }}][desc_bk_en]" rows="4"
                                             :disabled="isDeleting"

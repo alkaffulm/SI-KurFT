@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluasi UPM</title>
-    <link rel="icon" href="{{ asset('images/logo ulm 1.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/LOGO_ULM.png') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
