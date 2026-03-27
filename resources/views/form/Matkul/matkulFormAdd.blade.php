@@ -54,16 +54,6 @@
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
-                        {{-- <div>
-                                <label for="jumlah_sks" class="block text-base font-medium text-gray-700 mb-2">Jumlah
-                                    SKS</label>
-                                <input type="number" id="jumlah_sks" name="jumlah_sks" min="1" max="6"
-                                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
-                                    placeholder="Contoh: 3" value="{{ old('jumlah_sks') }}" required>
-                                @error('jumlah_sks')
-                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div> --}}
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="sks_teori" class="block text-base font-medium text-gray-700 mb-2">Jumlah
