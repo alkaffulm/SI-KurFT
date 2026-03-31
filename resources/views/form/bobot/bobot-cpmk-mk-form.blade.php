@@ -17,7 +17,7 @@
 
 
 
-    <div class="p-4 sm:p-8 sm:ml-64">
+    <div class="p-4 sm:p-8 lg:ml-64">
         <main class="mt-20 max-w-screen mx-auto">
                 <a href="{{ route('cpmk.index') }}"
                     class="mb-12 px-6 py-2 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">

@@ -17,7 +17,7 @@
     @include('layouts.navbar', ['userRole' => $userRole])
     @include('layouts.sidebar', ['userRole' => $userRole])
 
-    <div class="py-8 px-16 sm:ml-64">
+    <div class="py-8 px-16 lg:ml-64">
         <main class="mt-16">
             <nav class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -42,9 +42,9 @@
                         Mengelola data mahasiswa setiap angkatan secara efisien. Melalui halaman ini, admin dapat melihat daftar mahasiswa berdasarkan tahun masuk, menambah data baru dengan mudah melalui unggahan file Excel, serta melakukan pembaruan atau penghapusan data per mahasiswa sesuai kebutuhan.
                 </p>
 
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Master Mahasiswa</h2>
-                    <div class="space-x-2">
+                    <div class="flex flex-wrap gap-2">
                         <a href="{{ route('master-mahasiswa.create') }}"
                             class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg hover:opacity-90 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"

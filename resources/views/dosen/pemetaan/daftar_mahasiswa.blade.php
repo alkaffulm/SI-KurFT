@@ -14,7 +14,7 @@
     @include('layouts.navbar', ['userRole' => $userRole])
     @include('layouts.sidebar', ['userRole' => $userRole])
 
-    <div class="py-8 px-16 sm:ml-64">
+    <div class="py-8 px-16 lg:ml-64">
         <main class="mt-16">
             <nav class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -39,7 +39,7 @@
             <div class="bg-white p-8 rounded-lg shadow-md mb-8">
                 <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Kelas untuk Setiap Kurikulum</h1>
 
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                     <h2 class="text-xl font-bold text-biru-custom">Daftar Kelas</h2>
                     <!-- Di sini bisa ditambahkan tombol 'Tambah' jika suatu saat diperlukan -->
                 </div>

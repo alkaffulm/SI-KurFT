@@ -11,7 +11,7 @@
     @include('layouts.navbar', ['userRole' => $userRole])
     @include('layouts.sidebar', ['userRole' => $userRole])
 
-    <div class="p-4 sm:p-8 sm:ml-64">
+    <div class="p-4 sm:p-8 lg:ml-64">
         <main class="mt-20 mb-5 max-w-5xl mx-auto">
             <form action="{{ route('visi-keilmuan.update', $visi->id_visi_keilmuan) }}" method="POST">
                 @csrf

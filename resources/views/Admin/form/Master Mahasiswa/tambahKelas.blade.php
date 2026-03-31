@@ -13,7 +13,7 @@
     @include('layouts.navbar', ['userRole' => $userRole])
     @include('layouts.sidebar', ['userRole' => $userRole])
 
-    <main class="p-6 sm:ml-64">
+    <main class="p-6 lg:ml-64">
         <form action="{{ route('master-mahasiswa.import') }}" method="POST" enctype="multipart/form-data" onsubmit="return disableButton(this)">
             @csrf
 

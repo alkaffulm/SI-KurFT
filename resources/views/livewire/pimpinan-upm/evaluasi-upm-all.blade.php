@@ -8,7 +8,7 @@
     @endif
 
     {{-- Header & Tombol Tambah --}}
-    <div class="flex justify-between items-center mb-4">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
         <h2 class="text-xl font-bold text-biru-custom">Tabel Evaluasi Program Studi</h2>
         <button wire:click="create" class="bg-biru-custom hover:opacity-90 text-white font-medium py-2 px-4 rounded-lg">
             + Tambah Catatan

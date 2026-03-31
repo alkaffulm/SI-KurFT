@@ -38,7 +38,7 @@
     @include('layouts.navbar')
     @include('layouts.sidebar')
 
-    <div class="p-4 sm:p-8 sm:ml-64">
+    <div class="p-4 sm:p-8 lg:ml-64">
 
         @if ($kelas->mahasiswa->isEmpty())
 
@@ -65,7 +65,7 @@
 
                     <div class="mb-5 mt-12">
                         <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Daftar Mahasiswa</h1>
-                        <div class="flex justify-between items-center mb-4">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                             <h2 class="text-xl font-bold text-biru-custom">List Daftar Mahasiswa</h2>
                         </div>
                     </div>

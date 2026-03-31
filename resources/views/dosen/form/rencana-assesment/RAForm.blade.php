@@ -15,7 +15,7 @@
     @include('layouts.navbar')
     @include('layouts.sidebar')
 
-    <div class="p-4 sm:p-8 sm:ml-64">
+    <div class="p-4 sm:p-8 lg:ml-64">
         <main class="mt-20 max-w-6xl mx-auto">
 
             <livewire:rencana-asesmen-form />

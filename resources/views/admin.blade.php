@@ -16,7 +16,7 @@
     @include('layouts.navbar')
     @include('layouts.sidebar')
 
-    <div class="py-8 px-16 sm:ml-64">
+    <div class="py-8 px-16 lg:ml-64">
         <main class="mt-16">
             {{-- Bagian 1: Tabel CPMK --}}
             <nav class="flex mb-4" aria-label="Breadcrumb">
@@ -44,7 +44,7 @@
                     
                 {{-- @livewire('kurikulum-tahun-selector') --}}
                 {{-- kurikulum dan tahun akademik --}}
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                     <div class="flex flex-col gap-4 mb-4"> 
                         <h2 class="text-2xl font-bold text-biru-custom">Tabel Tahun Akademik dan Kurikulum</h2>
                         <p class="text-black font-medium">
@@ -53,7 +53,7 @@
                         </p>
                     </div>
 
-                    <div class="space-x-2">
+                    <div class="flex flex-wrap gap-2">
                         {{-- <a href="{{ route('cpmk.editAll') }}"
                             class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -80,7 +80,7 @@
                 <br><br><br><br>
                 <div class="flex justify-between items-center mb-4 mt-12">
                     <h2 class="text-2xl font-bold text-biru-custom">Tabel Kelas per Tahun Akademik dan Kurikulum</h2>
-                    <div class="space-x-2">
+                    <div class="flex flex-wrap gap-2">
                         <a href="{{ route('kelas.add') }}"
                             class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"

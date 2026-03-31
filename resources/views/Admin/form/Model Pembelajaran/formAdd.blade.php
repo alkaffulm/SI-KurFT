@@ -25,7 +25,7 @@
     @include('layouts.navbar')
     @include('layouts.sidebar')
 
-    <div class="p-4 sm:p-8 sm:ml-64">
+    <div class="p-4 sm:p-8 lg:ml-64">
         <main class="mt-20 mb-5 max-w-5xl mx-auto">
 
             <form action="{{ route('model-pembelajaran.store') }}" method="POST" onsubmit="return disableButton(this)">

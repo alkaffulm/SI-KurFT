@@ -15,7 +15,7 @@
     @include('layouts.navbar', ['userRole' => $userRole])
     @include('layouts.sidebar', ['userRole' => $userRole])
 
-    <div class="py-8 px-16 sm:ml-64">
+    <div class="py-8 px-16 lg:ml-64">
         <main class="mt-16">
             <nav class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -37,12 +37,16 @@
             <div class="bg-white p-8 rounded-lg shadow-md">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">PROGRAMME EDUCATIONAL OBJECTIVE (PEO)</h1>
                 <p class="text-gray-600 mb-6 text-justify">
-                    Gambaran kualifikasi profesional yang diharapkan dicapai oleh lulusan program studi dalam beberapa tahun setelah lulus. PEO dirumuskan selaras dengan visi, misi, dan nilai-nilai universitas, fakultas, serta program studi. Perumusannya mempertimbangkan masukan dari pemangku kepentingan, seperti pengguna lulusan, alumni, serta asosiasi profesi, sehingga mencerminkan kebutuhan dunia kerja dan perkembangan teknologi.
+                    Gambaran kualifikasi profesional yang diharapkan dicapai oleh lulusan program studi dalam beberapa
+                    tahun setelah lulus. PEO dirumuskan selaras dengan visi, misi, dan nilai-nilai universitas,
+                    fakultas, serta program studi. Perumusannya mempertimbangkan masukan dari pemangku kepentingan,
+                    seperti pengguna lulusan, alumni, serta asosiasi profesi, sehingga mencerminkan kebutuhan dunia
+                    kerja dan perkembangan teknologi.
                 </p>
 
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel PEO</h2>
-                    <div class="space-x-2">
+                    <div class="flex flex-wrap gap-2">
                         <a href="{{ route('peo.editAll') }}"
                             class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg hover:opacity-90 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -82,7 +86,7 @@
                                     </th>
                                     <td class="px-6 py-4 text-justify">
                                         <p>{{ $p->desc_peo_id }}</p>
-                                        <p class="italic text-sm text-[#7397b6]">{{ $p->desc_peo_en}}</p>
+                                        <p class="italic text-sm text-[#7397b6]">{{ $p->desc_peo_en }}</p>
                                     </td>
                                 </tr>
                             @empty
@@ -97,12 +101,12 @@
                 </div>
                 {{-- menampilkan pagination --}}
                 <div>
-                   {{$peo->links()}} 
+                    {{ $peo->links() }}
                 </div>
             </div>
         </main>
     </div>
-    
+
     {{-- Script untuk menangkap session flash data --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -116,7 +120,7 @@
                     confirmButtonText: "Oke"
                 });
             @endif
-    
+
             // Cek Session Error (Opsional, buat jaga-jaga)
             @if (session('error'))
                 Swal.fire({

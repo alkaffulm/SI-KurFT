@@ -15,7 +15,7 @@
     @include('layouts.navbar')
     @include('layouts.sidebar')
 
-    <div class="py-8 px-16 sm:ml-64">
+    <div class="py-8 px-16 lg:ml-64">
         <main class="mt-16">
             {{-- Bagian Bahan Kajian --}}
             <nav class="flex mb-4" aria-label="Breadcrumb">
@@ -42,9 +42,9 @@
                     dan menjadi dasar penyusunan mata kuliah.
                 </p>
 
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Bahan Kajian</h2>
-                    <div class="space-x-2">
+                    <div class="flex flex-wrap gap-2">
                         <a href="{{ route('bahan-kajian.editAll') }}"
                             class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -108,7 +108,7 @@
 
                 {{-- Bagian Tabel Korelasi BK dan CPL --}}
                 {{-- <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Pemetaan Bahan Kajian terhadap CPL</h1>
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi BK - CPL</h2>
                     <a href="{{ route('bk-cpl-mapping.edit') }}"
                         class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
@@ -164,7 +164,7 @@
                 {{-- Bagian Tabel Korelasi BK dan MK --}}
                 <h1 class="text-3xl font-bold text-teks-biru-custom mt-8 mb-4">Tabel Pemetaan Bahan Kajian terhadap Mata
                     Kuliah</h1>
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi BK - MK</h2>
                     <a href="{{ route('bk-mk-mapping.edit') }}"
                         class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">

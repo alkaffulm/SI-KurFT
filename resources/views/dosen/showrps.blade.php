@@ -29,7 +29,7 @@
         $canEdit = ($isDosen && $isPengembangRps) || $isKaprodi || $isKoordinatorMk;    
     @endphp
     
-    <div class="py-8 px-16 sm:ml-64 mt-16 font-serif">
+    <div class="py-8 px-16 lg:ml-64 mt-16 font-serif">
 
         <div class="flex justify-between items-center font-sans">
 

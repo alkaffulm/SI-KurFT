@@ -33,7 +33,7 @@
     @include('layouts.navbar')
     @include('layouts.sidebar')
 
-    <div class="p-4 sm:p-8 sm:ml-64">
+    <div class="p-4 sm:p-8 lg:ml-64">
         @if ($kelas->mahasiswa->isEmpty())
             <div class="mt-20 max-w-8xl mx-auto">
                 <div class="bg-white p-4 rounded-xl shadow-lg">
@@ -80,7 +80,7 @@
 
                     <div class="mb-5 mt-12">
                         <h1 class="text-3xl font-bold text-teks-biru-custom mb-4">Penilaian Mahasiswa per Kelas Mata Kuliah {{ optional($kelas->mataKuliahModel)->nama_matkul_id }}</h1>
-                        <div class="flex justify-between items-center mb-4">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                             <h2 class="text-xl font-bold text-biru-custom">
                                 List Daftar Mahasiswa untuk Penilaian Kelas untuk Mata Kuliah 
                                 <span class="text-black">

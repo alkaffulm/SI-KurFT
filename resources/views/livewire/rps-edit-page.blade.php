@@ -1,4 +1,4 @@
-<div class="py-8 px-16 sm:ml-64 mt-16 ">
+<div class="py-8 px-16 lg:ml-64 mt-16 ">
     <div class="flex justify-between items-center  mb-4">
         <h2 class="text-2xl font-bold">Edit RPS </h2>
     </div>

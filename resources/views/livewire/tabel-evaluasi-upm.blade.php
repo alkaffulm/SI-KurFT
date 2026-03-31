@@ -2,7 +2,7 @@
 {{-- Artinya: Component ini akan refresh otomatis setiap 5 detik --}}
 <div wire:poll.5s>
     
-    <div class="flex justify-between items-center mb-4">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
         <h2 class="text-xl font-bold text-biru-custom">Tabel Evaluasi Program Studi</h2>
     </div>
 

@@ -15,7 +15,7 @@
     @include('layouts.navbar')
     @include('layouts.sidebar')
 
-    <div class="py-8 px-16 sm:ml-64">
+    <div class="py-8 px-16 lg:ml-64">
         <main class="mt-16">
             {{-- Bagian CPL --}}
             <nav class="flex mb-4" aria-label="Breadcrumb">
@@ -42,14 +42,14 @@
                     mencakup aspek sikap, pengetahuan, dan keterampilan.
                 </p>
 
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel CPL</h2>
                 </div>
 
                 @livewire('pimpinan-upm.cpl-all')
 
                 <h1 class=" mt-10 text-3xl font-bold text-teks-biru-custom mb-4">Tabel Korelasi CPL dengan Profil Lulusan (PL)</h1>
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Korelasi CPL - PL</h2>
                 </div>
 

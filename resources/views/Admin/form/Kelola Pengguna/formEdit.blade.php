@@ -13,7 +13,7 @@
 @include('layouts.navbar', ['userRole' => $userRole])
 @include('layouts.sidebar', ['userRole' => $userRole])
 
-<div class="py-8 px-16 sm:ml-64">
+<div class="py-8 px-16 lg:ml-64">
     <main class="mt-16">
         <div class="bg-white p-8 rounded-lg shadow-md">
             <h1 class="text-3xl font-bold text-gray-900 mb-6">Edit Pengguna</h1>

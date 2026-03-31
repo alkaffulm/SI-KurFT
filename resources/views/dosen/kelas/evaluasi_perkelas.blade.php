@@ -14,7 +14,7 @@
 @include('layouts.navbar', ['userRole' => $userRole])
 @include('layouts.sidebar', ['userRole' => $userRole])
 
-<div class="py-8 px-4 sm:px-6 lg:px-10 sm:ml-64">
+<div class="py-8 px-4 sm:px-6 lg:px-10 lg:ml-64">
     <main class="mt-16 max-w-7xl mx-auto">
 
         {{-- Breadcrumb --}}

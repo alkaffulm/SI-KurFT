@@ -15,7 +15,7 @@
     @include('layouts.navbar', ['userRole' => $userRole])
     @include('layouts.sidebar', ['userRole' => $userRole])
 
-    <div class="py-8 px-16 sm:ml-64">
+    <div class="py-8 px-16 lg:ml-64">
         <main class="mt-16">
             <nav class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -40,9 +40,9 @@
                     Menu ini menyediakan fasilitas pengelolaan pengguna Program Studi untuk mendukung pelaksanaan kegiatan akademik dan pengelolaan kurikulum secara terstruktur.
                 </p>
 
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Kelola Pengguna Program Studi</h2>
-                    <div class="space-x-2">
+                    <div class="flex flex-wrap gap-2">
                         {{-- href="{{ route('kriteria-penilaian.edit') }}" --}}
                         {{-- <a 
                             class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg hover:opacity-90 transition-colors">

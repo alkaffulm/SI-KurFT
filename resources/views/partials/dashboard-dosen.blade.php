@@ -22,7 +22,7 @@
         {{-- End Breadcrumb --}}
 
         {{-- Welcome Card --}}
-        <div class="bg-white p-8 rounded-2xl shadow-lg flex justify-between items-center">
+        <div class="bg-white p-8 rounded-2xl shadow-lg flex justify-between items-center gap-4">
             <div>
                 <h1 class="text-4xl font-bold text-biru-custom">Selamat Datang,</h1>
                 <h2 class="text-3xl font-bold text-gray-800 mt-2">{{ session('userName', '-') }}
@@ -30,7 +30,7 @@
             </div>
             <div>
                 {{-- You can place your illustration SVG or image file here --}}
-                <img src="{{ asset('images/Workspace with laptop and table lamp.png') }}" alt="Dashboard Illustration" class="h-40">
+                <img src="{{ asset('images/Workspace with laptop and table lamp.png') }}" alt="Dashboard Illustration" class="h-40 hidden sm:block flex-shrink-0 object-contain">
             </div>
         </div>
             {{-- End Welcome Card --}}

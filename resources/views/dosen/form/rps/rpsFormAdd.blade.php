@@ -19,8 +19,8 @@
     @include('layouts.navbar')
     @include('layouts.sidebar')
     
-    <div class="py-8 px-16 sm:ml-64 mt-16 bg-gray-100">
-        <div class="flex justify-between items-center mb-4">
+    <div class="py-8 px-16 lg:ml-64 mt-16 bg-gray-100">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
             <h2 class="text-2xl font-bold">Buat RPS</h2>
             <a href="/dosen/matkul" class="px-6 py-3 text-base font-medium text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
         </div>  

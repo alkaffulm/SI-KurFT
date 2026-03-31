@@ -159,7 +159,7 @@
             <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
 
                 {{-- Header Modal --}}
-                <div class="p-6 border-b sticky top-0 bg-white z-10 flex justify-between items-center">
+                <div class="p-6 border-b sticky top-0 bg-white z-10 flex justify-between items-center gap-4">
                     <div>
                         <h3 class="text-xl font-bold text-gray-800">Edit Nilai Mahasiswa</h3>
                         <p class="text-sm text-gray-500">{{ $editingNama }} ({{ $editingNim }})</p>
@@ -230,7 +230,7 @@
         @if($isHistoryModalOpen)
             <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
                 <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col">
-                    <div class="p-6 border-b flex justify-between items-center">
+                    <div class="p-6 border-b flex justify-between items-center gap-4">
                         <div>
                             <h3 class="text-xl font-bold text-gray-800">Riwayat Perubahan Nilai</h3>
                             <p class="text-sm text-gray-500">{{ $editingNama }} ({{ $editingNim }})</p>

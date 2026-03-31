@@ -18,7 +18,7 @@
 @include('layouts.navbar')
 @include('layouts.sidebar')
 
-<div class="sm:ml-64 p-4 sm:p-6">
+<div class="lg:ml-64 p-4 sm:p-6">
     <div class="mt-20 w-full space-y-6">
 
     <div class="bg-white rounded-xl shadow-lg w-full">

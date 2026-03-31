@@ -2,7 +2,7 @@
     <div class="bg-white p-8 rounded-2xl shadow-lg mb-8">
         
         {{-- Header & Tombol Action --}}
-        <div class="flex justify-between items-center mb-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
             <h1 class="text-3xl font-bold text-teks-biru-custom">
                 Visi Keilmuan Program Studi
                 {{-- Opsional: Tampilkan tahun kurikulum agar user yakin --}}

@@ -14,7 +14,7 @@
     @include('layouts.sidebar', ['userRole' => $userRole])
 
     <!-- STRUKTUR HALAMAN UTAMA (MENGIKUTI DESAIN BARU) -->
-    <div class="py-8 px-16 sm:ml-64">
+    <div class="py-8 px-16 lg:ml-64">
         <main class="mt-16">
             <!-- Breadcrumb untuk Navigasi -->
             <nav class="flex mb-4" aria-label="Breadcrumb">
@@ -41,7 +41,7 @@
                 
                 <!-- Tabel Matkul Homebase-->
                 @if (session('userRoleId' ) != 16)
-                    <div class="flex justify-between items-center mb-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                         <h2 class="text-xl font-bold text-biru-custom">Daftar Mata Kuliah</h2>
                     </div>
 

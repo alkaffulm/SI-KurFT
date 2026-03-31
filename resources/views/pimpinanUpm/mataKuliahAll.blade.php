@@ -15,7 +15,7 @@
     @include('layouts.navbar')
     @include('layouts.sidebar')
 
-    <div class="py-8 px-16 sm:ml-64">
+    <div class="py-8 px-16 lg:ml-64">
         <main class="mt-16">
             {{-- Bagian 1: Tabel Mata Kuliah --}}
             <nav class="flex mb-4" aria-label="Breadcrumb">
@@ -43,7 +43,7 @@
                     yang dirancang untuk mencapai Capaian Pembelajaran Lulusan (CPL).
                 </p>
 
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                     <h2 class="text-xl font-bold text-biru-custom">Tabel Pembentukan Mata Kuliah</h2>
                 </div>
 
