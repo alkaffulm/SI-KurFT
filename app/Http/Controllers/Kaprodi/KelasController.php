@@ -9,7 +9,11 @@ use App\Models\CPLModel;
 use App\Models\MK_CPMK_CPL_MapModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\KelasMahasiswaImport;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 class KelasController extends Controller
 {
     public function __construct()
@@ -85,6 +89,30 @@ class KelasController extends Controller
             'dosens'         => $dosens,
         ]);
     }
+
+    // public function updateKelas(Request $request, $id)
+    // {
+    //     $kelas = \App\Models\Kelas::findOrFail($id);
+
+    //     $request->validate([
+    //         'id_user' => 'required|exists:user,id_user',
+    //         'jumlah_mhs' => 'required|integer|min:1',
+    //         'excel_daftar_mahasiswa' => 'nullable|file|mimes:xlsx,xls',
+    //     ]);
+
+    //     $kelas->id_user = $request->id_user;
+    //     $kelas->jumlah_mhs = $request->jumlah_mhs;
+
+    //     if ($request->hasFile('excel_daftar_mahasiswa')) {
+    //         $path = $request->file('excel_daftar_mahasiswa')->store('uploads/excel', 'public');
+    //         $kelas->excel_daftar_mahasiswa = $path;
+    //     }
+
+    //     $kelas->save();
+
+    //     return redirect()->route('kelas.index')->with('success', 'Kelas berhasil diperbarui.');
+    // }
+
     public function updateKelas(Request $request, $id)
     {
         $kelas = \App\Models\Kelas::findOrFail($id);
@@ -95,17 +123,37 @@ class KelasController extends Controller
             'excel_daftar_mahasiswa' => 'nullable|file|mimes:xlsx,xls',
         ]);
 
-        $kelas->id_user = $request->id_user;
-        $kelas->jumlah_mhs = $request->jumlah_mhs;
+        DB::beginTransaction();
 
-        if ($request->hasFile('excel_daftar_mahasiswa')) {
-            $path = $request->file('excel_daftar_mahasiswa')->store('uploads/excel', 'public');
-            $kelas->excel_daftar_mahasiswa = $path;
+        try {
+            $kelas->id_user = $request->id_user;
+            $kelas->jumlah_mhs = $request->jumlah_mhs;
+
+            if ($request->hasFile('excel_daftar_mahasiswa')) {
+
+                $kelas->kelasMahasiswaModel()->delete();
+
+                if ($kelas->excel_daftar_mahasiswa) {
+                    Storage::disk('public')->delete($kelas->excel_daftar_mahasiswa);
+                }
+
+                $file = $request->file('excel_daftar_mahasiswa');
+                $path = $file->store('uploads/excel', 'public');
+                $kelas->excel_daftar_mahasiswa = $path;
+
+                Excel::import(new KelasMahasiswaImport($kelas->id_kelas), $file);
+            }
+
+            $kelas->save();
+
+            DB::commit();
+
+            return redirect()->route('kelas.index')->with('success', 'Kelas berhasil diperbarui.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
         }
-
-        $kelas->save();
-
-        return redirect()->route('kelas.index')->with('success', 'Kelas berhasil diperbarui.');
     }
 
 

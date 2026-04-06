@@ -23,7 +23,7 @@ class KelasMahasiswaImport implements ToModel, WithHeadingRow
             return null;
         }
 
-        return KelasMahasiswaModel::firstOrCreate([
+        return new KelasMahasiswaModel([
             'id_kelas' => $this->id_kelas,
             'nim'      => $nim,
         ]);

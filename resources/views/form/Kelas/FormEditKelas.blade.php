@@ -130,7 +130,7 @@
                                 {{-- Upload Daftar Mahasiswa --}}
                                 <div class="mt-10">
                                     <label class="block mb-2 text-sm font-medium text-gray-900">Upload Daftar Mahasiswa (Excel)</label>
-                                    <input type="file" name="excel_daftar_mahasiswa"
+                                    <input type="file" name="excel_daftar_mahasiswa" accept=".xls, .xlsx"
                                         class="m-1 block py-1 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50">
                                     @if($kelas->excel_daftar_mahasiswa)
                                         <p class="mt-2 text-sm text-gray-500">
