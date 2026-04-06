@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
 
             // ModelPembelajaranSeeder::class,
             CpmkSeeder::class,                    // 14 dimatikan saat deploy
-            // RpsSeeder::class,                     // 15 dimatilkan saat deploy
+            RpsSeeder::class,                     // 15 dimatilkan saat deploy
 
             //  D. Level 3+ Dependency
             SubCpmkSeeder::class,                 // 16 dimatikan saat deploy
@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
             // PlCplMapSeeder::class,                // 21
             // MahasiswaMataKuliahMapSeeder::class,  // 22
             // MahasiswaCplMapSeeder::class,         // 23
-            // BkMkMapSeeder::class,                 // 24 dimatikan saat deploy
+            BkMkMapSeeder::class,                 // 24 dimatikan saat deploy
             // BkCplMapSeeder::class,                // 25
             // MkCplMapSeeder::class,                // 26
             // TpCpmkMapSeeder::class,               // 27
@@ -62,20 +62,20 @@ class DatabaseSeeder extends Seeder
             // KurikulumTahunAkademikSeeder::class,  // 34
             // KelasSeeder::class,                    // 35
 
-            // RencanaAsesmenSeeder::class, // dimatikan saat deploy
-            // RencanaAsesmenCPMKBobotSeeder::class, // dimatikan saat deploy
+            RencanaAsesmenSeeder::class, // dimatikan saat deploy
+            RencanaAsesmenCPMKBobotSeeder::class, // dimatikan saat deploy
             WeekSeeder::class, // dimatikan saat deploy
-            // RpsTopicSeeder::class, // dimatikan saat deploy
+            RpsTopicSeeder::class, // dimatikan saat deploy
 
-            // MKCPMKBobotSeeder::class,             //  dimatikan saat deploy
+            MKCPMKBobotSeeder::class,             //  dimatikan saat deploy
             MediaPembelajaranSeeder::class,
-            // AktivitasPembelajaranSeeder::class, // dimatikan saat deploy
-            // AktivitasMetodePembelajaranSeeder::class, // dimatikan saat deploy
-            // AktivitasBentukPenugasanSeeder::class, // dimatikan saat deploy
-            // RpsMediaPembelajaranSeeder::class, // dimatikan saat deploy
-            // RpsTopicWeekSeeder::class, // dimatikan saat deploy
-            // RpsTopicKriteriaPenilaianSeeder::class, // dimatikan saat deploy
-            // RpsTopicTeknikPenilaianSeeder::class, // dimatikan saat deploy
+            AktivitasPembelajaranSeeder::class, // dimatikan saat deploy
+            AktivitasMetodePembelajaranSeeder::class, // dimatikan saat deploy
+            AktivitasBentukPenugasanSeeder::class, // dimatikan saat deploy
+            RpsMediaPembelajaranSeeder::class, // dimatikan saat deploy
+            RpsTopicWeekSeeder::class, // dimatikan saat deploy
+            RpsTopicKriteriaPenilaianSeeder::class, // dimatikan saat deploy
+            RpsTopicTeknikPenilaianSeeder::class, // dimatikan saat deploy
 
             VisiKeilmuanSeeder::class,
             // KelasMahasiswaSeeder::class,
