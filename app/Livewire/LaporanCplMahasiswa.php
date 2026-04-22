@@ -6,10 +6,15 @@ use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\TahunAkademik;
+use Livewire\WithPagination;
 
 class LaporanCplMahasiswa extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'tailwind';
+    public $perPage = 1;
     public $mode = 'mahasiswa';
+    public $tahunAkademikListFiltered = [];
 
     public $angkatan;
     public $nim;
@@ -91,6 +96,7 @@ class LaporanCplMahasiswa extends Component
         }
 
         $this->loadCplAngkatan();
+        $this->resetPage('pageAngkatan');
     }
 
     public function updatedNim($nim)
@@ -112,13 +118,116 @@ class LaporanCplMahasiswa extends Component
                 ->toArray()
         )->orderBy('id_tahun_akademik')->get();
         $tahunAkademikIdsAkumulasi = [];
-        foreach ($tahunAkademikList as $ta) {
+        // foreach ($tahunAkademikList as $ta) {
+
+        //     $tahunAkademikIdsAkumulasi[] = $ta->id_tahun_akademik;
+        //     $kelas = DB::table('kelas_mahasiswa as km')
+        //         ->join('kelas as kls', 'km.id_kelas', '=', 'kls.id_kelas')
+        //         ->join('mata_kuliah as mk', 'kls.id_mk', '=', 'mk.id_mk')
+        //         ->where('km.nim', $nim)
+        //         ->where('kls.id_tahun_akademik', $ta->id_tahun_akademik)
+        //         ->select(
+        //             'kls.id_kelas',
+        //             'mk.id_mk',
+        //             'mk.kode_mk',
+        //             'mk.nama_matkul_id as nama_mk',
+        //             DB::raw("CONCAT('Kelas ', kls.paralel_ke) as nama_kelas")
+        //         )
+        //         ->get()
+        //         ->map(function ($k) use ($nim) {
+        //             $k->rata_rata_bobot = $this->hitungRataRataBobotMK(
+        //                 $k->id_mk,
+        //                 $k->id_kelas,
+        //                 $nim
+        //             );
+        //             return $k;
+        //         });
+
+        //     $cpl = $this->hitungKetercapaianCPL(
+        //         $nim,
+        //         $tahunAkademikIdsAkumulasi
+        //     );
+        //     $this->laporanPerTahun[] = [
+        //         'id_tahun_akademik' => $ta->id_tahun_akademik,
+        //         'tahun_akademik' => $ta->tahun_akademik,
+        //         'kelas' => $kelas,
+        //         'cpl' => $cpl,
+        //         'chart' => [
+        //             'labels' => array_column($cpl, 'kode_cpl'),
+        //             'data' => array_map(
+        //                 fn ($r) => $r['nilai_akhir_cpl'] ?? 0,
+        //                 $cpl
+        //             ),
+        //         ],
+        //     ];
+            $this->tahunAkademikListFiltered = $tahunAkademikList;
+            $this->resetPage();
+            $this->dispatch('renderCharts');
+        // }
+    }
+    public function updatedTahunAkademikId()
+    {
+        if ($this->mode === 'angkatan') {
+            $this->loadCplAngkatan();
+        }
+    }
+    
+    public $perPageAngkatan = 1;
+
+    public function getLaporanAngkatanPaginatedProperty()
+    {
+        $data = collect($this->laporanAngkatanPerTahun);
+
+        $page = $this->getPage('pageAngkatan');
+        $perPage = $this->perPageAngkatan;
+
+        $items = $data->forPage($page, $perPage);
+
+        return new \Illuminate\Pagination\LengthAwarePaginator(
+            $items,
+            $data->count(),
+            $perPage,
+            $page,
+            [
+                'path' => request()->url(),
+                'pageName' => 'pageAngkatan'
+            ]
+        );
+    }
+
+    public function getLaporanPerTahunPaginatedProperty()
+    {
+        if (!$this->nim) {
+            return new \Illuminate\Pagination\LengthAwarePaginator(
+                [],
+                0,
+                $this->perPage,
+                1,
+                ['path' => request()->url()]
+            );
+        }
+
+        $tahunList = collect($this->tahunAkademikListFiltered);
+
+        $currentPage = $this->getPage();
+        $perPage = $this->perPage;
+
+        $tahunPage = $tahunList->forPage($currentPage, $perPage);
+
+        $tahunAkademikIdsAkumulasi = collect($this->tahunAkademikListFiltered)
+            ->pluck('id_tahun_akademik')
+            ->take($currentPage * $perPage)
+            ->toArray();
+        $result = [];
+
+        foreach ($tahunPage as $ta) {
 
             $tahunAkademikIdsAkumulasi[] = $ta->id_tahun_akademik;
+
             $kelas = DB::table('kelas_mahasiswa as km')
                 ->join('kelas as kls', 'km.id_kelas', '=', 'kls.id_kelas')
                 ->join('mata_kuliah as mk', 'kls.id_mk', '=', 'mk.id_mk')
-                ->where('km.nim', $nim)
+                ->where('km.nim', $this->nim)
                 ->where('kls.id_tahun_akademik', $ta->id_tahun_akademik)
                 ->select(
                     'kls.id_kelas',
@@ -128,43 +237,55 @@ class LaporanCplMahasiswa extends Component
                     DB::raw("CONCAT('Kelas ', kls.paralel_ke) as nama_kelas")
                 )
                 ->get()
-                ->map(function ($k) use ($nim) {
+                ->map(function ($k) {
                     $k->rata_rata_bobot = $this->hitungRataRataBobotMK(
                         $k->id_mk,
                         $k->id_kelas,
-                        $nim
+                        $this->nim
                     );
                     return $k;
                 });
 
             $cpl = $this->hitungKetercapaianCPL(
-                $nim,
+                $this->nim,
                 $tahunAkademikIdsAkumulasi
             );
-            $this->laporanPerTahun[] = [
-                'id_tahun_akademik' => $ta->id_tahun_akademik,
+
+            $result[] = [
                 'tahun_akademik' => $ta->tahun_akademik,
                 'kelas' => $kelas,
                 'cpl' => $cpl,
                 'chart' => [
                     'labels' => array_column($cpl, 'kode_cpl'),
-                    'data' => array_map(
-                        fn ($r) => $r['nilai_akhir_cpl'] ?? 0,
-                        $cpl
-                    ),
+                    'data' => array_map(fn ($r) => $r['nilai_akhir_cpl'] ?? 0, $cpl),
                 ],
             ];
-            $this->dispatch('renderCharts');
+            
         }
+
+        $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
+            $result,
+            $tahunList->count(),
+            $perPage,
+            $currentPage,
+            ['path' => request()->url()]
+        );
+
+        $this->dispatch('renderCharts'); 
+
+        return $paginator;
+
     }
-    public function updatedTahunAkademikId()
+
+    public function updatedPageAngkatan()
     {
-        if ($this->mode === 'angkatan') {
-            $this->loadCplAngkatan();
-        }
+        $this->dispatch('renderCharts');
     }
 
-
+    public function updatedPage()
+    {
+        $this->dispatch('renderCharts');
+    }
     private function loadCplAngkatan()
     {
         $this->laporanAngkatanPerTahun = [];
@@ -245,7 +366,7 @@ class LaporanCplMahasiswa extends Component
                 ]
             ];
         }
-
+        $this->resetPage();
         $this->dispatch('renderCharts');
     }
 

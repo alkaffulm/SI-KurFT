@@ -84,7 +84,7 @@
         @endif
 
         {{-- ===== EDGE CASE: DATA LAPORAN KOSONG ===== --}}
-        @if(!empty($nim) && empty($laporanPerTahun))
+        @if(!empty($nim) && $this->laporanPerTahunPaginated->count() === 0)
             <div class="mt-8 bg-red-50 border-l-4 border-red-400 p-4 rounded">
                 <p class="text-sm text-red-700">
                     Tidak ditemukan data CPL untuk mahasiswa dengan NIM
@@ -110,7 +110,11 @@
         @endif
 
         {{-- ===== LOOP PER TAHUN AKADEMIK ===== --}}
-        @foreach($laporanPerTahun as $index => $laporan)
+        {{-- @foreach($laporanPerTahun as $index => $laporan) --}}
+        <div class="mt-6">
+            {{ $this->laporanPerTahunPaginated->links() }}
+        </div>
+        @foreach($this->laporanPerTahunPaginated as $laporan)
 
             <div class="mt-10 space-y-6">
 
@@ -205,7 +209,8 @@
                             <h3 class="text-lg font-semibold mb-3">
                                 Grafik Bar CPL
                             </h3>
-                            <canvas id="barChart-{{ $index }}"
+                            {{--  id="barChart-{{ $index }}" --}}
+                            <canvas id="barChart-{{ $laporan['tahun_akademik'] }}"
                                 data-labels='@json($laporan["chart"]["labels"])'
                                 data-data='@json($laporan["chart"]["data"])'>
                             </canvas>
@@ -215,7 +220,8 @@
                             <h3 class="text-lg font-semibold mb-3">
                                 Grafik Radar CPL
                             </h3>
-                            <canvas id="radarChart-{{ $index }}"></canvas>
+                            {{-- id="radarChart-{{ $index }}" --}}
+                            <canvas id="radarChart-{{ $laporan['tahun_akademik'] }}" ></canvas>
                         </div>
 
                     </div>
@@ -224,6 +230,7 @@
             </div>
 
         @endforeach
+
 
     @endif
 
@@ -357,7 +364,12 @@
         @endif
 
         {{-- ===== LOOP PER TAHUN ===== --}}
-        @foreach($laporanAngkatanPerTahun as $i => $laporan)
+        {{-- @foreach($laporanAngkatanPerTahun as $i => $laporan) --}}
+        <div class="mt-6">
+            {{ $this->laporanAngkatanPaginated->links() }}
+        </div>
+
+        @foreach($this->laporanAngkatanPaginated as $i => $laporan)
 
             <div class="mt-10 space-y-6">
 
@@ -412,7 +424,7 @@
                             <h3 class="text-lg font-semibold mb-3">
                                 Grafik Bar CPL Angkatan
                             </h3>
-                            <canvas id="barChartAngkatan-{{ $i }}"
+                            <canvas id="barChartAngkatan-{{ $laporan['tahun_akademik'] }}"
                                 data-labels='@json($laporan["chart"]["labels"])'
                                 data-data='@json($laporan["chart"]["data"])'>
                             </canvas>
@@ -422,7 +434,7 @@
                             <h3 class="text-lg font-semibold mb-3">
                                 Grafik Radar CPL Angkatan
                             </h3>
-                            <canvas id="radarChartAngkatan-{{ $i }}"></canvas>
+                            <canvas id="radarChartAngkatan-{{ $laporan['tahun_akademik'] }}"></canvas>
                         </div>
 
                     </div>
