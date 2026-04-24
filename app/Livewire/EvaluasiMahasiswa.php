@@ -51,12 +51,19 @@ class EvaluasiMahasiswa extends Component
 
     public function updatedSelectedKelasId($value)
     {
-        // Tambahkan 'targetCpmks' untuk di-reset
+        // reset
         $this->reset(['kelas', 'targetCpls', 'targetCpmks', 'allMahasiswaEvaluasi', 'isEditModalOpen', 'isHistoryModalOpen']);
 
         if ($value) {
-            $this->kelas = Kelas::with(['mataKuliahModel.mkcpmkcpl.cpl', 'mataKuliahModel.mkcpmkcpl.cpmk', 'mahasiswa'])
-                ->find($value);
+            $this->kelas = Kelas::with([
+                'mataKuliahModel.mkcpmkcpl.cpl',
+                'mataKuliahModel.mkcpmkcpl.cpmk',
+                'mahasiswa' => function($query) use ($value) {
+                    $query->with(['penilaianMahasiswa' => function($q) use ($value) {
+                        $q->where('id_kelas', $value);
+                    }]);
+                }
+                ])->find($value);
 
             if ($this->kelas) {
                 $this->hitungEvaluasi();
@@ -191,11 +198,8 @@ class EvaluasiMahasiswa extends Component
             $this->isEditModalOpen = false;
             $this->hitungEvaluasi();
         } catch (\Exception $e) {
-            // Jika error (seperti database mati), sistem tidak crash tapi masuk ke sini
-            // Log error aslinya agar kamu (developer) tetap bisa melihatnya di laravel.log
             \Illuminate\Support\Facades\Log::error('Error Livewire simpanNilai: ' . $e->getMessage());
 
-            // Tutup modal dan kirim pesan error yang ramah ke tampilan pengguna
             $this->isEditModalOpen = false;
             session()->flash('error', 'Mohon maaf, terjadi gangguan koneksi database. Gagal menyimpan nilai.');
         }
@@ -224,40 +228,36 @@ class EvaluasiMahasiswa extends Component
         if (!$this->kelas) return;
 
         $idMk = $this->kelas->id_mk;
-        $idKelas = $this->kelas->id_kelas;
 
-        // 1. Ambil list unik CPL (Ini tetap pakai cara lama yang sudah jalan)
+        // Ambil list unik CPL
         $this->targetCpls = $this->kelas->mataKuliahModel->mkcpmkcpl
             ->pluck('cpl')
             ->unique('id_cpl')
             ->sortBy('nama_kode_cpl')
             ->values();
 
-        // 2. PERBAIKAN: Ambil data Bobot sekalian JOIN ke tabel cpmk untuk mendapatkan nama CPMK-nya
+        // Ambil data Bobot sekalian JOIN ke tabel cpmk
         $bobotMapping = DB::table('rencana_asesmen_cpmk_bobot as racb')
             ->join('mk_cpmk_cpl_map as mccm', 'racb.id_mk_cpmk_cpl', '=', 'mccm.id_mk_cpmk_cpl')
             ->join('rencana_asesmen as ra', 'racb.id_rencana_asesmen', '=', 'ra.id_rencana_asesmen')
-            ->join('cpmk', 'mccm.id_cpmk', '=', 'cpmk.id_cpmk') // <-- Join tabel cpmk
+            ->join('cpmk', 'mccm.id_cpmk', '=', 'cpmk.id_cpmk')
             ->where('ra.id_mk', $idMk)
             ->select(
                 'ra.id_rencana_asesmen',
                 'mccm.id_cpmk',
                 'mccm.id_cpl',
                 'racb.bobot',
-                'cpmk.nama_kode_cpmk' // <-- Ambil nama CPMK
+                'cpmk.nama_kode_cpmk'
             )
             ->get();
 
-        // 3. PERBAIKAN: Buat targetCpmks dari data bobotMapping di atas (Pasti Aman & Muncul)
+        //Buat targetCpmks
         $this->targetCpmks = $bobotMapping->unique('id_cpmk')->map(function ($item) {
             return (object) [
                 'id_cpmk' => $item->id_cpmk,
                 'nama_kode_cpmk' => $item->nama_kode_cpmk,
             ];
         })->sortBy('nama_kode_cpmk')->values();
-
-
-        $nilaiMahasiswa = PenilaianMahasiswa::where('id_kelas', $idKelas)->get();
 
         $semuaData = [];
 
@@ -269,15 +269,14 @@ class EvaluasiMahasiswa extends Component
             // --- HITUNG NILAI PER CPMK ---
             foreach ($this->targetCpmks as $cpmk) {
                 $idCpmk = $cpmk->id_cpmk;
-
-                // Cari semua komponen asesmen yang menilai CPMK ini
                 $komponenTerkaitCpmk = $bobotMapping->where('id_cpmk', $idCpmk);
 
                 $totalSkorCpmk = 0;
                 $totalBobotCpmkTertilai = 0;
 
                 foreach ($komponenTerkaitCpmk as $komp) {
-                    $nilai = $nilaiMahasiswa->where('nim', $mhs->nim)
+                    // Ambil nilai langsung dari relasi Collection yang sudah di-load (Bukan nge-query database lagi!)
+                    $nilai = $mhs->penilaianMahasiswa
                         ->where('id_rencana_asesmen', $komp->id_rencana_asesmen)
                         ->where('id_cpmk', $komp->id_cpmk)
                         ->first();
@@ -294,7 +293,6 @@ class EvaluasiMahasiswa extends Component
                     }
                 }
 
-                // Hitung persen ketercapaian CPMK ini
                 if ($totalBobotCpmkTertilai > 0) {
                     $persenCpmk = ($totalSkorCpmk / $totalBobotCpmkTertilai) * 100;
                 } else {
@@ -314,7 +312,8 @@ class EvaluasiMahasiswa extends Component
                 $totalBobotTerilai = 0;
 
                 foreach ($komponenTerkait as $komponen) {
-                    $nilai = $nilaiMahasiswa->where('nim', $mhs->nim)
+                    // Sama seperti di atas, ambil nilai dari relasi Collection
+                    $nilai = $mhs->penilaianMahasiswa
                         ->where('id_rencana_asesmen', $komponen->id_rencana_asesmen)
                         ->where('id_cpmk', $komponen->id_cpmk)
                         ->first();
@@ -341,7 +340,6 @@ class EvaluasiMahasiswa extends Component
                 }
 
                 if ($finalCplScore > 100) $finalCplScore = 100;
-
                 $nilaiPerCpl[$idCpl] = round($finalCplScore, 2);
 
                 if ($finalCplScore < $this->threshold) {
@@ -352,7 +350,7 @@ class EvaluasiMahasiswa extends Component
             $semuaData[] = [
                 'nim' => $mhs->nim,
                 'nama' => $mhs->nama_lengkap ?? $mhs->nama,
-                'nilai_per_cpmk' => $nilaiPerCpmk, // Data array nilai CPMK
+                'nilai_per_cpmk' => $nilaiPerCpmk,
                 'nilai_per_cpl' => $nilaiPerCpl,
                 'status' => $statusLulus,
                 'status_label' => $statusLulus ? 'Lulus' : 'Belum Lulus',
@@ -367,15 +365,15 @@ class EvaluasiMahasiswa extends Component
     public function render()
     {
         $page = Paginator::resolveCurrentPage() ?: 1;
-        $perPage = 20;
+        $perPage = 10;
 
         $data = collect($this->allMahasiswaEvaluasi);
 
         $items = $data->slice(($page - 1) * $perPage, $perPage)->values();
 
-        $paginatedData = new LengthAwarePaginator($items, $data->count(), $perPage, $page, [
+        $paginatedData = new LengthAwarePaginator($items, $data->count(), $perPage, $page,
             ['path' => Paginator::resolveCurrentPath()]
-        ]);
+        );
 
         return view('livewire.evaluasi-mahasiswa', [
             'paginatedData' => $paginatedData,

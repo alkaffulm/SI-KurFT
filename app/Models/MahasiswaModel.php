@@ -21,12 +21,17 @@ class MahasiswaModel extends Model
     public function mhs_mk(){
         return $this->hasMany(MahasiswaMataKuliahMapModel::class, 'id_mhs', 'id_mhs');
     }
-    
+
     public function mhs_cpl(){
         return $this->hasMany(MahasiswaCPLMapModel::class, 'id_mhs', 'id_mhs');
     }
 
     public function programstudi(){
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
+    }
+
+    public function penilaianMahasiswa()
+    {
+        return $this->hasMany(PenilaianMahasiswa::class, 'nim', 'nim');
     }
 }
