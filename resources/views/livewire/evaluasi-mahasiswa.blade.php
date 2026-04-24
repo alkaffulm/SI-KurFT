@@ -73,7 +73,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($allMahasiswaEvaluasi as $mhs)
+                                @forelse($paginatedData as $mhs)
                                     <tr class="bg-white border-b border-gray-200 hover:bg-gray-50 text-black">
                                         <td class="px-6 py-4 border-r border-gray-300 font-medium whitespace-nowrap">{{ $mhs['nim'] }}</td>
                                         <td class="px-6 py-4 border-r border-gray-300 whitespace-nowrap">{{ $mhs['nama'] }}</td>
@@ -141,7 +141,9 @@
                             </tbody>
                         </table>
                     </div>
-
+                    <div class="mt-4 mb-2 px-2">
+                        {{ $paginatedData->links() }}
+                    </div>
                 </div>
             @elseif($selectedKelasId)
                 <div class="text-center py-8 text-gray-500">

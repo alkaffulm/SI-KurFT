@@ -3,6 +3,9 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use App\Models\Kelas;
 use App\Models\MataKuliahModel;
 use App\Models\PenilaianMahasiswa;
@@ -12,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 
 class EvaluasiMahasiswa extends Component
 {
+    use WithPagination;
+
     public $selectedKelasId = null;
     public $kelas = null;
 
@@ -361,6 +366,19 @@ class EvaluasiMahasiswa extends Component
 
     public function render()
     {
-        return view('livewire.evaluasi-mahasiswa');
+        $page = Paginator::resolveCurrentPage() ?: 1;
+        $perPage = 20;
+
+        $data = collect($this->allMahasiswaEvaluasi);
+
+        $items = $data->slice(($page - 1) * $perPage, $perPage)->values();
+
+        $paginatedData = new LengthAwarePaginator($items, $data->count(), $perPage, $page, [
+            ['path' => Paginator::resolveCurrentPath()]
+        ]);
+
+        return view('livewire.evaluasi-mahasiswa', [
+            'paginatedData' => $paginatedData,
+        ]);
     }
 }
