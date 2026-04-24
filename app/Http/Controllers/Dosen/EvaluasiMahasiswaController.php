@@ -181,18 +181,23 @@ class EvaluasiMahasiswaController extends Controller
             return back()->with('error', 'Nilai melebihi maks nilai input.');
         }
 
-        PenilaianMahasiswa::updateOrCreate(
-            [
-                'id_kelas' => $kelas->id_kelas,
-                'nim' => $data['nim'],
-                'id_rencana_asesmen' => $data['id_rencana_asesmen'],
-                'id_cpmk' => $data['id_cpmk'],
-            ],
-            [
-                'nilai' => (float) $data['nilai_baru'],
-            ]
-        );
+        try {
+            PenilaianMahasiswa::updateOrCreate(
+                [
+                    'id_kelas' => $kelas->id_kelas,
+                    'nim' => $data['nim'],
+                    'id_rencana_asesmen' => $data['id_rencana_asesmen'],
+                    'id_cpmk' => $data['id_cpmk'],
+                ],
+                [
+                    'nilai' => (float) $data['nilai_baru'],
+                ]
+            );
 
-        return back()->with('success', 'Nilai berhasil diupdate.');
+            return back()->with('success', 'Nilai berhasil diupdate.');
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Error Controller updateNilai: ' . $e->getMessage());
+            return back()->with('error', 'Terjadi kesalahan saat mengupdate nilai: '.$e->getMessage());
+        }
     }
 }

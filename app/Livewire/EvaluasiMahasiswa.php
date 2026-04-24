@@ -69,8 +69,11 @@ class EvaluasiMahasiswa extends Component
             ->join('cpmk', 'mccm.id_cpmk', '=', 'cpmk.id_cpmk')
             ->where('ra.id_mk', $idMk)
             ->select(
-                'ra.id_rencana_asesmen', 'ra.tipe_komponen', 'ra.nomor_komponen',
-                'cpmk.id_cpmk', 'cpmk.nama_kode_cpmk',
+                'ra.id_rencana_asesmen',
+                'ra.tipe_komponen',
+                'ra.nomor_komponen',
+                'cpmk.id_cpmk',
+                'cpmk.nama_kode_cpmk',
                 'racb.bobot'
             )
             ->get();
@@ -78,20 +81,20 @@ class EvaluasiMahasiswa extends Component
         $this->namesMap = [];
         $grouped = [];
 
-        foreach($bobotData as $row) {
+        foreach ($bobotData as $row) {
             $idRa = $row->id_rencana_asesmen;
 
             $namaKomponen = strtoupper($row->tipe_komponen);
-            if(!in_array($row->tipe_komponen, ['uts', 'uas', 'Kegiatan Partisipatif', 'Hasil Proyek'])) {
+            if (!in_array($row->tipe_komponen, ['uts', 'uas', 'Kegiatan Partisipatif', 'Hasil Proyek'])) {
                 $namaKomponen .= " " . $row->nomor_komponen;
             }
 
             $mapKey = "{$idRa}-{$row->id_cpmk}";
             $this->namesMap[$mapKey] = "{$namaKomponen} ({$row->nama_kode_cpmk})";
 
-            if(!isset($grouped[$idRa])) {
+            if (!isset($grouped[$idRa])) {
                 $namaKomponen = strtoupper($row->tipe_komponen);
-                if(!in_array($row->tipe_komponen, ['uts', 'uas', 'Kegiatan Partisipatif', 'Hasil Proyek'])) {
+                if (!in_array($row->tipe_komponen, ['uts', 'uas', 'Kegiatan Partisipatif', 'Hasil Proyek'])) {
                     $namaKomponen .= " " . $row->nomor_komponen;
                 }
                 $grouped[$idRa] = [
@@ -100,7 +103,7 @@ class EvaluasiMahasiswa extends Component
                     'cpmks' => []
                 ];
             }
-            if(!isset($grouped[$idRa]['cpmks'][$row->id_cpmk])) {
+            if (!isset($grouped[$idRa]['cpmks'][$row->id_cpmk])) {
                 $grouped[$idRa]['cpmks'][$row->id_cpmk] = [
                     'id_cpmk' => $row->id_cpmk,
                     'kode_cpmk' => $row->nama_kode_cpmk,
@@ -122,7 +125,7 @@ class EvaluasiMahasiswa extends Component
             ->where('nim', $nim)
             ->get();
 
-        foreach($existing as $data) {
+        foreach ($existing as $data) {
             $this->editingNilai[$data->id_rencana_asesmen][$data->id_cpmk] = $data->nilai;
         }
         $this->isEditModalOpen = true;
@@ -130,57 +133,67 @@ class EvaluasiMahasiswa extends Component
 
     public function simpanNilai()
     {
-        $oldData = PenilaianMahasiswa::where('id_kelas', $this->kelas->id_kelas)
-            ->where('nim', $this->editingNim)
-            ->get()
-            ->mapWithKeys(function ($item) {
-                return ["{$item->id_rencana_asesmen}-{$item->id_cpmk}" => $item->nilai];
-            })->toArray();
+        try {
+            $oldData = PenilaianMahasiswa::where('id_kelas', $this->kelas->id_kelas)
+                ->where('nim', $this->editingNim)
+                ->get()
+                ->mapWithKeys(function ($item) {
+                    return ["{$item->id_rencana_asesmen}-{$item->id_cpmk}" => $item->nilai];
+                })->toArray();
 
-        $newDataForHistory = [];
-        $hasChanges = false;
+            $newDataForHistory = [];
+            $hasChanges = false;
 
-        foreach ($this->structureAsesmen as $asesmen) {
-            foreach ($asesmen['cpmks'] as $cpmk) {
-                $idRa = $asesmen['id_rencana_asesmen'];
-                $idCpmk = $cpmk['id_cpmk'];
-                $nilaiBaru = $this->editingNilai[$idRa][$idCpmk] ?? null;
+            foreach ($this->structureAsesmen as $asesmen) {
+                foreach ($asesmen['cpmks'] as $cpmk) {
+                    $idRa = $asesmen['id_rencana_asesmen'];
+                    $idCpmk = $cpmk['id_cpmk'];
+                    $nilaiBaru = $this->editingNilai[$idRa][$idCpmk] ?? null;
 
-                if ($nilaiBaru === null || $nilaiBaru === '') continue;
-                $nilaiBaru = (float) $nilaiBaru;
+                    if ($nilaiBaru === null || $nilaiBaru === '') continue;
+                    $nilaiBaru = (float) $nilaiBaru;
 
-                $maxBobot = $cpmk['bobot_total'];
-                if ($nilaiBaru > $maxBobot) $nilaiBaru = $maxBobot;
-                if ($nilaiBaru < 0) $nilaiBaru = 0;
+                    $maxBobot = $cpmk['bobot_total'];
+                    if ($nilaiBaru > $maxBobot) $nilaiBaru = $maxBobot;
+                    if ($nilaiBaru < 0) $nilaiBaru = 0;
 
-                PenilaianMahasiswa::updateOrCreate(
-                    ['id_kelas' => $this->kelas->id_kelas, 'nim' => $this->editingNim, 'id_rencana_asesmen' => $idRa, 'id_cpmk' => $idCpmk],
-                    ['nilai' => $nilaiBaru]
-                );
+                    PenilaianMahasiswa::updateOrCreate(
+                        ['id_kelas' => $this->kelas->id_kelas, 'nim' => $this->editingNim, 'id_rencana_asesmen' => $idRa, 'id_cpmk' => $idCpmk],
+                        ['nilai' => $nilaiBaru]
+                    );
 
-                $key = "{$idRa}-{$idCpmk}";
-                $nilaiLama = $oldData[$key] ?? 0;
-                if (abs($nilaiBaru - $nilaiLama) > 0.01) {
-                    $hasChanges = true;
+                    $key = "{$idRa}-{$idCpmk}";
+                    $nilaiLama = $oldData[$key] ?? 0;
+                    if (abs($nilaiBaru - $nilaiLama) > 0.01) {
+                        $hasChanges = true;
+                    }
+                    $newDataForHistory[$key] = $nilaiBaru;
                 }
-                $newDataForHistory[$key] = $nilaiBaru;
             }
-        }
 
-        if ($hasChanges) {
-            RiwayatPenilaian::create([
-                'id_kelas' => $this->kelas->id_kelas,
-                'nim' => $this->editingNim,
-                'id_dosen_pengubah' => Auth::id(),
-                'keterangan' => 'Update Nilai via Evaluasi Mahasiswa',
-                'data_lama' => $oldData,
-                'data_baru' => $newDataForHistory,
-            ]);
-            session()->flash('message', 'Nilai berhasil diperbarui.');
-        }
+            if ($hasChanges) {
+                RiwayatPenilaian::create([
+                    'id_kelas' => $this->kelas->id_kelas,
+                    'nim' => $this->editingNim,
+                    'id_dosen_pengubah' => Auth::id(),
+                    'keterangan' => 'Update Nilai via Evaluasi Mahasiswa',
+                    'data_lama' => $oldData,
+                    'data_baru' => $newDataForHistory,
+                ]);
+                session()->flash('message', 'Nilai berhasil diperbarui.');
+            }
 
-        $this->isEditModalOpen = false;
-        $this->hitungEvaluasi();
+            $this->isEditModalOpen = false;
+            $this->hitungEvaluasi();
+        } catch (\Exception $e) {
+            // Jika error (seperti database mati), sistem tidak crash tapi masuk ke sini
+            // Log error aslinya agar kamu (developer) tetap bisa melihatnya di laravel.log
+            \Illuminate\Support\Facades\Log::error('Error Livewire simpanNilai: ' . $e->getMessage());
+
+            // Tutup modal dan kirim pesan error yang ramah ke tampilan pengguna
+            $this->isEditModalOpen = false;
+            session()->flash('error', 'Mohon maaf, terjadi gangguan koneksi database. Gagal menyimpan nilai.');
+        }
     }
 
     public function lihatRiwayat($nim, $nama)
@@ -222,13 +235,16 @@ class EvaluasiMahasiswa extends Component
             ->join('cpmk', 'mccm.id_cpmk', '=', 'cpmk.id_cpmk') // <-- Join tabel cpmk
             ->where('ra.id_mk', $idMk)
             ->select(
-                'ra.id_rencana_asesmen', 'mccm.id_cpmk', 'mccm.id_cpl', 'racb.bobot',
+                'ra.id_rencana_asesmen',
+                'mccm.id_cpmk',
+                'mccm.id_cpl',
+                'racb.bobot',
                 'cpmk.nama_kode_cpmk' // <-- Ambil nama CPMK
             )
             ->get();
 
         // 3. PERBAIKAN: Buat targetCpmks dari data bobotMapping di atas (Pasti Aman & Muncul)
-        $this->targetCpmks = $bobotMapping->unique('id_cpmk')->map(function($item) {
+        $this->targetCpmks = $bobotMapping->unique('id_cpmk')->map(function ($item) {
             return (object) [
                 'id_cpmk' => $item->id_cpmk,
                 'nama_kode_cpmk' => $item->nama_kode_cpmk,
@@ -280,7 +296,7 @@ class EvaluasiMahasiswa extends Component
                     $persenCpmk = 0;
                 }
 
-                if($persenCpmk > 100) $persenCpmk = 100;
+                if ($persenCpmk > 100) $persenCpmk = 100;
                 $nilaiPerCpmk[$idCpmk] = round($persenCpmk, 2);
             }
 
@@ -319,7 +335,7 @@ class EvaluasiMahasiswa extends Component
                     $finalCplScore = 0;
                 }
 
-                if($finalCplScore > 100) $finalCplScore = 100;
+                if ($finalCplScore > 100) $finalCplScore = 100;
 
                 $nilaiPerCpl[$idCpl] = round($finalCplScore, 2);
 
