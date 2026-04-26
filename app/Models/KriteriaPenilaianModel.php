@@ -12,6 +12,7 @@ class KriteriaPenilaianModel extends Model
     protected $primaryKey = 'id_kriteria_penilaian';
     public $timestamps = false;
     protected $fillable = [
+        'id_kriteria_penilaian',
         'nama_kriteria_penilaian',
         'id_ps'
     ];

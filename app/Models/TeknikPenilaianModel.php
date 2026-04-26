@@ -11,6 +11,7 @@ class TeknikPenilaianModel extends Model
     protected $primaryKey = 'id_teknik_penilaian';
     public $timestamps = false;
     protected $fillable = [
+        'id_teknik_penilaian',
         'nama_teknik_penilaian',
         'kategori',
         'id_ps'

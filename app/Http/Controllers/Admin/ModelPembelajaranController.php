@@ -75,7 +75,7 @@ class ModelPembelajaranController extends Controller
         }
 
         if (!$request->has('model_pembelajaran')) {
-            return redirect()->route('model_pembelajaran.index')->with('success', 'Perubahan Teknik Penilaian berhasil disimpan!');
+            return redirect()->route('model-pembelajaran.index')->with('success', 'Perubahan Model Pembelajaran berhasil disimpan!');
         }
 
         $validatedData = $request->validated()['model_pembelajaran'];

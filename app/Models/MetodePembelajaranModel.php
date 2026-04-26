@@ -12,6 +12,7 @@ class MetodePembelajaranModel extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'id_metode_pembelajaran',
         'nama_metode_pembelajaran',
         'id_ps',
         'tipe_metode_pembelajaran'

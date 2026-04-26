@@ -12,6 +12,7 @@ class ModelPembelajaranModel extends Model
     public $timestamps = false;
     
     protected $fillable = [
+        'id_model_pembelajaran',
         'nama_model_pembelajaran',
         'id_ps'
     ];

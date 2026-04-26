@@ -15,7 +15,7 @@
 
         @if (!empty($assocCpmks))
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
-                <h2 class="text-xl font-bold text-biru-custom">Rencana Asesmen {{$allMataKuliah->nama_matkul_id}}</h2>
+                <h2 class="text-xl font-bold text-biru-custom">Rencana Asesmen {{$allMataKuliah?->nama_matkul_id}}</h2>
                 <div class="flex flex-wrap gap-2">
                     <a href="{{ route('rencana-asesmen.create', ['mataKuliah' => $selectedMataKuliah]) }}" class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
