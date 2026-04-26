@@ -57,36 +57,6 @@ class KelasDosenController extends Controller
         ]);
     }
 
-    // public function nilaiKelas($id)
-    // {
-    //     $kelas = Kelas::with('mahasiswa')->findOrFail($id);
-    //     $idMk = $kelas->id_mk;
-
-    //     $rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $idMk)
-    //         ->orderByRaw("
-    //             CASE 
-    //                 WHEN tipe_komponen = 'tugas' THEN 1
-    //                 WHEN tipe_komponen = 'uts'   THEN 2
-    //                 WHEN tipe_komponen = 'uas'   THEN 3
-    //                 ELSE 4
-    //             END
-    //         ")
-    //         ->orderBy('nomor_komponen')
-    //         ->get();
-
-    //     $bobot = \App\Models\RencanaAsesmenCPMKBobotModel::with('mkCpmkMap')
-    //         ->whereIn('id_rencana_asesmen', $rencanaAsesmen->pluck('id_rencana_asesmen'))
-    //         ->get();
-
-    //     $penilaianMahasiswa = PenilaianMahasiswa::where('id_kelas', $id)->get();
-
-    //     return view('dosen.kelas.penilaian_mahasiswa_kelas', [
-    //         'kelas' => $kelas,
-    //         'rencanaAsesmen' => $rencanaAsesmen,
-    //         'bobot' => $bobot,
-    //         'penilaianMahasiswa' => $penilaianMahasiswa,
-    //     ]);
-    // }
     public function nilaiKelas($id)
     {
         session([

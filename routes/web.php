@@ -119,7 +119,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/mapping/edit-cpl-cpmk', [CPLCPMKController::class, 'editCPLCPMK'])->name('cpl-cpmk-mapping.edit');
         Route::put('/mapping/cpl-cpmk-update', [CPLCPMKController::class, 'updateCPLCPMK'])->name('cpl-cpmk-mapping.update');
 
-        // pl pe map
+        // pl peo map
         Route::get('/mapping/pl-peo', [PLPEOMappingController::class, 'index'])->name('pl-peo-mapping.index');
         Route::get('/mapping/edit-pl-peo', [PLPEOMappingController::class, 'edit_pl_peo'])->name('pl-peo-mapping.edit');
         Route::put('/mapping/pl-peo', [PLPEOMappingController::class, 'updatePLPEOMap'])->name('pl-peo-mapping.update');

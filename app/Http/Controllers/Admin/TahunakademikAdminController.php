@@ -52,16 +52,16 @@ class TahunakademikAdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-public function tambahTA()
-{
-    $kurikulums = \App\Models\KurikulumModel::all();
-    $tahunAkademiks = \App\Models\TahunAkademik::all();
+    public function tambahTA()
+    {
+        $kurikulums = \App\Models\KurikulumModel::all();
+        $tahunAkademiks = \App\Models\TahunAkademik::all();
 
-    return view('mapping.tahun-akademik-kurikulum', [
-        'kurikulums' => $kurikulums,
-        'tahunAkademiks' => $tahunAkademiks
-    ]);
-}
+        return view('mapping.tahun-akademik-kurikulum', [
+            'kurikulums' => $kurikulums,
+            'tahunAkademiks' => $tahunAkademiks
+        ]);
+    }
 
 
     /**

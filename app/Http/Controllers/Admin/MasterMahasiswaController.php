@@ -101,41 +101,6 @@ class MasterMahasiswaController extends Controller
         }
     }
 
-    // public function importExcel(Request $request)
-    // {
-    //     $request->validate([
-    //         'file_excel' => 'required|file|mimes:xlsx,xls|max:2048',
-    //     ]);
-
-    //     $file = $request->file('file_excel');
-    //     $spreadsheet = IOFactory::load($file->getPathname());
-    //     $sheet = $spreadsheet->getActiveSheet();
-    //     $rows = $sheet->toArray();
-    //     $id_ps = session('userRoleId');
-    //     foreach ($rows as $index => $row) {
-    //         if ($index == 0) continue;
-
-    //         $nim = $row[1] ?? null;
-    //         $nama = $row[0] ?? null;
-    //         $jenis_kelamin = $row[5] ?? null;
-    //         $angkatan = $row[4] ?? null; 
-
-    //         if ($nim && $nama) {
-    //             MahasiswaModel::updateOrCreate(
-    //                 ['nim' => $nim, 'id_ps' => $id_ps],
-    //                 [
-    //                     'nama_lengkap' => $nama,
-    //                     'jenis_kelamin' => $jenis_kelamin,
-    //                     'angkatan' => $angkatan,
-    //                 ]
-    //             );
-    //         }
-    //     }
-
-    //     return redirect()->route('master-mahasiswa.index')
-    //                      ->with('success', 'Data mahasiswa berhasil diupload!');
-    // }
-
     public function edit(string $id){
         $mahasiswa = MahasiswaModel::findOrFail($id);
 

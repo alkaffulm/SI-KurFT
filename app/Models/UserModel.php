@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Database\Factories\UserFactory;
 
 class UserModel extends Authenticatable
 {
+    use HasFactory;
     protected $table = 'user';
     protected $primaryKey = 'id_user';
     public $timestamps = false;
@@ -60,5 +63,10 @@ class UserModel extends Authenticatable
         return $query->whereHas('userRoleMap', function($q) use ($id_role) {
             $q->where('id_role', $id_role);
         });
+    }
+
+    protected static function newFactory()
+    {
+        return \Database\Factories\UserFactory::new();
     }
 }

@@ -6,11 +6,13 @@ use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Casts\Attribute; 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory; 
 
 
 class CPLModel extends Model
 {
+    use HasFactory;
     protected $table = 'cpl';
     protected $primaryKey = 'id_cpl';
     public $timestamps = false;
@@ -26,7 +28,6 @@ class CPLModel extends Model
         static::addGlobalScope(new ProdiScope);
         static::addGlobalScope(new KurikulumScope);
     }
-
     public function profilLulusan(){
         return $this->belongsToMany(ProfilLulusanModel::class, 'pl_cpl_map', 'id_cpl', 'id_pl');
     }

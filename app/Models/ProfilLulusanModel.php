@@ -5,9 +5,11 @@ namespace App\Models;
 use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProfilLulusanModel extends Model
 {
+    use HasFactory;
     protected $table = 'profil_lulusan';
     protected $primaryKey = 'id_pl';
     public $timestamps = false;
@@ -27,7 +29,10 @@ class ProfilLulusanModel extends Model
         static::addGlobalScope(new ProdiScope);
         static::addGlobalScope(new KurikulumScope);
     }
-
+    protected static function newFactory()
+    {
+        return \Database\Factories\ProfilLulusanFactory::new();
+    }
     public function cpl(){
         return $this->belongsToMany(CPLModel::class, 'pl_cpl_map', 'id_pl', 'id_cpl');
     }

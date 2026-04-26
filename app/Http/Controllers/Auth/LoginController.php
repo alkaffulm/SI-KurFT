@@ -50,10 +50,6 @@ class LoginController extends Controller
                 return back()->withErrors(['nip' => 'Anda tidak memiliki izin untuk peran yang dipilih.'])
                              ->withInput($request->only('nip', 'login_as'));
             }
-            // if (!$role || !DB::table('user_role_map')->where('id_user', $user->id_user)->where('id_role', $role->id_role)->exists()) {
-            //     Auth::logout(); // Logout-kan kembali karena role tidak sesuai
-            //     return back()->withErrors(['nip' => 'Anda tidak memiliki izin untuk peran yang dipilih.',])->withInput($request->only('nip', 'login_as'));
-            // }
             $request->merge(['context_id_ps' => $pivotData->id_ps]);
 
             // 3. Jika Role Sesuai, panggil authenticated() (dijelaskan di bawah)
@@ -88,22 +84,12 @@ class LoginController extends Controller
         $request->session()->put('userProdi', $prodi ? $prodi->nama_prodi : 'Fakultas Teknik');
         $request->session()->put('userRoleId', $contextIdPs);
 
-        // $activeKurikulum = KurikulumModel::where('id_ps', $user->id_ps)->orderBy('tahun', 'asc')->first();
-        // if($activeKurikulum) {
-        //   $request->session()->put('tahun', $activeKurikulum->tahun);
-        //   $request->session()->put('id_kurikulum_aktif', $activeKurikulum->id_kurikulum);
-        // }
 
         $activeKurikulum = null;
-        // bekerja jika user mengalami session_timeout atau logout
         if($user->last_active_kurikulum_id) {
           $activeKurikulum = KurikulumModel::find($user->last_active_kurikulum_id);
         }
 
-        // bekerja jika user baru pertama kali login ke website atau migrate:fresh
-        // if(!$activeKurikulum && $contextIdPs) {
-        //     $activeKurikulum = KurikulumModel::where('id_ps', $contextIdPs)->orderBy('tahun', 'asc')->first();
-        // }
         if(!$activeKurikulum && $contextIdPs && $contextIdPs != 16) {
             $activeKurikulum = KurikulumModel::where('id_ps', $contextIdPs)
                 ->orderBy('tahun', 'asc')

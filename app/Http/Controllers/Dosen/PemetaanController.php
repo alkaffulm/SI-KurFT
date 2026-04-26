@@ -42,18 +42,5 @@ class PemetaanController extends Controller
 
         return view('dosen.pemetaan.daftar_mahasiswa', compact('kelas'));
     }
-    // public function lihatKelas($id)
-    // {
-    //     return view('dosen.kelas.kelas_matakuliah', compact('kelas'));
-    // }
-    // public function nilaiKelas($id)
-    // {
-    //     return view('dosen.kelas.kelas_matakuliah', compact('kelas'));
-    // }
-
-    // public function simpanNilai(Request $request, $idKelas)
-    // {
-    //     return view('dosen.kelas.kelas_matakuliah', compact('kelas'));
-    // }
 }
 
