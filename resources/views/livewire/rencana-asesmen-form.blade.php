@@ -154,6 +154,7 @@
                     <div class="flex gap-6">
                         <a href="{{ route('rencana-asesmen.index') }}" class="px-6 py-3 font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">Kembali</a>
                         <button type="submit" 
+                        id="btnSimpan"
                         wire:loading.attr="disabled" 
                         wire:target="saveRencanaAsesmen"
                         class="text-white bg-biru-custom hover:opacity-90 font-medium rounded-lg px-6 py-3">
@@ -221,6 +222,34 @@
                         }
                     });
                 });
+
+                let isValid = true;
+
+                Object.keys(totals).forEach(mapId => {
+                    const total = totals[mapId];
+                    const footerEl = document.querySelector(`.bobot-footer[data-map-id="${mapId}"]`);
+
+                    if (!footerEl) return;
+
+                    const standar = parseFloat(footerEl.innerText);
+                    const difference = total - standar;
+
+                    if (Math.abs(difference) > 0.01) {
+                        isValid = false;
+                    }
+                });
+
+                // disable tombol
+                const btn = document.getElementById('btnSimpan');
+                if (btn) {
+                    btn.disabled = !isValid;
+
+                    if (!isValid) {
+                        btn.classList.add('opacity-50', 'cursor-not-allowed');
+                    } else {
+                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    }
+                }
             }
 
             checkTotals();
