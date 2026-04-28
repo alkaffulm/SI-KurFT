@@ -18,6 +18,7 @@ class RencanaAssesment extends Component
     public $rencanaAsesmen;
     public $totalPerCpmk = [];
     public $bobotStandarPerCpmk = [];
+    public $isBobotDefined = false;
 
     public function mount()
     {
@@ -45,6 +46,10 @@ class RencanaAssesment extends Component
         foreach ($this->assocCpmks as $map) {
             $this->bobotStandarPerCpmk[$map->id_cpmk][$map->id_cpl] = $map->mkcpmkbobot->first()?->bobot ?? 0;
         }
+
+        $this->isBobotDefined = $this->assocCpmks->contains(function ($map) {
+            return $map->mkcpmkbobot->isNotEmpty();
+        });
 
         $this->groupedCpl = $this->assocCpmks
             ->groupBy('id_cpl')

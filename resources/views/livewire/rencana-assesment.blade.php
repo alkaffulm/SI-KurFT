@@ -14,104 +14,110 @@
         </div>
 
         @if (!empty($assocCpmks))
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
-                <h2 class="text-xl font-bold text-biru-custom">Rencana Asesmen {{$allMataKuliah?->nama_matkul_id}}</h2>
-                <div class="flex flex-wrap gap-2">
-                    <a href="{{ route('rencana-asesmen.create', ['mataKuliah' => $selectedMataKuliah]) }}" class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                        </svg>
-                        Tambah atau Edit Rencana Asesmen
-                    </a>
+            @if (!$isBobotDefined)
+                <div class="p-4 mt-5 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-100 border border-yellow-300">
+                    Pembobotan CPMK ke CPL pada Mata Kuliah ini Belum Ditentukan, 
+                    Silahkan Hubungi Koordinator Program Studi Terkait.
                 </div>
-            </div>
+            @else
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
+                    <h2 class="text-xl font-bold text-biru-custom">Rencana Asesmen {{$allMataKuliah?->nama_matkul_id}}</h2>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="{{ route('rencana-asesmen.create', ['mataKuliah' => $selectedMataKuliah]) }}" class="inline-flex items-center gap-x-2 px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                            Tambah atau Edit Rencana Asesmen
+                        </a>
+                    </div>
+                </div>
 
-            <div class="overflow-x-auto rounded-lg border border-gray-400">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <thead class="text-xs text-white uppercase bg-teks-biru-custom">
-                        <tr>
-                            <th rowspan="2" class="px-6 py-3 text-center border-r">No</th>
-                            <th rowspan="2" class="px-6 py-3 text-center border-r">Komponen Evaluasi</th>
-
-                            @foreach ($groupedCpl as $group)
-                                <th colspan="{{ count($group['cpmks']) }}" 
-                                    class="px-6 py-3 text-center border-r">
-                                    {{ $group['cpl']->nama_kode_cpl }}
-                                </th>
-                            @endforeach
-                            <th rowspan="2" class="px-6 py-3 text-center border-r">Total Nilai</th>
-                        </tr>
-                        <tr>
-                            @foreach ($groupedCpl as $group)
-                                @foreach ($group['cpmks'] as $cpmk)
-                                    @php
-                                        $bobot = $bobotStandarPerCpmk[$cpmk->id_cpmk][$group['cpl']->id_cpl] ?? '-';
-                                    @endphp
-                                    <th class="px-6 py-3 text-center border-r">
-                                        {{ $cpmk->cpmk->nama_kode_cpmk ?? '-' }} ({{ $bobot }})
-                                    </th>
-                                @endforeach
-                            @endforeach
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($rencanaAsesmen as $asesmen)
-                            <tr class="bg-white border-t border-gray-400">
-                                <td class="px-6 py-4 text-center font-medium text-gray-900 border-r border-gray-400">
-                                    {{$loop->iteration}}
-                                </td>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                    {{$asesmen->komponenEvaluasiFormatted}}
-                                </th>
-                                
-                                @foreach ($assocCpmks as $mkCpmkMap)
-                                    @php
-                                        $bobotPivot = $asesmen->bobotCpmk->firstWhere('id_mk_cpmk_cpl', $mkCpmkMap->id_mk_cpmk_cpl);
-                                    @endphp
-                                    <td class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">
-                                        {{ $bobotPivot ? $bobotPivot->pivot->bobot : '-' }}
-                                    </td>
-                                @endforeach
-                                
-                                <td class="px-6 py-4 text-center font-semibold text-gray-900">
-                                    {{$asesmen->totalBobotKomponenEvaluasi}}
-                                </td>
-                            </tr>
-                        @empty
+                <div class="overflow-x-auto rounded-lg border border-gray-400">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                             <tr>
-                                <td colspan="{{ count($assocCpmks) + 3}}" class="px-6 py-3 border-r border-gray-400 text-center">
-                                    Rencana Asesmen Belum Dibuat!
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                    @if ($rencanaAsesmen->isNotEmpty())
-                        <tfoot>
-                            <tr class="font-semibold text-gray-900 bg-white border-t border-gray-400">
-                                <td colspan="2" class="px-6 py-3 text-left border-r border-gray-400">
-                                    TOTAL per CPMK-CPL
-                                </td>
+                                <th rowspan="2" class="px-6 py-3 text-center border-r">No</th>
+                                <th rowspan="2" class="px-6 py-3 text-center border-r">Komponen Evaluasi</th>
 
                                 @foreach ($groupedCpl as $group)
-                                    @foreach ($group['cpmks'] as $mkCpmkMap)
+                                    <th colspan="{{ count($group['cpmks']) }}" 
+                                        class="px-6 py-3 text-center border-r">
+                                        {{ $group['cpl']->nama_kode_cpl }}
+                                    </th>
+                                @endforeach
+                                <th rowspan="2" class="px-6 py-3 text-center border-r">Total Nilai</th>
+                            </tr>
+                            <tr>
+                                @foreach ($groupedCpl as $group)
+                                    @foreach ($group['cpmks'] as $cpmk)
                                         @php
-                                            $key = "{$mkCpmkMap->id_cpmk}-{$group['cpl']->id_cpl}";
-                                            $total = $totalPerCpmk[$key] ?? 0;
+                                            $bobot = $bobotStandarPerCpmk[$cpmk->id_cpmk][$group['cpl']->id_cpl] ?? '-';
                                         @endphp
-                                        <td class="px-6 py-3 text-center border-r border-gray-400">
-                                            {{ $total }}
-                                        </td>
+                                        <th class="px-6 py-3 text-center border-r">
+                                            {{ $cpmk->cpmk->nama_kode_cpmk ?? '-' }} ({{ $bobot }})
+                                        </th>
                                     @endforeach
                                 @endforeach
 
-                                <td class="px-6 py-3 text-center">100</td>
                             </tr>
-                        </tfoot>
-                    @endif
-                </table>
-            </div>
-        </div>
+                        </thead>
+                        <tbody>
+                            @forelse($rencanaAsesmen as $asesmen)
+                                <tr class="bg-white border-t border-gray-400">
+                                    <td class="px-6 py-4 text-center font-medium text-gray-900 border-r border-gray-400">
+                                        {{$loop->iteration}}
+                                    </td>
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
+                                        {{$asesmen->komponenEvaluasiFormatted}}
+                                    </th>
+                                    
+                                    @foreach ($assocCpmks as $mkCpmkMap)
+                                        @php
+                                            $bobotPivot = $asesmen->bobotCpmk->firstWhere('id_mk_cpmk_cpl', $mkCpmkMap->id_mk_cpmk_cpl);
+                                        @endphp
+                                        <td class="px-6 py-4 text-center font-semibold text-gray-900 border-r border-gray-400">
+                                            {{ $bobotPivot ? $bobotPivot->pivot->bobot : '-' }}
+                                        </td>
+                                    @endforeach
+                                    
+                                    <td class="px-6 py-4 text-center font-semibold text-gray-900">
+                                        {{$asesmen->totalBobotKomponenEvaluasi}}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="{{ count($assocCpmks) + 3}}" class="px-6 py-3 border-r border-gray-400 text-center">
+                                        Rencana Asesmen Belum Dibuat!
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        @if ($rencanaAsesmen->isNotEmpty())
+                            <tfoot>
+                                <tr class="font-semibold text-gray-900 bg-white border-t border-gray-400">
+                                    <td colspan="2" class="px-6 py-3 text-left border-r border-gray-400">
+                                        TOTAL per CPMK-CPL
+                                    </td>
 
-    @endif
+                                    @foreach ($groupedCpl as $group)
+                                        @foreach ($group['cpmks'] as $mkCpmkMap)
+                                            @php
+                                                $key = "{$mkCpmkMap->id_cpmk}-{$group['cpl']->id_cpl}";
+                                                $total = $totalPerCpmk[$key] ?? 0;
+                                            @endphp
+                                            <td class="px-6 py-3 text-center border-r border-gray-400">
+                                                {{ $total }}
+                                            </td>
+                                        @endforeach
+                                    @endforeach
+
+                                    <td class="px-6 py-3 text-center">100</td>
+                                </tr>
+                            </tfoot>
+                        @endif
+                        </table>
+                    </div>
+                </div>
+            @endif
+        @endif
 </div>
