@@ -67,7 +67,7 @@
                         <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
                             {{-- REVISI: Menghapus hover dari kode PL --}}
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                {{ $loop->iteration }}
+                                {{ ($pengguna->currentPage() - 1) * $pengguna->perPage() + $loop->iteration }}
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                 {{ $pg->NIP }}
