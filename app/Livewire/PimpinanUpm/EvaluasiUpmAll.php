@@ -17,6 +17,7 @@ class EvaluasiUpmAll extends Component
     public $id_ps;
     public $id_tahun_akademik;
     public $catatan;
+    public $created_at;
 
     // State Modal
     public $isEditMode = false;
@@ -28,6 +29,7 @@ class EvaluasiUpmAll extends Component
         $this->id_ps = '';
         $this->id_tahun_akademik = '';
         $this->catatan = '';
+        $this->created_at = '';
         $this->isEditMode = false;
         $this->resetErrorBag();
     }
@@ -52,6 +54,7 @@ class EvaluasiUpmAll extends Component
         $this->id_ps = $evaluasi->id_ps;
         $this->id_tahun_akademik = $evaluasi->id_tahun_akademik;
         $this->catatan = $evaluasi->catatan;
+        $this->created_at = $evaluasi->created_at->format('Y-m-d');
 
         $this->dispatch('open-modal');
     }
@@ -64,6 +67,7 @@ class EvaluasiUpmAll extends Component
             'id_ps' => 'required|exists:program_studi,id_ps',
             'id_tahun_akademik' => 'required|exists:tahun_akademik,id_tahun_akademik',
             'catatan' => 'nullable|string', // Nullable sesuai skema, tapi bisa diubah required jika wajib
+            'created_at' => 'required|date_format:Y-m-d',
         ]);
 
         if ($this->isEditMode) {
@@ -74,7 +78,8 @@ class EvaluasiUpmAll extends Component
             $evaluasi->fill([
                 'id_ps' => $this->id_ps,
                 'id_tahun_akademik' => $this->id_tahun_akademik,
-                'catatan' => $this->catatan
+                'catatan' => $this->catatan,
+                'created_at' => $this->created_at
             ]);
 
             if ($evaluasi->isDirty()) {
@@ -93,7 +98,8 @@ class EvaluasiUpmAll extends Component
             EvaluasiUpmModel::create([
                 'id_ps' => $this->id_ps,
                 'id_tahun_akademik' => $this->id_tahun_akademik,
-                'catatan' => $this->catatan
+                'catatan' => $this->catatan,
+                'created_at' => $this->created_at
             ]);
             session()->flash('success', 'Catatan berhasil ditambahkan.');
         }

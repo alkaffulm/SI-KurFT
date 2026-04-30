@@ -17,6 +17,7 @@ class EvaluasiUpmModel extends Model
         'id_ps',
         'id_tahun_akademik',
         'catatan',
+        'created_at',
     ];
     protected static function newFactory()
     {

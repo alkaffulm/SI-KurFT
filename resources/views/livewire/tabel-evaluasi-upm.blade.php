@@ -33,8 +33,7 @@
                         <td class="px-6 py-4 border-r border-gray-400">
                             <p class="line-clamp-2 font-medium text-gray-900" title="{{$item->catatan}}">{{ $item->catatan ?? '-' }}</p>
                             <div class="flex gap-x-3 mt-2 italic">
-                                <p class="text-[12px]">Dibuat pada: {{ $item->created_at->diffForHumans() ?? '-' }}</p>
-                                <p class="text-[12px]">DIperbarui Pada: {{ $item->updated_at->diffForHumans() ?? '-' }}</p>
+                                <p class="text-[12px]">Dibuat pada: {{ $item->created_at->format('d-m-Y')}}</p>
                             </div>
                         </td>
                     </tr>
