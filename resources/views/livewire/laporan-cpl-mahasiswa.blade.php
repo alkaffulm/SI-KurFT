@@ -10,25 +10,7 @@
                 <option value="mahasiswa">Per Mahasiswa</option>
                 <option value="angkatan">Per Angkatan</option>
             </select>
-        </div>
-
-        {{-- TAHUN AKADEMIK (ANGKATAN MODE) --}}
-        {{-- @if($mode === 'angkatan')
-            <div class="w-64">
-                <label class="block text-sm font-medium text-gray-700">Tahun Akademik</label>
-                <select wire:model.live="tahunAkademikId"
-                    class="mt-1 block w-full rounded-md border-gray-300 p-2">
-                    <option value="">-- Pilih Tahun Akademik --</option>
-                    @foreach($tahunAkademikList as $ta)
-                        <option value="{{ $ta->id_tahun_akademik }}">
-                            {{ $ta->tahun_akademik }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-        @endif --}}
-
-        
+        </div>      
 
         {{-- ANGKATAN --}}
         <div class="w-56">
@@ -234,98 +216,6 @@
 
     @endif
 
-
-
-    {{-- ================= MODE ANGKATAN ================= --}}
-    {{-- @if($mode === 'angkatan' && !empty($cplReportsAngkatan))
-
-        <div class="mt-8 bg-white rounded-lg shadow p-4">
-            <h3 class="text-lg font-semibold mb-3">
-                Laporan CPL Angkatan
-            </h3>
-
-            <div class="overflow-x-auto mb-6">
-                <table class="w-full text-sm border">
-                    <thead class="bg-teks-biru-custom text-white">
-                        <tr>
-                            <th class="px-3 py-2">Kode CPL</th>
-                            <th class="px-3 py-2">Deskripsi</th>
-                            <th class="px-3 py-2 text-center">% Ketercapaian</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($cplReportsAngkatan as $row)
-                            <tr class="border-t">
-                                <td class="px-3 py-2">{{ $row['kode_cpl'] }}</td>
-                                <td class="px-3 py-2">{{ $row['deskripsi'] }}</td>
-                                <td class="px-3 py-2 text-center">
-                                    {{ $row['nilai_akhir_cpl'] !== null
-                                        ? number_format($row['nilai_akhir_cpl'], 2).'%'
-                                        : '-' }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                <div class="bg-white rounded-lg shadow p-4">
-                    <h3 class="text-lg font-semibold mb-3">
-                        Grafik Bar CPL Angkatan
-                    </h3>
-                    <canvas id="barChartAngkatan"
-                        data-labels='@json(array_column($cplReportsAngkatan,"kode_cpl"))'
-                        data-data='@json(array_map(fn($r)=>$r["nilai_akhir_cpl"] ?? 0,$cplReportsAngkatan))'>
-                    </canvas>
-
-                </div>
-
-                <div class="bg-white rounded-lg shadow p-4">
-                    <h3 class="text-lg font-semibold mb-3">
-                        Grafik Radar CPL Angkatan
-                    </h3>
-                    <canvas id="radarChartAngkatan"></canvas>
-                </div>
-
-            </div>
-
-        </div>
-
-    @endif --}}
-
-    {{-- @if($mode === 'angkatan' && !empty($laporanAngkatanPerTahun))
-
-        @foreach($laporanAngkatanPerTahun as $i => $laporan)
-
-            <div class="mt-10 space-y-6">
-
-                <h2 class="text-xl font-bold">
-                    Tahun Akademik {{ $laporan['tahun_akademik'] }}
-                </h2>
-
-                <table class="w-full border text-sm">
-                    @foreach($laporan['cpl'] as $row)
-                        <tr>
-                            <td>{{ $row['kode_cpl'] }}</td>
-                            <td>{{ $row['deskripsi'] }}</td>
-                            <td>{{ $row['nilai_akhir_cpl'] }}%</td>
-                        </tr>
-                    @endforeach
-                </table>
-
-                <canvas id="barChartAngkatan-{{ $i }}"
-                    data-labels='@json($laporan["chart"]["labels"])'
-                    data-data='@json($laporan["chart"]["data"])'>
-                </canvas>
-
-                <canvas id="radarChartAngkatan-{{ $i }}"></canvas>
-
-            </div>
-
-        @endforeach 
-    @endif --}}
     {{-- ================= MODE ANGKATAN ================= --}}
     @if($mode === 'angkatan')
 

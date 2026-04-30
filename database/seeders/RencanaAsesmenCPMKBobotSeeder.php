@@ -117,17 +117,174 @@ class RencanaAsesmenCPMKBobotSeeder extends Seeder
     public function run(): void
     {
         DB::table('rencana_asesmen_cpmk_bobot')->insert([
+
+            // =========================
+            // TAHUN AKADEMIK 1
+            // =========================
+            // ===== Aljabar Linear (2 CPMK) =====
+            ['id_rencana_asesmen'=>1,'id_mk_cpmk_cpl'=>1,'bobot'=>15],
+            ['id_rencana_asesmen'=>1,'id_mk_cpmk_cpl'=>2,'bobot'=>15],
+
+            ['id_rencana_asesmen'=>2,'id_mk_cpmk_cpl'=>1,'bobot'=>15],
+            ['id_rencana_asesmen'=>2,'id_mk_cpmk_cpl'=>2,'bobot'=>15],
+
+            ['id_rencana_asesmen'=>3,'id_mk_cpmk_cpl'=>1,'bobot'=>20],
+            ['id_rencana_asesmen'=>3,'id_mk_cpmk_cpl'=>2,'bobot'=>20],
+
+
+            // ===== Pemrograman 1 =====
+            ['id_rencana_asesmen'=>4,'id_mk_cpmk_cpl'=>3,'bobot'=>15],
+            ['id_rencana_asesmen'=>4,'id_mk_cpmk_cpl'=>4,'bobot'=>15],
+
+            ['id_rencana_asesmen'=>5,'id_mk_cpmk_cpl'=>3,'bobot'=>15],
+            ['id_rencana_asesmen'=>5,'id_mk_cpmk_cpl'=>4,'bobot'=>15],
+
+            ['id_rencana_asesmen'=>6,'id_mk_cpmk_cpl'=>3,'bobot'=>20],
+            ['id_rencana_asesmen'=>6,'id_mk_cpmk_cpl'=>4,'bobot'=>20],
+
+
+            // ===== Sistem Operasi =====
+            ['id_rencana_asesmen'=>7,'id_mk_cpmk_cpl'=>5,'bobot'=>15],
+            ['id_rencana_asesmen'=>7,'id_mk_cpmk_cpl'=>6,'bobot'=>15],
+
+            ['id_rencana_asesmen'=>8,'id_mk_cpmk_cpl'=>5,'bobot'=>15],
+            ['id_rencana_asesmen'=>8,'id_mk_cpmk_cpl'=>6,'bobot'=>15],
+
+            ['id_rencana_asesmen'=>9,'id_mk_cpmk_cpl'=>5,'bobot'=>20],
+            ['id_rencana_asesmen'=>9,'id_mk_cpmk_cpl'=>6,'bobot'=>20],
+
+
+            // ===== Keamanan Siber (1 CPMK) =====
+            ['id_rencana_asesmen'=>10,'id_mk_cpmk_cpl'=>7,'bobot'=>30],
+            ['id_rencana_asesmen'=>11,'id_mk_cpmk_cpl'=>7,'bobot'=>30],
+            ['id_rencana_asesmen'=>12,'id_mk_cpmk_cpl'=>7,'bobot'=>40],
+
+            // =========================
+            // TAHUN AKADEMIK 2
+            // =========================
+            // ===== MPTI =====
+            ['id_rencana_asesmen'=>13,'id_mk_cpmk_cpl'=>8,'bobot'=>15],
+            ['id_rencana_asesmen'=>13,'id_mk_cpmk_cpl'=>9,'bobot'=>15],
+
+            ['id_rencana_asesmen'=>14,'id_mk_cpmk_cpl'=>8,'bobot'=>15],
+            ['id_rencana_asesmen'=>14,'id_mk_cpmk_cpl'=>9,'bobot'=>15],
+
+            ['id_rencana_asesmen'=>15,'id_mk_cpmk_cpl'=>8,'bobot'=>20],
+            ['id_rencana_asesmen'=>15,'id_mk_cpmk_cpl'=>9,'bobot'=>20],
+
+
+            // ===== Kecerdasan Bisnis =====
+            ['id_rencana_asesmen'=>16,'id_mk_cpmk_cpl'=>10,'bobot'=>30],
+            ['id_rencana_asesmen'=>17,'id_mk_cpmk_cpl'=>10,'bobot'=>30],
+            ['id_rencana_asesmen'=>18,'id_mk_cpmk_cpl'=>10,'bobot'=>40],
+
+
+            // ===== Web =====
+            ['id_rencana_asesmen'=>19,'id_mk_cpmk_cpl'=>11,'bobot'=>15],
+            ['id_rencana_asesmen'=>19,'id_mk_cpmk_cpl'=>12,'bobot'=>15],
+
+            ['id_rencana_asesmen'=>20,'id_mk_cpmk_cpl'=>11,'bobot'=>15],
+            ['id_rencana_asesmen'=>20,'id_mk_cpmk_cpl'=>12,'bobot'=>15],
+
+            ['id_rencana_asesmen'=>21,'id_mk_cpmk_cpl'=>11,'bobot'=>20],
+            ['id_rencana_asesmen'=>21,'id_mk_cpmk_cpl'=>12,'bobot'=>20],
+
+
+            // ===== Algoritma (3 CPMK) =====
+            ['id_rencana_asesmen'=>22,'id_mk_cpmk_cpl'=>13,'bobot'=>10],
+            ['id_rencana_asesmen'=>22,'id_mk_cpmk_cpl'=>14,'bobot'=>10],
+            ['id_rencana_asesmen'=>22,'id_mk_cpmk_cpl'=>15,'bobot'=>10],
+
+            ['id_rencana_asesmen'=>23,'id_mk_cpmk_cpl'=>13,'bobot'=>10],
+            ['id_rencana_asesmen'=>23,'id_mk_cpmk_cpl'=>14,'bobot'=>10],
+            ['id_rencana_asesmen'=>23,'id_mk_cpmk_cpl'=>15,'bobot'=>10],
+
+            ['id_rencana_asesmen'=>24,'id_mk_cpmk_cpl'=>13,'bobot'=>13.33],
+            ['id_rencana_asesmen'=>24,'id_mk_cpmk_cpl'=>14,'bobot'=>13.33],
+            ['id_rencana_asesmen'=>24,'id_mk_cpmk_cpl'=>15,'bobot'=>13.34],
+            
+            // =========================
+            // TAHUN AKADEMIK 3
+            // =========================
+            // ===== IMK =====
+            ['id_rencana_asesmen'=>25,'id_mk_cpmk_cpl'=>16,'bobot'=>15],
+            ['id_rencana_asesmen'=>26,'id_mk_cpmk_cpl'=>16,'bobot'=>15],
+            ['id_rencana_asesmen'=>27,'id_mk_cpmk_cpl'=>16,'bobot'=>20],
+            ['id_rencana_asesmen'=>28,'id_mk_cpmk_cpl'=>16,'bobot'=>25],
+            ['id_rencana_asesmen'=>29,'id_mk_cpmk_cpl'=>16,'bobot'=>25],
+            // total = 100
+
+
+            // ===== Inggris =====
+            ['id_rencana_asesmen'=>30,'id_mk_cpmk_cpl'=>17,'bobot'=>30],
+            ['id_rencana_asesmen'=>31,'id_mk_cpmk_cpl'=>17,'bobot'=>30],
+            ['id_rencana_asesmen'=>32,'id_mk_cpmk_cpl'=>17,'bobot'=>40],
+            // ===== IMK (MK 50) =====
+            // 1 CPMK → full
+            // ['id_asesmen_cpmk_bobot' => 1,  'id_rencana_asesmen' => 1,  'id_mk_cpmk_cpl' => 20, 'bobot' => 10.0],
+            // ['id_asesmen_cpmk_bobot' => 2,  'id_rencana_asesmen' => 1,  'id_mk_cpmk_cpl' => 21, 'bobot' => 5.0],
+            // ['id_asesmen_cpmk_bobot' => 3,  'id_rencana_asesmen' => 2,  'id_mk_cpmk_cpl' => 20, 'bobot' => 10.0],
+            // ['id_asesmen_cpmk_bobot' => 4,  'id_rencana_asesmen' => 2,  'id_mk_cpmk_cpl' => 21, 'bobot' => 5.0],
+            // ['id_asesmen_cpmk_bobot' => 5,  'id_rencana_asesmen' => 3,  'id_mk_cpmk_cpl' => 20, 'bobot' => 10.0],
+            // ['id_asesmen_cpmk_bobot' => 6,  'id_rencana_asesmen' => 3,  'id_mk_cpmk_cpl' => 21, 'bobot' => 0.0],
+            // ['id_asesmen_cpmk_bobot' => 7,  'id_rencana_asesmen' => 4,  'id_mk_cpmk_cpl' => 20, 'bobot' => 20.0],
+            // ['id_asesmen_cpmk_bobot' => 8,  'id_rencana_asesmen' => 4,  'id_mk_cpmk_cpl' => 21, 'bobot' => 10.0],
+            // ['id_asesmen_cpmk_bobot' => 9,  'id_rencana_asesmen' => 5,  'id_mk_cpmk_cpl' => 20, 'bobot' => 0.0],
+            // ['id_asesmen_cpmk_bobot' => 10,  'id_rencana_asesmen' => 5,  'id_mk_cpmk_cpl' => 21, 'bobot' => 30.0],
+
+            // =========================
+            // TAHUN AKADEMIK 4
+            // =========================
+
+            // etprof
+            // tugas (id 33)
+            ['id_rencana_asesmen'=>33,'id_mk_cpmk_cpl'=>18,'bobot'=>5.0],
+            ['id_rencana_asesmen'=>33,'id_mk_cpmk_cpl'=>19,'bobot'=>5.0],
+
+            // uts (id 34)
+            ['id_rencana_asesmen'=>34,'id_mk_cpmk_cpl'=>18,'bobot'=>10.0],
+            ['id_rencana_asesmen'=>34,'id_mk_cpmk_cpl'=>19,'bobot'=>10.0],
+
+            // uas (id 35)
+            ['id_rencana_asesmen'=>35,'id_mk_cpmk_cpl'=>18,'bobot'=>15.0],
+            ['id_rencana_asesmen'=>35,'id_mk_cpmk_cpl'=>19,'bobot'=>15.0],
+
+            // basis data
+            ['id_rencana_asesmen'=>36,'id_mk_cpmk_cpl'=>20,'bobot'=>5.0],
+            ['id_rencana_asesmen'=>36,'id_mk_cpmk_cpl'=>21,'bobot'=>5.0],
+
+            // uts (id 34)
+            ['id_rencana_asesmen'=>37,'id_mk_cpmk_cpl'=>20,'bobot'=>10.0],
+            ['id_rencana_asesmen'=>37,'id_mk_cpmk_cpl'=>21,'bobot'=>10.0],
+
+            // uas (id 35)
+            ['id_rencana_asesmen'=>38,'id_mk_cpmk_cpl'=>20,'bobot'=>15.0],
+            ['id_rencana_asesmen'=>38,'id_mk_cpmk_cpl'=>21,'bobot'=>15.0],
+
+
+            // ===== Jarkomdat =====
+            ['id_rencana_asesmen'=>39,'id_mk_cpmk_cpl'=>22,'bobot'=>30],
+            ['id_rencana_asesmen'=>40,'id_mk_cpmk_cpl'=>22,'bobot'=>30],
+            ['id_rencana_asesmen'=>41,'id_mk_cpmk_cpl'=>22,'bobot'=>40],
+
+
+            // ===== Sistem Tertanam =====
+            ['id_rencana_asesmen'=>42,'id_mk_cpmk_cpl'=>23,'bobot'=>30],
+            ['id_rencana_asesmen'=>43,'id_mk_cpmk_cpl'=>23,'bobot'=>30],
+            ['id_rencana_asesmen'=>44,'id_mk_cpmk_cpl'=>23,'bobot'=>40],
+            
+
             // untuk Matkul IMK Kurikulum 2020
-            ['id_asesmen_cpmk_bobot' => 1,  'id_rencana_asesmen' => 1,  'id_mk_cpmk_cpl' => 20, 'bobot' => 10.0],
-            ['id_asesmen_cpmk_bobot' => 2,  'id_rencana_asesmen' => 1,  'id_mk_cpmk_cpl' => 21, 'bobot' => 5.0],
-            ['id_asesmen_cpmk_bobot' => 3,  'id_rencana_asesmen' => 2,  'id_mk_cpmk_cpl' => 20, 'bobot' => 10.0],
-            ['id_asesmen_cpmk_bobot' => 4,  'id_rencana_asesmen' => 2,  'id_mk_cpmk_cpl' => 21, 'bobot' => 5.0],
-            ['id_asesmen_cpmk_bobot' => 5,  'id_rencana_asesmen' => 3,  'id_mk_cpmk_cpl' => 20, 'bobot' => 10.0],
-            ['id_asesmen_cpmk_bobot' => 6,  'id_rencana_asesmen' => 3,  'id_mk_cpmk_cpl' => 21, 'bobot' => 0.0],
-            ['id_asesmen_cpmk_bobot' => 7,  'id_rencana_asesmen' => 4,  'id_mk_cpmk_cpl' => 20, 'bobot' => 20.0],
-            ['id_asesmen_cpmk_bobot' => 8,  'id_rencana_asesmen' => 4,  'id_mk_cpmk_cpl' => 21, 'bobot' => 10.0],
-            ['id_asesmen_cpmk_bobot' => 9,  'id_rencana_asesmen' => 5,  'id_mk_cpmk_cpl' => 20, 'bobot' => 0.0],
-            ['id_asesmen_cpmk_bobot' => 10,  'id_rencana_asesmen' => 5,  'id_mk_cpmk_cpl' => 21, 'bobot' => 30.0],
+            // ['id_asesmen_cpmk_bobot' => 1,  'id_rencana_asesmen' => 1,  'id_mk_cpmk_cpl' => 20, 'bobot' => 10.0],
+            // ['id_asesmen_cpmk_bobot' => 2,  'id_rencana_asesmen' => 1,  'id_mk_cpmk_cpl' => 21, 'bobot' => 5.0],
+            // ['id_asesmen_cpmk_bobot' => 3,  'id_rencana_asesmen' => 2,  'id_mk_cpmk_cpl' => 20, 'bobot' => 10.0],
+            // ['id_asesmen_cpmk_bobot' => 4,  'id_rencana_asesmen' => 2,  'id_mk_cpmk_cpl' => 21, 'bobot' => 5.0],
+            // ['id_asesmen_cpmk_bobot' => 5,  'id_rencana_asesmen' => 3,  'id_mk_cpmk_cpl' => 20, 'bobot' => 10.0],
+            // ['id_asesmen_cpmk_bobot' => 6,  'id_rencana_asesmen' => 3,  'id_mk_cpmk_cpl' => 21, 'bobot' => 0.0],
+            // ['id_asesmen_cpmk_bobot' => 7,  'id_rencana_asesmen' => 4,  'id_mk_cpmk_cpl' => 20, 'bobot' => 20.0],
+            // ['id_asesmen_cpmk_bobot' => 8,  'id_rencana_asesmen' => 4,  'id_mk_cpmk_cpl' => 21, 'bobot' => 10.0],
+            // ['id_asesmen_cpmk_bobot' => 9,  'id_rencana_asesmen' => 5,  'id_mk_cpmk_cpl' => 20, 'bobot' => 0.0],
+            // ['id_asesmen_cpmk_bobot' => 10,  'id_rencana_asesmen' => 5,  'id_mk_cpmk_cpl' => 21, 'bobot' => 30.0],
 
             // ['id_asesmen_cpmk_bobot' => 1,  'id_rencana_asesmen' => 1,  'id_cpmk' => 32, 'bobot' => 2.0],
             // ['id_asesmen_cpmk_bobot' => 2,  'id_rencana_asesmen' => 1,  'id_cpmk' => 33, 'bobot' => 3.0],

@@ -15,11 +15,89 @@ class RencanaAsesmenSeeder extends Seeder
     {
         DB::table('rencana_asesmen')->insert([
             // untuk Matkul IMK Kurikulum 2020
+            // ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 50, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            // ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 50, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 2],
+            // ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 50, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            // ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 50, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+            // ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 50, 'tipe_komponen' => 'Kegiatan Partisipatif', 'nomor_komponen' => null],
+
+
+          // tahun akademik pertama (ganjil)
+            // aljabar linear
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 33, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 33, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 33, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+            // pemrograman 1
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 37, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 37, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 37, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+            // tahun akademik pertama (genap)
+            // sistem operasi
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 42, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 42, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 42, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+            // keamanan siber
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 62, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 62, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 62, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+
+            // tahun akademik kedua (ganjil)
+            // mpti
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 71, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 71, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 71, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+            // kecerdasan bisnis
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 70, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 70, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 70, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+            // tahun akademik kedua (genap)
+            // pemro web 1
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 45, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 45, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 45, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+            // algoritma struktur data
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 47, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 47, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 47, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+
+            // tahun akademik ketiga (ganjil)
+            // imk
             ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 50, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
             ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 50, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 2],
             ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 50, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
             ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 50, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
             ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 50, 'tipe_komponen' => 'Kegiatan Partisipatif', 'nomor_komponen' => null],
+
+            // bahasa inggris 1
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 31, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 31, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 31, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+            
+            // tahun akademik ketiga (genap)
+            // etika profesi
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 41, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 41, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 41, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+            // basis data 1
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 43, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 43, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 43, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+
+            
+            // tahun akademik keempat (ganjil)
+            // jarkomdat
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 53, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 53, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 53, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+            // tahun akademik keempat (genap)
+            // sistem tertanam
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 98, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 98, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],
+            ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 98, 'tipe_komponen' => 'uas', 'nomor_komponen' => null],
+
+
+
+
             // ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 31, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 1],
             // ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 31, 'tipe_komponen' => 'tugas', 'nomor_komponen' => 2],
             // ['id_ps' => 7, 'id_kurikulum' => 7, 'id_mk' => 31, 'tipe_komponen' => 'uts', 'nomor_komponen' => null],

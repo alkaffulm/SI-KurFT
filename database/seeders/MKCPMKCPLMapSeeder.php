@@ -11,16 +11,67 @@ class MKCPMKCPLMapSeeder extends Seeder
     {
         DB::table('mk_cpmk_cpl_map')->insert([
 
-            ['id_mk'=>33,'id_cpl'=>19,'id_cpmk'=>32],
-            ['id_mk'=>37,'id_cpl'=>20,'id_cpmk'=>36],
-            ['id_mk'=>42,'id_cpl'=>21,'id_cpmk'=>42],
-            ['id_mk'=>62,'id_cpl'=>22,'id_cpmk'=>45],
-            ['id_mk'=>71,'id_cpl'=>23,'id_cpmk'=>49],
+            // ['id_mk'=>33,'id_cpl'=>19,'id_cpmk'=>32],
+            // ['id_mk'=>37,'id_cpl'=>20,'id_cpmk'=>36],
+            // ['id_mk'=>42,'id_cpl'=>21,'id_cpmk'=>42],
+            // ['id_mk'=>62,'id_cpl'=>22,'id_cpmk'=>45],
+            // ['id_mk'=>71,'id_cpl'=>23,'id_cpmk'=>49],
+            // ['id_mk'=>70,'id_cpl'=>24,'id_cpmk'=>50],
+            // ['id_mk'=>70,'id_cpl'=>24,'id_cpmk'=>52],
+            // ['id_mk'=>50,'id_cpl'=>25,'id_cpmk'=>54],
+            // ['id_mk'=>31,'id_cpl'=>26,'id_cpmk'=>56],
+            // ['id_mk'=>98,'id_cpl'=>27,'id_cpmk'=>61],
+
+          // tahun akademik pertama (ganjil)
+            // aljabar linear 33
+            ['id_mk'=>33,'id_cpl'=>19,'id_cpmk'=>31],
+            ['id_mk'=>33,'id_cpl'=>20,'id_cpmk'=>32],
+            // pemrograman 1 37
+            ['id_mk'=>37,'id_cpl'=>19,'id_cpmk'=>33],
+            ['id_mk'=>37,'id_cpl'=>21,'id_cpmk'=>34],
+            // tahun akademik pertama (genap)
+            // sistem operasi 42
+            ['id_mk'=>42,'id_cpl'=>21,'id_cpmk'=>35],
+            ['id_mk'=>42,'id_cpl'=>22,'id_cpmk'=>36],
+            // keamanan siber 62
+            ['id_mk'=>62,'id_cpl'=>22,'id_cpmk'=>37],
+
+            // tahun akademik kedua (ganjil)
+            // mpti
+            ['id_mk'=>71,'id_cpl'=>23,'id_cpmk'=>39],
+            ['id_mk'=>71,'id_cpl'=>25,'id_cpmk'=>38],
+            // kecerdasan bisnis
             ['id_mk'=>70,'id_cpl'=>24,'id_cpmk'=>50],
-            ['id_mk'=>70,'id_cpl'=>24,'id_cpmk'=>52],
-            ['id_mk'=>50,'id_cpl'=>25,'id_cpmk'=>54],
-            ['id_mk'=>31,'id_cpl'=>26,'id_cpmk'=>56],
-            ['id_mk'=>98,'id_cpl'=>27,'id_cpmk'=>61],
+            // tahun akademik kedua (genap)
+            // pemro web 1
+            ['id_mk'=>45,'id_cpl'=>22,'id_cpmk'=>40],
+            ['id_mk'=>45,'id_cpl'=>23,'id_cpmk'=>41],
+            // algoritma struktur data
+            ['id_mk'=>47,'id_cpl'=>20,'id_cpmk'=>42],
+            ['id_mk'=>47,'id_cpl'=>21,'id_cpmk'=>43],
+            ['id_mk'=>47,'id_cpl'=>23,'id_cpmk'=>44],
+            // tahun akademik ketiga (ganjil)
+            // imk
+            ['id_mk'=>50,'id_cpl'=>24,'id_cpmk'=>50],
+            // bahasa inggris 1
+            ['id_mk'=>31,'id_cpl'=>26,'id_cpmk'=>53],
+            
+            // tahun akademik ketiga (genap)
+            // etika profesi
+            ['id_mk'=>41,'id_cpl'=>26,'id_cpmk'=>54],
+            ['id_mk'=>41,'id_cpl'=>27,'id_cpmk'=>55],
+            // basis data 1
+            ['id_mk'=>43,'id_cpl'=>24,'id_cpmk'=>56],
+            ['id_mk'=>43,'id_cpl'=>24,'id_cpmk'=>57],
+            // tahun akademik keempat (ganjil)
+            // jarkomdat
+            ['id_mk'=>53,'id_cpl'=>24,'id_cpmk'=>58],
+            // tahun akademik keempat (genap)
+            // sistem tertanam
+            ['id_mk'=>98,'id_cpl'=>25,'id_cpmk'=>59],
+
+
+
 
 
             // saat deploy uncomment ini
