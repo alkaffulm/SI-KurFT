@@ -1,5 +1,4 @@
-<div>
-    
+<div>  
     {{-- Flash Message --}}
     @if (session()->has('success'))
         <div class="p-4 mb-4 text-sm font-semibold text-green-800 rounded-lg bg-green-50" role="alert">
@@ -20,11 +19,11 @@
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-center">No</th>
-                    <th scope="col" class="px-6 py-3 text-center">Program Studi</th>
-                    <th scope="col" class="px-6 py-3 text-center">Tahun Akademik</th>
+                    <th scope="col" class="px-6 py-3 text-center w-10">No</th>
+                    <th scope="col" class="px-6 py-3 text-center w-48">Program Studi</th>
+                    <th scope="col" class="px-6 py-3 text-center w-40">Tahun Akademik</th>
                     <th scope="col" class="px-6 py-3 text-center">Catatan</th>
-                    <th scope="col" class="px-6 py-3 text-center">Aksi</th>
+                    <th scope="col" class="px-6 py-3 text-center w-20">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -123,7 +122,7 @@
                 {{-- Input Tanggal Pembuatan --}}
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Tanggal Pembuatan</label>
-                    <input type="date" wire:model="created_at" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                    <input type="date" wire:model="created_at" max="{{ date('Y-m-d') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                     @error('created_at') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
