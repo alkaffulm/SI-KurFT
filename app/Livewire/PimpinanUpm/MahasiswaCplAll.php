@@ -35,7 +35,7 @@ class MahasiswaCplAll extends Component
     public function mount()
     {
         $this->prodiList = ProgramStudiModel::all();
-        $this->tahunAkademikList = TahunAkademik::all();
+        $this->tahunAkademikList = TahunAkademik::orderBy('tahun_akademik', 'desc')->get();
     }
 
     // 1. Saat Prodi Dipilih -> Ambil Daftar Kurikulum
