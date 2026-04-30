@@ -32,7 +32,7 @@ class PenggunaAll extends Component
         }
 
         // 3. Ambil Data
-        $pengguna = $query->with(['roles', 'prodi'])->get();
+        $pengguna = $query->with(['roles', 'prodi'])->paginate(20, ['*'], 'pengguna');
 
         // Data pendukung untuk dropdown filter
         $programStudi = ProgramStudiModel::all();

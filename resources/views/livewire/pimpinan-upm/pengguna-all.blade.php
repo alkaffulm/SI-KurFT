@@ -101,5 +101,9 @@
                 </tbody>
             </table>
         </div>
+
+        <div>
+            {{$pengguna->links()}}
+        </div>
     </div>
 </div>

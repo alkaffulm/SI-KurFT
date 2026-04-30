@@ -42,7 +42,7 @@ class MahasiswaAll extends Component
         }
 
         // 3. Ambil Data
-        $mahasiswa = $query->get();
+        $mahasiswa = $query->paginate(20, ['*'], 'mahasiswa');
 
         // Data pendukung untuk dropdown filter
         $programStudi = ProgramStudiModel::all();
