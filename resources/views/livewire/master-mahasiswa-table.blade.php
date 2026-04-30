@@ -29,7 +29,7 @@
             <tbody>
                 @forelse($mahasiswa as $index => $mhs)
                     <tr class="bg-white border-t border-gray-400">
-                        <td  scope="row"class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">{{ $index + 1 }}</td>
+                        <td  scope="row"class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">{{ ($mahasiswa->currentPage() - 1) * $mahasiswa->perPage() + $loop->iteration }}</td>
                         <td  scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">{{ $mhs->nim }}</td>
                         <td  scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">{{ $mhs->nama_lengkap }}</td>
                         <td  scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">{{ $mhs->angkatan }}</td>
@@ -69,6 +69,76 @@
             </tbody>
         </table>
     </div>
+    <div style="display:flex; justify-content:end">
+
+    <div style="
+        display:flex;
+        align-items:center;
+        background:#1e293b;
+        border-radius:5px;
+        overflow:hidden;
+    ">
+
+        {{-- Previous --}}
+        @if ($mahasiswa->onFirstPage())
+            <span style="
+                padding:6px 12px;
+                color:#64748b;
+                border-right:1px solid #334155;
+            ">
+                ‹
+            </span>
+        @else
+            <button wire:click="previousPage" style="
+                padding:6px 12px;
+                background:none;
+                border:none;
+                color:white;
+                cursor:pointer;
+                border-right:1px solid #334155;
+            ">
+                ‹
+            </button>
+        @endif
+
+        {{-- Number --}}
+        @for ($i = 1; $i <= $mahasiswa->lastPage(); $i++)
+            <button wire:click="gotoPage({{ $i }})" style="
+                padding:6px 12px;
+                background: {{ $mahasiswa->currentPage() == $i ? '#0f172a' : 'transparent' }};
+                border:none;
+                border-right:1px solid #334155;
+                color:gainsboro;
+                cursor:pointer;
+                min-width:40px;
+            ">
+                {{ $i }}
+            </button>
+        @endfor
+
+        {{-- Next --}}
+        @if ($mahasiswa->hasMorePages())
+            <button wire:click="nextPage" style="
+                padding:6px 12px;
+                background:none;
+                border:none;
+                color:white;
+                cursor:pointer;
+            ">
+                ›
+            </button>
+        @else
+            <span style="
+                padding:12px 12px;
+                color:#64748b;
+            ">
+                ›
+            </span>
+        @endif
+
+    </div>
+
+</div>
 
 <script>
     function confirmDelete(id) {

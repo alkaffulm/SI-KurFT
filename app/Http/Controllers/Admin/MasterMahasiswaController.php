@@ -12,7 +12,7 @@ class MasterMahasiswaController extends Controller
     public function index()
     {
         $id_ps = session('userRoleId');
-        $mahasiswa = MahasiswaModel::where('id_ps', $id_ps)->get();
+        $mahasiswa = MahasiswaModel::where('id_ps', $id_ps)->paginate(20);
         $userRole = session()->get('userRole');
 
         if($userRole == 'pimpinan' || $userRole == 'upm'){
