@@ -86,7 +86,8 @@ class KelolaPenggunaController extends Controller
         $user = UserModel::with('roles')
                     ->forProdi($id_ps)
                     ->findOrFail($id_user);
-        $roles = RoleModel::orderBy('id_role')->get();
+        $roles = RoleModel::whereNotIn('id_role', [1, 6]) // Contoh: tidak memasukkan role dengan ID 1 dan 2
+                    ->orderBy('id_role')->get();
 
         // Ambil Role ID yang dimiliki user, tapi difilter hanya yang di prodi ini
         // (Jaga-jaga kalau user punya jabatan di prodi lain, admin ini gak boleh ngotak-ngatik jabatan prodi lain)
