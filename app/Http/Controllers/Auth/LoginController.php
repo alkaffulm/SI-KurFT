@@ -92,7 +92,7 @@ class LoginController extends Controller
 
         if(!$activeKurikulum && $contextIdPs && $contextIdPs != 16) {
             $activeKurikulum = KurikulumModel::where('id_ps', $contextIdPs)
-                ->orderBy('tahun', 'asc')
+                ->where('tahun', 2020)
                 ->first();
         }
 
