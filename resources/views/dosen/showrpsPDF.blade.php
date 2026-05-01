@@ -112,8 +112,8 @@
     </tr>
     <tr>
         <td height="50"></td>
-        <td height="50">{{ $rps->mataKuliah->pengembangRps->username }}</td>
-        <td height="50">{{ $rps->mataKuliah->koordinatorMk->username }}</td>
+        <td height="50">{{ $rps->mataKuliah->pengembangRps->username ?? '-' }}</td>
+        <td height="50">{{ $rps->mataKuliah->koordinatorMk->username ?? '-' }}</td>
         <td height="50">{{ $rps->kaprodi->username }}</td>
     </tr>
 </table>
