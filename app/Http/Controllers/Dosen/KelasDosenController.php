@@ -65,7 +65,8 @@ class KelasDosenController extends Controller
         ]);
 
         $kelas = Kelas::with('mahasiswa','mataKuliahModel')->findOrFail($id);
-
+        $mahasiswa = $kelas->mahasiswa()->paginate(10);
+        
         session()->forget([
             'bypass_prodi_scope',
             'bypass_kurikulum_scope'
@@ -93,6 +94,7 @@ class KelasDosenController extends Controller
 
         return view('dosen.kelas.penilaian_mahasiswa_kelas', [
             'kelas' => $kelas,
+            'mahasiswa' => $mahasiswa,
             'rencanaAsesmen' => $rencanaAsesmen,
             'bobot' => $bobot,
             'penilaianMahasiswa' => $penilaianMahasiswa,

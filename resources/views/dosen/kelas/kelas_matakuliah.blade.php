@@ -91,6 +91,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div>
+                    {{$kelas->links()}}
+                </div>
             </div>
 
 

@@ -2,42 +2,50 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use Livewire\Attributes\On;
 use App\Models\MataKuliahModel;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class MataKuliahDashboard extends Component
 {
+    use WithPagination;
 
-    public $tanggungJawabDosen; // Ini akan berisi Model Object (bukan collection) atau null
+    public $idKurikulum;
 
     public function mount()
     {
-        $this->loadMk(session('id_kurikulum_aktif'));
+        $this->idKurikulum = session('id_kurikulum_aktif');
     }
 
     #[On('kurikulum-changed')]
     public function updateMk($idKurikulum)
     {
-        $this->loadMk($idKurikulum);
+        $this->idKurikulum = $idKurikulum;
+
+        // reset ke halaman pertama saat kurikulum berubah
+        $this->resetPage();
     }
 
-    public function loadMk($idKurikulum)
-    {
-        if(!$idKurikulum) {
-            $this->tanggungJawabDosen = null;
-            return;
-        }
-
-        // Ambil SATU data saja (first), karena logikanya 1 Kurikulum = 1 Visi Keilmuan
-        $this->tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())
-                                    ->with(['bahanKajian.cpls', 'rps', 'koordinatorMk', 'pengembangRps'])
-                                    ->orderBy('semester')
-                                    ->get();
-    }
     public function render()
     {
-        return view('livewire.mata-kuliah-dashboard');
+        if (!$this->idKurikulum) {
+            $tanggungJawabDosen = collect();
+        } else {
+            $tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())
+                ->with([
+                    'bahanKajian.cpls',
+                    'rps',
+                    'koordinatorMk',
+                    'pengembangRps'
+                ])
+                ->orderBy('semester')
+                ->paginate(5);
+        }
+
+        return view('livewire.mata-kuliah-dashboard', [
+            'tanggungJawabDosen' => $tanggungJawabDosen
+        ]);
     }
 }

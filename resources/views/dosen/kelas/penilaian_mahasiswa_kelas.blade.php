@@ -238,7 +238,7 @@
                                     {{-- ============================= --}}
                                     <tbody>
 
-                                        @foreach($kelas->mahasiswa as $mhs)
+                                        @foreach($mahasiswa as $mhs)
 
                                             <tr class="text-black bg-gray-50 hover:bg-gray-100">
 
@@ -316,6 +316,9 @@
                                     </tbody>
 
                                 </table>
+                            </div>
+                            <div>
+                                {{$mahasiswa->links()}}
                             </div>
 
                             {{-- SUBMIT --}}

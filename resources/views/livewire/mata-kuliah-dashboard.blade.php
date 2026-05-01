@@ -21,10 +21,10 @@
                             {{ $tjd->kode_mk }}
                         </td>
                         <td class="px-6 py-4 border-r border-gray-400 font-medium text-gray-900">
-                            {{ $tjd->pengembangRps->username }}
+                            {{ $tjd->pengembangRps->username ?? '-'}}
                         </td>
                         <td class="px-6 py-4 border-r border-gray-400 font-medium text-gray-900">
-                            {{ $tjd->koordinatorMk->username }}
+                            {{ $tjd->koordinatorMk->username ?? '-'}}
                         </td>
                         <td class="px-6 py-4 border-r border-gray-400">
                             <p>{{ $tjd->nama_matkul_id }}</p> 
@@ -45,5 +45,8 @@
             </tbody>
         </table>
 
+    </div>
+    <div>
+        {{$tanggungJawabDosen->links()}}
     </div>
 </div>
