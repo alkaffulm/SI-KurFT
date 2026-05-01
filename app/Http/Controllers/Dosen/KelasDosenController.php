@@ -43,7 +43,7 @@ class KelasDosenController extends Controller
                 'mata_kuliah.nama_matkul_id',
                 'program_studi.nama_prodi'
             )
-            ->get();
+            ->paginate(5);
 
         return view('dosen.kelas.kelas_matakuliah', compact('kelas'));
     }
