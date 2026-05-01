@@ -31,7 +31,7 @@ class KelolaPenggunaController extends Controller
             }])
             ->forProdi($id_ps)
             ->orderBy('id_user', 'desc')
-            ->get();
+            ->paginate(20);
 
         if($userRole == 'pimpinan' || $userRole == 'upm'){
             return view('pimpinanUpm.penggunaAll', ['userRole' => $userRole,]);

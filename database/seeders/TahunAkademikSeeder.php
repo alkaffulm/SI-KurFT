@@ -18,7 +18,6 @@ class TahunAkademikSeeder extends Seeder
             ['tahun_akademik' => '2023/2024'],
             ['tahun_akademik' => '2024/2025'],
             ['tahun_akademik' => '2025/2026'],
-            ['tahun_akademik' => '2026/2027'],
         ]);
     }
 }

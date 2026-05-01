@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\PimpinanUpm;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -8,7 +8,7 @@ use App\Models\EvaluasiUpmModel;
 use App\Models\ProgramStudiModel;
 use App\Models\TahunAkademikModel;
 
-class EvaluasiUpmAll extends Component
+class EvaluasiUpmAdmin extends Component
 {
     use WithPagination;
 
@@ -26,7 +26,7 @@ class EvaluasiUpmAll extends Component
     private function resetInputFields()
     {
         $this->id_evaluasi_upm = null;
-        $this->id_ps = '';
+        $this->id_ps = session('userRoleId'); // Set default ke prodi admin
         $this->id_tahun_akademik = '';
         $this->catatan = '';
         $this->created_at = '';
@@ -49,6 +49,12 @@ class EvaluasiUpmAll extends Component
 
         $evaluasi = EvaluasiUpmModel::find($id);
         
+        // Cek apakah evaluasi milik prodi admin ini
+        if ($evaluasi->id_ps !== session('userRoleId')) {
+            session()->flash('error', 'Anda tidak memiliki akses ke catatan ini.');
+            return;
+        }
+
         // Isi properti dengan data yang ada
         $this->id_evaluasi_upm = $evaluasi->id_evaluasi_upm;
         $this->id_ps = $evaluasi->id_ps;
@@ -64,16 +70,24 @@ class EvaluasiUpmAll extends Component
     {
         // Validasi input
         $this->validate([
-            'id_ps' => 'required|exists:program_studi,id_ps',
             'id_tahun_akademik' => 'required|exists:tahun_akademik,id_tahun_akademik',
-            'catatan' => 'nullable|string', // Nullable sesuai skema, tapi bisa diubah required jika wajib
+            'catatan' => 'nullable|string',
             'created_at' => 'required|date_format:Y-m-d',
         ]);
+
+        // Set id_ps dari session
+        $this->id_ps = session('userRoleId');
 
         if ($this->isEditMode) {
             // --- LOGIKA EDIT (Cek Perubahan) ---
             $evaluasi = EvaluasiUpmModel::find($this->id_evaluasi_upm);
             
+            // Cek akses
+            if ($evaluasi->id_ps !== session('userRoleId')) {
+                session()->flash('error', 'Anda tidak memiliki akses untuk mengedit catatan ini.');
+                return;
+            }
+
             // Isi data baru ke model tanpa simpan dulu
             $evaluasi->fill([
                 'id_ps' => $this->id_ps,
@@ -111,20 +125,31 @@ class EvaluasiUpmAll extends Component
     // Hapus Data
     public function delete($id)
     {
-        EvaluasiUpmModel::find($id)->delete();
-        session()->flash('message', 'Catatan berhasil dihapus.');
+        $evaluasi = EvaluasiUpmModel::find($id);
+        
+        // Cek akses
+        if ($evaluasi->id_ps !== session('userRoleId')) {
+            session()->flash('error', 'Anda tidak memiliki akses untuk menghapus catatan ini.');
+            return;
+        }
+
+        $evaluasi->delete();
+        session()->flash('success', 'Catatan berhasil dihapus.');
     }
 
     public function render()
     {
-        // Ambil data dengan eager loading relasi agar hemat query
+        // Ambil data dengan filter berdasarkan id_ps (prodi admin)
+        // Eager loading relasi agar hemat query
         $dataEvaluasi = EvaluasiUpmModel::with(['programstudi', 'tahunakademik'])
+                        ->where('id_ps', session('userRoleId'))
                         ->latest()
                         ->paginate(10);
-        return view('livewire.pimpinan-upm.evaluasi-upm-all', [
+        
+        return view('livewire.evaluasi-upm-admin', [
             'evaluasi' => $dataEvaluasi,
-            'list_prodi' => ProgramStudiModel::all(),
-            'list_tahun' => TahunAkademikModel::orderBy('tahun_akademik', 'desc')->get(), // Sesuaikan nama kolom sortingnya
+            'list_tahun' => TahunAkademikModel::all(),
+            'prodi' => ProgramStudiModel::find(session('userRoleId')),
         ]);
     }
 }

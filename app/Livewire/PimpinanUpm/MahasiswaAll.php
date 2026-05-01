@@ -2,15 +2,17 @@
 
 namespace App\Livewire\PimpinanUpm;
 
-use Livewire\Component;
 use App\Models\KurikulumModel;
 use App\Models\MahasiswaModel;
 use App\Models\ProgramStudiModel;
-use App\Models\Scopes\ProdiScope;
 use App\Models\Scopes\KurikulumScope;
+use App\Models\Scopes\ProdiScope;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class MahasiswaAll extends Component
 {
+    use WithPagination;
     // Properti untuk Filter
     public $selectedAngkatan = '';
     public $selectedProdi = '';
@@ -42,7 +44,7 @@ class MahasiswaAll extends Component
         }
 
         // 3. Ambil Data
-        $mahasiswa = $query->get();
+        $mahasiswa = $query->orderBy('NIM')->paginate(20, ['*'], 'mahasiswa');
 
         // Data pendukung untuk dropdown filter
         $programStudi = ProgramStudiModel::all();

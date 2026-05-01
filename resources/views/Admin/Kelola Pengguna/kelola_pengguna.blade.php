@@ -86,9 +86,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($users as $i => $u)
+                                @forelse ($users as $u)
                                     <tr class="bg-white border-b">
-                                        <td class="px-6 py-4">{{ $i + 1 }}</td>
+                                        <td class="px-6 py-4">{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}</td>
                                         <td class="px-6 py-4">{{ $u->NIP ?? '-' }}</td>
                                         <td class="px-6 py-4">{{ $u->username }}</td>
                                         <td class="px-6 py-4">
@@ -122,6 +122,9 @@
                                 @endforelse
                             </tbody>
                         </table>
+                    </div>
+                    <div>
+                        {{$users->links()}}
                     </div>
                 </div>
             </div>

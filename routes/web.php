@@ -1,47 +1,45 @@
 <?php
 
-use App\Livewire\RencanaAsesmenForm;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MhsCplController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Dosen\RPSController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Kaprodi\CplController;
-use App\Http\Controllers\Kaprodi\PeoController;
-use App\Http\Controllers\Kaprodi\CpmkController;
-use App\Http\Controllers\Kaprodi\KelasController;
-use App\Http\Controllers\Kaprodi\MatkulController;
-use App\Http\Controllers\Kaprodi\MKCPMKController;
-use App\Http\Controllers\Kaprodi\BKMKMapController;
-use App\Http\Controllers\Kaprodi\CPLCPMKController;
-use App\Http\Controllers\Kaprodi\SubCpmkController;
 use App\Http\Controllers\Admin\KelasAdminController;
-use App\Http\Controllers\Kaprodi\BKCPLMapController;
-use App\Http\Controllers\Kaprodi\CPLPLMapController;
-use App\Http\Controllers\Kaprodi\KurikulumController;
-use App\Http\Controllers\Kaprodi\MKCPMKCPLController;
-use App\Http\Controllers\PembobotanCPMKCPLController;
-use App\Http\Controllers\Kaprodi\CPMKMPLMapController;
-use App\Http\Controllers\Kaprodi\BahanKajianController;
-use App\Http\Controllers\Dosen\RencanaAsesmenController;
-use App\Http\Controllers\Kaprodi\PLPEOMappingController;
-use App\Http\Controllers\Kaprodi\BobotController;
-
-// Controller Admin
-use App\Http\Controllers\Kaprodi\VisiKeilmuanController;
-use App\Http\Controllers\Kaprodi\ProfilLulusanController;
-use App\Http\Controllers\Kaprodi\TahunakademikController;
-
-use App\Http\Controllers\Admin\ModelPembelajaranController;
-use App\Http\Controllers\Dosen\EvaluasiMahasiswaController;
-use App\Http\Controllers\Admin\MetodePembelajaranController;
-use App\Http\Controllers\Admin\TahunakademikAdminController;
-use App\Http\Controllers\Admin\TeknikPenilaianAdminController;
+use App\Http\Controllers\Admin\KelolaPenggunaController;
 use App\Http\Controllers\Admin\KriteriaPenilaianAdminController;
 use App\Http\Controllers\Admin\MasterMahasiswaController;
+use App\Http\Controllers\Admin\MetodePembelajaranController;
+use App\Http\Controllers\Admin\ModelPembelajaranController;
+use App\Http\Controllers\Admin\TahunakademikAdminController;
+use App\Http\Controllers\Admin\TeknikPenilaianAdminController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Dosen\EvaluasiMahasiswaController;
 use App\Http\Controllers\Dosen\KelasDosenController;
-use App\Http\Controllers\Admin\KelolaPenggunaController;
+use App\Http\Controllers\Dosen\RencanaAsesmenController;
+use App\Http\Controllers\Dosen\RPSController;
 use App\Http\Controllers\EvaluasiUpmController;
+use App\Http\Controllers\Kaprodi\BahanKajianController;
+use App\Http\Controllers\Kaprodi\BKCPLMapController;
+use App\Http\Controllers\Kaprodi\BKMKMapController;
+use App\Http\Controllers\Kaprodi\BobotController;
+use App\Http\Controllers\Kaprodi\CplController;
+use App\Http\Controllers\Kaprodi\CPLCPMKController;
+use App\Http\Controllers\Kaprodi\CPLPLMapController;
+use App\Http\Controllers\Kaprodi\CpmkController;
+use App\Http\Controllers\Kaprodi\CPMKMPLMapController;
+use App\Http\Controllers\Kaprodi\KelasController;
+use App\Http\Controllers\Kaprodi\KurikulumController;
+use App\Http\Controllers\Kaprodi\MatkulController;
+use App\Http\Controllers\Kaprodi\MKCPMKController;
+use App\Http\Controllers\Kaprodi\MKCPMKCPLController;
+use App\Http\Controllers\Kaprodi\PeoController;
+use App\Http\Controllers\Kaprodi\PLPEOMappingController;
+use App\Http\Controllers\Kaprodi\ProfilLulusanController;
+use App\Http\Controllers\Kaprodi\SubCpmkController;
+use App\Http\Controllers\Kaprodi\TahunakademikController;
+use App\Http\Controllers\Kaprodi\VisiKeilmuanController;
+use App\Http\Controllers\MhsCplController;
+use App\Http\Controllers\PembobotanCPMKCPLController;
+use App\Livewire\EvaluasiUpmAdmin;
+use App\Livewire\RencanaAsesmenForm;
+use Illuminate\Support\Facades\Route;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
@@ -304,6 +302,9 @@ Route::middleware('auth')->group(function () {
             Route::put('/kelola-pengguna/{id_user}', [KelolaPenggunaController::class, 'update'])->name('admin.kelola-pengguna.update');
 
             Route::delete('/kelola-pengguna/{id_user}', [KelolaPenggunaController::class, 'destroy'])->name('admin.kelola-pengguna.destroy');
+
+        // EVALUASI UPM (Hanya untuk Admin, filter berdasarkan prodi mereka)
+            Route::get('/evaluasi-upm', EvaluasiUpmAdmin::class)->name('admin.evaluasi-upm.index');
     });
 
     // Role Pimpinan

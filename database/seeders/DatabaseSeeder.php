@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             
-        RoleSeeder::class,                    // 1
+            RoleSeeder::class,                    // 1
             ProgramStudiSeeder::class,            // 2
             KurikulumSeeder::class,               // 3
             BahanKajianSeeder::class,             // 4 dimatikan saat deploy
@@ -59,9 +59,12 @@ class DatabaseSeeder extends Seeder
             CPLPLMapSeeder::class,                // 30 dimatikan saat deploy
             // MKCPMKSubCPMKMapSeeder::class,        // 31
             MKCPMKCPLMapSeeder::class,            // 32 dimatikan saat deploy
-            // TahunAkademikSeeder::class,           // 33
+            TahunAkademikSeeder::class,           // 33
             // KurikulumTahunAkademikSeeder::class,  // 34
             // KelasSeeder::class,                    // 35
+            MKCPMKBobotSeeder::class,
+            RencanaAsesmenSeeder::class,
+            RencanaAsesmenCPMKBobotSeeder::class,
 
             // RencanaAsesmenSeeder::class, // dimatikan saat deploy
             // RencanaAsesmenCPMKBobotSeeder::class, // dimatikan saat deploy
@@ -79,6 +82,9 @@ class DatabaseSeeder extends Seeder
             // RpsTopicTeknikPenilaianSeeder::class, // dimatikan saat deploy
 
             VisiKeilmuanSeeder::class,
+            KelasSeeder::class,
+            KelasMahasiswaSeeder::class,
+            PenilaianMahasiswaSeeder::class,
             // KelasMahasiswaSeeder::class,
             // CPLCPMKBobotSeeder::class,
 

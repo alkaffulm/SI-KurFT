@@ -1,5 +1,4 @@
-<div>
-    
+<div>  
     {{-- Flash Message --}}
     @if (session()->has('success'))
         <div class="p-4 mb-4 text-sm font-semibold text-green-800 rounded-lg bg-green-50" role="alert">
@@ -20,11 +19,11 @@
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-white uppercase bg-teks-biru-custom">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-center">No</th>
-                    <th scope="col" class="px-6 py-3 text-center">Program Studi</th>
-                    <th scope="col" class="px-6 py-3 text-center">Tahun Akademik</th>
+                    <th scope="col" class="px-6 py-3 text-center w-10">No</th>
+                    <th scope="col" class="px-6 py-3 text-center w-48">Program Studi</th>
+                    <th scope="col" class="px-6 py-3 text-center w-40">Tahun Akademik</th>
                     <th scope="col" class="px-6 py-3 text-center">Catatan</th>
-                    <th scope="col" class="px-6 py-3 text-center">Aksi</th>
+                    <th scope="col" class="px-6 py-3 text-center w-20">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,8 +42,7 @@
                         <td class="px-6 py-4 border-r border-gray-400">
                             <p class="line-clamp-2 font-medium text-gray-900" title="{{$item->catatan}}">{{ $item->catatan ?? '-' }}</p>
                             <div class="flex gap-x-3 mt-2 italic">
-                                <p class="text-[12px]">Dibuat pada: {{ $item->created_at->diffForHumans() ?? '-' }}</p>
-                                <p class="text-[12px]">DIperbarui Pada: {{ $item->updated_at->diffForHumans() ?? '-' }}</p>
+                                <p class="text-[12px]">Dibuat pada: {{ $item->created_at->format('d-m-Y') }}</p>
                             </div>
                         </td>
                         <td class="px-6 py-4 text-center flex gap-x-2">
@@ -119,6 +117,13 @@
                     <label class="block mb-2 text-sm font-medium text-gray-900">Isi Catatan</label>
                     <textarea required wire:model="catatan" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Tuliskan evaluasi atau perbaikan yang diperlukan..."></textarea>
                     @error('catatan') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                </div>
+
+                {{-- Input Tanggal Pembuatan --}}
+                <div class="mb-4">
+                    <label class="block mb-2 text-sm font-medium text-gray-900">Tanggal Pembuatan</label>
+                    <input type="date" wire:model="created_at" max="{{ date('Y-m-d') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                    @error('created_at') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
                 {{-- Tombol Simpan --}}
