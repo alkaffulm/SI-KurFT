@@ -22,7 +22,8 @@ class StoreModelPembelajaranRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_model_pembelajaran' => 'required|string|max:255|unique:model_pembelajaran,nama_model_pembelajaran',
+            // 'nama_model_pembelajaran' => 'required|string|max:255|unique:model_pembelajaran,nama_model_pembelajaran',
+            'nama_model_pembelajaran' => 'required|string|max:255',
         ];
     }
 
@@ -37,7 +38,7 @@ class StoreModelPembelajaranRequest extends FormRequest
             'nama_model_pembelajaran.required' => 'Nama Model Pembelajarantidak boleh kosong.',
             'nama_model_pembelajaran.string' => 'Nama Model Pembelajaranharus berupa teks.',
             'nama_model_pembelajaran.max' => 'Nama Model Pembelajaranmaksimal 255 karakter.',
-            'nama_model_pembelajaran.unique' => 'Nama Model Pembelajaransudah ada. Silakan gunakan nama lain.',
+            // 'nama_model_pembelajaran.unique' => 'Nama Model Pembelajaransudah ada. Silakan gunakan nama lain.',
             
         ];
     }

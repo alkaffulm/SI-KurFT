@@ -22,8 +22,8 @@ class StoreKriteriaPenilaianRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_kriteria_penilaian' => 'required|string|max:255|unique:kriteria_penilaian,nama_kriteria_penilaian',
-        ];
+            // 'nama_kriteria_penilaian' => 'required|string|max:255|unique:kriteria_penilaian,nama_kriteria_penilaian',
+            'nama_kriteria_penilaian' => 'required|string|max:255',];
     }
 
     /**
@@ -37,7 +37,7 @@ class StoreKriteriaPenilaianRequest extends FormRequest
             'nama_kriteria_penilaian.required' => 'Nama kriteria Penilaian tidak boleh kosong.',
             'nama_kriteria_penilaian.string' => 'Nama kriteria Penilaian harus berupa teks.',
             'nama_kriteria_penilaian.max' => 'Nama kriteria Penilaian maksimal 255 karakter.',
-            'nama_kriteria_penilaian.unique' => 'Nama kriteria Penilaian sudah ada. Silakan gunakan nama lain.',
+            // 'nama_kriteria_penilaian.unique' => 'Nama kriteria Penilaian sudah ada. Silakan gunakan nama lain.',
             
         ];
     }

@@ -22,7 +22,8 @@ class StoreTeknikPenilaianRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_teknik_penilaian' => 'required|string|max:255|unique:teknik_penilaian,nama_teknik_penilaian',
+            // 'nama_teknik_penilaian' => 'required|string|max:255|unique:teknik_penilaian,nama_teknik_penilaian',
+            'nama_teknik_penilaian' => 'required|string|max:255',
             'kategori' => 'required|in:test,non-test',
         ];
     }
@@ -38,7 +39,7 @@ class StoreTeknikPenilaianRequest extends FormRequest
             'nama_teknik_penilaian.required' => 'Nama Teknik Penilaian tidak boleh kosong.',
             'nama_teknik_penilaian.string' => 'Nama Teknik Penilaian harus berupa teks.',
             'nama_teknik_penilaian.max' => 'Nama Teknik Penilaian maksimal 255 karakter.',
-            'nama_teknik_penilaian.unique' => 'Nama Teknik Penilaian sudah ada. Silakan gunakan nama lain.',
+            // 'nama_teknik_penilaian.unique' => 'Nama Teknik Penilaian sudah ada. Silakan gunakan nama lain.',
             
             'kategori.required' => 'Kategori tidak boleh kosong.',
             'kategori.in' => 'Kategori harus dipilih antara Test atau Non-Test.',
