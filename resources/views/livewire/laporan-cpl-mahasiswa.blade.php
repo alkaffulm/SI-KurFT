@@ -103,7 +103,11 @@
                 {{-- TITLE --}}
                 <h2 class="text-xl font-bold text-gray-800">
                     Tahun Akademik {{ $laporan['tahun_akademik'] }}
+                    @if($mahasiswa)
+                        - {{ $mahasiswa->nama_lengkap }} ({{ $mahasiswa->angkatan }})
+                    @endif
                 </h2>
+
 
                 {{-- ================= TABLE MK ================= --}}
                 <div class="bg-white rounded-lg shadow p-4">
@@ -266,6 +270,9 @@
                 {{-- TITLE --}}
                 <h2 class="text-xl font-bold text-gray-800">
                     Tahun Akademik {{ $laporan['tahun_akademik'] }}
+                    @if($mahasiswa)
+                        - {{ $mahasiswa->nama_lengkap }} ({{ $mahasiswa->angkatan }})
+                    @endif
                 </h2>
 
                 {{-- ================= TABLE CPL ================= --}}
