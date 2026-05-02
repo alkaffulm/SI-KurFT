@@ -25,7 +25,20 @@
                     @endforeach
                 </select>
             </div>
+        </div>
 
+        {{-- Search Mahasiswa --}}
+        <div class="mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">
+                Search Mahasiswa
+            </label>
+            <input 
+                type="text"
+                wire:model.live.debounce.500ms="search"
+                placeholder="Cari NIM atau nama mahasiswa..."
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                    focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5"
+            >
         </div>
 
         {{-- ... Header Tabel ... --}}
@@ -42,13 +55,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr wire:loading wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
+                    <tr wire:loading wire:target="selectedProdi, selectedKurikulum, search, nextPage, previousPage, gotoPage" class="bg-white border-t border-gray-400">
                         <td colspan="5" class="px-6 py-4 text-center">
                             <span class="text-sm font-medium text-gray-500">Sedang memuat data...</span>
                         </td>
                     </tr>
                     @forelse ($mahasiswa as $mhs)
-                        <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
+                        <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum, search, nextPage, previousPage, gotoPage" class="bg-white border-t border-gray-400">
                             {{-- REVISI: Menghapus hover dari kode PL --}}
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                 {{ ($mahasiswa->currentPage() - 1) * $mahasiswa->perPage() + $loop->iteration }}

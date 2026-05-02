@@ -30,6 +30,8 @@ class KelasDosenController extends Controller
     {
         $idUser = Auth::id();
 
+        $searchKelas = request('search_kelas');
+
         $kelas = Kelas::where('kelas.id_user', $idUser)
             ->join('tahun_akademik', 'kelas.id_tahun_akademik', '=', 'tahun_akademik.id_tahun_akademik')
             ->join('kurikulum', 'kelas.id_kurikulum', '=', 'kurikulum.id_kurikulum')
@@ -43,6 +45,9 @@ class KelasDosenController extends Controller
                 'mata_kuliah.nama_matkul_id',
                 'program_studi.nama_prodi'
             )
+            ->when($searchKelas, function ($query, $searchKelas) {
+                $query->where('mata_kuliah.nama_matkul_id', 'like', '%' . $searchKelas . '%');
+            })
             ->paginate(5);
 
         return view('dosen.kelas.kelas_matakuliah', compact('kelas'));

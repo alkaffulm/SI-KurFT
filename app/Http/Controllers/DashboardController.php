@@ -29,7 +29,7 @@ class DashboardController extends Controller
                 $query->withoutGlobalScopes()->where('id_ps', '!=', $userRoleId);
             })
             ->orderBy('mata_kuliah.semester', 'asc')            
-            ->get();
+            ->paginate(5);
 
         return view('dashboard', [
             'visi' => $visi, 

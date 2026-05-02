@@ -67,10 +67,10 @@
 
                                     {{-- Nama Profil Lulusan ID dan EN --}}
                                     <div class="col-span-12 sm:col-span-4">
-                                        <label for="profil_lulusan_{{ $pl->id_pl }}"
+                                        <label for="nama_pl_id_{{ $pl->id_pl }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Nama Profil
                                             Lulusan (Indonesia)</label>
-                                        <input type="text" id="profil_lulusan_{{ $pl->id_pl }}"
+                                        <input type="text" id="nama_pl_id_{{ $pl->id_pl }}"
                                             name="pl[{{ $pl->id_pl }}][nama_pl_id]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                             value="{{ old('pl.' . $pl->id_pl . '.nama_pl_id', $pl->nama_pl_id) }}"
@@ -78,10 +78,10 @@
                                     </div>
 
                                     <div class="col-span-12 sm:col-span-4">
-                                        <label for="profil_lulusan_{{ $pl->id_pl }}"
+                                        <label for="nama_pl_en_{{ $pl->id_pl }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Nama Profil
                                             Lulusan (English)</label>
-                                        <input type="text" id="profil_lulusan_{{ $pl->id_pl }}"
+                                        <input type="text" id="nama_pl_en_{{ $pl->id_pl }}"
                                             name="pl[{{ $pl->id_pl }}][nama_pl_en]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                             value="{{ old('pl.' . $pl->id_pl . '.nama_pl_en', $pl->nama_pl_en) }}"
@@ -89,9 +89,9 @@
                                     </div>
 
                                     <div class="col-span-12 sm:col-span-10">
-                                        <label for="profil_lulusan_{{ $pl->id_pl }}"
+                                        <label for="profesi_pl_{{ $pl->id_pl }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Profesi</label>
-                                        <input type="text" id="profil_lulusan_{{ $pl->id_pl }}"
+                                        <input type="text" id="profesi_pl_{{ $pl->id_pl }}"
                                             name="pl[{{ $pl->id_pl }}][profesi]" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                                             value="{{ old('pl.' . $pl->id_pl . '.profesi', $pl->profesi) }}"
@@ -100,16 +100,16 @@
                                     
                                     {{-- Deskripsi Profil Lulusan ID dan EN --}}
                                     <div class="col-span-11 sm:col-span-5">
-                                        <label for="desc_{{ $pl->id_pl }}"
+                                        <label for="desc_pl_id_{{ $pl->id_pl }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Deskripsi Profil Lulusan (Indonesia)</label>
-                                        <textarea id="desc_{{ $pl->id_pl }}" name="pl[{{ $pl->id_pl }}][desc_pl_id]" rows="3" :disabled="isDeleting"
+                                        <textarea id="desc_pl_id_{{ $pl->id_pl }}" name="pl[{{ $pl->id_pl }}][desc_pl_id]" rows="3" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('pl.' . $pl->id_pl . '.desc_pl_id', $pl->desc_pl_id) }}</textarea>
                                     </div>
 
                                     <div class="col-span-11 sm:col-span-5">
-                                        <label for="desc_{{ $pl->id_pl }}"
+                                        <label for="desc_pl_en_{{ $pl->id_pl }}"
                                             class="block text-base font-medium text-gray-700 mb-2">Deskripsi Profil Lulusan (English)</label>
-                                        <textarea id="desc_{{ $pl->id_pl }}" name="pl[{{ $pl->id_pl }}][desc_pl_en]" rows="3" :disabled="isDeleting"
+                                        <textarea id="desc_pl_en_{{ $pl->id_pl }}" name="pl[{{ $pl->id_pl }}][desc_pl_en]" rows="3" :disabled="isDeleting"
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required>{{ old('pl.' . $pl->id_pl . '.desc_pl_en', $pl->desc_pl_en) }}</textarea>
                                     </div>
 

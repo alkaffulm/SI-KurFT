@@ -68,6 +68,29 @@
                     </div>
                 </div>
 
+                <div class="mb-4 flex gap-2">
+                    <form method="GET" action="{{ route('mata-kuliah.index') }}" class="flex gap-2">
+                        <input 
+                            type="text"
+                            name="search"
+                            value="{{ request('search') }}"
+                            placeholder="Cari nama mata kuliah..."
+                            class="px-2 border border-gray-300 rounded-lg w-80"
+                        >
+
+                        <button 
+                            type="submit"
+                            class="px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90">
+                            Search
+                        </button>
+                    </form>
+
+                    <a href="{{ route('mata-kuliah.index') }}"
+                        class="px-4 py-2 border border-gray-300 rounded-lg">
+                            Reset
+                    </a>
+                </div>
+
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-center text-gray-500 table-fixed">
                         <thead class=" text-white uppercase bg-teks-biru-custom">
@@ -183,41 +206,6 @@
                 <div>
                     {{$mata_kuliah->links()}}
                 </div>
-
-                {{-- Bagian 3: Tabel Pemetaan BK-CPL-MK --}}
-                {{-- <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Tabel Pemetaan BK - CPL - MK</h2>
-                <div class="overflow-x-auto rounded-lg border border-gray-400">
-                    <table class="w-full text-sm text-center text-gray-500">
-                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">BK / CPL</th>
-                                @foreach ($cpl as $c)
-                                    <th scope="col" class="px-6 py-3">{{ $c->nama_kode_cpl }}</th>
-                                @endforeach
-                            </tr>
-                        </thead>
-                        <tbody> --}}
-                            {{-- @foreach ($bahan_kajian as $bk)
-                                <tr class="bg-white border-t border-gray-400">
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap border-r border-gray-400">
-                                        {{ $bk->nama_kode_bk }}
-                                    </th>
-                                    @foreach ($cpl as $c)
-                                        <td class="px-2 py-1 border-r border-gray-400 text-xs">
-                                            @if ($bk->cpls->contains('id_cpl', $c->id_cpl)) --}}
-                                                {{-- Tampilkan semua MK yang berelasi dengan BK ini --}}
-                                                {{-- {{ $bk->mataKuliah->pluck('kode_mk')->implode(', ') }}
-                                            @endif
-                                        </td>
-                                    @endforeach
-                                </tr>
-                            @endforeach --}}
-                        {{-- </tbody>
-                    </table>
-                </div> --}}
-
-
 
                 {{-- Bagian 4: Tabel Bobot SKS --}}
                 <h2 class="text-xl font-bold text-biru-custom mt-8 mb-4">Tabel Bobot SKS</h2>

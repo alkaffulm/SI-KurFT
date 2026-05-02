@@ -108,9 +108,9 @@
                     </table>
                 </div>
                 {{-- menampilkan pagination --}}
-                {{-- <div>
-                   {{$peo->links()}} 
-                </div> --}}
+                <div>
+                   {{$kriteria_penilaian->links()}} 
+                </div>
             </div>
         </main>
     </div>

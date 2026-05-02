@@ -22,7 +22,7 @@ class TeknikPenilaianAdminController extends Controller
      */
     public function index()
     {
-        $teknik_penilaian = TeknikPenilaianModel::all();
+        $teknik_penilaian = TeknikPenilaianModel::paginate(5);
         return view('Admin.Teknik Penilaian.teknik_penilaian',
             ['teknik_penilaian'=>$teknik_penilaian]
         );

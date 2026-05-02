@@ -44,6 +44,29 @@
                     <!-- Di sini bisa ditambahkan tombol 'Tambah' jika suatu saat diperlukan -->
                 </div>
 
+                <div class="mb-4 flex gap-2">
+                    <form method="GET" action="{{ route('dosen_kelas.index') }}" class="flex gap-2">
+                        <input 
+                            type="text"
+                            name="search_kelas"
+                            value="{{ request('search_kelas') }}"
+                            placeholder="Cari nama mata kuliah..."
+                            class="px-2 border border-gray-300 rounded-lg w-80"
+                        >
+
+                        <button 
+                            type="submit"
+                            class="px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90">
+                            Search
+                        </button>
+                    </form>
+
+                    <a href="{{ route('dosen_kelas.index') }}"
+                        class="px-4 py-2 border border-gray-300 rounded-lg">
+                            Reset
+                    </a>
+                </div>
+
                 <!-- TABEL DENGAN DESAIN BARU -->
                 <div class="overflow-x-auto rounded-lg border border-gray-400">
                     <table class="w-full text-sm text-left text-gray-500">

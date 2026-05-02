@@ -66,6 +66,29 @@
                     </div>
                 </div>
 
+                <div class="mb-4 flex gap-2">
+                    <form method="GET" action="{{ route('admin.kelola-pengguna.index') }}" class="flex gap-2">
+                        <input 
+                            type="text"
+                            name="search_pengguna"
+                            value="{{ request('search_pengguna') }}"
+                            placeholder="Cari nama pengguna..."
+                            class="px-2 border border-gray-300 rounded-lg w-80"
+                        >
+
+                        <button 
+                            type="submit"
+                            class="px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90">
+                            Search
+                        </button>
+                    </form>
+
+                    <a href="{{ route('admin.kelola-pengguna.index') }}"
+                        class="px-4 py-2 border border-gray-300 rounded-lg">
+                            Reset
+                    </a>
+                </div>
+
                 {{-- Tabel Kriteria Penilaian --}}
                 <div>
                     {{-- @if (session('success'))

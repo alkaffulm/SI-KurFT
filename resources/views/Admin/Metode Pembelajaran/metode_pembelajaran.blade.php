@@ -116,9 +116,9 @@
                     </table>
                 </div>
                 {{-- menampilkan pagination --}}
-                {{-- <div>
-                   {{$peo->links()}} 
-                </div> --}}
+                <div>
+                   {{$metode_pembelajaran->links()}} 
+                </div>
             </div>
         </main>
     </div>

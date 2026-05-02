@@ -1,6 +1,6 @@
 <div>
     {{-- Filter Angkatan --}}
-    <div class="mb-4 flex justify-left items-center gap-2">
+    <div class="mb-4 ">
         <label for="angkatan" class="text-sm font-medium text-gray-700">
             Daftar Angkatan
         </label>
@@ -12,6 +12,21 @@
             @endforeach
         </select>
     </div>
+
+    <div class="mb-4">
+        <label for="angkatan" class="text-sm font-medium text-gray-700">
+            Search Mahasiswa
+        </label>
+        <br>
+        <input 
+            type="text"
+            wire:model.live.debounce.500ms="search"
+            placeholder="Cari NIM atau nama mahasiswa..."
+            class="w-1/4 border border-gray-300 rounded-lg px-4 py-2"
+        >
+    </div>
+
+
 
     {{-- Tabel Mahasiswa --}}
     <div class="overflow-hidden rounded-lg border border-gray-400">
@@ -27,8 +42,13 @@
                 </tr>
             </thead>
             <tbody>
+                <tr wire:loading wire:target="search,angkatan,nextPage,previousPage,gotoPage">
+                    <td colspan="6" class="px-6 py-4 text-center">
+                        <span class="text-sm font-medium text-gray-500">Sedang memuat data...</span>
+                    </td>
+                </tr>
                 @forelse($mahasiswa as $index => $mhs)
-                    <tr class="bg-white border-t border-gray-400">
+                    <tr wire:loading.remove wire:target="search,angkatan,nextPage,previousPage,gotoPage" class="bg-white border-t border-gray-400">
                         <td  scope="row"class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">{{ ($mahasiswa->currentPage() - 1) * $mahasiswa->perPage() + $loop->iteration }}</td>
                         <td  scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">{{ $mhs->nim }}</td>
                         <td  scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400 text-center">{{ $mhs->nama_lengkap }}</td>

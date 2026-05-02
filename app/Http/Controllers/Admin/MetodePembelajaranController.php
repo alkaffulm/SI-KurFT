@@ -24,7 +24,7 @@ class MetodePembelajaranController extends Controller
      */
     public function index()
     {
-        $metode_pembelajaran = MetodePembelajaranModel::all();
+        $metode_pembelajaran = MetodePembelajaranModel::paginate(5);
         return view('Admin.Metode Pembelajaran.metode_pembelajaran',
             ['metode_pembelajaran'=>$metode_pembelajaran]
         );

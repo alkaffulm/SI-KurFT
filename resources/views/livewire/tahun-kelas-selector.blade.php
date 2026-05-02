@@ -36,6 +36,25 @@
         </select>
     </div>
 
+    {{-- Search --}}
+    @if ($id_kurikulum && $id_tahun_akademik)
+
+        <div class="mb-4">
+            <label for="angkatan" class="text-sm font-medium text-gray-700">
+                Search Kelas
+            </label>
+            <br>
+            <input 
+                type="text"
+                wire:model.live.debounce.500ms="search"
+                placeholder="Cari nama mata kuliah..."
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+                    rounded-lg focus:ring-biru-custom focus:border-biru-custom 
+                    block w-full sm:w-1/3 p-2.5"
+            >
+        </div>
+    @endif
+
     {{-- Tabel Kelas --}}
     @if ($id_kurikulum && $id_tahun_akademik)
         @if (count($kelas) > 0)
@@ -50,17 +69,19 @@
                             <th class="px-4 py-2 border">Dosen Pengampu</th>
                             <th class="px-4 py-2 border">Paralel</th>
                             <th class="px-4 py-2 border">Lihat Daftar Mahasiswa</th>
-                            {{-- <th class="px-4 py-2 border">Hari</th>
-                            <th class="px-4 py-2 border">Jam</th>
-                            <th class="px-4 py-2 border">Ruangan</th> --}}
                             <th class="px-4 py-2 border">Kuota Mahasiswa Per Kelas</th>
                             <th class="px-4 py-2 border">Tersedia pada semester</th>
                             <th class="px-4 py-2 border" colspan="2">Options</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr wire:loading wire:target="search,id_kurikulum,id_tahun_akademik,nextPage,previousPage,gotoPage">
+                            <td colspan="6" class="px-6 py-4 text-center">
+                                <span class="text-sm font-medium text-gray-500">Sedang memuat data...</span>
+                            </td>
+                        </tr>        
                         @foreach($kelas as $k)
-                            <tr>
+                            <tr wire:loading.remove wire:target="search,id_kurikulum,id_tahun_akademik,nextPage,previousPage,gotoPage">
                                 <td class="px-4 py-2 border text-center">{{ $k->id_kelas }}</td>
                                 <td class="px-4 py-2 border text-center">{{ $k->mataKuliahModel->kode_mk ?? '-' }}</td>
                                 <td class="px-4 py-2 border">{{ $k->mataKuliahModel->nama_matkul_id ?? '-' }}</td>
@@ -87,9 +108,11 @@
                             </tr>
                         @endforeach
                     </tbody>
-
                 </table>
             </div>
+        <div class="mt-4">
+            {{ $kelas->links() }}
+        </div>
         @else
             <div class="text-center py-10">
                 <p class="text-gray-500">Tidak ada Kelas yang sesuai filter.</p>

@@ -17,24 +17,52 @@ class PenggunaAll extends Component
     // Properti untuk Filter
     public $selectedRole = '';
     public $selectedProdi = '';
+    public $search = '';
+
+    public function updatingSelectedRole()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSelectedProdi()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
-        // 1. Mulai Query & Matikan Global Scope
         $query = UserModel::query()
-            ->withoutGlobalScopes([ProdiScope::class, KurikulumScope::class]);
+            ->withoutGlobalScopes([
+                ProdiScope::class,
+                KurikulumScope::class
+            ]);
 
-        // 2. Terapkan Filter jika ada input
+        // FILTER ROLE
         if ($this->selectedRole) {
             $query->hasRole($this->selectedRole);
         }
 
+        // FILTER PRODI
         if ($this->selectedProdi) {
             $query->forProdi($this->selectedProdi);
         }
 
-        // 3. Ambil Data
-        $pengguna = $query->with(['roles', 'prodi'])->paginate(20, ['*'], 'pengguna');
+        // SEARCH
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->where('username', 'like', '%' . $this->search . '%')
+                ->orWhere('NIP', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        $pengguna = $query
+            ->with(['roles', 'prodi'])
+            ->paginate(20, ['*'], 'pengguna');
 
         // Data pendukung untuk dropdown filter
         $programStudi = ProgramStudiModel::all();

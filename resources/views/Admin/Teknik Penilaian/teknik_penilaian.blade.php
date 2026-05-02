@@ -110,9 +110,9 @@
                     </table>
                 </div>
                 {{-- menampilkan pagination --}}
-                {{-- <div>
-                   {{$peo->links()}} 
-                </div> --}}
+                <div>
+                   {{$teknik_penilaian->links()}} 
+                </div>
             </div>
         </main>
     </div>

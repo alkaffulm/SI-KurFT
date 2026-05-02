@@ -58,8 +58,9 @@
                                     <th scope="col" class="px-6 py-3 border-r border-gray-400">Kode MK</th>
                                     <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-48">Program Studi</th>
                                     <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-48">Nama Mata Kuliah</th>
-                                    <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[110px]">SKS</th>
-                                    <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[110px]">Semester</th>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[100px]">Paralel</th>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[100px]">SKS</th>
+                                    <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[100px]">Semester</th>
                                     <th scope="col" class="px-6 py-3">Kurikulum</th>
                                 </tr>
                             </thead>
@@ -75,6 +76,9 @@
                                         <td class="px-6 py-4 border-r border-gray-400">
                                             <p>{{ $itemKelas->mataKuliahModel->nama_matkul_id }}</p> 
                                             <p class="italic text-sm text-[#7397b6]">{{ $itemKelas->mataKuliahModel->nama_matkul_en }}</p>
+                                        </td>
+                                        <td class="px-6 py-4 border-r border-gray-400 text-center">
+                                            {{ $itemKelas->paralel_ke }}
                                         </td>
                                         <td class="px-6 py-4 border-r border-gray-400 text-center">
                                             {{ $itemKelas->mataKuliahModel->jumlahSks }}
@@ -93,7 +97,9 @@
                                 @endforelse
                             </tbody>
                         </table>
-
+                    </div>
+                    <div>
+                        {{$kelas->links()}}
                     </div>
                 </div>
             </div>

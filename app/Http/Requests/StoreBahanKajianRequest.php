@@ -43,8 +43,8 @@ class StoreBahanKajianRequest extends FormRequest
             'nama_kode_bk' => 'Kode BK Tidak Boleh Kosong',
             'kategori.required' => 'Kategori tidak boleh kosong.',
             'kategori.string'   => 'Kategori harus berupa string',
-            'desc_bk_id.required' => 'Deskripsi Bahan Kajian (Indoneia) tidak boleh kosong.',
-            'desc_bk_id.string'   => 'Deskripsi Bahan Kajian (Indoneia) harus berupa string',
+            'desc_bk_id.required' => 'Deskripsi Bahan Kajian (Indonesia) tidak boleh kosong.',
+            'desc_bk_id.string'   => 'Deskripsi Bahan Kajian (Indonesia) harus berupa string',
             'desc_bk_en.required' => 'Deskripsi Bahan Kajian (English) tidak boleh kosong.',
             'desc_bk_en.string'   => 'Deskripsi Bahan Kajian (English) harus berupa string',
         ];

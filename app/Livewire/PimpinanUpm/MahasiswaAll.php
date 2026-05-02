@@ -17,11 +17,27 @@ class MahasiswaAll extends Component
     public $selectedAngkatan = '';
     public $selectedProdi = '';
     public $daftarAngkatan = [];
+    public $search = '';
 
+    public function updatingSelectedProdi()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSelectedAngkatan()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function mount() {
         // ambil daftar angkatan unik dari mahasiswa prodi ini
         $this->daftarAngkatan = MahasiswaModel::select('angkatan')
+            ->where('angkatan', '>=', 2021)
             ->distinct()
             ->orderBy('angkatan', 'desc')
             ->pluck('angkatan')
@@ -30,11 +46,12 @@ class MahasiswaAll extends Component
     
     public function render()
     {
-        // 1. Mulai Query & Matikan Global Scope
         $query = MahasiswaModel::query()
-            ->withoutGlobalScopes([ProdiScope::class, KurikulumScope::class]);
+            ->withoutGlobalScopes([
+                ProdiScope::class,
+                KurikulumScope::class
+            ]);
 
-        // 2. Terapkan Filter jika ada input
         if ($this->selectedAngkatan) {
             $query->where('angkatan', $this->selectedAngkatan);
         }
@@ -43,8 +60,18 @@ class MahasiswaAll extends Component
             $query->where('id_ps', $this->selectedProdi);
         }
 
-        // 3. Ambil Data
-        $mahasiswa = $query->orderBy('NIM')->paginate(20, ['*'], 'mahasiswa');
+        // SEARCH
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->where('nim', 'like', '%' . $this->search . '%')
+                ->orWhere('nama_lengkap', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        $mahasiswa = $query
+            ->where('angkatan', '>=', 2021)
+            ->orderBy('NIM')
+            ->paginate(20, ['*'], 'mahasiswa');
 
         // Data pendukung untuk dropdown filter
         $programStudi = ProgramStudiModel::all();

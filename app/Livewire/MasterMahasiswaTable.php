@@ -13,8 +13,14 @@ class MasterMahasiswaTable extends Component
 
     public $angkatan;
     public $daftarAngkatan = [];
+    public $search = '';
 
     protected $paginationTheme = 'bootstrap';
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function mount()
     {
@@ -22,6 +28,7 @@ class MasterMahasiswaTable extends Component
 
         // ambil daftar angkatan unik dari mahasiswa prodi ini
         $this->daftarAngkatan = MahasiswaModel::where('id_ps', $id_ps)
+            ->where('angkatan', '>=', 2021)
             ->select('angkatan')
             ->distinct()
             ->orderBy('angkatan', 'desc')
@@ -43,10 +50,19 @@ class MasterMahasiswaTable extends Component
         $id_ps = session('userRoleId');
 
         // Ambil mahasiswa terbaru per NIM
-        $mahasiswaCollection = MahasiswaModel::where('id_ps', $id_ps)
+        $mahasiswaCollection = MahasiswaModel::where('id_ps', $id_ps)->where('angkatan', '>=', 2021)
+
             ->when($this->angkatan, function ($query) {
                 $query->where('angkatan', $this->angkatan);
             })
+
+            ->when($this->search, function ($query) {
+                $query->where(function ($q) {
+                    $q->where('nim', 'like', '%' . $this->search . '%')
+                    ->orWhere('nama_lengkap', 'like', '%' . $this->search . '%');
+                });
+            })
+
             ->orderBy('created_at', 'desc')
             ->get()
             ->unique('nim')
@@ -73,15 +89,15 @@ class MasterMahasiswaTable extends Component
         );
 
         // Daftar angkatan
-        $daftarAngkatan = MahasiswaModel::where('id_ps', $id_ps)
-            ->select('angkatan')
-            ->distinct()
-            ->orderBy('angkatan', 'asc')
-            ->pluck('angkatan');
+        // $daftarAngkatan = MahasiswaModel::where('id_ps', $id_ps)
+        //     ->select('angkatan')
+        //     ->distinct()
+        //     ->orderBy('angkatan', 'asc')
+        //     ->pluck('angkatan');
 
         return view('livewire.master-mahasiswa-table', [
             'mahasiswa' => $mahasiswa,
-            'daftarAngkatan' => $daftarAngkatan,
+            // 'daftarAngkatan' => $daftarAngkatan,
         ]);
     }
 

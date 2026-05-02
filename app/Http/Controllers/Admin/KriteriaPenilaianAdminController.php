@@ -22,7 +22,7 @@ class KriteriaPenilaianAdminController extends Controller
      */
     public function index()
     {
-        $kriteria_penilaian = KriteriaPenilaianModel::all();
+        $kriteria_penilaian = KriteriaPenilaianModel::paginate(5);
         return view('Admin.Kriteria Penilaian.kriteria_penilaian',
             ['kriteria_penilaian'=>$kriteria_penilaian]
         );

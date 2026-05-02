@@ -109,9 +109,9 @@
                     </table>
                 </div>
                 {{-- menampilkan pagination --}}
-                {{-- <div>
-                   {{$peo->links()}} 
-                </div> --}}
+                <div>
+                   {{$model_pembelajaran->links()}} 
+                </div>
             </div>
         </main>
     </div>

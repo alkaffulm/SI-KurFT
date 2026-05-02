@@ -33,9 +33,28 @@
             </div>
         </div>
 
+        {{-- Search --}}
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900">
+                Search Mata Kuliah
+            </label>
+
+            <input 
+                type="text"
+                wire:model.live.debounce.500ms="search"
+                @if(empty($selectedProdi) || empty($selectedKurikulum)) 
+                    disabled 
+                    placeholder="Pilih filter Prodi dan Kurikulum terlebih dahulu"
+                    class="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5"
+                @endif
+                placeholder="Cari kode atau nama mata kuliah..."
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5"
+            >
+        </div>
+
         {{-- ... Header Tabel ... --}}
         <div class="overflow-x-auto rounded-lg border border-gray-400">
-            <table class="w-full text-sm text-center text-gray-500">
+            <table class="table-auto w-full text-sm text-center text-gray-500">
                 <thead class="text-white uppercase bg-teks-biru-custom">
                     <tr>  
                         <th scope="col" class="px-3 py-4 w-24">NO</th>
@@ -50,7 +69,7 @@
                 </thead>
                 <tbody>
                     <tr wire:loading wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
-                        <td colspan="7" class="px-6 py-4 text-center">
+                        <td colspan="8" class="px-6 py-4 text-center">
                             <span class="text-sm font-medium text-gray-500">Sedang memuat data...</span>
                         </td>
                     </tr>
@@ -94,7 +113,7 @@
                         @empty
                         {{-- Indikator Loading kecil (Opsional) --}}
                             <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
-                                <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                                <td colspan="8" class="px-6 py-4 text-center text-gray-500">
                                     Data Mata Kuliah masih kosong.
                                 </td>
                             </tr>
@@ -108,6 +127,11 @@
                     @endif                     
                 </tbody>
             </table>
+        </div>
+        <div>
+            @if($mata_kuliah)  
+                {{$mata_kuliah->links()}}
+            @endif
         </div>
     </div>
 </div>

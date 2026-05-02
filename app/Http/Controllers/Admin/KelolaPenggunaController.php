@@ -22,16 +22,24 @@ class KelolaPenggunaController extends Controller
         $id_ps = session('userRoleId');
         $userRole = session()->get('userRole');
 
-        $users = UserModel::with(['roles' => function($query) use ($id_ps) {
-                // FILTER ROLE:
-                // Hanya ambil role yang melekat pada Prodi ini 
-                // ATAU role yang bersifat Global/Fakultas (id_ps = null)
+        $searchPengguna = request('search_pengguna');
+
+
+    $users = UserModel::with([
+            'roles' => function($query) use ($id_ps) {
                 $query->wherePivot('id_ps', $id_ps)
                       ->orWherePivotNull('id_ps');
-            }])
-            ->forProdi($id_ps)
-            ->orderBy('id_user', 'desc')
-            ->paginate(20);
+            }
+        ])
+        ->forProdi($id_ps)
+        ->when($searchPengguna, function ($query) use ($searchPengguna) {
+            $query->where(function ($q) use ($searchPengguna) {
+                $q->where('username', 'like', '%' . $searchPengguna . '%');
+            }); 
+        })
+        ->orderBy('id_user', 'desc')
+        ->paginate(20)
+        ->withQueryString();
 
         if($userRole == 'pimpinan' || $userRole == 'upm'){
             return view('pimpinanUpm.penggunaAll', ['userRole' => $userRole,]);
@@ -86,7 +94,7 @@ class KelolaPenggunaController extends Controller
         $user = UserModel::with('roles')
                     ->forProdi($id_ps)
                     ->findOrFail($id_user);
-        $roles = RoleModel::whereNotIn('id_role', [1, 6]) // Contoh: tidak memasukkan role dengan ID 1 dan 2
+        $roles = RoleModel::whereNotIn('id_role', [1, 4, 5, 6]) // Contoh: tidak memasukkan role dengan ID 1 dan 2
                     ->orderBy('id_role')->get();
 
         // Ambil Role ID yang dimiliki user, tapi difilter hanya yang di prodi ini

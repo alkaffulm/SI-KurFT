@@ -45,6 +45,29 @@
                         <h2 class="text-xl font-bold text-biru-custom">Daftar Mata Kuliah</h2>
                     </div>
 
+                    <div class="mb-4 flex gap-2">
+                        <form method="GET" action="{{ route('matkul.index') }}" class="flex gap-2">
+                            <input 
+                                type="text"
+                                name="search_matkul"
+                                value="{{ request('search_matkul') }}"
+                                placeholder="Cari nama mata kuliah..."
+                                class="px-2 border border-gray-300 rounded-lg w-80"
+                            >
+
+                            <button 
+                                type="submit"
+                                class="px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90">
+                                Search
+                            </button>
+                        </form>
+
+                        <a href="{{ route('matkul.index') }}"
+                            class="px-4 py-2 border border-gray-300 rounded-lg">
+                                Reset
+                        </a>
+                    </div>
+
                     <div class="overflow-x-auto rounded-lg border border-gray-400">
                         <table class="table-auto w-full text-sm text-left text-gray-500">
                             <thead class="text-xs text-white uppercase bg-teks-biru-custom text-center">
@@ -98,6 +121,28 @@
                 {{-- Tabel Matkul Lintas Prodi --}}
                 <div class=" mb-8 rounded-lg bg-white">
                     <h2 class="text-xl font-bold text-biru-custom mb-4">Daftar Mata Kuliah Lintas Prodi yang Diampu</h2>
+
+                    <div class="mb-4 flex gap-2">
+                        <form method="GET" action="{{ route('matkul.index') }}" class="flex gap-2">
+                            <input 
+                                type="text"
+                                name="search_kelas"
+                                value="{{ request('search_kelas') }}"
+                                placeholder="Cari mata kuliah Lintas Prodi..."
+                                class="px-2 border border-gray-300 rounded-lg w-80"
+                            >
+                            <button 
+                                type="submit"
+                                class="px-4 py-2 bg-biru-custom text-white rounded-lg hover:opacity-90">
+                                Search
+                            </button>
+                        </form>
+                        <a href="{{ route('matkul.index') }}"
+                            class="px-4 py-2 border border-gray-300 rounded-lg">
+                            Reset
+                        </a>
+                    </div>
+
                     {{-- Contoh list mata kuliah --}}
                     <div class=" my-4">
                         <div class="overflow-x-auto rounded-lg border border-gray-400">
@@ -108,8 +153,9 @@
                                         <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[110px]">RPS</th>
                                         <th scope="col" class="px-6 py-3 border-r border-gray-400">Program Studi</th>
                                         <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-48">Nama Mata Kuliah</th>
-                                        <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[110px]">SKS</th>
-                                        <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[110px]">Semester</th>
+                                        <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[100px]">Paralel</th>
+                                        <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[100px]">SKS</th>
+                                        <th scope="col" class="px-6 py-3 border-r border-gray-400 min-w-[100px]">Semester</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -136,6 +182,9 @@
                                                 <p class="italic text-sm text-[#7397b6]">{{ $itemKelas->mataKuliahModel->nama_matkul_en }}</p>
                                             </td>
                                             <td class="px-6 py-4 border-r border-gray-400 text-center">
+                                                {{ $itemKelas->paralel_ke }}
+                                            </td>
+                                            <td class="px-6 py-4 border-r border-gray-400 text-center">
                                                 {{ $itemKelas->mataKuliahModel->jumlahSks }}
                                             </td>
                                             <td class="px-6 py-4 border-r border-gray-400 text-center">
@@ -149,6 +198,9 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                        </div>
+                        <div>
+                            {{$kelas->links()}}
                         </div>
                     </div>
                 </div>

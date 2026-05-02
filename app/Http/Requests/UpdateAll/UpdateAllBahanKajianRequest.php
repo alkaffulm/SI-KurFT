@@ -42,8 +42,8 @@ class UpdateAllBahanKajianRequest extends FormRequest
             'bk.*.nama_kode_bk.required' => 'Kode BK Tidak Boleh Kosong',
             'bk.*.kategori.required' => 'Kategori tidak boleh kosong.',
             'bk.*.kategori.string'   => 'Kategori harus berupa string',
-            'bk.*.desc_bk_id.required' => 'Deskripsi Bahan Kajian (Indoneia) tidak boleh kosong.',
-            'bk.*.desc_bk_id.string'   => 'Deskripsi Bahan Kajian (Indoneia) harus berupa string',
+            'bk.*.desc_bk_id.required' => 'Deskripsi Bahan Kajian (Indonesia) tidak boleh kosong.',
+            'bk.*.desc_bk_id.string'   => 'Deskripsi Bahan Kajian (Indonesia) harus berupa string',
             'bk.*.desc_bk_en.required' => 'Deskripsi Bahan Kajian (English) tidak boleh kosong.',
             'bk.*.desc_bk_en.string'   => 'Deskripsi Bahan Kajian (English) harus berupa string',
         ];

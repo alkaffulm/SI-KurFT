@@ -23,7 +23,7 @@ class ModelPembelajaranController extends Controller
      */
     public function index()
     {
-        $model_pembelajaran = ModelPembelajaranModel::all();
+        $model_pembelajaran = ModelPembelajaranModel::paginate(5);
         return view('Admin.Model Pembelajaran.model_pembelajaran',
             ['model_pembelajaran'=>$model_pembelajaran]
         );

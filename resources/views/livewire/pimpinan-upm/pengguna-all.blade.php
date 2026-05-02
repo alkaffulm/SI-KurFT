@@ -1,5 +1,4 @@
 <div>
-    {{-- TABEL DATA (Copy dari view lama, ganti variabel loopingnya) --}}
     <div >
         {{-- AREA FILTER --}}
         <div class="grid grid-cols-1 mb-8 md:grid-cols-2 gap-4">
@@ -44,6 +43,21 @@
             </div> --}}
         </div>
 
+        {{-- Search Pengguna --}}
+        <div class="mb-4">
+            <label class="block mb-2 text-sm font-medium text-gray-900">
+                Search Pengguna
+            </label>
+
+            <input 
+                type="text"
+                wire:model.live.debounce.500ms="search"
+                placeholder="Cari username atau NIP..."
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                    focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5"
+            >
+        </div>
+
         {{-- ... Header Tabel ... --}}
         <div class="overflow-x-auto rounded-lg border border-gray-400">
             <table class="w-full text-sm text-center text-gray-500">
@@ -58,13 +72,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr wire:loading wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
+                    <tr wire:loading wire:target="selectedProdi, selectedKurikulum, search, nextPage, previousPage, gotoPage" class="bg-white border-t border-gray-400">
                         <td colspan="4" class="px-6 py-4 text-center">
                             <span class="text-sm font-medium text-gray-500">Sedang memuat data...</span>
                         </td>
                     </tr>
                     @forelse ($pengguna as $pg)
-                        <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
+                        <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum, search, nextPage, previousPage, gotoPage" class="bg-white border-t border-gray-400">
                             {{-- REVISI: Menghapus hover dari kode PL --}}
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-r border-gray-400">
                                 {{ ($pengguna->currentPage() - 1) * $pengguna->perPage() + $loop->iteration }}

@@ -16,26 +16,64 @@ class MatkulController extends Controller
     public function index()
     {
         $relationsToLoad = ['bahanKajian.cpls', 'rps', 'koordinatorMk', 'pengembangRps'];
+        // $mata_kuliah = MataKuliahModel::with($relationsToLoad)
+        //                             ->orderBy('semester')
+        //                             ->paginate(10, ['*'], 'mata-kuliah');
+
+        $searchMatkul = request('search_matkul');
+
         $mata_kuliah = MataKuliahModel::with($relationsToLoad)
-                                    ->orderBy('semester')
-                                    ->paginate(10, ['*'], 'mata-kuliah');
+            ->when($searchMatkul, function ($query) use ($searchMatkul) {
+                $query->where(function ($q) use ($searchMatkul) {
+                    $q->where('kode_mk', 'like', '%' . $searchMatkul . '%')
+                    ->orWhere('nama_matkul_id', 'like', '%' . $searchMatkul . '%')
+                    ->orWhere('nama_matkul_en', 'like', '%' . $searchMatkul . '%');
+                });
+            })
+            ->orderBy('semester')
+            ->paginate(10, ['*'], 'mata-kuliah')
+            ->withQueryString();
+
+        // $tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())
+        //                                    ->with($relationsToLoad) 
+        //                                     ->orderBy('semester')
+        //                                    ->paginate(10, ['*'], 'mata-kuliah');
 
         $tanggungJawabDosen = MataKuliahModel::tanggungJawabDosen(Auth::id())
-                                           ->with($relationsToLoad) 
-                                            ->orderBy('semester')
-                                           ->paginate(10, ['*'], 'mata-kuliah');
-        $userRole = session()->get('userRole');
+            ->with($relationsToLoad)
+            ->when($searchMatkul, function ($query) use ($searchMatkul) {
+                $query->where(function ($q) use ($searchMatkul) {
+                    $q->where('kode_mk', 'like', '%' . $searchMatkul . '%')
+                        ->orWhere('nama_matkul_id', 'like', '%' . $searchMatkul . '%')
+                        ->orWhere('nama_matkul_en', 'like', '%' . $searchMatkul . '%');
+                });
+            })
+            ->orderBy('semester')
+            ->paginate(5, ['*'], 'tanggung-jawab-dosen')
+            ->withQueryString();
 
+        $userRole = session()->get('userRole');
         $userRoleId = session('userRoleId');
+
+        $searchKelas = request('search_kelas');
+
         $Kelas = Kelas::withoutGlobalScopes()
             ->with(['mataKuliahModel' => function ($query) {
                 $query->withoutGlobalScopes();
             }])
             ->where(['id_user' => Auth::id()])
-            ->whereHas('mataKuliahModel', function ($query) use ($userRoleId) {
-                $query->withoutGlobalScopes()->where('id_ps', '!=', $userRoleId);
+            ->whereHas('mataKuliahModel', function ($query) use ($userRoleId, $searchKelas) {
+                $query->withoutGlobalScopes()
+                    ->where('id_ps', '!=', $userRoleId)
+                    ->when($searchKelas, function ($q) use ($searchKelas) {
+                        $q->where(function ($sub) use ($searchKelas) {
+                            $sub->where('kode_mk', 'like', '%' . $searchKelas . '%')
+                                ->orWhere('nama_matkul_id', 'like', '%' . $searchKelas . '%');
+                        });
+                    });
             })            
-            ->get();
+            ->paginate(5, ['*'], 'kelas')
+            ->withQueryString();
 
         if ($userRole == 'kaprodi') {
             return view('matkul', [
@@ -44,7 +82,7 @@ class MatkulController extends Controller
             ]);
         }
         elseif($userRole == 'pimpinan' || $userRole == 'upm'){
-            return view('pimpinanUpm.mataKuliahAll', ['mata_kuliah' => $mata_kuliah]);
+            return view('pimpinanUpm.mataKuliahAll');
         }
         else {
             return view('dosen.matkul', [
