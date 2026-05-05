@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
 
             // ModelPembelajaranSeeder::class,
             CpmkSeeder::class,                    // 14 dimatikan saat deploy
-            // RpsSeeder::class,                     // 15 dimatilkan saat deploy
+            RpsSeeder::class,                     // 15 dimatilkan saat deploy
 
             //  D. Level 3+ Dependency
             SubCpmkSeeder::class,                 // 16 dimatikan saat deploy
@@ -66,25 +66,26 @@ class DatabaseSeeder extends Seeder
             RencanaAsesmenSeeder::class,
             RencanaAsesmenCPMKBobotSeeder::class,
 
-            // RencanaAsesmenSeeder::class, // dimatikan saat deploy
-            // RencanaAsesmenCPMKBobotSeeder::class, // dimatikan saat deploy
-            WeekSeeder::class, // dimatikan saat deploy
-            // RpsTopicSeeder::class, // dimatikan saat deploy
+            RencanaAsesmenSeeder::class, // dimatikan saat deploy
+            RencanaAsesmenCPMKBobotSeeder::class, // dimatikan saat deploy
 
+            WeekSeeder::class, // dimatikan saat deploy
+            RpsTopicSeeder::class, // dimatikan saat deploy
             // MKCPMKBobotSeeder::class,             //  dimatikan saat deploy
             MediaPembelajaranSeeder::class,
-            // AktivitasPembelajaranSeeder::class, // dimatikan saat deploy
-            // AktivitasMetodePembelajaranSeeder::class, // dimatikan saat deploy
-            // AktivitasBentukPenugasanSeeder::class, // dimatikan saat deploy
-            // RpsMediaPembelajaranSeeder::class, // dimatikan saat deploy
-            // RpsTopicWeekSeeder::class, // dimatikan saat deploy
-            // RpsTopicKriteriaPenilaianSeeder::class, // dimatikan saat deploy
-            // RpsTopicTeknikPenilaianSeeder::class, // dimatikan saat deploy
+            AktivitasPembelajaranSeeder::class, // dimatikan saat deploy
+            AktivitasMetodePembelajaranSeeder::class, // dimatikan saat deploy
+            AktivitasBentukPenugasanSeeder::class, // dimatikan saat deploy
+            RpsMediaPembelajaranSeeder::class, // dimatikan saat deploy
+            RpsTopicWeekSeeder::class, // dimatikan saat deploy
+            RpsTopicKriteriaPenilaianSeeder::class, // dimatikan saat deploy
+            RpsTopicTeknikPenilaianSeeder::class, // dimatikan saat deploy
 
             VisiKeilmuanSeeder::class,
             KelasSeeder::class,
             KelasMahasiswaSeeder::class,
             PenilaianMahasiswaSeeder::class,
+            // RpsSeeder::class, 
             // KelasMahasiswaSeeder::class,
             // CPLCPMKBobotSeeder::class,
 

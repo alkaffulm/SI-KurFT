@@ -14,13 +14,11 @@ uses(RefreshDatabase::class);
 
 beforeEach(function () {
 
-    // ✅ program studi (hindari FK error)
     DB::table('program_studi')->insert([
         'id_ps' => 1,
         'nama_prodi' => 'Teknik Sipil'
     ]);
 
-    // ✅ role (hindari null role)
     DB::table('role')->insert([
         ['id_role' => 1, 'role' => 'Admin'],
         ['id_role' => 2, 'role' => 'Dosen'],
@@ -119,7 +117,6 @@ it('auth sukses dengan role sesuai', function () {
 
     $response->assertRedirect('/dashboard');
 
-    // ✅ cek user login
     $this->assertAuthenticatedAs($user);
 });
 

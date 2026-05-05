@@ -803,8 +803,8 @@ class LaporanCplMahasiswa extends Component
     {
         $cpmkList = collect(DB::select(
             "SELECT DISTINCT id_cpmk
-             FROM mk_cpmk_cpl_map
-             WHERE id_mk = ?",
+            FROM mk_cpmk_cpl_map
+            WHERE id_mk = ?",
             [$idMk]
         ))->pluck('id_cpmk');
 
@@ -812,68 +812,175 @@ class LaporanCplMahasiswa extends Component
             return null;
         }
 
-        $bobotMaksimalPerCpmk = [];
-        $bobotTercapaiPerCpmk = [];
+        $totalBobotTercapai = 0;
+        $totalBobotMaksimal = 0;
 
         foreach ($cpmkList as $idCpmk) {
-            $bobotMaksimalPerCpmk[$idCpmk] = DB::selectOne(
-                "SELECT SUM(COALESCE(mcb.bobot, 0)) AS total
-                 FROM mk_cpmk_cpl_map mccm
-                 LEFT JOIN mk_cpmk_bobot mcb ON mccm.id_mk_cpmk_cpl = mcb.id_mk_cpmk_cpl
-                 WHERE mccm.id_mk = ?
-                   AND mccm.id_cpmk = ?",
-                [$idMk, $idCpmk]
-            )->total ?? 0;
 
-            $bobotTercapaiPerCpmk[$idCpmk] = 0;
-        }
-
-        foreach ($cpmkList as $idCpmk) {
-            $komponenEvaluasiList = DB::select(
-                "SELECT DISTINCT ra.id_rencana_asesmen
-                 FROM rencana_asesmen ra
-                 JOIN rencana_asesmen_cpmk_bobot racb ON ra.id_rencana_asesmen = racb.id_rencana_asesmen
-                 JOIN mk_cpmk_cpl_map mccm ON racb.id_mk_cpmk_cpl = mccm.id_mk_cpmk_cpl
-                 WHERE ra.id_mk = ?
-                   AND mccm.id_cpmk = ?",
+            // 🔵 Ambil semua mapping CPMK di MK ini
+            $mappingList = DB::select(
+                "SELECT mccm.id_mk_cpmk_cpl, COALESCE(mcb.bobot,0) AS bobot_cpmk
+                FROM mk_cpmk_cpl_map mccm
+                LEFT JOIN mk_cpmk_bobot mcb 
+                    ON mccm.id_mk_cpmk_cpl = mcb.id_mk_cpmk_cpl
+                WHERE mccm.id_mk = ?
+                AND mccm.id_cpmk = ?",
                 [$idMk, $idCpmk]
             );
 
-            foreach ($komponenEvaluasiList as $komponen) {
-                $penilaian = DB::selectOne(
-                    "SELECT pm.nilai
-                     FROM penilaian_mahasiswa pm
-                     WHERE pm.nim = ?
-                       AND pm.id_kelas = ?
-                       AND pm.id_rencana_asesmen = ?
-                       AND pm.id_cpmk = ?",
-                    [$nim, $idKelas, $komponen->id_rencana_asesmen, $idCpmk]
+            foreach ($mappingList as $mapping) {
+
+                if ($mapping->bobot_cpmk <= 0) continue;
+
+                // 🔵 Ambil semua asesmen untuk CPMK ini
+                $asesmenList = DB::select(
+                    "SELECT ra.id_rencana_asesmen
+                    FROM rencana_asesmen ra
+                    JOIN rencana_asesmen_cpmk_bobot racb 
+                        ON ra.id_rencana_asesmen = racb.id_rencana_asesmen
+                    WHERE ra.id_mk = ?
+                    AND racb.id_mk_cpmk_cpl = ?",
+                    [$idMk, $mapping->id_mk_cpmk_cpl]
                 );
 
-                if (!$penilaian) {
-                    continue;
+                $bobotTercapaiAsesmen = 0;
+                $totalBobotAsesmen = 0;
+
+                foreach ($asesmenList as $asesmen) {
+
+                    // 🔵 total bobot semua CPMK di asesmen (untuk normalisasi)
+                    $totalBobotRA = DB::selectOne(
+                        "SELECT SUM(bobot) AS total
+                        FROM rencana_asesmen_cpmk_bobot
+                        WHERE id_rencana_asesmen = ?",
+                        [$asesmen->id_rencana_asesmen]
+                    )->total ?? 0;
+
+                    // 🔵 bobot CPMK spesifik di asesmen ini
+                    $bobotCpmkRA = DB::selectOne(
+                        "SELECT SUM(bobot) AS total
+                        FROM rencana_asesmen_cpmk_bobot
+                        WHERE id_rencana_asesmen = ?
+                        AND id_mk_cpmk_cpl = ?",
+                        [$asesmen->id_rencana_asesmen, $mapping->id_mk_cpmk_cpl]
+                    )->total ?? 0;
+
+                    if ($totalBobotRA <= 0 || $bobotCpmkRA <= 0) continue;
+
+                    // 🔵 nilai mahasiswa
+                    $nilai = DB::selectOne(
+                        "SELECT nilai
+                        FROM penilaian_mahasiswa
+                        WHERE nim = ?
+                        AND id_kelas = ?
+                        AND id_rencana_asesmen = ?
+                        AND id_cpmk = ?",
+                        [$nim, $idKelas, $asesmen->id_rencana_asesmen, $idCpmk]
+                    )->nilai ?? null;
+
+                    if ($nilai === null) continue;
+
+                    // 🔥 NORMALISASI (INI KUNCI UTAMA)
+                    $maxNilai = ($bobotCpmkRA / $totalBobotRA) * 100;
+
+                    if ($maxNilai <= 0) continue;
+
+                    // 🔵 kontribusi asesmen ke CPMK
+                    $bobotTercapaiAsesmen += ($nilai / $maxNilai) * $bobotCpmkRA;
+                    $totalBobotAsesmen += $bobotCpmkRA;
                 }
 
-                $totalBobotKomponen = DB::selectOne(
-                    "SELECT SUM(bobot) AS total
-                     FROM rencana_asesmen_cpmk_bobot
-                     WHERE id_rencana_asesmen = ?",
-                    [$komponen->id_rencana_asesmen]
-                )->total ?? 0;
+                if ($totalBobotAsesmen > 0) {
+                    $nilaiCpmk = ($bobotTercapaiAsesmen / $totalBobotAsesmen) * $mapping->bobot_cpmk;
 
-                $bobotTercapaiPerCpmk[$idCpmk] += ($penilaian->nilai * $totalBobotKomponen) / 100;
+                    $totalBobotTercapai += $nilaiCpmk;
+                    $totalBobotMaksimal += $mapping->bobot_cpmk;
+                }
             }
         }
 
-        $totalBobotTercapai = array_sum($bobotTercapaiPerCpmk);
-        $totalBobotMaksimal = array_sum($bobotMaksimalPerCpmk);
-
-        if ($totalBobotMaksimal == 0) {
+        if ($totalBobotMaksimal <= 0) {
             return null;
         }
 
         return round(($totalBobotTercapai / $totalBobotMaksimal) * 100, 2);
     }
+
+    // private function hitungRataRataBobotMK($idMk, $idKelas, $nim)
+    // {
+    //     $cpmkList = collect(DB::select(
+    //         "SELECT DISTINCT id_cpmk
+    //          FROM mk_cpmk_cpl_map
+    //          WHERE id_mk = ?",
+    //         [$idMk]
+    //     ))->pluck('id_cpmk');
+
+    //     if ($cpmkList->isEmpty()) {
+    //         return null;
+    //     }
+
+    //     $bobotMaksimalPerCpmk = [];
+    //     $bobotTercapaiPerCpmk = [];
+
+    //     foreach ($cpmkList as $idCpmk) {
+    //         $bobotMaksimalPerCpmk[$idCpmk] = DB::selectOne(
+    //             "SELECT SUM(COALESCE(mcb.bobot, 0)) AS total
+    //              FROM mk_cpmk_cpl_map mccm
+    //              LEFT JOIN mk_cpmk_bobot mcb ON mccm.id_mk_cpmk_cpl = mcb.id_mk_cpmk_cpl
+    //              WHERE mccm.id_mk = ?
+    //                AND mccm.id_cpmk = ?",
+    //             [$idMk, $idCpmk]
+    //         )->total ?? 0;
+
+    //         $bobotTercapaiPerCpmk[$idCpmk] = 0;
+    //     }
+
+    //     foreach ($cpmkList as $idCpmk) {
+    //         $komponenEvaluasiList = DB::select(
+    //             "SELECT DISTINCT ra.id_rencana_asesmen
+    //              FROM rencana_asesmen ra
+    //              JOIN rencana_asesmen_cpmk_bobot racb ON ra.id_rencana_asesmen = racb.id_rencana_asesmen
+    //              JOIN mk_cpmk_cpl_map mccm ON racb.id_mk_cpmk_cpl = mccm.id_mk_cpmk_cpl
+    //              WHERE ra.id_mk = ?
+    //                AND mccm.id_cpmk = ?",
+    //             [$idMk, $idCpmk]
+    //         );
+
+    //         foreach ($komponenEvaluasiList as $komponen) {
+    //             $penilaian = DB::selectOne(
+    //                 "SELECT pm.nilai
+    //                  FROM penilaian_mahasiswa pm
+    //                  WHERE pm.nim = ?
+    //                    AND pm.id_kelas = ?
+    //                    AND pm.id_rencana_asesmen = ?
+    //                    AND pm.id_cpmk = ?",
+    //                 [$nim, $idKelas, $komponen->id_rencana_asesmen, $idCpmk]
+    //             );
+
+    //             if (!$penilaian) {
+    //                 continue;
+    //             }
+
+    //             $totalBobotKomponen = DB::selectOne(
+    //                 "SELECT SUM(bobot) AS total
+    //                  FROM rencana_asesmen_cpmk_bobot
+    //                  WHERE id_rencana_asesmen = ?",
+    //                 [$komponen->id_rencana_asesmen]
+    //             )->total ?? 0;
+
+    //             $bobotTercapaiPerCpmk[$idCpmk] += ($penilaian->nilai * $totalBobotKomponen) / 100;
+    //         }
+    //     }
+
+    //     $totalBobotTercapai = array_sum($bobotTercapaiPerCpmk);
+    //     $totalBobotMaksimal = array_sum($bobotMaksimalPerCpmk);
+
+    //     if ($totalBobotMaksimal == 0) {
+    //         return null;
+    //     }
+
+    //     return round(($totalBobotTercapai / $totalBobotMaksimal) * 100, 2);
+    // }
 
     private function hitungKetercapaianCPL($nim, $tahunAkademikIds = [])
     {
