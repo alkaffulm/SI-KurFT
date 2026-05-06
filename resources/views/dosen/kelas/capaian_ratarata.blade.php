@@ -147,35 +147,54 @@
             <div class="overflow-x-auto rounded-lg border border-gray-300 mt-4 mx-4 sm:mx-6 mb-6">
                 <table class="w-full text-sm text-center text-black border border-gray-300">
                     <thead class="text-xs text-white uppercase bg-teks-biru-custom">
-                    <tr>
-                        <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400 w-44">NIM</th>
-                        <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">Nama Lengkap</th>
+                        <tr>
+                            <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400 w-44">NIM</th>
+                            <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">Nama Lengkap</th>
 
-                        @foreach($rencanaAsesmen as $ra)
-                            @php
-                                $cpmkForAsesmen = $cpmkByAsesmen[$ra->id_rencana_asesmen] ?? collect();
-                            @endphp
-                            <th colspan="{{ $cpmkForAsesmen->count() }}"
-                                class="text-center px-8 py-3 border-r border-gray-400">
-                                {{ strtoupper($ra->tipe_komponen) }}
-                            </th>
-                        @endforeach
-                    </tr>
+                            @foreach($rencanaAsesmenGrouped as $tipe => $asesmenGroup)
+                                @php
+                                    $totalKolom = 0;
 
-                    <tr>
-                        @foreach($rencanaAsesmen as $ra)
-                            @php
-                                $cpmkForAsesmen = $cpmkByAsesmen[$ra->id_rencana_asesmen] ?? collect();
-                            @endphp
+                                    foreach ($asesmenGroup as $ra) {
+                                        $cpmkForAsesmen = $cpmkByAsesmen[$ra->id_rencana_asesmen] ?? collect();
 
-                            @foreach($cpmkForAsesmen as $bc)
-                                <th class="text-center px-6 py-3 border-r border-gray-400 whitespace-nowrap">
-                                    {{ $bc->mkCpmkMap?->cpmk?->nama_kode_cpmk ?? '-' }}<br>
-                                    <span class="font-normal">Maks: {{ (int) $bc->bobot }}</span>
+                                        $totalKolom += $cpmkForAsesmen
+                                            ->groupBy(fn($x) => $x->mkCpmkMap?->id_cpmk)
+                                            ->count();
+                                    }
+                                @endphp
+
+                                <th colspan="{{ $totalKolom }}"
+                                    class="text-center px-8 py-3 border-r border-gray-400">
+                                    {{ strtoupper($tipe) }}
                                 </th>
                             @endforeach
-                        @endforeach
-                    </tr>
+                        </tr>
+
+                        <tr>
+                            @foreach($rencanaAsesmenGrouped as $tipe => $asesmenGroup)
+                                @foreach($asesmenGroup as $ra)
+                                    @php
+                                        $cpmkForAsesmen = $cpmkByAsesmen[$ra->id_rencana_asesmen] ?? collect();
+
+                                        $cpmkGrouped = $cpmkForAsesmen
+                                            ->groupBy(fn($x) => $x->mkCpmkMap?->id_cpmk);
+                                    @endphp
+
+                                    @foreach($cpmkGrouped as $group)
+                                        @php
+                                            $bc = $group->first();
+                                            $totalBobotCpmk = $group->sum('bobot');
+                                        @endphp
+
+                                        <th class="text-center px-6 py-3 border-r border-gray-400 whitespace-nowrap">
+                                            {{ $bc->mkCpmkMap?->cpmk?->nama_kode_cpmk ?? '-' }}<br>
+                                            <span class="font-normal">Maks: {{ (float) $totalBobotCpmk }}</span>
+                                        </th>
+                                    @endforeach
+                                @endforeach
+                            @endforeach
+                        </tr>
                     </thead>
 
                     <tbody>
@@ -188,27 +207,44 @@
                                 {{ $mhs->nama_lengkap }}
                             </td>
 
-                            @foreach($rencanaAsesmen as $ra)
-                                @php
-                                    $cpmkForAsesmen = $cpmkByAsesmen[$ra->id_rencana_asesmen] ?? collect();
-                                @endphp
+                            @foreach($rencanaAsesmenGrouped as $tipe => $asesmenGroup)
 
-                                @foreach($cpmkForAsesmen as $bc)
+                                @foreach($asesmenGroup as $ra)
+
                                     @php
-                                        $idCpmk = $bc->mkCpmkMap?->id_cpmk;
-                                        $nilaiBobot = $idCpmk
-                                            ? ($nilaiBobotIndex[$mhs->nim][$ra->id_rencana_asesmen][$idCpmk] ?? null)
-                                            : null;
+                                        $cpmkForAsesmen = $cpmkByAsesmen[$ra->id_rencana_asesmen] ?? collect();
                                     @endphp
 
-                                    <td class="text-center px-6 py-2 border-r border-gray-200 whitespace-nowrap">
-                                        @if($nilaiBobot === null || $nilaiBobot === '')
-                                            <span class="text-gray-400">-</span> / {{ (float) $bc->bobot }}
-                                        @else
-                                            {{ $nilaiBobot }} / {{ (float) $bc->bobot }}
-                                        @endif
-                                    </td>
+                                    @foreach(
+                                        $cpmkForAsesmen
+                                            ->groupBy(fn($x) => $x->mkCpmkMap?->id_cpmk)
+                                        as $group
+                                    )
+
+                                        @php
+                                            $bc = $group->first();
+
+                                            $idCpmk = $bc->mkCpmkMap?->id_cpmk;
+
+                                            $nilaiBobot = $idCpmk
+                                                ? ($nilaiBobotIndex[$mhs->nim][$ra->id_rencana_asesmen][$idCpmk] ?? null)
+                                                : null;
+                                        @endphp
+
+                                        <td class="text-center px-6 py-2 border-r border-gray-200 whitespace-nowrap">
+
+                                            @if($nilaiBobot === null || $nilaiBobot === '')
+                                                <span class="text-gray-400">-</span> / {{ (float) $bc->bobot }}
+                                            @else
+                                                {{ $nilaiBobot }} / {{ (float) $bc->bobot }}
+                                            @endif
+
+                                        </td>
+
+                                    @endforeach
+
                                 @endforeach
+
                             @endforeach
                         </tr>
                     @endforeach

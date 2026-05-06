@@ -159,6 +159,7 @@ class KelasDosenController extends Controller
         $idMk = $kelas->id_mk;
 
         $rencanaAsesmen = RencanaAsesmenModel::where('id_mk', $idMk)->get();
+        $rencanaAsesmenGrouped = $rencanaAsesmen->groupBy('tipe_komponen');
 
         $rencanaAsesmenCPMK = RencanaAsesmenCPMKBobotModel::with('mkCpmkMap.cpmk')
             ->whereIn('id_rencana_asesmen', $rencanaAsesmen->pluck('id_rencana_asesmen'))
@@ -247,6 +248,7 @@ class KelasDosenController extends Controller
             'labels' => $labels,
             'avgData' => $avgData,
             'maxData' => $maxData,
+            'rencanaAsesmenGrouped' => $rencanaAsesmenGrouped,
         ]);
 
     }

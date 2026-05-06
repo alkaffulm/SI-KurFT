@@ -157,81 +157,125 @@
                                         {{-- ============================= --}}
                                         {{-- 🔹 HEADER ROW 1 --}}
                                         {{-- ============================= --}}
-                                        <tr>
-                                            <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">
-                                                NIM
-                                            </th>
-                                            <th rowspan="2" class="text-center px-6 py-3 border-r border-gray-400">
-                                                Nama Lengkap
-                                            </th>
+                                        <thead class="text-xs text-white uppercase bg-teks-biru-custom">
 
-                                            @foreach($rencanaAsesmen as $ra)
+                                            @php
+                                                $groupedAsesmen = $rencanaAsesmen->groupBy('tipe_komponen');
+                                            @endphp
 
-                                                @php
-                                                    $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
+                                            {{-- ============================= --}}
+                                            {{-- 🔹 HEADER ROW 1 --}}
+                                            {{-- ============================= --}}
+                                            <tr>
 
-                                                    // jumlah kolom CPMK
-                                                    $jumlahKolom = $cpmkForAsesmen
-                                                        ->groupBy(fn($item) => $item->mkCpmkMap?->cpmk?->nama_kode_cpmk)
-                                                        ->count();
-                                                @endphp
-
-                                                {{-- Header Komponen --}}
-                                                <th colspan="{{ $jumlahKolom }}"
-                                                    class="text-center px-6 py-3 border-r border-gray-400 text-lg">
-                                                    @if($ra->tipe_komponen == 'tugas')
-                                                        {{ strtoupper($ra->tipe_komponen) }}-{{ $ra->nomor_komponen }}
-                                                    @else
-                                                        {{ strtoupper($ra->tipe_komponen) }}
-                                                    @endif
+                                                <th rowspan="2"
+                                                    class="text-center px-6 py-3 border-r border-gray-400">
+                                                    NIM
                                                 </th>
 
-                                                {{-- Helper hanya setelah komponen terakhir per tipe --}}
-                                                @if($lastIdPerTipe[$ra->tipe_komponen] == $ra->id_rencana_asesmen)
-                                                    <th rowspan="2"
-                                                        class="text-center px-4 py-3 border-r border-gray-400  text-white">
-                                                        HELPER {{ strtoupper($ra->tipe_komponen) }}
-                                                    </th>
-                                                @endif
+                                                <th rowspan="2"
+                                                    class="text-center px-6 py-3 border-r border-gray-400">
+                                                    Nama Lengkap
+                                                </th>
 
-                                            @endforeach
-                                        </tr>
-
-                                        {{-- ============================= --}}
-                                        {{-- 🔹 HEADER ROW 2 (CPMK) --}}
-                                        {{-- ============================= --}}
-                                        <tr>
-                                            @foreach($rencanaAsesmen as $ra)
-
-                                                @php
-                                                    $cpmkForAsesmen = $bobot->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
-                                                    $totalBobotAsesmen = $cpmkForAsesmen->sum('bobot');
-
-                                                    $cpmkGrouped = $cpmkForAsesmen
-                                                        ->groupBy(fn($item) => $item->mkCpmkMap?->cpmk?->nama_kode_cpmk);
-                                                @endphp
-
-                                                @foreach($cpmkGrouped as $namaKode => $group)
+                                                @foreach($groupedAsesmen as $tipe => $asesmenGroup)
 
                                                     @php
-                                                        $bobotCpmk = $group->sum('bobot');
-                                                        $maksNilaiInput = $totalBobotAsesmen > 0
-                                                            ? round(($bobotCpmk / $totalBobotAsesmen) * 100, 1)
-                                                            : 0;
+                                                        $totalKolom = 0;
+
+                                                        foreach($asesmenGroup as $ra){
+
+                                                            $jumlahKolom = $bobot
+                                                                ->where('id_rencana_asesmen', $ra->id_rencana_asesmen)
+                                                                ->groupBy(fn($item) =>
+                                                                    $item->mkCpmkMap?->cpmk?->nama_kode_cpmk
+                                                                )
+                                                                ->count();
+
+                                                            $totalKolom += $jumlahKolom;
+                                                        }
                                                     @endphp
 
-                                                    <th class="text-center px-6 py-3 border-r border-gray-400">
-                                                        {{ $namaKode }}
-                                                        <br>
-                                                        <span class="font-normal">Maks: {{ $maksNilaiInput }}</span>
+                                                    {{-- HEADER TIPE --}}
+                                                    <th colspan="{{ $totalKolom }}"
+                                                        class="text-center px-6 py-3 border-r border-gray-400 text-lg">
+
+                                                        @if($tipe == 'tugas')
+
+                                                            TUGAS-1
+
+                                                        @else
+
+                                                            {{ strtoupper($tipe) }}
+
+                                                        @endif
+
+                                                    </th>
+
+                                                    {{-- HELPER --}}
+                                                    <th rowspan="2"
+                                                        class="text-center px-4 py-3 border-r border-gray-400 text-white min-w-[120px]">
+
+                                                        HELPER {{ strtoupper($tipe) }}
+
                                                     </th>
 
                                                 @endforeach
 
-                                                {{-- Slot kosong untuk helper sudah otomatis karena rowspan --}}
-                                            @endforeach
-                                        </tr>
-                                    </thead>
+                                            </tr>
+
+                                            {{-- ============================= --}}
+                                            {{-- 🔹 HEADER ROW 2 --}}
+                                            {{-- ============================= --}}
+                                            <tr>
+
+                                                @foreach($groupedAsesmen as $tipe => $asesmenGroup)
+
+                                                    @foreach($asesmenGroup as $ra)
+
+                                                        @php
+                                                            $cpmkForAsesmen = $bobot
+                                                                ->where('id_rencana_asesmen', $ra->id_rencana_asesmen);
+
+                                                            $totalBobotAsesmen = $cpmkForAsesmen->sum('bobot');
+
+                                                            $cpmkGrouped = $cpmkForAsesmen
+                                                                ->groupBy(fn($item) =>
+                                                                    $item->mkCpmkMap?->cpmk?->nama_kode_cpmk
+                                                                );
+                                                        @endphp
+
+                                                        @foreach($cpmkGrouped as $namaKode => $group)
+
+                                                            @php
+                                                                $bobotCpmk = $group->sum('bobot');
+
+                                                                $maksNilaiInput = $totalBobotAsesmen > 0
+                                                                    ? round(($bobotCpmk / $totalBobotAsesmen) * 100, 1)
+                                                                    : 0;
+                                                            @endphp
+
+                                                            <th class="text-center px-6 py-3 border-r border-gray-400 min-w-[120px]">
+
+                                                                {{ $namaKode }}
+
+                                                                <br>
+
+                                                                <span class="font-normal">
+                                                                    Maks: {{ $maksNilaiInput }}
+                                                                </span>
+
+                                                            </th>
+
+                                                        @endforeach
+
+                                                    @endforeach
+
+                                                @endforeach
+
+                                            </tr>
+
+                                        </thead>
 
                                     {{-- ============================= --}}
                                     {{-- 🔹 TBODY --}}
