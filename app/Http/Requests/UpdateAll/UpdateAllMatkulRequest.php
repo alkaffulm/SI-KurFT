@@ -29,9 +29,9 @@ class UpdateAllMatkulRequest extends FormRequest
             'matkul.*.matkul_desc_en' => 'required|string',
             'matkul.*.id_pengembang_rps' => 'nullable',
             'matkul.*.id_koordinator_mk' => 'nullable',
-            'matkul.*.sks_teori' => 'integer|nullable',
-            'matkul.*.sks_praktikum' => 'integer|nullable',
-            'matkul.*.semester' => 'nullable|integer|min:0|max:8'
+            'matkul.*.sks_teori' => 'integer',
+            'matkul.*.sks_praktikum' => 'integer',
+            'matkul.*.semester' => 'integer|required|min:0|max:8'
         ];
     }
 

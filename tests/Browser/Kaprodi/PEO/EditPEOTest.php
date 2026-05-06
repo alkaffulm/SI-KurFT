@@ -179,6 +179,4 @@ class EditPEOTest extends DuskTestCase
             'desc_peo_en' => 'PEO 2 Description - Latest Version',
         ]);
     }
-
-
 }

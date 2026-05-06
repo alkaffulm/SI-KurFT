@@ -60,11 +60,11 @@ class KelolaPenggunaController extends Controller
     {
         $validated = $request->validate([
             'id_ps' => ['required'],
-            'NIP' => ['nullable', 'string', 'max:50'],
+            'NIP' => ['required', 'string', 'max:50'],
             'username' => ['required', 'string', 'max:100', 'unique:user,username'],
             'email' => ['required', 'email', 'max:150'],
             'password' => ['required', 'string', 'min:6'],
-            'roles' => ['nullable', 'array'],
+            'roles' => ['required', 'array'],
         ]);
 
         $user = UserModel::create([
@@ -113,7 +113,7 @@ class KelolaPenggunaController extends Controller
 
         $validated = $request->validate([
             'id_ps' => ['required'],
-            'NIP' => ['nullable','string','max:50'],
+            'NIP' => ['required','string','max:50'],
             'username' => [
                 'required','string','max:100',
                 'unique:user,username,' . $user->id_user . ',id_user'
@@ -122,7 +122,7 @@ class KelolaPenggunaController extends Controller
                 'required','email','max:150',
                 'unique:user,email,' . $user->id_user . ',id_user'
             ],
-            'password' => ['nullable','string','min:6'],
+            'password' => ['required','string','min:6'],
             'roles' => ['nullable','array'],
             'roles.*' => ['integer','exists:role,id_role'],
         ]);

@@ -69,6 +69,7 @@
                                             id="tipe_metode_pembelajaran_{{ $tp->id_metode_pembelajaran }}" 
                                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" 
                                             required>
+                                            <option value="">Pilih Tipe</option>
                                             <option value="bm" {{ old('metode_pembelajaran.' . $tp->id_metode_pembelajaran . '.tipe_metode_pembelajaran', $tp->tipe_metode_pembelajaran) == 'bm' ? 'selected' : '' }}>BM</option>
                                             <option value="tm" {{ old('metode_pembelajaran.' . $tp->id_metode_pembelajaran . '.tipe_metode_pembelajaran', $tp->tipe_metode_pembelajaran) == 'tm' ? 'selected' : '' }}>TM</option>
                                         </select>

@@ -66,8 +66,8 @@ class EvaluasiUpmAll extends Component
         $this->validate([
             'id_ps' => 'required|exists:program_studi,id_ps',
             'id_tahun_akademik' => 'required|exists:tahun_akademik,id_tahun_akademik',
-            'catatan' => 'nullable|string', // Nullable sesuai skema, tapi bisa diubah required jika wajib
-            'created_at' => 'required|date_format:Y-m-d',
+            'catatan' => 'required|string', 
+            'created_at' => 'required',
         ]);
 
         if ($this->isEditMode) {
@@ -112,7 +112,7 @@ class EvaluasiUpmAll extends Component
     public function delete($id)
     {
         EvaluasiUpmModel::find($id)->delete();
-        session()->flash('message', 'Catatan berhasil dihapus.');
+        session()->flash('success', 'Catatan berhasil dihapus.');
     }
 
     public function render()

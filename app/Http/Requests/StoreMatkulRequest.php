@@ -35,7 +35,7 @@ class StoreMatkulRequest extends FormRequest
             'sks_teori' => 'integer',
             'sks_praktikum' => 'integer',
             'muncul' => 'required|string',
-            'semester' => 'required|integer|min:1|max:8'
+            'semester' => 'integer|required|min:1|max:8'
         ];
     }
 
@@ -54,8 +54,8 @@ class StoreMatkulRequest extends FormRequest
             'id_koordinator_mk.required' => 'Dosen Koordinator Mata Kuliah Wajib Diisi!',
             'sks_teori.integer'   => 'Jumlah SKS Teori harus berupa integer',
             'sks_praktikum.integer'   => 'Jumlah SKS Praktikum harus berupa integer', 
-            'semester.required' => 'Semester tidak boleh kosong.',
             'semester.integer'   => 'Semester harus berupa integer',
+            'semester.required' => 'Semester tidak boleh kosong.',
             'semester.min' => 'Semester tidak bisa dibawah 1.',
             'semester.max'   => 'Semester tidak bisa diatas 8',
             'matkul_desc_id.required' => 'Deskripsi Mata Kuliah (Indoneia) tidak boleh kosong.',

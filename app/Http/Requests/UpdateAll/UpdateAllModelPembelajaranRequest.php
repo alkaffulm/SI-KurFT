@@ -41,9 +41,9 @@ class UpdateAllModelPembelajaranRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'model_pembelajaran.*.nama_model_pembelajaran.required' => 'Nama Teknik Penilaian tidak boleh kosong.',
-            'model_pembelajaran.*.nama_model_pembelajaran.string' => 'Nama Teknik Penilaian harus berupa teks.',
-            'model_pembelajaran.*.nama_model_pembelajaran.max' => 'Nama Teknik Penilaian maksimal 255 karakter.',
+            'model_pembelajaran.*.nama_model_pembelajaran.required' => 'Nama Model Pembelajaran tidak boleh kosong.',
+            'model_pembelajaran.*.nama_model_pembelajaran.string' => 'Nama Model Pembelajaran harus berupa teks.',
+            'model_pembelajaran.*.nama_model_pembelajaran.max' => 'Nama Model Pembelajaran maksimal 255 karakter.',
 
             'delete_model_pembelajaran.*.integer' => 'ID yang akan dihapus harus berupa angka.',
             'delete_model_pembelajaran.*.exists' => 'Data yang akan dihapus tidak ditemukan.',

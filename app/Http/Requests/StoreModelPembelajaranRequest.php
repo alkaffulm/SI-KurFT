@@ -35,9 +35,9 @@ class StoreModelPembelajaranRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nama_model_pembelajaran.required' => 'Nama Model Pembelajarantidak boleh kosong.',
-            'nama_model_pembelajaran.string' => 'Nama Model Pembelajaranharus berupa teks.',
-            'nama_model_pembelajaran.max' => 'Nama Model Pembelajaranmaksimal 255 karakter.',
+            'nama_model_pembelajaran.required' => 'Nama Model Pembelajaran tidak boleh kosong.',
+            'nama_model_pembelajaran.string' => 'Nama Model Pembelajaran harus berupa teks.',
+            'nama_model_pembelajaran.max' => 'Nama Model Pembelajaran maksimal 255 karakter.',
             // 'nama_model_pembelajaran.unique' => 'Nama Model Pembelajaransudah ada. Silakan gunakan nama lain.',
             
         ];

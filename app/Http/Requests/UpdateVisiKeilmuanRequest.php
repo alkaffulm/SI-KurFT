@@ -26,14 +26,17 @@ class UpdateVisiKeilmuanRequest extends FormRequest
             'id_ps' => 'required',
             'id_kurikulum' => 'nullable',
             'desc_vk_id' => 'required|string',
-            'desc_vk_en' => 'nullable|string',
+            'desc_vk_en' => 'required|string',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'desc_vk_id.required' => 'Visi Keilmuan dalam Bahasa Indonesia wajib diisi.',
+            'desc_vk_id.required' => 'Visi Keilmuan (Indonesia) wajib diisi.',
+            'desc_vk_id.string' => 'Visi Keilmuan (Indonesia) harus berupa teks.',
+            'desc_vk_en.required' => 'Visi Keilmuan (English) wajib diisi.',
+            'desc_vk_en.string' => 'Visi Keilmuan (English) harus berupa teks.',
         ];
     }
 }

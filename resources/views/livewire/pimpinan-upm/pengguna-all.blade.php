@@ -73,7 +73,7 @@
                 </thead>
                 <tbody>
                     <tr wire:loading wire:target="selectedProdi, selectedKurikulum, search, nextPage, previousPage, gotoPage" class="bg-white border-t border-gray-400">
-                        <td colspan="4" class="px-6 py-4 text-center">
+                        <td colspan="5" class="px-6 py-4 text-center">
                             <span class="text-sm font-medium text-gray-500">Sedang memuat data...</span>
                         </td>
                     </tr>
@@ -107,7 +107,7 @@
                     @empty
                     {{-- Indikator Loading kecil (Opsional) --}}
                         <tr wire:loading.remove wire:target="selectedProdi, selectedKurikulum" class="bg-white border-t border-gray-400">
-                            <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                            <td colspan="5" class="px-6 py-4 text-center text-gray-500">
                                 Data Pengguna masih kosong.
                             </td>
                         </tr>

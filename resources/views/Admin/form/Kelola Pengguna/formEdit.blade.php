@@ -41,25 +41,26 @@
 
                 <div>
                     <label class="block mb-1 text-sm font-medium">NIP</label>
-                    <input name="NIP" value="{{ old('NIP', $user->NIP) }}"
+                    <input name="NIP" id="NIP" value="{{ old('NIP', $user->NIP) }}"
                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" />
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium">Username</label>
-                    <input name="username" value="{{ old('username', $user->username) }}"
+                    <input name="username" id="username" value="{{ old('username', $user->username) }}"
                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" required />
                 </div>
 
                 <div>
                     <label class="block mb-1 text-sm font-medium">Password (kosongkan jika tidak diubah)</label>
-                    <input type="password" name="password"
+                    <input type="password" id="password" name="password"
                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition" />
                 </div>
                 <div>
                     <label class="block mb-1 text-sm font-medium">Email</label>
                     <input type="email"
                            name="email"
+                           id="email"
                            value="{{ old('email', $user->email) }}"
                            class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block p-3 transition"
                            required />

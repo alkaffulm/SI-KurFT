@@ -34,7 +34,8 @@ class StoreSubCPMKRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nama_kode_sub_cpmk.required' => 'Nama Kode Sub CPMK enak boleh kosong.',
+            'id_cpmk.required' => 'CPMK harus dipilih.',
+            'nama_kode_sub_cpmk.required' => 'Nama Kode Sub CPMK tidak boleh kosong.',
             'nama_kode_sub_cpmk.string'   => 'Nama Kode Sub CPMK enrus berupa string',
             'desc_sub_cpmk_id.required' => 'Deskripsi Sub CPMK (Indoneia) tidak boleh kosong.',
             'desc_sub_cpmk_id.string'   => 'Deskripsi Sub CPMK (Indoneia) harus berupa string',

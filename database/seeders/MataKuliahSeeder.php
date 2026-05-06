@@ -135,46 +135,46 @@ class MataKuliahSeeder extends Seeder
             // seeder yang diminta bang irham
             // tahun akademik pertama (ganjil)
             // aljabar linear
-            ['id_mk'=>33,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI1101','nama_matkul_id'=>'Aljabar Linier','nama_matkul_en'=>'Linear Algebra','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>1,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>33,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI1101','nama_matkul_id'=>'Aljabar Linier','nama_matkul_en'=>'Linear Algebra','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>1,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
             // pemrograman 1
-            ['id_mk'=>37,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI1105','nama_matkul_id'=>'Pemrograman I','nama_matkul_en'=>'Programming I','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>1,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>37,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI1105','nama_matkul_id'=>'Pemrograman I','nama_matkul_en'=>'Programming I','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>1,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
 
             // tahun akademik pertama (genap)
             // sistem operasi
-            ['id_mk'=>42,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI2109','nama_matkul_id'=>'Sistem Operasi','nama_matkul_en'=>'Operating Systems','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>2,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>42,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI2109','nama_matkul_id'=>'Sistem Operasi','nama_matkul_en'=>'Operating Systems','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>2,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
             // keamanan siber
-            ['id_mk'=>62,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI4128','nama_matkul_id'=>'Keamanan Siber','nama_matkul_en'=>'Cyber Security','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>2,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>62,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI4128','nama_matkul_id'=>'Keamanan Siber','nama_matkul_en'=>'Cyber Security','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>2,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
 
             // tahun akademik kedua (ganjil)
             // mpti
-            ['id_mk'=>71,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI5136','nama_matkul_id'=>'Manajemen Proyek TI','nama_matkul_en'=>'IT Project Management','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>3,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>71,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI5136','nama_matkul_id'=>'Manajemen Proyek TI','nama_matkul_en'=>'IT Project Management','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>3,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
             // kecerdasan bisnis
-            ['id_mk'=>70,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI5135','nama_matkul_id'=>'Kecerdasan Bisnis','nama_matkul_en'=>'Business Intelligence','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>3,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>70,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI5135','nama_matkul_id'=>'Kecerdasan Bisnis','nama_matkul_en'=>'Business Intelligence','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>3,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
             
             // tahun akademik kedua (genap)
             // pemro web 1
-            ['id_mk'=>45,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI2112','nama_matkul_id'=>'Pemrograman Web I','nama_matkul_en'=>'Web Programming I','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=> 0,'sks_praktikum'=> 0,'semester'=> 4,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>45,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI2112','nama_matkul_id'=>'Pemrograman Web I','nama_matkul_en'=>'Web Programming I','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=> 0,'sks_praktikum'=> 0,'semester'=> 4,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
             // algoritma
-            ['id_mk'=>47,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI2114','nama_matkul_id'=>'Algoritma dan Struktur Data','nama_matkul_en'=>'Algorithms and Data Structures','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=> 0,'sks_praktikum'=> 0,'semester'=> 4,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>47,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI2114','nama_matkul_id'=>'Algoritma dan Struktur Data','nama_matkul_en'=>'Algorithms and Data Structures','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=> 0,'sks_praktikum'=> 0,'semester'=> 4,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
 
             // tahun akademik ketiga (ganjil)
             // imk
-            ['id_mk'=>50,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI3117','nama_matkul_id'=>'Interaksi Manusia Komputer','nama_matkul_en'=>'Human Computer Interaction','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>5,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>50,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI3117','nama_matkul_id'=>'Interaksi Manusia Komputer','nama_matkul_en'=>'Human Computer Interaction','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>5,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
             // bahasa inggris 1
-            ['id_mk'=>31,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'HULM1151','nama_matkul_id'=>'Bahasa Inggris I','nama_matkul_en'=>'English I','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>5,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>31,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'HULM1151','nama_matkul_id'=>'Bahasa Inggris I','nama_matkul_en'=>'English I','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>5,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
             
             // tahun akademik ketiga (genap)
             // etika profesi
-            ['id_mk'=>41,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI2108','nama_matkul_id'=>'Etika Profesi TI','nama_matkul_en'=>'IT Professional Ethics','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=> 0,'sks_praktikum'=> 0,'semester'=> 6,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>41,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI2108','nama_matkul_id'=>'Etika Profesi TI','nama_matkul_en'=>'IT Professional Ethics','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=> 0,'sks_praktikum'=> 0,'semester'=> 6,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
             // basis data 1
-            ['id_mk'=>43,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI2110','nama_matkul_id'=>'Basis Data I','nama_matkul_en'=>'Database Systems I','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=> 0,'sks_praktikum'=> 0,'semester'=> 6,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>43,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI2110','nama_matkul_id'=>'Basis Data I','nama_matkul_en'=>'Database Systems I','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=> 0,'sks_praktikum'=> 0,'semester'=> 6,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
 
             // tahun akademik keempat (ganjil)
             // jarkomdat
-            ['id_mk'=>53,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI3120','nama_matkul_id'=>'Jaringan Komputer dan Komunikasi Data','nama_matkul_en'=>'Computer Networks and Data Communication','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=> 0,'sks_praktikum'=> 0,'semester'=> 7,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>53,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI3120','nama_matkul_id'=>'Jaringan Komputer dan Komunikasi Data','nama_matkul_en'=>'Computer Networks and Data Communication','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=> 0,'sks_praktikum'=> 0,'semester'=> 7,'muncul'=>'ganjil','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
             // tahun akademik keempat (genap)
             // sistem tertanam
-            ['id_mk'=>98,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI8360','nama_matkul_id'=>'Sistem Tertanam','nama_matkul_en'=>'Embedded Systems','matkul_desc_id'=>'','matkul_desc_en'=>'','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>8,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
+            ['id_mk'=>98,'id_kurikulum'=>7,'id_ps'=>7,'kode_mk'=>'STI8360','nama_matkul_id'=>'Sistem Tertanam','nama_matkul_en'=>'Embedded Systems','matkul_desc_id'=>'.','matkul_desc_en'=>'.','sks_teori'=>0,'sks_praktikum'=>0,'semester'=>8,'muncul'=>'genap','id_pengembang_rps'=>155,'id_koordinator_mk'=>155],
 
 
             // uncomment ini pas mau deploy

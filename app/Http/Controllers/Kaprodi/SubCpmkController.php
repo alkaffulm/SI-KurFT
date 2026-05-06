@@ -25,7 +25,7 @@ class SubCpmkController extends Controller
     public function store(StoreSubCPMKRequest $request)
     {
         SubCPMKModel::create($request->validated());
-        return to_route('cpmk.index')->with('success', 'Sub CPMK berhasil ditambahkan!');
+        return to_route('cpmk.index')->with('success', 'Berhasil menambahkan Sub CPMK!');
     }
 
     public function editAll()
@@ -54,6 +54,6 @@ class SubCpmkController extends Controller
             }
         }
 
-        return to_route('cpmk.index')->with('success', 'Su CPMK berhasil diperbarui!');
+        return to_route('cpmk.index')->with('success', 'Sub CPMK berhasil diperbarui!');
     }
 }

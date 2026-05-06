@@ -72,8 +72,8 @@
                     <form method="GET" action="{{ route('mata-kuliah.index') }}" class="flex gap-2">
                         <input 
                             type="text"
-                            name="search"
-                            value="{{ request('search') }}"
+                            name="search_matkul"
+                            value="{{ request('search_matkul') }}"
                             placeholder="Cari nama mata kuliah..."
                             class="px-2 border border-gray-300 rounded-lg w-80"
                         >

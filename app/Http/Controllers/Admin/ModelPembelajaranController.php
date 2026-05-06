@@ -48,7 +48,7 @@ class ModelPembelajaranController extends Controller
             'id_ps' => $id_ps,
         ]);
 
-        return to_route('model-pembelajaran.index')->with('success', "Teknik Penilaian berhasil ditambahkan!");
+        return to_route('model-pembelajaran.index')->with('success', "Model Pembelajaran berhasil ditambahkan!");
     }
 
     /**
@@ -88,7 +88,7 @@ class ModelPembelajaranController extends Controller
             }
         }
 
-        return redirect()->route('model-pembelajaran.index')->with('success', 'Perubahan Teknik Penilaian berhasil disimpan!');
+        return redirect()->route('model-pembelajaran.index')->with('success', 'Perubahan Model Pembelajaran berhasil disimpan!');
     }    
 
     public function destroy(string $id)

@@ -36,12 +36,12 @@ class StoreMetodePembelajaranRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nama_metode_pembelajaran.required' => 'Nama Metode Penilaian tidak boleh kosong.',
-            'nama_metode_pembelajaran.string' => 'Nama Metode Penilaian harus berupa teks.',
-            'nama_metode_pembelajaran.max' => 'Nama Metode Penilaian maksimal 255 karakter.',
+            'nama_metode_pembelajaran.required' => 'Nama Metode Pembelajaran tidak boleh kosong.',
+            'nama_metode_pembelajaran.string' => 'Nama Metode Pembelajaran harus berupa teks.',
+            'nama_metode_pembelajaran.max' => 'Nama Metode Pembelajaran maksimal 255 karakter.',
             // 'nama_metode_pembelajaran.unique' => 'Nama Metode Penilaian sudah ada. Silakan gunakan nama lain.',
             
-            'tipe_metode_pembelajaran.required' => 'tipe tidak boleh kosong.',
+            'tipe_metode_pembelajaran.required' => 'Tipe Metode Pembelajaran tidak boleh kosong.',
             'tipe_metode_pembelajaran.in' => 'tipe harus dipilih antara bm atau tm.',
         ];
     }
