@@ -173,6 +173,16 @@ Route::middleware('auth')->group(function () {
     
         Route::post('/dosen/kelas/{id}/nilai/simpan', [KelasDosenController::class, 'simpanNilai'])->name('dosen_kelas.simpanNilai');
 
+        Route::get(
+            '/dosen/kelas/{id}/nilai/download-template',
+            [KelasDosenController::class, 'downloadTemplateExcel']
+        )->name('dosen_kelas.downloadTemplate');
+
+        Route::post(
+            '/dosen/kelas/{id}/nilai/upload-template',
+            [KelasDosenController::class, 'uploadTemplateExcel']
+        )->name('dosen_kelas.uploadTemplate');
+
         // Lihat Pemetaan MK-CPMK-CPL Per Mahasiswa
             Route::get('/dosen/pemetaan/', [KelasDosenController::class, 'index'])->name('pemetaan_mhs.index');
 

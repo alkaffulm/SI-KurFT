@@ -17,6 +17,10 @@ use App\Models\PenilaianMahasiswaCPMK;
 use App\Models\RencanaAsesmenModel;
 use App\Models\UserModel;
 use App\Models\Scopes\ProdiScope;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PenilaianTemplateExport;
+use App\Imports\PenilaianImport;
+
 
 class KelasDosenController extends Controller
 {
@@ -51,6 +55,40 @@ class KelasDosenController extends Controller
             ->paginate(5);
 
         return view('dosen.kelas.kelas_matakuliah', compact('kelas'));
+    }
+    public function downloadTemplateExcel($id)
+    {
+        return Excel::download(
+            new PenilaianTemplateExport($id),
+            'template_penilaian.xlsx'
+        );
+    }
+
+    public function uploadTemplateExcel(Request $request, $id)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        try {
+
+            Excel::import(
+                new PenilaianImport($id),
+                $request->file('file')
+            );
+
+            return back()->with(
+                'success',
+                'Import nilai Excel berhasil dilakukan.'
+            );
+
+        } catch (\Throwable $e) {
+
+            return back()->with(
+                'error',
+                'Import Excel gagal: ' . $e->getMessage()
+            );
+        }
     }
 
     public function lihatKelas($id)

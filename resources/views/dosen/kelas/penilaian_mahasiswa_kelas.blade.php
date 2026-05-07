@@ -100,8 +100,38 @@
                         </p>
                     </div>
 
+                    {{-- download excel --}}
+                    <div class="flex gap-3 mb-5">
+                        <a href="{{ route('dosen_kelas.downloadTemplate', $kelas->id_kelas) }}"
+                            class="px-4 py-4 bg-biru-custom text-white rounded-lg hover:bg-teks-biru-custom font-bold">
+                            Download Template Excel
+                        </a>
+                    </div>
+
+                    {{-- ulploud excel --}}
+                    <form action="{{ route('dosen_kelas.uploadTemplate', $kelas->id_kelas) }}"
+                        method="POST"
+                        enctype="multipart/form-data"
+                        class="flex items-center gap-3">
+
+                        @csrf
+
+                        <input type="file"
+                            name="file"
+                            accept=".xlsx,.xls"
+                            required
+                            class="border rounded-lg px-3 py-2 bg-white">
+
+                        <button type="submit"
+                                class="px-4 py-4 bg-biru-custom text-white rounded-lg hover:bg-teks-biru-custom font-bold">
+                            Upload Excel
+                        </button>
+
+                    </form>
+
+
                     @if (session('success'))
-                        <div id="alert-success" class="flex p-4 mb-6 text-green-700 bg-green-100 rounded-lg" role="alert">
+                        <div id="alert-success" class="flex p-4 mt-4 mb-6 text-green-700 bg-green-100 rounded-lg" role="alert">
                             <svg class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L9 14.414l-3.707-3.707a1 1 0 111.414-1.414L9 11.586l6.293-6.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
@@ -118,7 +148,7 @@
                     @endif
 
                     @if (session('error'))
-                        <div id="alert-error" class="flex p-4 mb-6 text-red-700 bg-red-100 rounded-lg" role="alert">
+                        <div id="alert-error" class="flex p-4 mt-4 mb-6 text-red-700 bg-red-100 rounded-lg" role="alert">
                             <svg class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11V5a1 1 0 10-2 0v2a1 1 0 102 0zm0 6v-4a1 1 0 10-2 0v4a1 1 0 102 0z" clip-rule="evenodd"></path>
                             </svg>
