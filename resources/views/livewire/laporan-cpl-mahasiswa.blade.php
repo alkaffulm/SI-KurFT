@@ -74,6 +74,100 @@
 
         </div>
     </div>
+
+    {{-- ERROR MODAL --}}
+    <div
+        x-data="{
+            open: false,
+            message: ''
+        }"
+
+        x-on:cpl-error.window="
+            open = true;
+            message = $event.detail.message;
+        "
+    >
+
+        <div
+            x-show="open"
+            x-transition
+            class="fixed inset-0 z-[999] bg-black/40 flex items-center justify-center"
+        >
+
+            <div
+                class="bg-white rounded-2xl shadow-2xl w-[28rem] p-6"
+            >
+
+                {{-- ICON --}}
+                <div class="flex items-center gap-3">
+
+                    <div
+                        class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center"
+                    >
+
+                        <svg
+                            class="w-6 h-6 text-red-600"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4c-.77-1.33-2.69-1.33-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z"
+                            />
+                        </svg>
+
+                    </div>
+
+                    <div>
+
+                        <h2 class="text-lg font-bold text-gray-800">
+                            Proses Terlalu Berat
+                        </h2>
+
+                        <p class="text-sm text-gray-500">
+                            Sistem gagal memproses data CPL.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {{-- MESSAGE --}}
+                <div class="mt-5">
+
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        <span x-text="message"></span>
+                    </p>
+
+                </div>
+
+                {{-- BUTTON --}}
+                <div class="mt-6 flex justify-end gap-3">
+
+                    <button
+                        @click="location.reload()"
+                        class="px-4 py-2 rounded-lg bg-[#264450] text-white hover:opacity-90"
+                    >
+                        Refresh Halaman
+                    </button>
+
+                    <button
+                        @click="open = false"
+                        class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+                    >
+                        Tutup
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
     {{-- ================= FILTER ================= --}}
     <div class="flex gap-6 mb-6 flex-wrap">
 
@@ -538,6 +632,26 @@
                 setTimeout(() => {
                     renderAllCharts();
                 }, 200);
+            });
+            Livewire.hook('request', ({ fail }) => {
+
+                fail(({ status }) => {
+
+                    if (status === 500) {
+
+                        window.dispatchEvent(
+                            new CustomEvent('cpl-error', {
+                                detail: {
+                                    message:
+                                        'Data ketercapaian CPL angkatan ini terlalu besar untuk diproses sekaligus. Silakan refresh halaman dan coba kembali.'
+                                }
+                            })
+                        );
+
+                    }
+
+                });
+
             });
 
         });
