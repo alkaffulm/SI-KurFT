@@ -1,4 +1,79 @@
 <div>
+    {{-- LOADING --}}
+    <div 
+        wire:loading.flex
+        wire:target="
+            nim,
+            angkatan,
+            page,
+            pageAngkatan
+        "
+        class="fixed inset-0 z-50 bg-[#264450]/50 backdrop-blur-sm items-center justify-center"
+    >
+
+        <div class="bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-5 w-96 border border-[#5FA9C8]/30">
+
+            {{-- SPINNER --}}
+            <svg class="animate-spin h-12 w-12 text-[#5FA9C8]"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24">
+
+                <circle class="opacity-20"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="4">
+                </circle>
+
+                <path class="opacity-100"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8z">
+                </path>
+
+            </svg>
+
+            {{-- TEXT --}}
+            <div class="text-center space-y-1">
+
+                <p class="text-lg font-bold text-[#264450]">
+                    Sedang Memproses Data Ketercapaian CPL...
+                </p>
+
+                <p class="text-sm text-[#0A0A0A]/70">
+                    Sistem sedang menghitung ketercapaian CPL...
+                </p>
+
+            </div>
+
+            {{-- PROGRESS BAR --}}
+            <div
+                x-data="{ progress: 0 }"
+                x-init="
+                    let interval = setInterval(() => {
+                        if(progress < 90){
+                            progress += 5;
+                        }
+                    }, 250);
+                "
+                class="w-full"
+            >
+
+                <div class="w-full bg-[#5FA9C8]/20 rounded-full h-3 overflow-hidden">
+                    <div class="bg-[#5FA9C8] h-3 rounded-full transition-all duration-300"
+                         :style="'width:' + progress + '%'">
+                    </div>
+                </div>
+
+                <p class="text-center text-sm text-[#264450] mt-2 font-medium"
+                   x-text="progress + '%'">
+                </p>
+
+            </div>
+
+        </div>
+    </div>
     {{-- ================= FILTER ================= --}}
     <div class="flex gap-6 mb-6 flex-wrap">
 
