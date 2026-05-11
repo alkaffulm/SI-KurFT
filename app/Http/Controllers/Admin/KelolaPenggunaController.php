@@ -51,7 +51,7 @@ class KelolaPenggunaController extends Controller
 
     public function create()
     {
-        $roles = RoleModel::orderBy('id_role')->get();
+        $roles = RoleModel::whereNotIn('id_role', [1, 4, 5, 6])->orderBy('id_role')->get();
         $id_ps = session('userRoleId');
         return view('Admin.form.Kelola Pengguna.formAdd', compact('roles', 'id_ps'));
     }
