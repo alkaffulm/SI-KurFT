@@ -31,6 +31,8 @@ class LaporanCplMahasiswa extends Component
     public $cplReportsAngkatan = [];
     public $laporanAngkatanPerTahun = [];
 
+    protected $cache = [];
+
     public function mount()
     {
         $this->id_prodi_user = session('userRoleId');
@@ -42,6 +44,159 @@ class LaporanCplMahasiswa extends Component
 
         $this->loadAngkatanList();
         $this->tahunAkademikList = DB::select("SELECT * FROM tahun_akademik ORDER BY id_tahun_akademik");
+
+        $this->hydrateStaticCache();
+    }
+
+    public function hydrate()
+    {
+        if (!empty($this->cache['mapping'])) {
+            return;
+        }
+
+        $this->hydrateStaticCache();
+
+        if ($this->mode === 'mahasiswa' && $this->nim) {
+            $this->hydrateMahasiswaCache($this->nim);
+        }
+
+        if ($this->mode === 'angkatan' && $this->angkatan) {
+
+            $nimList = collect(DB::select(
+                "SELECT nim
+                FROM mahasiswa
+                WHERE id_ps = ?
+                AND angkatan = ?",
+                [$this->id_prodi_user, $this->angkatan]
+            ))->pluck('nim');
+
+            foreach ($nimList as $nim) {
+                $this->hydrateMahasiswaCache($nim);
+            }
+        }
+    }
+
+    protected function hydrateStaticCache()
+    {
+        $this->cache['cpl_list'] = collect(DB::select(
+            "SELECT id_cpl, nama_kode_cpl AS kode_cpl, desc_cpl_id AS deskripsi
+             FROM cpl
+             WHERE id_ps = ?
+             AND id_kurikulum = ?",
+            [$this->id_prodi_user, $this->id_kurikulum]
+        ));
+
+        $this->cache['mapping'] = collect(DB::select(
+            "SELECT
+                mccm.id_cpl,
+                mccm.id_mk,
+                mccm.id_cpmk,
+                mccm.id_mk_cpmk_cpl,
+                COALESCE(mcb.bobot,0) AS bobot_cpmk
+             FROM mk_cpmk_cpl_map mccm
+             JOIN mata_kuliah mk ON mccm.id_mk = mk.id_mk
+             LEFT JOIN mk_cpmk_bobot mcb
+                ON mccm.id_mk_cpmk_cpl = mcb.id_mk_cpmk_cpl
+             WHERE mk.id_ps = ?
+             AND mk.id_kurikulum = ?",
+            [$this->id_prodi_user, $this->id_kurikulum]
+        ));
+
+        $this->cache['mapping_by_cpl'] = $this->cache['mapping']
+            ->groupBy('id_cpl');
+
+        $this->cache['mapping_by_mk_cpmk'] = $this->cache['mapping']
+            ->groupBy(fn ($row) => $row->id_mk . '-' . $row->id_cpmk);
+
+        $this->cache['asesmen_rows'] = collect(DB::select(
+            "SELECT
+                ra.id_rencana_asesmen,
+                ra.id_mk,
+                racb.id_mk_cpmk_cpl,
+                racb.bobot
+             FROM rencana_asesmen ra
+             JOIN rencana_asesmen_cpmk_bobot racb
+                ON ra.id_rencana_asesmen = racb.id_rencana_asesmen"
+        ));
+
+        $this->cache['asesmen_by_mapping'] = $this->cache['asesmen_rows']
+            ->groupBy('id_mk_cpmk_cpl');
+
+        $this->cache['asesmen_total_bobot'] = $this->cache['asesmen_rows']
+            ->groupBy('id_rencana_asesmen')
+            ->map(fn ($rows) => $rows->sum('bobot'));
+    }
+
+    // protected function hydrateMahasiswaCache($nim)
+    // {
+    //     $nilaiRows = collect(DB::select(
+    //         "SELECT
+    //             pm.nim,
+    //             pm.id_kelas,
+    //             pm.id_rencana_asesmen,
+    //             pm.id_cpmk,
+    //             pm.nilai,
+    //             kls.id_tahun_akademik
+    //          FROM penilaian_mahasiswa pm
+    //          LEFT JOIN kelas kls ON pm.id_kelas = kls.id_kelas
+    //          WHERE pm.nim = ?",
+    //         [$nim]
+    //     ));
+
+    //     $this->cache['nilai_by_key'][$nim] = $nilaiRows
+    //         ->keyBy(fn ($row) =>
+    //             $row->id_kelas . '-' .
+    //             $row->id_rencana_asesmen . '-' .
+    //             $row->id_cpmk
+    //         );
+
+    //     $this->cache['nilai_by_tahun'][$nim] = $nilaiRows
+    //         ->groupBy('id_tahun_akademik');
+    // }
+
+    protected function hydrateMahasiswaCache($nim)
+    {
+        $nilaiRows = collect(DB::select(
+            "SELECT
+                pm.nim,
+                pm.id_kelas,
+                pm.id_rencana_asesmen,
+                pm.id_cpmk,
+                pm.nilai,
+                kls.id_tahun_akademik
+            FROM penilaian_mahasiswa pm
+            LEFT JOIN kelas kls ON pm.id_kelas = kls.id_kelas
+            WHERE pm.nim = ?",
+            [$nim]
+        ));
+
+        $this->cache['nilai_flat'][$nim] = $nilaiRows;
+        $this->cache['nilai_index'][$nim] = [];
+
+        foreach ($nilaiRows as $row) {
+
+            $key =
+                $row->id_tahun_akademik . '-' .
+                $row->id_rencana_asesmen . '-' .
+                $row->id_cpmk;
+
+            if (
+                !isset($this->cache['nilai_index'][$nim][$key]) ||
+                $row->nilai > $this->cache['nilai_index'][$nim][$key]
+            ) {
+                $this->cache['nilai_index'][$nim][$key] = $row->nilai;
+            }
+        }
+
+        $this->cache['nilai_by_key'][$nim] = $nilaiRows
+            ->keyBy(fn ($row) =>
+                $row->id_kelas . '-' .
+                $row->id_rencana_asesmen . '-' .
+                $row->id_cpmk
+            );
+
+        $this->cache['nilai_by_tahun'][$nim] = $nilaiRows
+            ->groupBy('id_tahun_akademik');
     }
 
     public function updatedMode($value)
@@ -95,6 +250,9 @@ class LaporanCplMahasiswa extends Component
             $this->tahunAkademikListFiltered = [];
             return;
         }
+
+        $this->hydrateMahasiswaCache($nim);
+
         $this->mahasiswa = DB::selectOne(
             "SELECT m.nama_lengkap, m.angkatan, ps.nama_prodi
             FROM mahasiswa m
@@ -112,6 +270,7 @@ class LaporanCplMahasiswa extends Component
         $this->dispatch('renderCharts');
     }
 
+    //     }
     public function updatedTahunAkademikId()
     {
         if ($this->mode === 'angkatan') {
@@ -268,6 +427,10 @@ class LaporanCplMahasiswa extends Component
             [$this->id_prodi_user, $this->angkatan]
         ))->pluck('nim');
 
+        foreach ($nimList as $nim) {
+            $this->hydrateMahasiswaCache($nim);
+        }
+
         if ($nimList->isEmpty()) {
             return;
         }
@@ -321,91 +484,55 @@ class LaporanCplMahasiswa extends Component
 
     private function hitungRataRataBobotMK($idMk, $idKelas, $nim)
     {
-        $cpmkList = collect(DB::select(
-            "SELECT DISTINCT id_cpmk
-            FROM mk_cpmk_cpl_map
-            WHERE id_mk = ?",
-            [$idMk]
-        ))->pluck('id_cpmk');
+        $mappingRows = $this->cache['mapping']
+            ->where('id_mk', $idMk)
+            ->groupBy('id_cpmk');
 
-        if ($cpmkList->isEmpty()) {
+        if ($mappingRows->isEmpty()) {
             return null;
         }
 
         $totalBobotTercapai = 0;
         $totalBobotMaksimal = 0;
 
-        foreach ($cpmkList as $idCpmk) {
-
-            // 🔵 Ambil semua mapping CPMK di MK ini
-            $mappingList = DB::select(
-                "SELECT mccm.id_mk_cpmk_cpl, COALESCE(mcb.bobot,0) AS bobot_cpmk
-                FROM mk_cpmk_cpl_map mccm
-                LEFT JOIN mk_cpmk_bobot mcb 
-                    ON mccm.id_mk_cpmk_cpl = mcb.id_mk_cpmk_cpl
-                WHERE mccm.id_mk = ?
-                AND mccm.id_cpmk = ?",
-                [$idMk, $idCpmk]
-            );
-
+        foreach ($mappingRows as $idCpmk => $mappingList) {
             foreach ($mappingList as $mapping) {
+                if ($mapping->bobot_cpmk <= 0) {
+                    continue;
+                }
 
-                if ($mapping->bobot_cpmk <= 0) continue;
-
-                // 🔵 Ambil semua asesmen untuk CPMK ini
-                $asesmenList = DB::select(
-                    "SELECT ra.id_rencana_asesmen
-                    FROM rencana_asesmen ra
-                    JOIN rencana_asesmen_cpmk_bobot racb 
-                        ON ra.id_rencana_asesmen = racb.id_rencana_asesmen
-                    WHERE ra.id_mk = ?
-                    AND racb.id_mk_cpmk_cpl = ?",
-                    [$idMk, $mapping->id_mk_cpmk_cpl]
-                );
+                $asesmenList = $this->cache['asesmen_by_mapping'][$mapping->id_mk_cpmk_cpl] ?? collect();
 
                 $bobotTercapaiAsesmen = 0;
                 $totalBobotAsesmen = 0;
 
                 foreach ($asesmenList as $asesmen) {
+                    $totalBobotRA = $this->cache['asesmen_total_bobot'][$asesmen->id_rencana_asesmen] ?? 0;
 
-                    // 🔵 total bobot semua CPMK di asesmen (untuk normalisasi)
-                    $totalBobotRA = DB::selectOne(
-                        "SELECT SUM(bobot) AS total
-                        FROM rencana_asesmen_cpmk_bobot
-                        WHERE id_rencana_asesmen = ?",
-                        [$asesmen->id_rencana_asesmen]
-                    )->total ?? 0;
+                    $bobotCpmkRA = $asesmen->bobot ?? 0;
 
-                    // 🔵 bobot CPMK spesifik di asesmen ini
-                    $bobotCpmkRA = DB::selectOne(
-                        "SELECT SUM(bobot) AS total
-                        FROM rencana_asesmen_cpmk_bobot
-                        WHERE id_rencana_asesmen = ?
-                        AND id_mk_cpmk_cpl = ?",
-                        [$asesmen->id_rencana_asesmen, $mapping->id_mk_cpmk_cpl]
-                    )->total ?? 0;
+                    if ($totalBobotRA <= 0 || $bobotCpmkRA <= 0) {
+                        continue;
+                    }
 
-                    if ($totalBobotRA <= 0 || $bobotCpmkRA <= 0) continue;
+                    $nilaiKey =
+                        $idKelas . '-' .
+                        $asesmen->id_rencana_asesmen . '-' .
+                        $idCpmk;
 
-                    // 🔵 nilai mahasiswa
-                    $nilai = DB::selectOne(
-                        "SELECT nilai
-                        FROM penilaian_mahasiswa
-                        WHERE nim = ?
-                        AND id_kelas = ?
-                        AND id_rencana_asesmen = ?
-                        AND id_cpmk = ?",
-                        [$nim, $idKelas, $asesmen->id_rencana_asesmen, $idCpmk]
-                    )->nilai ?? null;
+                    $nilaiRow = $this->cache['nilai_by_key'][$nim][$nilaiKey] ?? null;
+                    $nilai = $nilaiRow?->nilai;
 
-                    if ($nilai === null) continue;
+                    if ($nilai === null) {
+                        continue;
+                    }
 
-                    // 🔥 NORMALISASI (INI KUNCI UTAMA)
                     $maxNilai = ($bobotCpmkRA / $totalBobotRA) * 100;
 
-                    if ($maxNilai <= 0) continue;
+                    if ($maxNilai <= 0) {
+                        continue;
+                    }
 
-                    // 🔵 kontribusi asesmen ke CPMK
                     $bobotTercapaiAsesmen += ($nilai / $maxNilai) * $bobotCpmkRA;
                     $totalBobotAsesmen += $bobotCpmkRA;
                 }
@@ -428,29 +555,8 @@ class LaporanCplMahasiswa extends Component
 
     private function hitungKetercapaianCPL($nim, $tahunAkademikIds = [])
     {
-        $cplList = collect(DB::select(
-            "SELECT id_cpl, nama_kode_cpl AS kode_cpl, desc_cpl_id AS deskripsi
-             FROM cpl
-             WHERE id_ps = ?
-               AND id_kurikulum = ?",
-            [$this->id_prodi_user, $this->id_kurikulum]
-        ));
-
-        return $cplList->map(function ($cpl) use ($nim, $tahunAkademikIds) {
-            $mappingList = DB::select(
-                "SELECT
-                    mccm.id_mk,
-                    mccm.id_cpmk,
-                    mccm.id_mk_cpmk_cpl,
-                    COALESCE(mcb.bobot, 0) AS bobot_cpmk
-                 FROM mk_cpmk_cpl_map mccm
-                 JOIN mata_kuliah mk ON mccm.id_mk = mk.id_mk
-                 LEFT JOIN mk_cpmk_bobot mcb ON mccm.id_mk_cpmk_cpl = mcb.id_mk_cpmk_cpl
-                 WHERE mccm.id_cpl = ?
-                   AND mk.id_ps = ?
-                   AND mk.id_kurikulum = ?",
-                [$cpl->id_cpl, $this->id_prodi_user, $this->id_kurikulum]
-            );
+        return $this->cache['cpl_list']->map(function ($cpl) use ($nim, $tahunAkademikIds) {
+            $mappingList = $this->cache['mapping_by_cpl'][$cpl->id_cpl] ?? collect();
 
             $totalBobotMaksimal = 0;
             $totalBobotTercapai = 0;
@@ -478,60 +584,59 @@ class LaporanCplMahasiswa extends Component
 
     private function hitungNilaiCpmkMahasiswa($nim, $mapping, $tahunAkademikIds = [])
     {
-        $params = [
-            $mapping->id_mk_cpmk_cpl,
-            $mapping->id_cpmk,
-            $nim,
-            $mapping->id_mk
-        ];
-
-        $tahunFilter = '';
-        if (!empty($tahunAkademikIds)) {
-            $placeholders = implode(',', array_fill(0, count($tahunAkademikIds), '?'));
-            $tahunFilter = "AND kls.id_tahun_akademik IN ($placeholders)";
-            $params = array_merge($params, $tahunAkademikIds);
-        }
-
-        $rows = DB::select(" 
-            SELECT 
-                ra.id_rencana_asesmen,
-                SUM(racb.bobot) AS total_bobot_asesmen,
-                SUM(CASE WHEN racb.id_mk_cpmk_cpl = ? THEN racb.bobot ELSE 0 END) AS bobot_cpmk,
-                MAX(pm.nilai) AS nilai
-            FROM rencana_asesmen ra
-            JOIN rencana_asesmen_cpmk_bobot racb 
-                ON ra.id_rencana_asesmen = racb.id_rencana_asesmen
-            LEFT JOIN penilaian_mahasiswa pm 
-                ON pm.id_rencana_asesmen = ra.id_rencana_asesmen
-                AND pm.id_cpmk = ?
-                AND pm.nim = ?
-            LEFT JOIN kelas kls 
-                ON pm.id_kelas = kls.id_kelas
-            WHERE ra.id_mk = ?
-            $tahunFilter
-            GROUP BY ra.id_rencana_asesmen
-        ", $params);
+        $asesmenRows = $this->cache['asesmen_rows']
+            ->where('id_mk', $mapping->id_mk)
+            ->groupBy('id_rencana_asesmen');
 
         $bobotTercapaiAsesmen = 0;
         $totalBobotAsesmen = 0;
 
-        foreach ($rows as $row) {
-            if ($row->total_bobot_asesmen <= 0) continue;
+        foreach ($asesmenRows as $asesmenId => $rows) {
 
-            $maxNilai = ($row->bobot_cpmk / $row->total_bobot_asesmen) * 100;
+            $totalBobotAsesmenRow = $rows->sum('bobot');
 
-            if ($row->nilai !== null && $maxNilai > 0) {
-                $bobotTercapaiAsesmen += ((float) $row->nilai / $maxNilai) * (float) $row->bobot_cpmk;
+            $bobotCpmk = $rows
+                ->where('id_mk_cpmk_cpl', $mapping->id_mk_cpmk_cpl)
+                ->sum('bobot');
+
+            if ($totalBobotAsesmenRow <= 0) {
+                continue;
             }
 
-            $totalBobotAsesmen += (float) $row->bobot_cpmk;
+            $nilai = null;
+
+            foreach ($tahunAkademikIds as $tahunId) {
+
+                $key =
+                    $tahunId . '-' .
+                    $asesmenId . '-' .
+                    $mapping->id_cpmk;
+
+                if (isset($this->cache['nilai_index'][$nim][$key])) {
+
+                    $currentNilai = $this->cache['nilai_index'][$nim][$key];
+
+                    if ($nilai === null || $currentNilai > $nilai) {
+                        $nilai = $currentNilai;
+                    }
+                }
+            }
+            $maxNilai = ($bobotCpmk / $totalBobotAsesmenRow) * 100;
+
+            if ($nilai !== null && $maxNilai > 0) {
+                $bobotTercapaiAsesmen +=
+                    ((float) $nilai / $maxNilai) * (float) $bobotCpmk;
+            }
+
+            $totalBobotAsesmen += (float) $bobotCpmk;
         }
 
         if ($totalBobotAsesmen <= 0 || $mapping->bobot_cpmk <= 0) {
             return 0;
         }
 
-        return ($bobotTercapaiAsesmen / $totalBobotAsesmen) * (float) $mapping->bobot_cpmk;
+        return ($bobotTercapaiAsesmen / $totalBobotAsesmen)
+            * (float) $mapping->bobot_cpmk;
     }
 
     private function buildChartData($cpl)
@@ -555,5 +660,4 @@ class LaporanCplMahasiswa extends Component
         ]);
     }
 }
-
 ?>

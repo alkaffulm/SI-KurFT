@@ -1,4 +1,173 @@
 <div>
+    {{-- LOADING --}}
+    <div 
+        wire:loading.flex
+        wire:target="
+            nim,
+            angkatan,
+            page,
+            pageAngkatan
+        "
+        class="fixed inset-0 z-50 bg-[#264450]/50 backdrop-blur-sm items-center justify-center"
+    >
+
+        <div class="bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-5 w-96 border border-[#5FA9C8]/30">
+
+            {{-- SPINNER --}}
+            <svg class="animate-spin h-12 w-12 text-[#5FA9C8]"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24">
+
+                <circle class="opacity-20"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="4">
+                </circle>
+
+                <path class="opacity-100"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8z">
+                </path>
+
+            </svg>
+
+            {{-- TEXT --}}
+            <div class="text-center space-y-1">
+
+                <p class="text-lg font-bold text-[#264450]">
+                    Sedang Memproses Data Ketercapaian CPL...
+                </p>
+
+                <p class="text-sm text-[#0A0A0A]/70">
+                    Sistem sedang menghitung ketercapaian CPL...
+                </p>
+
+            </div>
+
+            {{-- PROGRESS BAR --}}
+            <div
+                x-data="{ progress: 0 }"
+                x-init="
+                    let interval = setInterval(() => {
+                        if(progress < 90){
+                            progress += 5;
+                        }
+                    }, 250);
+                "
+                class="w-full"
+            >
+
+                <div class="w-full bg-[#5FA9C8]/20 rounded-full h-3 overflow-hidden">
+                    <div class="bg-[#5FA9C8] h-3 rounded-full transition-all duration-300"
+                         :style="'width:' + progress + '%'">
+                    </div>
+                </div>
+
+                <p class="text-center text-sm text-[#264450] mt-2 font-medium"
+                   x-text="progress + '%'">
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+
+    {{-- ERROR MODAL --}}
+    <div
+        x-data="{
+            open: false,
+            message: ''
+        }"
+
+        x-on:cpl-error.window="
+            open = true;
+            message = $event.detail.message;
+        "
+    >
+
+        <div
+            x-show="open"
+            x-transition
+            class="fixed inset-0 z-[999] bg-black/40 flex items-center justify-center"
+        >
+
+            <div
+                class="bg-white rounded-2xl shadow-2xl w-[28rem] p-6"
+            >
+
+                {{-- ICON --}}
+                <div class="flex items-center gap-3">
+
+                    <div
+                        class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center"
+                    >
+
+                        <svg
+                            class="w-6 h-6 text-red-600"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4c-.77-1.33-2.69-1.33-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z"
+                            />
+                        </svg>
+
+                    </div>
+
+                    <div>
+
+                        <h2 class="text-lg font-bold text-gray-800">
+                            Proses Terlalu Berat
+                        </h2>
+
+                        <p class="text-sm text-gray-500">
+                            Sistem gagal memproses data CPL.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {{-- MESSAGE --}}
+                <div class="mt-5">
+
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        <span x-text="message"></span>
+                    </p>
+
+                </div>
+
+                {{-- BUTTON --}}
+                <div class="mt-6 flex justify-end gap-3">
+
+                    <button
+                        @click="location.reload()"
+                        class="px-4 py-2 rounded-lg bg-[#264450] text-white hover:opacity-90"
+                    >
+                        Refresh Halaman
+                    </button>
+
+                    <button
+                        @click="open = false"
+                        class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+                    >
+                        Tutup
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
     {{-- ================= FILTER ================= --}}
     <div class="flex gap-6 mb-6 flex-wrap">
 
@@ -463,6 +632,26 @@
                 setTimeout(() => {
                     renderAllCharts();
                 }, 200);
+            });
+            Livewire.hook('request', ({ fail }) => {
+
+                fail(({ status }) => {
+
+                    if (status === 500) {
+
+                        window.dispatchEvent(
+                            new CustomEvent('cpl-error', {
+                                detail: {
+                                    message:
+                                        'Data ketercapaian CPL angkatan ini terlalu besar untuk diproses sekaligus. Silakan refresh halaman dan coba kembali.'
+                                }
+                            })
+                        );
+
+                    }
+
+                });
+
             });
 
         });
