@@ -40,6 +40,7 @@ use App\Http\Controllers\PembobotanCPMKCPLController;
 use App\Livewire\EvaluasiUpmAdmin;
 use App\Livewire\RencanaAsesmenForm;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Kaprodi\TestingMhsCplController;
 
 // Set the root to the login page
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('home');
@@ -146,6 +147,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/bobot-cpmk/update/{id_mk}', [BobotController::class, 'updateBobotCPMK'])->name('bobot.cpmk.update');
 
         //Route::put('/mapping/cpmk-cpl', [CPMKMPLMapController::class, 'updateCPMKCPLMap'])->name('cpmk-cpl-mapping.update');
+        Route::get('/testing-mhs-cpl',[TestingMhsCplController::class, 'index'])->name('testing-mhs-cpl.index');
     });
 
     Route::middleware('role:dosen')->prefix('dosen')->group(function() {
