@@ -209,7 +209,7 @@
                         <span class="ms-3 text-sm">Laporan CPL Mahasiswa</span>
                     </a>
                 </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('testing-mhs-cpl.index') }}"
                             class="flex items-center p-2 rounded-lg transition-all duration-200
                             {{ request()->routeIs('testing-mhs-cpl.*') ? 'bg-biru-custom text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-biru-custom' }}">
@@ -223,7 +223,7 @@
                             </span>
 
                         </a>
-                    </li>
+                    </li> --}}
             @endif
 
             {{-- Menu khusus pimpinan dan UPM --}}
