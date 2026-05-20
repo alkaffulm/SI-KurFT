@@ -17,7 +17,6 @@ class BahanKajianController extends Controller
         $bahan_kajianpg = BahanKajianModel::paginate(5, ['*'], 'bk');
         $bahan_kajian = BahanKajianModel::all();
         $cpl = CPLModel::all();
-        $jumlah_bk = BahanKajianModel::count();
         $userRole = session()->get('userRole');
 
         $mata_kuliah = MataKuliahModel::paginate(10, ['*'], 'mata-kuliah');
@@ -41,7 +40,6 @@ class BahanKajianController extends Controller
                 'bahan_kajian' => $bahan_kajian,
                 'bahan_kajianpg' => $bahan_kajianpg,
                 'cpl' => $cpl,
-                'jumlah_bk' => $jumlah_bk,
                 'bk_mk_map' => $bk_mk_map,
                 'mata_kuliah' => $mata_kuliah
             ]);

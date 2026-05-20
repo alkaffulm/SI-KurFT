@@ -15,7 +15,7 @@ class MatkulController extends Controller
 {
     public function index()
     {
-        $relationsToLoad = ['bahanKajian.cpls', 'rps', 'koordinatorMk', 'pengembangRps'];
+        $relationsToLoad = ['bahanKajian.cpls', 'rps', 'koordinatorMk', 'pengembangRps', 'mkcpmkcpl.cpl'];
         // $mata_kuliah = MataKuliahModel::with($relationsToLoad)
         //                             ->orderBy('semester')
         //                             ->paginate(10, ['*'], 'mata-kuliah');

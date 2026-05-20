@@ -20,13 +20,13 @@ class VisiKeilmuanController extends Controller
         return view('form.VisiKeilmuan.visiKeilmuanFormAdd');
     }
 
-    public function store(UpdateVisiKeilmuanRequest $request) // <-- Nanti ganti dengan StoreVisiKeilmuanRequest
+    public function store(UpdateVisiKeilmuanRequest $request) 
     {
         VisiKeilmuanModel::create($request->validated());
         return redirect()->route('dashboard')->with('success', 'Visi Keilmuan berhasil ditambahkan!');
     }
 
-    public function edit(VisiKeilmuanModel $visi_keilmuan) // <-- DIUBAH
+    public function edit(VisiKeilmuanModel $visi_keilmuan) 
     {
         return view('form.VisiKeilmuan.visiKeilmuanFormEdit', ['visi' => $visi_keilmuan]);
     }
@@ -37,7 +37,7 @@ class VisiKeilmuanController extends Controller
         return redirect()->route('dashboard')->with('success', 'Visi Keilmuan berhasil diperbarui!');
     }
 
-    public function destroy(VisiKeilmuanModel $visi_keilmuan) // <-- DIUBAH
+    public function destroy(VisiKeilmuanModel $visi_keilmuan) 
     {
         $visi_keilmuan->delete();
         return redirect()->route('visikeilmuan.index')->with('success', 'Visi Keilmuan berhasil dihapus!');

@@ -71,6 +71,7 @@ class MahasiswaAll extends Component
         $mahasiswa = $query
             ->where('angkatan', '>=', 2021)
             ->orderBy('NIM')
+            ->with(['programstudi'])
             ->paginate(20, ['*'], 'mahasiswa');
 
         // Data pendukung untuk dropdown filter

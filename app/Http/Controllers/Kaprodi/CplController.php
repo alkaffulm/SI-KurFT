@@ -31,10 +31,9 @@ class CplController extends Controller
         }
 
         $cpl_peo_map = [];
-        $cpl_pl = CPLPLMapModel::all();
         $pl_peo = PLPEOMapModel::all();
 
-        foreach ($cpl_pl as $cp) {
+        foreach ($cpl_pl_raw as $cp) {
             foreach ($pl_peo as $pp) {
                 if ($cp->id_pl === $pp->id_pl) {
                     // Use array_unique to avoid duplicate PEO entries
