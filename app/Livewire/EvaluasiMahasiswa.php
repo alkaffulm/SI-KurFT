@@ -46,7 +46,7 @@ class EvaluasiMahasiswa extends Component
         $this->daftarKelas = Kelas::with(['mataKuliahModel', 'tahunAkademik'])
             ->where('id_user', $idDosen)
             ->orderBy('id_tahun_akademik', 'desc')
-            ->get();
+            ->get();    
     }
 
     public function updatedSelectedKelasId($value)

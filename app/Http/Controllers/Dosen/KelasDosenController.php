@@ -52,7 +52,8 @@ class KelasDosenController extends Controller
             ->when($searchKelas, function ($query, $searchKelas) {
                 $query->where('mata_kuliah.nama_matkul_id', 'like', '%' . $searchKelas . '%');
             })
-            ->paginate(5);
+            ->paginate(5)
+            ->withQueryString();
 
         return view('dosen.kelas.kelas_matakuliah', compact('kelas'));
     }

@@ -6,16 +6,28 @@
                 Halaman ini menampilkan ketercapaian CPMK dan CPL berdasarkan Rencana Asesmen yang telah dibuat. Mahasiswa dinyatakan <span class="font-bold text-green-600">Lulus</span> jika seluruh CPL terkait memiliki nilai minimal {{ $threshold }}%.
             </p>
 
+            @php
+                $groupedKelas = $daftarKelas->groupBy(function ($kelas) {
+                    return $kelas->tahunAkademik->tahun_akademik ?? 'Tidak Ada Tahun Akademik';
+                }); 
+            @endphp
+
             <div class="mb-8">
                 <label for="kelas_select" class="block mb-2 font-medium text-gray-900">Pilih Kelas</label>
                 <select wire:model.live="selectedKelasId" id="kelas_select"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-biru-custom focus:border-biru-custom block w-full sm:w-1/2 p-2.5">
                     <option value="">-- Pilih Kelas --</option>
-                    @foreach ($daftarKelas as $k)
-                        <option value="{{ $k->id_kelas }}">
-                            {{ $k->mataKuliahModel->kode_mk ?? '-' }} - {{ $k->mataKuliahModel->nama_matkul_id ?? '-' }}
-                            (Paralel {{ $k->paralel_ke }} - {{ $k->tahunAkademik->tahun_akademik ?? '' }})
-                        </option>
+                    @foreach ($groupedKelas as $tahunAkademik => $kelasGroup)
+                        <optgroup label="{{ $tahunAkademik }}">
+                            @foreach ($kelasGroup as $k)
+                                <option value="{{ $k->id_kelas }}">
+                                    {{ $k->mataKuliahModel->kode_mk ?? '-' }}
+                                    -
+                                    {{ $k->mataKuliahModel->nama_matkul_id ?? '-' }}
+                                    (Paralel {{ $k->paralel_ke }})
+                                </option>
+                            @endforeach
+                        </optgroup>
                     @endforeach
                 </select>
             </div>
