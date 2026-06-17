@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\KelasAdminController;
 use App\Http\Controllers\Admin\KelolaPenggunaController;
 use App\Http\Controllers\Admin\KriteriaPenilaianAdminController;
+use App\Http\Controllers\Admin\KurikulumControllerAdmin;
 use App\Http\Controllers\Admin\MasterMahasiswaController;
 use App\Http\Controllers\Admin\MetodePembelajaranController;
 use App\Http\Controllers\Admin\ModelPembelajaranController;
@@ -231,6 +232,32 @@ Route::middleware('auth')->group(function () {
             // Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
             // hapus kelas
             // Route::get('/mapping/kelas/{id}/hapus', [KelasController::class, 'hapusKelas'])->name('kelas.hapus');
+
+
+        // KURIKULUM
+            Route::get('/kurikulum', [KurikulumControllerAdmin::class, 'index'])
+                ->name('kurikulum.index');
+
+            Route::get('/kurikulum/create', [KurikulumControllerAdmin::class, 'create'])
+                ->name('kurikulum.create');
+
+            Route::post('/kurikulum/store', [KurikulumControllerAdmin::class, 'store'])
+                ->name('kurikulum.store');
+
+            // Route::get('/kurikulum/halaman/edit', [KurikulumControllerAdmin::class, 'edit'])
+            //     ->name('kurikulum.halaman.edit');
+
+            Route::get('/kurikulum/edit', [KurikulumControllerAdmin::class, 'editAll'])
+                ->name('kurikulum.editAll');
+
+            Route::put(
+                '/kurikulum/update-all',
+                [KurikulumControllerAdmin::class, 'updateAll']
+            )->name('kurikulum.updateAll');
+
+            Route::delete('/kurikulum/delete/{id}', [KurikulumControllerAdmin::class, 'destroy'])
+                ->name('kurikulum.destroy');
+
 
         // TAHUN AKADEMIK DAN KELAS
             Route::get('/mapping/tahun-akademik-kurikulum/tambah', [TahunakademikAdminController::class, 'tambahTA'])->name('ta-kurikulum-mapping.add');

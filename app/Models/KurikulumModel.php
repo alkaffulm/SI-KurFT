@@ -31,6 +31,7 @@ class KurikulumModel extends Model
     public function programstudi(){
         return $this->belongsTo(ProgramStudiModel::class, 'id_ps', 'id_ps');
     }    
+
 public function tahunAkademiks()
 {
     return $this->belongsToMany(
@@ -40,8 +41,6 @@ public function tahunAkademiks()
         'id_tahun_akademik'
     );
 }
-
-
 
 
 }
